@@ -11,7 +11,7 @@ slug: como-entrenar-y-validar-un-modelo-de-machine-learnig
 
 # Introducción
 
-Cntar con una estrategia de modelado correcta es esencial para desarrollar y validar modelos de predicción que sean fiables, precisos, interpretables, éticos, eficientes y adaptables. En este artículo, exploraremos las etapas clave del proceso de modelado propuesto por Ewout Steyerberg, adaptado a los desafíos actuales en el análisis de datos médicos.
+Contar con una estrategia de modelado correcta es esencial para desarrollar y validar modelos de predicción que sean fiables, precisos, interpretables, éticos, eficientes y adaptables. En este artículo, exploraremos las etapas clave del proceso de modelado propuesto por Ewout Steyerberg, adaptado a los desafíos actuales en el análisis de datos médicos.
 
 # Estrategia de modelado
 

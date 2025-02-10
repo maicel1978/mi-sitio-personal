@@ -1,0 +1,16 @@
+# Archivos de R/RStudio
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+# Carpeta pública generada por Hugo
+public/
+resources/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Tema Academic (si lo tienes como submódulo Git)
+/themes/
