@@ -1,0 +1,30 @@
+Estructura Principal del Proyecto
+
+1.	config/_default/
+o	hugo.yaml: Configuración global de Hugo (ej: baseURL, título del sitio, temas, módulos).
+o	languages.yaml: Configuración de idiomas (si tu sitio es multilingüe).
+o	menus.yaml: Define los menús de navegación (barra superior, footer).
+o	params.yaml: Parámetros del tema (colores, redes sociales, widgets de la página de inicio).
+o	module.yaml: Configuración de módulos de Hugo (no suele modificarse).
+
+2.	content/
+o	_index.md: Página principal de tu sitio.
+o	authors/admin/: Información del autor (tú).
+	_index.md: Nombre, biografía, redes sociales.
+	avatar.jpg: Tu foto de perfil.
+o	post/, project/, publication/: Contenido de tus posts, proyectos y publicaciones.
+o	teaching/, event/: Otras secciones personalizables.
+
+3.	themes/
+o	github.com/HugoBlox/hugo-blox-builder/: El tema principal (¡no lo modifiques directamente!).
+o	theme-academic-cv/: Posiblemente tu tema personalizado o modificaciones locales.
+
+4.	layouts/
+o	Sobrescribe plantillas del tema sin modificar el original (ej: shortcodes/, partials/).
+
+5.	assets/
+o	Archivos estáticos como imágenes, CSS/JS personalizados.
+
+6.	public/
+o	Sitio web generado (no edites esto directamente).
+

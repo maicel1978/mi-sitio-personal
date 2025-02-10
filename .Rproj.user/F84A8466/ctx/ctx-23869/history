@@ -1,0 +1,18 @@
+blogdown:::serve_site()
+blogdown:::serve_site()
+ruta_proyecto <- "./"
+estructura <- list.files(path = ruta_proyecto, recursive = TRUE, full.names = TRUE)
+estructura
+print(estructura)
+writeClipboard(paste(estructura, collapse = "\n"))
+blogdown:::serve_site()
+blogdown:::serve_site()
+blogdown:::serve_site()
+blogdown:::update_meta_addin()
+blogdown:::serve_site()
+blogdown::install_hugo(version = "0.125.3") # Ejemplo para Academic
+# Ejemplo para Hugo-Blox
+blogdown::install_theme("HugoBlox/hugo-blox-builder", theme_example = FALSE)
+blogdown::build_site()
+blogdown:::serve_site()
+blogdown:::update_meta_addin()

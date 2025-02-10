@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Machine Learnig | Hugo Academic CV Theme</title>
+    <link>http://localhost:4321/tags/machine-learnig/</link>
+      <atom:link href="http://localhost:4321/tags/machine-learnig/index.xml" rel="self" type="application/rss+xml" />
+    <description>Machine Learnig</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sat, 08 Feb 2025 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>http://localhost:4321/media/icon_hu_645fa481986063ef.png</url>
+      <title>Machine Learnig</title>
+      <link>http://localhost:4321/tags/machine-learnig/</link>
+    </image>
+    
+    <item>
+      <title>Como entrenar y validar un modelo de machine learnig</title>
+      <link>http://localhost:4321/post/2025-02-08-como-entrenar-y-validar-un-modelo-de-machine-learnig/como-entrenar-y-validar-un-modelo-de-machine-learnig/</link>
+      <pubDate>Sat, 08 Feb 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:4321/post/2025-02-08-como-entrenar-y-validar-un-modelo-de-machine-learnig/como-entrenar-y-validar-un-modelo-de-machine-learnig/</guid>
+      <description>&lt;h1 id=&#34;introducción&#34;&gt;Introducción&lt;/h1&gt;
+&lt;p&gt;En este documento, entrenaremos y validaremos un modelo de clasificación utilizando un árbol de decisión &lt;strong&gt;CTREE&lt;/strong&gt; (Conditional Inference Tree) en R. Usaremos el conjunto de datos &lt;code&gt;iris&lt;/code&gt; para predecir la especie de una flor basándonos en características como la longitud y anchura de los sépalos y pétalos.&lt;/p&gt;
+&lt;h1 id=&#34;instalación-y-carga-de-librerías&#34;&gt;Instalación y Carga de Librerías&lt;/h1&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;library&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;caret&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## Loading required package: ggplot2
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## Loading required package: lattice
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;library&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MLDataR&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
