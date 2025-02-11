@@ -52,3 +52,8 @@ o	Sitio web generado (no edites esto directamente).
 
 Add your publications in the “content/publication/” folder
 
+# Para actualizar (GIT)
+
+git add content/post/mi-primer-post.md  # Agrega el archivo modificado
+git commit -m "Actualizo contenido de 'Mi Primer Post'"  # Mensaje descriptivo
+git push origin main                   # Sube a la rama main de GitHub
