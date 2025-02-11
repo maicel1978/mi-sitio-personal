@@ -11,7 +11,7 @@ slug: como-entrenar-y-validar-un-modelo-de-machine-learnig
 
 # Introducción
 
-Contar con una estrategia de modelado correcta es esencial para desarrollar y validar modelos de predicción que sean fiables, precisos, interpretables, éticos, eficientes y adaptables. En este artículo, exploraremos las etapas clave del proceso de modelado propuesto por Ewout Steyerberg, adaptado a los desafíos actuales en el análisis de datos médicos.
+Contar con una estrategia de modelado correcta es esencial para desarrollar y validar modelos de predicción. En este artículo, exploraremos las etapas clave del proceso de modelado propuesto por Ewout Steyerberg. Además usaremos como ejemplo la base de datos de la tesis de doctorado titulada "MODELOS PREDICTIVOS PARA LA ESTIMACIÓN Y CLASIFICACIÓN DEL RIESGO DE MUERTE EN COVID-19"
 
 # Estrategia de modelado
 
@@ -21,7 +21,7 @@ El primer paso en cualquier proyecto de modelado es definir claramente el proble
 
 En nuestro caso, la elección del estado al egreso (muerte o alta) como variable de resultado resultó ser altamente efectiva debido a su relevancia clínica y metodológica. La muerte es un evento inequívoco, lo que minimiza errores de medición y facilita la comparabilidad entre diferentes poblaciones.
 
-Durante esta fase, también realizamos un análisis exploratorio de datos (EDA) para comprender las características de las variables y detectar posibles problemas, como datos atípicos o valores faltantes. Este paso es crucial para garantizar la calidad de los datos antes de avanzar.
+Durante esta fase, también realizamos un análisis exploratorio de datos (EDA) para comprender las características de las variables y detectar posibles problemas, como datos atípicos o valores faltantes. 
 
 ```{r inspeccion, echo=TRUE}
 # Instalación y Carga de Librerías
@@ -53,3 +53,5 @@ El rendimiento del modelo se evalúa mediante métricas como calibración y disc
 La validación del modelo es un paso crítico para garantizar su aplicabilidad en diferentes contextos. En este estudio, utilizamos tanto validación interna como externa , empleando particiones temporales y geográficas para reflejar escenarios reales. Este enfoque nos permitió evaluar la robustez del modelo frente a cambios en el tiempo y variaciones regionales.
 
 ## 7. Presentación del Modelo
+
+La presentación del modelo puede ser a través de un nomograma o aplicación.
