@@ -71,7 +71,7 @@ languages:
 last_name: Monzon Perez
 name_pronunciation: Maicel Monzon Perez
 organizations:
-  - name: ENSAP
+  - name: ENSAP & CECMED
     url: https://ensap.sld.cu/
 profiles:
   - icon: at-symbol
