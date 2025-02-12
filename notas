@@ -57,3 +57,10 @@ Add your publications in the “content/publication/” folder
 git add content/post/mi-primer-post.md  # Agrega el archivo modificado
 git commit -m "Actualizo contenido de 'Mi Primer Post'"  # Mensaje descriptivo
 git push origin main                   # Sube a la rama main de GitHub
+
+# Bibliografia
+
+ Guide: https://docs.hugoblox.com/tutorial/
+ Documentation: https://docs.hugoblox.com/
+ This file is formatted using YAML syntax - learn more at https://learnxinyminutes.com/docs/yaml/
+https://docs.hugoblox.com/reference/markdown/
