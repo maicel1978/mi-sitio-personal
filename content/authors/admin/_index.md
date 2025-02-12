@@ -177,5 +177,5 @@ work:
 
 ## About Me
 
-Soy Maicel Eugenio Monzón Pérez, médico y bioestadístico con una formación en salud pública y un enfoque en la investigación experimental. Me gradué como Médico General Básico en 2003 y he obtenido un Máster en Informática en Salud, así como una especialidad en Bioestadística. Mi trayectoria incluye una misión internacionalista en Venezuela y varios años de experiencia en análisis estadístico de ensayos clínicos.
+Soy Maicel Eugenio Monzón Pérez, médico y bioestadístico con una formación en salud pública y un enfoque en la investigación experimental. Me gradué como Médico General Básico en 2003 y he obtenido un Máster en Informática en Salud, así como una especialidad en Bioestadística. Mi trayectoria incluye varios años de experiencia en análisis estadístico de ensayos clínicos.
 Mis intereses abarcan el diseño de investigaciones clínicas, en especial los Ensayos Clínicos, métodos estadísticos y análisis de datos, así como la inteligencia artificial. Además, tengo experiencia en programación en R y Python, lo que me permite desarrollar herramientas analíticas avanzadas para mejorar la atención médica. Actualmente, soy profesor auxiliar en la Escuela Nacional de Salud Pública y revisor de ensayos clínicos, comprometido con la mejora continua del sistema de salud a través de la ciencia y la tecnología.
