@@ -5,7 +5,7 @@
     <link>http://localhost:4321/tags/machine-learnig/</link>
       <atom:link href="http://localhost:4321/tags/machine-learnig/index.xml" rel="self" type="application/rss+xml" />
     <description>Machine Learnig</description>
-    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Tue, 11 Feb 2025 00:00:00 +0000</lastBuildDate>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es</language><lastBuildDate>Tue, 11 Feb 2025 00:00:00 +0000</lastBuildDate>
     <image>
       <url>http://localhost:4321/media/icon_hu_645fa481986063ef.png</url>
       <title>Machine Learnig</title>
@@ -42,10 +42,32 @@
     
     <item>
       <title>Como entrenar y validar un modelo de machine learnig</title>
-      <link>http://localhost:4321/post/2025-02-08-como-entrenar-y-validar-un-modelo-de-machine-learnig/como-entrenar-y-validar-un-modelo-de-machine-learnig/</link>
+      <link>http://localhost:4321/post/como-entrenar-y-validar-un-modelo-de-machine-learnig/</link>
       <pubDate>Sat, 08 Feb 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:4321/post/2025-02-08-como-entrenar-y-validar-un-modelo-de-machine-learnig/como-entrenar-y-validar-un-modelo-de-machine-learnig/</guid>
-      <description>&lt;p&gt;Contar con una estrategia de modelado correcta es esencial para desarrollar y validar modelos de predicción. En este artículo, exploraremos las etapas clave del proceso de modelado propuesto por Ewout Steyerberg.&lt;/p&gt;
+      <guid>http://localhost:4321/post/como-entrenar-y-validar-un-modelo-de-machine-learnig/</guid>
+      <description>&lt;p&gt;🎧 &lt;strong&gt;Escucha el podcast de esta publicación&lt;/strong&gt;&lt;br&gt;
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+&lt;audio controls &gt;
+  &lt;source src=&#34;https://ia600607.us.archive.org/24/items/articulo-steyember/_Articulo_Steyember.mp3&#34; type=&#34;audio/mpeg&#34;&gt;
+&lt;/audio&gt;
+&lt;/p&gt;
+&lt;p&gt;Contar con una estrategia de modelado correcta es esencial para desarrollar y validar modelos de predicción. En este artículo, exploraremos las etapas clave del proceso de modelado propuesto por Ewout Steyerberg.&lt;/p&gt;
 &lt;h1 id=&#34;estrategia-de-modelado&#34;&gt;Estrategia de modelado&lt;/h1&gt;
 &lt;h2 id=&#34;1-definición-del-problema-e-inspección-de-datos&#34;&gt;1. Definición del Problema e Inspección de Datos&lt;/h2&gt;
 &lt;p&gt;El primer paso en cualquier proyecto de modelado es definir claramente el problema de investigación y seleccionar la variable de resultado adecuada.&lt;/p&gt;
@@ -56,6 +78,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;library&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MLDataR&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# para utilizar la biblioteca diabetes_data&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;library&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dplyr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;library&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dlookr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# para EDA&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;library&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;predtools&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# datos&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;diabetes_data&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;datos&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;diabetes_data&lt;/span&gt;

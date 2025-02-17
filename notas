@@ -5,9 +5,10 @@ fecha de modificacion 12/02/2025
 tu_sitio/
 ├── config/
 │   └── _default/          <- Configuración global del sitio
-│       ├── config.toml    <- Archivo principal de configuración
-│       ├── params.toml    <- Personalización del tema
-│       └── menus.toml     <- Menús de navegación
+│       ├── hugo.yaml      <- Archivo principal de configuración
+│       ├── params.yaml    <- Personalización del tema
+│       └── menus.yaml     <- Menús de navegación
+│       └── module.yaml    <- Solo si usas Hugo Modules
 ├── content/
 │   ├── authors/           <- Información de autores (tu perfil)
 │   │   └── admin/         <- Carpeta con tu información (avatar, bio)

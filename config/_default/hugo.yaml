@@ -12,10 +12,19 @@ baseURL: 'https://maicel.netlify.app/'
 ## LANGUAGE
 ############################
 
-defaultContentLanguage: en
+defaultContentLanguage: es
 hasCJKLanguage: false
 defaultContentLanguageInSubdir: false
 removePathAccents: true
+
+languages:
+  es:
+    languageName: "Español"
+    weight: 1
+    # Opcional: Parámetros específicos del idioma (ej: menú personalizado)
+  en:
+    languageName: "English"
+    weight: 2
 
 ############################
 ## ADVANCED
@@ -54,3 +63,6 @@ security:
   _merge: deep
 sitemap:
   _merge: deep
+  
+
+
