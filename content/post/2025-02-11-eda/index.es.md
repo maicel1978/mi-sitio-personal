@@ -1,5 +1,6 @@
 ---
 title: Analisis Exploratorio de Datos
+comments: true  # Activar comentarios
 author: maicel monzon
 date: '2025-02-11'
 slug: eda
@@ -7,7 +8,6 @@ categories:
   - R
 tags:
   - machine learnig
-  - triaje
 summary: Análisis Exploratorio de Datos implica el análisis de datos centrado en comprender los datos, identificar valores atípicos,  valores faltantes así como proporcionar la base para la formulación del modelo.
 ---
 
