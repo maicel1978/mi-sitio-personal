@@ -55,20 +55,6 @@ locale:
 # Site features
 features:
   math:
-    enable: true
+    enable: false
   privacy_pack:
     enable: false
-  repository:
-    url: 'https://github.com/maicel1978/mi-sitio-personal'
-    content_dir: content
-    branch: main
-  feedback:
-   responses:
-    positive: 'Glad to hear it! [Any ideas for improvements?](https://github.com/maicel1978/mi-sitio-personal/issues/new)'
-    negative: 'Sorry to hear that. [Please tell us how we can improve](https://github.com/maicel1978/mi-sitio-personal/issues/new).'
-  comments:
-   engine: utterances
-   utterances:
-    repo: maicel1978/blog-comentarios
-    issue_term: pathname
-    theme: github-dark

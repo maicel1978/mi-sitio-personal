@@ -1,6 +1,6 @@
 ---
 title: Analisis Exploratorio de Datos
-comments: true  # Activar comentarios
+comments: false  # Activar comentarios
 author: maicel monzon
 date: '2025-02-11'
 slug: eda
