@@ -13,9 +13,9 @@
     </image>
     
     <item>
-      <title>Example Talk</title>
+      <title>Curso introductorio de R para la fortifiacación de alimentos</title>
       <link>http://localhost:4321/event/example/</link>
-      <pubDate>Sat, 01 Jun 2030 13:00:00 +0000</pubDate>
+      <pubDate>Tue, 25 Mar 2025 13:00:00 +0000</pubDate>
       <guid>http://localhost:4321/event/example/</guid>
       <description>&lt;div class=&#34;flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900&#34;&gt;
 &lt;span class=&#34;pr-3 pt-1 text-primary-600 dark:text-primary-300&#34;&gt;
@@ -445,7 +445,7 @@
 
 
 
-&lt;div id=&#34;chart-279346581&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-213965847&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   async function fetchChartJSON() {
     console.debug(&#39;Hugo Blox fetching chart JSON...&#39;)
@@ -463,7 +463,7 @@
 
       fetchChartJSON().then(chart =&gt; {
         console.debug(&#39;Plotting chart...&#39;)
-        window.Plotly.newPlot(&#39;chart-279346581&#39;, chart.data, chart.layout, {responsive: true});
+        window.Plotly.newPlot(&#39;chart-213965847&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();

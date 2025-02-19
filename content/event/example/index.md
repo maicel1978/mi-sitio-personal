@@ -4,31 +4,31 @@ abstract: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere 
   faucibus dolor, scelerisque sollicitudin nisi. Cras purus urna, suscipit quis sapien
   eu, pulvinar tempor diam.
 address:
-  city: Stanford
-  country: United States
+  city: La habana
+  country: Cuba
   postcode: "94305"
   region: CA
-  street: 450 Serra Mall
+  street: Ave. 3ra e/ 76 y 80, Miramar, Ciudad de La Habana, Cuba.
 all_day: false
 authors:
 - admin
-date: "2030-06-01T13:00:00Z"
-date_end: "2030-06-01T15:00:00Z"
-event: Hugo Blox Builder Conference
+date: "2025-03-25T13:00:00Z"
+date_end: "2025-05-29T15:00:00Z"
+event: Introducción a R para la fortificación de alimentos
 event_url: https://example.org
 featured: false
 image:
-  caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/bzdhc5b3Bxs)'
+  caption: 'Image credit: [**azulmarino**](https://www.azulmarino.com/es-es/hotel/melia-habana)'
   focal_point: Right
-location: Hugo Blox Builder HQ
+location: Hotel Melia Habana
 projects:
 - example
 publishDate: "2017-01-01T00:00:00Z"
 slides: ""
 summary: An example talk using Hugo Blox Builder's Markdown slides feature.
 tags: []
-title: Example Talk
-url_code: https://github.com
+title: Curso introductorio de R para la fortifiacación de alimentos
+url_code: https://github.com/maicel1978/cursoR
 url_pdf: ""
 url_slides: https://slideshare.net
 url_video: https://youtube.com
