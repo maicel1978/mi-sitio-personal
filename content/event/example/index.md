@@ -1,8 +1,5 @@
 ---
-abstract: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellusac
-  convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum. Sed ac
-  faucibus dolor, scelerisque sollicitudin nisi. Cras purus urna, suscipit quis sapien
-  eu, pulvinar tempor diam.
+abstract: Este curso, patrocinado por el Programa Mundial de Alimentos (WFP), te enseñará a utilizar R para analizar datos y ajustar estrategias de fortificación de alimentos. Aprenderás a mejorar la nutrición y la salud pública mediante el uso de herramientas analíticas, sin necesidad de experiencia previa en programación.
 address:
   city: La habana
   country: Cuba
@@ -25,7 +22,7 @@ projects:
 - example
 publishDate: "2017-01-01T00:00:00Z"
 slides: ""
-summary: An example talk using Hugo Blox Builder's Markdown slides feature.
+summary: Curso patrocinado por WFP para aprender R y realizar análisis que optimicen la fortificación de alimentos, mejorando la nutrición y la salud pública.
 tags: []
 title: Curso introductorio de R para la fortifiacación de alimentos
 url_code: https://github.com/maicel1978/cursoR
