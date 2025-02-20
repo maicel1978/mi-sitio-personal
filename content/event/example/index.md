@@ -1,5 +1,5 @@
 ---
-abstract: Este curso, patrocinado por el Programa Mundial de Alimentos (WFP), te enseñará a utilizar R para analizar datos y ajustar estrategias de fortificación de alimentos. Aprenderás a mejorar la nutrición y la salud pública mediante el uso de herramientas analíticas, sin necesidad de experiencia previa en programación.
+abstract: En este curso práctico, aprenderás a usar R para analizar datos de fortificación de alimentos, retomando el espíritu colaborativo del taller de noviembre de 2024. Exploraremos cómo R puede transformar datos de consumo, producción y laboratorio en información valiosa para mejorar la nutrición en Cuba, involucrando a la ciencia, la industria y las políticas públicas. Al finalizar, podrás aplicar estas habilidades a tus propios proyectos de fortificación
 address:
   city: La habana
   country: Cuba
@@ -11,7 +11,7 @@ authors:
 - admin
 date: "2025-03-25T13:00:00Z"
 date_end: "2025-05-29T15:00:00Z"
-event: Introducción a R para la fortificación de alimentos
+event: Curso Análisis de Datos en Fortificación de Alimentos con R. Una Introducción Práctica
 event_url: https://example.org
 featured: false
 image:
@@ -22,9 +22,9 @@ projects:
 - example
 publishDate: "2017-01-01T00:00:00Z"
 slides: ""
-summary: Curso patrocinado por WFP para aprender R y realizar análisis que optimicen la fortificación de alimentos, mejorando la nutrición y la salud pública.
+summary: ¡Próximamente! Curso práctico de R para fortificación, impulsado por el taller de noviembre 2024.
 tags: []
-title: Curso introductorio de R para la fortifiacación de alimentos
+title: 👋 Curso de Análisis de Datos en Fortificación de Alimentos con R. Una Introducción Práctica
 url_code: https://github.com/maicel1978/cursoR
 url_pdf: ""
 url_slides: https://slideshare.net

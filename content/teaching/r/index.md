@@ -5,16 +5,12 @@ image:
 math: false
 summary: Easily learn JavaScript in 10 minutes!
 tags:
-- JavaScript
-title: Learn JavaScript
+- R
+title: Análisis de Datos en Fortificación de Alimentos con R. Una Introducción Práctica
 type: docs
 ---
 
-[Hugo Blox Builder](https://hugoblox.com) is designed to give technical content creators a seamless experience. You can focus on the content and the Hugo Blox Builder which this template is built upon handles the rest.
-
-**Embed videos, podcasts, code, LaTeX math, and even test students!**
-
-On this page, you'll find some examples of the types of technical content that can be rendered with Hugo Blox.
+**¡Construye el futuro de la nutrición en Cuba con R!** En este curso, te convertirás en un 'arquitecto' de la fortificación de alimentos, utilizando R como tu herramienta principal. Aprenderás a analizar datos, identificar necesidades nutricionales y diseñar estrategias efectivas para mejorar la salud de la población. ¡Domina R y transforma los datos en soluciones que impacten positivamente en la vida de los cubanos
 
 ## Video
 
