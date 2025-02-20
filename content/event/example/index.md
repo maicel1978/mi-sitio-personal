@@ -28,7 +28,7 @@ title: 👋 Curso de Análisis de Datos en Fortificación de Alimentos con R. Un
 url_code: https://github.com/maicel1978/cursoR
 url_pdf: ""
 url_slides: https://slideshare.net
-url_video: https://youtube.com
+url_video: https://www.youtube.com/watch?v=ycnteDZRMxM
 ---
 
 {{% callout note %}}
