@@ -1,136 +1,190 @@
 ---
-date: "2023-10-24"
+date: "2025-03-25"
 image:
-  caption: Embed rich media such as videos and LaTeX math
+  caption: Transforma datos en soluciones con R para la fortificación de alimentos
 math: false
-summary: Easily learn JavaScript in 10 minutes!
+summary: "Aprende a usar R para analizar datos relacionados con la fortificación de alimentos. Este curso práctico te guiará desde los conceptos básicos hasta la generación de informes profesionales."
 tags:
 - R
+- Fortificación de alimentos
+- Ciencia de datos
 title: Análisis de Datos en Fortificación de Alimentos con R. Una Introducción Práctica
 type: docs
 ---
 
-**¡Construye el futuro de la nutrición en Cuba con R!** En este curso, te convertirás en un 'arquitecto' de la fortificación de alimentos, utilizando R como tu herramienta principal. Aprenderás a analizar datos, identificar necesidades nutricionales y diseñar estrategias efectivas para mejorar la salud de la población. ¡Domina R y transforma los datos en soluciones que impacten positivamente en la vida de los cubanos
+# ¡Construye investigaciones sobre nutrición en Cuba con R!
 
-## Video
+En este curso, te convertirás en un **'arquitecto' del análisis de datos en  la fortificación de alimentos**, utilizando R como tu herramienta principal. Aprenderás a:
+- leer datos.
+- ordenar y transformar conjuntos de datos.
+- procesar y presentar los restados en forma de tablas y gráficos.
 
-Teach your course by sharing videos with your students. Choose from one of the following approaches:
+¡Domina R y transforma los datos en soluciones que impacten positivamente en la vida de los cubanos!
+
+---
+
+## Video promocional del curso
+
+¿Quieres saber más sobre el curso? Mira nuestro video promocional:
 
 {{< youtube ycnteDZRMxM >}}
 
-**Youtube**:
-
-    {{</* youtube ycnteDZRMxM */>}}
-
-**Bilibili**:
-
-    {{</* bilibili id="BV1WV4y1r7DF" */>}}
-
-**Video file**
-
-Videos may be added to a page by either placing them in your `assets/media/` media library or in your [page's folder](https://gohugo.io/content-management/page-bundles/), and then embedding them with the _video_ shortcode:
-
-    {{</* video src="my_video.mp4" controls="yes" */>}}
+---
 
 ## Podcast
 
-You can add a podcast or music to a page by placing the MP3 file in the page's folder or the media library folder and then embedding the audio on your page with the _audio_ shortcode:
+Escucha nuestro podcast introductorio para conocer más sobre los contenidos que serán abordados en el curso:
 
-    {{</* audio src="ambient-piano.mp3" */>}}
+Pruébelo:
 
-Try it out:
+{{< audio src="Food_Podcast.mp3" >}}
 
-{{< audio src="ambient-piano.mp3" >}}
+---
 
-## Test students
+## ¿Qué aprenderás?
 
-Provide a simple yet fun self-assessment by revealing the solutions to challenges with the `spoiler` shortcode:
+Este curso está diseñado para médicos y profesionales de la salud interesados en el análisis de datos. Aquí tienes un vistazo rápido:
 
-```markdown
-{{</* spoiler text="👉 Click to view the solution" */>}}
-You found me!
-{{</* /spoiler */>}}
-```
+{{< spoiler text="👉 Haz clic para ver el contenido del curso" >}}
+- **Módulo 1**: Introducción a R y RStudio.
+- **Módulo 2**: Importación de datos.
+- **Módulo 3**: Ordenar datos.
+- **Módulo 4**: Manipulación de datos.
+- **Módulo 5**: Representación gráfica y tabular.
+- **Módulo 6**: Informes con R Markdown + Proyecto final.
+{{< /spoiler >}}
 
-renders as
+---
+## Estructura de Módulos (Basada en "R para Ciencia de Datos")
 
-{{< spoiler text="👉 Click to view the solution" >}} You found me 🎉 {{< /spoiler >}}
+A continuación, te presentamos la estructura detallada de los módulos del curso, basada en el flujo de trabajo propuesto en el libro **"R para Ciencia de Datos"**. Cada módulo está diseñado para guiarte paso a paso en el análisis de datos relacionados con la fortificación de alimentos.
 
-## Math
+### **Módulo 1: Introducción a R y RStudio**
+- **Objetivo**: Familiarizarse con el entorno de trabajo.
+- **Contenido clave**:
+  - ¿Qué es R y por qué es útil en ciencias de la salud?
+  - Instalación y configuración de R y RStudio.
+  - Interfaz de RStudio: Consola, script, ambiente, gráficos.
+  - Creación de objetos básicos (vectores, listas, data frames).
+- **Ejercicio práctico**: Crear un vector con niveles de nutrientes en alimentos fortificados.
 
-Hugo Blox Builder supports a Markdown extension for $\LaTeX$ math. You can enable this feature by toggling the `math` option in your `config/_default/params.yaml` file.
+### **Módulo 2: Importación de datos**
+- **Objetivo**: Aprender a leer datos desde diferentes formatos.
+- **Contenido clave**:
+  - Leer archivos CSV usando `readr`.
+  - Leer archivos Excel usando `readxl`.
+  - Manejo de problemas comunes (codificación, separadores, valores perdidos).
+- **Referencia del libro**: [Capítulo 11: Importar datos](https://es.r4ds.hadley.nz/11-import.html).
+- **Ejercicio práctico**: Leer un dataset sobre fortificación de alimentos y explorar sus características.
 
-To render _inline_ or _block_ math, wrap your LaTeX math with `{{</* math */>}}$...${{</* /math */>}}` or `{{</* math */>}}$$...$${{</* /math */>}}`, respectively.
+### **Módulo 3: Ordenar datos**
+- **Objetivo**: Aprender a organizar y limpiar datos para facilitar su análisis.
+- **Contenido clave**:
+  - Reorganizar columnas y filas con `tidyr`.
+  - Convertir datos de formato ancho a largo (y viceversa) con `pivot_longer()` y `pivot_wider()`.
+  - Separar y combinar columnas.
+- **Referencia del libro**: [Capítulo 12: Tibbles](https://es.r4ds.hadley.nz/tibbles.html) y [Capítulo 13: Datos limpios](https://es.r4ds.hadley.nz/datos-limpios.html).
+- **Ejercicio práctico**: Limpiar un dataset desordenado relacionado con fortificación de alimentos.
+
+### **Módulo 4: Manipulación de datos**
+- **Objetivo**: Aprender a transformar y resumir datos.
+- **Contenido clave**:
+  - Filtrar, seleccionar y ordenar datos con `dplyr`.
+  - Crear nuevas variables con `mutate()`.
+  - Resúmenes estadísticos básicos con `summarise()`.
+- **Referencia del libro**: [Capítulo 5: Data Transformation](https://es.r4ds.hadley.nz/transformacion.html).
+- **Ejercicio práctico**: Filtrar alimentos con niveles altos de nutrientes específicos.
+
+### **Módulo 5: Representación gráfica y tabular**
+- **Objetivo**: Aprender a visualizar datos y generar tablas profesionales.
+- **Contenido clave**:
+  - Crear gráficos básicos con `ggplot2` (barras, líneas, dispersión).
+  - Personalizar gráficos para comunicar hallazgos clave.
+  - Generar tablas resumen con `gtsummary`.
+- **Referencia del libro**: [Capítulo 3: Visualización de datos](https://es.r4ds.hadley.nz/visualizacion.html).
+- **Ejercicio práctico**: Crear un gráfico y una tabla profesional sobre un dataset relacionado con fortificación de alimentos.
+
+### **Módulo 6: Informes con R Markdown**
+- **Objetivo**: Aprender a generar informes profesionales combinando texto, gráficos y tablas.
+- **Contenido clave**:
+  - Introducción a R Markdown.
+  - Crear un informe básico con texto, gráficos y tablas.
+  - Exportar informes en formato HTML o PDF.
+- **Referencia del libro**: [Capítulo 27: Comunicación](https://es.r4ds.hadley.nz/comunicacion.html).
+- **Ejercicio práctico**: Crear un informe breve sobre un análisis de fortificación de alimentos.
+
+### **Proyecto Final**
+- **Objetivo**: Integrar todo lo aprendido en un análisis completo de un dataset real.
+- **Descripción**:
+  - Los participantes trabajarán en equipos para analizar un dataset proporcionado.
+  - Deberán:
+    1. Limpiar y explorar los datos usando `dplyr` y `tidyr`.
+    2. Crear visualizaciones relevantes con `ggplot2`.
+    3. Generar tablas resumen con `gtsummary`.
+    4. Interpretar los resultados en el contexto de la fortificación de alimentos.
+- **Entregables**:
+  - Informe en formato R Markdown que incluya:
+    - Resumen ejecutivo.
+    - Gráficos y tablas clave.
+    - Conclusiones y recomendaciones.
+
+---
+
+## Calendario del Curso
+
+Las actividades docentes se organizarán de la siguiente manera:
 
 {{% callout note %}}
-We wrap the LaTeX math in the Hugo Blox _math_ shortcode to prevent Hugo rendering our math as Markdown.
+El **cronograma del curso** podría variar en dependencia del progreso de las actividades docentes.
 {{% /callout %}}
 
-Example **math block**:
 
-```latex
-{{</* math */>}}
-$$
-\gamma_{n} = \frac{ \left | \left (\mathbf x_{n} - \mathbf x_{n-1} \right )^T \left [\nabla F (\mathbf x_{n}) - \nabla F (\mathbf x_{n-1}) \right ] \right |}{\left \|\nabla F(\mathbf{x}_{n}) - \nabla F(\mathbf{x}_{n-1}) \right \|^2}
-$$
-{{</* /math */>}}
-```
-
-renders as
-
-{{< math >}}
-$$\gamma_{n} = \frac{ \left | \left (\mathbf x_{n} - \mathbf x_{n-1} \right )^T \left [\nabla F (\mathbf x_{n}) - \nabla F (\mathbf x_{n-1}) \right ] \right |}{\left \|\nabla F(\mathbf{x}_{n}) - \nabla F(\mathbf{x}_{n-1}) \right \|^2}$$
-{{< /math >}}
-
-Example **inline math** `{{</* math */>}}$\nabla F(\mathbf{x}_{n})${{</* /math */>}}` renders as {{< math >}}$\nabla F(\mathbf{x}_{n})${{< /math >}}.
-
-Example **multi-line math** using the math linebreak (`\\`):
-
-```latex
-{{</* math */>}}
-$$f(k;p_{0}^{*}) = \begin{cases}p_{0}^{*} & \text{if }k=1, \\
-1-p_{0}^{*} & \text{if }k=0.\end{cases}$$
-{{</* /math */>}}
-```
-
-renders as
-
-{{< math >}}
-
-$$
-f(k;p_{0}^{*}) = \begin{cases}p_{0}^{*} & \text{if }k=1, \\
-1-p_{0}^{*} & \text{if }k=0.\end{cases}
-$$
-
-{{< /math >}}
-
-## Code
-
-Hugo Blox Builder utilises Hugo's Markdown extension for highlighting code syntax. The code theme can be selected in the `config/_default/params.yaml` file.
+📅 Distribución de módulos por días en el cronograma docente:
 
 
-    ```python
-    import pandas as pd
-    data = pd.read_csv("data.csv")
-    data.head()
-    ```
+| **Día**       | **Mañana (4 horas)**                                                                                     | **Tarde (3 horas)**                                                                                     |
+|----------------|---------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| **Lunes 25**   | **Módulo 1: Introducción a R y RStudio**                                                                | **Módulo 2 (Parte 1): Importación de datos**                                                            |
+|                | - ¿Qué es R y por qué es útil en ciencias de la salud?                                                  | - Leer archivos CSV usando `readr`.                                                                     |
+|                | - Instalación y configuración de R y RStudio.                                                           | - Leer archivos Excel usando `readxl`.                                                                  |
+|                | - Interfaz de RStudio: Consola, script, ambiente, gráficos.                                             | - Manejo de problemas comunes (codificación, separadores, valores perdidos).                            |
+|                | - Creación de objetos básicos (vectores, listas, data frames).                                          | - Ejercicio práctico: Leer un dataset sobre fortificación de alimentos y explorar sus características. |
+| **Martes 26**  | **Módulo 2 (Parte 2): Importación de datos**                                                            | **Módulo 3 (Parte 1): Ordenar datos**                                                                   |
+|                | - Continuación de ejercicios prácticos con importación de datos.                                        | - Reorganizar columnas y filas con `tidyr`.                                                             |
+|                |                                                                                                         | - Convertir datos de formato ancho a largo (y viceversa) con `pivot_longer()` y `pivot_wider()`.        |
+|                |                                                                                                         | - Separar y combinar columnas.                                                                         |
+| **Miércoles 27** | **Módulo 3 (Parte 2): Ordenar datos**                                                                   | **Módulo 4 (Parte 1): Manipulación de datos**                                                           |
+|                | - Continuación de ejercicios prácticos con `tidyr`.                                                     | - Filtrar, seleccionar y ordenar datos con `dplyr`.                                                     |
+|                | - Resolver dudas y retos relacionados con la organización de datos.                                     | - Crear nuevas variables con `mutate()`.                                                               |
+|                |                                                                                                         | - Resúmenes estadísticos básicos con `summarise()`.                                                    |
+| **Jueves 28**  | **Módulo 4 (Parte 2): Manipulación de datos**                                                           | **Módulo 5 (Parte 1): Representación gráfica y tabular**                                                |
+|                | - Continuación de ejercicios prácticos con `dplyr`.                                                     | - Crear gráficos básicos con `ggplot2` (barras, líneas, dispersión).                                    |
+|                | - Resolver dudas y retos relacionados con manipulación de datos.                                        | - Personalizar gráficos para comunicar hallazgos clave.                                                |
+|                |                                                                                                         | - Generar tablas resumen con `gtsummary`.                                                              |
+| **Viernes 29** | **Módulo 5 (Parte 2): Representación gráfica y tabular**                                                | **Módulo 6: Informes con R Markdown + Proyecto final**                                                 |
+|                | - Continuación de ejercicios prácticos con `ggplot2` y `gtsummary`.                                     | - Introducción a R Markdown.                                                                           |
+|                | - Resolver dudas y retos relacionados con visualización de datos.                                       | - Crear un informe básico con texto, gráficos y tablas.                                                |
+|                |                                                                                                         | - Presentación de proyectos finales.                                                                   |
 
-renders as
 
-```python
-import pandas as pd
-data = pd.read_csv("data.csv")
-data.head()
-```
+---
 
-## Inline Images
+## Notas Adicionales
 
-```go
-{{</* icon name="python" */>}} Python
-```
+1. **Duración total**:  
+   - 4 horas en la mañana + 3 horas en la tarde = 7 horas por día.  
+   - Total: 35 horas (incluyendo tiempo para ejercicios, preguntas y proyectos).
 
-renders as
+2. **Tiempo para descansos**:  
+   - Incluye pausas activas de 10-15 minutos entre bloques de contenido para evitar la fatiga mental.
 
-{{< icon name="python" >}} Python
+3. **Ejercicios prácticos**:  
+   - Cada módulo incluye ejercicios prácticos para reforzar los conceptos aprendidos. Estos ejercicios pueden realizarse individualmente o en grupos pequeños.
 
-## Did you find this page helpful? Consider sharing it 🙌
+4. **Gamificación**:  
+   - Incorpora retos diarios y reconocimientos (insignias virtuales) al final de cada sesión de la tarde.
+
+5. **Recursos adicionales**:  
+   - Distribuye cheatsheets relevantes al inicio de cada módulo.  
+   - Sube todos los materiales (guías, datasets, scripts) a tu sitio web para que los participantes puedan acceder fácilmente.
+
