@@ -66,14 +66,14 @@
       <link>http://localhost:4321/teaching/r/</link>
       <pubDate>Mon, 25 Nov 2024 00:00:00 +0000</pubDate>
       <guid>http://localhost:4321/teaching/r/</guid>
-      <description>&lt;h1 id=&#34;-construye-investigaciones-con-r&#34;&gt;📈 ¡Construye investigaciones con R!&lt;/h1&gt;
+      <description>&lt;h1 id=&#34;construye-investigaciones-con-r&#34;&gt;¡Construye investigaciones con R!&lt;/h1&gt;
 &lt;p&gt;En este curso, te convertirás en un &lt;strong&gt;&amp;lsquo;arquitecto&amp;rsquo; del análisis de datos en  la fortificación de alimentos&lt;/strong&gt;, utilizando R como tu herramienta principal. Aprenderás a:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;leer datos.&lt;/li&gt;
 &lt;li&gt;ordenar y transformar conjuntos de datos.&lt;/li&gt;
 &lt;li&gt;procesar y presentar los restados en forma de tablas y gráficos.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;¡Domina R y transforma los datos en soluciones que impacten positivamente en la vida de los cubanos!&lt;/p&gt;
+&lt;p&gt;¡Domina R y transforma los datos para tus investigaciones en fortificación de alimentos!&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;video-promocional-del-curso&#34;&gt;Video promocional del curso&lt;/h2&gt;
 &lt;p&gt;¿Quieres saber más sobre el curso? Mira nuestro video promocional:&lt;/p&gt;
@@ -755,7 +755,7 @@
 
 
 
-&lt;div id=&#34;chart-438175269&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-325974618&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   async function fetchChartJSON() {
     console.debug(&#39;Hugo Blox fetching chart JSON...&#39;)
@@ -773,7 +773,7 @@
 
       fetchChartJSON().then(chart =&gt; {
         console.debug(&#39;Plotting chart...&#39;)
-        window.Plotly.newPlot(&#39;chart-438175269&#39;, chart.data, chart.layout, {responsive: true});
+        window.Plotly.newPlot(&#39;chart-325974618&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();

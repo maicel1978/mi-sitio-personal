@@ -10,14 +10,14 @@ title: Análisis de Datos en Fortificación de Alimentos con R. Una Introducció
 type: docs
 ---
 
-# 📈 ¡Construye investigaciones con R!
+# ¡Construye investigaciones con R!
 
 En este curso, te convertirás en un **'arquitecto' del análisis de datos en  la fortificación de alimentos**, utilizando R como tu herramienta principal. Aprenderás a:
 - leer datos.
 - ordenar y transformar conjuntos de datos.
 - procesar y presentar los restados en forma de tablas y gráficos.
 
-¡Domina R y transforma los datos en soluciones que impacten positivamente en la vida de los cubanos!
+¡Domina R y transforma los datos para tus investigaciones en fortificación de alimentos!
 
 ---
 
