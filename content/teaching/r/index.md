@@ -36,7 +36,6 @@ Escucha nuestro podcast introductorio para conocer más sobre los contenidos que
 
 Pruébelo:
 
-
 {{< audio src="https://ia803202.us.archive.org/26/items/food-podcast/Food_Podcast.mp3" >}}
 
 ---
@@ -55,7 +54,7 @@ Este curso está diseñado para médicos y profesionales de la salud interesados
 {{< /spoiler >}}
 
 ---
-## Estructura de Módulos (Basada en "R para Ciencia de Datos")
+## Estructura de módulos (Basada en "R para Ciencia de Datos")
 
 A continuación, te presentamos la estructura detallada de los módulos del curso, basada en el flujo de trabajo propuesto en el libro **"R para Ciencia de Datos"**. Cada módulo está diseñado para guiarte paso a paso en el análisis de datos relacionados con la fortificación de alimentos.
 
