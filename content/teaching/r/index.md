@@ -1,5 +1,5 @@
 ---
-date: "2025-03-25"
+date: "2024-11-25"
 image:
   caption: Transforma datos en soluciones con R para la fortificación de alimentos
 math: false

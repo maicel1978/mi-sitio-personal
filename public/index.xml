@@ -34,9 +34,37 @@
     </item>
     
     <item>
+      <title>Analisis Exploratorio de Datos</title>
+      <link>http://localhost:4321/post/eda/</link>
+      <pubDate>Tue, 11 Feb 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:4321/post/eda/</guid>
+      <description>&lt;p&gt;Análisis Exploratorio de Datos (EDA, por sus siglas en ingles) implica el análisis de datos centrado en comprender los datos, identificar valores atípicos,  valores faltantes así como proporcionar la base para la formulación del modelo. Además es importante conocer como se relacionan las variables.&lt;/p&gt;
+&lt;p&gt;Un concepto popular en el campo de la ciencia de datos llamado &lt;strong&gt;GIGO&lt;/strong&gt; (Garbage in Garbage Out). Este concepto significa que los datos de mala calidad siempre producirán resultados deficientes, independientemente del modelo y la técnica utilizados. Acá te describo un flujo de trabajo que en mi opinión es muy practico, el orden de etapas y el cumplimiento depende del problema y no es una camisa de fuerza.&lt;/p&gt;
+&lt;p&gt;Este proceso incluye:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Compresión general de los datos y evaluación de su calidad&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Identificación y tratamiento de valores faltantes y atípicos&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Análisis de las distribución de las variables&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Análisis de las relaciones entre las variables&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Transformación de los datos&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Análisis de Datos en Fortificación de Alimentos con R. Una Introducción Práctica</title>
       <link>http://localhost:4321/teaching/r/</link>
-      <pubDate>Tue, 25 Mar 2025 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 25 Nov 2024 00:00:00 +0000</pubDate>
       <guid>http://localhost:4321/teaching/r/</guid>
       <description>&lt;h1 id=&#34;-construye-investigaciones-con-r&#34;&gt;📈 ¡Construye investigaciones con R!&lt;/h1&gt;
 &lt;p&gt;En este curso, te convertirás en un &lt;strong&gt;&amp;lsquo;arquitecto&amp;rsquo; del análisis de datos en  la fortificación de alimentos&lt;/strong&gt;, utilizando R como tu herramienta principal. Aprenderás a:&lt;/p&gt;
@@ -339,34 +367,6 @@
 &lt;li&gt;Distribuye cheatsheets relevantes al inicio de cada módulo.&lt;/li&gt;
 &lt;li&gt;Sube todos los materiales (guías, datasets, scripts) a tu sitio web para que los participantes puedan acceder fácilmente.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Analisis Exploratorio de Datos</title>
-      <link>http://localhost:4321/post/eda/</link>
-      <pubDate>Tue, 11 Feb 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:4321/post/eda/</guid>
-      <description>&lt;p&gt;Análisis Exploratorio de Datos (EDA, por sus siglas en ingles) implica el análisis de datos centrado en comprender los datos, identificar valores atípicos,  valores faltantes así como proporcionar la base para la formulación del modelo. Además es importante conocer como se relacionan las variables.&lt;/p&gt;
-&lt;p&gt;Un concepto popular en el campo de la ciencia de datos llamado &lt;strong&gt;GIGO&lt;/strong&gt; (Garbage in Garbage Out). Este concepto significa que los datos de mala calidad siempre producirán resultados deficientes, independientemente del modelo y la técnica utilizados. Acá te describo un flujo de trabajo que en mi opinión es muy practico, el orden de etapas y el cumplimiento depende del problema y no es una camisa de fuerza.&lt;/p&gt;
-&lt;p&gt;Este proceso incluye:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;Compresión general de los datos y evaluación de su calidad&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Identificación y tratamiento de valores faltantes y atípicos&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Análisis de las distribución de las variables&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Análisis de las relaciones entre las variables&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Transformación de los datos&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 </description>
