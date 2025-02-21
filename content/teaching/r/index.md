@@ -30,6 +30,17 @@ En este curso, te convertirás en un **'arquitecto' del análisis de datos en  l
 
 ---
 
+## Podcast
+
+Escucha nuestro podcast introductorio para conocer más sobre los contenidos que serán abordados en el curso:
+
+Pruébelo:
+
+
+{{< audio src="https://ia803202.us.archive.org/26/items/food-podcast/Food_Podcast.mp3" >}}
+
+---
+
 ## ¿Qué aprenderás?
 
 Este curso está diseñado para médicos y profesionales de la salud interesados en el análisis de datos. Aquí tienes un vistazo rápido:
