@@ -54,7 +54,7 @@ Este curso está diseñado para médicos y profesionales de la salud interesados
 {{< /spoiler >}}
 
 ---
-## Estructura de módulos (Basada en "R para Ciencia de Datos")
+## Estructura de módulos
 
 A continuación, te presentamos la estructura detallada de los módulos del curso, basada en el flujo de trabajo propuesto en el libro **"R para Ciencia de Datos"**. Cada módulo está diseñado para guiarte paso a paso en el análisis de datos relacionados con la fortificación de alimentos.
 
@@ -177,11 +177,4 @@ El **cronograma del curso** podría variar en dependencia del progreso de las ac
 
 3. **Ejercicios prácticos**:  
    - Cada módulo incluye ejercicios prácticos para reforzar los conceptos aprendidos. Estos ejercicios pueden realizarse individualmente o en grupos pequeños.
-
-4. **Gamificación**:  
-   - Incorpora retos diarios y reconocimientos (insignias virtuales) al final de cada sesión de la tarde.
-
-5. **Recursos adicionales**:  
-   - Distribuye cheatsheets relevantes al inicio de cada módulo.  
-   - Sube todos los materiales (guías, datasets, scripts) a tu sitio web para que los participantes puedan acceder fácilmente.
 
