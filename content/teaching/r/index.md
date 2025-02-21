@@ -121,12 +121,6 @@ A continuación, te presentamos la estructura detallada de los módulos del curs
 
 ## Calendario del Curso
 
-Las actividades docentes se organizarán de la siguiente manera:
-
-{{% callout note %}}
-El **cronograma del curso** podría variar en dependencia del progreso de las actividades docentes.
-{{% /callout %}}
-
 
 📅 Distribución de módulos por días en el cronograma docente:
 
