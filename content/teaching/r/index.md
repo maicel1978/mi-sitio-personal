@@ -1,5 +1,5 @@
 ---
-date: "2024-11-25"
+date: "2024-03-25"
 image:
   caption: Transforma datos en soluciones con R para la fortificación de alimentos
 math: false
@@ -177,4 +177,12 @@ El **cronograma del curso** podría variar en dependencia del progreso de las ac
 
 3. **Ejercicios prácticos**:  
    - Cada módulo incluye ejercicios prácticos para reforzar los conceptos aprendidos. Estos ejercicios pueden realizarse individualmente o en grupos pequeños.
+
+---
+## Bibliografía
+
+
+- libro [R Para Ciencia de Datos: Hadley Wickham](https://es.r4ds.hadley.nz/)
+
+
 

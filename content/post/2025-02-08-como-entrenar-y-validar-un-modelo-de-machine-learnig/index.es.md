@@ -1,5 +1,5 @@
 ---
-title: Como entrenar y validar un modelo de machine learnig
+title: "Como entrenar y validar un modelo de machine learnig"
 author: maicel monzon
 date: '2024-02-08'
 categories:
@@ -74,6 +74,10 @@ library(dlookr) # para EDA
 ##   method          from  
 ##   plot.transform  scales
 ##   print.transform scales
+```
+
+```
+## Because it is an offline environment, only offline fonts are imported.
 ```
 
 ```

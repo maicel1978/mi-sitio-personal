@@ -62,9 +62,17 @@
     </item>
     
     <item>
+      <title>Projects</title>
+      <link>http://localhost:4321/projects/</link>
+      <pubDate>Sun, 19 May 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:4321/projects/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Análisis de Datos en Fortificación de Alimentos con R. Una Introducción Práctica</title>
       <link>http://localhost:4321/teaching/r/</link>
-      <pubDate>Mon, 25 Nov 2024 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 25 Mar 2024 00:00:00 +0000</pubDate>
       <guid>http://localhost:4321/teaching/r/</guid>
       <description>&lt;h1 id=&#34;construye-investigaciones-con-r&#34;&gt;¡Construye investigaciones con R!&lt;/h1&gt;
 &lt;p&gt;En este curso, te convertirás en un &lt;strong&gt;&amp;lsquo;arquitecto&amp;rsquo; del análisis de datos en  la fortificación de alimentos&lt;/strong&gt;, utilizando R como tu herramienta principal. Aprenderás a:&lt;/p&gt;
@@ -380,15 +388,12 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;bibliografía&#34;&gt;Bibliografía&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;libro &lt;a href=&#34;https://es.r4ds.hadley.nz/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;R Para Ciencia de Datos: Hadley Wickham&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 </description>
-    </item>
-    
-    <item>
-      <title>Projects</title>
-      <link>http://localhost:4321/projects/</link>
-      <pubDate>Sun, 19 May 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:4321/projects/</guid>
-      <description></description>
     </item>
     
     <item>
@@ -442,6 +447,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;##   method          from  
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;##   plot.transform  scales
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;##   print.transform scales
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## Because it is an offline environment, only offline fonts are imported.
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## 
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## Attaching package: &amp;#39;dlookr&amp;#39;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## The following object is masked from &amp;#39;package:base&amp;#39;:
