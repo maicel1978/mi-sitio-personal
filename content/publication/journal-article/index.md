@@ -1,18 +1,12 @@
 ---
-abstract: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus
-  ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum. Sed
-  ac faucibus dolor, scelerisque sollicitudin nisi. Cras purus urna, suscipit quis
-  sapien eu, pulvinar tempor diam. Quisque risus orci, mollis id ante sit amet, gravida
-  egestas nisl. Sed ac tempus magna. Proin in dui enim. Donec condimentum, sem id
-  dapibus fringilla, tellus enim condimentum arcu, nec volutpat est felis vel metus.
-  Vestibulum sit amet erat at nulla eleifend gravida.
+abstract: Este estudio revisa modelos de predicción clínica para COVID-19, identificando variables y algoritmos clave. Aunque la mayoría de los modelos no son aplicables directamente en la práctica clínica, la información obtenida es valiosa para desarrollar modelos adaptados al contexto cubano.
 author_notes:
 - Equal contribution
 - Equal contribution
 authors:
 - admin
-- Robert Ford
-date: "2015-09-01T00:00:00Z"
+- Lizet Sanchez
+date: "2023-02-01T00:00:00Z"
 doi: ""
 featured: false
 image:
@@ -20,20 +14,19 @@ image:
   focal_point: ""
   preview_only: false
 projects: []
-publication: '*Journal of Source Themes, 1*(1)'
+publication: '*Revista Habanera, 1*(1)'
 publication_short: ""
 publication_types:
 - article-journal
-publishDate: "2017-01-01T00:00:00Z"
+publishDate: "2023-02-01T00:00:00Z"
 slides: example
-summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus
-  ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum.
+summary: Este estudio analiza modelos de predicción de COVID-19 para su aplicación en Cuba. Los modelos existentes tienen limitaciones, pero la investigación proporciona datos útiles para el desarrollo de nuevos modelos.
 tags:
 - Source Themes
-title: An example journal article
-url_code: https://github.com/HugoBlox/hugo-blox-builder
+title: Estado en la investigación sobre modelos de predicción de la severidad en confirmados de la Covid-19.
+url_code: ""
 url_dataset: ""
-url_pdf: http://arxiv.org/pdf/1512.04133v1
+url_pdf: https://revhabanera.sld.cu/index.php/rhab/article/view/5257
 url_poster: ""
 url_project: ""
 url_slides: ""
