@@ -32,13 +32,12 @@ url_video: https://www.youtube.com/watch?v=ycnteDZRMxM
 ---
 
 {{% callout note %}}
-Click on the **Slides** button above to view the built-in slides feature.
+Consulte el **programa del curso**, el **cronograma de actividades** y otros **materiales docentes** 
 {{% /callout %}}
 
-Slides can be added in a few ways:
+Para más detalles consulte los siguiente documentos:
 
-- **Create** slides using Hugo Blox Builder's [_Slides_](https://docs.hugoblox.com/reference/content-types/) feature and link using `slides` parameter in the front matter of the talk file
-- **Upload** an existing slide deck to `static/` and link using `url_slides` parameter in the front matter of the talk file
-- **Embed** your slides (e.g. Google Slides) or presentation video on this page using [shortcodes](https://docs.hugoblox.com/reference/markdown/).
+- [programa](https://ia600808.us.archive.org/23/items/programa_curso_fotificacion/programa_curso_fotificacion.pdf)
+- [guía de gamificación](https://ia600807.us.archive.org/6/items/guia_gamificacion/guia_gamificacion.pdf)
+- [bibliografía](https://es.r4ds.hadley.nz/)
 
-Further event details, including [page elements](https://docs.hugoblox.com/reference/markdown/) such as image galleries, can be added to the body of this page.
