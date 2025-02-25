@@ -10,7 +10,7 @@ all_day: false
 authors:
 - admin
 date: "2025-03-25T13:00:00Z"
-date_end: "2025-05-29T15:00:00Z"
+date_end: "2025-03-29T15:00:00Z"
 event: Curso Análisis de Datos en Fortificación de Alimentos con R. Una Introducción Práctica
 event_url: https://example.org
 featured: false
