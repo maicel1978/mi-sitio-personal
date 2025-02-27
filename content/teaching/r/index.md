@@ -65,8 +65,10 @@ A continuación, te presentamos la estructura detallada de los módulos del curs
   - Instalación y configuración de R y RStudio.
   - Interfaz de RStudio: Consola, script, ambiente, gráficos.
   - Creación de objetos básicos (vectores, listas, data frames).
-- 🎉 **Conferencia**: Consulte la conferencia 1 en formato **PDF** o [html](https://rpubs.com/maicel/c1).
-- 📈 **Ejercicio práctico**: Crear un vector con niveles de nutrientes en alimentos fortificados.
+- 🚀 **Conferencia**: Conferencia 1 en formato **PDF** o [html](https://rpubs.com/maicel/c1).
+- 🎉 **Desafío 1**: Hierro – Cimientos de Código
+- 😊 **Recompensa** : Insignia 🏗️ "Cimientos Sólidos" .
+
 
 ### **Módulo 2: Importación de datos**
 - **Objetivo**: Aprender a leer datos desde diferentes formatos.
@@ -74,8 +76,11 @@ A continuación, te presentamos la estructura detallada de los módulos del curs
   - Leer archivos CSV usando `readr`.
   - Leer archivos Excel usando `readxl`.
   - Manejo de problemas comunes (codificación, separadores, valores perdidos).
-- **Referencia del libro**: [Capítulo 11: Importar datos](https://es.r4ds.hadley.nz/11-import.html).
-- **Ejercicio práctico**: Leer un dataset sobre fortificación de alimentos y explorar sus características.
+- 🚀 **Conferencia**: Conferencia 2 en formato **PDF** o html.
+- 🎉 **Desafío 2**: Zinc – Puertas a los Datos.
+- 😊 **Recompensa** : Insignia 🪓 "Estructuras Estables".
+- 📚 **Bibliografía**: [Capítulo 11: Importar datos](https://es.r4ds.hadley.nz/11-import.html).
+
 
 ### **Módulo 3: Ordenar datos**
 - **Objetivo**: Aprender a organizar y limpiar datos para facilitar su análisis.
@@ -83,8 +88,11 @@ A continuación, te presentamos la estructura detallada de los módulos del curs
   - Reorganizar columnas y filas con `tidyr`.
   - Convertir datos de formato ancho a largo (y viceversa) con `pivot_longer()` y `pivot_wider()`.
   - Separar y combinar columnas.
-- **Referencia del libro**: [Capítulo 12: Tibbles](https://es.r4ds.hadley.nz/tibbles.html) y [Capítulo 13: Datos limpios](https://es.r4ds.hadley.nz/datos-limpios.html).
-- **Ejercicio práctico**: Limpiar un dataset desordenado relacionado con fortificación de alimentos.
+- 🚀 **Conferencia**: Conferencia 3 en formato **PDF** o html.
+- 🎉 **Desafío 3**: Vitamina A – Claridad en la Oscuridad 
+- 😊 **Recompensa** : Insignia 🌟 "Datos Transparentes"
+- 📚 **Bibliografía**: [Capítulo 12: Tibbles](https://es.r4ds.hadley.nz/tibbles.html) y [Capítulo 13: Datos limpios](https://es.r4ds.hadley.nz/datos-limpios.html). 
+
 
 ### **Módulo 4: Manipulación de datos**
 - **Objetivo**: Aprender a transformar y resumir datos.
@@ -92,8 +100,10 @@ A continuación, te presentamos la estructura detallada de los módulos del curs
   - Filtrar, seleccionar y ordenar datos con `dplyr`.
   - Crear nuevas variables con `mutate()`.
   - Resúmenes estadísticos básicos con `summarise()`.
-- **Referencia del libro**: [Capítulo 5: Data Transformation](https://es.r4ds.hadley.nz/transformacion.html).
-- **Ejercicio práctico**: Filtrar alimentos con niveles altos de nutrientes específicos.
+- 🚀 **Conferencia**: Conferencia 4 en formato **PDF** o html.
+- 🎉 **Desafío 4**: Ácido Fólico – Datos que Nutren
+- 😊 **Recompensa** : Insignia 🌱 "Transformación Vital"
+- 📚 **Bibliografía**: [Capítulo 5: Data Transformation](https://es.r4ds.hadley.nz/transformacion.html).
 
 ### **Módulo 5: Representación gráfica y tabular**
 - **Objetivo**: Aprender a visualizar datos y generar tablas profesionales.
@@ -101,8 +111,10 @@ A continuación, te presentamos la estructura detallada de los módulos del curs
   - Crear gráficos básicos con `ggplot2` (barras, líneas, dispersión).
   - Personalizar gráficos para comunicar hallazgos clave.
   - Generar tablas resumen con `gtsummary`.
-- **Referencia del libro**: [Capítulo 3: Visualización de datos](https://es.r4ds.hadley.nz/visualizacion.html).
-- **Ejercicio práctico**: Crear un gráfico y una tabla profesional sobre un dataset relacionado con fortificación de alimentos.
+- 🚀 **Conferencia**: Conferencia 5 en formato **PDF** o html.
+- 🎉 **Desafío 5**:  Yodo – Iluminando Hallazgos
+- 😊 **Recompensa** :  Insignia 💡 "Insight Brillante"
+- 📚 **Bibliografía**: [Capítulo 3: Visualización de datos](https://es.r4ds.hadley.nz/visualizacion.html).
 
 ### **Módulo 6: Informes con R Markdown**
 - **Objetivo**: Aprender a generar informes profesionales combinando texto, gráficos y tablas.
@@ -110,8 +122,10 @@ A continuación, te presentamos la estructura detallada de los módulos del curs
   - Introducción a R Markdown.
   - Crear un informe básico con texto, gráficos y tablas.
   - Exportar informes en formato HTML o PDF.
-- **Referencia del libro**: [Capítulo 27: Comunicación](https://es.r4ds.hadley.nz/comunicacion.html).
-- **Ejercicio práctico**: Crear un informe breve sobre un análisis de fortificación de alimentos.
+- 🚀 **Conferencia**: Conferencia 6 en formato **PDF** o html.
+- 🎉 **Desafío 6**: Techo de la Ciencia
+- 😊 **Recompensa** : Insignia 🏠 "Arquitecto Certificado" .
+- 📚 **Bibliografía**: [Capítulo 27: Comunicación](https://es.r4ds.hadley.nz/comunicacion.html).
 
 ### **Proyecto Final**
 - **Objetivo**: Integrar todo lo aprendido en un análisis completo de un dataset real.
