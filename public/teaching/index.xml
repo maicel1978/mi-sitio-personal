@@ -18,16 +18,16 @@
       <pubDate>Mon, 25 Mar 2024 00:00:00 +0000</pubDate>
       <guid>http://localhost:4321/teaching/r/</guid>
       <description>&lt;h1 id=&#34;construye-investigaciones-con-r&#34;&gt;¡Construye investigaciones con R!&lt;/h1&gt;
-&lt;p&gt;En este curso, te convertirás en un &lt;strong&gt;&amp;lsquo;arquitecto&amp;rsquo; del análisis de datos en  la fortificación de alimentos&lt;/strong&gt;, utilizando R como tu herramienta principal. Aprenderás a:&lt;/p&gt;
+&lt;p&gt;En este curso, te convertirás en un &lt;strong&gt;&amp;lsquo;arquitecto&amp;rsquo; del análisis de datos en la fortificación de alimentos&lt;/strong&gt;, utilizando R como tu herramienta principal. Aprenderás a:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;leer datos.&lt;/li&gt;
 &lt;li&gt;ordenar y transformar conjuntos de datos.&lt;/li&gt;
 &lt;li&gt;procesar y presentar los restados en forma de tablas y gráficos.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;¡Domina R y transforma los datos para tus investigaciones en fortificación de alimentos!&lt;/p&gt;
+&lt;p&gt;👉 ¡Para saber más del curso, consulta nuestra &lt;a href=&#34;https://ia601803.us.archive.org/17/items/conf_0/conf_0.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;conferencia introductoria&lt;/a&gt;, mira el siguiente &lt;strong&gt;video promocional&lt;/strong&gt; o escucha el &lt;strong&gt;podcast&lt;/strong&gt;!&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;video-promocional-del-curso&#34;&gt;Video promocional del curso&lt;/h2&gt;
-&lt;p&gt;¿Quieres saber más sobre el curso? Mira nuestro video promocional:&lt;/p&gt;
+&lt;p&gt;Mira el video promocional del curso:&lt;/p&gt;
 &lt;div style=&#34;position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;&#34;&gt;
       &lt;iframe allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen=&#34;allowfullscreen&#34; loading=&#34;eager&#34; referrerpolicy=&#34;strict-origin-when-cross-origin&#34; src=&#34;https://www.youtube.com/embed/ycnteDZRMxM?autoplay=0&amp;amp;controls=1&amp;amp;end=0&amp;amp;loop=0&amp;amp;mute=0&amp;amp;start=0&#34; style=&#34;position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;&#34; title=&#34;YouTube video&#34;&gt;&lt;/iframe&gt;
     &lt;/div&gt;
@@ -76,7 +76,7 @@
 &lt;/details&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;estructura-de-módulos&#34;&gt;Estructura de módulos&lt;/h2&gt;
-&lt;p&gt;A continuación, te presentamos la estructura detallada de los módulos del curso, basada en el flujo de trabajo propuesto en el libro &lt;strong&gt;&amp;ldquo;R para Ciencia de Datos&amp;rdquo;&lt;/strong&gt;. Cada módulo está diseñado para guiarte paso a paso en el análisis de datos relacionados con la fortificación de alimentos.&lt;/p&gt;
+&lt;p&gt;A continuación, te presentamos la estructura detallada de los módulos del curso, basada en el flujo de trabajo propuesto en el libro &lt;a href=&#34;https://es.r4ds.hadley.nz/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;R for Data Science&lt;/a&gt; de Hadley Wickham y Garrett Grolemund. Cada módulo está diseñado para guiarte paso a paso en el análisis de datos relacionados con la fortificación de alimentos.&lt;/p&gt;
 &lt;h3 id=&#34;módulo-1-introducción-a-r-y-rstudio&#34;&gt;&lt;strong&gt;Módulo 1: Introducción a R y RStudio&lt;/strong&gt;&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Objetivo&lt;/strong&gt;: Familiarizarse con el entorno de trabajo.&lt;/li&gt;
@@ -88,7 +88,8 @@
 &lt;li&gt;Creación de objetos básicos (vectores, listas, data frames).&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Ejercicio práctico&lt;/strong&gt;: Crear un vector con niveles de nutrientes en alimentos fortificados.&lt;/li&gt;
+&lt;li&gt;🎉 &lt;strong&gt;Conferencia&lt;/strong&gt;: Consulte la conferencia 1 en formato &lt;strong&gt;PDF&lt;/strong&gt; o &lt;a href=&#34;https://rpubs.com/maicel/c1&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;html&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;📈 &lt;strong&gt;Ejercicio práctico&lt;/strong&gt;: Crear un vector con niveles de nutrientes en alimentos fortificados.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;módulo-2-importación-de-datos&#34;&gt;&lt;strong&gt;Módulo 2: Importación de datos&lt;/strong&gt;&lt;/h3&gt;
 &lt;ul&gt;
@@ -311,21 +312,18 @@
 &lt;hr&gt;
 &lt;h2 id=&#34;notas-adicionales&#34;&gt;Notas Adicionales&lt;/h2&gt;
 &lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Duración total&lt;/strong&gt;:&lt;/p&gt;
+&lt;li&gt;&lt;strong&gt;Duración total&lt;/strong&gt;:
 &lt;ul&gt;
 &lt;li&gt;4 horas en la mañana + 3 horas en la tarde = 7 horas por día.&lt;/li&gt;
 &lt;li&gt;Total: 35 horas (incluyendo tiempo para ejercicios, preguntas y proyectos).&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Tiempo para descansos&lt;/strong&gt;:&lt;/p&gt;
+&lt;li&gt;&lt;strong&gt;Tiempo para descansos&lt;/strong&gt;:
 &lt;ul&gt;
 &lt;li&gt;Incluye pausas activas de 10-15 minutos entre bloques de contenido para evitar la fatiga mental.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Ejercicios prácticos&lt;/strong&gt;:&lt;/p&gt;
+&lt;li&gt;&lt;strong&gt;Ejercicios prácticos&lt;/strong&gt;:
 &lt;ul&gt;
 &lt;li&gt;Cada módulo incluye ejercicios prácticos para reforzar los conceptos aprendidos. Estos ejercicios pueden realizarse individualmente o en grupos pequeños.&lt;/li&gt;
 &lt;/ul&gt;

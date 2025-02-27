@@ -12,23 +12,23 @@ type: docs
 
 # ¡Construye investigaciones con R!
 
-En este curso, te convertirás en un **'arquitecto' del análisis de datos en  la fortificación de alimentos**, utilizando R como tu herramienta principal. Aprenderás a:
-- leer datos.
-- ordenar y transformar conjuntos de datos.
-- procesar y presentar los restados en forma de tablas y gráficos.
+En este curso, te convertirás en un **'arquitecto' del análisis de datos en la fortificación de alimentos**, utilizando R como tu herramienta principal. Aprenderás a:
 
-¡Domina R y transforma los datos para tus investigaciones en fortificación de alimentos!
+-   leer datos.
+-   ordenar y transformar conjuntos de datos.
+-   procesar y presentar los restados en forma de tablas y gráficos.
 
----
+👉 ¡Para saber más del curso, consulta nuestra [conferencia introductoria](https://ia601803.us.archive.org/17/items/conf_0/conf_0.pdf), mira el siguiente **video promocional** o escucha el **podcast**!
+
+------------------------------------------------------------------------
 
 ## Video promocional del curso
 
-¿Quieres saber más sobre el curso? Mira nuestro video promocional:
+Mira el video promocional del curso:
 
 {{< youtube ycnteDZRMxM >}}
 
-
----
+------------------------------------------------------------------------
 
 ## Podcast
 
@@ -38,7 +38,7 @@ Pruébelo:
 
 {{< audio src="https://ia803202.us.archive.org/26/items/food-podcast/Food_Podcast.mp3" >}}
 
----
+------------------------------------------------------------------------
 
 ## ¿Qué aprenderás?
 
@@ -56,7 +56,7 @@ Este curso está diseñado para médicos y profesionales de la salud interesados
 ---
 ## Estructura de módulos
 
-A continuación, te presentamos la estructura detallada de los módulos del curso, basada en el flujo de trabajo propuesto en el libro **"R para Ciencia de Datos"**. Cada módulo está diseñado para guiarte paso a paso en el análisis de datos relacionados con la fortificación de alimentos.
+A continuación, te presentamos la estructura detallada de los módulos del curso, basada en el flujo de trabajo propuesto en el libro [R for Data Science](https://es.r4ds.hadley.nz/) de Hadley Wickham y Garrett Grolemund. Cada módulo está diseñado para guiarte paso a paso en el análisis de datos relacionados con la fortificación de alimentos.
 
 ### **Módulo 1: Introducción a R y RStudio**
 - **Objetivo**: Familiarizarse con el entorno de trabajo.
@@ -65,7 +65,8 @@ A continuación, te presentamos la estructura detallada de los módulos del curs
   - Instalación y configuración de R y RStudio.
   - Interfaz de RStudio: Consola, script, ambiente, gráficos.
   - Creación de objetos básicos (vectores, listas, data frames).
-- **Ejercicio práctico**: Crear un vector con niveles de nutrientes en alimentos fortificados.
+- 🎉 **Conferencia**: Consulte la conferencia 1 en formato **PDF** o [html](https://rpubs.com/maicel/c1).
+- 📈 **Ejercicio práctico**: Crear un vector con niveles de nutrientes en alimentos fortificados.
 
 ### **Módulo 2: Importación de datos**
 - **Objetivo**: Aprender a leer datos desde diferentes formatos.
@@ -126,63 +127,52 @@ A continuación, te presentamos la estructura detallada de los módulos del curs
     - Resumen ejecutivo.
     - Gráficos y tablas clave.
     - Conclusiones y recomendaciones.
-
 ---
 
 ## Calendario del Curso
 
-{{% callout note %}}
-El **cronograma del curso** podría variar en dependencia del progreso de las actividades docentes.
-{{% /callout %}}
-
+{{% callout note %}} El **cronograma del curso** podría variar en dependencia del progreso de las actividades docentes. {{% /callout %}}
 
 📅 Distribución de módulos por días en el cronograma docente:
 
+| **Día** | **Mañana (4 horas)** | **Tarde (3 horas)** |
+|--------------|-----------------------------|-----------------------------|
+| **Lunes 25** | **Módulo 1: Introducción a R y RStudio** | **Módulo 2 (Parte 1): Importación de datos** |
+|  | \- ¿Qué es R y por qué es útil en ciencias de la salud? | \- Leer archivos CSV usando `readr`. |
+|  | \- Instalación y configuración de R y RStudio. | \- Leer archivos Excel usando `readxl`. |
+|  | \- Interfaz de RStudio: Consola, script, ambiente, gráficos. | \- Manejo de problemas comunes (codificación, separadores, valores perdidos). |
+|  | \- Creación de objetos básicos (vectores, listas, data frames). | \- Ejercicio práctico: Leer un dataset sobre fortificación de alimentos y explorar sus características. |
+| **Martes 26** | **Módulo 2 (Parte 2): Importación de datos** | **Módulo 3 (Parte 1): Ordenar datos** |
+|  | \- Continuación de ejercicios prácticos con importación de datos. | \- Reorganizar columnas y filas con `tidyr`. |
+|  |  | \- Convertir datos de formato ancho a largo (y viceversa) con `pivot_longer()` y `pivot_wider()`. |
+|  |  | \- Separar y combinar columnas. |
+| **Miércoles 27** | **Módulo 3 (Parte 2): Ordenar datos** | **Módulo 4 (Parte 1): Manipulación de datos** |
+|  | \- Continuación de ejercicios prácticos con `tidyr`. | \- Filtrar, seleccionar y ordenar datos con `dplyr`. |
+|  | \- Resolver dudas y retos relacionados con la organización de datos. | \- Crear nuevas variables con `mutate()`. |
+|  |  | \- Resúmenes estadísticos básicos con `summarise()`. |
+| **Jueves 28** | **Módulo 4 (Parte 2): Manipulación de datos** | **Módulo 5 (Parte 1): Representación gráfica y tabular** |
+|  | \- Continuación de ejercicios prácticos con `dplyr`. | \- Crear gráficos básicos con `ggplot2` (barras, líneas, dispersión). |
+|  | \- Resolver dudas y retos relacionados con manipulación de datos. | \- Personalizar gráficos para comunicar hallazgos clave. |
+|  |  | \- Generar tablas resumen con `gtsummary`. |
+| **Viernes 29** | **Módulo 5 (Parte 2): Representación gráfica y tabular** | **Módulo 6: Informes con R Markdown + Proyecto final** |
+|  | \- Continuación de ejercicios prácticos con `ggplot2` y `gtsummary`. | \- Introducción a R Markdown. |
+|  | \- Resolver dudas y retos relacionados con visualización de datos. | \- Crear un informe básico con texto, gráficos y tablas. |
+|  |  | \- Presentación de proyectos finales. |
 
-| **Día**       | **Mañana (4 horas)**                                                                                     | **Tarde (3 horas)**                                                                                     |
-|----------------|---------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
-| **Lunes 25**   | **Módulo 1: Introducción a R y RStudio**                                                                | **Módulo 2 (Parte 1): Importación de datos**                                                            |
-|                | - ¿Qué es R y por qué es útil en ciencias de la salud?                                                  | - Leer archivos CSV usando `readr`.                                                                     |
-|                | - Instalación y configuración de R y RStudio.                                                           | - Leer archivos Excel usando `readxl`.                                                                  |
-|                | - Interfaz de RStudio: Consola, script, ambiente, gráficos.                                             | - Manejo de problemas comunes (codificación, separadores, valores perdidos).                            |
-|                | - Creación de objetos básicos (vectores, listas, data frames).                                          | - Ejercicio práctico: Leer un dataset sobre fortificación de alimentos y explorar sus características. |
-| **Martes 26**  | **Módulo 2 (Parte 2): Importación de datos**                                                            | **Módulo 3 (Parte 1): Ordenar datos**                                                                   |
-|                | - Continuación de ejercicios prácticos con importación de datos.                                        | - Reorganizar columnas y filas con `tidyr`.                                                             |
-|                |                                                                                                         | - Convertir datos de formato ancho a largo (y viceversa) con `pivot_longer()` y `pivot_wider()`.        |
-|                |                                                                                                         | - Separar y combinar columnas.                                                                         |
-| **Miércoles 27** | **Módulo 3 (Parte 2): Ordenar datos**                                                                   | **Módulo 4 (Parte 1): Manipulación de datos**                                                           |
-|                | - Continuación de ejercicios prácticos con `tidyr`.                                                     | - Filtrar, seleccionar y ordenar datos con `dplyr`.                                                     |
-|                | - Resolver dudas y retos relacionados con la organización de datos.                                     | - Crear nuevas variables con `mutate()`.                                                               |
-|                |                                                                                                         | - Resúmenes estadísticos básicos con `summarise()`.                                                    |
-| **Jueves 28**  | **Módulo 4 (Parte 2): Manipulación de datos**                                                           | **Módulo 5 (Parte 1): Representación gráfica y tabular**                                                |
-|                | - Continuación de ejercicios prácticos con `dplyr`.                                                     | - Crear gráficos básicos con `ggplot2` (barras, líneas, dispersión).                                    |
-|                | - Resolver dudas y retos relacionados con manipulación de datos.                                        | - Personalizar gráficos para comunicar hallazgos clave.                                                |
-|                |                                                                                                         | - Generar tablas resumen con `gtsummary`.                                                              |
-| **Viernes 29** | **Módulo 5 (Parte 2): Representación gráfica y tabular**                                                | **Módulo 6: Informes con R Markdown + Proyecto final**                                                 |
-|                | - Continuación de ejercicios prácticos con `ggplot2` y `gtsummary`.                                     | - Introducción a R Markdown.                                                                           |
-|                | - Resolver dudas y retos relacionados con visualización de datos.                                       | - Crear un informe básico con texto, gráficos y tablas.                                                |
-|                |                                                                                                         | - Presentación de proyectos finales.                                                                   |
-
-
----
+------------------------------------------------------------------------
 
 ## Notas Adicionales
 
-1. **Duración total**:  
-   - 4 horas en la mañana + 3 horas en la tarde = 7 horas por día.  
-   - Total: 35 horas (incluyendo tiempo para ejercicios, preguntas y proyectos).
+1.  **Duración total**:
+    -   4 horas en la mañana + 3 horas en la tarde = 7 horas por día.  
+    -   Total: 35 horas (incluyendo tiempo para ejercicios, preguntas y proyectos).
+2.  **Tiempo para descansos**:
+    -   Incluye pausas activas de 10-15 minutos entre bloques de contenido para evitar la fatiga mental.
+3.  **Ejercicios prácticos**:
+    -   Cada módulo incluye ejercicios prácticos para reforzar los conceptos aprendidos. Estos ejercicios pueden realizarse individualmente o en grupos pequeños.
 
-2. **Tiempo para descansos**:  
-   - Incluye pausas activas de 10-15 minutos entre bloques de contenido para evitar la fatiga mental.
+------------------------------------------------------------------------
 
-3. **Ejercicios prácticos**:  
-   - Cada módulo incluye ejercicios prácticos para reforzar los conceptos aprendidos. Estos ejercicios pueden realizarse individualmente o en grupos pequeños.
-
----
 ## Bibliografía
 
-
-- libro [R Para Ciencia de Datos: Hadley Wickham](https://es.r4ds.hadley.nz/)
-
-
-
+-   libro [R Para Ciencia de Datos: Hadley Wickham](https://es.r4ds.hadley.nz/)
