@@ -15,7 +15,7 @@
     <item>
       <title>👋 Curso de Análisis de Datos en Fortificación de Alimentos con R. Una Introducción Práctica</title>
       <link>http://localhost:4321/event/example/</link>
-      <pubDate>Mon, 24 Mar 2025 13:00:00 +0000</pubDate>
+      <pubDate>Mon, 24 Mar 2025 09:00:00 +0000</pubDate>
       <guid>http://localhost:4321/event/example/</guid>
       <description>&lt;div class=&#34;flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900&#34;&gt;
 &lt;span class=&#34;pr-3 pt-1 text-primary-600 dark:text-primary-300&#34;&gt;
@@ -29,6 +29,19 @@
 &lt;li&gt;&lt;a href=&#34;https://ia600807.us.archive.org/6/items/guia_gamificacion/guia_gamificacion.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;guía de gamificación&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://es.r4ds.hadley.nz/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;bibliografía&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>CovidCencecAPK</title>
+      <link>http://localhost:4321/project/covidcencecapk/</link>
+      <pubDate>Fri, 28 Feb 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:4321/project/covidcencecapk/</guid>
+      <description>&lt;p&gt;COVIDCENCEC, es un modelo predictivo diseñado para estimar y clasificar el riesgo de muerte por COVID-19. Este proyecto es parte de su tesis titulada &amp;ldquo;Modelos predictivos para estimar y clasificar el riesgo de muerte por COVID-19&amp;rdquo;, escrita por el Dr. Maicel Monzón Peres.  COVIDCENCEC utiliza una combinación de JavaScript, HTML y CSS para crear una aplicación web interactiva. La función principal de esta aplicación es predecir la probabilidad de muerte por COVID-19 basándose en predictores seleccionados. Al emplear técnicas estadísticas avanzadas y algoritmos de aprendizaje automático, el modelo analiza varios indicadores de salud y factores demográficos para proporcionar a los usuarios evaluaciones de riesgo.&lt;/p&gt;
+&lt;h1 id=&#34;características-principales-de-la-interfaz&#34;&gt;Características principales de la Interfaz:&lt;/h1&gt;
+&lt;p&gt;La aplicación está diseñada con una interfaz sencilla que permite a los usuarios ingresar datos relevantes fácilmente. Análisis predictivo: COVIDCENCEC emplea análisis predictivo para generar puntajes de riesgo, lo que ayuda a los usuarios a comprender sus posibles riesgos de salud asociados con COVID-19. Visualización de datos: la aplicación incluye representaciones visuales de datos y predicciones, lo que facilita a los usuarios la interpretación de los resultados.&lt;/p&gt;
+&lt;h1 id=&#34;diseño&#34;&gt;Diseño:&lt;/h1&gt;
+&lt;p&gt;La aplicación, creada con HTML y CSS, es adaptable y accesible desde varios dispositivos, lo que garantiza un amplio alcance. Esta aplicación no solo sirve como una herramienta práctica para el personal de salud que buscan calcular el riesgos de muerte en la COVID-19, sino que también contribuye al campo más amplio del modelado predictivo en el ámbito de la atención médica.&lt;/p&gt;
 </description>
     </item>
     
@@ -69,7 +82,7 @@
     </item>
     
     <item>
-      <title>Análisis de Datos en Fortificación de Alimentos con R. Una Introducción Práctica</title>
+      <title>Análisis de datos en fortificación de alimentos a gran escala con R. Una Introducción Práctica</title>
       <link>http://localhost:4321/teaching/r/</link>
       <pubDate>Mon, 25 Mar 2024 00:00:00 +0000</pubDate>
       <guid>http://localhost:4321/teaching/r/</guid>
@@ -120,20 +133,88 @@
   &lt;summary class=&#34;cursor-pointer&#34;&gt;👉 Haz clic para ver el contenido del curso&lt;/summary&gt;
   &lt;div class=&#34;rounded-lg bg-neutral-50 dark:bg-neutral-800 p-2&#34;&gt;
     &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Módulo 1&lt;/strong&gt;: Introducción a R y RStudio.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Módulo 2&lt;/strong&gt;: Importación de datos.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Módulo 3&lt;/strong&gt;: Ordenar datos.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Módulo 4&lt;/strong&gt;: Manipulación de datos.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Módulo 5&lt;/strong&gt;: Representación gráfica y tabular.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Módulo 6&lt;/strong&gt;: Informes con R Markdown + Proyecto final.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Tema I&lt;/strong&gt;: Introducción a R y RStudio.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Tema II&lt;/strong&gt;: Importación de datos.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Tema III&lt;/strong&gt;: Ordenar datos.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Tema IV&lt;/strong&gt;: Manipulación de datos.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Tema V&lt;/strong&gt;: Representación tabular.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Tema VI&lt;/strong&gt;: Representación gráfica.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Tarea Final&lt;/strong&gt;: Informes con R Markdown.&lt;/li&gt;
 &lt;/ul&gt;
 
   &lt;/div&gt;
 &lt;/details&gt;
 &lt;hr&gt;
+&lt;h2 id=&#34;calendario-del-curso&#34;&gt;Calendario del Curso&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Estructura Diaria&lt;/strong&gt; Cada día incluye sesiones teóricas, prácticas, descansos y actividades gamificadas.&lt;br&gt;
+&lt;strong&gt;Sesiones teóricas&lt;/strong&gt;: Conferencias interactivas con ejemplos de fortificación de alimentos a gran escala.&lt;br&gt;
+&lt;strong&gt;Sesiones prácticas&lt;/strong&gt;: Ejercicios guiados y retos diarios.&lt;br&gt;
+&lt;strong&gt;Coffee breaks&lt;/strong&gt;: 15 minutos entre bloques.&lt;/p&gt;
+&lt;div class=&#34;flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900&#34;&gt;
+&lt;span class=&#34;pr-3 pt-1 text-primary-600 dark:text-primary-300&#34;&gt;
+  &lt;svg height=&#34;24&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 24 24&#34;&gt;&lt;path fill=&#34;none&#34; stroke=&#34;currentColor&#34; stroke-linecap=&#34;round&#34; stroke-linejoin=&#34;round&#34; stroke-width=&#34;1.5&#34; d=&#34;m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z&#34;/&gt;&lt;/svg&gt;
+&lt;/span&gt;
+  &lt;span class=&#34;dark:text-neutral-300&#34;&gt;El &lt;strong&gt;Calendario del curso&lt;/strong&gt; podría variar en dependencia del progreso de las actividades docentes y cuestiones logísticas.&lt;/span&gt;
+&lt;/div&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;Horario&lt;/th&gt;
+          &lt;th&gt;Día 1 (martes)&lt;/th&gt;
+          &lt;th&gt;Día 2 (miércoles)&lt;/th&gt;
+          &lt;th&gt;Día 3 (Jueves)&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Mañana&lt;/strong&gt; 🌞&lt;/td&gt;
+          &lt;td&gt;🎤 &lt;strong&gt;Introdución&lt;/strong&gt; (15 min)&lt;br&gt;📊 &lt;strong&gt;Conf. Tema I&lt;/strong&gt; (90 min)&lt;/td&gt;
+          &lt;td&gt;📊 &lt;strong&gt;Conf. Tema III&lt;/strong&gt; (90 min)&lt;/td&gt;
+          &lt;td&gt;📊 &lt;strong&gt;Conf. Tema V&lt;/strong&gt; (90 min)&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Coffee breaks&lt;/strong&gt; ☕&lt;/td&gt;
+          &lt;td&gt;-&lt;/td&gt;
+          &lt;td&gt;-&lt;/td&gt;
+          &lt;td&gt;-&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Mañana&lt;/strong&gt; 🌞&lt;/td&gt;
+          &lt;td&gt;🎥 &lt;strong&gt;Video instalación&lt;/strong&gt; (10 min)&lt;br&gt;🖥️ &lt;strong&gt;Prác.Tema I&lt;/strong&gt; (90 min)&lt;/td&gt;
+          &lt;td&gt;📊 &lt;strong&gt;Conf. Tema IV&lt;/strong&gt; (90 min)&lt;/td&gt;
+          &lt;td&gt;📊 &lt;strong&gt;Conf. Tema VI&lt;/strong&gt; (90 min)&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Almuezo&lt;/strong&gt; 🍽️&lt;/td&gt;
+          &lt;td&gt;-&lt;/td&gt;
+          &lt;td&gt;-&lt;/td&gt;
+          &lt;td&gt;-&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Tarde&lt;/strong&gt; 🌆&lt;/td&gt;
+          &lt;td&gt;🎥 &lt;strong&gt;Video Rcmdr&lt;/strong&gt; (10 min)&lt;br&gt;📊 &lt;strong&gt;Conf. Tema II&lt;/strong&gt; (90 min)&lt;/td&gt;
+          &lt;td&gt;🖥️ &lt;strong&gt;Prác.Tema III y IV&lt;/strong&gt; (90 min)&lt;/td&gt;
+          &lt;td&gt;🖥️ &lt;strong&gt;Prác. Tema V y VI&lt;/strong&gt; (90 min)&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Coffee breaks&lt;/strong&gt; ☕&lt;/td&gt;
+          &lt;td&gt;-&lt;/td&gt;
+          &lt;td&gt;-&lt;/td&gt;
+          &lt;td&gt;-&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Tarde&lt;/strong&gt; 🌆&lt;/td&gt;
+          &lt;td&gt;🖥️ &lt;strong&gt;Prác.Tema II&lt;/strong&gt; (90 min)&lt;/td&gt;
+          &lt;td&gt;🖥️ &lt;strong&gt;Prác.Tema III y IV&lt;/strong&gt; (90 min)&lt;/td&gt;
+          &lt;td&gt;🎓 &lt;strong&gt;Orientación  tarea final&lt;/strong&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;descargue el programa completo en formato PDF:&lt;/p&gt;
+&lt;hr&gt;
 &lt;h2 id=&#34;estructura-de-módulos&#34;&gt;Estructura de módulos&lt;/h2&gt;
 &lt;p&gt;A continuación, te presentamos la estructura detallada de los módulos del curso, basada en el flujo de trabajo propuesto en el libro &lt;a href=&#34;https://es.r4ds.hadley.nz/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;R for Data Science&lt;/a&gt; de Hadley Wickham y Garrett Grolemund. Cada módulo está diseñado para guiarte paso a paso en el análisis de datos relacionados con la fortificación de alimentos.&lt;/p&gt;
-&lt;h3 id=&#34;módulo-1-introducción-a-r-y-rstudio&#34;&gt;&lt;strong&gt;Módulo 1: Introducción a R y RStudio&lt;/strong&gt;&lt;/h3&gt;
+&lt;h3 id=&#34;tema-i-introducción-a-r-y-rstudio&#34;&gt;&lt;strong&gt;Tema I: Introducción a R y RStudio&lt;/strong&gt;&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Objetivo&lt;/strong&gt;: Familiarizarse con el entorno de trabajo.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Contenido clave&lt;/strong&gt;:
@@ -148,7 +229,7 @@
 &lt;li&gt;🎉 &lt;strong&gt;Desafío 1&lt;/strong&gt;: Hierro – Cimientos de Código&lt;/li&gt;
 &lt;li&gt;😊 &lt;strong&gt;Recompensa&lt;/strong&gt; : Insignia 🏗️ &amp;ldquo;Cimientos Sólidos&amp;rdquo; .&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;módulo-2-importación-de-datos&#34;&gt;&lt;strong&gt;Módulo 2: Importación de datos&lt;/strong&gt;&lt;/h3&gt;
+&lt;h3 id=&#34;tema-ii-importación-de-datos&#34;&gt;&lt;strong&gt;Tema II: Importación de datos&lt;/strong&gt;&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Objetivo&lt;/strong&gt;: Aprender a leer datos desde diferentes formatos.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Contenido clave&lt;/strong&gt;:
@@ -163,7 +244,7 @@
 &lt;li&gt;😊 &lt;strong&gt;Recompensa&lt;/strong&gt; : Insignia 🪓 &amp;ldquo;Estructuras Estables&amp;rdquo;.&lt;/li&gt;
 &lt;li&gt;📚 &lt;strong&gt;Bibliografía&lt;/strong&gt;: &lt;a href=&#34;https://es.r4ds.hadley.nz/11-import.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Capítulo 11: Importar datos&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;módulo-3-ordenar-datos&#34;&gt;&lt;strong&gt;Módulo 3: Ordenar datos&lt;/strong&gt;&lt;/h3&gt;
+&lt;h3 id=&#34;tema-iii-ordenar-datos&#34;&gt;&lt;strong&gt;Tema III: Ordenar datos&lt;/strong&gt;&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Objetivo&lt;/strong&gt;: Aprender a organizar y limpiar datos para facilitar su análisis.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Contenido clave&lt;/strong&gt;:
@@ -178,7 +259,7 @@
 &lt;li&gt;😊 &lt;strong&gt;Recompensa&lt;/strong&gt; : Insignia 🌟 &amp;ldquo;Datos Transparentes&amp;rdquo;&lt;/li&gt;
 &lt;li&gt;📚 &lt;strong&gt;Bibliografía&lt;/strong&gt;: &lt;a href=&#34;https://es.r4ds.hadley.nz/tibbles.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Capítulo 12: Tibbles&lt;/a&gt; y &lt;a href=&#34;https://es.r4ds.hadley.nz/datos-limpios.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Capítulo 13: Datos limpios&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;módulo-4-manipulación-de-datos&#34;&gt;&lt;strong&gt;Módulo 4: Manipulación de datos&lt;/strong&gt;&lt;/h3&gt;
+&lt;h3 id=&#34;tema-iv-manipulación-de-datos&#34;&gt;&lt;strong&gt;Tema IV: Manipulación de datos&lt;/strong&gt;&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Objetivo&lt;/strong&gt;: Aprender a transformar y resumir datos.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Contenido clave&lt;/strong&gt;:
@@ -193,13 +274,12 @@
 &lt;li&gt;😊 &lt;strong&gt;Recompensa&lt;/strong&gt; : Insignia 🌱 &amp;ldquo;Transformación Vital&amp;rdquo;&lt;/li&gt;
 &lt;li&gt;📚 &lt;strong&gt;Bibliografía&lt;/strong&gt;: &lt;a href=&#34;https://es.r4ds.hadley.nz/transformacion.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Capítulo 5: Data Transformation&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;módulo-5-representación-gráfica-y-tabular&#34;&gt;&lt;strong&gt;Módulo 5: Representación gráfica y tabular&lt;/strong&gt;&lt;/h3&gt;
+&lt;h3 id=&#34;tema-v-representación-tabular&#34;&gt;&lt;strong&gt;Tema V: Representación tabular&lt;/strong&gt;&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Objetivo&lt;/strong&gt;: Aprender a visualizar datos y generar tablas profesionales.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Objetivo&lt;/strong&gt;: Aprender a generar tablas profesionales.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Contenido clave&lt;/strong&gt;:
 &lt;ul&gt;
-&lt;li&gt;Crear gráficos básicos con &lt;code&gt;ggplot2&lt;/code&gt; (barras, líneas, dispersión).&lt;/li&gt;
-&lt;li&gt;Personalizar gráficos para comunicar hallazgos clave.&lt;/li&gt;
+&lt;li&gt;Realizar análisis básicos.&lt;/li&gt;
 &lt;li&gt;Generar tablas resumen con &lt;code&gt;gtsummary&lt;/code&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
@@ -208,7 +288,21 @@
 &lt;li&gt;😊 &lt;strong&gt;Recompensa&lt;/strong&gt; :  Insignia 💡 &amp;ldquo;Insight Brillante&amp;rdquo;&lt;/li&gt;
 &lt;li&gt;📚 &lt;strong&gt;Bibliografía&lt;/strong&gt;: &lt;a href=&#34;https://es.r4ds.hadley.nz/visualizacion.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Capítulo 3: Visualización de datos&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;módulo-6-informes-con-r-markdown&#34;&gt;&lt;strong&gt;Módulo 6: Informes con R Markdown&lt;/strong&gt;&lt;/h3&gt;
+&lt;h3 id=&#34;tema-vi-representación-gráfica&#34;&gt;&lt;strong&gt;Tema VI: Representación gráfica&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Objetivo&lt;/strong&gt;: Aprender a visualizar datos.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Contenido clave&lt;/strong&gt;:
+&lt;ul&gt;
+&lt;li&gt;Crear gráficos básicos con &lt;code&gt;ggstatsplot&lt;/code&gt; (barras, líneas, dispersión).&lt;/li&gt;
+&lt;li&gt;Personalizar gráficos para comunicar hallazgos clave.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;🚀 &lt;strong&gt;Conferencia&lt;/strong&gt;: Conferencia 6 en formato &lt;strong&gt;PDF&lt;/strong&gt; o html.&lt;/li&gt;
+&lt;li&gt;🎉 &lt;strong&gt;Desafío 5&lt;/strong&gt;:  Yodo – Iluminando Hallazgos&lt;/li&gt;
+&lt;li&gt;😊 &lt;strong&gt;Recompensa&lt;/strong&gt; :  Insignia 💡 &amp;ldquo;Insight Brillante&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;📚 &lt;strong&gt;Bibliografía&lt;/strong&gt;: &lt;a href=&#34;https://es.r4ds.hadley.nz/visualizacion.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Capítulo 3: Visualización de datos&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;tarea-final-informes-con-r-markdown&#34;&gt;&lt;strong&gt;Tarea Final: Informes con R Markdown&lt;/strong&gt;&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Objetivo&lt;/strong&gt;: Aprender a generar informes profesionales combinando texto, gráficos y tablas.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Contenido clave&lt;/strong&gt;:
@@ -222,23 +316,6 @@
 &lt;li&gt;🎉 &lt;strong&gt;Desafío 6&lt;/strong&gt;: Techo de la Ciencia&lt;/li&gt;
 &lt;li&gt;😊 &lt;strong&gt;Recompensa&lt;/strong&gt; : Insignia 🏠 &amp;ldquo;Arquitecto Certificado&amp;rdquo; .&lt;/li&gt;
 &lt;li&gt;📚 &lt;strong&gt;Bibliografía&lt;/strong&gt;: &lt;a href=&#34;https://es.r4ds.hadley.nz/comunicacion.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Capítulo 27: Comunicación&lt;/a&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;proyecto-final&#34;&gt;&lt;strong&gt;Proyecto Final&lt;/strong&gt;&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Objetivo&lt;/strong&gt;: Integrar todo lo aprendido en un análisis completo de un dataset real.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Descripción&lt;/strong&gt;:
-&lt;ul&gt;
-&lt;li&gt;Los participantes trabajarán en equipos para analizar un dataset proporcionado.&lt;/li&gt;
-&lt;li&gt;Deberán:
-&lt;ol&gt;
-&lt;li&gt;Limpiar y explorar los datos usando &lt;code&gt;dplyr&lt;/code&gt; y &lt;code&gt;tidyr&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;Crear visualizaciones relevantes con &lt;code&gt;ggplot2&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;Generar tablas resumen con &lt;code&gt;gtsummary&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;Interpretar los resultados en el contexto de la fortificación de alimentos.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Entregables&lt;/strong&gt;:
 &lt;ul&gt;
 &lt;li&gt;Informe en formato R Markdown que incluya:
@@ -252,150 +329,13 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;calendario-del-curso&#34;&gt;Calendario del Curso&lt;/h2&gt;
-&lt;div class=&#34;flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900&#34;&gt;
-&lt;span class=&#34;pr-3 pt-1 text-primary-600 dark:text-primary-300&#34;&gt;
-  &lt;svg height=&#34;24&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 24 24&#34;&gt;&lt;path fill=&#34;none&#34; stroke=&#34;currentColor&#34; stroke-linecap=&#34;round&#34; stroke-linejoin=&#34;round&#34; stroke-width=&#34;1.5&#34; d=&#34;m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z&#34;/&gt;&lt;/svg&gt;
-&lt;/span&gt;
-  &lt;span class=&#34;dark:text-neutral-300&#34;&gt;El &lt;strong&gt;cronograma del curso&lt;/strong&gt; podría variar en dependencia del progreso de las actividades docentes.&lt;/span&gt;
-&lt;/div&gt;
-&lt;p&gt;📅 Distribución de módulos por días en el cronograma docente:&lt;/p&gt;
-&lt;table&gt;
-  &lt;thead&gt;
-      &lt;tr&gt;
-          &lt;th&gt;&lt;strong&gt;Día&lt;/strong&gt;&lt;/th&gt;
-          &lt;th&gt;&lt;strong&gt;Mañana (4 horas)&lt;/strong&gt;&lt;/th&gt;
-          &lt;th&gt;&lt;strong&gt;Tarde (3 horas)&lt;/strong&gt;&lt;/th&gt;
-      &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;strong&gt;Lunes 25&lt;/strong&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;strong&gt;Módulo 1: Introducción a R y RStudio&lt;/strong&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;strong&gt;Módulo 2 (Parte 1): Importación de datos&lt;/strong&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;/td&gt;
-          &lt;td&gt;- ¿Qué es R y por qué es útil en ciencias de la salud?&lt;/td&gt;
-          &lt;td&gt;- Leer archivos CSV usando &lt;code&gt;readr&lt;/code&gt;.&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;/td&gt;
-          &lt;td&gt;- Instalación y configuración de R y RStudio.&lt;/td&gt;
-          &lt;td&gt;- Leer archivos Excel usando &lt;code&gt;readxl&lt;/code&gt;.&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;/td&gt;
-          &lt;td&gt;- Interfaz de RStudio: Consola, script, ambiente, gráficos.&lt;/td&gt;
-          &lt;td&gt;- Manejo de problemas comunes (codificación, separadores, valores perdidos).&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;/td&gt;
-          &lt;td&gt;- Creación de objetos básicos (vectores, listas, data frames).&lt;/td&gt;
-          &lt;td&gt;- Ejercicio práctico: Leer un dataset sobre fortificación de alimentos y explorar sus características.&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;strong&gt;Martes 26&lt;/strong&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;strong&gt;Módulo 2 (Parte 2): Importación de datos&lt;/strong&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;strong&gt;Módulo 3 (Parte 1): Ordenar datos&lt;/strong&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;/td&gt;
-          &lt;td&gt;- Continuación de ejercicios prácticos con importación de datos.&lt;/td&gt;
-          &lt;td&gt;- Reorganizar columnas y filas con &lt;code&gt;tidyr&lt;/code&gt;.&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;/td&gt;
-          &lt;td&gt;- Convertir datos de formato ancho a largo (y viceversa) con &lt;code&gt;pivot_longer()&lt;/code&gt; y &lt;code&gt;pivot_wider()&lt;/code&gt;.&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;/td&gt;
-          &lt;td&gt;- Separar y combinar columnas.&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;strong&gt;Miércoles 27&lt;/strong&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;strong&gt;Módulo 3 (Parte 2): Ordenar datos&lt;/strong&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;strong&gt;Módulo 4 (Parte 1): Manipulación de datos&lt;/strong&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;/td&gt;
-          &lt;td&gt;- Continuación de ejercicios prácticos con &lt;code&gt;tidyr&lt;/code&gt;.&lt;/td&gt;
-          &lt;td&gt;- Filtrar, seleccionar y ordenar datos con &lt;code&gt;dplyr&lt;/code&gt;.&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;/td&gt;
-          &lt;td&gt;- Resolver dudas y retos relacionados con la organización de datos.&lt;/td&gt;
-          &lt;td&gt;- Crear nuevas variables con &lt;code&gt;mutate()&lt;/code&gt;.&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;/td&gt;
-          &lt;td&gt;- Resúmenes estadísticos básicos con &lt;code&gt;summarise()&lt;/code&gt;.&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;strong&gt;Jueves 28&lt;/strong&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;strong&gt;Módulo 4 (Parte 2): Manipulación de datos&lt;/strong&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;strong&gt;Módulo 5 (Parte 1): Representación gráfica y tabular&lt;/strong&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;/td&gt;
-          &lt;td&gt;- Continuación de ejercicios prácticos con &lt;code&gt;dplyr&lt;/code&gt;.&lt;/td&gt;
-          &lt;td&gt;- Crear gráficos básicos con &lt;code&gt;ggplot2&lt;/code&gt; (barras, líneas, dispersión).&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;/td&gt;
-          &lt;td&gt;- Resolver dudas y retos relacionados con manipulación de datos.&lt;/td&gt;
-          &lt;td&gt;- Personalizar gráficos para comunicar hallazgos clave.&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;/td&gt;
-          &lt;td&gt;- Generar tablas resumen con &lt;code&gt;gtsummary&lt;/code&gt;.&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;strong&gt;Viernes 29&lt;/strong&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;strong&gt;Módulo 5 (Parte 2): Representación gráfica y tabular&lt;/strong&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;strong&gt;Módulo 6: Informes con R Markdown + Proyecto final&lt;/strong&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;/td&gt;
-          &lt;td&gt;- Continuación de ejercicios prácticos con &lt;code&gt;ggplot2&lt;/code&gt; y &lt;code&gt;gtsummary&lt;/code&gt;.&lt;/td&gt;
-          &lt;td&gt;- Introducción a R Markdown.&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;/td&gt;
-          &lt;td&gt;- Resolver dudas y retos relacionados con visualización de datos.&lt;/td&gt;
-          &lt;td&gt;- Crear un informe básico con texto, gráficos y tablas.&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;/td&gt;
-          &lt;td&gt;- Presentación de proyectos finales.&lt;/td&gt;
-      &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;hr&gt;
 &lt;h2 id=&#34;notas-adicionales&#34;&gt;Notas Adicionales&lt;/h2&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Duración total&lt;/strong&gt;:
-&lt;ul&gt;
-&lt;li&gt;4 horas en la mañana + 3 horas en la tarde = 7 horas por día.&lt;/li&gt;
-&lt;li&gt;Total: 35 horas (incluyendo tiempo para ejercicios, preguntas y proyectos).&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Tiempo para descansos&lt;/strong&gt;:
-&lt;ul&gt;
-&lt;li&gt;Incluye pausas activas de 10-15 minutos entre bloques de contenido para evitar la fatiga mental.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Ejercicios prácticos&lt;/strong&gt;:
-&lt;ul&gt;
-&lt;li&gt;Cada módulo incluye ejercicios prácticos para reforzar los conceptos aprendidos. Estos ejercicios pueden realizarse individualmente o en grupos pequeños.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
+&lt;li&gt;Gamificación :&lt;/li&gt;
 &lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;Cada práctica desbloquea una insignia virtual (ejemplo: 🏗️ Cimientos Sólidos , 🪴 Transformación Vital ).&lt;/li&gt;
+&lt;/ul&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;bibliografía&#34;&gt;Bibliografía&lt;/h2&gt;
 &lt;ul&gt;
@@ -781,7 +721,7 @@
 
 
 
-&lt;div id=&#34;chart-978143256&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-534287196&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   async function fetchChartJSON() {
     console.debug(&#39;Hugo Blox fetching chart JSON...&#39;)
@@ -799,7 +739,7 @@
 
       fetchChartJSON().then(chart =&gt; {
         console.debug(&#39;Plotting chart...&#39;)
-        window.Plotly.newPlot(&#39;chart-978143256&#39;, chart.data, chart.layout, {responsive: true});
+        window.Plotly.newPlot(&#39;chart-534287196&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();
