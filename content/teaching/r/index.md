@@ -44,7 +44,7 @@ Pruébelo:
 
 ## ¿Qué aprenderás?
 
-Este curso está diseñado para médicos y profesionales de la salud interesados en el análisis de datos. Aquí tienes un vistazo rápido:
+Este curso está diseñado para profesionales interesados en el estudio de la fortificación de alimentos a gran escala. Aquí tienes un vistazo rápido:
 
 {{< spoiler text="👉 Haz clic para ver el contenido del curso" >}}
 - **Tema I**: Introducción a R y RStudio.
