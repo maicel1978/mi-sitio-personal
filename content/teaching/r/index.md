@@ -18,7 +18,7 @@ En este curso, te convertirás en un **'arquitecto' del análisis de datos en la
 
 -   leer datos.
 -   ordenar y transformar conjuntos de datos.
--   procesar y presentar los restados en forma de tablas y gráficos.
+-   procesar y presentar los resultados en forma de tablas y gráficos.
 
 👉 ¡Para saber más del curso, consulta nuestra [conferencia introductoria](https://ia601803.us.archive.org/17/items/conf_0/conf_0.pdf), mira el siguiente **video promocional** o escucha el **podcast**!
 
