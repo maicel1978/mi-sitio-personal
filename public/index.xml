@@ -332,7 +332,7 @@ La FAO recomienda ajustar el consumo por tamaño del hogar usando &lt;strong&gt;
 &lt;li&gt;Creación de objetos básicos (vectores, listas, data frames).&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;🚀 &lt;strong&gt;Conferencia&lt;/strong&gt;: Conferencia 1 en formato &lt;strong&gt;PDF&lt;/strong&gt; o &lt;a href=&#34;https://rpubs.com/maicel/c1&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;html&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;🚀 &lt;strong&gt;Conferencia&lt;/strong&gt;: Conferencia 1 en formato &lt;a href=&#34;http://localhost:4321/pdf/conf_1.pdf&#34;&gt;PDF&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;🎉 &lt;strong&gt;Desafío 1&lt;/strong&gt;: Hierro – Cimientos de Código&lt;/li&gt;
 &lt;li&gt;😊 &lt;strong&gt;Recompensa&lt;/strong&gt; : Insignia 🏗️ &amp;ldquo;Cimientos Sólidos&amp;rdquo; .&lt;/li&gt;
 &lt;/ul&gt;
@@ -812,7 +812,7 @@ La FAO recomienda ajustar el consumo por tamaño del hogar usando &lt;strong&gt;
 
 
 
-&lt;div id=&#34;chart-978512346&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-325419867&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   async function fetchChartJSON() {
     console.debug(&#39;Hugo Blox fetching chart JSON...&#39;)
@@ -830,7 +830,7 @@ La FAO recomienda ajustar el consumo por tamaño del hogar usando &lt;strong&gt;
 
       fetchChartJSON().then(chart =&gt; {
         console.debug(&#39;Plotting chart...&#39;)
-        window.Plotly.newPlot(&#39;chart-978512346&#39;, chart.data, chart.layout, {responsive: true});
+        window.Plotly.newPlot(&#39;chart-325419867&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();

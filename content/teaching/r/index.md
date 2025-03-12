@@ -95,7 +95,7 @@ A continuación, te presentamos la estructura detallada de los módulos del curs
   - Instalación y configuración de R y RStudio.
   - Interfaz de RStudio: Consola, script, ambiente, gráficos.
   - Creación de objetos básicos (vectores, listas, data frames).
-- 🚀 **Conferencia**: Conferencia 1 en formato **PDF** o [html](https://rpubs.com/maicel/c1).
+- 🚀 **Conferencia**: Conferencia 1 en formato [PDF](/pdf/conf_1.pdf).
 - 🎉 **Desafío 1**: Hierro – Cimientos de Código
 - 😊 **Recompensa** : Insignia 🏗️ "Cimientos Sólidos" .
 
