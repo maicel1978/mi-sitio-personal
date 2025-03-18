@@ -44,9 +44,9 @@
 &lt;p&gt;Quedo a disposición para cualquier consulta o comentario previo al evento. ¡Espero contar con su participación!&lt;/p&gt;
 &lt;p&gt;Atentamente,&lt;br&gt;
 &lt;strong&gt;Dr. Maicel Monzón&lt;/strong&gt;&lt;br&gt;
-Profesor Auxilar
-Especialista de primer y segundo grado en Biestadística
-&lt;a href=&#34;mailto:maicel@cecmed.cu&#34;&gt;maicel@cecmed.cu&lt;/a&gt;&lt;/p&gt;
+Profesor Auxilar&lt;/p&gt;
+&lt;p&gt;Especialista de primer y segundo grado en Biestadística&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;mailto:maicel@cecmed.cu&#34;&gt;maicel@cecmed.cu&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -431,7 +431,7 @@ Especialista de primer y segundo grado en Biestadística
 
 
 
-&lt;div id=&#34;chart-635124897&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-574128639&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   async function fetchChartJSON() {
     console.debug(&#39;Hugo Blox fetching chart JSON...&#39;)
@@ -449,7 +449,7 @@ Especialista de primer y segundo grado en Biestadística
 
       fetchChartJSON().then(chart =&gt; {
         console.debug(&#39;Plotting chart...&#39;)
-        window.Plotly.newPlot(&#39;chart-635124897&#39;, chart.data, chart.layout, {responsive: true});
+        window.Plotly.newPlot(&#39;chart-574128639&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();
