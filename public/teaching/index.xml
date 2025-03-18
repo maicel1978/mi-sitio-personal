@@ -221,7 +221,7 @@ La FAO recomienda ajustar el consumo por tamaño del hogar usando &lt;strong&gt;
           &lt;td&gt;&lt;strong&gt;Mañana&lt;/strong&gt; 🌞&lt;/td&gt;
           &lt;td&gt;🎥 &lt;strong&gt;Video instalación&lt;/strong&gt; (10 min)&lt;br&gt;🖥️ &lt;strong&gt;Prác.Tema I&lt;/strong&gt; (90 min)&lt;/td&gt;
           &lt;td&gt;📊 &lt;a href=&#34;http://localhost:4321/pdf/conf_4.pdf&#34;&gt;Conf. Tema IV&lt;/a&gt; (90 min)&lt;/td&gt;
-          &lt;td&gt;📊 &lt;strong&gt;Conf. Tema VI&lt;/strong&gt; (90 min)&lt;/td&gt;
+          &lt;td&gt;📊  &lt;a href=&#34;http://localhost:4321/pdf/conf_6.pdf&#34;&gt;&lt;strong&gt;Conf. Tema VI&lt;/strong&gt;&lt;/a&gt;* (90 min)&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
           &lt;td&gt;&lt;strong&gt;Almuezo&lt;/strong&gt; 🍽️&lt;/td&gt;
@@ -342,36 +342,40 @@ La FAO recomienda ajustar el consumo por tamaño del hogar usando &lt;strong&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;tarea-final-informes-con-r-markdown&#34;&gt;&lt;strong&gt;Tarea Final: Informes con R Markdown&lt;/strong&gt;&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Objetivo&lt;/strong&gt;: Aprender a generar informes profesionales combinando texto, gráficos y tablas.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Contenido clave&lt;/strong&gt;:
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Objetivo&lt;/strong&gt;: Aprender a generar informes profesionales combinando texto, gráficos y tablas.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Contenido clave&lt;/strong&gt;:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Introducción a R Markdown.&lt;/li&gt;
 &lt;li&gt;Crear un informe básico con texto, gráficos y tablas.&lt;/li&gt;
 &lt;li&gt;Exportar informes en formato HTML o PDF.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;🚀 &lt;strong&gt;Conferencia&lt;/strong&gt;: Conferencia 6 en formato &lt;strong&gt;PDF&lt;/strong&gt; o html.&lt;/li&gt;
-&lt;li&gt;🎉 &lt;strong&gt;Desafío 6&lt;/strong&gt;: Techo de la Ciencia&lt;/li&gt;
-&lt;li&gt;😊 &lt;strong&gt;Recompensa&lt;/strong&gt; : Insignia 🏠 &amp;ldquo;Arquitecto Certificado&amp;rdquo; .&lt;/li&gt;
-&lt;li&gt;📚 &lt;strong&gt;Bibliografía&lt;/strong&gt;: &lt;a href=&#34;https://es.r4ds.hadley.nz/comunicacion.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Capítulo 27: Comunicación&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Entregables&lt;/strong&gt;:
-&lt;ul&gt;
-&lt;li&gt;Informe en formato R Markdown que incluya:
-&lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;Resumen ejecutivo.&lt;/p&gt;
+&lt;p&gt;🚀 &lt;strong&gt;Conferencia&lt;/strong&gt;: Conferencia 6 en formato &lt;strong&gt;PDF&lt;/strong&gt; o html.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Gráficos y tablas clave.&lt;/p&gt;
+&lt;p&gt;🎉 &lt;strong&gt;Desafío 6&lt;/strong&gt;: Techo de la Ciencia&lt;/p&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;li&gt;
+&lt;p&gt;😊 &lt;strong&gt;Recompensa&lt;/strong&gt; : Insignia 🏠 &amp;ldquo;Arquitecto Certificado&amp;rdquo; .&lt;/p&gt;
 &lt;/li&gt;
-&lt;/ul&gt;
+&lt;li&gt;
+&lt;p&gt;📚 &lt;strong&gt;Bibliografía&lt;/strong&gt;: &lt;a href=&#34;https://es.r4ds.hadley.nz/comunicacion.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Capítulo 27: Comunicación&lt;/a&gt;.&lt;/p&gt;
 &lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre&gt;&lt;code&gt;        ## Conclusiones y recomendaciones.
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Entregables&lt;/strong&gt;:&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Informe en formato R Markdown que incluya:
+-   Resumen ejecutivo.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;-   Gráficos y tablas clave.
 &lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;conclusiones-y-recomendaciones&#34;&gt;Conclusiones y recomendaciones.&lt;/h2&gt;
 &lt;h2 id=&#34;notas-adicionales&#34;&gt;Notas Adicionales&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;Gamificación :&lt;/li&gt;
