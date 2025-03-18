@@ -169,14 +169,15 @@ A continuación, te presentamos la estructura detallada de los módulos del curs
 -   😊 **Recompensa** : Insignia 🏠 "Arquitecto Certificado" .
 -   📚 **Bibliografía**: [Capítulo 27: Comunicación](https://es.r4ds.hadley.nz/comunicacion.html).
 -   **Entregables**:
-    -   Informe en formato R Markdown que incluya:
+-   Informe en formato R Markdown que incluya:
         -   Resumen ejecutivo.
 
         -   Gráficos y tablas clave.
 
-        -   
+       
 
-            ## Conclusiones y recomendaciones.
+## Conclusiones y recomendaciones.
+
 
 ## Notas Adicionales
 
