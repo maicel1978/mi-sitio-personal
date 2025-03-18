@@ -73,7 +73,7 @@ Este curso está diseñado para profesionales interesados en el estudio de la fo
 |------------------|--------------------|------------------|------------------|
 | **Mañana** 🌞 | 🎤 [**Introdución**](/pdf/conf_0.pdf) (15 min)<br>📊 [**Conf. Tema I**](/pdf/conf_1.pdf) (90 min) | 📊 [**Conf. Tema III**](/pdf/conf_3.pdf) (90 min) | 📊 [**Conf. Tema V**](/pdf/conf_5.pdf) (90 min) |
 | **Coffee breaks** ☕ | \- | \- | \- |
-| **Mañana** 🌞 | 🎥 **Video instalación** (10 min)<br>🖥️ **Prác.Tema I** (90 min) | 📊 [Conf. Tema IV](/pdf/conf_4.pdf) (90 min) | 📊 **Conf. Tema VI** (90 min) |
+| **Mañana** 🌞 | 🎥 **Video instalación** (10 min)<br>🖥️ **Prác.Tema I** (90 min) | 📊 [Conf. Tema IV](/pdf/conf_4.pdf) (90 min) |  📊  [**Conf. Tema VI**](/pdf/conf_6.pdf)* (90 min) |
 | **Almuezo** 🍽️ | \- | \- | \- |
 | **Tarde** 🌆 | 🎥 **Video Rcmdr** (10 min)<br>📊 [**Conf. Tema II**](/pdf/conf_2.pdf) (90 min) | 🖥️ **Prác.Tema III y IV** (90 min) | 🖥️ **Prác. Tema V y VI** (90 min) |
 | **Coffee breaks** ☕ | \- | \- | \- |
