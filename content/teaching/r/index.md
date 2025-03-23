@@ -70,16 +70,14 @@ Este curso está diseñado para profesionales interesados en el estudio de la fo
 {{% callout note %}} El **Calendario del curso** podría variar en dependencia del progreso de las actividades docentes y cuestiones logísticas. {{% /callout %}}
 
 | Horario | Día 1 (martes) | Día 2 (miércoles) | Día 3 (Jueves) |
-|------------------|--------------------|------------------|------------------|
-| **Mañana** 🌞 | 🎤 [**Introdución**](/pdf/conf_0.pdf) (15 min)<br>📊 [**Conf. Tema I**](/pdf/conf_1.pdf) (90 min) | 📊 [**Conf. Tema III**](/pdf/conf_3.pdf) (90 min) | 📊 [**Conf. Tema V**](/pdf/conf_5.pdf) (90 min) |
-| **Coffee breaks** ☕ | \- | \- | \- |
-| **Mañana** 🌞 | 🎥 **Video instalación** (10 min)<br>🖥️ **Prác.Tema I** (90 min) | 📊 [Conf. Tema IV](/pdf/conf_4.pdf) (90 min) |  📊  [**Conf. Tema VI**](/pdf/conf_6.pdf)* (90 min) |
-| **Almuezo** 🍽️ | \- | \- | \- |
-| **Tarde** 🌆 | 🎥 **Video Rcmdr** (10 min)<br>📊 [**Conf. Tema II**](/pdf/conf_2.pdf) (90 min) | 🖥️ **Prác.Tema III y IV** (90 min) | 🖥️ **Prác. Tema V y VI** (90 min) |
-| **Coffee breaks** ☕ | \- | \- | \- |
-| **Tarde** 🌆 | 🖥️ **Prác.Tema II** (90 min) | 🖥️ **Prác.Tema III y IV** (90 min) | 🎓 **Orientación tarea final** |
-
-
+|------------------|-------------------|------------------|------------------|
+| **Mañana** 🌞 | [**introducción**](/pdf/conf_0.pdf), [**Conf. Tema I**](/pdf/conf_1.pdf) | [**Conf. Tema III**](/pdf/conf_3.pdf) | [**Conf. Tema V**](/pdf/conf_5.pdf) |
+| **Coffee breaks** ☕ | ☕ | ☕ | ☕ |
+| **Mañana** 🌞 | [Pract. Tema I](/pdf/desaf_1.pdf) | [Pract. Tema II](/pdf/desaf_3.pdf)I | [**Conf. Tema VI**](/pdf/conf_6.pdf) |
+| **Almuezo** 🍽️ | 🍽️ | 🍽️ | 🍽️ |
+| **Tarde** 🌆 | [Conf. Tema II](/pdf/conf_2.pdf) | ️ [Conf. Tema IV](/pdf/conf_4.pdf) | ️[Pract. Tema V](/pdf/desaf_5.pdf) |
+| **Coffee breaks** ☕ | ☕ | ☕ | ☕ |
+| **Tarde** 🌆 | [Pract. Tema II](/pdf/desaf_2.pdf) | ️[Pract. Tema VI](/pdf/desaf_4.pdf) | ️[Pract. Tema VI](/pdf/desaf_6.pdf) |
 
 ------------------------------------------------------------------------
 
@@ -96,7 +94,7 @@ A continuación, te presentamos la estructura detallada de los módulos del curs
     -   Interfaz de RStudio: Consola, script, ambiente, gráficos.
     -   Creación de objetos básicos (vectores, listas, data frames).
 -   🚀 **Conferencia**: Conferencia 1 en formato [PDF](/pdf/conf_1.pdf).
--   🎉 **Desafío 1**: Hierro -- Cimientos de Código
+-   🎉 **Desafío 1**: Hierro -- Cimientos de Código [PDF](/pdf/desaf_1.pdf).
 -   😊 **Recompensa** : Insignia 🏗️ "Cimientos Sólidos" .
 
 ### **Tema II: Importación de datos**
@@ -107,7 +105,7 @@ A continuación, te presentamos la estructura detallada de los módulos del curs
     -   Leer archivos Excel usando `readxl`.
     -   Manejo de problemas comunes (codificación, separadores, valores perdidos).
 -   🚀 **Conferencia**: Conferencia 2 en formato [PDF](/pdf/conf_2.pdf).
--   🎉 **Desafío 2**: Zinc -- Puertas a los Datos.
+-   🎉 **Desafío 2**: Zinc -- Puertas a los Datos [PDF](/pdf/desaf_2.pdf).
 -   😊 **Recompensa** : Insignia 🪓 "Estructuras Estables".
 -   📚 **Bibliografía**: [Capítulo 11: Importar datos](https://es.r4ds.hadley.nz/11-import.html).
 
@@ -119,7 +117,7 @@ A continuación, te presentamos la estructura detallada de los módulos del curs
     -   Convertir datos de formato ancho a largo (y viceversa) con `pivot_longer()` y `pivot_wider()`.
     -   Separar y combinar columnas.
 -   🚀 **Conferencia**: Conferencia 3 en formato [PDF](/pdf/conf_3.pdf).
--   🎉 **Desafío 3**: Vitamina A -- Claridad en la Oscuridad
+-   🎉 **Desafío 3**: Vitamina A -- Claridad en la Oscuridad [PDF](/pdf/desaf_3.pdf).
 -   😊 **Recompensa** : Insignia 🌟 "Datos Transparentes"
 -   📚 **Bibliografía**: [Capítulo 12: Tibbles](https://es.r4ds.hadley.nz/tibbles.html) y [Capítulo 13: Datos limpios](https://es.r4ds.hadley.nz/datos-limpios.html).
 
@@ -131,7 +129,7 @@ A continuación, te presentamos la estructura detallada de los módulos del curs
     -   Crear nuevas variables con `mutate()`.
     -   Resúmenes estadísticos básicos con `summarise()`.
 -   🚀 **Conferencia**: Conferencia 4 en formato [PDF](/pdf/conf_4.pdf).
--   🎉 **Desafío 4**: Ácido Fólico -- Datos que Nutren
+-   🎉 **Desafío 4**: Ácido Fólico -- Datos que Nutren [PDF](/pdf/desaf_4.pdf).
 -   😊 **Recompensa** : Insignia 🌱 "Transformación Vital"
 -   📚 **Bibliografía**: [Capítulo 5: Data Transformation](https://es.r4ds.hadley.nz/transformacion.html).
 
@@ -142,9 +140,8 @@ A continuación, te presentamos la estructura detallada de los módulos del curs
     -   Realizar análisis básicos.
     -   Generar tablas resumen con `gtsummary`.
 -   🚀 **Conferencia**: Conferencia 5 en formato [PDF](/pdf/conf_5.pdf).
--   🎉 **Desafío 5**: Yodo -- Iluminando Hallazgos
+-   🎉 **Desafío 5**: Yodo -- Iluminando Hallazgos [PDF](/pdf/desaf_5.pdf).
 -   😊 **Recompensa** : Insignia 💡 "Insight Brillante"
--   📚 **Bibliografía**: [Capítulo 3: Visualización de datos](https://es.r4ds.hadley.nz/visualizacion.html).
 
 ### **Tema VI: Representación gráfica**
 
@@ -152,30 +149,11 @@ A continuación, te presentamos la estructura detallada de los módulos del curs
 -   **Contenido clave**:
     -   Crear gráficos básicos con `ggstatsplot` (barras, líneas, dispersión).
     -   Personalizar gráficos para comunicar hallazgos clave.
--   🚀 **Conferencia**: Conferencia 6 en formato **PDF** o html.
--   🎉 **Desafío 5**: Yodo -- Iluminando Hallazgos
+-   🚀 **Conferencia**: Conferencia 6 en formato [PDF](/pdf/conf_6.pdf).
+-   🎉 **Desafío 5**: Yodo -- Iluminando Hallazgos [PDF](/pdf/desaf_6.pdf).
 -   😊 **Recompensa** : Insignia 💡 "Insight Brillante"
--   📚 **Bibliografía**: [Capítulo 3: Visualización de datos](https://es.r4ds.hadley.nz/visualizacion.html).
-
-### **Tarea Final: Informes con R Markdown**
-
--   **Objetivo**: Aprender a generar informes profesionales combinando texto, gráficos y tablas.
--   **Contenido clave**:
-    -   Introducción a R Markdown.
-    -   Crear un informe básico con texto, gráficos y tablas.
-    -   Exportar informes en formato HTML o PDF.
--   🚀 **Conferencia**: Conferencia 6 en formato **PDF** o html.
--   🎉 **Desafío 6**: Techo de la Ciencia
--   😊 **Recompensa** : Insignia 🏠 "Arquitecto Certificado" .
--   📚 **Bibliografía**: [Capítulo 27: Comunicación](https://es.r4ds.hadley.nz/comunicacion.html).
--   **Entregables**:
--   Informe en formato R Markdown que incluya:
-  -   Resumen ejecutivo.
-  -   Gráficos y tablas clave.
-
 
 ## Conclusiones y recomendaciones.
-
 
 ## Notas Adicionales
 
