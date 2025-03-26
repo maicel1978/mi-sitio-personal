@@ -107,6 +107,7 @@ A continuación, te presentamos la estructura detallada de los módulos del curs
 -   🚀 **Conferencia**: Conferencia 2 en formato [PDF](/pdf/conf_2.pdf).
 -   🎉 **Desafío 2**: Zinc -- Puertas a los Datos [PDF](/pdf/desaf_2.pdf).
 -   📚 **Datos**: Base de datos de nutrición [csv](/csv/nutricion.csv).
+-   📚 **script**: Rcript en R [zip](/r/fortificacion_temaII.zip).
 -   😊 **Recompensa** : Insignia 🪓 "Estructuras Estables".
 -   📚 **Bibliografía**: [Capítulo 11: Importar datos](https://es.r4ds.hadley.nz/11-import.html).
 
