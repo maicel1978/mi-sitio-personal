@@ -386,6 +386,7 @@ La FAO recomienda ajustar el consumo por tamaño del hogar usando &lt;strong&gt;
 &lt;/li&gt;
 &lt;li&gt;🚀 &lt;strong&gt;Conferencia&lt;/strong&gt;: Conferencia 2 en formato &lt;a href=&#34;http://localhost:4321/pdf/conf_2.pdf&#34;&gt;PDF&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;🎉 &lt;strong&gt;Desafío 2&lt;/strong&gt;: Zinc &amp;ndash; Puertas a los Datos &lt;a href=&#34;http://localhost:4321/pdf/desaf_2.pdf&#34;&gt;PDF&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;📚 &lt;strong&gt;Datos&lt;/strong&gt;: Base de datos de nutrición &lt;a href=&#34;http://localhost:4321/csv/nutricion.csv&#34;&gt;csv&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;😊 &lt;strong&gt;Recompensa&lt;/strong&gt; : Insignia 🪓 &amp;ldquo;Estructuras Estables&amp;rdquo;.&lt;/li&gt;
 &lt;li&gt;📚 &lt;strong&gt;Bibliografía&lt;/strong&gt;: &lt;a href=&#34;https://es.r4ds.hadley.nz/11-import.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Capítulo 11: Importar datos&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
@@ -822,7 +823,7 @@ La FAO recomienda ajustar el consumo por tamaño del hogar usando &lt;strong&gt;
 
 
 
-&lt;div id=&#34;chart-832967415&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-173856249&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   async function fetchChartJSON() {
     console.debug(&#39;Hugo Blox fetching chart JSON...&#39;)
@@ -840,7 +841,7 @@ La FAO recomienda ajustar el consumo por tamaño del hogar usando &lt;strong&gt;
 
       fetchChartJSON().then(chart =&gt; {
         console.debug(&#39;Plotting chart...&#39;)
-        window.Plotly.newPlot(&#39;chart-832967415&#39;, chart.data, chart.layout, {responsive: true});
+        window.Plotly.newPlot(&#39;chart-173856249&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();
