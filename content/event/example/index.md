@@ -17,7 +17,7 @@ featured: false
 image:
   caption: 'Image credit: [**azulmarino**](https://www.azulmarino.com/es-es/hotel/melia-habana)'
   focal_point: Right
-location: Hotel Melia Habana
+location: Hotel Parque Central 
 projects:
 - example
 publishDate: "2017-01-01T00:00:00Z"

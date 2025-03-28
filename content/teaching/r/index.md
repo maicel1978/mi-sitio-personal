@@ -65,7 +65,7 @@ Este curso está diseñado para profesionales interesados en el estudio de la fo
 **Sesiones prácticas**: Ejercicios guiados y retos diarios.  
 **Coffee breaks**: 15 minutos entre bloques.
 
-*Descargue el programa completo del curso en formato* [**PDF**](/pdf/programa.pdf):
+*Descargue la agenda del curso en formato* [**PDF**](/pdf/agenda.pdf):
 
 {{% callout note %}} El **Calendario del curso** podría variar en dependencia del progreso de las actividades docentes y cuestiones logísticas. {{% /callout %}}
 
