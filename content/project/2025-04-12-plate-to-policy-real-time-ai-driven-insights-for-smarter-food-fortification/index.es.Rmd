@@ -1,15 +1,14 @@
 ---
-title: 'Del Plato a la Planificación estratégica: Perspectivas en Tiempo Real Impulsadas
-  por IA para una Fortificación Alimentaria más Inteligente'
-author: admin
-date: '2025-04-12'
+title: "MacroScope AI: Real-Time Nutrition Insights for Smarter Food Systems"
+author: "admin"
+date: "2025-04-12"
 categories:
-  - Ciencia de Datos
-  - IA
+- Ciencia de Datos
+- IA
 tags:
-  - IA
-  - Fortificación
-slug: plate-to-policy-real-time-ai-driven-insights-for-smarter-food-fortification
+- IA
+- Fortificación
+slug: "plate-to-policy-real-time-ai-driven-insights-for-smarter-food-fortification"
 ---
 
 

@@ -1,5 +1,5 @@
 ---
-title: 'Plate to Policy: Real-Time, AI-Driven Insights for Smarter Food Fortification'
+title: 'MacroScope AI: Real-Time Nutrition Insights for Smarter Food Systems'
 author: admin
 date: '2025-04-12'
 categories:
