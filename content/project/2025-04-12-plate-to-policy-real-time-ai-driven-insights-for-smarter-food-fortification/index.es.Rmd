@@ -14,7 +14,7 @@ slug: "plate-to-policy-real-time-ai-driven-insights-for-smarter-food-fortificati
 
 # Transformando Platos en Políticas: IA para una Nutrición Más Inteligente
 
-En un mundo donde las deficiencias de micronutrientes afectan a millones de personas, la fortificación de alimentos a gran escala (LSFF, por sus siglas en inglés) se ha convertido en una de las intervenciones de salud pública más efectivas. Sin embargo, para que estas iniciativas sean verdaderamente exitosas, necesitamos datos precisos, oportunos y contextualizados sobre lo que realmente consumen las personas. Es aquí donde entra en juego nuestro proyecto: **"Plate to Policy: Insights en Tiempo Real para una Fortificación Alimentaria Más Inteligente"**.
+En un mundo donde las deficiencias de micronutrientes afectan a millones de personas, la fortificación de alimentos a gran escala (LSFF, por sus siglas en inglés) se ha convertido en una de las intervenciones de salud pública más efectivas. Sin embargo, para que estas iniciativas sean verdaderamente exitosas, necesitamos datos precisos, oportunos y contextualizados sobre lo que realmente consumen las personas. Es aquí donde entra en juego nuestro proyecto: **"MacroScope AI: Real-Time Nutrition Insights for Smarter Food Systems"**.
 
 Este proyecto busca cerrar las brechas críticas de datos en la fortificación de alimentos mediante el uso de inteligencia artificial (IA) y la participación ciudadana. Transformaremos fotos de alimentos cotidianos en información procesable, proporcionando a los responsables de políticas públicas herramientas para diseñar intervenciones nutricionales más equitativas, efectivas y adaptadas a cada contexto.
 
