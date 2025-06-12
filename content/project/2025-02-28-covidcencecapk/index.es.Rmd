@@ -7,6 +7,7 @@ categories:
   - Ciencia de Datos
 tags:
   - machine learning
+commentable: true # <-- ¡Asegúrate de que esta línea esté presente y sea 'true'!
 ---
 
 
