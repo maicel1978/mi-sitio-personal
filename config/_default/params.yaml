@@ -58,18 +58,12 @@ features:
     enable: false
   privacy_pack:
     enable: false
-
-
-# Configuration of blog comments.
-comments:
-  provider: giscus
-
-  giscus:
-    repo: "maicel1978/mi-sitio-personal"
-    repo_id: "R_kgDON3SOug" # <-- ¡IMPORTANTE! Pega tu ID real aquí
-    category: "Announcements"          # <-- ¡IMPORTANTE! Asegúrate que sea el nombre exacto de tu categoría
-    category_id: "DIC_kwDON3SOus4CrXLh" # <-- ¡IMPORTANTE! Pega tu ID de categoría real aquí
-    theme: "preferred_color_scheme"
-    mapping: "pathname"
-
-
+  comment:
+    provider: giscus
+    giscus:
+      repo: "maicel1978/mi-sitio-personal"
+      repo_id: "R_kgDON3SOug"
+      category: "Announcements"
+      category_id: "DIC_kwDON3SOus4CrXLh"
+      theme: "preferred_color_scheme"
+      mapping: "pathname"
