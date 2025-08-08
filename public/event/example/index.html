@@ -1,9 +1,9 @@
 <!doctype html>
 <!-- This site was created with Hugo Blox. https://hugoblox.com -->
-<!-- Last Published: 28 de marzo de 2025 --><html lang="es" dir="ltr"
+<!-- Last Published: 8 de agosto de 2025 --><html lang="es" dir="ltr"
       data-wc-theme-default="system">
   
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=4321&amp;path=livereload" data-no-instant defer></script>
+<head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -44,7 +44,7 @@
   <meta name="description" content="¡Próximamente! Curso práctico de R para fortificación, impulsado por el taller de noviembre 2024." />
 
   
-  <link rel="alternate" hreflang="es" href="http://localhost:4321/event/example/" />
+  <link rel="alternate" hreflang="es" href="https://maicel.netlify.app/event/example/" />
 
   
   
@@ -130,6 +130,45 @@
 
 
 
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VN0YPKYGX4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url, target) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           if (target !== '_blank') {
+             document.location = url;
+           }
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target, event.target.getAttribute('target'));  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'G-VN0YPKYGX4', {});
+  gtag('set', {'cookie_flags': 'SameSite=None;Secure'});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+
 
 
 
@@ -161,7 +200,7 @@
   <link rel="icon" type="image/png" href="/media/icon_hu_b45ae4411cf43192.png" />
   <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu_1f7e870b5f23a0ce.png" />
 
-  <link rel="canonical" href="http://localhost:4321/event/example/" />
+  <link rel="canonical" href="https://maicel.netlify.app/event/example/" />
 
   
   
@@ -186,10 +225,10 @@
     <meta property="twitter:creator" content="@GetResearchDev" />
   
   <meta property="og:site_name" content="Bioestadistica educativa" />
-  <meta property="og:url" content="http://localhost:4321/event/example/" />
+  <meta property="og:url" content="https://maicel.netlify.app/event/example/" />
   <meta property="og:title" content="👋 Curso de Análisis de Datos en Fortificación de Alimentos con R. Una Introducción Práctica | Bioestadistica educativa" />
-  <meta property="og:description" content="¡Próximamente! Curso práctico de R para fortificación, impulsado por el taller de noviembre 2024." /><meta property="og:image" content="http://localhost:4321/event/example/featured.jpg" />
-    <meta property="twitter:image" content="http://localhost:4321/event/example/featured.jpg" /><meta property="og:locale" content="es" />
+  <meta property="og:description" content="¡Próximamente! Curso práctico de R para fortificación, impulsado por el taller de noviembre 2024." /><meta property="og:image" content="https://maicel.netlify.app/event/example/featured.jpg" />
+    <meta property="twitter:image" content="https://maicel.netlify.app/event/example/featured.jpg" /><meta property="og:locale" content="es" />
   
     
       <meta
@@ -216,7 +255,7 @@
   "@type": "Event",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "http://localhost:4321/event/example/"
+    "@id": "https://maicel.netlify.app/event/example/"
   },
   "name": "👋 Curso de Análisis de Datos en Fortificación de Alimentos con R. Una Introducción Práctica",
   
@@ -236,7 +275,7 @@
   
   
   "image": [
-    "http://localhost:4321/event/example/featured.jpg"
+    "https://maicel.netlify.app/event/example/featured.jpg"
   ],
   
   "startDate": "2025-03-24T09:00:00Z",
@@ -292,25 +331,6 @@
   
   
   
-    
-      
-      
-        
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-        
-        
-      
-    
   
   
   
@@ -318,26 +338,6 @@
   
   
   
-  
-    
-      
-      
-        
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-        
-        
-      
-    
   
   
   
@@ -373,23 +373,12 @@
         
       
     
-      
-      
-        
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-        
-        
-      
+  
+  
+  
+  
+  
+  
     
       
       
@@ -409,31 +398,6 @@
         
       
     
-      
-      
-        
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-        
-        
-      
-    
-  
-  
-  
-  
-  
-  
-  
   
   
   
@@ -511,6 +475,32 @@
         
       
     
+  
+  
+  
+  
+  
+  
+  
+    
+      
+      
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
+    
       
       
         
@@ -549,17 +539,61 @@
     
       
       
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
     
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+      
+      
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
+    
+      
+      
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
+    
+      
+      
+    
   
   
   
@@ -651,8 +685,8 @@
   
   <script
     defer
-    src="/js/hugo-blox-es.min.js"
-    integrity=""
+    src="/js/hugo-blox-es.min.e6965f872775fcb889e784756e346e58af6799db6f12e6c21a12272f7d3b1c1e.js"
+    integrity="sha256-5pZfhyd1/LiJ54R1bjRuWK9nmdtvEubCGhInL307HB4="
   ></script>
 
   
@@ -892,27 +926,6 @@
     <ul class="flex flex-col gap-1 lg:hidden">
       
       
-        <li class="open"><a
-    class="hb-sidebar-custom-link
-      text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-800 dark:hover:text-gray-50"
-    href="/event/"
-    
-  >Recent &amp; Upcoming Talks
-        <span data-hb-sidebar-toggle>
-            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-[18px] min-w-[18px] rounded-sm p-0.5 hover:bg-gray-800/5 dark:hover:bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="origin-center transition-transform rtl:-rotate-180"></path></svg>
-        </span>
-    </a><div class="ltr:pr-0 overflow-hidden">
-        <ul class="hb-sidebar-list"><li class="flex flex-col open"><a
-    class="hb-sidebar-custom-link
-      sidebar-active-item bg-primary-100 font-semibold text-primary-800 dark:bg-primary-300 dark:text-primary-900"
-    href="/event/example/"
-    
-  >👋 Curso de Análisis de Datos en Fortificación de Alimentos con R. Una Introducción Práctica
-    </a>
-  
-              
-            </li></ul>
-      </div></li>
         <li class=""><a
     class="hb-sidebar-custom-link
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-800 dark:hover:text-gray-50"
@@ -924,6 +937,22 @@
         </span>
     </a><div class="ltr:pr-0 overflow-hidden">
         <ul class="hb-sidebar-list"><li class="flex flex-col "><a
+    class="hb-sidebar-custom-link
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-800 dark:hover:text-gray-50"
+    href="/post/atajos/"
+    
+  >Diseños Alternativos a Ensayos Clínicos Controlados Aleatorizados: Contextos de Aplicación y Riesgos Regulatorios
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="hb-sidebar-custom-link
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-800 dark:hover:text-gray-50"
+    href="/post/sue-an-las-m-quinas-con-cerebros-el-ctricos/"
+    
+  >¿Explicar o predecir? La elección metodológica entre enfoques tradicionales y machine learning en salud pública
+    </a>
+              
+            </li><li class="flex flex-col "><a
     class="hb-sidebar-custom-link
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-800 dark:hover:text-gray-50"
     href="/post/conferencia-introducci-n-al-an-lisis-estad-stico-en-ensayos-cl-nicos/"
@@ -947,45 +976,54 @@
   >Como entrenar y validar un modelo de machine learnig
     </a>
               
-            </li><li class="flex flex-col "><a
+            </li></ul>
+      </div></li>
+        <li class=""><a
     class="hb-sidebar-custom-link
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-800 dark:hover:text-gray-50"
-    href="/post/get-started/"
+    href="/project/"
     
-  >🎉 Easily create your own simple yet highly customizable blog
+  >Projects
+        <span data-hb-sidebar-toggle>
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-[18px] min-w-[18px] rounded-sm p-0.5 hover:bg-gray-800/5 dark:hover:bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="origin-center transition-transform rtl:-rotate-180"></path></svg>
+        </span>
+    </a><div class="ltr:pr-0 overflow-hidden">
+        <ul class="hb-sidebar-list"><li class="flex flex-col "><a
+    class="hb-sidebar-custom-link
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-800 dark:hover:text-gray-50"
+    href="/project/plate-to-policy-real-time-ai-driven-insights-for-smarter-food-fortification/"
+    
+  >MacroScope AI: Real-Time Nutrition Insights for Smarter Food Systems
     </a>
               
             </li><li class="flex flex-col "><a
     class="hb-sidebar-custom-link
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-800 dark:hover:text-gray-50"
-    href="/post/second-brain/"
+    href="/project/covidcencecapk/"
     
-  >🧠 Sharpen your thinking with a second brain
+  >CovidCencecAPK
     </a>
               
-            </li><li class="flex flex-col "><a
+            </li></ul>
+      </div></li>
+        <li class="open"><a
     class="hb-sidebar-custom-link
       text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-800 dark:hover:text-gray-50"
-    href="/post/data-visualization/"
+    href="/event/"
     
-  >📈 Communicate your results effectively with the best data visualizations
-    </a>
-              
-            </li><li class="flex flex-col "><a
+  >Recent &amp; Upcoming Talks
+        <span data-hb-sidebar-toggle>
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-[18px] min-w-[18px] rounded-sm p-0.5 hover:bg-gray-800/5 dark:hover:bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="origin-center transition-transform rtl:-rotate-180"></path></svg>
+        </span>
+    </a><div class="ltr:pr-0 overflow-hidden">
+        <ul class="hb-sidebar-list"><li class="flex flex-col open"><a
     class="hb-sidebar-custom-link
-      text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-800 dark:hover:text-gray-50"
-    href="/post/teach-courses/"
+      sidebar-active-item bg-primary-100 font-semibold text-primary-800 dark:bg-primary-300 dark:text-primary-900"
+    href="/event/example/"
     
-  >👩🏼‍🏫 Teach academic courses
+  >👋 Curso de Análisis de Datos en Fortificación de Alimentos con R. Una Introducción Práctica
     </a>
-              
-            </li><li class="flex flex-col "><a
-    class="hb-sidebar-custom-link
-      text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-800 dark:hover:text-gray-50"
-    href="/post/project-management/"
-    
-  >✅ Manage your projects
-    </a>
+  
               
             </li></ul>
       </div></li>
@@ -1013,42 +1051,6 @@
     href="/teaching/r/"
     
   >Análisis de datos en fortificación de alimentos a gran escala con R. Una Introducción Práctica
-    </a>
-              
-            </li><li class="flex flex-col "><a
-    class="hb-sidebar-custom-link
-      text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-800 dark:hover:text-gray-50"
-    href="/teaching/python/"
-    
-  >Learn Python
-    </a>
-              
-            </li></ul>
-      </div></li>
-        <li class=""><a
-    class="hb-sidebar-custom-link
-      text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-800 dark:hover:text-gray-50"
-    href="/project/"
-    
-  >Projects
-        <span data-hb-sidebar-toggle>
-            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-[18px] min-w-[18px] rounded-sm p-0.5 hover:bg-gray-800/5 dark:hover:bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="origin-center transition-transform rtl:-rotate-180"></path></svg>
-        </span>
-    </a><div class="ltr:pr-0 overflow-hidden">
-        <ul class="hb-sidebar-list"><li class="flex flex-col "><a
-    class="hb-sidebar-custom-link
-      text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-800 dark:hover:text-gray-50"
-    href="/project/covidcencecapk/"
-    
-  >CovidCencecAPK
-    </a>
-              
-            </li><li class="flex flex-col "><a
-    class="hb-sidebar-custom-link
-      text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-800 dark:hover:text-gray-50"
-    href="/project/pandas/"
-    
-  >Pandas
     </a>
               
             </li></ul>
@@ -1091,14 +1093,6 @@
     href="/publication/preprint/"
     
   >Identificación de pacientes de bajo riesgo de severidad en confirmados de la COVID-19. Cuba. Años 2020-2021
-    </a>
-              
-            </li><li class="flex flex-col "><a
-    class="hb-sidebar-custom-link
-      text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-800 dark:hover:text-gray-50"
-    href="/publication/conference-paper/"
-    
-  >An example conference paper
     </a>
               
             </li></ul>
@@ -1366,7 +1360,7 @@
   <a
     target="_blank" rel="noopener"
     class="m-1 rounded-md bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral-300 dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-    href="https://twitter.com/intent/tweet?url=http%3A%2F%2Flocalhost%3A4321%2Fevent%2Fexample%2F&amp;text=%F0%9F%91%8B&#43;Curso&#43;de&#43;An%C3%A1lisis&#43;de&#43;Datos&#43;en&#43;Fortificaci%C3%B3n&#43;de&#43;Alimentos&#43;con&#43;R.&#43;Una&#43;Introducci%C3%B3n&#43;Pr%C3%A1ctica"
+    href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fmaicel.netlify.app%2Fevent%2Fexample%2F&amp;text=%F0%9F%91%8B&#43;Curso&#43;de&#43;An%C3%A1lisis&#43;de&#43;Datos&#43;en&#43;Fortificaci%C3%B3n&#43;de&#43;Alimentos&#43;con&#43;R.&#43;Una&#43;Introducci%C3%B3n&#43;Pr%C3%A1ctica"
     title="X"
     aria-label="X"
     id="share-link-x"
@@ -1384,7 +1378,7 @@
   <a
     target="_blank" rel="noopener"
     class="m-1 rounded-md bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral-300 dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-    href="https://www.facebook.com/sharer.php?u=http%3A%2F%2Flocalhost%3A4321%2Fevent%2Fexample%2F&amp;t=%F0%9F%91%8B&#43;Curso&#43;de&#43;An%C3%A1lisis&#43;de&#43;Datos&#43;en&#43;Fortificaci%C3%B3n&#43;de&#43;Alimentos&#43;con&#43;R.&#43;Una&#43;Introducci%C3%B3n&#43;Pr%C3%A1ctica"
+    href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fmaicel.netlify.app%2Fevent%2Fexample%2F&amp;t=%F0%9F%91%8B&#43;Curso&#43;de&#43;An%C3%A1lisis&#43;de&#43;Datos&#43;en&#43;Fortificaci%C3%B3n&#43;de&#43;Alimentos&#43;con&#43;R.&#43;Una&#43;Introducci%C3%B3n&#43;Pr%C3%A1ctica"
     title="Facebook"
     aria-label="Facebook"
     id="share-link-facebook"
@@ -1404,7 +1398,7 @@
   <a
     target="_blank" rel="noopener"
     class="m-1 rounded-md bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral-300 dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-    href="mailto:?subject=%F0%9F%91%8B%20Curso%20de%20An%C3%A1lisis%20de%20Datos%20en%20Fortificaci%C3%B3n%20de%20Alimentos%20con%20R.%20Una%20Introducci%C3%B3n%20Pr%C3%A1ctica&amp;body=http%3A%2F%2Flocalhost%3A4321%2Fevent%2Fexample%2F"
+    href="mailto:?subject=%F0%9F%91%8B%20Curso%20de%20An%C3%A1lisis%20de%20Datos%20en%20Fortificaci%C3%B3n%20de%20Alimentos%20con%20R.%20Una%20Introducci%C3%B3n%20Pr%C3%A1ctica&amp;body=https%3A%2F%2Fmaicel.netlify.app%2Fevent%2Fexample%2F"
     title="Email"
     aria-label="Email"
     id="share-link-email"
@@ -1422,7 +1416,7 @@
   <a
     target="_blank" rel="noopener"
     class="m-1 rounded-md bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral-300 dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-    href="https://www.linkedin.com/shareArticle?url=http%3A%2F%2Flocalhost%3A4321%2Fevent%2Fexample%2F&amp;title=%F0%9F%91%8B&#43;Curso&#43;de&#43;An%C3%A1lisis&#43;de&#43;Datos&#43;en&#43;Fortificaci%C3%B3n&#43;de&#43;Alimentos&#43;con&#43;R.&#43;Una&#43;Introducci%C3%B3n&#43;Pr%C3%A1ctica"
+    href="https://www.linkedin.com/shareArticle?url=https%3A%2F%2Fmaicel.netlify.app%2Fevent%2Fexample%2F&amp;title=%F0%9F%91%8B&#43;Curso&#43;de&#43;An%C3%A1lisis&#43;de&#43;Datos&#43;en&#43;Fortificaci%C3%B3n&#43;de&#43;Alimentos&#43;con&#43;R.&#43;Una&#43;Introducci%C3%B3n&#43;Pr%C3%A1ctica"
     title="LinkedIn"
     aria-label="LinkedIn"
     id="share-link-linkedin"
@@ -1440,7 +1434,7 @@
   <a
     target="_blank" rel="noopener"
     class="m-1 rounded-md bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral-300 dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-    href="whatsapp://send?text=%F0%9F%91%8B&#43;Curso&#43;de&#43;An%C3%A1lisis&#43;de&#43;Datos&#43;en&#43;Fortificaci%C3%B3n&#43;de&#43;Alimentos&#43;con&#43;R.&#43;Una&#43;Introducci%C3%B3n&#43;Pr%C3%A1ctica%20http%3A%2F%2Flocalhost%3A4321%2Fevent%2Fexample%2F"
+    href="whatsapp://send?text=%F0%9F%91%8B&#43;Curso&#43;de&#43;An%C3%A1lisis&#43;de&#43;Datos&#43;en&#43;Fortificaci%C3%B3n&#43;de&#43;Alimentos&#43;con&#43;R.&#43;Una&#43;Introducci%C3%B3n&#43;Pr%C3%A1ctica%20https%3A%2F%2Fmaicel.netlify.app%2Fevent%2Fexample%2F"
     title="WhatsApp"
     aria-label="WhatsApp"
     id="share-link-whatsapp"
@@ -1491,7 +1485,7 @@
       Autores
     </div>
     <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
-      <a href="http://localhost:4321/" class="no-underline">
+      <a href="https://maicel.netlify.app/" class="no-underline">
       Maicel
       </a>
     </div>
@@ -1630,6 +1624,14 @@
 
   
 
+
+  
+  
+  
+
+  
+
+  
 
 
 </div>

@@ -1,9 +1,9 @@
 <!doctype html>
 <!-- This site was created with Hugo Blox. https://hugoblox.com -->
-<!-- Last Published: 28 de marzo de 2025 --><html lang="es" dir="ltr"
+<!-- Last Published: 8 de agosto de 2025 --><html lang="es" dir="ltr"
       data-wc-theme-default="system">
   
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=4321&amp;path=livereload" data-no-instant defer></script>
+<head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -44,9 +44,9 @@
   <meta name="description" content="The highly-customizable Hugo Academic theme powered by Hugo Blox Builder. Easily create your personal academic website." />
 
   
-    <link rel="alternate" hreflang="en" href="http://localhost:4321/en/404.html" />
+    <link rel="alternate" hreflang="en" href="https://maicel.netlify.app/en/404.html" />
   
-  <link rel="alternate" hreflang="es" href="http://localhost:4321/404.html" />
+  <link rel="alternate" hreflang="es" href="https://maicel.netlify.app/404.html" />
 
   
   
@@ -132,6 +132,45 @@
 
 
 
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VN0YPKYGX4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url, target) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           if (target !== '_blank') {
+             document.location = url;
+           }
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target, event.target.getAttribute('target'));  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'G-VN0YPKYGX4', {});
+  gtag('set', {'cookie_flags': 'SameSite=None;Secure'});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+
 
 
 
@@ -163,7 +202,7 @@
   <link rel="icon" type="image/png" href="/media/icon_hu_b45ae4411cf43192.png" />
   <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu_1f7e870b5f23a0ce.png" />
 
-  <link rel="canonical" href="http://localhost:4321/404.html" />
+  <link rel="canonical" href="https://maicel.netlify.app/404.html" />
 
   
   
@@ -189,10 +228,10 @@
     <meta property="twitter:creator" content="@GetResearchDev" />
   
   <meta property="og:site_name" content="Bioestadistica educativa" />
-  <meta property="og:url" content="http://localhost:4321/404.html" />
+  <meta property="og:url" content="https://maicel.netlify.app/404.html" />
   <meta property="og:title" content="404 Page not found | Bioestadistica educativa" />
-  <meta property="og:description" content="The highly-customizable Hugo Academic theme powered by Hugo Blox Builder. Easily create your personal academic website." /><meta property="og:image" content="http://localhost:4321/media/icon_hu_551fbaee136b383e.png" />
-    <meta property="twitter:image" content="http://localhost:4321/media/icon_hu_551fbaee136b383e.png" /><meta property="og:locale" content="es" />
+  <meta property="og:description" content="The highly-customizable Hugo Academic theme powered by Hugo Blox Builder. Easily create your personal academic website." /><meta property="og:image" content="https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png" />
+    <meta property="twitter:image" content="https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png" /><meta property="og:locale" content="es" />
   
     
   
@@ -238,25 +277,6 @@
   
   
   
-    
-      
-      
-        
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-        
-        
-      
-    
   
   
   
@@ -264,26 +284,6 @@
   
   
   
-  
-    
-      
-      
-        
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-        
-        
-      
-    
   
   
   
@@ -319,23 +319,12 @@
         
       
     
-      
-      
-        
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-        
-        
-      
+  
+  
+  
+  
+  
+  
     
       
       
@@ -355,31 +344,6 @@
         
       
     
-      
-      
-        
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-        
-        
-      
-    
-  
-  
-  
-  
-  
-  
-  
   
   
   
@@ -457,6 +421,32 @@
         
       
     
+  
+  
+  
+  
+  
+  
+  
+    
+      
+      
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
+    
       
       
         
@@ -495,17 +485,61 @@
     
       
       
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
     
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+      
+      
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
+    
+      
+      
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
+    
+      
+      
+    
   
   
   
@@ -597,8 +631,8 @@
   
   <script
     defer
-    src="/js/hugo-blox-es.min.js"
-    integrity=""
+    src="/js/hugo-blox-es.min.e6965f872775fcb889e784756e346e58af6799db6f12e6c21a12272f7d3b1c1e.js"
+    integrity="sha256-5pZfhyd1/LiJ54R1bjRuWK9nmdtvEubCGhInL307HB4="
   ></script>
 
   
@@ -825,7 +859,7 @@
       
         <li class="flex flex-col">
           <a
-            href="http://localhost:4321/en/404.html"
+            href="https://maicel.netlify.app/en/404.html"
             class="relative cursor-pointer text-gray-800 dark:text-gray-100 hover:bg-primary-50 hover:text-primary-600 hover:dark:bg-primary-500/10 hover:dark:text-primary-200 whitespace-nowrap py-1.5 transition-colors ltr:pl-3 ltr:pr-9 rtl:pr-3 rtl:pl-9"
           >English</a>
         </li>
@@ -861,25 +895,25 @@
     <h2>Recientes</h2>
     <ul>
       
+      <li><a href="/post/atajos/">Diseños Alternativos a Ensayos Clínicos Controlados Aleatorizados: Contextos de Aplicación y Riesgos Regulatorios</a></li>
+      
+      <li><a href="/post/">Blog</a></li>
+      
+      <li><a href="/post/sue-an-las-m-quinas-con-cerebros-el-ctricos/">¿Explicar o predecir? La elección metodológica entre enfoques tradicionales y machine learning en salud pública</a></li>
+      
+      <li><a href="/project/">Projects</a></li>
+      
+      <li><a href="/project/plate-to-policy-real-time-ai-driven-insights-for-smarter-food-fortification/">MacroScope AI: Real-Time Nutrition Insights for Smarter Food Systems</a></li>
+      
       <li><a href="/event/">Recent &amp; Upcoming Talks</a></li>
       
       <li><a href="/event/example/">👋 Curso de Análisis de Datos en Fortificación de Alimentos con R. Una Introducción Práctica</a></li>
       
       <li><a href="/post/conferencia-introducci-n-al-an-lisis-estad-stico-en-ensayos-cl-nicos/">Conferencia Introducción al análisis estadístico en ensayos clínicos</a></li>
       
-      <li><a href="/post/">Blog</a></li>
-      
       <li><a href="/teaching/tutorial-an-lisis-de-fortificaci-n-de-alimentos-con-hces-y-r/">Tutorial: Análisis de Fortificación de Alimentos con HCES y R</a></li>
       
       <li><a href="/teaching/">Teaching</a></li>
-      
-      <li><a href="/project/">Projects</a></li>
-      
-      <li><a href="/project/covidcencecapk/">CovidCencecAPK</a></li>
-      
-      <li><a href="/post/eda/">Analisis Exploratorio de Datos</a></li>
-      
-      <li><a href="/projects/">Projects</a></li>
       
     </ul>
     
@@ -914,7 +948,7 @@
   </div>
   <div class="font-bold">Español</div>
   
-  <div><a href="http://localhost:4321/en/404.html">English</a></div>
+  <div><a href="https://maicel.netlify.app/en/404.html">English</a></div>
   
 </div>
 

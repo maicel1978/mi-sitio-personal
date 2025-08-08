@@ -2,21 +2,865 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Bioestadistica educativa</title>
-    <link>http://localhost:4321/</link>
-      <atom:link href="http://localhost:4321/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://maicel.netlify.app/</link>
+      <atom:link href="https://maicel.netlify.app/index.xml" rel="self" type="application/rss+xml" />
     <description>Bioestadistica educativa</description>
     <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es</language><lastBuildDate>Mon, 24 Oct 2022 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>http://localhost:4321/media/icon_hu_551fbaee136b383e.png</url>
+      <url>https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png</url>
       <title>Bioestadistica educativa</title>
-      <link>http://localhost:4321/</link>
+      <link>https://maicel.netlify.app/</link>
     </image>
     
     <item>
+      <title>Diseños Alternativos a Ensayos Clínicos Controlados Aleatorizados: Contextos de Aplicación y Riesgos Regulatorios</title>
+      <link>https://maicel.netlify.app/post/atajos/</link>
+      <pubDate>Thu, 07 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>https://maicel.netlify.app/post/atajos/</guid>
+      <description>&lt;h1 id=&#34;introducción-fundamentos-de-evidencia-confirmatoria&#34;&gt;Introducción: Fundamentos de evidencia confirmatoria&lt;/h1&gt;
+&lt;p&gt;Los ensayos clínicos controlados, aleatorizados y enmascarados (ECAs) constituyen el marco metodológico más robusto para evaluar la &lt;strong&gt;eficacia y seguridad&lt;/strong&gt; de nuevas intervenciones terapéuticas. Son considerados el &amp;ldquo;estándar de oro&amp;rdquo; en investigación clínica por agencias como &lt;strong&gt;ICH, EMA y FDA&lt;/strong&gt;, ya que proporcionan el mayor control contra el sesgo y la mayor solidez en inferencia causal.&lt;/p&gt;
+&lt;p&gt;En este marco, los &lt;strong&gt;ensayos confirmatorios&lt;/strong&gt; son aquellos diseñados explícitamente para confirmar hipótesis clínicas relevantes, con base en análisis predefinidos y control adecuado de errores. Cuando estos estudios sustentan una solicitud de comercialización, adquieren la condición de &lt;strong&gt;ensayos pivotal&lt;/strong&gt; (terminología empleada por FDA y EMA).&lt;/p&gt;
+&lt;p&gt;En principio, se recomienda la presentación de &lt;strong&gt;dos ensayos confirmatorios independientes&lt;/strong&gt;. Sin embargo, &lt;strong&gt;tanto EMA como FDA&lt;/strong&gt; contemplan aprobaciones basadas en &lt;strong&gt;un único ensayo pivotal&lt;/strong&gt;, siempre que esté respaldado por &lt;strong&gt;evidencia complementaria rigurosa&lt;/strong&gt;. La &lt;strong&gt;FDA&lt;/strong&gt;, mediante el concepto de &lt;strong&gt;evidencia confirmatoria&lt;/strong&gt; (FDA 2023), formaliza esta vía alternativa. La &lt;strong&gt;EMA&lt;/strong&gt;, aunque no utiliza esa denominación, acepta enfoques equivalentes (meta-análisis, controles históricos validados, análisis de consistencia interna).&lt;/p&gt;
+&lt;h2 id=&#34;tabla-1-términos-clave-definición-origen-normativo-y-función-regulatoria&#34;&gt;Tabla 1. Términos clave: definición, origen normativo y función regulatoria&lt;/h2&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;strong&gt;Término&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;Fuente regulatoria&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;Definición técnica&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;Función regulatoria&lt;/strong&gt;&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Ensayo clínico confirmatorio&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;ICH E9&lt;/td&gt;
+          &lt;td&gt;Estudio con hipótesis explícita, análisis planificado y diseño robusto para inferencia causal.&lt;/td&gt;
+          &lt;td&gt;Fuente principal de evidencia en autorizaciones de comercialización.&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Ensayo pivotal&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;FDA, EMA&lt;/td&gt;
+          &lt;td&gt;Estudio esencial para demostrar eficacia y seguridad en el expediente regulatorio.&lt;/td&gt;
+          &lt;td&gt;Sustento central del dossier clínico.&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Evidencia confirmatoria&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;FDA (2023)&lt;/td&gt;
+          &lt;td&gt;Datos adicionales (clínicos/no clínicos) que refuerzan un ensayo pivotal único.&lt;/td&gt;
+          &lt;td&gt;Permite cumplir el estándar de &amp;ldquo;evidencia sustancial&amp;rdquo; con un solo ECA.&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Evidencia sustancial&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;FDA (21 CFR 314.126)&lt;/td&gt;
+          &lt;td&gt;Estándar legal que puede cumplirse mediante 2 ECAs o, cuando esté justificado, 1 ECA + confirmación.&lt;/td&gt;
+          &lt;td&gt;Requisito para la aprobación de nuevos medicamentos en EE.UU.&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Evidencia complementaria&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;ICH E9; EMA, FDA&lt;/td&gt;
+          &lt;td&gt;Estudios no pivotal que aportan consistencia (ej. subgrupos, dosis, seguridad, datos externos).&lt;/td&gt;
+          &lt;td&gt;Reforzar la plausibilidad de los hallazgos principales.&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;estructura-metodológica-de-los-ecas-y-su-anclaje-normativo&#34;&gt;Estructura metodológica de los ECAs y su anclaje normativo&lt;/h1&gt;
+&lt;p&gt;Los ECAs incorporan tres garantías fundamentales: &lt;strong&gt;aleatorización&lt;/strong&gt;, &lt;strong&gt;grupo control&lt;/strong&gt; y &lt;strong&gt;cegamiento&lt;/strong&gt;. Estos componentes son esenciales para maximizar la validez interna y minimizar fuentes de sesgo sistemático.&lt;/p&gt;
+&lt;h2 id=&#34;tabla-2-garantías-anti-sesgo-en-ecas&#34;&gt;Tabla 2. Garantías anti-sesgo en ECAs&lt;/h2&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;strong&gt;Componente metodológico&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;Función específica&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;Cómo reduce el sesgo&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;Referencia normativa ICH&lt;/strong&gt;&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Aleatorización&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;Asignación no predecible de tratamientos&lt;/td&gt;
+          &lt;td&gt;Elimina sesgo de selección; equilibra factores conocidos/desconocidos&lt;/td&gt;
+          &lt;td&gt;ICH E9 Sección 2.2.3&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Grupo control&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;Comparación con placebo o tratamiento estándar&lt;/td&gt;
+          &lt;td&gt;Permite contrafactual válido e inferencia causal robusta&lt;/td&gt;
+          &lt;td&gt;ICH E10; ICH E8(R1)&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Cegamiento (blinding)&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;Ocultamiento de asignación a participantes e investigadores&lt;/td&gt;
+          &lt;td&gt;Previene sesgo de evaluación, expectativa y cointervención&lt;/td&gt;
+          &lt;td&gt;ICH E9 Sección 2.2.4&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;contextos-que-permiten-prescindir-de-ecas&#34;&gt;Contextos que permiten prescindir de ECAs&lt;/h1&gt;
+&lt;p&gt;La omisión de ECAs solo es aceptable en contextos claramente delimitados por justificaciones éticas, científicas o logísticas:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Enfermedades raras o ultrarraras&lt;/strong&gt;, con poblaciones muy limitadas.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Situaciones de emergencia sanitaria&lt;/strong&gt;, con necesidades clínicas urgentes.&lt;/li&gt;
+&lt;li&gt;Cuando la &lt;strong&gt;aleatorización o el cegamiento son éticamente problemáticos&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;Cuando existen &lt;strong&gt;datos históricos o reales bien estructurados y validados&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;La aceptación de estos diseños como base regulatoria &lt;strong&gt;requiere validación metodológica específica y evaluación caso por caso&lt;/strong&gt;, según guías EMA y FDA.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;diseños-alternativos-más-empleados-y-criterios-de-validación&#34;&gt;Diseños alternativos más empleados y criterios de validación&lt;/h1&gt;
+&lt;h2 id=&#34;tabla-3-diseños-alternativos-justificación-limitaciones-y-requisitos-regulatorios&#34;&gt;Tabla 3. Diseños alternativos: justificación, limitaciones y requisitos regulatorios&lt;/h2&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;strong&gt;Diseño alternativo&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;Justificación de uso&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;Limitaciones críticas&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;Requisitos de validación&lt;/strong&gt;&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Single-Arm Trials (SAT)&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;Enfermedades raras; oncología sin comparador disponible&lt;/td&gt;
+          &lt;td&gt;Ausencia de grupo control; alta vulnerabilidad a sesgo de selección&lt;/td&gt;
+          &lt;td&gt;Control externo robusto; endpoints validados; análisis de consistencia&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Controles externos/sintéticos&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;Cohortes históricas o datos de mundo real&lt;/td&gt;
+          &lt;td&gt;Riesgo de confusión residual y sesgo de canalización&lt;/td&gt;
+          &lt;td&gt;Propensity score matching; alineación temporal; CHMP/4366/2020 (EMA)&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Diseños adaptativos&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;Eficiencia en reclutamiento; ajustes preplanificados&lt;/td&gt;
+          &lt;td&gt;Riesgo de error tipo I si no se prespecifican adecuadamente&lt;/td&gt;
+          &lt;td&gt;Control de multiplicidad; simulación previa; ICH E9(R1)&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Real-World Evidence (RWE)&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;Acceso a datos de rutina clínica; seguimiento largo; baja carga ética&lt;/td&gt;
+          &lt;td&gt;Falta de aleatorización; sesgo de confusión no medido&lt;/td&gt;
+          &lt;td&gt;PROACE principles (FDA 2023); data provenance; calidad del DMR; plan de análisis riguroso&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;riesgos-del-uso-estratégico-de-diseños-no-confirmatorios&#34;&gt;Riesgos del uso estratégico de diseños no confirmatorios&lt;/h1&gt;
+&lt;p&gt;Aunque válidos en contextos excepcionales, el uso frecuente y estratégico de estos diseños plantea &lt;strong&gt;serios desafíos regulatorios&lt;/strong&gt;, especialmente si se recurre a ellos como vía para &lt;strong&gt;prescindir de ECAs sin justificación metodológica sólida&lt;/strong&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;riesgos-identificados&#34;&gt;Riesgos identificados:&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Aprobaciones basadas en &lt;strong&gt;evidencia débil o no reproducible&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;Incremento del &lt;strong&gt;sesgo sistemático&lt;/strong&gt; en resultados de eficacia.&lt;/li&gt;
+&lt;li&gt;Exposición de pacientes a intervenciones &lt;strong&gt;no validadas rigurosamente&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Deslegitimación del proceso regulatorio&lt;/strong&gt; ante la comunidad científica y la sociedad.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;recomendaciones-regulatorias&#34;&gt;Recomendaciones regulatorias&lt;/h1&gt;
+&lt;h2 id=&#34;a-para-la-industria&#34;&gt;A. Para la industria&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Presentar &lt;strong&gt;justificación exhaustiva&lt;/strong&gt; cuando no se utilicen ECAs.&lt;/li&gt;
+&lt;li&gt;Cumplir con requisitos metodológicos específicos según tipo de diseño alternativo.&lt;/li&gt;
+&lt;li&gt;Incluir análisis de sensibilidad, consistencia y control de sesgo.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;b-para-las-agencias-reguladoras&#34;&gt;B. Para las agencias reguladoras&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Reforzar guías específicas&lt;/strong&gt; (EMA, FDA) que regulen el uso de diseños alternativos.&lt;/li&gt;
+&lt;li&gt;Exigir &lt;strong&gt;registro público&lt;/strong&gt;, transparencia y acceso a protocolos completos.&lt;/li&gt;
+&lt;li&gt;Fortalecer &lt;strong&gt;capacidades internas&lt;/strong&gt; en estadística avanzada y diseño de estudios no aleatorizados.&lt;/li&gt;
+&lt;li&gt;Establecer &lt;strong&gt;comités independientes&lt;/strong&gt; de evaluación para salvaguardas éticas y científicas.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;conclusión&#34;&gt;Conclusión&lt;/h1&gt;
+&lt;p&gt;Los diseños alternativos no deben entenderse como sustitutos genéricos del ECA, sino como herramientas &lt;strong&gt;válidas solo bajo condiciones estrictamente justificadas y validadas&lt;/strong&gt;. El regulador tiene la responsabilidad científica y ética de exigir evidencia que no solo sea suficiente, sino también sólida, reproducible y libre de sesgos. La precisión metodológica y la claridad terminológica no son un lujo en este proceso: &lt;strong&gt;son el principio rector que protege la salud pública frente a la ambigüedad científica&lt;/strong&gt;.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;bibliografía&#34;&gt;Bibliografía&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;FDA. &lt;em&gt;Demonstrating Substantial Evidence of Effectiveness with One Adequate and Well-Controlled Clinical Investigation and Confirmatory Evidence&lt;/em&gt;. Draft Guidance. 2023.&lt;/li&gt;
+&lt;li&gt;EMA. &lt;em&gt;Reflection Paper on Single‑Arm Trials as Pivotal Evidence&lt;/em&gt;. EMA/CHMP/161300/2023.&lt;/li&gt;
+&lt;li&gt;FDA. &lt;em&gt;Real-World Evidence Framework&lt;/em&gt;. 2023 Update.&lt;/li&gt;
+&lt;li&gt;EMA. &lt;em&gt;Use of Real‑World Evidence in Regulatory Decision-Making&lt;/em&gt;. EMA/INS/GCP/455222/2024.&lt;/li&gt;
+&lt;li&gt;ICH. &lt;em&gt;E9: Statistical Principles for Clinical Trials&lt;/em&gt;. 1998.&lt;/li&gt;
+&lt;li&gt;ICH. &lt;em&gt;E9(R1): Addendum on Estimands and Sensitivity Analysis in Clinical Trials&lt;/em&gt;. 2020.&lt;/li&gt;
+&lt;li&gt;EMA. &lt;em&gt;Guideline on Adjustment for Baseline Covariates in Clinical Trials&lt;/em&gt;. CHMP/EWP/2863/99.&lt;/li&gt;
+&lt;li&gt;FDA. &lt;em&gt;Real-World Evidence Program Annual Report 2025 (PUB-245)&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;Temple R, Ellenberg SS. &lt;em&gt;Placebo-Controlled Trials and Active-Control Trials in the Evaluation of New Treatments&lt;/em&gt;. &lt;em&gt;Ann Intern Med&lt;/em&gt;. 2000;133(6):455–463.&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>¿Explicar o predecir? La elección metodológica entre enfoques tradicionales y machine learning en salud pública</title>
+      <link>https://maicel.netlify.app/post/sue-an-las-m-quinas-con-cerebros-el-ctricos/</link>
+      <pubDate>Thu, 19 Jun 2025 00:00:00 +0000</pubDate>
+      <guid>https://maicel.netlify.app/post/sue-an-las-m-quinas-con-cerebros-el-ctricos/</guid>
+      <description>&lt;h2 id=&#34;el-debate-central-explicar-o-predecir&#34;&gt;El Debate Central: ¿Explicar o Predecir?&lt;/h2&gt;
+&lt;p&gt;En el campo de la bioestadística, un debate metodológico fundamental gira en torno a la distinción entre dos propósitos principales del modelado: los modelos diseñados para &lt;strong&gt;explicar&lt;/strong&gt; fenómenos en una población,y aquellos orientados a &lt;strong&gt;predecir&lt;/strong&gt; características o eventos futuros en un individuo. Estos últimos se conocen comúnmente como Modelos de Predicción Clínica (Steyerberg 2009).&lt;/p&gt;
+&lt;p&gt;Mientras que los modelos explicativos priorizan la inferencia causal y la interpretabilidad de los resultados, lo que se alinea con el propósito general de la investigación científica de comprender mecanismos subyacentes(Silva Aycaguer 1998), los modelos predictivos están más vinculados al desarrollo de tecnologías (Steyerberg 2009) . Por ejemplo, su objetivo es construir herramientas fiables para estimar la probabilidad de que ciertas enfermedades estén presentes (modelos diagnósticos) o predecir resultados futuros (modelos pronósticos), lo cual es crucial para la toma de decisiones clínicas.&lt;/p&gt;
+&lt;p&gt;Los modelos de predicción clínica se puden enmarcar dentro del enfoque de &lt;strong&gt;aprendizaje automático&lt;/strong&gt; (machine learning), ya que comparten objetivos y metodologías clave(Ryu and Han 2022) .&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;flex justify-center	&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/sue-an-las-m-quinas-con-cerebros-el-ctricos/ML_hu_3896e1d5d4a0897d.webp 400w,
+               /post/sue-an-las-m-quinas-con-cerebros-el-ctricos/ML_hu_1d052eb55afaa6f2.webp 760w,
+               /post/sue-an-las-m-quinas-con-cerebros-el-ctricos/ML_hu_57704654071fe109.webp 1200w&#34;
+               src=&#34;https://maicel.netlify.app/post/sue-an-las-m-quinas-con-cerebros-el-ctricos/ML_hu_3896e1d5d4a0897d.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;303&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;Este artículo no busca ser una comparativa técnica exhaustiva entre la &lt;strong&gt;“bioestadística clásica”&lt;/strong&gt; y el &lt;strong&gt;“machine learning”&lt;/strong&gt; aplicado a la salud. En cambio, es una exploración breve de los dos paradigmas fundamentales que subyacen al modelado en salud pública: uno centrado en la &lt;strong&gt;generación de conocimiento&lt;/strong&gt; y otro en el &lt;strong&gt;desarrollo y validación de tecnologías&lt;/strong&gt; para la toma de decisiones informadas. Además, se incluirán algunos ejemplos en código R que podrían ser útiles para los lectores interesados en implementar problemas similares.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;la-implementación-del-modelo&#34;&gt;La implementación del modelo&lt;/h2&gt;
+&lt;p&gt;Antes de escribir una sola línea de código, debemos definir el objetivo fundamental del modelo y el problema.&lt;/p&gt;
+&lt;p&gt;Esta decisión dicta toda la metodología subsecuente.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;El enfoque explicativo:&lt;/strong&gt; Buscamos &lt;strong&gt;entender relaciones&lt;/strong&gt; y cuantificar la asociación entre predictores y un resultado en una población específica. El modelo es una herramienta para generar hipótesis y explicar mecanismos. La pregunta clave es: &lt;em&gt;¿Cuál es la magnitud y la incertidumbre de la asociación entre X e Y?&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;El enfoque predictivo:&lt;/strong&gt; Buscamos crear una herramienta que &lt;strong&gt;generalice bien a datos nuevos y no vistos&lt;/strong&gt;. El modelo es un medio para tomar decisiones informadas sobre individuos en otros contextos. La pregunta clave es: Para un nuevo paciente con estas características, &lt;em&gt;¿cuál es la probabilidad de que ocurra Y, y qué tan fiable es esa predicción?&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Existe una percepción errónea de que el &lt;strong&gt;machine learning&lt;/strong&gt; se limita a los algoritmos de “caja negra” más avanzados, como los Bosques Aleatorios, las Redes Neuronales Profundas (DNNs) y los Gradient Boosting Machines (GBM).&lt;/p&gt;
+&lt;p&gt;Sin embargo, el panorama del machine learning es mucho más amplio e incluye tambien modelos altamente interpretables. Para ilustrarlo con un ejemplo práctico, consideremos la regresión logística binaria múltiple. Este es un algoritmo ampliamente reconocido y utilizado en campos como el análisis causal y el diseño de modelos de predicción clínica, precisamente por su transparencia. Permite entender claramente cómo cada variable influye en el resultado.&lt;/p&gt;
+&lt;p&gt;Pero, es importante destacar que otros algoritmos, como las redes bayesianas y las redes neuronales de una sola capa (lineales, sin capas ocultas no lineales), también ofrecen un alto grado de interpretabilidad y explicabilidad. Estos modelos pueden ser utilizados eficazmente en lugar de la regresión logística para abordar problemas tradicionales, especialmente cuando comprender el “porqué” de las predicciones es tan importante como la predicción misma.&lt;/p&gt;
+&lt;p&gt;Vamos a explorar ambos mundos con un caso práctico: predecir el riesgo de diabetes utilizando el conjunto de datos &lt;em&gt;PimaIndiansDiabetes2&lt;/em&gt; , incluido en el paquete &lt;strong&gt;mlbench&lt;/strong&gt; (Leisch and Dimitriadou, n.d.). La “Base de Datos de Diabetes de Indígenas PIMA” es un conjunto de datos ampliamente utilizado para la evaluación del riesgo de diabetes y la elaboración de modelos predictivos.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#  bibliotecas&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;library&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tidyverse&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;library&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;gtsummary&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;library&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;missRanger&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;library&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mlbench&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;PimaIndiansDiabetes2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# lectura y transformación de datos &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;datos&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;-&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;PimaIndiansDiabetes2&lt;/span&gt;  &lt;span class=&#34;o&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nf&#34;&gt;missRanger&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;num.trees&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;verbose&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;%&amp;gt;%&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# imputación múltiple&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nf&#34;&gt;mutate&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;diabetes&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;if_else&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;diabetes&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;pos&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;%&amp;gt;%&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# transformación del resultado&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nf&#34;&gt;select&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;diabetes&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;age&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;pedigree&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;pregnant&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mass&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;glucose&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;pressure&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;enfoque-1-el-enfoque-explicativo&#34;&gt;Enfoque 1: El Enfoque explicativo&lt;/h2&gt;
+&lt;p&gt;Cuando el objetivo es la &lt;strong&gt;explicación&lt;/strong&gt;, nuestro foco está en la estimación de efectos y su incertidumbre.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;El “Porqué”:&lt;/strong&gt; Queremos cuantificar las asociaciones en nuestra muestra para generar conocimiento. Por ejemplo, ¿cuál es la fuerza de la asociación entre la predisposición genética (pedigree) y la diabetes?&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Ajuste del modelo de regresión logística&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;modelo_explicativo&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;glm&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;diabetes&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;~&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;.,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;data&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;datos&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;family&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;binomial&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;tbl_regression&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;modelo_explicativo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;exponentiate&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;TRUE&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;%&amp;gt;%&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nf&#34;&gt;as_gt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;%&amp;gt;%&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;gt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;tab_header&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;title&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;Factores de riesgo para la diabetes en mujeres de la etnia PIMA&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div id=&#34;hrnxvrltcy&#34; style=&#34;padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;&#34;&gt;
+&lt;style&gt;#hrnxvrltcy table {
+  font-family: system-ui, &#39;Segoe UI&#39;, Roboto, Helvetica, Arial, sans-serif, &#39;Apple Color Emoji&#39;, &#39;Segoe UI Emoji&#39;, &#39;Segoe UI Symbol&#39;, &#39;Noto Color Emoji&#39;;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+&amp;#10;#hrnxvrltcy thead, #hrnxvrltcy tbody, #hrnxvrltcy tfoot, #hrnxvrltcy tr, #hrnxvrltcy td, #hrnxvrltcy th {
+  border-style: none;
+}
+&amp;#10;#hrnxvrltcy p {
+  margin: 0;
+  padding: 0;
+}
+&amp;#10;#hrnxvrltcy .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+&amp;#10;#hrnxvrltcy .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+&amp;#10;#hrnxvrltcy .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+&amp;#10;#hrnxvrltcy .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+&amp;#10;#hrnxvrltcy .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+&amp;#10;#hrnxvrltcy .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+&amp;#10;#hrnxvrltcy .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+&amp;#10;#hrnxvrltcy .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+&amp;#10;#hrnxvrltcy .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+&amp;#10;#hrnxvrltcy .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+&amp;#10;#hrnxvrltcy .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+&amp;#10;#hrnxvrltcy .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+&amp;#10;#hrnxvrltcy .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+&amp;#10;#hrnxvrltcy .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+&amp;#10;#hrnxvrltcy .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+&amp;#10;#hrnxvrltcy .gt_from_md &gt; :first-child {
+  margin-top: 0;
+}
+&amp;#10;#hrnxvrltcy .gt_from_md &gt; :last-child {
+  margin-bottom: 0;
+}
+&amp;#10;#hrnxvrltcy .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+&amp;#10;#hrnxvrltcy .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+&amp;#10;#hrnxvrltcy .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+&amp;#10;#hrnxvrltcy .gt_row_group_first td {
+  border-top-width: 2px;
+}
+&amp;#10;#hrnxvrltcy .gt_row_group_first th {
+  border-top-width: 2px;
+}
+&amp;#10;#hrnxvrltcy .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+&amp;#10;#hrnxvrltcy .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+&amp;#10;#hrnxvrltcy .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+&amp;#10;#hrnxvrltcy .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+&amp;#10;#hrnxvrltcy .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+&amp;#10;#hrnxvrltcy .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+&amp;#10;#hrnxvrltcy .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+&amp;#10;#hrnxvrltcy .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+&amp;#10;#hrnxvrltcy .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+&amp;#10;#hrnxvrltcy .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+&amp;#10;#hrnxvrltcy .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+&amp;#10;#hrnxvrltcy .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+&amp;#10;#hrnxvrltcy .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+&amp;#10;#hrnxvrltcy .gt_left {
+  text-align: left;
+}
+&amp;#10;#hrnxvrltcy .gt_center {
+  text-align: center;
+}
+&amp;#10;#hrnxvrltcy .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+&amp;#10;#hrnxvrltcy .gt_font_normal {
+  font-weight: normal;
+}
+&amp;#10;#hrnxvrltcy .gt_font_bold {
+  font-weight: bold;
+}
+&amp;#10;#hrnxvrltcy .gt_font_italic {
+  font-style: italic;
+}
+&amp;#10;#hrnxvrltcy .gt_super {
+  font-size: 65%;
+}
+&amp;#10;#hrnxvrltcy .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+&amp;#10;#hrnxvrltcy .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+&amp;#10;#hrnxvrltcy .gt_indent_1 {
+  text-indent: 5px;
+}
+&amp;#10;#hrnxvrltcy .gt_indent_2 {
+  text-indent: 10px;
+}
+&amp;#10;#hrnxvrltcy .gt_indent_3 {
+  text-indent: 15px;
+}
+&amp;#10;#hrnxvrltcy .gt_indent_4 {
+  text-indent: 20px;
+}
+&amp;#10;#hrnxvrltcy .gt_indent_5 {
+  text-indent: 25px;
+}
+&amp;#10;#hrnxvrltcy .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+&amp;#10;#hrnxvrltcy div.Reactable &gt; div.rt-table &gt; div.rt-thead &gt; div.rt-tr.rt-tr-group-header &gt; div.rt-th-group:after {
+  height: 0px !important;
+}
+&lt;/style&gt;
+&lt;table class=&#34;gt_table&#34; data-quarto-disable-processing=&#34;false&#34; data-quarto-bootstrap=&#34;false&#34;&gt;
+  &lt;thead&gt;
+    &lt;tr class=&#34;gt_heading&#34;&gt;
+      &lt;td colspan=&#34;4&#34; class=&#34;gt_heading gt_title gt_font_normal gt_bottom_border&#34; style&gt;Factores de riesgo para la diabetes en mujeres de la etnia PIMA&lt;/td&gt;
+    &lt;/tr&gt;
+    &amp;#10;    &lt;tr class=&#34;gt_col_headings&#34;&gt;
+      &lt;th class=&#34;gt_col_heading gt_columns_bottom_border gt_left&#34; rowspan=&#34;1&#34; colspan=&#34;1&#34; scope=&#34;col&#34; id=&#34;label&#34;&gt;&lt;span class=&#39;gt_from_md&#39;&gt;&lt;strong&gt;Characteristic&lt;/strong&gt;&lt;/span&gt;&lt;/th&gt;
+      &lt;th class=&#34;gt_col_heading gt_columns_bottom_border gt_center&#34; rowspan=&#34;1&#34; colspan=&#34;1&#34; scope=&#34;col&#34; id=&#34;estimate&#34;&gt;&lt;span class=&#39;gt_from_md&#39;&gt;&lt;strong&gt;OR&lt;/strong&gt;&lt;/span&gt;&lt;/th&gt;
+      &lt;th class=&#34;gt_col_heading gt_columns_bottom_border gt_center&#34; rowspan=&#34;1&#34; colspan=&#34;1&#34; scope=&#34;col&#34; id=&#34;conf.low&#34;&gt;&lt;span class=&#39;gt_from_md&#39;&gt;&lt;strong&gt;95% CI&lt;/strong&gt;&lt;/span&gt;&lt;/th&gt;
+      &lt;th class=&#34;gt_col_heading gt_columns_bottom_border gt_center&#34; rowspan=&#34;1&#34; colspan=&#34;1&#34; scope=&#34;col&#34; id=&#34;p.value&#34;&gt;&lt;span class=&#39;gt_from_md&#39;&gt;&lt;strong&gt;p-value&lt;/strong&gt;&lt;/span&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody class=&#34;gt_table_body&#34;&gt;
+    &lt;tr&gt;&lt;td headers=&#34;label&#34; class=&#34;gt_row gt_left&#34;&gt;age&lt;/td&gt;
+&lt;td headers=&#34;estimate&#34; class=&#34;gt_row gt_center&#34;&gt;1.01&lt;/td&gt;
+&lt;td headers=&#34;conf.low&#34; class=&#34;gt_row gt_center&#34;&gt;0.99, 1.03&lt;/td&gt;
+&lt;td headers=&#34;p.value&#34; class=&#34;gt_row gt_center&#34;&gt;0.2&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td headers=&#34;label&#34; class=&#34;gt_row gt_left&#34;&gt;pedigree&lt;/td&gt;
+&lt;td headers=&#34;estimate&#34; class=&#34;gt_row gt_center&#34;&gt;2.37&lt;/td&gt;
+&lt;td headers=&#34;conf.low&#34; class=&#34;gt_row gt_center&#34;&gt;1.33, 4.26&lt;/td&gt;
+&lt;td headers=&#34;p.value&#34; class=&#34;gt_row gt_center&#34;&gt;0.004&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td headers=&#34;label&#34; class=&#34;gt_row gt_left&#34;&gt;pregnant&lt;/td&gt;
+&lt;td headers=&#34;estimate&#34; class=&#34;gt_row gt_center&#34;&gt;1.13&lt;/td&gt;
+&lt;td headers=&#34;conf.low&#34; class=&#34;gt_row gt_center&#34;&gt;1.06, 1.21&lt;/td&gt;
+&lt;td headers=&#34;p.value&#34; class=&#34;gt_row gt_center&#34;&gt;&lt;0.001&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td headers=&#34;label&#34; class=&#34;gt_row gt_left&#34;&gt;mass&lt;/td&gt;
+&lt;td headers=&#34;estimate&#34; class=&#34;gt_row gt_center&#34;&gt;1.10&lt;/td&gt;
+&lt;td headers=&#34;conf.low&#34; class=&#34;gt_row gt_center&#34;&gt;1.07, 1.13&lt;/td&gt;
+&lt;td headers=&#34;p.value&#34; class=&#34;gt_row gt_center&#34;&gt;&lt;0.001&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td headers=&#34;label&#34; class=&#34;gt_row gt_left&#34;&gt;glucose&lt;/td&gt;
+&lt;td headers=&#34;estimate&#34; class=&#34;gt_row gt_center&#34;&gt;1.04&lt;/td&gt;
+&lt;td headers=&#34;conf.low&#34; class=&#34;gt_row gt_center&#34;&gt;1.03, 1.04&lt;/td&gt;
+&lt;td headers=&#34;p.value&#34; class=&#34;gt_row gt_center&#34;&gt;&lt;0.001&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td headers=&#34;label&#34; class=&#34;gt_row gt_left&#34;&gt;pressure&lt;/td&gt;
+&lt;td headers=&#34;estimate&#34; class=&#34;gt_row gt_center&#34;&gt;0.99&lt;/td&gt;
+&lt;td headers=&#34;conf.low&#34; class=&#34;gt_row gt_center&#34;&gt;0.98, 1.01&lt;/td&gt;
+&lt;td headers=&#34;p.value&#34; class=&#34;gt_row gt_center&#34;&gt;0.4&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tfoot class=&#34;gt_sourcenotes&#34;&gt;
+    &lt;tr&gt;
+      &lt;td class=&#34;gt_sourcenote&#34; colspan=&#34;4&#34;&gt;&lt;span class=&#39;gt_from_md&#39;&gt;Abbreviations: CI = Confidence Interval, OR = Odds Ratio&lt;/span&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tfoot&gt;
+  &amp;#10;&lt;/table&gt;
+&lt;/div&gt;
+&lt;p&gt;Una vez aplicada la regresión logística, se observa que por cada unidad de cambio en la variable &lt;strong&gt;pedigree&lt;/strong&gt;, es 2.37 veces más probable que la mujer sea diabética si se mantienen el resto de las variables constantes. Dado que este intervalo de confianza no incluye el valor uno del Odds Ratio (OR), tenemos evidencia para sugerir una asociación estadística entre los antecedentes familiares de diabetes y la presencia de la enfermedad.&lt;/p&gt;
+&lt;p&gt;Si bien, este resultado del modelo no es garantía de significación clínica, puede sugerir una explicación causal y, además, nos proporciona un rango plausible para la magnitud del efecto.&lt;/p&gt;
+&lt;p&gt;En este caso, el foco de la modelación no es una herramienta para el diagnóstico y el pronóstico , sino la estimación del efecto y la cuantificación de nuestra incertidumbre sobre él (explicación).&lt;/p&gt;
+&lt;h2 id=&#34;enfoque-2-el-enfoque-predictivo&#34;&gt;Enfoque 2: El Enfoque predictivo&lt;/h2&gt;
+&lt;p&gt;Aquí, la interpretabilidad de un coeficiente aislado pierde protagonismo frente a la predición del modelo y al rendimiento global frente a nuevos datos. Como diría Frank Harrell, &lt;em&gt;“la predicción sin una validación honesta es una fantasía”&lt;/em&gt; (Harrell Jr 2015).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;El “Porqué”&lt;/strong&gt;: Queremos una herramienta que, al recibir los datos de una nueva paciente, nos dé una probabilidad de riesgo de diabetes que sea precisa y fiable.&lt;/p&gt;
+&lt;p&gt;A continuación se muestra como el modelo se entrena en una partición de los datos (conjunto de entrenamiento) y se evalúa su despeño en un nuevos datos (conjunto de prueba).&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# bibliotecas&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;library&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rms&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;verbose&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;F&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;library&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;CalibrationCurves&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 1. Partición de datos&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;set.seed&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1353&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;split&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;initial_split&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;datos&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;strata&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;diabetes&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;entrenamiento&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;training&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;split&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;prueba&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;testing&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;split&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 2. Ajuste del modelo en el conjunto de ENTRENAMIENTO&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Usamos lrm del paquete rms, diseñado para modelado predictivo&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;modelo_predictivo&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;lrm&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;diabetes&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;~&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;.,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;data&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;entrenamiento&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;TRUE&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;y&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;TRUE&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 3. Predicción en el conjunto de PRUEBA (el momento de la verdad)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;predicciones&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;predict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;modelo_predictivo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;newdata&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;prueba&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;fitted&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 4. Evaluación del rendimiento: ¿Funciona la bola de cristal?&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# La siguiente línea imprimirá las métricas de texto y generará el gráfico de calibración&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;val.prob&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;predicciones&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;prueba&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;diabetes&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;img src=&#34;https://maicel.netlify.app/post/sue-an-las-m-quinas-con-cerebros-el-ctricos/index.es_files/figure-html/machine_learnig-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;
+&lt;pre&gt;&lt;code&gt;##          Dxy      C (ROC)           R2            D     D:Chi-sq          D:p 
+##  0.714865672  0.857432836  0.457300264  0.398065790 77.428631681  0.000000000 
+##            U     U:Chi-sq          U:p            Q        Brier    Intercept 
+## -0.006821292  0.690311985  0.708109885  0.404887082  0.145035245 -0.155198552 
+##        Slope         Emax          E90         Eavg          S:z          S:p 
+##  1.006770568  0.054652568  0.043820595  0.024518474 -0.163093305  0.870444971
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Interpretación de la Validación:&lt;/p&gt;
+&lt;p&gt;Nuestro foco se desplaza a las métricas de rendimiento en el conjunto de prueba, mostradas en el texto que precede al gráfico:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Discriminación (c-statistic / AUC):&lt;/strong&gt; Nuestro C (o c-statistic) de 0.86 indica una excelente capacidad para distinguir entre pacientes que desarrollarán la enfermedad y los que no.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Calibración:&lt;/strong&gt; Este es el aspecto más crítico y a menudo ignorado. El gráfico de calibración (Figura 2) nos muestra si las predicciones del modelo son fiables. Una desviación de la línea diagonal “Ideal” indica descalibración, lo que significa que el modelo es sistemáticamente demasiado optimista o pesimista. Un modelo con alta discriminación pero mala calibración es peligroso en la práctica clínica.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;el-fantasma-en-la-máquina-descalibración-y-validez-temporal&#34;&gt;El Fantasma en la Máquina: Descalibración y Validez Temporal&lt;/h2&gt;
+&lt;p&gt;Un modelo predictivo no es una escultura de mármol; es más como un coche que requiere mantenimiento. El mayor error en la implementación de modelos es asumir que su rendimiento inicial se mantendrá en el tiempo. Como advierte Ewout Steyerberg, los modelos se degradan(Steyerberg 2009).&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Cambios en la Prevalencia:&lt;/strong&gt; Si la prevalencia de la diabetes varian en la población, las predicciones del modelo pueden descalibrarse.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Cambios en las Características de los Pacientes:&lt;/strong&gt; La población de pacientes cambia, las prácticas de medición evolucionan.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Cambios en la Práctica Clínica:&lt;/strong&gt; Nuevos tratamientos pueden alterar la relación entre los predictores y el resultado.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Esto implica que un modelo predictivo requiere monitorización continua y recalibración periódica. La validación no es un evento único, sino un proceso continuo.&lt;/p&gt;
+&lt;h2 id=&#34;frente-a-frente-una-comparación-matizada&#34;&gt;Frente a Frente: Una Comparación Matizada&lt;/h2&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;strong&gt;Dimensión&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;Modelo Explicativo (Inferencia)&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;Modelo Predictivo (Generalización)&lt;/strong&gt;&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Pregunta Clave&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;¿Cuál es la relación entre X e Y?&lt;/td&gt;
+          &lt;td&gt;¿Cuál es el riesgo de Y para un nuevo individuo?&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Uso de Datos&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;Típicamente, todo el dataset para maximizar la precisión de la estimación.&lt;/td&gt;
+          &lt;td&gt;&lt;strong&gt;Separación estricta Train/Test&lt;/strong&gt;. La validación es la métrica de éxito.&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Output&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;Estimaciones de efectos (OR, HR) y sus Intervalos de Confianza.&lt;/td&gt;
+          &lt;td&gt;Métricas de rendimiento (AUC, Calibración, Brier Score) en datos no vistos.&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Peligro Principal&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;strong&gt;Sobreinterpretación causal&lt;/strong&gt;: A partir de datos observacionales. Confundir asociación con causa.&lt;/td&gt;
+          &lt;td&gt;&lt;strong&gt;Sobreajuste (Overfitting)&lt;/strong&gt; y falsa sensación de rendimiento si la validación no es rigurosa.&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h1 id=&#34;conclusión-más-allá-de-las-herramientas-una-filosofía-de-trabajo&#34;&gt;Conclusión: Más Allá de las Herramientas, una Filosofía de Trabajo&lt;/h1&gt;
+&lt;p&gt;La discusión no debería ser glm vs. xgboost, sino inferencia vs. predicción. La bioestadística moderna y la ciencia de datos responsable no son antagonistas; son dos caras de la misma moneda del conocimiento basado en datos.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Para el epidemiólogo o investigador clínico, el rigor inferencial sigue siendo el pilar para generar hipótesis.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Para el clínico o gestor de salud que busca una herramienta de apoyo a la decisión, la validación predictiva rigurosa no es negociable.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;El profesional de datos en salud del siglo XXI debe ser bilingüe. Debe entender la cautela de la inferencia causal y, al mismo tiempo, dominar el proceso de desarrollo y validación de modelos predictivos que sean robustos, fiables y, sobre todo, honestos sobre su propia incertidumbre y limitaciones.&lt;/p&gt;
+&lt;p&gt;Nuestro rol es ser, como diría un estadístico sabio, tanto escépticos como constructores. Escépticos de nuestras propias suposiciones y constructores de herramientas que, aunque no sueñen, nos ayuden a tomar decisiones más inteligentes.&lt;/p&gt;
+&lt;h1 id=&#34;bibliografía-y-lecturas-recomendadas&#34;&gt;Bibliografía y Lecturas Recomendadas&lt;/h1&gt;
+&lt;div id=&#34;refs&#34; class=&#34;references csl-bib-body hanging-indent&#34; entry-spacing=&#34;0&#34;&gt;
+&lt;div id=&#34;ref-harrelljr2015&#34; class=&#34;csl-entry&#34;&gt;
+&lt;p&gt;Harrell Jr, Frank E. 2015. &lt;em&gt;Regression Modeling Strategies&lt;/em&gt;. 1era ed. New York: Springer.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-leisch&#34; class=&#34;csl-entry&#34;&gt;
+&lt;p&gt;Leisch, Friedrich, and Evgenia Dimitriadou. n.d. “Mlbench: Machine Learning Benchmark Problems.” &lt;a href=&#34;https://doi.org/10.32614/CRAN.package.mlbench&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://doi.org/10.32614/CRAN.package.mlbench&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-ryu2022&#34; class=&#34;csl-entry&#34;&gt;
+&lt;p&gt;Ryu, Leeha, and Kyunghwa Han. 2022. “Machine Learning vs. Statistical Model for Prediction Modelling: Application in Medical Imaging Research.” &lt;em&gt;Journal of the Korean Society of Radiology&lt;/em&gt; 83 (6): 1219. &lt;a href=&#34;https://doi.org/10.3348/jksr.2022.0111&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://doi.org/10.3348/jksr.2022.0111&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-silvaaycaguer1998&#34; class=&#34;csl-entry&#34;&gt;
+&lt;p&gt;Silva Aycaguer, Patricio Suárez. 1998. &lt;em&gt;Cultura Estadística e Investigación Científica En El Campo de La Salud: Una Mirada Crítica&lt;/em&gt;. Madrid: Diaz de Santos.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-steyerbergLibro2009&#34; class=&#34;csl-entry&#34;&gt;
+&lt;p&gt;Steyerberg, E. 2009. &lt;em&gt;Clinical Prediction Models&lt;/em&gt;. 1th ed. Statistics for Biology and Health. USA: Springer.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>MacroScope AI: Real-Time Nutrition Insights for Smarter Food Systems</title>
+      <link>https://maicel.netlify.app/project/plate-to-policy-real-time-ai-driven-insights-for-smarter-food-fortification/</link>
+      <pubDate>Sat, 12 Apr 2025 00:00:00 +0000</pubDate>
+      <guid>https://maicel.netlify.app/project/plate-to-policy-real-time-ai-driven-insights-for-smarter-food-fortification/</guid>
+      <description>&lt;h1 id=&#34;transformando-platos-en-políticas-ia-para-una-nutrición-más-inteligente&#34;&gt;Transformando Platos en Políticas: IA para una Nutrición Más Inteligente&lt;/h1&gt;
+&lt;p&gt;En un mundo donde las deficiencias de micronutrientes afectan a millones de personas, la fortificación de alimentos a gran escala (LSFF, por sus siglas en inglés) se ha convertido en una de las intervenciones de salud pública más efectivas. Sin embargo, para que estas iniciativas sean verdaderamente exitosas, necesitamos datos precisos, oportunos y contextualizados sobre lo que realmente consumen las personas. Es aquí donde entra en juego nuestro proyecto: &lt;strong&gt;&amp;ldquo;MacroScope AI: Real-Time Nutrition Insights for Smarter Food Systems&amp;rdquo;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Este proyecto busca cerrar las brechas críticas de datos en la fortificación de alimentos mediante el uso de inteligencia artificial (IA) y la participación ciudadana. Transformaremos fotos de alimentos cotidianos en información procesable, proporcionando a los responsables de políticas públicas herramientas para diseñar intervenciones nutricionales más equitativas, efectivas y adaptadas a cada contexto.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;un-puente-entre-ciencia-y-comunidades&#34;&gt;Un Puente entre Ciencia y Comunidades&lt;/h1&gt;
+&lt;p&gt;La clave de este proyecto es su capacidad para democratizar la generación de datos. A través de una aplicación móvil/web impulsada por IA, cualquier persona podrá capturar imágenes de sus comidas y contribuir a un ecosistema de datos compartidos. Estas imágenes serán analizadas por modelos avanzados de reconocimiento de imágenes, capaces de identificar alimentos , estimar tamaños de porciones y calcular el consumo de micronutrientes con alta precisión.&lt;/p&gt;
+&lt;p&gt;Pero no se trata solo de tecnología; se trata de inclusión. La plataforma está diseñada para ser accesible en áreas con baja conectividad, ofreciendo funcionalidad fuera de línea y soporte multilingüe. Esto garantiza que grupos subrepresentados también sean tomados en cuenta y reflejadas en los datos.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;herramientas-para-una-mejor-toma-de-decisiones&#34;&gt;Herramientas para una Mejor Toma de Decisiones&lt;/h1&gt;
+&lt;p&gt;Uno de los resultados más emocionantes de este proyecto es la creación de &lt;strong&gt;tableros de datos LSFF&lt;/strong&gt; y un &lt;strong&gt;kit de herramientas de apoyo a políticas&lt;/strong&gt;. Estas herramientas permitirán a los responsables de políticas monitorear la cobertura de alimentos fortificados, identificar brechas en el consumo de micronutrientes y diseñar intervenciones específicas para poblaciones vulnerables.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;un-ecosistema-colaborativo&#34;&gt;Un Ecosistema Colaborativo&lt;/h1&gt;
+&lt;p&gt;Este proyecto no sería posible sin la colaboración de múltiples actores. Desde expertos en IA y científicos de datos, nutricionistas y entre otros, hemos reunido un equipo multidisciplinario comprometido con el impacto social. Además, trabajamos en estrecha colaboración con ministerios de salud, agricultura y la industria alimenticia, así como con ONG y socios académicos, para garantizar que nuestras soluciones sean técnicamente sólidas, éticamente responsables y culturalmente relevantes.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;únete-a-nosotros-en-esta-revolución-nutricional&#34;&gt;Únete a Nosotros en esta Revolución Nutricional&lt;/h4&gt;
+&lt;p&gt;&amp;ldquo;Plate to Policy&amp;rdquo; no es solo un proyecto; es un movimiento hacia un futuro donde las políticas de fortificación alimentaria se basen en datos reales, generados por las mismas comunidades que buscan beneficiar. Juntos, podemos transformar la forma en que abordamos la seguridad nutricional y asegurar que nadie se quede atrás.&lt;/p&gt;
+&lt;p&gt;Si deseas saber más sobre cómo puedes participar o colaborar, ¡no dudes en contactarnos! Juntos, podemos construir un mundo más saludable, equitativo y sostenible.&lt;/p&gt;
+&lt;hr&gt;
+</description>
+    </item>
+    
+    <item>
       <title>👋 Curso de Análisis de Datos en Fortificación de Alimentos con R. Una Introducción Práctica</title>
-      <link>http://localhost:4321/event/example/</link>
+      <link>https://maicel.netlify.app/event/example/</link>
       <pubDate>Mon, 24 Mar 2025 09:00:00 +0000</pubDate>
-      <guid>http://localhost:4321/event/example/</guid>
+      <guid>https://maicel.netlify.app/event/example/</guid>
       <description>&lt;div class=&#34;flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900&#34;&gt;
 &lt;span class=&#34;pr-3 pt-1 text-primary-600 dark:text-primary-300&#34;&gt;
   &lt;svg height=&#34;24&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 24 24&#34;&gt;&lt;path fill=&#34;none&#34; stroke=&#34;currentColor&#34; stroke-linecap=&#34;round&#34; stroke-linejoin=&#34;round&#34; stroke-width=&#34;1.5&#34; d=&#34;m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z&#34;/&gt;&lt;/svg&gt;
@@ -34,9 +878,9 @@
     
     <item>
       <title>Conferencia Introducción al análisis estadístico en ensayos clínicos</title>
-      <link>http://localhost:4321/post/conferencia-introducci-n-al-an-lisis-estad-stico-en-ensayos-cl-nicos/</link>
+      <link>https://maicel.netlify.app/post/conferencia-introducci-n-al-an-lisis-estad-stico-en-ensayos-cl-nicos/</link>
       <pubDate>Wed, 12 Mar 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:4321/post/conferencia-introducci-n-al-an-lisis-estad-stico-en-ensayos-cl-nicos/</guid>
+      <guid>https://maicel.netlify.app/post/conferencia-introducci-n-al-an-lisis-estad-stico-en-ensayos-cl-nicos/</guid>
       <description>&lt;h1 id=&#34;conferencia-introducción-al-análisis-estadístico-en-ensayos-clínicos&#34;&gt;Conferencia: Introducción al Análisis Estadístico en Ensayos Clínicos&lt;/h1&gt;
 &lt;h2 id=&#34;presentación&#34;&gt;Presentación&lt;/h2&gt;
 &lt;p&gt;Estimados colegas,&lt;/p&gt;
@@ -72,9 +916,9 @@ Profesor Auxilar&lt;/p&gt;
     
     <item>
       <title>Tutorial: Análisis de Fortificación de Alimentos con HCES y R</title>
-      <link>http://localhost:4321/teaching/tutorial-an-lisis-de-fortificaci-n-de-alimentos-con-hces-y-r/</link>
+      <link>https://maicel.netlify.app/teaching/tutorial-an-lisis-de-fortificaci-n-de-alimentos-con-hces-y-r/</link>
       <pubDate>Wed, 05 Mar 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:4321/teaching/tutorial-an-lisis-de-fortificaci-n-de-alimentos-con-hces-y-r/</guid>
+      <guid>https://maicel.netlify.app/teaching/tutorial-an-lisis-de-fortificaci-n-de-alimentos-con-hces-y-r/</guid>
       <description>&lt;p&gt;En este tutorial, aprenderás a usar datos de Encuestas de Consumo y Gasto en Hogares (HCES) , Tablas de Composición de Alimentos (FCT) y herramientas de R (tidyverse, gtsummary, ggstatsplot) para evaluar la adecuación nutricional y modelar escenarios de fortificación. Los conceptos se explican desde cero, con ejemplos reproducibles.&lt;/p&gt;
 &lt;h1 id=&#34;paso-1-preparación-de-datos-hces&#34;&gt;Paso 1: Preparación de datos HCES&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Concepto :&lt;/strong&gt; Las HCES son encuestas que registran compras y consumo de alimentos a nivel de hogar 9. Son esenciales para analizar patrones dietéticos, pero requieren limpieza para eliminar inconsistencias.&lt;/p&gt;
@@ -179,9 +1023,9 @@ La FAO recomienda ajustar el consumo por tamaño del hogar usando &lt;strong&gt;
     
     <item>
       <title>CovidCencecAPK</title>
-      <link>http://localhost:4321/project/covidcencecapk/</link>
+      <link>https://maicel.netlify.app/project/covidcencecapk/</link>
       <pubDate>Fri, 28 Feb 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:4321/project/covidcencecapk/</guid>
+      <guid>https://maicel.netlify.app/project/covidcencecapk/</guid>
       <description>&lt;p&gt;COVIDCENCEC, es un modelo predictivo diseñado para estimar y clasificar el riesgo de muerte por COVID-19. Este proyecto es parte de su tesis titulada &amp;ldquo;Modelos predictivos para estimar y clasificar el riesgo de muerte por COVID-19&amp;rdquo;, escrita por el Dr. Maicel Monzón Peres.  COVIDCENCEC utiliza una combinación de JavaScript, HTML y CSS para crear una aplicación web interactiva. La función principal de esta aplicación es predecir la probabilidad de muerte por COVID-19 basándose en predictores seleccionados. Al emplear técnicas estadísticas avanzadas y algoritmos de aprendizaje automático, el modelo analiza varios indicadores de salud y factores demográficos para proporcionar a los usuarios evaluaciones de riesgo.&lt;/p&gt;
 &lt;h1 id=&#34;características-principales-de-la-interfaz&#34;&gt;Características principales de la Interfaz:&lt;/h1&gt;
 &lt;p&gt;La aplicación está diseñada con una interfaz sencilla que permite a los usuarios ingresar datos relevantes fácilmente. Análisis predictivo: COVIDCENCEC emplea análisis predictivo para generar puntajes de riesgo, lo que ayuda a los usuarios a comprender sus posibles riesgos de salud asociados con COVID-19. Visualización de datos: la aplicación incluye representaciones visuales de datos y predicciones, lo que facilita a los usuarios la interpretación de los resultados.&lt;/p&gt;
@@ -192,9 +1036,9 @@ La FAO recomienda ajustar el consumo por tamaño del hogar usando &lt;strong&gt;
     
     <item>
       <title>Analisis Exploratorio de Datos</title>
-      <link>http://localhost:4321/post/eda/</link>
+      <link>https://maicel.netlify.app/post/eda/</link>
       <pubDate>Tue, 11 Feb 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:4321/post/eda/</guid>
+      <guid>https://maicel.netlify.app/post/eda/</guid>
       <description>&lt;p&gt;Análisis Exploratorio de Datos (EDA, por sus siglas en ingles) implica el análisis de datos centrado en comprender los datos, identificar valores atípicos,  valores faltantes así como proporcionar la base para la formulación del modelo. Además es importante conocer como se relacionan las variables.&lt;/p&gt;
 &lt;p&gt;Un concepto popular en el campo de la ciencia de datos llamado &lt;strong&gt;GIGO&lt;/strong&gt; (Garbage in Garbage Out). Este concepto significa que los datos de mala calidad siempre producirán resultados deficientes, independientemente del modelo y la técnica utilizados. Acá te describo un flujo de trabajo que en mi opinión es muy practico, el orden de etapas y el cumplimiento depende del problema y no es una camisa de fuerza.&lt;/p&gt;
 &lt;p&gt;Este proceso incluye:&lt;/p&gt;
@@ -220,17 +1064,17 @@ La FAO recomienda ajustar el consumo por tamaño del hogar usando &lt;strong&gt;
     
     <item>
       <title>Projects</title>
-      <link>http://localhost:4321/projects/</link>
+      <link>https://maicel.netlify.app/projects/</link>
       <pubDate>Sun, 19 May 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:4321/projects/</guid>
+      <guid>https://maicel.netlify.app/projects/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Análisis de datos en fortificación de alimentos a gran escala con R. Una Introducción Práctica</title>
-      <link>http://localhost:4321/teaching/r/</link>
+      <link>https://maicel.netlify.app/teaching/r/</link>
       <pubDate>Mon, 25 Mar 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:4321/teaching/r/</guid>
+      <guid>https://maicel.netlify.app/teaching/r/</guid>
       <description>&lt;h1 id=&#34;construye-investigaciones-con-r&#34;&gt;¡Construye investigaciones con R!&lt;/h1&gt;
 &lt;p&gt;En este curso, te convertirás en un &lt;strong&gt;&amp;lsquo;arquitecto&amp;rsquo; del análisis de datos en la fortificación de alimentos&lt;/strong&gt;, utilizando R como tu herramienta principal. Aprenderás a:&lt;/p&gt;
 &lt;ul&gt;
@@ -295,7 +1139,7 @@ La FAO recomienda ajustar el consumo por tamaño del hogar usando &lt;strong&gt;
 &lt;strong&gt;Sesiones teóricas&lt;/strong&gt;: Conferencias interactivas con ejemplos de fortificación de alimentos a gran escala.&lt;br&gt;
 &lt;strong&gt;Sesiones prácticas&lt;/strong&gt;: Ejercicios guiados y retos diarios.&lt;br&gt;
 &lt;strong&gt;Coffee breaks&lt;/strong&gt;: 15 minutos entre bloques.&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;Descargue la agenda del curso en formato&lt;/em&gt; &lt;a href=&#34;http://localhost:4321/pdf/agenda.pdf&#34;&gt;&lt;strong&gt;PDF&lt;/strong&gt;&lt;/a&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Descargue la agenda del curso en formato&lt;/em&gt; &lt;a href=&#34;https://maicel.netlify.app/pdf/agenda.pdf&#34;&gt;&lt;strong&gt;PDF&lt;/strong&gt;&lt;/a&gt;:&lt;/p&gt;
 &lt;div class=&#34;flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900&#34;&gt;
 &lt;span class=&#34;pr-3 pt-1 text-primary-600 dark:text-primary-300&#34;&gt;
   &lt;svg height=&#34;24&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 24 24&#34;&gt;&lt;path fill=&#34;none&#34; stroke=&#34;currentColor&#34; stroke-linecap=&#34;round&#34; stroke-linejoin=&#34;round&#34; stroke-width=&#34;1.5&#34; d=&#34;m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z&#34;/&gt;&lt;/svg&gt;
@@ -314,9 +1158,9 @@ La FAO recomienda ajustar el consumo por tamaño del hogar usando &lt;strong&gt;
   &lt;tbody&gt;
       &lt;tr&gt;
           &lt;td&gt;&lt;strong&gt;Mañana&lt;/strong&gt; 🌞&lt;/td&gt;
-          &lt;td&gt;&lt;a href=&#34;http://localhost:4321/pdf/conf_0.pdf&#34;&gt;&lt;strong&gt;introducción&lt;/strong&gt;&lt;/a&gt;, &lt;a href=&#34;http://localhost:4321/pdf/conf_1.pdf&#34;&gt;&lt;strong&gt;Conf. Tema I&lt;/strong&gt;&lt;/a&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;a href=&#34;http://localhost:4321/pdf/conf_3.pdf&#34;&gt;&lt;strong&gt;Conf. Tema III&lt;/strong&gt;&lt;/a&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;a href=&#34;http://localhost:4321/pdf/conf_5.pdf&#34;&gt;&lt;strong&gt;Conf. Tema V&lt;/strong&gt;&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a href=&#34;https://maicel.netlify.app/pdf/conf_0.pdf&#34;&gt;&lt;strong&gt;introducción&lt;/strong&gt;&lt;/a&gt;, &lt;a href=&#34;https://maicel.netlify.app/pdf/conf_1.pdf&#34;&gt;&lt;strong&gt;Conf. Tema I&lt;/strong&gt;&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a href=&#34;https://maicel.netlify.app/pdf/conf_3.pdf&#34;&gt;&lt;strong&gt;Conf. Tema III&lt;/strong&gt;&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a href=&#34;https://maicel.netlify.app/pdf/conf_5.pdf&#34;&gt;&lt;strong&gt;Conf. Tema V&lt;/strong&gt;&lt;/a&gt;&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
           &lt;td&gt;&lt;strong&gt;Coffee breaks&lt;/strong&gt; ☕&lt;/td&gt;
@@ -326,9 +1170,9 @@ La FAO recomienda ajustar el consumo por tamaño del hogar usando &lt;strong&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
           &lt;td&gt;&lt;strong&gt;Mañana&lt;/strong&gt; 🌞&lt;/td&gt;
-          &lt;td&gt;&lt;a href=&#34;http://localhost:4321/pdf/desaf_1.pdf&#34;&gt;Pract. Tema I&lt;/a&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;a href=&#34;http://localhost:4321/pdf/desaf_3.pdf&#34;&gt;Pract. Tema II&lt;/a&gt;I&lt;/td&gt;
-          &lt;td&gt;&lt;a href=&#34;http://localhost:4321/pdf/conf_6.pdf&#34;&gt;&lt;strong&gt;Conf. Tema VI&lt;/strong&gt;&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a href=&#34;https://maicel.netlify.app/pdf/desaf_1.pdf&#34;&gt;Pract. Tema I&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a href=&#34;https://maicel.netlify.app/pdf/desaf_3.pdf&#34;&gt;Pract. Tema II&lt;/a&gt;I&lt;/td&gt;
+          &lt;td&gt;&lt;a href=&#34;https://maicel.netlify.app/pdf/conf_6.pdf&#34;&gt;&lt;strong&gt;Conf. Tema VI&lt;/strong&gt;&lt;/a&gt;&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
           &lt;td&gt;&lt;strong&gt;Almuezo&lt;/strong&gt; 🍽️&lt;/td&gt;
@@ -338,9 +1182,9 @@ La FAO recomienda ajustar el consumo por tamaño del hogar usando &lt;strong&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
           &lt;td&gt;&lt;strong&gt;Tarde&lt;/strong&gt; 🌆&lt;/td&gt;
-          &lt;td&gt;&lt;a href=&#34;http://localhost:4321/pdf/conf_2.pdf&#34;&gt;Conf. Tema II&lt;/a&gt;&lt;/td&gt;
-          &lt;td&gt;️ &lt;a href=&#34;http://localhost:4321/pdf/conf_4.pdf&#34;&gt;Conf. Tema IV&lt;/a&gt;&lt;/td&gt;
-          &lt;td&gt;️&lt;a href=&#34;http://localhost:4321/pdf/desaf_5.pdf&#34;&gt;Pract. Tema V&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a href=&#34;https://maicel.netlify.app/pdf/conf_2.pdf&#34;&gt;Conf. Tema II&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;️ &lt;a href=&#34;https://maicel.netlify.app/pdf/conf_4.pdf&#34;&gt;Conf. Tema IV&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;️&lt;a href=&#34;https://maicel.netlify.app/pdf/desaf_5.pdf&#34;&gt;Pract. Tema V&lt;/a&gt;&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
           &lt;td&gt;&lt;strong&gt;Coffee breaks&lt;/strong&gt; ☕&lt;/td&gt;
@@ -350,9 +1194,9 @@ La FAO recomienda ajustar el consumo por tamaño del hogar usando &lt;strong&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
           &lt;td&gt;&lt;strong&gt;Tarde&lt;/strong&gt; 🌆&lt;/td&gt;
-          &lt;td&gt;&lt;a href=&#34;http://localhost:4321/pdf/desaf_2.pdf&#34;&gt;Pract. Tema II&lt;/a&gt;&lt;/td&gt;
-          &lt;td&gt;️&lt;a href=&#34;http://localhost:4321/pdf/desaf_4.pdf&#34;&gt;Pract. Tema VI&lt;/a&gt;&lt;/td&gt;
-          &lt;td&gt;️&lt;a href=&#34;http://localhost:4321/pdf/desaf_6.pdf&#34;&gt;Pract. Tema VI&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a href=&#34;https://maicel.netlify.app/pdf/desaf_2.pdf&#34;&gt;Pract. Tema II&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;️&lt;a href=&#34;https://maicel.netlify.app/pdf/desaf_4.pdf&#34;&gt;Pract. Tema VI&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;️&lt;a href=&#34;https://maicel.netlify.app/pdf/desaf_6.pdf&#34;&gt;Pract. Tema VI&lt;/a&gt;&lt;/td&gt;
       &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
@@ -370,8 +1214,8 @@ La FAO recomienda ajustar el consumo por tamaño del hogar usando &lt;strong&gt;
 &lt;li&gt;Creación de objetos básicos (vectores, listas, data frames).&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;🚀 &lt;strong&gt;Conferencia&lt;/strong&gt;: Conferencia 1 en formato &lt;a href=&#34;http://localhost:4321/pdf/conf_1.pdf&#34;&gt;PDF&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;🎉 &lt;strong&gt;Desafío 1&lt;/strong&gt;: Hierro &amp;ndash; Cimientos de Código &lt;a href=&#34;http://localhost:4321/pdf/desaf_1.pdf&#34;&gt;PDF&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;🚀 &lt;strong&gt;Conferencia&lt;/strong&gt;: Conferencia 1 en formato &lt;a href=&#34;https://maicel.netlify.app/pdf/conf_1.pdf&#34;&gt;PDF&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;🎉 &lt;strong&gt;Desafío 1&lt;/strong&gt;: Hierro &amp;ndash; Cimientos de Código &lt;a href=&#34;https://maicel.netlify.app/pdf/desaf_1.pdf&#34;&gt;PDF&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;😊 &lt;strong&gt;Recompensa&lt;/strong&gt; : Insignia 🏗️ &amp;ldquo;Cimientos Sólidos&amp;rdquo; .&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;tema-ii-importación-de-datos&#34;&gt;&lt;strong&gt;Tema II: Importación de datos&lt;/strong&gt;&lt;/h3&gt;
@@ -384,10 +1228,10 @@ La FAO recomienda ajustar el consumo por tamaño del hogar usando &lt;strong&gt;
 &lt;li&gt;Manejo de problemas comunes (codificación, separadores, valores perdidos).&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;🚀 &lt;strong&gt;Conferencia&lt;/strong&gt;: Conferencia 2 en formato &lt;a href=&#34;http://localhost:4321/pdf/conf_2.pdf&#34;&gt;PDF&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;🎉 &lt;strong&gt;Desafío 2&lt;/strong&gt;: Zinc &amp;ndash; Puertas a los Datos &lt;a href=&#34;http://localhost:4321/pdf/desaf_2.pdf&#34;&gt;PDF&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;📚 &lt;strong&gt;Datos&lt;/strong&gt;: Base de datos de nutrición &lt;a href=&#34;http://localhost:4321/csv/nutricion.csv&#34;&gt;csv&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;📚 &lt;strong&gt;script&lt;/strong&gt;: Rcript en R &lt;a href=&#34;http://localhost:4321/r/fortificacion_temaII.zip&#34;&gt;zip&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;🚀 &lt;strong&gt;Conferencia&lt;/strong&gt;: Conferencia 2 en formato &lt;a href=&#34;https://maicel.netlify.app/pdf/conf_2.pdf&#34;&gt;PDF&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;🎉 &lt;strong&gt;Desafío 2&lt;/strong&gt;: Zinc &amp;ndash; Puertas a los Datos &lt;a href=&#34;https://maicel.netlify.app/pdf/desaf_2.pdf&#34;&gt;PDF&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;📚 &lt;strong&gt;Datos&lt;/strong&gt;: Base de datos de nutrición &lt;a href=&#34;https://maicel.netlify.app/csv/nutricion.csv&#34;&gt;csv&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;📚 &lt;strong&gt;script&lt;/strong&gt;: Rcript en R &lt;a href=&#34;https://maicel.netlify.app/r/fortificacion_temaII.zip&#34;&gt;zip&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;😊 &lt;strong&gt;Recompensa&lt;/strong&gt; : Insignia 🪓 &amp;ldquo;Estructuras Estables&amp;rdquo;.&lt;/li&gt;
 &lt;li&gt;📚 &lt;strong&gt;Bibliografía&lt;/strong&gt;: &lt;a href=&#34;https://es.r4ds.hadley.nz/11-import.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Capítulo 11: Importar datos&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
@@ -401,8 +1245,8 @@ La FAO recomienda ajustar el consumo por tamaño del hogar usando &lt;strong&gt;
 &lt;li&gt;Separar y combinar columnas.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;🚀 &lt;strong&gt;Conferencia&lt;/strong&gt;: Conferencia 3 en formato &lt;a href=&#34;http://localhost:4321/pdf/conf_3.pdf&#34;&gt;PDF&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;🎉 &lt;strong&gt;Desafío 3&lt;/strong&gt;: Vitamina A &amp;ndash; Claridad en la Oscuridad &lt;a href=&#34;http://localhost:4321/pdf/desaf_3.pdf&#34;&gt;PDF&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;🚀 &lt;strong&gt;Conferencia&lt;/strong&gt;: Conferencia 3 en formato &lt;a href=&#34;https://maicel.netlify.app/pdf/conf_3.pdf&#34;&gt;PDF&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;🎉 &lt;strong&gt;Desafío 3&lt;/strong&gt;: Vitamina A &amp;ndash; Claridad en la Oscuridad &lt;a href=&#34;https://maicel.netlify.app/pdf/desaf_3.pdf&#34;&gt;PDF&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;😊 &lt;strong&gt;Recompensa&lt;/strong&gt; : Insignia 🌟 &amp;ldquo;Datos Transparentes&amp;rdquo;&lt;/li&gt;
 &lt;li&gt;📚 &lt;strong&gt;Bibliografía&lt;/strong&gt;: &lt;a href=&#34;https://es.r4ds.hadley.nz/tibbles.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Capítulo 12: Tibbles&lt;/a&gt; y &lt;a href=&#34;https://es.r4ds.hadley.nz/datos-limpios.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Capítulo 13: Datos limpios&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
@@ -416,8 +1260,8 @@ La FAO recomienda ajustar el consumo por tamaño del hogar usando &lt;strong&gt;
 &lt;li&gt;Resúmenes estadísticos básicos con &lt;code&gt;summarise()&lt;/code&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;🚀 &lt;strong&gt;Conferencia&lt;/strong&gt;: Conferencia 4 en formato &lt;a href=&#34;http://localhost:4321/pdf/conf_4.pdf&#34;&gt;PDF&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;🎉 &lt;strong&gt;Desafío 4&lt;/strong&gt;: Ácido Fólico &amp;ndash; Datos que Nutren &lt;a href=&#34;http://localhost:4321/pdf/desaf_4.pdf&#34;&gt;PDF&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;🚀 &lt;strong&gt;Conferencia&lt;/strong&gt;: Conferencia 4 en formato &lt;a href=&#34;https://maicel.netlify.app/pdf/conf_4.pdf&#34;&gt;PDF&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;🎉 &lt;strong&gt;Desafío 4&lt;/strong&gt;: Ácido Fólico &amp;ndash; Datos que Nutren &lt;a href=&#34;https://maicel.netlify.app/pdf/desaf_4.pdf&#34;&gt;PDF&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;😊 &lt;strong&gt;Recompensa&lt;/strong&gt; : Insignia 🌱 &amp;ldquo;Transformación Vital&amp;rdquo;&lt;/li&gt;
 &lt;li&gt;📚 &lt;strong&gt;Bibliografía&lt;/strong&gt;: &lt;a href=&#34;https://es.r4ds.hadley.nz/transformacion.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Capítulo 5: Data Transformation&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
@@ -430,8 +1274,8 @@ La FAO recomienda ajustar el consumo por tamaño del hogar usando &lt;strong&gt;
 &lt;li&gt;Generar tablas resumen con &lt;code&gt;gtsummary&lt;/code&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;🚀 &lt;strong&gt;Conferencia&lt;/strong&gt;: Conferencia 5 en formato &lt;a href=&#34;http://localhost:4321/pdf/conf_5.pdf&#34;&gt;PDF&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;🎉 &lt;strong&gt;Desafío 5&lt;/strong&gt;: Yodo &amp;ndash; Iluminando Hallazgos &lt;a href=&#34;http://localhost:4321/pdf/desaf_5.pdf&#34;&gt;PDF&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;🚀 &lt;strong&gt;Conferencia&lt;/strong&gt;: Conferencia 5 en formato &lt;a href=&#34;https://maicel.netlify.app/pdf/conf_5.pdf&#34;&gt;PDF&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;🎉 &lt;strong&gt;Desafío 5&lt;/strong&gt;: Yodo &amp;ndash; Iluminando Hallazgos &lt;a href=&#34;https://maicel.netlify.app/pdf/desaf_5.pdf&#34;&gt;PDF&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;😊 &lt;strong&gt;Recompensa&lt;/strong&gt; : Insignia 💡 &amp;ldquo;Insight Brillante&amp;rdquo;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;tema-vi-representación-gráfica&#34;&gt;&lt;strong&gt;Tema VI: Representación gráfica&lt;/strong&gt;&lt;/h3&gt;
@@ -443,8 +1287,8 @@ La FAO recomienda ajustar el consumo por tamaño del hogar usando &lt;strong&gt;
 &lt;li&gt;Personalizar gráficos para comunicar hallazgos clave.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;🚀 &lt;strong&gt;Conferencia&lt;/strong&gt;: Conferencia 6 en formato &lt;a href=&#34;http://localhost:4321/pdf/conf_6.pdf&#34;&gt;PDF&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;🎉 &lt;strong&gt;Desafío 5&lt;/strong&gt;: Yodo &amp;ndash; Iluminando Hallazgos &lt;a href=&#34;http://localhost:4321/pdf/desaf_6.pdf&#34;&gt;PDF&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;🚀 &lt;strong&gt;Conferencia&lt;/strong&gt;: Conferencia 6 en formato &lt;a href=&#34;https://maicel.netlify.app/pdf/conf_6.pdf&#34;&gt;PDF&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;🎉 &lt;strong&gt;Desafío 5&lt;/strong&gt;: Yodo &amp;ndash; Iluminando Hallazgos &lt;a href=&#34;https://maicel.netlify.app/pdf/desaf_6.pdf&#34;&gt;PDF&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;😊 &lt;strong&gt;Recompensa&lt;/strong&gt; : Insignia 💡 &amp;ldquo;Insight Brillante&amp;rdquo;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;conclusiones-y-recomendaciones&#34;&gt;Conclusiones y recomendaciones.&lt;/h2&gt;
@@ -465,9 +1309,9 @@ La FAO recomienda ajustar el consumo por tamaño del hogar usando &lt;strong&gt;
     
     <item>
       <title>Como entrenar y validar un modelo de machine learnig</title>
-      <link>http://localhost:4321/post/como-entrenar-y-validar-un-modelo-de-machine-learnig/</link>
+      <link>https://maicel.netlify.app/post/como-entrenar-y-validar-un-modelo-de-machine-learnig/</link>
       <pubDate>Thu, 08 Feb 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:4321/post/como-entrenar-y-validar-un-modelo-de-machine-learnig/</guid>
+      <guid>https://maicel.netlify.app/post/como-entrenar-y-validar-un-modelo-de-machine-learnig/</guid>
       <description>&lt;p&gt;🎧 &lt;strong&gt;Escucha el podcast de esta publicación&lt;/strong&gt;&lt;br&gt;
 
 
@@ -514,7 +1358,6 @@ La FAO recomienda ajustar el consumo por tamaño del hogar usando &lt;strong&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;##   method          from  
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;##   plot.transform  scales
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;##   print.transform scales
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## Because it is an offline environment, only offline fonts are imported.
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## 
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## Attaching package: &amp;#39;dlookr&amp;#39;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## The following object is masked from &amp;#39;package:base&amp;#39;:
@@ -604,741 +1447,18 @@ La FAO recomienda ajustar el consumo por tamaño del hogar usando &lt;strong&gt;
     </item>
     
     <item>
-      <title>🎉 Easily create your own simple yet highly customizable blog</title>
-      <link>http://localhost:4321/post/get-started/</link>
-      <pubDate>Fri, 27 Oct 2023 00:00:00 +0000</pubDate>
-      <guid>http://localhost:4321/post/get-started/</guid>
-      <description>&lt;p&gt;Welcome 👋&lt;/p&gt;
-
-
-
-&lt;details class=&#34;print:hidden xl:hidden&#34; open&gt;
-  &lt;summary&gt;Índice&lt;/summary&gt;
-  &lt;div class=&#34;text-sm&#34;&gt;
-  &lt;nav id=&#34;TableOfContents&#34;&gt;
-  &lt;ul&gt;
-    &lt;li&gt;&lt;a href=&#34;#overview&#34;&gt;Overview&lt;/a&gt;
-      &lt;ul&gt;
-        &lt;li&gt;&lt;a href=&#34;#get-started&#34;&gt;Get Started&lt;/a&gt;&lt;/li&gt;
-      &lt;/ul&gt;
-    &lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;#crowd-funded-open-source-software&#34;&gt;Crowd-funded open-source software&lt;/a&gt;
-      &lt;ul&gt;
-        &lt;li&gt;&lt;a href=&#34;#-click-here-to-become-a-sponsor-and-help-support-hugo-bloxs-future-httpshugobloxcomsponsor&#34;&gt;&lt;a href=&#34;https://hugoblox.com/sponsor/&#34;&gt;❤️ Click here to become a sponsor and help support Hugo Blox&amp;rsquo;s future ❤️&lt;/a&gt;&lt;/a&gt;&lt;/li&gt;
-      &lt;/ul&gt;
-    &lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;#ecosystem&#34;&gt;Ecosystem&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;#inspiration&#34;&gt;Inspiration&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;#features&#34;&gt;Features&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;#themes&#34;&gt;Themes&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;#license&#34;&gt;License&lt;/a&gt;&lt;/li&gt;
-  &lt;/ul&gt;
-&lt;/nav&gt;
-  &lt;/div&gt;
-&lt;/details&gt;
-
-&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
-&lt;ol&gt;
-&lt;li&gt;The Hugo Blox website builder for Hugo, along with its starter templates, is designed for professional creators, educators, and teams/organizations - although it can be used to create any kind of site&lt;/li&gt;
-&lt;li&gt;The template can be modified and customised to suit your needs. It&amp;rsquo;s a good platform for anyone looking to take control of their data and online identity whilst having the convenience to start off with a &lt;strong&gt;no-code solution (write in Markdown and customize with YAML parameters)&lt;/strong&gt; and having &lt;strong&gt;flexibility to later add even deeper personalization with HTML and CSS&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;You can work with all your favourite tools and apps with hundreds of plugins and integrations to speed up your workflows, interact with your readers, and much more&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3 id=&#34;get-started&#34;&gt;Get Started&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;👉 &lt;a href=&#34;https://hugoblox.com/templates/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;Create a new site&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;📚 &lt;a href=&#34;https://docs.hugoblox.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;Personalize your site&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;💬 &lt;a href=&#34;https://discord.gg/z8wNYzb&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Chat with the &lt;strong&gt;Hugo Blox community&lt;/strong&gt;&lt;/a&gt; or &lt;a href=&#34;https://discourse.gohugo.io&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;Hugo community&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;🐦 Twitter: &lt;a href=&#34;https://twitter.com/GetResearchDev&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@GetResearchDev&lt;/a&gt; &lt;a href=&#34;https://twitter.com/GeorgeCushen&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@GeorgeCushen&lt;/a&gt; #MadeWithHugoBlox&lt;/li&gt;
-&lt;li&gt;💡 &lt;a href=&#34;https://github.com/HugoBlox/hugo-blox-builder/issues&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Request a &lt;strong&gt;feature&lt;/strong&gt; or report a &lt;strong&gt;bug&lt;/strong&gt; for &lt;em&gt;Hugo Blox&lt;/em&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;⬆️ &lt;strong&gt;Updating Hugo Blox?&lt;/strong&gt; View the &lt;a href=&#34;https://docs.hugoblox.com/reference/update/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Update Guide&lt;/a&gt; and &lt;a href=&#34;https://github.com/HugoBlox/hugo-blox-builder/releases&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Release Notes&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;crowd-funded-open-source-software&#34;&gt;Crowd-funded open-source software&lt;/h2&gt;
-&lt;p&gt;To help us develop this template and software sustainably under the MIT license, we ask all individuals and businesses that use it to help support its ongoing maintenance and development via sponsorship.&lt;/p&gt;
-&lt;h3 id=&#34;-click-here-to-become-a-sponsor-and-help-support-hugo-bloxs-future-httpshugobloxcomsponsor&#34;&gt;&lt;a href=&#34;https://hugoblox.com/sponsor/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;❤️ Click here to become a sponsor and help support Hugo Blox&amp;rsquo;s future ❤️&lt;/a&gt;&lt;/h3&gt;
-&lt;p&gt;As a token of appreciation for sponsoring, you can &lt;strong&gt;unlock &lt;a href=&#34;https://hugoblox.com/sponsor/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;these&lt;/a&gt; awesome rewards and extra features 🦄✨&lt;/strong&gt;&lt;/p&gt;
-&lt;h2 id=&#34;ecosystem&#34;&gt;Ecosystem&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://github.com/GetRD/academic-file-converter&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Bibtex To Markdown&lt;/a&gt;:&lt;/strong&gt; Automatically import publications from BibTeX&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;inspiration&#34;&gt;Inspiration&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://hugoblox.com/creators/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Learn what other &lt;strong&gt;creators&lt;/strong&gt;&lt;/a&gt; are building with this template.&lt;/p&gt;
-&lt;h2 id=&#34;features&#34;&gt;Features&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Page builder&lt;/strong&gt; - Create &lt;em&gt;anything&lt;/em&gt; with no-code &lt;a href=&#34;https://hugoblox.com/blocks/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;blocks&lt;/strong&gt;&lt;/a&gt; and &lt;a href=&#34;https://docs.hugoblox.com/reference/markdown/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;elements&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Edit any type of content&lt;/strong&gt; - Blog posts, publications, talks, slides, projects, and more!&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Create content&lt;/strong&gt; in &lt;a href=&#34;https://docs.hugoblox.com/reference/markdown/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;Markdown&lt;/strong&gt;&lt;/a&gt;, &lt;a href=&#34;https://docs.hugoblox.com/getting-started/cms/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;Jupyter&lt;/strong&gt;&lt;/a&gt;, or &lt;a href=&#34;https://docs.hugoblox.com/getting-started/cms/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;RStudio&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Plugin System&lt;/strong&gt; - Fully customizable &lt;a href=&#34;https://docs.hugoblox.com/getting-started/customize/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;color&lt;/strong&gt; and &lt;strong&gt;font themes&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Display Code and Math&lt;/strong&gt; - Code syntax highlighting and LaTeX math supported&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Integrations&lt;/strong&gt; - &lt;a href=&#34;https://analytics.google.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Google Analytics&lt;/a&gt;, &lt;a href=&#34;https://disqus.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Disqus commenting&lt;/a&gt;, Maps, Contact Forms, and more!&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Beautiful Site&lt;/strong&gt; - Simple and refreshing one-page design&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Industry-Leading SEO&lt;/strong&gt; - Help get your website found on search engines and social media&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Media Galleries&lt;/strong&gt; - Display your images and videos with captions in a customizable gallery&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Mobile Friendly&lt;/strong&gt; - Look amazing on every screen with a mobile friendly version of your site&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Multi-language&lt;/strong&gt; - 35+ language packs including English, 中文, and Português&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Multi-user&lt;/strong&gt; - Each author gets their own profile page&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Privacy Pack&lt;/strong&gt; - Assists with GDPR&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Stand Out&lt;/strong&gt; - Bring your site to life with animation, parallax backgrounds, and scroll effects&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;One-Click Deployment&lt;/strong&gt; - No servers. No databases. Only files.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;themes&#34;&gt;Themes&lt;/h2&gt;
-&lt;p&gt;Hugo Blox and its templates come with &lt;strong&gt;automatic day (light) and night (dark) mode&lt;/strong&gt; built-in. Visitors can choose their preferred mode by clicking the sun/moon icon in the header.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://docs.hugoblox.com/getting-started/customize/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Choose a stunning &lt;strong&gt;theme&lt;/strong&gt; and &lt;strong&gt;font&lt;/strong&gt;&lt;/a&gt; for your site. Themes are fully customizable.&lt;/p&gt;
-&lt;h2 id=&#34;license&#34;&gt;License&lt;/h2&gt;
-&lt;p&gt;Copyright 2016-present &lt;a href=&#34;https://georgecushen.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;George Cushen&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Released under the &lt;a href=&#34;https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;MIT&lt;/a&gt; license.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Pandas</title>
-      <link>http://localhost:4321/project/pandas/</link>
-      <pubDate>Thu, 26 Oct 2023 00:00:00 +0000</pubDate>
-      <guid>http://localhost:4321/project/pandas/</guid>
-      <description>&lt;p&gt;Flexible and powerful data analysis / manipulation library for Python, providing labeled data structures.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>🧠 Sharpen your thinking with a second brain</title>
-      <link>http://localhost:4321/post/second-brain/</link>
-      <pubDate>Thu, 26 Oct 2023 00:00:00 +0000</pubDate>
-      <guid>http://localhost:4321/post/second-brain/</guid>
-      <description>&lt;p&gt;Create a personal knowledge base and share your knowledge with your peers.&lt;/p&gt;
-&lt;p&gt;Hugo Blox web framework empowers you with one of the most flexible note-taking capabilities out there.&lt;/p&gt;
-&lt;p&gt;Create a powerful knowledge base that works on top of a local folder of plain text Markdown files.&lt;/p&gt;
-&lt;p&gt;Use it as your second brain, either publicly sharing your knowledge with your peers via your website, or via a private GitHub repository and password-protected site just for yourself.&lt;/p&gt;
-&lt;h2 id=&#34;mindmaps&#34;&gt;Mindmaps&lt;/h2&gt;
-&lt;p&gt;Hugo Blox supports a Markdown extension for mindmaps.&lt;/p&gt;
-&lt;p&gt;With this open format, can even edit your mindmaps in other popular tools such as Obsidian.&lt;/p&gt;
-&lt;p&gt;Simply insert a Markdown code block labelled as &lt;code&gt;markmap&lt;/code&gt; and optionally set the height of the mindmap as shown in the example below.&lt;/p&gt;
-&lt;p&gt;Mindmaps can be created by simply writing the items as a Markdown list within the &lt;code&gt;markmap&lt;/code&gt; code block, indenting each item to create as many sub-levels as you need:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;
-&lt;code&gt;
-```markmap {height=&#34;200px&#34;}
-- Hugo Modules
-  - Hugo Blox
-  - blox-plugins-netlify
-  - blox-plugins-netlify-cms
-  - blox-plugins-reveal
-```
-&lt;/code&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;renders as&lt;/p&gt;
-&lt;div class=&#34;markmap&#34; style=&#34;height: 200px;&#34;&gt;
-
-&lt;pre&gt;- Hugo Modules
-  - Hugo Blox
-  - blox-plugins-netlify
-  - blox-plugins-netlify-cms
-  - blox-plugins-reveal&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Anh here&amp;rsquo;s a more advanced mindmap with formatting, code blocks, and math:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;
-&lt;code&gt;
-```markmap
-- Mindmaps
-  - Links
-    - [Hugo Blox Docs](https://docs.hugoblox.com/)
-    - [Discord Community](https://discord.gg/z8wNYzb)
-    - [GitHub](https://github.com/HugoBlox/hugo-blox-builder)
-  - Features
-    - Markdown formatting
-    - **inline** ~~text~~ *styles*
-    - multiline
-      text
-    - `inline code`
-    -
-      ```js
-      console.log(&#39;hello&#39;);
-      console.log(&#39;code block&#39;);
-      ```
-    - Math: $x = {-b \pm \sqrt{b^2-4ac} \over 2a}$
-```
-&lt;/code&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;renders as&lt;/p&gt;
-&lt;div class=&#34;markmap&#34; style=&#34;height: 500px;&#34;&gt;
-
-&lt;pre&gt;- Mindmaps
-  - Links
-    - [Hugo Blox Docs](https://docs.hugoblox.com/)
-    - [Discord Community](https://discord.gg/z8wNYzb)
-    - [GitHub](https://github.com/HugoBlox/hugo-blox-builder)
-  - Features
-    - Markdown formatting
-    - **inline** ~~text~~ *styles*
-    - multiline
-      text
-    - `inline code`
-    -
-      ```js
-      console.log(&#39;hello&#39;);
-      console.log(&#39;code block&#39;);
-      ```
-    - Math: $x = {-b \pm \sqrt{b^2-4ac} \over 2a}$&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&#34;highlighting&#34;&gt;Highlighting&lt;/h2&gt;
-&lt;p&gt;&lt;mark&gt;Highlight&lt;/mark&gt; important text with &lt;code&gt;mark&lt;/code&gt;:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;mark&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;Highlighted text&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;mark&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;callouts&#34;&gt;Callouts&lt;/h2&gt;
-&lt;p&gt;Use &lt;a href=&#34;https://docs.hugoblox.com/reference/markdown/#callouts&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;callouts&lt;/a&gt; (aka &lt;em&gt;asides&lt;/em&gt;, &lt;em&gt;hints&lt;/em&gt;, or &lt;em&gt;alerts&lt;/em&gt;) to draw attention to notes, tips, and warnings.&lt;/p&gt;
-&lt;p&gt;By wrapping a paragraph in &lt;code&gt;{{% callout note %}} ... {{% /callout %}}&lt;/code&gt;, it will render as an aside.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;{{% callout note %}}
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;A Markdown aside is useful for displaying notices, hints, or definitions to your readers.
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;{{% /callout %}}
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;renders as&lt;/p&gt;
-&lt;div class=&#34;flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900&#34;&gt;
-&lt;span class=&#34;pr-3 pt-1 text-primary-600 dark:text-primary-300&#34;&gt;
-  &lt;svg height=&#34;24&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 24 24&#34;&gt;&lt;path fill=&#34;none&#34; stroke=&#34;currentColor&#34; stroke-linecap=&#34;round&#34; stroke-linejoin=&#34;round&#34; stroke-width=&#34;1.5&#34; d=&#34;m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z&#34;/&gt;&lt;/svg&gt;
-&lt;/span&gt;
-  &lt;span class=&#34;dark:text-neutral-300&#34;&gt;A Markdown aside is useful for displaying notices, hints, or definitions to your readers.&lt;/span&gt;
-&lt;/div&gt;
-&lt;p&gt;Or use the &lt;code&gt;warning&lt;/code&gt; callout type so your readers don&amp;rsquo;t miss critical details:&lt;/p&gt;
-&lt;div class=&#34;flex px-4 py-3 mb-6 rounded-md bg-yellow-100 dark:bg-yellow-900&#34;&gt;
-&lt;span class=&#34;pr-3 pt-1 text-red-400&#34;&gt;
-  &lt;svg height=&#34;24&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 24 24&#34;&gt;&lt;path fill=&#34;none&#34; stroke=&#34;currentColor&#34; stroke-linecap=&#34;round&#34; stroke-linejoin=&#34;round&#34; stroke-width=&#34;1.5&#34; d=&#34;M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0zM12 15.75h.007v.008H12z&#34;/&gt;&lt;/svg&gt;
-&lt;/span&gt;
-  &lt;span class=&#34;dark:text-neutral-300&#34;&gt;A Markdown aside is useful for displaying notices, hints, or definitions to your readers.&lt;/span&gt;
-&lt;/div&gt;
-&lt;h2 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h2&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>📈 Communicate your results effectively with the best data visualizations</title>
-      <link>http://localhost:4321/post/data-visualization/</link>
-      <pubDate>Wed, 25 Oct 2023 00:00:00 +0000</pubDate>
-      <guid>http://localhost:4321/post/data-visualization/</guid>
-      <description>&lt;p&gt;Hugo Blox is designed to give technical content creators a seamless experience. You can focus on the content and Hugo Blox handles the rest.&lt;/p&gt;
-&lt;p&gt;Use popular tools such as Plotly, Mermaid, and data frames.&lt;/p&gt;
-&lt;h2 id=&#34;charts&#34;&gt;Charts&lt;/h2&gt;
-&lt;p&gt;Hugo Blox supports the popular &lt;a href=&#34;https://plot.ly/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Plotly&lt;/a&gt; format for interactive data visualizations. With Plotly, you can design almost any kind of visualization you can imagine!&lt;/p&gt;
-&lt;p&gt;Save your Plotly JSON in your page folder, for example &lt;code&gt;line-chart.json&lt;/code&gt;, and then add the &lt;code&gt;{{&amp;lt; chart data=&amp;quot;line-chart&amp;quot; &amp;gt;}}&lt;/code&gt; shortcode where you would like the chart to appear.&lt;/p&gt;
-&lt;p&gt;Demo:&lt;/p&gt;
-
-
-
-
-&lt;div id=&#34;chart-946172583&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
-&lt;script&gt;
-  async function fetchChartJSON() {
-    console.debug(&#39;Hugo Blox fetching chart JSON...&#39;)
-    const response = await fetch(&#39;.\/line-chart.json&#39;);
-    return await response.json();
-  }
-
-  (function() {
-    let a = setInterval( function() {
-      if ( typeof window.Plotly === &#39;undefined&#39; ) {
-        console.debug(&#39;Plotly not loaded yet...&#39;)
-        return;
-      }
-      clearInterval( a );
-
-      fetchChartJSON().then(chart =&gt; {
-        console.debug(&#39;Plotting chart...&#39;)
-        window.Plotly.newPlot(&#39;chart-946172583&#39;, chart.data, chart.layout, {responsive: true});
-      });
-    }, 500 );
-  })();
-&lt;/script&gt;
-
-&lt;p&gt;You might also find the &lt;a href=&#34;http://plotly-json-editor.getforge.io/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Plotly JSON Editor&lt;/a&gt; useful.&lt;/p&gt;
-&lt;h2 id=&#34;diagrams&#34;&gt;Diagrams&lt;/h2&gt;
-&lt;p&gt;Hugo Blox supports the &lt;em&gt;Mermaid&lt;/em&gt; Markdown extension for diagrams.&lt;/p&gt;
-&lt;p&gt;An example &lt;strong&gt;flowchart&lt;/strong&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;```mermaid
-graph TD
-A[Hard] --&amp;gt;|Text| B(Round)
-B --&amp;gt; C{Decision}
-C --&amp;gt;|One| D[Result 1]
-C --&amp;gt;|Two| E[Result 2]
-```
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;renders as&lt;/p&gt;
-&lt;div class=&#34;mermaid&#34;&gt;graph TD
-A[Hard] --&gt;|Text| B(Round)
-B --&gt; C{Decision}
-C --&gt;|One| D[Result 1]
-C --&gt;|Two| E[Result 2]
-&lt;/div&gt;
-&lt;p&gt;An example &lt;strong&gt;sequence diagram&lt;/strong&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;```mermaid
-sequenceDiagram
-Alice-&amp;gt;&amp;gt;John: Hello John, how are you?
-loop Healthcheck
-    John-&amp;gt;&amp;gt;John: Fight against hypochondria
-end
-Note right of John: Rational thoughts!
-John--&amp;gt;&amp;gt;Alice: Great!
-John-&amp;gt;&amp;gt;Bob: How about you?
-Bob--&amp;gt;&amp;gt;John: Jolly good!
-```
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;renders as&lt;/p&gt;
-&lt;div class=&#34;mermaid&#34;&gt;sequenceDiagram
-Alice-&gt;&gt;John: Hello John, how are you?
-loop Healthcheck
-    John-&gt;&gt;John: Fight against hypochondria
-end
-Note right of John: Rational thoughts!
-John--&gt;&gt;Alice: Great!
-John-&gt;&gt;Bob: How about you?
-Bob--&gt;&gt;John: Jolly good!
-&lt;/div&gt;
-&lt;p&gt;An example &lt;strong&gt;class diagram&lt;/strong&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;```mermaid
-classDiagram
-Class01 &amp;lt;|-- AveryLongClass : Cool
-Class03 *-- Class04
-Class05 o-- Class06
-Class07 .. Class08
-Class09 --&amp;gt; C2 : Where am i?
-Class09 --* C3
-Class09 --|&amp;gt; Class07
-Class07 : equals()
-Class07 : Object[] elementData
-Class01 : size()
-Class01 : int chimp
-Class01 : int gorilla
-Class08 &amp;lt;--&amp;gt; C2: Cool label
-```
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;renders as&lt;/p&gt;
-&lt;div class=&#34;mermaid&#34;&gt;classDiagram
-Class01 &lt;|-- AveryLongClass : Cool
-Class03 *-- Class04
-Class05 o-- Class06
-Class07 .. Class08
-Class09 --&gt; C2 : Where am i?
-Class09 --* C3
-Class09 --|&gt; Class07
-Class07 : equals()
-Class07 : Object[] elementData
-Class01 : size()
-Class01 : int chimp
-Class01 : int gorilla
-Class08 &lt;--&gt; C2: Cool label
-&lt;/div&gt;
-&lt;p&gt;An example &lt;strong&gt;state diagram&lt;/strong&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;```mermaid
-stateDiagram
-[*] --&amp;gt; Still
-Still --&amp;gt; [*]
-Still --&amp;gt; Moving
-Moving --&amp;gt; Still
-Moving --&amp;gt; Crash
-Crash --&amp;gt; [*]
-```
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;renders as&lt;/p&gt;
-&lt;div class=&#34;mermaid&#34;&gt;stateDiagram
-[*] --&gt; Still
-Still --&gt; [*]
-Still --&gt; Moving
-Moving --&gt; Still
-Moving --&gt; Crash
-Crash --&gt; [*]
-&lt;/div&gt;
-&lt;h2 id=&#34;data-frames&#34;&gt;Data Frames&lt;/h2&gt;
-&lt;p&gt;Save your spreadsheet as a CSV file in your page&amp;rsquo;s folder and then render it by adding the &lt;em&gt;Table&lt;/em&gt; shortcode to your page:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{{&amp;lt;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;table&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;results.csv&amp;#34;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;header&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;true&amp;#34;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;caption&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Table 1: My results&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;gt;}}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;renders as&lt;/p&gt;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-&lt;table class=&#34;table-auto w-full&#34;&gt;
-  
-    
-    
-    &lt;thead&gt;
-      &lt;tr&gt;  &lt;th class=&#34;border-b dark:border-slate-600 font-medium p-4 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left&#34;&gt;customer_id&lt;/th&gt;  &lt;th class=&#34;border-b dark:border-slate-600 font-medium p-4 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left&#34;&gt;score&lt;/th&gt;  &lt;/tr&gt;
-    &lt;/thead&gt;
-  
-  &lt;tbody&gt;
-  
-    &lt;tr&gt;
-      
-        
-          &lt;td data-table-dtype=&#34;number&#34; class=&#34;border-b border-slate-100 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400&#34;&gt;1&lt;/td&gt;
-        
-      
-        
-          &lt;td data-table-dtype=&#34;number&#34; class=&#34;border-b border-slate-100 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400&#34;&gt;0&lt;/td&gt;
-        
-      
-    &lt;/tr&gt;
-  
-    &lt;tr&gt;
-      
-        
-          &lt;td data-table-dtype=&#34;number&#34; class=&#34;border-b border-slate-100 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400&#34;&gt;2&lt;/td&gt;
-        
-      
-        
-          &lt;td data-table-dtype=&#34;text&#34; class=&#34;border-b border-slate-100 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400&#34;&gt;0.5&lt;/td&gt;
-        
-      
-    &lt;/tr&gt;
-  
-    &lt;tr&gt;
-      
-        
-          &lt;td data-table-dtype=&#34;number&#34; class=&#34;border-b border-slate-100 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400&#34;&gt;3&lt;/td&gt;
-        
-      
-        
-          &lt;td data-table-dtype=&#34;number&#34; class=&#34;border-b border-slate-100 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400&#34;&gt;1&lt;/td&gt;
-        
-      
-    &lt;/tr&gt;
-  
-  &lt;/tbody&gt;
-  
-    &lt;caption class=&#34;table-caption&#34;&gt;Table 1: My results&lt;/caption&gt;
-  
-&lt;/table&gt;
-
-&lt;h2 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h2&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>👩🏼‍🏫 Teach academic courses</title>
-      <link>http://localhost:4321/post/teach-courses/</link>
-      <pubDate>Tue, 24 Oct 2023 00:00:00 +0000</pubDate>
-      <guid>http://localhost:4321/post/teach-courses/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;https://hugoblox.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Hugo Blox Builder&lt;/a&gt; is designed to give technical content creators a seamless experience. You can focus on the content and the Hugo Blox Builder which this template is built upon handles the rest.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Embed videos, podcasts, code, LaTeX math, and even test students!&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;On this page, you&amp;rsquo;ll find some examples of the types of technical content that can be rendered with Hugo Blox.&lt;/p&gt;
-&lt;h2 id=&#34;video&#34;&gt;Video&lt;/h2&gt;
-&lt;p&gt;Teach your course by sharing videos with your students. Choose from one of the following approaches:&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Youtube&lt;/strong&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;{{&amp;lt; youtube D2vj0WcvH5c &amp;gt;}}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;div style=&#34;position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;&#34;&gt;
-      &lt;iframe allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen=&#34;allowfullscreen&#34; loading=&#34;eager&#34; referrerpolicy=&#34;strict-origin-when-cross-origin&#34; src=&#34;https://www.youtube.com/embed/D2vj0WcvH5c?autoplay=0&amp;amp;controls=1&amp;amp;end=0&amp;amp;loop=0&amp;amp;mute=0&amp;amp;start=0&#34; style=&#34;position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;&#34; title=&#34;YouTube video&#34;&gt;&lt;/iframe&gt;
-    &lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Bilibili&lt;/strong&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;{{&amp;lt; bilibili BV1WV4y1r7DF &amp;gt;}}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;div class=&#34;w-full h-auto aspect-video relative&#34;&gt;
-  &lt;iframe src=&#34;//player.bilibili.com/player.html?bvid=BV1WV4y1r7DF&amp;page=1&#34;
-  allow=&#34;accelerometer; clipboard-write; encrypted-media; gyroscope; fullscreen; picture-in-picture;&#34;
-  class=&#34;w-full h-full&#34;
-  &gt;&lt;/iframe&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;Video file&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Videos may be added to a page by either placing them in your &lt;code&gt;assets/media/&lt;/code&gt; media library or in your &lt;a href=&#34;https://gohugo.io/content-management/page-bundles/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;page&amp;rsquo;s folder&lt;/a&gt;, and then embedding them with the &lt;em&gt;video&lt;/em&gt; shortcode:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;{{&amp;lt; video src=&amp;quot;my_video.mp4&amp;quot; controls=&amp;quot;yes&amp;quot; &amp;gt;}}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;podcast&#34;&gt;Podcast&lt;/h2&gt;
-&lt;p&gt;You can add a podcast or music to a page by placing the MP3 file in the page&amp;rsquo;s folder or the media library folder and then embedding the audio on your page with the &lt;em&gt;audio&lt;/em&gt; shortcode:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;{{&amp;lt; audio src=&amp;quot;ambient-piano.mp3&amp;quot; &amp;gt;}}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Try it out:&lt;/p&gt;
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-&lt;audio controls &gt;
-  &lt;source src=&#34;http://localhost:4321/post/teach-courses/ambient-piano.mp3&#34; type=&#34;audio/mpeg&#34;&gt;
-&lt;/audio&gt;
-
-&lt;h2 id=&#34;test-students&#34;&gt;Test students&lt;/h2&gt;
-&lt;p&gt;Provide a simple yet fun self-assessment by revealing the solutions to challenges with the &lt;code&gt;spoiler&lt;/code&gt; shortcode:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;{{&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;spoiler&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;text&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;👉 Click to view the solution&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;}}
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;You found me!
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;{{&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;spoiler&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;}}
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;renders as&lt;/p&gt;
-&lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-3&#34;&gt;
-  &lt;summary class=&#34;cursor-pointer&#34;&gt;👉 Click to view the solution&lt;/summary&gt;
-  &lt;div class=&#34;rounded-lg bg-neutral-50 dark:bg-neutral-800 p-2&#34;&gt;
-    You found me 🎉
-  &lt;/div&gt;
-&lt;/details&gt;
-&lt;h2 id=&#34;math&#34;&gt;Math&lt;/h2&gt;
-&lt;p&gt;Hugo Blox Builder supports a Markdown extension for $\LaTeX$ math. Enable math by setting the &lt;code&gt;math: true&lt;/code&gt; option in your page&amp;rsquo;s front matter, or enable math for your entire site by toggling math in your &lt;code&gt;config/_default/params.yaml&lt;/code&gt; file:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;features&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;math&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;enable&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;To render &lt;em&gt;inline&lt;/em&gt; or &lt;em&gt;block&lt;/em&gt; math, wrap your LaTeX math with &lt;code&gt;$...$&lt;/code&gt; or &lt;code&gt;$$...$$&lt;/code&gt;, respectively.&lt;/p&gt;
-&lt;p&gt;Example &lt;strong&gt;math block&lt;/strong&gt;:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-latex&#34; data-lang=&#34;latex&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;sb&#34;&gt;$$&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\gamma&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;_{n} &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\frac&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{ &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\left&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; | &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\left&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\mathbf&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; x_{n} &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\mathbf&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; x_{n&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;} &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\right&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;^T &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\left&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\nabla&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; F &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\mathbf&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; x_{n}&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\nabla&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; F &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\mathbf&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; x_{n&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\right&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\right&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; |}{&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\left&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\|\nabla&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; F&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\mathbf&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{x}_{n}&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\nabla&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; F&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\mathbf&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{x}_{n&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\right&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\|&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;^&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;$$&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;renders as&lt;/p&gt;
-$$\gamma_{n} = \frac{ \left | \left (\mathbf x_{n} - \mathbf x_{n-1} \right )^T \left [\nabla F (\mathbf x_{n}) - \nabla F (\mathbf x_{n-1}) \right ] \right |}{\left \|\nabla F(\mathbf{x}_{n}) - \nabla F(\mathbf{x}_{n-1}) \right \|^2}$$&lt;p&gt;Example &lt;strong&gt;inline math&lt;/strong&gt; &lt;code&gt;$\nabla F(\mathbf{x}_{n})$&lt;/code&gt; renders as $\nabla F(\mathbf{x}_{n})$.&lt;/p&gt;
-&lt;p&gt;Example &lt;strong&gt;multi-line math&lt;/strong&gt; using the math linebreak (&lt;code&gt;\\&lt;/code&gt;):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-latex&#34; data-lang=&#34;latex&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;sb&#34;&gt;$$&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;k;p_{&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;}^{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\begin&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{cases}p_{&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;}^{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;} &amp;amp; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\text&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{if }k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;, &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\\&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;p_{&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;}^{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;} &amp;amp; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\text&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{if }k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\end&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{cases}&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;$$&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;renders as&lt;/p&gt;
-$$
-f(k;p_{0}^{*}) = \begin{cases}p_{0}^{*} &amp; \text{if }k=1, \\
-1-p_{0}^{*} &amp; \text{if }k=0.\end{cases}
-$$&lt;h2 id=&#34;code&#34;&gt;Code&lt;/h2&gt;
-&lt;p&gt;Hugo Blox Builder utilises Hugo&amp;rsquo;s Markdown extension for highlighting code syntax. The code theme can be selected in the &lt;code&gt;config/_default/params.yaml&lt;/code&gt; file.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;```python
-import pandas as pd
-data = pd.read_csv(&amp;quot;data.csv&amp;quot;)
-data.head()
-```
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;renders as&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;pandas&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;as&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;pd&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;data&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pd&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;read_csv&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;data.csv&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;data&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;head&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;inline-images&#34;&gt;Inline Images&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{{&amp;lt;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;icon&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;python&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;gt;}}&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Python&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;renders as&lt;/p&gt;
-&lt;p&gt;
-  &lt;span class=&#34;inline-block  pr-1&#34;&gt;
-    &lt;svg style=&#34;height: 1em; transform: translateY(0.1em);&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; height=&#34;1em&#34; viewBox=&#34;0 0 448 512&#34; fill=&#34;currentColor&#34;&gt;&lt;path d=&#34;M439.8 200.5c-7.7-30.9-22.3-54.2-53.4-54.2h-40.1v47.4c0 36.8-31.2 67.8-66.8 67.8H172.7c-29.2 0-53.4 25-53.4 54.3v101.8c0 29 25.2 46 53.4 54.3 33.8 9.9 66.3 11.7 106.8 0 26.9-7.8 53.4-23.5 53.4-54.3v-40.7H226.2v-13.6h160.2c31.1 0 42.6-21.7 53.4-54.2 11.2-33.5 10.7-65.7 0-108.6zM286.2 404c11.1 0 20.1 9.1 20.1 20.3 0 11.3-9 20.4-20.1 20.4-11 0-20.1-9.2-20.1-20.4.1-11.3 9.1-20.3 20.1-20.3zM167.8 248.1h106.8c29.7 0 53.4-24.5 53.4-54.3V91.9c0-29-24.4-50.7-53.4-55.6-35.8-5.9-74.7-5.6-106.8.1-45.2 8-53.4 24.7-53.4 55.6v40.7h106.9v13.6h-147c-31.1 0-58.3 18.7-66.8 54.2-9.8 40.7-10.2 66.1 0 108.6 7.6 31.6 25.7 54.2 56.8 54.2H101v-48.8c0-35.3 30.5-66.4 66.8-66.4zm-6.7-142.6c-11.1 0-20.1-9.1-20.1-20.3.1-11.3 9-20.4 20.1-20.4 11 0 20.1 9.2 20.1 20.4s-9 20.3-20.1 20.3z&#34;/&gt;&lt;/svg&gt;
-  &lt;/span&gt; Python&lt;/p&gt;
-&lt;h2 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h2&gt;
-</description>
-    </item>
-    
-    <item>
       <title>Experience</title>
-      <link>http://localhost:4321/experience/</link>
+      <link>https://maicel.netlify.app/experience/</link>
       <pubDate>Tue, 24 Oct 2023 00:00:00 +0000</pubDate>
-      <guid>http://localhost:4321/experience/</guid>
+      <guid>https://maicel.netlify.app/experience/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Learn Python</title>
-      <link>http://localhost:4321/teaching/python/</link>
-      <pubDate>Tue, 24 Oct 2023 00:00:00 +0000</pubDate>
-      <guid>http://localhost:4321/teaching/python/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;https://hugoblox.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Hugo Blox Builder&lt;/a&gt; is designed to give technical content creators a seamless experience. You can focus on the content and the Hugo Blox Builder which this template is built upon handles the rest.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Embed videos, podcasts, code, LaTeX math, and even test students!&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;On this page, you&amp;rsquo;ll find some examples of the types of technical content that can be rendered with Hugo Blox.&lt;/p&gt;
-&lt;h2 id=&#34;video&#34;&gt;Video&lt;/h2&gt;
-&lt;p&gt;Teach your course by sharing videos with your students. Choose from one of the following approaches:&lt;/p&gt;
-&lt;div style=&#34;position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;&#34;&gt;
-      &lt;iframe allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen=&#34;allowfullscreen&#34; loading=&#34;eager&#34; referrerpolicy=&#34;strict-origin-when-cross-origin&#34; src=&#34;https://www.youtube.com/embed/D2vj0WcvH5c?autoplay=0&amp;amp;controls=1&amp;amp;end=0&amp;amp;loop=0&amp;amp;mute=0&amp;amp;start=0&#34; style=&#34;position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;&#34; title=&#34;YouTube video&#34;&gt;&lt;/iframe&gt;
-    &lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Youtube&lt;/strong&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;{{&amp;lt; youtube w7Ft2ymGmfc &amp;gt;}}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;strong&gt;Bilibili&lt;/strong&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;{{&amp;lt; bilibili id=&amp;quot;BV1WV4y1r7DF&amp;quot; &amp;gt;}}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;strong&gt;Video file&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Videos may be added to a page by either placing them in your &lt;code&gt;assets/media/&lt;/code&gt; media library or in your &lt;a href=&#34;https://gohugo.io/content-management/page-bundles/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;page&amp;rsquo;s folder&lt;/a&gt;, and then embedding them with the &lt;em&gt;video&lt;/em&gt; shortcode:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;{{&amp;lt; video src=&amp;quot;my_video.mp4&amp;quot; controls=&amp;quot;yes&amp;quot; &amp;gt;}}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;podcast&#34;&gt;Podcast&lt;/h2&gt;
-&lt;p&gt;You can add a podcast or music to a page by placing the MP3 file in the page&amp;rsquo;s folder or the media library folder and then embedding the audio on your page with the &lt;em&gt;audio&lt;/em&gt; shortcode:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;{{&amp;lt; audio src=&amp;quot;ambient-piano.mp3&amp;quot; &amp;gt;}}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Try it out:&lt;/p&gt;
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-&lt;audio controls &gt;
-  &lt;source src=&#34;http://localhost:4321/teaching/python/ambient-piano.mp3&#34; type=&#34;audio/mpeg&#34;&gt;
-&lt;/audio&gt;
-
-&lt;h2 id=&#34;test-students&#34;&gt;Test students&lt;/h2&gt;
-&lt;p&gt;Provide a simple yet fun self-assessment by revealing the solutions to challenges with the &lt;code&gt;spoiler&lt;/code&gt; shortcode:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;{{&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;spoiler&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;text&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;👉 Click to view the solution&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;}}
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;You found me!
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;{{&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;spoiler&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;}}
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;renders as&lt;/p&gt;
-&lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-2&#34;&gt;
-  &lt;summary class=&#34;cursor-pointer&#34;&gt;👉 Click to view the solution&lt;/summary&gt;
-  &lt;div class=&#34;rounded-lg bg-neutral-50 dark:bg-neutral-800 p-2&#34;&gt;
-    You found me 🎉
-  &lt;/div&gt;
-&lt;/details&gt;
-&lt;h2 id=&#34;math&#34;&gt;Math&lt;/h2&gt;
-&lt;p&gt;Hugo Blox Builder supports a Markdown extension for $\LaTeX$ math. You can enable this feature by toggling the &lt;code&gt;math&lt;/code&gt; option in your &lt;code&gt;config/_default/params.yaml&lt;/code&gt; file.&lt;/p&gt;
-&lt;p&gt;To render &lt;em&gt;inline&lt;/em&gt; or &lt;em&gt;block&lt;/em&gt; math, wrap your LaTeX math with &lt;code&gt;{{&amp;lt; math &amp;gt;}}$...${{&amp;lt; /math &amp;gt;}}&lt;/code&gt; or &lt;code&gt;{{&amp;lt; math &amp;gt;}}$$...$${{&amp;lt; /math &amp;gt;}}&lt;/code&gt;, respectively.&lt;/p&gt;
-&lt;div class=&#34;flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900&#34;&gt;
-&lt;span class=&#34;pr-3 pt-1 text-primary-600 dark:text-primary-300&#34;&gt;
-  &lt;svg height=&#34;24&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 24 24&#34;&gt;&lt;path fill=&#34;none&#34; stroke=&#34;currentColor&#34; stroke-linecap=&#34;round&#34; stroke-linejoin=&#34;round&#34; stroke-width=&#34;1.5&#34; d=&#34;m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z&#34;/&gt;&lt;/svg&gt;
-&lt;/span&gt;
-  &lt;span class=&#34;dark:text-neutral-300&#34;&gt;We wrap the LaTeX math in the Hugo Blox &lt;em&gt;math&lt;/em&gt; shortcode to prevent Hugo rendering our math as Markdown.&lt;/span&gt;
-&lt;/div&gt;
-&lt;p&gt;Example &lt;strong&gt;math block&lt;/strong&gt;:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-latex&#34; data-lang=&#34;latex&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;{{&lt;/span&gt;&amp;lt; math &amp;gt;&lt;span class=&#34;nb&#34;&gt;}}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;sb&#34;&gt;$$&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\gamma&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;_{n} &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\frac&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{ &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\left&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; | &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\left&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\mathbf&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; x_{n} &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\mathbf&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; x_{n&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;} &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\right&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;^T &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\left&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\nabla&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; F &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\mathbf&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; x_{n}&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\nabla&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; F &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\mathbf&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; x_{n&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\right&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\right&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; |}{&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\left&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\|\nabla&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; F&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\mathbf&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{x}_{n}&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\nabla&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; F&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\mathbf&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{x}_{n&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\right&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\|&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;^&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;$$&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;{{&lt;/span&gt;&amp;lt; /math &amp;gt;&lt;span class=&#34;nb&#34;&gt;}}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;renders as&lt;/p&gt;
-
-$$\gamma_{n} = \frac{ \left | \left (\mathbf x_{n} - \mathbf x_{n-1} \right )^T \left [\nabla F (\mathbf x_{n}) - \nabla F (\mathbf x_{n-1}) \right ] \right |}{\left \|\nabla F(\mathbf{x}_{n}) - \nabla F(\mathbf{x}_{n-1}) \right \|^2}$$
-
-
-&lt;p&gt;Example &lt;strong&gt;inline math&lt;/strong&gt; &lt;code&gt;{{&amp;lt; math &amp;gt;}}$\nabla F(\mathbf{x}_{n})${{&amp;lt; /math &amp;gt;}}&lt;/code&gt; renders as $\nabla F(\mathbf{x}_{n})$
-.&lt;/p&gt;
-&lt;p&gt;Example &lt;strong&gt;multi-line math&lt;/strong&gt; using the math linebreak (&lt;code&gt;\\&lt;/code&gt;):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-latex&#34; data-lang=&#34;latex&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;{{&lt;/span&gt;&amp;lt; math &amp;gt;&lt;span class=&#34;nb&#34;&gt;}}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;sb&#34;&gt;$$&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;k;p_{&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;}^{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\begin&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{cases}p_{&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;}^{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;} &amp;amp; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\text&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{if }k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;, &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\\&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;p_{&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;}^{&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;} &amp;amp; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\text&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{if }k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\end&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{cases}&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;$$&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;{{&lt;/span&gt;&amp;lt; /math &amp;gt;&lt;span class=&#34;nb&#34;&gt;}}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;renders as&lt;/p&gt;
-
-
-$$
-f(k;p_{0}^{*}) = \begin{cases}p_{0}^{*} &amp; \text{if }k=1, \\
-1-p_{0}^{*} &amp; \text{if }k=0.\end{cases}
-$$
-
-
-
-&lt;h2 id=&#34;code&#34;&gt;Code&lt;/h2&gt;
-&lt;p&gt;Hugo Blox Builder utilises Hugo&amp;rsquo;s Markdown extension for highlighting code syntax. The code theme can be selected in the &lt;code&gt;config/_default/params.yaml&lt;/code&gt; file.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;```python
-import pandas as pd
-data = pd.read_csv(&amp;quot;data.csv&amp;quot;)
-data.head()
-```
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;renders as&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;pandas&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;as&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;pd&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;data&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pd&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;read_csv&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;data.csv&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;data&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;head&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;inline-images&#34;&gt;Inline Images&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{{&amp;lt;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;icon&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;python&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;gt;}}&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Python&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;renders as&lt;/p&gt;
-&lt;p&gt;
-  &lt;span class=&#34;inline-block  pr-1&#34;&gt;
-    &lt;svg style=&#34;height: 1em; transform: translateY(0.1em);&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; height=&#34;1em&#34; viewBox=&#34;0 0 448 512&#34; fill=&#34;currentColor&#34;&gt;&lt;path d=&#34;M439.8 200.5c-7.7-30.9-22.3-54.2-53.4-54.2h-40.1v47.4c0 36.8-31.2 67.8-66.8 67.8H172.7c-29.2 0-53.4 25-53.4 54.3v101.8c0 29 25.2 46 53.4 54.3 33.8 9.9 66.3 11.7 106.8 0 26.9-7.8 53.4-23.5 53.4-54.3v-40.7H226.2v-13.6h160.2c31.1 0 42.6-21.7 53.4-54.2 11.2-33.5 10.7-65.7 0-108.6zM286.2 404c11.1 0 20.1 9.1 20.1 20.3 0 11.3-9 20.4-20.1 20.4-11 0-20.1-9.2-20.1-20.4.1-11.3 9.1-20.3 20.1-20.3zM167.8 248.1h106.8c29.7 0 53.4-24.5 53.4-54.3V91.9c0-29-24.4-50.7-53.4-55.6-35.8-5.9-74.7-5.6-106.8.1-45.2 8-53.4 24.7-53.4 55.6v40.7h106.9v13.6h-147c-31.1 0-58.3 18.7-66.8 54.2-9.8 40.7-10.2 66.1 0 108.6 7.6 31.6 25.7 54.2 56.8 54.2H101v-48.8c0-35.3 30.5-66.4 66.8-66.4zm-6.7-142.6c-11.1 0-20.1-9.1-20.1-20.3.1-11.3 9-20.4 20.1-20.4 11 0 20.1 9.2 20.1 20.4s-9 20.3-20.1 20.3z&#34;/&gt;&lt;/svg&gt;
-  &lt;/span&gt; Python&lt;/p&gt;
-&lt;h2 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h2&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>✅ Manage your projects</title>
-      <link>http://localhost:4321/post/project-management/</link>
-      <pubDate>Mon, 23 Oct 2023 00:00:00 +0000</pubDate>
-      <guid>http://localhost:4321/post/project-management/</guid>
-      <description>&lt;p&gt;Easily manage your projects - create ideation mind maps, Gantt charts, todo lists, and more!&lt;/p&gt;
-&lt;h2 id=&#34;ideation&#34;&gt;Ideation&lt;/h2&gt;
-&lt;p&gt;Hugo Blox supports a Markdown extension for mindmaps.&lt;/p&gt;
-&lt;p&gt;Simply insert a Markdown code block labelled as &lt;code&gt;markmap&lt;/code&gt; and optionally set the height of the mindmap as shown in the example below.&lt;/p&gt;
-&lt;p&gt;Mindmaps can be created by simply writing the items as a Markdown list within the &lt;code&gt;markmap&lt;/code&gt; code block, indenting each item to create as many sub-levels as you need:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;
-&lt;code&gt;
-```markmap {height=&#34;200px&#34;}
-- Hugo Modules
-  - Hugo Blox
-  - blox-plugins-netlify
-  - blox-plugins-netlify-cms
-  - blox-plugins-reveal
-```
-&lt;/code&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;renders as&lt;/p&gt;
-&lt;div class=&#34;markmap&#34; style=&#34;height: 200px;&#34;&gt;
-
-&lt;pre&gt;- Hugo Modules
-  - Hugo Blox
-  - blox-plugins-netlify
-  - blox-plugins-netlify-cms
-  - blox-plugins-reveal&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&#34;diagrams&#34;&gt;Diagrams&lt;/h2&gt;
-&lt;p&gt;Hugo Blox supports the &lt;em&gt;Mermaid&lt;/em&gt; Markdown extension for diagrams.&lt;/p&gt;
-&lt;p&gt;An example &lt;strong&gt;Gantt diagram&lt;/strong&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;```mermaid
-gantt
-section Section
-Completed :done,    des1, 2014-01-06,2014-01-08
-Active        :active,  des2, 2014-01-07, 3d
-Parallel 1   :         des3, after des1, 1d
-Parallel 2   :         des4, after des1, 1d
-Parallel 3   :         des5, after des3, 1d
-Parallel 4   :         des6, after des4, 1d
-```
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;renders as&lt;/p&gt;
-&lt;div class=&#34;mermaid&#34;&gt;gantt
-section Section
-Completed :done,    des1, 2014-01-06,2014-01-08
-Active        :active,  des2, 2014-01-07, 3d
-Parallel 1   :         des3, after des1, 1d
-Parallel 2   :         des4, after des1, 1d
-Parallel 3   :         des5, after des3, 1d
-Parallel 4   :         des6, after des4, 1d
-&lt;/div&gt;
-&lt;h2 id=&#34;todo-lists&#34;&gt;Todo lists&lt;/h2&gt;
-&lt;p&gt;You can even write your todo lists in Markdown too:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;- [x]&lt;/span&gt; Write math example
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;- [x]&lt;/span&gt; Write diagram example
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;- [ ]&lt;/span&gt; Do something else
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;renders as&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Write math example
-&lt;ul&gt;
-&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Write diagram example&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Do something else&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h2&gt;
-</description>
-    </item>
-    
-    <item>
       <title>Estado en la investigación sobre modelos de predicción de la severidad en confirmados de la Covid-19.</title>
-      <link>http://localhost:4321/publication/journal-article/</link>
+      <link>https://maicel.netlify.app/publication/journal-article/</link>
       <pubDate>Wed, 01 Feb 2023 00:00:00 +0000</pubDate>
-      <guid>http://localhost:4321/publication/journal-article/</guid>
+      <guid>https://maicel.netlify.app/publication/journal-article/</guid>
       <description>&lt;div class=&#34;flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900&#34;&gt;
 &lt;span class=&#34;pr-3 pt-1 text-primary-600 dark:text-primary-300&#34;&gt;
   &lt;svg height=&#34;24&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 24 24&#34;&gt;&lt;path fill=&#34;none&#34; stroke=&#34;currentColor&#34; stroke-linecap=&#34;round&#34; stroke-linejoin=&#34;round&#34; stroke-width=&#34;1.5&#34; d=&#34;m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z&#34;/&gt;&lt;/svg&gt;
@@ -1357,9 +1477,9 @@ Parallel 4   :         des6, after des4, 1d
     
     <item>
       <title>Identificación de pacientes de bajo riesgo de severidad en confirmados de la COVID-19. Cuba. Años 2020-2021</title>
-      <link>http://localhost:4321/publication/preprint/</link>
+      <link>https://maicel.netlify.app/publication/preprint/</link>
       <pubDate>Wed, 07 Apr 2021 00:00:00 +0000</pubDate>
-      <guid>http://localhost:4321/publication/preprint/</guid>
+      <guid>https://maicel.netlify.app/publication/preprint/</guid>
       <description>&lt;p&gt;Este trabajo está impulsado por los resultados de mi &lt;a href=&#34;https://revhabanera.sld.cu/index.php/rhab/article/view/4943&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;artículo anterior&lt;/a&gt; sobre desarrollo de modelos predictivos para el triaje.&lt;/p&gt;
 &lt;div class=&#34;flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900&#34;&gt;
 &lt;span class=&#34;pr-3 pt-1 text-primary-600 dark:text-primary-300&#34;&gt;
@@ -1398,27 +1518,6 @@ Parallel 4   :         des6, after des4, 1d
 &lt;/div&gt;
 &lt;p&gt;&lt;strong&gt;Figura 1. Árbol de bajo riesgo&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;La actualización de este modelo se encuentra disponible en la  &lt;a href=&#34;https://www.researchgate.net/publication/388656780_MODELOS_PREDICTIVOS_PARA_LA_ESTIMACION_Y_CLASIFICACION_DEL_RIESGO_DE_MUERTE_EN_COVID-19&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;tesis de dotorado &lt;/a&gt; titulada  &lt;em&gt;MODELOS PREDICTIVOS PARA LA ESTIMACIÓN Y CLASIFICACIÓN DEL RIESGO DE MUERTE EN COVID-19&lt;/em&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>An example conference paper</title>
-      <link>http://localhost:4321/publication/conference-paper/</link>
-      <pubDate>Mon, 01 Jul 2013 00:00:00 +0000</pubDate>
-      <guid>http://localhost:4321/publication/conference-paper/</guid>
-      <description>&lt;div class=&#34;flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900&#34;&gt;
-&lt;span class=&#34;pr-3 pt-1 text-primary-600 dark:text-primary-300&#34;&gt;
-  &lt;svg height=&#34;24&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 24 24&#34;&gt;&lt;path fill=&#34;none&#34; stroke=&#34;currentColor&#34; stroke-linecap=&#34;round&#34; stroke-linejoin=&#34;round&#34; stroke-width=&#34;1.5&#34; d=&#34;m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z&#34;/&gt;&lt;/svg&gt;
-&lt;/span&gt;
-  &lt;span class=&#34;dark:text-neutral-300&#34;&gt;Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.&lt;/span&gt;
-&lt;/div&gt;
-&lt;div class=&#34;flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900&#34;&gt;
-&lt;span class=&#34;pr-3 pt-1 text-primary-600 dark:text-primary-300&#34;&gt;
-  &lt;svg height=&#34;24&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 24 24&#34;&gt;&lt;path fill=&#34;none&#34; stroke=&#34;currentColor&#34; stroke-linecap=&#34;round&#34; stroke-linejoin=&#34;round&#34; stroke-width=&#34;1.5&#34; d=&#34;m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z&#34;/&gt;&lt;/svg&gt;
-&lt;/span&gt;
-  &lt;span class=&#34;dark:text-neutral-300&#34;&gt;Create your slides in Markdown - click the &lt;em&gt;Slides&lt;/em&gt; button to check out the example.&lt;/span&gt;
-&lt;/div&gt;
-&lt;p&gt;Add the publication&amp;rsquo;s &lt;strong&gt;full text&lt;/strong&gt; or &lt;strong&gt;supplementary notes&lt;/strong&gt; here. You can use rich formatting such as including &lt;a href=&#34;https://docs.hugoblox.com/content/writing-markdown-latex/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;code, math, and images&lt;/a&gt;.&lt;/p&gt;
 </description>
     </item>
     

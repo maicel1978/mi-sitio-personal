@@ -1,9 +1,9 @@
 <!doctype html>
 <!-- This site was created with Hugo Blox. https://hugoblox.com -->
-<!-- Last Published: 28 de marzo de 2025 --><html lang="es" dir="ltr"
+<!-- Last Published: 8 de agosto de 2025 --><html lang="es" dir="ltr"
       data-wc-theme-default="system">
   
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=4321&amp;path=livereload" data-no-instant defer></script>
+<head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -44,7 +44,7 @@
   <meta name="description" content="" />
 
   
-  <link rel="alternate" hreflang="es" href="http://localhost:4321/experience/" />
+  <link rel="alternate" hreflang="es" href="https://maicel.netlify.app/experience/" />
 
   
   
@@ -130,6 +130,45 @@
 
 
 
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VN0YPKYGX4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url, target) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           if (target !== '_blank') {
+             document.location = url;
+           }
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target, event.target.getAttribute('target'));  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'G-VN0YPKYGX4', {});
+  gtag('set', {'cookie_flags': 'SameSite=None;Secure'});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+
 
 
 
@@ -161,7 +200,7 @@
   <link rel="icon" type="image/png" href="/media/icon_hu_b45ae4411cf43192.png" />
   <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu_1f7e870b5f23a0ce.png" />
 
-  <link rel="canonical" href="http://localhost:4321/experience/" />
+  <link rel="canonical" href="https://maicel.netlify.app/experience/" />
 
   
   
@@ -187,10 +226,10 @@
     <meta property="twitter:creator" content="@GetResearchDev" />
   
   <meta property="og:site_name" content="Bioestadistica educativa" />
-  <meta property="og:url" content="http://localhost:4321/experience/" />
+  <meta property="og:url" content="https://maicel.netlify.app/experience/" />
   <meta property="og:title" content="Experience | Bioestadistica educativa" />
-  <meta property="og:description" content="" /><meta property="og:image" content="http://localhost:4321/media/icon_hu_551fbaee136b383e.png" />
-    <meta property="twitter:image" content="http://localhost:4321/media/icon_hu_551fbaee136b383e.png" /><meta property="og:locale" content="es" />
+  <meta property="og:description" content="" /><meta property="og:image" content="https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png" />
+    <meta property="twitter:image" content="https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png" /><meta property="og:locale" content="es" />
   
     
       <meta
@@ -244,25 +283,6 @@
   
   
   
-    
-      
-      
-        
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-        
-        
-      
-    
   
   
   
@@ -270,26 +290,6 @@
   
   
   
-  
-    
-      
-      
-        
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-        
-        
-      
-    
   
   
   
@@ -325,23 +325,12 @@
         
       
     
-      
-      
-        
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-        
-        
-      
+  
+  
+  
+  
+  
+  
     
       
       
@@ -361,31 +350,6 @@
         
       
     
-      
-      
-        
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-        
-        
-      
-    
-  
-  
-  
-  
-  
-  
-  
   
   
   
@@ -463,6 +427,32 @@
         
       
     
+  
+  
+  
+  
+  
+  
+  
+    
+      
+      
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
+    
       
       
         
@@ -501,17 +491,61 @@
     
       
       
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
     
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+      
+      
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
+    
+      
+      
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
+    
+      
+      
+    
   
   
   
@@ -603,8 +637,8 @@
   
   <script
     defer
-    src="/js/hugo-blox-es.min.js"
-    integrity=""
+    src="/js/hugo-blox-es.min.e6965f872775fcb889e784756e346e58af6799db6f12e6c21a12272f7d3b1c1e.js"
+    integrity="sha256-5pZfhyd1/LiJ54R1bjRuWK9nmdtvEubCGhInL307HB4="
   ></script>
 
   

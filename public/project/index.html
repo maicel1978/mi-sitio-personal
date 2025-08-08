@@ -1,9 +1,9 @@
 <!doctype html>
 <!-- This site was created with Hugo Blox. https://hugoblox.com -->
-<!-- Last Published: 28 de marzo de 2025 --><html lang="es" dir="ltr"
+<!-- Last Published: 8 de agosto de 2025 --><html lang="es" dir="ltr"
       data-wc-theme-default="system">
   
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=4321&amp;path=livereload" data-no-instant defer></script>
+<head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -44,7 +44,9 @@
   <meta name="description" content="The highly-customizable Hugo Academic theme powered by Hugo Blox Builder. Easily create your personal academic website." />
 
   
-  <link rel="alternate" hreflang="es" href="http://localhost:4321/project/" />
+    <link rel="alternate" hreflang="en" href="https://maicel.netlify.app/en/project/" />
+  
+  <link rel="alternate" hreflang="es" href="https://maicel.netlify.app/project/" />
 
   
   
@@ -130,6 +132,45 @@
 
 
 
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VN0YPKYGX4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url, target) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           if (target !== '_blank') {
+             document.location = url;
+           }
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target, event.target.getAttribute('target'));  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'G-VN0YPKYGX4', {});
+  gtag('set', {'cookie_flags': 'SameSite=None;Secure'});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+
 
 
 
@@ -163,7 +204,7 @@
   <link rel="icon" type="image/png" href="/media/icon_hu_b45ae4411cf43192.png" />
   <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu_1f7e870b5f23a0ce.png" />
 
-  <link rel="canonical" href="http://localhost:4321/project/" />
+  <link rel="canonical" href="https://maicel.netlify.app/project/" />
 
   
   
@@ -189,13 +230,13 @@
     <meta property="twitter:creator" content="@GetResearchDev" />
   
   <meta property="og:site_name" content="Bioestadistica educativa" />
-  <meta property="og:url" content="http://localhost:4321/project/" />
+  <meta property="og:url" content="https://maicel.netlify.app/project/" />
   <meta property="og:title" content="Projects | Bioestadistica educativa" />
-  <meta property="og:description" content="The highly-customizable Hugo Academic theme powered by Hugo Blox Builder. Easily create your personal academic website." /><meta property="og:image" content="http://localhost:4321/media/icon_hu_551fbaee136b383e.png" />
-    <meta property="twitter:image" content="http://localhost:4321/media/icon_hu_551fbaee136b383e.png" /><meta property="og:locale" content="es" />
+  <meta property="og:description" content="The highly-customizable Hugo Academic theme powered by Hugo Blox Builder. Easily create your personal academic website." /><meta property="og:image" content="https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png" />
+    <meta property="twitter:image" content="https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png" /><meta property="og:locale" content="es" />
   
     
-      <meta property="og:updated_time" content="2025-02-28T00:00:00&#43;00:00" />
+      <meta property="og:updated_time" content="2025-04-12T00:00:00&#43;00:00" />
     
   
 
@@ -240,25 +281,6 @@
   
   
   
-    
-      
-      
-        
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-        
-        
-      
-    
   
   
   
@@ -266,26 +288,6 @@
   
   
   
-  
-    
-      
-      
-        
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-        
-        
-      
-    
   
   
   
@@ -321,23 +323,12 @@
         
       
     
-      
-      
-        
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-        
-        
-      
+  
+  
+  
+  
+  
+  
     
       
       
@@ -357,31 +348,6 @@
         
       
     
-      
-      
-        
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-        
-        
-      
-    
-  
-  
-  
-  
-  
-  
-  
   
   
   
@@ -459,6 +425,32 @@
         
       
     
+  
+  
+  
+  
+  
+  
+  
+    
+      
+      
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
+    
       
       
         
@@ -497,17 +489,61 @@
     
       
       
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
     
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+      
+      
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
+    
+      
+      
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
+    
+      
+      
+    
   
   
   
@@ -599,8 +635,8 @@
   
   <script
     defer
-    src="/js/hugo-blox-es.min.js"
-    integrity=""
+    src="/js/hugo-blox-es.min.e6965f872775fcb889e784756e346e58af6799db6f12e6c21a12272f7d3b1c1e.js"
+    integrity="sha256-5pZfhyd1/LiJ54R1bjRuWK9nmdtvEubCGhInL307HB4="
   ></script>
 
   
@@ -804,6 +840,36 @@
 
       
       
+      <div class="pl-1 mr-5 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200
+            [&.active]:font-bold [&.active]:text-black/90 dark:[&.active]:text-white">
+
+
+<div class="flex justify-items-start ">
+    <button
+      title="Idiomas"
+      data-state="closed"
+      data-hb-language-chooser
+      class="grow h-7 rounded-md px-2 text-left text-xs font-medium text-gray-600 transition-colors dark:text-gray-400 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-primary-100/5 dark:hover:text-gray-50"
+      type="button"
+      aria-label="Idiomas"
+    >
+      <div class="flex items-center gap-2 capitalize">
+        <svg height=18 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5a17.92 17.92 0 0 1-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418"/></svg><span>Español</span></div>
+    </button>
+    <ul
+      class="fixed m-0 min-w-[100px] hidden z-20 max-h-64 overflow-auto rounded-md ring-1 ring-black/5 bg-white py-1 text-sm shadow-lg dark:ring-white/20 dark:bg-neutral-800"
+      style="inset: auto auto 0 0;"
+    >
+      
+        <li class="flex flex-col">
+          <a
+            href="https://maicel.netlify.app/en/project/"
+            class="relative cursor-pointer text-gray-800 dark:text-gray-100 hover:bg-primary-50 hover:text-primary-600 hover:dark:bg-primary-500/10 hover:dark:text-primary-200 whitespace-nowrap py-1.5 transition-colors ltr:pl-3 ltr:pr-9 rtl:pr-3 rtl:pl-9"
+          >English</a>
+        </li>
+      </ul>
+  </div></div>
+      
 
       
       
@@ -847,6 +913,34 @@
 
 
 
+<a href="/project/plate-to-policy-real-time-ai-driven-insights-for-smarter-food-fortification/"  class="mb-5">
+  <div class="md:flex">
+    <div class="md:flex-shrink-0 overflow-hidden">
+      
+        
+        
+      <img class="h-48 w-full object-cover md:w-48 hover:scale-125 transition duration-500 cursor-pointer object-cover" loading="lazy" src="/project/plate-to-policy-real-time-ai-driven-insights-for-smarter-food-fortification/featured_hu_dc3aad807307dec3.webp" height="655" width="655" alt="MacroScope AI: Real-Time Nutrition Insights for Smarter Food Systems">
+      
+    </div>
+    <div class="p-8">
+      <div class="uppercase tracking-wide text-md text-primary-700 dark:text-primary-200 font-semibold">MacroScope AI: Real-Time Nutrition Insights for Smarter Food Systems</div>
+      <p class="block mt-1 text-sm leading-tight font-medium text-black dark:text-white">
+        Transformando Platos en Políticas: IA para una Nutrición Más Inteligente En un mundo donde las deficiencias de micronutrientes afectan a millones de personas, la fortificación de alimentos a gran escala (LSFF, por sus siglas en inglés) se ha convertido en una de las intervenciones de salud pública más efectivas. Sin embargo, para que estas iniciativas sean verdaderamente exitosas, necesitamos datos precisos, oportunos y contextualizados sobre lo que realmente consumen las personas. Es aquí donde entra en juego nuestro proyecto: “MacroScope AI: Real-Time Nutrition Insights for Smarter Food Systems”.</p>
+      <p class="mt-2 text-gray-500 dark:text-gray-400 text-sm">abr. 12, 2025</p>
+    </div>
+  </div>
+</a>
+
+  
+  
+
+
+
+
+
+
+
+
 <a href="/project/covidcencecapk/"  class="mb-5">
   <div class="md:flex">
     <div class="md:flex-shrink-0 overflow-hidden">
@@ -861,37 +955,6 @@
       <p class="block mt-1 text-sm leading-tight font-medium text-black dark:text-white">
         COVIDCENCEC, es un modelo predictivo diseñado para estimar y clasificar el riesgo de muerte por COVID-19. Este proyecto es parte de su tesis titulada “Modelos predictivos para estimar y clasificar el riesgo de muerte por COVID-19”, escrita por el Dr. Maicel Monzón Peres. COVIDCENCEC utiliza una combinación de JavaScript, HTML y CSS para crear una aplicación web interactiva. La función principal de esta aplicación es predecir la probabilidad de muerte por COVID-19 basándose en predictores seleccionados. Al emplear técnicas estadísticas avanzadas y algoritmos de aprendizaje automático, el modelo analiza varios indicadores de salud y factores demográficos para proporcionar a los usuarios evaluaciones de riesgo.</p>
       <p class="mt-2 text-gray-500 dark:text-gray-400 text-sm">feb. 28, 2025</p>
-    </div>
-  </div>
-</a>
-
-  
-  
-
-
-
-
-  
-  
-
-
-
-
-
-<a href="https://github.com/pandas-dev/pandas" target="_blank" rel="noopener" class="mb-5">
-  <div class="md:flex">
-    <div class="md:flex-shrink-0 overflow-hidden">
-      
-        
-        
-      <img class="h-48 w-full object-cover md:w-48 hover:scale-125 transition duration-500 cursor-pointer object-cover" loading="lazy" src="/project/pandas/featured_hu_b50618bab6fb936.webp" height="655" width="655" alt="Pandas">
-      
-    </div>
-    <div class="p-8">
-      <div class="uppercase tracking-wide text-md text-primary-700 dark:text-primary-200 font-semibold">Pandas</div>
-      <p class="block mt-1 text-sm leading-tight font-medium text-black dark:text-white">
-        Flexible and powerful data analysis / manipulation library for Python, providing labeled data structures.</p>
-      <p class="mt-2 text-gray-500 dark:text-gray-400 text-sm">oct. 26, 2023</p>
     </div>
   </div>
 </a>
@@ -929,6 +992,15 @@
   
   
   
+
+<div class="mx-auto flex gap-3 py-2 px-4">
+  <div class="font-bold"><svg class="inline-block pr-1" style="height: 1em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5a17.92 17.92 0 0 1-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418"/></svg>Idiomas:
+  </div>
+  <div class="font-bold">Español</div>
+  
+  <div><a href="https://maicel.netlify.app/en/project/">English</a></div>
+  
+</div>
 
 
 

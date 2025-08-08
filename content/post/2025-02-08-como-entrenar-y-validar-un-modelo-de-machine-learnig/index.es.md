@@ -1,7 +1,6 @@
 ---
 title: "Como entrenar y validar un modelo de machine learnig"
-author: 
-- admin
+author: 'Maicel Monzón'
 date: '2024-02-08'
 categories:
   - R

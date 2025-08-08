@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Machine Learnig | Bioestadistica educativa</title>
-    <link>http://localhost:4321/tags/machine-learnig/</link>
-      <atom:link href="http://localhost:4321/tags/machine-learnig/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://maicel.netlify.app/tags/machine-learnig/</link>
+      <atom:link href="https://maicel.netlify.app/tags/machine-learnig/index.xml" rel="self" type="application/rss+xml" />
     <description>Machine Learnig</description>
     <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es</language><lastBuildDate>Tue, 11 Feb 2025 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>http://localhost:4321/media/icon_hu_551fbaee136b383e.png</url>
+      <url>https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png</url>
       <title>Machine Learnig</title>
-      <link>http://localhost:4321/tags/machine-learnig/</link>
+      <link>https://maicel.netlify.app/tags/machine-learnig/</link>
     </image>
     
     <item>
       <title>Analisis Exploratorio de Datos</title>
-      <link>http://localhost:4321/post/eda/</link>
+      <link>https://maicel.netlify.app/post/eda/</link>
       <pubDate>Tue, 11 Feb 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:4321/post/eda/</guid>
+      <guid>https://maicel.netlify.app/post/eda/</guid>
       <description>&lt;p&gt;Análisis Exploratorio de Datos (EDA, por sus siglas en ingles) implica el análisis de datos centrado en comprender los datos, identificar valores atípicos,  valores faltantes así como proporcionar la base para la formulación del modelo. Además es importante conocer como se relacionan las variables.&lt;/p&gt;
 &lt;p&gt;Un concepto popular en el campo de la ciencia de datos llamado &lt;strong&gt;GIGO&lt;/strong&gt; (Garbage in Garbage Out). Este concepto significa que los datos de mala calidad siempre producirán resultados deficientes, independientemente del modelo y la técnica utilizados. Acá te describo un flujo de trabajo que en mi opinión es muy practico, el orden de etapas y el cumplimiento depende del problema y no es una camisa de fuerza.&lt;/p&gt;
 &lt;p&gt;Este proceso incluye:&lt;/p&gt;

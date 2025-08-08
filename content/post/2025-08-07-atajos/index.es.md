@@ -1,8 +1,7 @@
 ---
 title: 'Diseños Alternativos a Ensayos Clínicos Controlados Aleatorizados: Contextos
   de Aplicación y Riesgos Regulatorios'
-author: 
-- admin
+author: 'Maicel Monzón'
 date: '2025-08-07'
 categories:
   - 'ensayos clinicos'

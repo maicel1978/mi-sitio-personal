@@ -1,7 +1,6 @@
 ---
 title: Conferencia Introducción al análisis estadístico en ensayos clínicos
-author: 
-- admin
+author: 'Maicel Monzón'
 date: '2025-03-12'
 summary: "Aprenda elementos básicos sobre ensayos clínicos"
 slug: conferencia-introducci-n-al-an-lisis-estad-stico-en-ensayos-cl-nicos
