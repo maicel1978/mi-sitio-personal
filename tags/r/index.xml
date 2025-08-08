@@ -1,0 +1,922 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>R | Bioestadistica educativa</title><link>https://maicel.netlify.app/tags/r/</link><atom:link href="https://maicel.netlify.app/tags/r/index.xml" rel="self" type="application/rss+xml"/><description>R</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es</language><lastBuildDate>Thu, 19 Jun 2025 00:00:00 +0000</lastBuildDate><image><url>https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png</url><title>R</title><link>https://maicel.netlify.app/tags/r/</link></image><item><title>¿Explicar o predecir? La elección metodológica entre enfoques tradicionales y machine learning en salud pública</title><link>https://maicel.netlify.app/post/sue-an-las-m-quinas-con-cerebros-el-ctricos/</link><pubDate>Thu, 19 Jun 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/sue-an-las-m-quinas-con-cerebros-el-ctricos/</guid><description>&lt;h2 id="el-debate-central-explicar-o-predecir">El Debate Central: ¿Explicar o Predecir?&lt;/h2>
+&lt;p>En el campo de la bioestadística, un debate metodológico fundamental gira en torno a la distinción entre dos propósitos principales del modelado: los modelos diseñados para &lt;strong>explicar&lt;/strong> fenómenos en una población,y aquellos orientados a &lt;strong>predecir&lt;/strong> características o eventos futuros en un individuo. Estos últimos se conocen comúnmente como Modelos de Predicción Clínica (Steyerberg 2009).&lt;/p>
+&lt;p>Mientras que los modelos explicativos priorizan la inferencia causal y la interpretabilidad de los resultados, lo que se alinea con el propósito general de la investigación científica de comprender mecanismos subyacentes(Silva Aycaguer 1998), los modelos predictivos están más vinculados al desarrollo de tecnologías (Steyerberg 2009) . Por ejemplo, su objetivo es construir herramientas fiables para estimar la probabilidad de que ciertas enfermedades estén presentes (modelos diagnósticos) o predecir resultados futuros (modelos pronósticos), lo cual es crucial para la toma de decisiones clínicas.&lt;/p>
+&lt;p>Los modelos de predicción clínica se puden enmarcar dentro del enfoque de &lt;strong>aprendizaje automático&lt;/strong> (machine learning), ya que comparten objetivos y metodologías clave(Ryu and Han 2022) .&lt;/p>
+&lt;p>
+&lt;figure >
+&lt;div class="flex justify-center ">
+&lt;div class="w-100" >&lt;img alt="" srcset="
+/post/sue-an-las-m-quinas-con-cerebros-el-ctricos/ML_hu_3896e1d5d4a0897d.webp 400w,
+/post/sue-an-las-m-quinas-con-cerebros-el-ctricos/ML_hu_1d052eb55afaa6f2.webp 760w,
+/post/sue-an-las-m-quinas-con-cerebros-el-ctricos/ML_hu_57704654071fe109.webp 1200w"
+src="https://maicel.netlify.app/post/sue-an-las-m-quinas-con-cerebros-el-ctricos/ML_hu_3896e1d5d4a0897d.webp"
+width="760"
+height="303"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;/figure>
+&lt;/p>
+&lt;p>Este artículo no busca ser una comparativa técnica exhaustiva entre la &lt;strong>“bioestadística clásica”&lt;/strong> y el &lt;strong>“machine learning”&lt;/strong> aplicado a la salud. En cambio, es una exploración breve de los dos paradigmas fundamentales que subyacen al modelado en salud pública: uno centrado en la &lt;strong>generación de conocimiento&lt;/strong> y otro en el &lt;strong>desarrollo y validación de tecnologías&lt;/strong> para la toma de decisiones informadas. Además, se incluirán algunos ejemplos en código R que podrían ser útiles para los lectores interesados en implementar problemas similares.&lt;/p>
+&lt;hr>
+&lt;h2 id="la-implementación-del-modelo">La implementación del modelo&lt;/h2>
+&lt;p>Antes de escribir una sola línea de código, debemos definir el objetivo fundamental del modelo y el problema.&lt;/p>
+&lt;p>Esta decisión dicta toda la metodología subsecuente.&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>El enfoque explicativo:&lt;/strong> Buscamos &lt;strong>entender relaciones&lt;/strong> y cuantificar la asociación entre predictores y un resultado en una población específica. El modelo es una herramienta para generar hipótesis y explicar mecanismos. La pregunta clave es: &lt;em>¿Cuál es la magnitud y la incertidumbre de la asociación entre X e Y?&lt;/em>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>El enfoque predictivo:&lt;/strong> Buscamos crear una herramienta que &lt;strong>generalice bien a datos nuevos y no vistos&lt;/strong>. El modelo es un medio para tomar decisiones informadas sobre individuos en otros contextos. La pregunta clave es: Para un nuevo paciente con estas características, &lt;em>¿cuál es la probabilidad de que ocurra Y, y qué tan fiable es esa predicción?&lt;/em>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>Existe una percepción errónea de que el &lt;strong>machine learning&lt;/strong> se limita a los algoritmos de “caja negra” más avanzados, como los Bosques Aleatorios, las Redes Neuronales Profundas (DNNs) y los Gradient Boosting Machines (GBM).&lt;/p>
+&lt;p>Sin embargo, el panorama del machine learning es mucho más amplio e incluye tambien modelos altamente interpretables. Para ilustrarlo con un ejemplo práctico, consideremos la regresión logística binaria múltiple. Este es un algoritmo ampliamente reconocido y utilizado en campos como el análisis causal y el diseño de modelos de predicción clínica, precisamente por su transparencia. Permite entender claramente cómo cada variable influye en el resultado.&lt;/p>
+&lt;p>Pero, es importante destacar que otros algoritmos, como las redes bayesianas y las redes neuronales de una sola capa (lineales, sin capas ocultas no lineales), también ofrecen un alto grado de interpretabilidad y explicabilidad. Estos modelos pueden ser utilizados eficazmente en lugar de la regresión logística para abordar problemas tradicionales, especialmente cuando comprender el “porqué” de las predicciones es tan importante como la predicción misma.&lt;/p>
+&lt;p>Vamos a explorar ambos mundos con un caso práctico: predecir el riesgo de diabetes utilizando el conjunto de datos &lt;em>PimaIndiansDiabetes2&lt;/em> , incluido en el paquete &lt;strong>mlbench&lt;/strong> (Leisch and Dimitriadou, n.d.). La “Base de Datos de Diabetes de Indígenas PIMA” es un conjunto de datos ampliamente utilizado para la evaluación del riesgo de diabetes y la elaboración de modelos predictivos.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># bibliotecas&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">library&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tidyverse&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">library&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">gtsummary&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">library&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">missRanger&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">library&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mlbench&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">data&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">PimaIndiansDiabetes2&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># lectura y transformación de datos &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">datos&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">PimaIndiansDiabetes2&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">missRanger&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">num.trees&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">100&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">verbose&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">0&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span> &lt;span class="c1"># imputación múltiple&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">mutate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">diabetes&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nf">if_else&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">diabetes&lt;/span>&lt;span class="o">==&lt;/span>&lt;span class="s">&amp;#34;pos&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="m">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="m">0&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span> &lt;span class="c1"># transformación del resultado&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">select&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">diabetes&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">age&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">pedigree&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">pregnant&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">mass&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">glucose&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">pressure&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="enfoque-1-el-enfoque-explicativo">Enfoque 1: El Enfoque explicativo&lt;/h2>
+&lt;p>Cuando el objetivo es la &lt;strong>explicación&lt;/strong>, nuestro foco está en la estimación de efectos y su incertidumbre.&lt;/p>
+&lt;p>&lt;strong>El “Porqué”:&lt;/strong> Queremos cuantificar las asociaciones en nuestra muestra para generar conocimiento. Por ejemplo, ¿cuál es la fuerza de la asociación entre la predisposición genética (pedigree) y la diabetes?&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Ajuste del modelo de regresión logística&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">modelo_explicativo&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">glm&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">diabetes&lt;/span> &lt;span class="o">~&lt;/span> &lt;span class="n">.,&lt;/span> &lt;span class="n">data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">datos&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">family&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;binomial&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">tbl_regression&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">modelo_explicativo&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">exponentiate&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">TRUE&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">as_gt&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">gt&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="nf">tab_header&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">title&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;Factores de riesgo para la diabetes en mujeres de la etnia PIMA&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div id="hrnxvrltcy" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+&lt;style>#hrnxvrltcy table {
+font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+}
+&amp;#10;#hrnxvrltcy thead, #hrnxvrltcy tbody, #hrnxvrltcy tfoot, #hrnxvrltcy tr, #hrnxvrltcy td, #hrnxvrltcy th {
+border-style: none;
+}
+&amp;#10;#hrnxvrltcy p {
+margin: 0;
+padding: 0;
+}
+&amp;#10;#hrnxvrltcy .gt_table {
+display: table;
+border-collapse: collapse;
+line-height: normal;
+margin-left: auto;
+margin-right: auto;
+color: #333333;
+font-size: 16px;
+font-weight: normal;
+font-style: normal;
+background-color: #FFFFFF;
+width: auto;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #A8A8A8;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #A8A8A8;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+}
+&amp;#10;#hrnxvrltcy .gt_caption {
+padding-top: 4px;
+padding-bottom: 4px;
+}
+&amp;#10;#hrnxvrltcy .gt_title {
+color: #333333;
+font-size: 125%;
+font-weight: initial;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-color: #FFFFFF;
+border-bottom-width: 0;
+}
+&amp;#10;#hrnxvrltcy .gt_subtitle {
+color: #333333;
+font-size: 85%;
+font-weight: initial;
+padding-top: 3px;
+padding-bottom: 5px;
+padding-left: 5px;
+padding-right: 5px;
+border-top-color: #FFFFFF;
+border-top-width: 0;
+}
+&amp;#10;#hrnxvrltcy .gt_heading {
+background-color: #FFFFFF;
+text-align: center;
+border-bottom-color: #FFFFFF;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+}
+&amp;#10;#hrnxvrltcy .gt_bottom_border {
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+&amp;#10;#hrnxvrltcy .gt_col_headings {
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+}
+&amp;#10;#hrnxvrltcy .gt_col_heading {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: normal;
+text-transform: inherit;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: bottom;
+padding-top: 5px;
+padding-bottom: 6px;
+padding-left: 5px;
+padding-right: 5px;
+overflow-x: hidden;
+}
+&amp;#10;#hrnxvrltcy .gt_column_spanner_outer {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: normal;
+text-transform: inherit;
+padding-top: 0;
+padding-bottom: 0;
+padding-left: 4px;
+padding-right: 4px;
+}
+&amp;#10;#hrnxvrltcy .gt_column_spanner_outer:first-child {
+padding-left: 0;
+}
+&amp;#10;#hrnxvrltcy .gt_column_spanner_outer:last-child {
+padding-right: 0;
+}
+&amp;#10;#hrnxvrltcy .gt_column_spanner {
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+vertical-align: bottom;
+padding-top: 5px;
+padding-bottom: 5px;
+overflow-x: hidden;
+display: inline-block;
+width: 100%;
+}
+&amp;#10;#hrnxvrltcy .gt_spanner_row {
+border-bottom-style: hidden;
+}
+&amp;#10;#hrnxvrltcy .gt_group_heading {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: middle;
+text-align: left;
+}
+&amp;#10;#hrnxvrltcy .gt_empty_group_heading {
+padding: 0.5px;
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+vertical-align: middle;
+}
+&amp;#10;#hrnxvrltcy .gt_from_md > :first-child {
+margin-top: 0;
+}
+&amp;#10;#hrnxvrltcy .gt_from_md > :last-child {
+margin-bottom: 0;
+}
+&amp;#10;#hrnxvrltcy .gt_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+margin: 10px;
+border-top-style: solid;
+border-top-width: 1px;
+border-top-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: middle;
+overflow-x: hidden;
+}
+&amp;#10;#hrnxvrltcy .gt_stub {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-right-style: solid;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+padding-left: 5px;
+padding-right: 5px;
+}
+&amp;#10;#hrnxvrltcy .gt_stub_row_group {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-right-style: solid;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+padding-left: 5px;
+padding-right: 5px;
+vertical-align: top;
+}
+&amp;#10;#hrnxvrltcy .gt_row_group_first td {
+border-top-width: 2px;
+}
+&amp;#10;#hrnxvrltcy .gt_row_group_first th {
+border-top-width: 2px;
+}
+&amp;#10;#hrnxvrltcy .gt_summary_row {
+color: #333333;
+background-color: #FFFFFF;
+text-transform: inherit;
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+}
+&amp;#10;#hrnxvrltcy .gt_first_summary_row {
+border-top-style: solid;
+border-top-color: #D3D3D3;
+}
+&amp;#10;#hrnxvrltcy .gt_first_summary_row.thick {
+border-top-width: 2px;
+}
+&amp;#10;#hrnxvrltcy .gt_last_summary_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+&amp;#10;#hrnxvrltcy .gt_grand_summary_row {
+color: #333333;
+background-color: #FFFFFF;
+text-transform: inherit;
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+}
+&amp;#10;#hrnxvrltcy .gt_first_grand_summary_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-top-style: double;
+border-top-width: 6px;
+border-top-color: #D3D3D3;
+}
+&amp;#10;#hrnxvrltcy .gt_last_grand_summary_row_top {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-style: double;
+border-bottom-width: 6px;
+border-bottom-color: #D3D3D3;
+}
+&amp;#10;#hrnxvrltcy .gt_striped {
+background-color: rgba(128, 128, 128, 0.05);
+}
+&amp;#10;#hrnxvrltcy .gt_table_body {
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+&amp;#10;#hrnxvrltcy .gt_footnotes {
+color: #333333;
+background-color: #FFFFFF;
+border-bottom-style: none;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+}
+&amp;#10;#hrnxvrltcy .gt_footnote {
+margin: 0px;
+font-size: 90%;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+}
+&amp;#10;#hrnxvrltcy .gt_sourcenotes {
+color: #333333;
+background-color: #FFFFFF;
+border-bottom-style: none;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+}
+&amp;#10;#hrnxvrltcy .gt_sourcenote {
+font-size: 90%;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+}
+&amp;#10;#hrnxvrltcy .gt_left {
+text-align: left;
+}
+&amp;#10;#hrnxvrltcy .gt_center {
+text-align: center;
+}
+&amp;#10;#hrnxvrltcy .gt_right {
+text-align: right;
+font-variant-numeric: tabular-nums;
+}
+&amp;#10;#hrnxvrltcy .gt_font_normal {
+font-weight: normal;
+}
+&amp;#10;#hrnxvrltcy .gt_font_bold {
+font-weight: bold;
+}
+&amp;#10;#hrnxvrltcy .gt_font_italic {
+font-style: italic;
+}
+&amp;#10;#hrnxvrltcy .gt_super {
+font-size: 65%;
+}
+&amp;#10;#hrnxvrltcy .gt_footnote_marks {
+font-size: 75%;
+vertical-align: 0.4em;
+position: initial;
+}
+&amp;#10;#hrnxvrltcy .gt_asterisk {
+font-size: 100%;
+vertical-align: 0;
+}
+&amp;#10;#hrnxvrltcy .gt_indent_1 {
+text-indent: 5px;
+}
+&amp;#10;#hrnxvrltcy .gt_indent_2 {
+text-indent: 10px;
+}
+&amp;#10;#hrnxvrltcy .gt_indent_3 {
+text-indent: 15px;
+}
+&amp;#10;#hrnxvrltcy .gt_indent_4 {
+text-indent: 20px;
+}
+&amp;#10;#hrnxvrltcy .gt_indent_5 {
+text-indent: 25px;
+}
+&amp;#10;#hrnxvrltcy .katex-display {
+display: inline-flex !important;
+margin-bottom: 0.75em !important;
+}
+&amp;#10;#hrnxvrltcy div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+height: 0px !important;
+}
+&lt;/style>
+&lt;table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+&lt;thead>
+&lt;tr class="gt_heading">
+&lt;td colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>Factores de riesgo para la diabetes en mujeres de la etnia PIMA&lt;/td>
+&lt;/tr>
+&amp;#10; &lt;tr class="gt_col_headings">
+&lt;th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="label">&lt;span class='gt_from_md'>&lt;strong>Characteristic&lt;/strong>&lt;/span>&lt;/th>
+&lt;th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="estimate">&lt;span class='gt_from_md'>&lt;strong>OR&lt;/strong>&lt;/span>&lt;/th>
+&lt;th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="conf.low">&lt;span class='gt_from_md'>&lt;strong>95% CI&lt;/strong>&lt;/span>&lt;/th>
+&lt;th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="p.value">&lt;span class='gt_from_md'>&lt;strong>p-value&lt;/strong>&lt;/span>&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody class="gt_table_body">
+&lt;tr>&lt;td headers="label" class="gt_row gt_left">age&lt;/td>
+&lt;td headers="estimate" class="gt_row gt_center">1.01&lt;/td>
+&lt;td headers="conf.low" class="gt_row gt_center">0.99, 1.03&lt;/td>
+&lt;td headers="p.value" class="gt_row gt_center">0.2&lt;/td>&lt;/tr>
+&lt;tr>&lt;td headers="label" class="gt_row gt_left">pedigree&lt;/td>
+&lt;td headers="estimate" class="gt_row gt_center">2.37&lt;/td>
+&lt;td headers="conf.low" class="gt_row gt_center">1.33, 4.26&lt;/td>
+&lt;td headers="p.value" class="gt_row gt_center">0.004&lt;/td>&lt;/tr>
+&lt;tr>&lt;td headers="label" class="gt_row gt_left">pregnant&lt;/td>
+&lt;td headers="estimate" class="gt_row gt_center">1.13&lt;/td>
+&lt;td headers="conf.low" class="gt_row gt_center">1.06, 1.21&lt;/td>
+&lt;td headers="p.value" class="gt_row gt_center">&lt;0.001&lt;/td>&lt;/tr>
+&lt;tr>&lt;td headers="label" class="gt_row gt_left">mass&lt;/td>
+&lt;td headers="estimate" class="gt_row gt_center">1.10&lt;/td>
+&lt;td headers="conf.low" class="gt_row gt_center">1.07, 1.13&lt;/td>
+&lt;td headers="p.value" class="gt_row gt_center">&lt;0.001&lt;/td>&lt;/tr>
+&lt;tr>&lt;td headers="label" class="gt_row gt_left">glucose&lt;/td>
+&lt;td headers="estimate" class="gt_row gt_center">1.04&lt;/td>
+&lt;td headers="conf.low" class="gt_row gt_center">1.03, 1.04&lt;/td>
+&lt;td headers="p.value" class="gt_row gt_center">&lt;0.001&lt;/td>&lt;/tr>
+&lt;tr>&lt;td headers="label" class="gt_row gt_left">pressure&lt;/td>
+&lt;td headers="estimate" class="gt_row gt_center">0.99&lt;/td>
+&lt;td headers="conf.low" class="gt_row gt_center">0.98, 1.01&lt;/td>
+&lt;td headers="p.value" class="gt_row gt_center">0.4&lt;/td>&lt;/tr>
+&lt;/tbody>
+&lt;tfoot class="gt_sourcenotes">
+&lt;tr>
+&lt;td class="gt_sourcenote" colspan="4">&lt;span class='gt_from_md'>Abbreviations: CI = Confidence Interval, OR = Odds Ratio&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;/tfoot>
+&amp;#10;&lt;/table>
+&lt;/div>
+&lt;p>Una vez aplicada la regresión logística, se observa que por cada unidad de cambio en la variable &lt;strong>pedigree&lt;/strong>, es 2.37 veces más probable que la mujer sea diabética si se mantienen el resto de las variables constantes. Dado que este intervalo de confianza no incluye el valor uno del Odds Ratio (OR), tenemos evidencia para sugerir una asociación estadística entre los antecedentes familiares de diabetes y la presencia de la enfermedad.&lt;/p>
+&lt;p>Si bien, este resultado del modelo no es garantía de significación clínica, puede sugerir una explicación causal y, además, nos proporciona un rango plausible para la magnitud del efecto.&lt;/p>
+&lt;p>En este caso, el foco de la modelación no es una herramienta para el diagnóstico y el pronóstico , sino la estimación del efecto y la cuantificación de nuestra incertidumbre sobre él (explicación).&lt;/p>
+&lt;h2 id="enfoque-2-el-enfoque-predictivo">Enfoque 2: El Enfoque predictivo&lt;/h2>
+&lt;p>Aquí, la interpretabilidad de un coeficiente aislado pierde protagonismo frente a la predición del modelo y al rendimiento global frente a nuevos datos. Como diría Frank Harrell, &lt;em>“la predicción sin una validación honesta es una fantasía”&lt;/em> (Harrell Jr 2015).&lt;/p>
+&lt;p>&lt;strong>El “Porqué”&lt;/strong>: Queremos una herramienta que, al recibir los datos de una nueva paciente, nos dé una probabilidad de riesgo de diabetes que sea precisa y fiable.&lt;/p>
+&lt;p>A continuación se muestra como el modelo se entrena en una partición de los datos (conjunto de entrenamiento) y se evalúa su despeño en un nuevos datos (conjunto de prueba).&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># bibliotecas&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">library&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">rms&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">verbose&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="bp">F&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">library&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">CalibrationCurves&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 1. Partición de datos&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">set.seed&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="m">1353&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">split&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">initial_split&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">datos&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">strata&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;diabetes&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">entrenamiento&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">training&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">split&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">prueba&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">testing&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">split&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 2. Ajuste del modelo en el conjunto de ENTRENAMIENTO&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Usamos lrm del paquete rms, diseñado para modelado predictivo&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">modelo_predictivo&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">lrm&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">diabetes&lt;/span> &lt;span class="o">~&lt;/span> &lt;span class="n">.,&lt;/span> &lt;span class="n">data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">entrenamiento&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">x&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">TRUE&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">y&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">TRUE&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 3. Predicción en el conjunto de PRUEBA (el momento de la verdad)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">predicciones&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">predict&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">modelo_predictivo&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">newdata&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">prueba&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">type&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;fitted&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 4. Evaluación del rendimiento: ¿Funciona la bola de cristal?&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># La siguiente línea imprimirá las métricas de texto y generará el gráfico de calibración&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">val.prob&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">predicciones&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">prueba&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">diabetes&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;img src="https://maicel.netlify.app/post/sue-an-las-m-quinas-con-cerebros-el-ctricos/index.es_files/figure-html/machine_learnig-1.png" width="672" style="display: block; margin: auto;" />
+&lt;pre>&lt;code>## Dxy C (ROC) R2 D D:Chi-sq D:p
+## 0.714865672 0.857432836 0.457300264 0.398065790 77.428631681 0.000000000
+## U U:Chi-sq U:p Q Brier Intercept
+## -0.006821292 0.690311985 0.708109885 0.404887082 0.145035245 -0.155198552
+## Slope Emax E90 Eavg S:z S:p
+## 1.006770568 0.054652568 0.043820595 0.024518474 -0.163093305 0.870444971
+&lt;/code>&lt;/pre>
+&lt;p>Interpretación de la Validación:&lt;/p>
+&lt;p>Nuestro foco se desplaza a las métricas de rendimiento en el conjunto de prueba, mostradas en el texto que precede al gráfico:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Discriminación (c-statistic / AUC):&lt;/strong> Nuestro C (o c-statistic) de 0.86 indica una excelente capacidad para distinguir entre pacientes que desarrollarán la enfermedad y los que no.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Calibración:&lt;/strong> Este es el aspecto más crítico y a menudo ignorado. El gráfico de calibración (Figura 2) nos muestra si las predicciones del modelo son fiables. Una desviación de la línea diagonal “Ideal” indica descalibración, lo que significa que el modelo es sistemáticamente demasiado optimista o pesimista. Un modelo con alta discriminación pero mala calibración es peligroso en la práctica clínica.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="el-fantasma-en-la-máquina-descalibración-y-validez-temporal">El Fantasma en la Máquina: Descalibración y Validez Temporal&lt;/h2>
+&lt;p>Un modelo predictivo no es una escultura de mármol; es más como un coche que requiere mantenimiento. El mayor error en la implementación de modelos es asumir que su rendimiento inicial se mantendrá en el tiempo. Como advierte Ewout Steyerberg, los modelos se degradan(Steyerberg 2009).&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Cambios en la Prevalencia:&lt;/strong> Si la prevalencia de la diabetes varian en la población, las predicciones del modelo pueden descalibrarse.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Cambios en las Características de los Pacientes:&lt;/strong> La población de pacientes cambia, las prácticas de medición evolucionan.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Cambios en la Práctica Clínica:&lt;/strong> Nuevos tratamientos pueden alterar la relación entre los predictores y el resultado.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>Esto implica que un modelo predictivo requiere monitorización continua y recalibración periódica. La validación no es un evento único, sino un proceso continuo.&lt;/p>
+&lt;h2 id="frente-a-frente-una-comparación-matizada">Frente a Frente: Una Comparación Matizada&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>&lt;strong>Dimensión&lt;/strong>&lt;/th>
+&lt;th>&lt;strong>Modelo Explicativo (Inferencia)&lt;/strong>&lt;/th>
+&lt;th>&lt;strong>Modelo Predictivo (Generalización)&lt;/strong>&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;strong>Pregunta Clave&lt;/strong>&lt;/td>
+&lt;td>¿Cuál es la relación entre X e Y?&lt;/td>
+&lt;td>¿Cuál es el riesgo de Y para un nuevo individuo?&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Uso de Datos&lt;/strong>&lt;/td>
+&lt;td>Típicamente, todo el dataset para maximizar la precisión de la estimación.&lt;/td>
+&lt;td>&lt;strong>Separación estricta Train/Test&lt;/strong>. La validación es la métrica de éxito.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Output&lt;/strong>&lt;/td>
+&lt;td>Estimaciones de efectos (OR, HR) y sus Intervalos de Confianza.&lt;/td>
+&lt;td>Métricas de rendimiento (AUC, Calibración, Brier Score) en datos no vistos.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Peligro Principal&lt;/strong>&lt;/td>
+&lt;td>&lt;strong>Sobreinterpretación causal&lt;/strong>: A partir de datos observacionales. Confundir asociación con causa.&lt;/td>
+&lt;td>&lt;strong>Sobreajuste (Overfitting)&lt;/strong> y falsa sensación de rendimiento si la validación no es rigurosa.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h1 id="conclusión-más-allá-de-las-herramientas-una-filosofía-de-trabajo">Conclusión: Más Allá de las Herramientas, una Filosofía de Trabajo&lt;/h1>
+&lt;p>La discusión no debería ser glm vs. xgboost, sino inferencia vs. predicción. La bioestadística moderna y la ciencia de datos responsable no son antagonistas; son dos caras de la misma moneda del conocimiento basado en datos.&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Para el epidemiólogo o investigador clínico, el rigor inferencial sigue siendo el pilar para generar hipótesis.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Para el clínico o gestor de salud que busca una herramienta de apoyo a la decisión, la validación predictiva rigurosa no es negociable.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>El profesional de datos en salud del siglo XXI debe ser bilingüe. Debe entender la cautela de la inferencia causal y, al mismo tiempo, dominar el proceso de desarrollo y validación de modelos predictivos que sean robustos, fiables y, sobre todo, honestos sobre su propia incertidumbre y limitaciones.&lt;/p>
+&lt;p>Nuestro rol es ser, como diría un estadístico sabio, tanto escépticos como constructores. Escépticos de nuestras propias suposiciones y constructores de herramientas que, aunque no sueñen, nos ayuden a tomar decisiones más inteligentes.&lt;/p>
+&lt;h1 id="bibliografía-y-lecturas-recomendadas">Bibliografía y Lecturas Recomendadas&lt;/h1>
+&lt;div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+&lt;div id="ref-harrelljr2015" class="csl-entry">
+&lt;p>Harrell Jr, Frank E. 2015. &lt;em>Regression Modeling Strategies&lt;/em>. 1era ed. New York: Springer.&lt;/p>
+&lt;/div>
+&lt;div id="ref-leisch" class="csl-entry">
+&lt;p>Leisch, Friedrich, and Evgenia Dimitriadou. n.d. “Mlbench: Machine Learning Benchmark Problems.” &lt;a href="https://doi.org/10.32614/CRAN.package.mlbench" target="_blank" rel="noopener">https://doi.org/10.32614/CRAN.package.mlbench&lt;/a>.&lt;/p>
+&lt;/div>
+&lt;div id="ref-ryu2022" class="csl-entry">
+&lt;p>Ryu, Leeha, and Kyunghwa Han. 2022. “Machine Learning vs. Statistical Model for Prediction Modelling: Application in Medical Imaging Research.” &lt;em>Journal of the Korean Society of Radiology&lt;/em> 83 (6): 1219. &lt;a href="https://doi.org/10.3348/jksr.2022.0111" target="_blank" rel="noopener">https://doi.org/10.3348/jksr.2022.0111&lt;/a>.&lt;/p>
+&lt;/div>
+&lt;div id="ref-silvaaycaguer1998" class="csl-entry">
+&lt;p>Silva Aycaguer, Patricio Suárez. 1998. &lt;em>Cultura Estadística e Investigación Científica En El Campo de La Salud: Una Mirada Crítica&lt;/em>. Madrid: Diaz de Santos.&lt;/p>
+&lt;/div>
+&lt;div id="ref-steyerbergLibro2009" class="csl-entry">
+&lt;p>Steyerberg, E. 2009. &lt;em>Clinical Prediction Models&lt;/em>. 1th ed. Statistics for Biology and Health. USA: Springer.&lt;/p>
+&lt;/div>
+&lt;/div></description></item><item><title>Tutorial: Análisis de Fortificación de Alimentos con HCES y R</title><link>https://maicel.netlify.app/teaching/tutorial-an-lisis-de-fortificaci-n-de-alimentos-con-hces-y-r/</link><pubDate>Wed, 05 Mar 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/teaching/tutorial-an-lisis-de-fortificaci-n-de-alimentos-con-hces-y-r/</guid><description>&lt;p>En este tutorial, aprenderás a usar datos de Encuestas de Consumo y Gasto en Hogares (HCES) , Tablas de Composición de Alimentos (FCT) y herramientas de R (tidyverse, gtsummary, ggstatsplot) para evaluar la adecuación nutricional y modelar escenarios de fortificación. Los conceptos se explican desde cero, con ejemplos reproducibles.&lt;/p>
+&lt;h1 id="paso-1-preparación-de-datos-hces">Paso 1: Preparación de datos HCES&lt;/h1>
+&lt;p>&lt;strong>Concepto :&lt;/strong> Las HCES son encuestas que registran compras y consumo de alimentos a nivel de hogar 9. Son esenciales para analizar patrones dietéticos, pero requieren limpieza para eliminar inconsistencias.&lt;/p>
+&lt;p>&lt;strong>Ejemplo en R :&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">library&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tidyverse&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Datos simulados de HCES (consumo de alimentos en gramos)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">hc_data&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">tibble&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">alimento&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Azúcar&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;Arroz&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;Azúcar morena&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;Harina fortificada&amp;#34;&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">cantidad_g&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="m">500&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">1200&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">NA&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">800&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">hogar_id&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="m">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">2&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Limpieza: Estandarizar nombres y eliminar valores faltantes&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">hc_clean&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">hc_data&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">mutate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">alimento&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">case_when&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">str_detect&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">alimento&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;Azúcar&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">~&lt;/span> &lt;span class="s">&amp;#34;Azúcar&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1"># Unificar &amp;#34;Azúcar&amp;#34; y &amp;#34;Azúcar morena&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kc">TRUE&lt;/span> &lt;span class="o">~&lt;/span> &lt;span class="n">alimento&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">))&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">filter&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="nf">is.na&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cantidad_g&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="c1"># Eliminar registros sin datos&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="paso-2-vinculación-con-tablas-de-composición-de-alimentos-fct">Paso 2: Vinculación con Tablas de Composición de Alimentos (FCT)&lt;/h1>
+&lt;p>Las FCT contienen información nutricional de alimentos (ej: hierro, vitamina A). Al vincularlas con HCES, calculamos la ingesta de nutrientes por hogar&lt;/p>
+&lt;p>&lt;strong>Ejemplo en R :&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># FCT simulada (nutrientes por 100g)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">fct_data&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">tibble&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">alimento&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Azúcar&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;Arroz&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;Harina fortificada&amp;#34;&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">hierro_mg&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="m">0.1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">2.5&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">5.0&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">vitamina_a_ug&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="m">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">500&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Combinar HCES con FCT&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">hc_nutrientes&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">hc_clean&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">left_join&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">fct_data&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">by&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;alimento&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">mutate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hierro_total&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">cantidad_g&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">hierro_mg&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="m">100&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># Calcular hierro total consumido&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="paso-3-evaluación-de-adecuación-nutricional-ear-rni-ul">Paso 3: Evaluación de adecuación nutricional (EAR, RNI, UL)&lt;/h1>
+&lt;p>&lt;strong>Concepto :&lt;/strong>
+&lt;strong>EAR (Requerimiento Promedio Estimado) :&lt;/strong> Nivel de ingesta que cubre las necesidades del 50% de la población.&lt;/p>
+&lt;p>&lt;strong>RNI (Requerimiento Nutricional de Ingesta) :&lt;/strong> Meta para cubrir el 97-98% de la población.&lt;/p>
+&lt;p>&lt;strong>UL (Límite Máximo Seguro) :&lt;/strong> Ingesta máxima sin riesgo de toxicidad.&lt;/p>
+&lt;p>&lt;strong>Ejemplo en R :&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># EAR de hierro para mujeres (18-50 años): 18 mg/día&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">hc_nutrientes&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">group_by&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hogar_id&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">summarise&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ingesta_hierro&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">sum&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hierro_total&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">mutate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">adepto&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">ifelse&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ingesta_hierro&lt;/span> &lt;span class="o">&amp;gt;=&lt;/span> &lt;span class="m">18&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;Sí&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;No&amp;#34;&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Visualización con &lt;strong>ggstatsplot&lt;/strong> :&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">library&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ggstatsplot&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">gghistostats&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">hc_nutrientes&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">x&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">ingesta_hierro&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">title&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;Ingesta de hierro vs. EAR (18 mg/día)&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">binwidth&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">2&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="paso-4-cálculo-de-consumo-aparente-con-ameafe">Paso 4: Cálculo de consumo aparente con AME/AFE&lt;/h1>
+&lt;p>&lt;strong>Concepto :&lt;/strong>
+La FAO recomienda ajustar el consumo por tamaño del hogar usando &lt;strong>Equivalentes Adultos (AME/AFE)&lt;/strong> . Por ejemplo, un niño &amp;lt;10 años equivale a 0.5 AME&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Datos de hogares (miembros y edades)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">hogares&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">tibble&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">hogar_id&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="m">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">2&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">miembros&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">list&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">tibble&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">edad&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="m">30&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">5&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">genero&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;M&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;F&amp;#34;&lt;/span>&lt;span class="p">)),&lt;/span> &lt;span class="c1"># Hogar 1: adulto + niño&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">tibble&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">edad&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="m">40&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">15&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">genero&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;M&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;M&amp;#34;&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="c1"># Hogar 2: 2 adultos&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Calcular AME total por hogar&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">hogares&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">hogares&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">mutate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ame_total&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">map_dbl&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">miembros&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">~&lt;/span> &lt;span class="nf">sum&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">ifelse&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">.x&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">edad&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="m">10&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">0.5&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">1&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># Niños &amp;lt;10 = 0.5 AME&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">)))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Consumo aparente per cápita&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">hc_consumo_aparente&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">hc_nutrientes&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">left_join&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hogares&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">by&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;hogar_id&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">mutate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">consumo_aparente&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">hierro_total&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="n">ame_total&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="paso-5-modelado-de-escenarios-de-fortificación">Paso 5: Modelado de escenarios de fortificación&lt;/h1>
+&lt;p>&lt;strong>Concepto :&lt;/strong>&lt;/p>
+&lt;p>Simular la adición de nutrientes a alimentos (ej: hierro en harina) permite predecir impacto en la ingesta.&lt;/p>
+&lt;p>Ejemplo con &lt;strong>gtsummary&lt;/strong> :&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">library&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">gtsummary&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Escenario: Harina fortificada con +5 mg de hierro/100g&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">hc_fortificado&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">hc_nutrientes&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">mutate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hierro_total&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">ifelse&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">alimento&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s">&amp;#34;Harina fortificada&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">cantidad_g&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">hierro_mg&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="m">5&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="m">100&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">hierro_total&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Comparación pre-post fortificación&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">tbl_summary&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">hc_nutrientes&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span> &lt;span class="nf">select&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ingesta_hierro&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">hc_fortificado&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span> &lt;span class="nf">select&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ingesta_hierro&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">label&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">list&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ingesta_hierro&lt;/span> &lt;span class="o">~&lt;/span> &lt;span class="s">&amp;#34;Hierro (mg/día)&amp;#34;&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">statistic&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">list&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ingesta_hierro&lt;/span> &lt;span class="o">~&lt;/span> &lt;span class="s">&amp;#34;{mean} ± {sd}&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Herramientas R utilizadas :&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>tidyverse :&lt;/strong> Manipulación y limpieza de datos .&lt;/p>
+&lt;p>&lt;strong>ggstatsplot :&lt;/strong> Visualización estadística rápida.&lt;/p>
+&lt;p>&lt;strong>gtsummary :&lt;/strong> Resúmenes tabulares para comparaciones.&lt;/p></description></item><item><title>Análisis de datos en fortificación de alimentos a gran escala con R. Una Introducción Práctica</title><link>https://maicel.netlify.app/teaching/r/</link><pubDate>Mon, 25 Mar 2024 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/teaching/r/</guid><description>&lt;h1 id="construye-investigaciones-con-r">¡Construye investigaciones con R!&lt;/h1>
+&lt;p>En este curso, te convertirás en un &lt;strong>&amp;lsquo;arquitecto&amp;rsquo; del análisis de datos en la fortificación de alimentos&lt;/strong>, utilizando R como tu herramienta principal. Aprenderás a:&lt;/p>
+&lt;ul>
+&lt;li>leer datos.&lt;/li>
+&lt;li>ordenar y transformar conjuntos de datos.&lt;/li>
+&lt;li>procesar y presentar los resultados en forma de tablas y gráficos.&lt;/li>
+&lt;/ul>
+&lt;p>👉 ¡Para saber más del curso, consulta nuestra &lt;a href="https://ia601803.us.archive.org/17/items/conf_0/conf_0.pdf" target="_blank" rel="noopener">conferencia introductoria&lt;/a>, mira el siguiente &lt;strong>video promocional&lt;/strong> o escucha el &lt;strong>podcast&lt;/strong>!&lt;/p>
+&lt;hr>
+&lt;h2 id="video-promocional-del-curso">Video promocional del curso&lt;/h2>
+&lt;p>Mira el video promocional del curso:&lt;/p>
+&lt;div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+&lt;iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/ycnteDZRMxM?autoplay=0&amp;amp;controls=1&amp;amp;end=0&amp;amp;loop=0&amp;amp;mute=0&amp;amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video">&lt;/iframe>
+&lt;/div>
+&lt;hr>
+&lt;h2 id="podcast">Podcast&lt;/h2>
+&lt;p>Escucha nuestro podcast introductorio para conocer más sobre los contenidos que serán abordados en el curso:&lt;/p>
+&lt;p>Pruébelo:&lt;/p>
+&lt;audio controls >
+&lt;source src="https://ia601805.us.archive.org/26/items/podcast-r/PodcastR.mp3" type="audio/mpeg">
+&lt;/audio>
+&lt;hr>
+&lt;h2 id="qué-aprenderás">¿Qué aprenderás?&lt;/h2>
+&lt;p>Este curso está diseñado para profesionales interesados en el estudio de la fortificación de alimentos a gran escala. Aquí tienes un vistazo rápido:&lt;/p>
+&lt;details class="spoiler " id="spoiler-2">
+&lt;summary class="cursor-pointer">👉 Haz clic para ver el contenido del curso&lt;/summary>
+&lt;div class="rounded-lg bg-neutral-50 dark:bg-neutral-800 p-2">
+&lt;ul>
+&lt;li>&lt;strong>Tema I&lt;/strong>: Introducción a R y RStudio.&lt;/li>
+&lt;li>&lt;strong>Tema II&lt;/strong>: Importación de datos.&lt;/li>
+&lt;li>&lt;strong>Tema III&lt;/strong>: Ordenar datos.&lt;/li>
+&lt;li>&lt;strong>Tema IV&lt;/strong>: Manipulación de datos.&lt;/li>
+&lt;li>&lt;strong>Tema V&lt;/strong>: Representación tabular.&lt;/li>
+&lt;li>&lt;strong>Tema VI&lt;/strong>: Representación gráfica.&lt;/li>
+&lt;li>&lt;strong>Tarea Final&lt;/strong>: Informes con R Markdown.&lt;/li>
+&lt;/ul>
+&lt;/div>
+&lt;/details>
+&lt;hr>
+&lt;h2 id="calendario-del-curso">Calendario del Curso&lt;/h2>
+&lt;p>&lt;strong>Estructura Diaria&lt;/strong> Cada día incluye sesiones teóricas, prácticas, descansos y actividades gamificadas.&lt;br>
+&lt;strong>Sesiones teóricas&lt;/strong>: Conferencias interactivas con ejemplos de fortificación de alimentos a gran escala.&lt;br>
+&lt;strong>Sesiones prácticas&lt;/strong>: Ejercicios guiados y retos diarios.&lt;br>
+&lt;strong>Coffee breaks&lt;/strong>: 15 minutos entre bloques.&lt;/p>
+&lt;p>&lt;em>Descargue la agenda del curso en formato&lt;/em> &lt;a href="https://maicel.netlify.app/pdf/agenda.pdf">&lt;strong>PDF&lt;/strong>&lt;/a>:&lt;/p>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
+&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">El &lt;strong>Calendario del curso&lt;/strong> podría variar en dependencia del progreso de las actividades docentes y cuestiones logísticas.&lt;/span>
+&lt;/div>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Horario&lt;/th>
+&lt;th>Día 1 (martes)&lt;/th>
+&lt;th>Día 2 (miércoles)&lt;/th>
+&lt;th>Día 3 (Jueves)&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;strong>Mañana&lt;/strong> 🌞&lt;/td>
+&lt;td>&lt;a href="https://maicel.netlify.app/pdf/conf_0.pdf">&lt;strong>introducción&lt;/strong>&lt;/a>, &lt;a href="https://maicel.netlify.app/pdf/conf_1.pdf">&lt;strong>Conf. Tema I&lt;/strong>&lt;/a>&lt;/td>
+&lt;td>&lt;a href="https://maicel.netlify.app/pdf/conf_3.pdf">&lt;strong>Conf. Tema III&lt;/strong>&lt;/a>&lt;/td>
+&lt;td>&lt;a href="https://maicel.netlify.app/pdf/conf_5.pdf">&lt;strong>Conf. Tema V&lt;/strong>&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Coffee breaks&lt;/strong> ☕&lt;/td>
+&lt;td>☕&lt;/td>
+&lt;td>☕&lt;/td>
+&lt;td>☕&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Mañana&lt;/strong> 🌞&lt;/td>
+&lt;td>&lt;a href="https://maicel.netlify.app/pdf/desaf_1.pdf">Pract. Tema I&lt;/a>&lt;/td>
+&lt;td>&lt;a href="https://maicel.netlify.app/pdf/desaf_3.pdf">Pract. Tema II&lt;/a>I&lt;/td>
+&lt;td>&lt;a href="https://maicel.netlify.app/pdf/conf_6.pdf">&lt;strong>Conf. Tema VI&lt;/strong>&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Almuezo&lt;/strong> 🍽️&lt;/td>
+&lt;td>🍽️&lt;/td>
+&lt;td>🍽️&lt;/td>
+&lt;td>🍽️&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Tarde&lt;/strong> 🌆&lt;/td>
+&lt;td>&lt;a href="https://maicel.netlify.app/pdf/conf_2.pdf">Conf. Tema II&lt;/a>&lt;/td>
+&lt;td>️ &lt;a href="https://maicel.netlify.app/pdf/conf_4.pdf">Conf. Tema IV&lt;/a>&lt;/td>
+&lt;td>️&lt;a href="https://maicel.netlify.app/pdf/desaf_5.pdf">Pract. Tema V&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Coffee breaks&lt;/strong> ☕&lt;/td>
+&lt;td>☕&lt;/td>
+&lt;td>☕&lt;/td>
+&lt;td>☕&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Tarde&lt;/strong> 🌆&lt;/td>
+&lt;td>&lt;a href="https://maicel.netlify.app/pdf/desaf_2.pdf">Pract. Tema II&lt;/a>&lt;/td>
+&lt;td>️&lt;a href="https://maicel.netlify.app/pdf/desaf_4.pdf">Pract. Tema VI&lt;/a>&lt;/td>
+&lt;td>️&lt;a href="https://maicel.netlify.app/pdf/desaf_6.pdf">Pract. Tema VI&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h2 id="estructura-de-módulos">Estructura de módulos&lt;/h2>
+&lt;p>A continuación, te presentamos la estructura detallada de los módulos del curso, basada en el flujo de trabajo propuesto en el libro &lt;a href="https://es.r4ds.hadley.nz/" target="_blank" rel="noopener">R for Data Science&lt;/a> de Hadley Wickham y Garrett Grolemund. Cada módulo está diseñado para guiarte paso a paso en el análisis de datos relacionados con la fortificación de alimentos.&lt;/p>
+&lt;h3 id="tema-i-introducción-a-r-y-rstudio">&lt;strong>Tema I: Introducción a R y RStudio&lt;/strong>&lt;/h3>
+&lt;ul>
+&lt;li>&lt;strong>Objetivo&lt;/strong>: Familiarizarse con el entorno de trabajo.&lt;/li>
+&lt;li>&lt;strong>Contenido clave&lt;/strong>:
+&lt;ul>
+&lt;li>¿Qué es R y por qué es útil en ciencias de la salud?&lt;/li>
+&lt;li>Instalación y configuración de R y RStudio.&lt;/li>
+&lt;li>Interfaz de RStudio: Consola, script, ambiente, gráficos.&lt;/li>
+&lt;li>Creación de objetos básicos (vectores, listas, data frames).&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>🚀 &lt;strong>Conferencia&lt;/strong>: Conferencia 1 en formato &lt;a href="https://maicel.netlify.app/pdf/conf_1.pdf">PDF&lt;/a>.&lt;/li>
+&lt;li>🎉 &lt;strong>Desafío 1&lt;/strong>: Hierro &amp;ndash; Cimientos de Código &lt;a href="https://maicel.netlify.app/pdf/desaf_1.pdf">PDF&lt;/a>.&lt;/li>
+&lt;li>😊 &lt;strong>Recompensa&lt;/strong> : Insignia 🏗️ &amp;ldquo;Cimientos Sólidos&amp;rdquo; .&lt;/li>
+&lt;/ul>
+&lt;h3 id="tema-ii-importación-de-datos">&lt;strong>Tema II: Importación de datos&lt;/strong>&lt;/h3>
+&lt;ul>
+&lt;li>&lt;strong>Objetivo&lt;/strong>: Aprender a leer datos desde diferentes formatos.&lt;/li>
+&lt;li>&lt;strong>Contenido clave&lt;/strong>:
+&lt;ul>
+&lt;li>Leer archivos CSV usando &lt;code>readr&lt;/code>.&lt;/li>
+&lt;li>Leer archivos Excel usando &lt;code>readxl&lt;/code>.&lt;/li>
+&lt;li>Manejo de problemas comunes (codificación, separadores, valores perdidos).&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>🚀 &lt;strong>Conferencia&lt;/strong>: Conferencia 2 en formato &lt;a href="https://maicel.netlify.app/pdf/conf_2.pdf">PDF&lt;/a>.&lt;/li>
+&lt;li>🎉 &lt;strong>Desafío 2&lt;/strong>: Zinc &amp;ndash; Puertas a los Datos &lt;a href="https://maicel.netlify.app/pdf/desaf_2.pdf">PDF&lt;/a>.&lt;/li>
+&lt;li>📚 &lt;strong>Datos&lt;/strong>: Base de datos de nutrición &lt;a href="https://maicel.netlify.app/csv/nutricion.csv">csv&lt;/a>.&lt;/li>
+&lt;li>📚 &lt;strong>script&lt;/strong>: Rcript en R &lt;a href="https://maicel.netlify.app/r/fortificacion_temaII.zip">zip&lt;/a>.&lt;/li>
+&lt;li>😊 &lt;strong>Recompensa&lt;/strong> : Insignia 🪓 &amp;ldquo;Estructuras Estables&amp;rdquo;.&lt;/li>
+&lt;li>📚 &lt;strong>Bibliografía&lt;/strong>: &lt;a href="https://es.r4ds.hadley.nz/11-import.html" target="_blank" rel="noopener">Capítulo 11: Importar datos&lt;/a>.&lt;/li>
+&lt;/ul>
+&lt;h3 id="tema-iii-ordenar-datos">&lt;strong>Tema III: Ordenar datos&lt;/strong>&lt;/h3>
+&lt;ul>
+&lt;li>&lt;strong>Objetivo&lt;/strong>: Aprender a organizar y limpiar datos para facilitar su análisis.&lt;/li>
+&lt;li>&lt;strong>Contenido clave&lt;/strong>:
+&lt;ul>
+&lt;li>Reorganizar columnas y filas con &lt;code>tidyr&lt;/code>.&lt;/li>
+&lt;li>Convertir datos de formato ancho a largo (y viceversa) con &lt;code>pivot_longer()&lt;/code> y &lt;code>pivot_wider()&lt;/code>.&lt;/li>
+&lt;li>Separar y combinar columnas.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>🚀 &lt;strong>Conferencia&lt;/strong>: Conferencia 3 en formato &lt;a href="https://maicel.netlify.app/pdf/conf_3.pdf">PDF&lt;/a>.&lt;/li>
+&lt;li>🎉 &lt;strong>Desafío 3&lt;/strong>: Vitamina A &amp;ndash; Claridad en la Oscuridad &lt;a href="https://maicel.netlify.app/pdf/desaf_3.pdf">PDF&lt;/a>.&lt;/li>
+&lt;li>😊 &lt;strong>Recompensa&lt;/strong> : Insignia 🌟 &amp;ldquo;Datos Transparentes&amp;rdquo;&lt;/li>
+&lt;li>📚 &lt;strong>Bibliografía&lt;/strong>: &lt;a href="https://es.r4ds.hadley.nz/tibbles.html" target="_blank" rel="noopener">Capítulo 12: Tibbles&lt;/a> y &lt;a href="https://es.r4ds.hadley.nz/datos-limpios.html" target="_blank" rel="noopener">Capítulo 13: Datos limpios&lt;/a>.&lt;/li>
+&lt;/ul>
+&lt;h3 id="tema-iv-manipulación-de-datos">&lt;strong>Tema IV: Manipulación de datos&lt;/strong>&lt;/h3>
+&lt;ul>
+&lt;li>&lt;strong>Objetivo&lt;/strong>: Aprender a transformar y resumir datos.&lt;/li>
+&lt;li>&lt;strong>Contenido clave&lt;/strong>:
+&lt;ul>
+&lt;li>Filtrar, seleccionar y ordenar datos con &lt;code>dplyr&lt;/code>.&lt;/li>
+&lt;li>Crear nuevas variables con &lt;code>mutate()&lt;/code>.&lt;/li>
+&lt;li>Resúmenes estadísticos básicos con &lt;code>summarise()&lt;/code>.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>🚀 &lt;strong>Conferencia&lt;/strong>: Conferencia 4 en formato &lt;a href="https://maicel.netlify.app/pdf/conf_4.pdf">PDF&lt;/a>.&lt;/li>
+&lt;li>🎉 &lt;strong>Desafío 4&lt;/strong>: Ácido Fólico &amp;ndash; Datos que Nutren &lt;a href="https://maicel.netlify.app/pdf/desaf_4.pdf">PDF&lt;/a>.&lt;/li>
+&lt;li>😊 &lt;strong>Recompensa&lt;/strong> : Insignia 🌱 &amp;ldquo;Transformación Vital&amp;rdquo;&lt;/li>
+&lt;li>📚 &lt;strong>Bibliografía&lt;/strong>: &lt;a href="https://es.r4ds.hadley.nz/transformacion.html" target="_blank" rel="noopener">Capítulo 5: Data Transformation&lt;/a>.&lt;/li>
+&lt;/ul>
+&lt;h3 id="tema-v-representación-tabular">&lt;strong>Tema V: Representación tabular&lt;/strong>&lt;/h3>
+&lt;ul>
+&lt;li>&lt;strong>Objetivo&lt;/strong>: Aprender a generar tablas profesionales.&lt;/li>
+&lt;li>&lt;strong>Contenido clave&lt;/strong>:
+&lt;ul>
+&lt;li>Realizar análisis básicos.&lt;/li>
+&lt;li>Generar tablas resumen con &lt;code>gtsummary&lt;/code>.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>🚀 &lt;strong>Conferencia&lt;/strong>: Conferencia 5 en formato &lt;a href="https://maicel.netlify.app/pdf/conf_5.pdf">PDF&lt;/a>.&lt;/li>
+&lt;li>🎉 &lt;strong>Desafío 5&lt;/strong>: Yodo &amp;ndash; Iluminando Hallazgos &lt;a href="https://maicel.netlify.app/pdf/desaf_5.pdf">PDF&lt;/a>.&lt;/li>
+&lt;li>😊 &lt;strong>Recompensa&lt;/strong> : Insignia 💡 &amp;ldquo;Insight Brillante&amp;rdquo;&lt;/li>
+&lt;/ul>
+&lt;h3 id="tema-vi-representación-gráfica">&lt;strong>Tema VI: Representación gráfica&lt;/strong>&lt;/h3>
+&lt;ul>
+&lt;li>&lt;strong>Objetivo&lt;/strong>: Aprender a visualizar datos.&lt;/li>
+&lt;li>&lt;strong>Contenido clave&lt;/strong>:
+&lt;ul>
+&lt;li>Crear gráficos básicos con &lt;code>ggstatsplot&lt;/code> (barras, líneas, dispersión).&lt;/li>
+&lt;li>Personalizar gráficos para comunicar hallazgos clave.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>🚀 &lt;strong>Conferencia&lt;/strong>: Conferencia 6 en formato &lt;a href="https://maicel.netlify.app/pdf/conf_6.pdf">PDF&lt;/a>.&lt;/li>
+&lt;li>🎉 &lt;strong>Desafío 5&lt;/strong>: Yodo &amp;ndash; Iluminando Hallazgos &lt;a href="https://maicel.netlify.app/pdf/desaf_6.pdf">PDF&lt;/a>.&lt;/li>
+&lt;li>😊 &lt;strong>Recompensa&lt;/strong> : Insignia 💡 &amp;ldquo;Insight Brillante&amp;rdquo;&lt;/li>
+&lt;/ul>
+&lt;h2 id="conclusiones-y-recomendaciones">Conclusiones y recomendaciones.&lt;/h2>
+&lt;h2 id="notas-adicionales">Notas Adicionales&lt;/h2>
+&lt;ol>
+&lt;li>Gamificación :&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>Cada práctica desbloquea una insignia virtual (ejemplo: 🏗️ Cimientos Sólidos , 🪴 Transformación Vital ).&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="bibliografía">Bibliografía&lt;/h2>
+&lt;ul>
+&lt;li>libro &lt;a href="https://es.r4ds.hadley.nz/" target="_blank" rel="noopener">R Para Ciencia de Datos: Hadley Wickham&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>

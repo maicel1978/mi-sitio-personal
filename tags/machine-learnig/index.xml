@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Machine Learnig | Bioestadistica educativa</title><link>https://maicel.netlify.app/tags/machine-learnig/</link><atom:link href="https://maicel.netlify.app/tags/machine-learnig/index.xml" rel="self" type="application/rss+xml"/><description>Machine Learnig</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es</language><lastBuildDate>Tue, 11 Feb 2025 00:00:00 +0000</lastBuildDate><image><url>https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png</url><title>Machine Learnig</title><link>https://maicel.netlify.app/tags/machine-learnig/</link></image><item><title>Analisis Exploratorio de Datos</title><link>https://maicel.netlify.app/post/eda/</link><pubDate>Tue, 11 Feb 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/eda/</guid><description>&lt;p>Análisis Exploratorio de Datos (EDA, por sus siglas en ingles) implica el análisis de datos centrado en comprender los datos, identificar valores atípicos, valores faltantes así como proporcionar la base para la formulación del modelo. Además es importante conocer como se relacionan las variables.&lt;/p>
+&lt;p>Un concepto popular en el campo de la ciencia de datos llamado &lt;strong>GIGO&lt;/strong> (Garbage in Garbage Out). Este concepto significa que los datos de mala calidad siempre producirán resultados deficientes, independientemente del modelo y la técnica utilizados. Acá te describo un flujo de trabajo que en mi opinión es muy practico, el orden de etapas y el cumplimiento depende del problema y no es una camisa de fuerza.&lt;/p>
+&lt;p>Este proceso incluye:&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Compresión general de los datos y evaluación de su calidad&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Identificación y tratamiento de valores faltantes y atípicos&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Análisis de las distribución de las variables&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Análisis de las relaciones entre las variables&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Transformación de los datos&lt;/p>
+&lt;/li>
+&lt;/ol></description></item></channel></rss>

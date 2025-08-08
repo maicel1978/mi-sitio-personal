@@ -1,0 +1,765 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Machine Learning | Bioestadistica educativa</title><link>https://maicel.netlify.app/tags/machine-learning/</link><atom:link href="https://maicel.netlify.app/tags/machine-learning/index.xml" rel="self" type="application/rss+xml"/><description>Machine Learning</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es</language><lastBuildDate>Thu, 19 Jun 2025 00:00:00 +0000</lastBuildDate><image><url>https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png</url><title>Machine Learning</title><link>https://maicel.netlify.app/tags/machine-learning/</link></image><item><title>¿Explicar o predecir? La elección metodológica entre enfoques tradicionales y machine learning en salud pública</title><link>https://maicel.netlify.app/post/sue-an-las-m-quinas-con-cerebros-el-ctricos/</link><pubDate>Thu, 19 Jun 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/sue-an-las-m-quinas-con-cerebros-el-ctricos/</guid><description>&lt;h2 id="el-debate-central-explicar-o-predecir">El Debate Central: ¿Explicar o Predecir?&lt;/h2>
+&lt;p>En el campo de la bioestadística, un debate metodológico fundamental gira en torno a la distinción entre dos propósitos principales del modelado: los modelos diseñados para &lt;strong>explicar&lt;/strong> fenómenos en una población,y aquellos orientados a &lt;strong>predecir&lt;/strong> características o eventos futuros en un individuo. Estos últimos se conocen comúnmente como Modelos de Predicción Clínica (Steyerberg 2009).&lt;/p>
+&lt;p>Mientras que los modelos explicativos priorizan la inferencia causal y la interpretabilidad de los resultados, lo que se alinea con el propósito general de la investigación científica de comprender mecanismos subyacentes(Silva Aycaguer 1998), los modelos predictivos están más vinculados al desarrollo de tecnologías (Steyerberg 2009) . Por ejemplo, su objetivo es construir herramientas fiables para estimar la probabilidad de que ciertas enfermedades estén presentes (modelos diagnósticos) o predecir resultados futuros (modelos pronósticos), lo cual es crucial para la toma de decisiones clínicas.&lt;/p>
+&lt;p>Los modelos de predicción clínica se puden enmarcar dentro del enfoque de &lt;strong>aprendizaje automático&lt;/strong> (machine learning), ya que comparten objetivos y metodologías clave(Ryu and Han 2022) .&lt;/p>
+&lt;p>
+&lt;figure >
+&lt;div class="flex justify-center ">
+&lt;div class="w-100" >&lt;img alt="" srcset="
+/post/sue-an-las-m-quinas-con-cerebros-el-ctricos/ML_hu_3896e1d5d4a0897d.webp 400w,
+/post/sue-an-las-m-quinas-con-cerebros-el-ctricos/ML_hu_1d052eb55afaa6f2.webp 760w,
+/post/sue-an-las-m-quinas-con-cerebros-el-ctricos/ML_hu_57704654071fe109.webp 1200w"
+src="https://maicel.netlify.app/post/sue-an-las-m-quinas-con-cerebros-el-ctricos/ML_hu_3896e1d5d4a0897d.webp"
+width="760"
+height="303"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;/figure>
+&lt;/p>
+&lt;p>Este artículo no busca ser una comparativa técnica exhaustiva entre la &lt;strong>“bioestadística clásica”&lt;/strong> y el &lt;strong>“machine learning”&lt;/strong> aplicado a la salud. En cambio, es una exploración breve de los dos paradigmas fundamentales que subyacen al modelado en salud pública: uno centrado en la &lt;strong>generación de conocimiento&lt;/strong> y otro en el &lt;strong>desarrollo y validación de tecnologías&lt;/strong> para la toma de decisiones informadas. Además, se incluirán algunos ejemplos en código R que podrían ser útiles para los lectores interesados en implementar problemas similares.&lt;/p>
+&lt;hr>
+&lt;h2 id="la-implementación-del-modelo">La implementación del modelo&lt;/h2>
+&lt;p>Antes de escribir una sola línea de código, debemos definir el objetivo fundamental del modelo y el problema.&lt;/p>
+&lt;p>Esta decisión dicta toda la metodología subsecuente.&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>El enfoque explicativo:&lt;/strong> Buscamos &lt;strong>entender relaciones&lt;/strong> y cuantificar la asociación entre predictores y un resultado en una población específica. El modelo es una herramienta para generar hipótesis y explicar mecanismos. La pregunta clave es: &lt;em>¿Cuál es la magnitud y la incertidumbre de la asociación entre X e Y?&lt;/em>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>El enfoque predictivo:&lt;/strong> Buscamos crear una herramienta que &lt;strong>generalice bien a datos nuevos y no vistos&lt;/strong>. El modelo es un medio para tomar decisiones informadas sobre individuos en otros contextos. La pregunta clave es: Para un nuevo paciente con estas características, &lt;em>¿cuál es la probabilidad de que ocurra Y, y qué tan fiable es esa predicción?&lt;/em>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>Existe una percepción errónea de que el &lt;strong>machine learning&lt;/strong> se limita a los algoritmos de “caja negra” más avanzados, como los Bosques Aleatorios, las Redes Neuronales Profundas (DNNs) y los Gradient Boosting Machines (GBM).&lt;/p>
+&lt;p>Sin embargo, el panorama del machine learning es mucho más amplio e incluye tambien modelos altamente interpretables. Para ilustrarlo con un ejemplo práctico, consideremos la regresión logística binaria múltiple. Este es un algoritmo ampliamente reconocido y utilizado en campos como el análisis causal y el diseño de modelos de predicción clínica, precisamente por su transparencia. Permite entender claramente cómo cada variable influye en el resultado.&lt;/p>
+&lt;p>Pero, es importante destacar que otros algoritmos, como las redes bayesianas y las redes neuronales de una sola capa (lineales, sin capas ocultas no lineales), también ofrecen un alto grado de interpretabilidad y explicabilidad. Estos modelos pueden ser utilizados eficazmente en lugar de la regresión logística para abordar problemas tradicionales, especialmente cuando comprender el “porqué” de las predicciones es tan importante como la predicción misma.&lt;/p>
+&lt;p>Vamos a explorar ambos mundos con un caso práctico: predecir el riesgo de diabetes utilizando el conjunto de datos &lt;em>PimaIndiansDiabetes2&lt;/em> , incluido en el paquete &lt;strong>mlbench&lt;/strong> (Leisch and Dimitriadou, n.d.). La “Base de Datos de Diabetes de Indígenas PIMA” es un conjunto de datos ampliamente utilizado para la evaluación del riesgo de diabetes y la elaboración de modelos predictivos.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># bibliotecas&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">library&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tidyverse&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">library&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">gtsummary&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">library&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">missRanger&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">library&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mlbench&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">data&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">PimaIndiansDiabetes2&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># lectura y transformación de datos &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">datos&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">PimaIndiansDiabetes2&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">missRanger&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">num.trees&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">100&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">verbose&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">0&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span> &lt;span class="c1"># imputación múltiple&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">mutate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">diabetes&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nf">if_else&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">diabetes&lt;/span>&lt;span class="o">==&lt;/span>&lt;span class="s">&amp;#34;pos&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="m">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="m">0&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span> &lt;span class="c1"># transformación del resultado&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">select&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">diabetes&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">age&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">pedigree&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">pregnant&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">mass&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">glucose&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">pressure&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="enfoque-1-el-enfoque-explicativo">Enfoque 1: El Enfoque explicativo&lt;/h2>
+&lt;p>Cuando el objetivo es la &lt;strong>explicación&lt;/strong>, nuestro foco está en la estimación de efectos y su incertidumbre.&lt;/p>
+&lt;p>&lt;strong>El “Porqué”:&lt;/strong> Queremos cuantificar las asociaciones en nuestra muestra para generar conocimiento. Por ejemplo, ¿cuál es la fuerza de la asociación entre la predisposición genética (pedigree) y la diabetes?&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Ajuste del modelo de regresión logística&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">modelo_explicativo&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">glm&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">diabetes&lt;/span> &lt;span class="o">~&lt;/span> &lt;span class="n">.,&lt;/span> &lt;span class="n">data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">datos&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">family&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;binomial&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">tbl_regression&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">modelo_explicativo&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">exponentiate&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">TRUE&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">as_gt&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">gt&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="nf">tab_header&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">title&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;Factores de riesgo para la diabetes en mujeres de la etnia PIMA&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div id="hrnxvrltcy" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+&lt;style>#hrnxvrltcy table {
+font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+}
+&amp;#10;#hrnxvrltcy thead, #hrnxvrltcy tbody, #hrnxvrltcy tfoot, #hrnxvrltcy tr, #hrnxvrltcy td, #hrnxvrltcy th {
+border-style: none;
+}
+&amp;#10;#hrnxvrltcy p {
+margin: 0;
+padding: 0;
+}
+&amp;#10;#hrnxvrltcy .gt_table {
+display: table;
+border-collapse: collapse;
+line-height: normal;
+margin-left: auto;
+margin-right: auto;
+color: #333333;
+font-size: 16px;
+font-weight: normal;
+font-style: normal;
+background-color: #FFFFFF;
+width: auto;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #A8A8A8;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #A8A8A8;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+}
+&amp;#10;#hrnxvrltcy .gt_caption {
+padding-top: 4px;
+padding-bottom: 4px;
+}
+&amp;#10;#hrnxvrltcy .gt_title {
+color: #333333;
+font-size: 125%;
+font-weight: initial;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-color: #FFFFFF;
+border-bottom-width: 0;
+}
+&amp;#10;#hrnxvrltcy .gt_subtitle {
+color: #333333;
+font-size: 85%;
+font-weight: initial;
+padding-top: 3px;
+padding-bottom: 5px;
+padding-left: 5px;
+padding-right: 5px;
+border-top-color: #FFFFFF;
+border-top-width: 0;
+}
+&amp;#10;#hrnxvrltcy .gt_heading {
+background-color: #FFFFFF;
+text-align: center;
+border-bottom-color: #FFFFFF;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+}
+&amp;#10;#hrnxvrltcy .gt_bottom_border {
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+&amp;#10;#hrnxvrltcy .gt_col_headings {
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+}
+&amp;#10;#hrnxvrltcy .gt_col_heading {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: normal;
+text-transform: inherit;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: bottom;
+padding-top: 5px;
+padding-bottom: 6px;
+padding-left: 5px;
+padding-right: 5px;
+overflow-x: hidden;
+}
+&amp;#10;#hrnxvrltcy .gt_column_spanner_outer {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: normal;
+text-transform: inherit;
+padding-top: 0;
+padding-bottom: 0;
+padding-left: 4px;
+padding-right: 4px;
+}
+&amp;#10;#hrnxvrltcy .gt_column_spanner_outer:first-child {
+padding-left: 0;
+}
+&amp;#10;#hrnxvrltcy .gt_column_spanner_outer:last-child {
+padding-right: 0;
+}
+&amp;#10;#hrnxvrltcy .gt_column_spanner {
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+vertical-align: bottom;
+padding-top: 5px;
+padding-bottom: 5px;
+overflow-x: hidden;
+display: inline-block;
+width: 100%;
+}
+&amp;#10;#hrnxvrltcy .gt_spanner_row {
+border-bottom-style: hidden;
+}
+&amp;#10;#hrnxvrltcy .gt_group_heading {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: middle;
+text-align: left;
+}
+&amp;#10;#hrnxvrltcy .gt_empty_group_heading {
+padding: 0.5px;
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+vertical-align: middle;
+}
+&amp;#10;#hrnxvrltcy .gt_from_md > :first-child {
+margin-top: 0;
+}
+&amp;#10;#hrnxvrltcy .gt_from_md > :last-child {
+margin-bottom: 0;
+}
+&amp;#10;#hrnxvrltcy .gt_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+margin: 10px;
+border-top-style: solid;
+border-top-width: 1px;
+border-top-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: middle;
+overflow-x: hidden;
+}
+&amp;#10;#hrnxvrltcy .gt_stub {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-right-style: solid;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+padding-left: 5px;
+padding-right: 5px;
+}
+&amp;#10;#hrnxvrltcy .gt_stub_row_group {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-right-style: solid;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+padding-left: 5px;
+padding-right: 5px;
+vertical-align: top;
+}
+&amp;#10;#hrnxvrltcy .gt_row_group_first td {
+border-top-width: 2px;
+}
+&amp;#10;#hrnxvrltcy .gt_row_group_first th {
+border-top-width: 2px;
+}
+&amp;#10;#hrnxvrltcy .gt_summary_row {
+color: #333333;
+background-color: #FFFFFF;
+text-transform: inherit;
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+}
+&amp;#10;#hrnxvrltcy .gt_first_summary_row {
+border-top-style: solid;
+border-top-color: #D3D3D3;
+}
+&amp;#10;#hrnxvrltcy .gt_first_summary_row.thick {
+border-top-width: 2px;
+}
+&amp;#10;#hrnxvrltcy .gt_last_summary_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+&amp;#10;#hrnxvrltcy .gt_grand_summary_row {
+color: #333333;
+background-color: #FFFFFF;
+text-transform: inherit;
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+}
+&amp;#10;#hrnxvrltcy .gt_first_grand_summary_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-top-style: double;
+border-top-width: 6px;
+border-top-color: #D3D3D3;
+}
+&amp;#10;#hrnxvrltcy .gt_last_grand_summary_row_top {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-style: double;
+border-bottom-width: 6px;
+border-bottom-color: #D3D3D3;
+}
+&amp;#10;#hrnxvrltcy .gt_striped {
+background-color: rgba(128, 128, 128, 0.05);
+}
+&amp;#10;#hrnxvrltcy .gt_table_body {
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+&amp;#10;#hrnxvrltcy .gt_footnotes {
+color: #333333;
+background-color: #FFFFFF;
+border-bottom-style: none;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+}
+&amp;#10;#hrnxvrltcy .gt_footnote {
+margin: 0px;
+font-size: 90%;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+}
+&amp;#10;#hrnxvrltcy .gt_sourcenotes {
+color: #333333;
+background-color: #FFFFFF;
+border-bottom-style: none;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+}
+&amp;#10;#hrnxvrltcy .gt_sourcenote {
+font-size: 90%;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+}
+&amp;#10;#hrnxvrltcy .gt_left {
+text-align: left;
+}
+&amp;#10;#hrnxvrltcy .gt_center {
+text-align: center;
+}
+&amp;#10;#hrnxvrltcy .gt_right {
+text-align: right;
+font-variant-numeric: tabular-nums;
+}
+&amp;#10;#hrnxvrltcy .gt_font_normal {
+font-weight: normal;
+}
+&amp;#10;#hrnxvrltcy .gt_font_bold {
+font-weight: bold;
+}
+&amp;#10;#hrnxvrltcy .gt_font_italic {
+font-style: italic;
+}
+&amp;#10;#hrnxvrltcy .gt_super {
+font-size: 65%;
+}
+&amp;#10;#hrnxvrltcy .gt_footnote_marks {
+font-size: 75%;
+vertical-align: 0.4em;
+position: initial;
+}
+&amp;#10;#hrnxvrltcy .gt_asterisk {
+font-size: 100%;
+vertical-align: 0;
+}
+&amp;#10;#hrnxvrltcy .gt_indent_1 {
+text-indent: 5px;
+}
+&amp;#10;#hrnxvrltcy .gt_indent_2 {
+text-indent: 10px;
+}
+&amp;#10;#hrnxvrltcy .gt_indent_3 {
+text-indent: 15px;
+}
+&amp;#10;#hrnxvrltcy .gt_indent_4 {
+text-indent: 20px;
+}
+&amp;#10;#hrnxvrltcy .gt_indent_5 {
+text-indent: 25px;
+}
+&amp;#10;#hrnxvrltcy .katex-display {
+display: inline-flex !important;
+margin-bottom: 0.75em !important;
+}
+&amp;#10;#hrnxvrltcy div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+height: 0px !important;
+}
+&lt;/style>
+&lt;table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+&lt;thead>
+&lt;tr class="gt_heading">
+&lt;td colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>Factores de riesgo para la diabetes en mujeres de la etnia PIMA&lt;/td>
+&lt;/tr>
+&amp;#10; &lt;tr class="gt_col_headings">
+&lt;th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="label">&lt;span class='gt_from_md'>&lt;strong>Characteristic&lt;/strong>&lt;/span>&lt;/th>
+&lt;th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="estimate">&lt;span class='gt_from_md'>&lt;strong>OR&lt;/strong>&lt;/span>&lt;/th>
+&lt;th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="conf.low">&lt;span class='gt_from_md'>&lt;strong>95% CI&lt;/strong>&lt;/span>&lt;/th>
+&lt;th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="p.value">&lt;span class='gt_from_md'>&lt;strong>p-value&lt;/strong>&lt;/span>&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody class="gt_table_body">
+&lt;tr>&lt;td headers="label" class="gt_row gt_left">age&lt;/td>
+&lt;td headers="estimate" class="gt_row gt_center">1.01&lt;/td>
+&lt;td headers="conf.low" class="gt_row gt_center">0.99, 1.03&lt;/td>
+&lt;td headers="p.value" class="gt_row gt_center">0.2&lt;/td>&lt;/tr>
+&lt;tr>&lt;td headers="label" class="gt_row gt_left">pedigree&lt;/td>
+&lt;td headers="estimate" class="gt_row gt_center">2.37&lt;/td>
+&lt;td headers="conf.low" class="gt_row gt_center">1.33, 4.26&lt;/td>
+&lt;td headers="p.value" class="gt_row gt_center">0.004&lt;/td>&lt;/tr>
+&lt;tr>&lt;td headers="label" class="gt_row gt_left">pregnant&lt;/td>
+&lt;td headers="estimate" class="gt_row gt_center">1.13&lt;/td>
+&lt;td headers="conf.low" class="gt_row gt_center">1.06, 1.21&lt;/td>
+&lt;td headers="p.value" class="gt_row gt_center">&lt;0.001&lt;/td>&lt;/tr>
+&lt;tr>&lt;td headers="label" class="gt_row gt_left">mass&lt;/td>
+&lt;td headers="estimate" class="gt_row gt_center">1.10&lt;/td>
+&lt;td headers="conf.low" class="gt_row gt_center">1.07, 1.13&lt;/td>
+&lt;td headers="p.value" class="gt_row gt_center">&lt;0.001&lt;/td>&lt;/tr>
+&lt;tr>&lt;td headers="label" class="gt_row gt_left">glucose&lt;/td>
+&lt;td headers="estimate" class="gt_row gt_center">1.04&lt;/td>
+&lt;td headers="conf.low" class="gt_row gt_center">1.03, 1.04&lt;/td>
+&lt;td headers="p.value" class="gt_row gt_center">&lt;0.001&lt;/td>&lt;/tr>
+&lt;tr>&lt;td headers="label" class="gt_row gt_left">pressure&lt;/td>
+&lt;td headers="estimate" class="gt_row gt_center">0.99&lt;/td>
+&lt;td headers="conf.low" class="gt_row gt_center">0.98, 1.01&lt;/td>
+&lt;td headers="p.value" class="gt_row gt_center">0.4&lt;/td>&lt;/tr>
+&lt;/tbody>
+&lt;tfoot class="gt_sourcenotes">
+&lt;tr>
+&lt;td class="gt_sourcenote" colspan="4">&lt;span class='gt_from_md'>Abbreviations: CI = Confidence Interval, OR = Odds Ratio&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;/tfoot>
+&amp;#10;&lt;/table>
+&lt;/div>
+&lt;p>Una vez aplicada la regresión logística, se observa que por cada unidad de cambio en la variable &lt;strong>pedigree&lt;/strong>, es 2.37 veces más probable que la mujer sea diabética si se mantienen el resto de las variables constantes. Dado que este intervalo de confianza no incluye el valor uno del Odds Ratio (OR), tenemos evidencia para sugerir una asociación estadística entre los antecedentes familiares de diabetes y la presencia de la enfermedad.&lt;/p>
+&lt;p>Si bien, este resultado del modelo no es garantía de significación clínica, puede sugerir una explicación causal y, además, nos proporciona un rango plausible para la magnitud del efecto.&lt;/p>
+&lt;p>En este caso, el foco de la modelación no es una herramienta para el diagnóstico y el pronóstico , sino la estimación del efecto y la cuantificación de nuestra incertidumbre sobre él (explicación).&lt;/p>
+&lt;h2 id="enfoque-2-el-enfoque-predictivo">Enfoque 2: El Enfoque predictivo&lt;/h2>
+&lt;p>Aquí, la interpretabilidad de un coeficiente aislado pierde protagonismo frente a la predición del modelo y al rendimiento global frente a nuevos datos. Como diría Frank Harrell, &lt;em>“la predicción sin una validación honesta es una fantasía”&lt;/em> (Harrell Jr 2015).&lt;/p>
+&lt;p>&lt;strong>El “Porqué”&lt;/strong>: Queremos una herramienta que, al recibir los datos de una nueva paciente, nos dé una probabilidad de riesgo de diabetes que sea precisa y fiable.&lt;/p>
+&lt;p>A continuación se muestra como el modelo se entrena en una partición de los datos (conjunto de entrenamiento) y se evalúa su despeño en un nuevos datos (conjunto de prueba).&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># bibliotecas&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">library&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">rms&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">verbose&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="bp">F&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">library&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">CalibrationCurves&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 1. Partición de datos&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">set.seed&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="m">1353&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">split&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">initial_split&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">datos&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">strata&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;diabetes&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">entrenamiento&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">training&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">split&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">prueba&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">testing&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">split&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 2. Ajuste del modelo en el conjunto de ENTRENAMIENTO&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Usamos lrm del paquete rms, diseñado para modelado predictivo&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">modelo_predictivo&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">lrm&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">diabetes&lt;/span> &lt;span class="o">~&lt;/span> &lt;span class="n">.,&lt;/span> &lt;span class="n">data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">entrenamiento&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">x&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">TRUE&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">y&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">TRUE&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 3. Predicción en el conjunto de PRUEBA (el momento de la verdad)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">predicciones&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">predict&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">modelo_predictivo&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">newdata&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">prueba&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">type&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;fitted&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 4. Evaluación del rendimiento: ¿Funciona la bola de cristal?&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># La siguiente línea imprimirá las métricas de texto y generará el gráfico de calibración&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">val.prob&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">predicciones&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">prueba&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">diabetes&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;img src="https://maicel.netlify.app/post/sue-an-las-m-quinas-con-cerebros-el-ctricos/index.es_files/figure-html/machine_learnig-1.png" width="672" style="display: block; margin: auto;" />
+&lt;pre>&lt;code>## Dxy C (ROC) R2 D D:Chi-sq D:p
+## 0.714865672 0.857432836 0.457300264 0.398065790 77.428631681 0.000000000
+## U U:Chi-sq U:p Q Brier Intercept
+## -0.006821292 0.690311985 0.708109885 0.404887082 0.145035245 -0.155198552
+## Slope Emax E90 Eavg S:z S:p
+## 1.006770568 0.054652568 0.043820595 0.024518474 -0.163093305 0.870444971
+&lt;/code>&lt;/pre>
+&lt;p>Interpretación de la Validación:&lt;/p>
+&lt;p>Nuestro foco se desplaza a las métricas de rendimiento en el conjunto de prueba, mostradas en el texto que precede al gráfico:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Discriminación (c-statistic / AUC):&lt;/strong> Nuestro C (o c-statistic) de 0.86 indica una excelente capacidad para distinguir entre pacientes que desarrollarán la enfermedad y los que no.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Calibración:&lt;/strong> Este es el aspecto más crítico y a menudo ignorado. El gráfico de calibración (Figura 2) nos muestra si las predicciones del modelo son fiables. Una desviación de la línea diagonal “Ideal” indica descalibración, lo que significa que el modelo es sistemáticamente demasiado optimista o pesimista. Un modelo con alta discriminación pero mala calibración es peligroso en la práctica clínica.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="el-fantasma-en-la-máquina-descalibración-y-validez-temporal">El Fantasma en la Máquina: Descalibración y Validez Temporal&lt;/h2>
+&lt;p>Un modelo predictivo no es una escultura de mármol; es más como un coche que requiere mantenimiento. El mayor error en la implementación de modelos es asumir que su rendimiento inicial se mantendrá en el tiempo. Como advierte Ewout Steyerberg, los modelos se degradan(Steyerberg 2009).&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Cambios en la Prevalencia:&lt;/strong> Si la prevalencia de la diabetes varian en la población, las predicciones del modelo pueden descalibrarse.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Cambios en las Características de los Pacientes:&lt;/strong> La población de pacientes cambia, las prácticas de medición evolucionan.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Cambios en la Práctica Clínica:&lt;/strong> Nuevos tratamientos pueden alterar la relación entre los predictores y el resultado.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>Esto implica que un modelo predictivo requiere monitorización continua y recalibración periódica. La validación no es un evento único, sino un proceso continuo.&lt;/p>
+&lt;h2 id="frente-a-frente-una-comparación-matizada">Frente a Frente: Una Comparación Matizada&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>&lt;strong>Dimensión&lt;/strong>&lt;/th>
+&lt;th>&lt;strong>Modelo Explicativo (Inferencia)&lt;/strong>&lt;/th>
+&lt;th>&lt;strong>Modelo Predictivo (Generalización)&lt;/strong>&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;strong>Pregunta Clave&lt;/strong>&lt;/td>
+&lt;td>¿Cuál es la relación entre X e Y?&lt;/td>
+&lt;td>¿Cuál es el riesgo de Y para un nuevo individuo?&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Uso de Datos&lt;/strong>&lt;/td>
+&lt;td>Típicamente, todo el dataset para maximizar la precisión de la estimación.&lt;/td>
+&lt;td>&lt;strong>Separación estricta Train/Test&lt;/strong>. La validación es la métrica de éxito.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Output&lt;/strong>&lt;/td>
+&lt;td>Estimaciones de efectos (OR, HR) y sus Intervalos de Confianza.&lt;/td>
+&lt;td>Métricas de rendimiento (AUC, Calibración, Brier Score) en datos no vistos.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Peligro Principal&lt;/strong>&lt;/td>
+&lt;td>&lt;strong>Sobreinterpretación causal&lt;/strong>: A partir de datos observacionales. Confundir asociación con causa.&lt;/td>
+&lt;td>&lt;strong>Sobreajuste (Overfitting)&lt;/strong> y falsa sensación de rendimiento si la validación no es rigurosa.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h1 id="conclusión-más-allá-de-las-herramientas-una-filosofía-de-trabajo">Conclusión: Más Allá de las Herramientas, una Filosofía de Trabajo&lt;/h1>
+&lt;p>La discusión no debería ser glm vs. xgboost, sino inferencia vs. predicción. La bioestadística moderna y la ciencia de datos responsable no son antagonistas; son dos caras de la misma moneda del conocimiento basado en datos.&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Para el epidemiólogo o investigador clínico, el rigor inferencial sigue siendo el pilar para generar hipótesis.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Para el clínico o gestor de salud que busca una herramienta de apoyo a la decisión, la validación predictiva rigurosa no es negociable.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>El profesional de datos en salud del siglo XXI debe ser bilingüe. Debe entender la cautela de la inferencia causal y, al mismo tiempo, dominar el proceso de desarrollo y validación de modelos predictivos que sean robustos, fiables y, sobre todo, honestos sobre su propia incertidumbre y limitaciones.&lt;/p>
+&lt;p>Nuestro rol es ser, como diría un estadístico sabio, tanto escépticos como constructores. Escépticos de nuestras propias suposiciones y constructores de herramientas que, aunque no sueñen, nos ayuden a tomar decisiones más inteligentes.&lt;/p>
+&lt;h1 id="bibliografía-y-lecturas-recomendadas">Bibliografía y Lecturas Recomendadas&lt;/h1>
+&lt;div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+&lt;div id="ref-harrelljr2015" class="csl-entry">
+&lt;p>Harrell Jr, Frank E. 2015. &lt;em>Regression Modeling Strategies&lt;/em>. 1era ed. New York: Springer.&lt;/p>
+&lt;/div>
+&lt;div id="ref-leisch" class="csl-entry">
+&lt;p>Leisch, Friedrich, and Evgenia Dimitriadou. n.d. “Mlbench: Machine Learning Benchmark Problems.” &lt;a href="https://doi.org/10.32614/CRAN.package.mlbench" target="_blank" rel="noopener">https://doi.org/10.32614/CRAN.package.mlbench&lt;/a>.&lt;/p>
+&lt;/div>
+&lt;div id="ref-ryu2022" class="csl-entry">
+&lt;p>Ryu, Leeha, and Kyunghwa Han. 2022. “Machine Learning vs. Statistical Model for Prediction Modelling: Application in Medical Imaging Research.” &lt;em>Journal of the Korean Society of Radiology&lt;/em> 83 (6): 1219. &lt;a href="https://doi.org/10.3348/jksr.2022.0111" target="_blank" rel="noopener">https://doi.org/10.3348/jksr.2022.0111&lt;/a>.&lt;/p>
+&lt;/div>
+&lt;div id="ref-silvaaycaguer1998" class="csl-entry">
+&lt;p>Silva Aycaguer, Patricio Suárez. 1998. &lt;em>Cultura Estadística e Investigación Científica En El Campo de La Salud: Una Mirada Crítica&lt;/em>. Madrid: Diaz de Santos.&lt;/p>
+&lt;/div>
+&lt;div id="ref-steyerbergLibro2009" class="csl-entry">
+&lt;p>Steyerberg, E. 2009. &lt;em>Clinical Prediction Models&lt;/em>. 1th ed. Statistics for Biology and Health. USA: Springer.&lt;/p>
+&lt;/div>
+&lt;/div></description></item><item><title>CovidCencecAPK</title><link>https://maicel.netlify.app/project/covidcencecapk/</link><pubDate>Fri, 28 Feb 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/project/covidcencecapk/</guid><description>&lt;p>COVIDCENCEC, es un modelo predictivo diseñado para estimar y clasificar el riesgo de muerte por COVID-19. Este proyecto es parte de su tesis titulada &amp;ldquo;Modelos predictivos para estimar y clasificar el riesgo de muerte por COVID-19&amp;rdquo;, escrita por el Dr. Maicel Monzón Peres. COVIDCENCEC utiliza una combinación de JavaScript, HTML y CSS para crear una aplicación web interactiva. La función principal de esta aplicación es predecir la probabilidad de muerte por COVID-19 basándose en predictores seleccionados. Al emplear técnicas estadísticas avanzadas y algoritmos de aprendizaje automático, el modelo analiza varios indicadores de salud y factores demográficos para proporcionar a los usuarios evaluaciones de riesgo.&lt;/p>
+&lt;h1 id="características-principales-de-la-interfaz">Características principales de la Interfaz:&lt;/h1>
+&lt;p>La aplicación está diseñada con una interfaz sencilla que permite a los usuarios ingresar datos relevantes fácilmente. Análisis predictivo: COVIDCENCEC emplea análisis predictivo para generar puntajes de riesgo, lo que ayuda a los usuarios a comprender sus posibles riesgos de salud asociados con COVID-19. Visualización de datos: la aplicación incluye representaciones visuales de datos y predicciones, lo que facilita a los usuarios la interpretación de los resultados.&lt;/p>
+&lt;h1 id="diseño">Diseño:&lt;/h1>
+&lt;p>La aplicación, creada con HTML y CSS, es adaptable y accesible desde varios dispositivos, lo que garantiza un amplio alcance. Esta aplicación no solo sirve como una herramienta práctica para el personal de salud que buscan calcular el riesgos de muerte en la COVID-19, sino que también contribuye al campo más amplio del modelado predictivo en el ámbito de la atención médica.&lt;/p></description></item><item><title>Como entrenar y validar un modelo de machine learnig</title><link>https://maicel.netlify.app/post/como-entrenar-y-validar-un-modelo-de-machine-learnig/</link><pubDate>Thu, 08 Feb 2024 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/como-entrenar-y-validar-un-modelo-de-machine-learnig/</guid><description>&lt;p>🎧 &lt;strong>Escucha el podcast de esta publicación&lt;/strong>&lt;br>
+&lt;audio controls >
+&lt;source src="https://ia600607.us.archive.org/24/items/articulo-steyember/_Articulo_Steyember.mp3" type="audio/mpeg">
+&lt;/audio>
+&lt;/p>
+&lt;h1 id="estrategia-de-modelado">Estrategia de modelado&lt;/h1>
+&lt;p>Contar con una estrategia de modelado correcta es esencial para desarrollar y validar modelos de predicción. En este artículo, exploraremos las siete etapas clave del proceso de modelado propuesto por Ewout Steyerberg en su artículo .&lt;/p>
+&lt;h2 id="sec-1">1. Definición del problema e inspección de datos&lt;/h2>
+&lt;p>El primer paso en cualquier proyecto de modelado es definir claramente el problema de investigación y seleccionar la variable de resultado adecuada.&lt;/p>
+&lt;p>Durante esta fase, también realizamos un análisis exploratorio de datos (EDA) para comprender las características de las variables y detectar posibles problemas, como datos atípicos o valores faltantes.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Instalación y Carga de Librerías&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">library&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">caret&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## Loading required package: ggplot2
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## Loading required package: lattice
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">library&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">MLDataR&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># para utilizar la biblioteca diabetes_data&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">library&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">dplyr&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">##
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Attaching package: &amp;#39;dplyr&amp;#39;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## The following objects are masked from &amp;#39;package:stats&amp;#39;:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">##
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## filter, lag
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## The following objects are masked from &amp;#39;package:base&amp;#39;:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">##
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## intersect, setdiff, setequal, union
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">library&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">dlookr&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># para EDA&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## Registered S3 methods overwritten by &amp;#39;dlookr&amp;#39;:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## method from
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## plot.transform scales
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## print.transform scales
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">##
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Attaching package: &amp;#39;dlookr&amp;#39;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## The following object is masked from &amp;#39;package:base&amp;#39;:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">##
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## transform
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">library&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">predtools&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Cargar el conjunto de datos&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">data&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;gusto&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">gusto&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">gusto&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># EDA&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">descripcion&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">overview&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">gusto&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">summary&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">descripcion&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># descripción general del conjunto de datos&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## ── Data Scale ────────────────────────────────────────────── &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## • Number of observations : 40,830&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## • Number of variables : 29&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## • Number of values : 1,184,070&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## • Size of located memory(bytes) : 5,241,552 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## ── Duplicated Data ───────────────────────────────────────── &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## • Number of duplicated observations : 4 (0.01%) &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## ── Missing Data ──────────────────────────────────────────── &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## • Number of completed observations : 30,510&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## • Number of observations with NA : 10,320 (25.28%)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## • Number of variables with NA : 1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## • Number of NA : 10,320 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## ── Data Type ─────────────────────────────────────────────── &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## • Number of numeric variables : 1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## • Number of integer variables : 13&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## • Number of factors variables : 0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## • Number of character variables : 0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## • Number of Date variables : 0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## • Number of POSIXct variables : 0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## • Number of other variables : 15 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## ── Individual variables ──────────────────────────────────── &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## Variables Data Type&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 1 day30 integer&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 2 sho integer&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 3 hig integer&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 4 dia labelled&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 5 hyp integer&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 6 hrt integer&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 7 ttr labelled&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 8 sex labelled&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 9 Killip labelled&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 10 age numeric&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 11 ste labelled&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 12 pulse labelled&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 13 sysbp labelled&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 14 ant integer&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 15 miloc labelled&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 16 height labelled&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 17 weight labelled&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 18 pmi labelled&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 19 htn labelled&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 20 smk labelled&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 21 pan integer&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 22 fam labelled&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 23 prevcvd integer&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 24 prevcabg integer&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 25 regl integer&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 26 grpl integer&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 27 grps integer&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 28 tpa integer&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 29 tx labelled&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Para conocer más detalles sobre el proceso de ¨Exploratory Data Analysis (EDA)¨ ver la publicación dedicada a este tema.&lt;/p>
+&lt;h2 id="sec-2">2. Codificación de las Variables Predictoras&lt;/h2>
+&lt;p>La codificación adecuada de las variables predictoras es fundamental para construir modelos robustos. En este estudio, se utilizaron técnicas como la agrupación de categorías poco frecuentes y la creación de predictores resúmenes para simplificar información correlacionada. Además, cuando las relaciones entre variables no son lineales, aplicamos herramientas como splines cúbicos restringidos , que permiten capturar patrones complejos sin comprometer la precisión del modelo.&lt;/p>
+&lt;h2 id="sec-3">3 .Especificación del Tipo de Modelo&lt;/h2>
+&lt;p>La elección del modelo depende del tipo de relación que queremos capturar entre las variables. En este estudio, combinamos dos enfoques: regresión logística binaria múltiple y árboles de clasificación . Mientras que la regresión logística es ideal para modelar relaciones lineales y proporcionar probabilidades, los árboles de clasificación son útiles para identificar interacciones complejas y establecer indicadores de riesgo.&lt;/p>
+&lt;p>Un aspecto clave fue la selección de predictores finales, que se basó en criterios como la plausibilidad biológica , el respaldo de la literatura científica y métodos computacionales avanzados. Esto nos permitió evitar el uso exclusivo de valores p, que pueden ser engañosos en algunos contextos.&lt;/p>
+&lt;h2 id="sec-4">4. Estimación del Modelo&lt;/h2>
+&lt;p>Para ajustar los parámetros del modelo, utilizamos el método de máxima verosimilitud (MLE) , reconocido por su versatilidad y eficiencia computacional. Además, evaluamos cuidadosamente las interacciones entre variables predictoras, incluyéndolas solo cuando había evidencia empírica y teórica que respaldaba su relevancia. Un modelo más simple suele ser más robusto y fácil de interpretar, lo que es crucial en entornos clínicos.&lt;/p>
+&lt;h2 id="sec-5">5. Evaluación del Rendimiento del Modelo&lt;/h2>
+&lt;p>El rendimiento del modelo se evalúa mediante métricas como calibración y discriminación . La calibración mide la concordancia entre las predicciones y los resultados observados, mientras que la discriminación evalúa la capacidad del modelo para distinguir entre pacientes con diferentes resultados. Herramientas como las rectas de calibración y la validación cruzada de 10 pliegues fueron fundamentales para asegurar la calidad del modelo.&lt;/p>
+&lt;h2 id="sec-6">6. Evaluación de la Validez del Modelo&lt;/h2>
+&lt;p>La validación del modelo es un paso crítico para garantizar su aplicabilidad en diferentes contextos. En este estudio, utilizamos tanto validación interna como externa , empleando particiones temporales y geográficas para reflejar escenarios reales. Este enfoque nos permitió evaluar la robustez del modelo frente a cambios en el tiempo y variaciones regionales.&lt;/p>
+&lt;h2 id="sec-7">7. Presentación del Modelo&lt;/h2>
+&lt;p>La presentación del modelo puede ser a través de un nomograma o aplicación.&lt;/p>
+&lt;h1 id="bibliografía">Bibliografía&lt;/h1>
+&lt;ol>
+&lt;li>Steyerberg EW, Vergouwe Y. Towards better clinical prediction models: seven steps for development and an ABCD for validation. European Heart Journal [Internet]. 1 de agosto de 2014 [citado 9 de mayo de 2021];35(29):1925-31. Disponible en: &lt;a href="https://academic.oup.com/eurheartj/article-lookup/doi/10.1093/eurheartj/ehu207" target="_blank" rel="noopener">https://academic.oup.com/eurheartj/article-lookup/doi/10.1093/eurheartj/ehu207&lt;/a>&lt;/li>
+&lt;/ol></description></item><item><title>Identificación de pacientes de bajo riesgo de severidad en confirmados de la COVID-19. Cuba. Años 2020-2021</title><link>https://maicel.netlify.app/publication/preprint/</link><pubDate>Wed, 07 Apr 2021 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/publication/preprint/</guid><description>&lt;p>Este trabajo está impulsado por los resultados de mi &lt;a href="https://revhabanera.sld.cu/index.php/rhab/article/view/4943" target="_blank" rel="noopener">artículo anterior&lt;/a> sobre desarrollo de modelos predictivos para el triaje.&lt;/p>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
+&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">El modelo empleado conocido como &lt;strong>ABR&lt;/strong> se actualizó posteriormente en mi tesis de doctorado.&lt;/span>
+&lt;/div>
+&lt;p>Los detalles del modelo &lt;strong>ABR&lt;/strong> se pueden consultar en el &lt;a href="https://revhabanera.sld.cu/index.php/rhab/article/view/4943" target="_blank" rel="noopener">artículo &lt;/a> titulado &lt;em>Identificación de pacientes de bajo riesgo de severidad en confirmados de la COVID-19. Cuba. Años 2020-2021&lt;/em>&lt;/p>
+&lt;div class="mermaid">graph TD
+A[edad] --> B[&lt; 65]
+A --> C[>= 65]
+B --> D[comorbilidades]
+C --> E[comorbilidades]
+D --> F[no]
+D --> G[sí]
+E --> H[no]
+E --> I[sí]
+F --> J["0.003"]
+G --> K["0.004"]
+H --> L["0.027"]
+I --> M["0.041"]
+classDef green fill:#98FB98,stroke:#333,stroke-width:2px;
+classDef lightRed fill:#FFCCCC,stroke:#333,stroke-width:2px;
+classDef mediumRed fill:#FF9999,stroke:#333,stroke-width:2px;
+classDef darkRed fill:#FF6666,stroke:#333,stroke-width:2px;
+class A,B,C,D,E,F,G,H,I green
+class J green
+class K lightRed
+class L mediumRed
+class M darkRed
+&lt;/div>
+&lt;p>&lt;strong>Figura 1. Árbol de bajo riesgo&lt;/strong>&lt;/p>
+&lt;p>La actualización de este modelo se encuentra disponible en la &lt;a href="https://www.researchgate.net/publication/388656780_MODELOS_PREDICTIVOS_PARA_LA_ESTIMACION_Y_CLASIFICACION_DEL_RIESGO_DE_MUERTE_EN_COVID-19" target="_blank" rel="noopener">tesis de dotorado &lt;/a> titulada &lt;em>MODELOS PREDICTIVOS PARA LA ESTIMACIÓN Y CLASIFICACIÓN DEL RIESGO DE MUERTE EN COVID-19&lt;/em>&lt;/p></description></item></channel></rss>
