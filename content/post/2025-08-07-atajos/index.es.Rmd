@@ -17,6 +17,7 @@ description: 'Análisis técnico y regulatorio del uso de diseños no confirmato
   en sustitución de ensayos clínicos aleatorizados: justificaciones, riesgos metodológicos
   y salvaguardas requeridas por ICH, EMA y FDA.'
 slug: atajos
+commentable: yes
 ---
 
 # Introducción: Fundamentos de evidencia confirmatoria
