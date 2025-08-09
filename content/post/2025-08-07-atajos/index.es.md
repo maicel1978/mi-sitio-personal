@@ -48,7 +48,7 @@ Los ECAs incorporan tres garantías fundamentales: **aleatorización**, **grupo 
 
 | **Componente metodológico** | **Función específica**                                    | **Cómo reduce el sesgo**                                                | **Referencia normativa ICH**     |
 |-----------------------------|------------------------------------------------------------|------------------------------------------------------------------------|----------------------------------|
-| **Aleatorización**          | Asignación no predecible de tratamientos                   | Elimina sesgo de selección; equilibra factores conocidos/desconocidos  | ICH E9 Sección 2.2.3             |
+| **Aleatorización**          | Asignación no predecible de tratamientos                   | Mitiga el sesgo de selección; equilibra factores conocidos/desconocidos  | ICH E9 Sección 2.2.3             |
 | **Grupo control**           | Comparación con placebo o tratamiento estándar             | Permite contrafactual válido e inferencia causal robusta               | ICH E10; ICH E8(R1)              |
 | **Cegamiento (blinding)**   | Ocultamiento de asignación a participantes e investigadores| Previene sesgo de evaluación, expectativa y cointervención             | ICH E9 Sección 2.2.4             |
 
