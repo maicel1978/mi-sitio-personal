@@ -1,7 +1,7 @@
 ---
 title: '¿Explicar o predecir? La elección metodológica entre enfoques tradicionales
   y machine learning en salud pública'
-author: 'Maicel Monzon'
+author: ["admin"]
 date: '2025-06-19'
 categories:
   - IA

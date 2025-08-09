@@ -1,7 +1,7 @@
 ---
 title: '¿Explicar o predecir? La elección metodológica entre enfoques tradicionales
   y machine learning en salud pública'
-author: 'Maicel Monzon'
+author: ["admin"]
 date: '2025-06-19'
 categories:
   - IA
@@ -159,7 +159,7 @@ Esto implica que un modelo predictivo requiere monitorización continua y recali
 ## Frente a Frente: Una Comparación Matizada
 
 | **Dimensión** | **Modelo Explicativo (Inferencia)** | **Modelo Predictivo (Generalización)** |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | **Pregunta Clave** | ¿Cuál es la relación entre X e Y? | ¿Cuál es el riesgo de Y para un nuevo individuo? |
 | **Uso de Datos** | Típicamente, todo el dataset para maximizar la precisión de la estimación. | **Separación estricta Train/Test**. La validación es la métrica de éxito. |
 | **Output** | Estimaciones de efectos (OR, HR) y sus Intervalos de Confianza. | Métricas de rendimiento (AUC, Calibración, Brier Score) en datos no vistos. |
