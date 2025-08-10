@@ -20,7 +20,7 @@ slug: atajos
 commentable: yes
 ---
 
-🎧 **Escucha el podcast de esta publicación**\
+🎧 **Escucha el podcast de esta publicación**
 {{< audio src="/mp3/atajos.mp3" controls="yes" >}}
 
 # Introducción: Fundamentos de evidencia confirmatoria
@@ -89,9 +89,9 @@ Aunque válidos en contextos excepcionales, el uso frecuente y estratégico de e
 
 ### Riesgos identificados:
 
--   Aprobaciones basadas en **evidencia débil o no reproducible**.\
--   Incremento del **sesgo sistemático** en resultados de eficacia.\
--   Exposición de pacientes a intervenciones **no validadas rigurosamente**.\
+-   Aprobaciones basadas en **evidencia débil o no reproducible**.
+-   Incremento del **sesgo sistemático** en resultados de eficacia.
+-   Exposición de pacientes a intervenciones **no validadas rigurosamente**.
 -   **Deslegitimación del proceso regulatorio** ante la comunidad científica y la sociedad.
 
 ------------------------------------------------------------------------
@@ -100,15 +100,15 @@ Aunque válidos en contextos excepcionales, el uso frecuente y estratégico de e
 
 ## A. Para la industria
 
--   Presentar **justificación exhaustiva** cuando no se utilicen ECAs.\
--   Cumplir con requisitos metodológicos específicos según tipo de diseño alternativo.\
+-   Presentar **justificación exhaustiva** cuando no se utilicen ECAs.
+-   Cumplir con requisitos metodológicos específicos según tipo de diseño alternativo.
 -   Incluir análisis de sensibilidad, consistencia y control de sesgo.
 
 ## B. Para las agencias reguladoras
 
--   **Reforzar guías específicas** (EMA, FDA) que regulen el uso de diseños alternativos.\
--   Exigir **registro público**, transparencia y acceso a protocolos completos.\
--   Fortalecer **capacidades internas** en estadística avanzada y diseño de estudios no aleatorizados.\
+-   **Reforzar guías específicas** (EMA, FDA) que regulen el uso de diseños alternativos.
+-   Exigir **registro público**, transparencia y acceso a protocolos completos.
+-   Fortalecer **capacidades internas** en estadística avanzada y diseño de estudios no aleatorizados.
 -   Establecer **comités independientes** de evaluación para salvaguardas éticas y científicas.
 
 ------------------------------------------------------------------------
@@ -121,12 +121,12 @@ Los diseños alternativos no deben entenderse como sustitutos genéricos del ECA
 
 # Bibliografía
 
-1.  FDA. *Demonstrating Substantial Evidence of Effectiveness with One Adequate and Well-Controlled Clinical Investigation and Confirmatory Evidence*. Draft Guidance. 2023.\
-2.  EMA. *Reflection Paper on Single‑Arm Trials as Pivotal Evidence*. EMA/CHMP/161300/2023.\
-3.  FDA. *Real-World Evidence Framework*. 2023 Update.\
-4.  EMA. *Use of Real‑World Evidence in Regulatory Decision-Making*. EMA/INS/GCP/455222/2024.\
-5.  ICH. *E9: Statistical Principles for Clinical Trials*. 1998.\
-6.  ICH. *E9(R1): Addendum on Estimands and Sensitivity Analysis in Clinical Trials*. 2020.\
-7.  EMA. *Guideline on Adjustment for Baseline Covariates in Clinical Trials*. CHMP/EWP/2863/99.\
-8.  FDA. *Real-World Evidence Program Annual Report 2025 (PUB-245)*.\
+1.  FDA. *Demonstrating Substantial Evidence of Effectiveness with One Adequate and Well-Controlled Clinical Investigation and Confirmatory Evidence*. Draft Guidance. 2023.
+2.  EMA. *Reflection Paper on Single‑Arm Trials as Pivotal Evidence*. EMA/CHMP/161300/2023.
+3.  FDA. *Real-World Evidence Framework*. 2023 Update.
+4.  EMA. *Use of Real‑World Evidence in Regulatory Decision-Making*. EMA/INS/GCP/455222/2024.
+5.  ICH. *E9: Statistical Principles for Clinical Trials*. 1998.
+6.  ICH. *E9(R1): Addendum on Estimands and Sensitivity Analysis in Clinical Trials*. 2020.
+7.  EMA. *Guideline on Adjustment for Baseline Covariates in Clinical Trials*. CHMP/EWP/2863/99.
+8.  FDA. *Real-World Evidence Program Annual Report 2025 (PUB-245)*.
 9.  Temple R, Ellenberg SS. *Placebo-Controlled Trials and Active-Control Trials in the Evaluation of New Treatments*. *Ann Intern Med*. 2000;133(6):455–463.
