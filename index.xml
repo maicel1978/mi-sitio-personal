@@ -1,4 +1,100 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Bioestadistica educativa</title><link>https://maicel.netlify.app/</link><atom:link href="https://maicel.netlify.app/index.xml" rel="self" type="application/rss+xml"/><description>Bioestadistica educativa</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es</language><lastBuildDate>Mon, 24 Oct 2022 00:00:00 +0000</lastBuildDate><image><url>https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png</url><title>Bioestadistica educativa</title><link>https://maicel.netlify.app/</link></image><item><title>Diseños Alternativos a Ensayos Clínicos Controlados Aleatorizados: Contextos de Aplicación y Riesgos Regulatorios</title><link>https://maicel.netlify.app/post/atajos/</link><pubDate>Thu, 07 Aug 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/atajos/</guid><description>&lt;p>🎧 &lt;strong>Escucha el podcast de esta publicación&lt;/strong>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Bioestadistica educativa</title><link>https://maicel.netlify.app/</link><atom:link href="https://maicel.netlify.app/index.xml" rel="self" type="application/rss+xml"/><description>Bioestadistica educativa</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es</language><lastBuildDate>Mon, 24 Oct 2022 00:00:00 +0000</lastBuildDate><image><url>https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png</url><title>Bioestadistica educativa</title><link>https://maicel.netlify.app/</link></image><item><title>Ciencia o Pirotecnia: Por Qué la 'Significación Estadística' Nos Ciega con Falsos Destellos</title><link>https://maicel.netlify.app/post/2025-08-10-significacion/</link><pubDate>Sun, 10 Aug 2025 15:30:00 +0000</pubDate><guid>https://maicel.netlify.app/post/2025-08-10-significacion/</guid><description>&lt;p>Ese momento de euforia al ver &lt;code>p &amp;lt; 0.05&lt;/code>… ¿es un descubrimiento genuino o solo un destello engañoso de pirotecnia estadística?&lt;/p>
+&lt;p>En la ciencia, hay un instante que todos los investigadores anhelan. Es la culminación de meses, a veces años, de riguroso trabajo. Corres el análisis y, de repente, ahí está: &lt;code>p &amp;lt; 0.05&lt;/code>. Es una &lt;strong>explosión de alivio&lt;/strong>, un destello de “¡Eureka!” en la oscuridad de la incertidumbre. Sentimos que hemos encontrado algo real, algo digno de ser publicado.&lt;/p>
+&lt;p>Pero, ¿y si ese destello es solo eso? Un estallido momentáneo, deslumbrante y ruidoso, pero que en el fondo significa muy poco. ¿Y si nuestro ritual más sagrado es, en realidad, un simple juego de pirotecnia, diseñado para impresionar más que para iluminar?&lt;/p>
+&lt;p>Durante décadas, hemos aceptado el umbral de significación estadística como el árbitro indiscutible de la verdad científica. Sin embargo, la evidencia acumulada —desde las críticas de su propio creador (Ronald Fisher) hasta las advertencias oficiales de la American Statistical Association (ASA) en 2016 y el clamor de cientos de científicos en la revista &lt;em>Nature&lt;/em> — nos obliga a una conclusión incómoda(Amrhein, Greenland, and McShane 2019; Wasserstein and Lazar 2016) : &lt;strong>el emperador estadístico está desnudo&lt;/strong>. La práctica de las Pruebas de Significación de la Hipótesis Nula (NHST, por sus siglas en inglés) no es un pilar de rigor, sino un ritual plagado de lógica errónea, confusión e inadecuación para la verdadera investigación.&lt;/p>
+&lt;h2 id="el-cohete-más-grande-no-significa-mejor">El Cohete: Más Grande no Significa Mejor&lt;/h2>
+&lt;p>En la pirotecnia, un cohete más grande produce una explosión más fuerte. Es simple física. En la estadística, ocurre algo perturbadoramente similar. El “cohete” es nuestro tamaño muestral.&lt;/p>
+&lt;p>La conclusión de una prueba de significación depende de manera crucial del tamaño de la muestra. Con un cohete lo suficientemente grande (una muestra de miles o decenas de miles de personas), la diferencia más trivial e insignificante para el mundo real se convertirá, casi por arte de magia, en “estadísticamente significativa”. Por el contrario, un efecto importante y real puede pasar desapercibido si nuestro cohete es demasiado pequeño.&lt;/p>
+&lt;p>Esto nos lleva a una &lt;strong>verdad grotesca&lt;/strong>: la decisión sobre si un hallazgo es “real” a menudo depende más de los recursos del investigador para recolectar datos masivos que de la naturaleza fundamental del fenómeno estudiado. El estallido nos dice más sobre el tamaño del cohete que sobre la belleza del cielo que intenta iluminar.&lt;/p>
+&lt;!-- ```{r} -->
+&lt;!-- set.seed(123) -->
+&lt;!-- library(ggplot2) -->
+&lt;!-- effect &lt;- 0.1 -->
+&lt;!-- sd &lt;- 1 -->
+&lt;!-- N &lt;- seq(20, 10000, by=50) -->
+&lt;!-- p_values &lt;- sapply(N, function(n) { -->
+&lt;!-- t.test(rnorm(n, mean=effect, sd=sd), mu=0)$p.value -->
+&lt;!-- }) -->
+&lt;!-- data &lt;- data.frame(N, p_values) -->
+&lt;!-- ggplot(data, aes(N, p_values)) + -->
+&lt;!-- geom_line() + -->
+&lt;!-- geom_hline(yintercept = 0.05, linetype = "dashed", color="red") + -->
+&lt;!-- labs(x = "Tamaño muestral (N)", y = "Valor p") + -->
+&lt;!-- theme_minimal() -->
+&lt;!-- ``` -->
+&lt;!-- Aquí iría tu gráfico explicativo del "Cohete (Tamaño Muestral)": -->
+&lt;!-- Un gráfico mostrando cómo un efecto trivial (ej: diferencia de 0.1 unidades) se vuelve "significativo" (p&lt;0.05) a medida que N aumenta de 100 a 10,000. Puedes usar `ggplot2` en R para esto. -->
+&lt;!-- Ejemplo de código R (este no generaría un gráfico, solo un placeholder para tu referencia): -->
+&lt;!-- ```{r cohete_plot, echo=FALSE, fig.cap="Impacto del tamaño muestral en la significación estadística para un efecto constante."} -->
+&lt;!-- # Código para generar el gráfico de N vs p-valor -->
+&lt;!-- # plot(your_data$N, your_data$p_value, type="l", main="Cómo N afecta el p-valor", -->
+&lt;!-- # xlab="Tamaño Muestral (N)", ylab="Valor p") -->
+&lt;!-- # abline(h=0.05, col="red", lty=2) -->
+&lt;!-- ``` -->
+&lt;h2 id="la-explosión-un-caos-de-luz-y-malentendidos">La Explosión: Un Caos de Luz y Malentendidos&lt;/h2>
+&lt;p>La explosión de un fuego artificial es un evento caótico. Su interpretación es subjetiva. ¿Fue espectacular? ¿Fue un fracaso? Lo mismo ocurre con el valor &lt;em>p&lt;/em>.&lt;/p>
+&lt;h2 id="lógica-errónea-juzgando-por-lo-que-no-vimos">Lógica Errónea: Juzgando por lo que no Vimos&lt;/h2>
+&lt;p>La lógica detrás del valor &lt;em>p&lt;/em> es, siendo generosos, peculiar. Se calcula asumiendo que la hipótesis nula (H₀ —la hipótesis de no-efecto, de que no hay diferencia o relación) es cierta, y luego se determina la probabilidad de haber observado nuestros datos &lt;em>o datos aún más extremos&lt;/em> bajo esa suposición. Piénsalo: nuestra conclusión sobre lo que &lt;em>sí&lt;/em> ocurrió depende de la probabilidad de cosas que ni siquiera presenciamos. Es un &lt;strong>absurdo subyacente&lt;/strong>.&lt;/p>
+&lt;p>Además, caemos constantemente en la &lt;strong>falacia de la probabilidad invertida&lt;/strong>: el valor &lt;em>p&lt;/em> nos dice la probabilidad de los datos dada la hipótesis nula (P(Datos|H₀)), pero nosotros creemos erróneamente que nos dice la probabilidad de que la hipótesis nula sea cierta dados nuestros datos (P(H₀|Datos)). Son dos cosas radicalmente distintas, y confundirlas es un error fundamental.&lt;/p>
+&lt;!-- &lt;!-- Aquí iría tu diagrama de flujo simple o tabla comparativa para "Confusión P(D|H) vs P(H|D)": -->
+&lt;!-- Puedes usarmermaid para diagramas simples en RMarkdown o una tabla Markdown para la comparación. -->
+&lt;!-- Ejemplo de código mermaid (necesitarías `config: {mermaid: {sequence: {diagramMarginX: 10}}}` en el YAML para que funcione): -->
+&lt;h2 id="confusión-el-ruido-no-es-la-señal">Confusión: El Ruido no es la Señal&lt;/h2>
+&lt;p>La confusión más extendida es la de equiparar “significación estadística” con “importancia práctica” o “relevancia científica”. Un estallido muy ruidoso no significa que el descubrimiento sea importante, útil o generalizable. Esta obsesión por el ruido estadístico, esta endémica “significant-itis”, nos ha distraído de lo que realmente importa en la investigación: la magnitud del efecto y la relevancia clínica, social o teórica de nuestros hallazgos.&lt;/p>
+&lt;h2 id="el-caso-del-chocolate-que-hace-perder-peso">El Caso del Chocolate que Hace Perder Peso&lt;/h2>
+&lt;p>Para ilustrar esta locura, consideremos el tristemente famoso estudio de John Bohannon en 2015, “Chocolate con fines de pérdida de peso” . Con un pequeño presupuesto, Bohannon realizó un ensayo aleatorio, controlado con chocolate, utilizando un número muy reducido de participantes y midiendo 18 variables distintas(Bohannon 2015). Al analizar &lt;em>todas&lt;/em> las combinaciones posibles, encontró que con una muestra tan pequeña y al realizar múltiples pruebas (un tipo de &lt;em>p-hacking&lt;/em>), era casi inevitable que alguna variable arrojara un p-valor menor a 0.05 &lt;strong>por pura casualidad&lt;/strong>. Con su &lt;code>p &amp;lt; 0.05&lt;/code> “significativo”, los medios de comunicación sensacionalistas se lanzaron a la noticia: “El chocolate hace perder peso!”. Este caso es un claro ejemplo de cómo un “destello” estadístico puede ser completamente engañoso y carecer de cualquier importancia real, pero aun así generar titulares y confusión(Bohannon 2015).&lt;/p>
+&lt;h2 id="el-veredicto-la-falsa-dicotomía-del-ohhh-o-el-silencio">El Veredicto: La Falsa Dicotomía del “Ohhh” o el Silencio&lt;/h2>
+&lt;p>Quien observa fuegos artificiales emite un veredicto simple: el “¡Ohhh!” de asombro o el silencio de la indiferencia. Las pruebas de significación nos han impuesto esta misma decisión binaria: o un resultado es significativo (&lt;code>p &amp;lt; 0.05&lt;/code>), o no lo es. Es un interruptor de encendido/apagado.&lt;/p>
+&lt;p>Pero la ciencia no funciona así. El conocimiento científico no es una serie de decisiones de “sí/no”. Es un proceso gradual de ajuste de nuestras creencias a la luz de la evidencia acumulada. Es un paisaje de grises, no un contraste de blanco y negro. Al forzarnos a este mecanicismo, a esta “sucesión de ‘decisiones’ automáticas” que el propio Fisher denunció, hemos empobrecido el discurso científico, ignorando matices cruciales como la magnitud del efecto o la precisión de la estimación.&lt;/p>
+&lt;h2 id="después-del-humo-hacia-una-ciencia-iluminada">Después del Humo: Hacia una Ciencia Iluminada&lt;/h2>
+&lt;p>Cuando el humo de la pirotecnia se disipa, ¿qué nos queda? Nos queda la tarea de encontrar una luz más honesta y duradera para la ciencia. Afortunadamente, esta luz existe y está ganando terreno.&lt;/p>
+&lt;p>La alternativa fundamental es pasar de la &lt;strong>decisión binaria&lt;/strong> a la &lt;strong>estimación&lt;/strong>. En lugar de preguntar obsesivamente “¿Hay un efecto (sí/no)?”, debemos preguntar “¿Cuál es la magnitud del efecto y cuán seguros estamos de esa estimación?”.&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Intervalos de Confianza (o de Compatibilidad):&lt;/strong> Son nuestra primera y más accesible herramienta para una inferencia más sensata. Los Intervalos de Confianza no nos dan un simple “sí/no”, sino un &lt;strong>rango de valores plausibles&lt;/strong> para el efecto real en la población. Nos muestran tanto la magnitud estimada del efecto como la incertidumbre que lo rodea.&lt;/p>
+&lt;p>Cuando vemos un Intervalo de Confianza del 95% para una diferencia, por ejemplo, esto significa que si repitiéramos el estudio muchas, muchas veces bajo las mismas condiciones, el 95% de esos intervalos contendrían el verdadero valor del efecto que estamos tratando de estimar. Nos invitan a pensar en la variabilidad y la precisión de nuestras estimaciones, no solo en un umbral arbitrario. Son una luz constante que ilumina un paisaje, permitiéndonos ver el terreno completo, no un destello que ciega momentáneamente.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;!-- &lt;!-- Aquí iría tu gráfico de "Intervalos de Confianza/Compatibilidad": -->
+&lt;!-- Un gráfico con varios ICs superpuestos (algunos estrechos, otros anchos, algunos cruzando cero, otros no) para ilustrar que muestran magnitud *e* incertidumbre, no solo "sí/no". -->
+&lt;!-- ```{r ic_plot, echo=FALSE, fig.cap="Visualización de Intervalos de Confianza: Magnitud y Incertidumbre."} -->
+&lt;!-- # Código para generar el gráfico de ICs -->
+&lt;!-- # library(ggplot2) -->
+&lt;!-- # data.frame( -->
+&lt;!-- # Effect = c(0.5, 1.2, -0.3, 0.8), -->
+&lt;!-- # Lower = c(0.1, 0.8, -0.7, 0.2), -->
+&lt;!-- # Upper = c(0.9, 1.6, 0.1, 1.4) -->
+&lt;!-- # ) %>% -->
+&lt;!-- # ggplot(aes(y = factor(1:4), x = Effect, xmin = Lower, xmax = Upper)) + -->
+&lt;!-- # geom_point() + geom_errorbarh(height = 0.2) + -->
+&lt;!-- # geom_vline(xintercept = 0, linetype = "dashed", color = "grey") + -->
+&lt;!-- # labs(x = "Magnitud del Efecto", y = "Estudio") + -->
+&lt;!-- # theme_minimal() -->
+&lt;!-- ``` -->
+&lt;!-- -->
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>El Enfoque Bayesiano:&lt;/strong> Es el siguiente paso evolutivo en la inferencia estadística, y es la encarnación matemática del razonamiento científico. Los métodos bayesianos nos permiten hacer lo que siempre hemos querido hacer: &lt;strong>combinar la evidencia de nuestro estudio actual con todo el conocimiento previo existente&lt;/strong> (estudios anteriores, plausibilidad biológica, experiencia clínica) para llegar a una conclusión actualizada y probabilística sobre nuestras hipótesis.&lt;/p>
+&lt;p>A diferencia del valor &lt;em>p&lt;/em>, el enfoque bayesiano responde directamente a la pregunta que realmente queremos hacer: “&lt;strong>Dados estos nuevos datos, ¿qué tan creíble es mi hipótesis ahora?&lt;/strong>”. Nos da una probabilidad posterior de nuestra hipótesis, una medida directa de nuestra creencia actualizada. Aunque puede parecer más complejo al principio, el razonamiento bayesiano se alinea intuitivamente con cómo los científicos y las personas actualizan sus creencias en la vida real.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>Dejemos la pirotecnia para las celebraciones. Es hora de que la ciencia deje de buscar destellos efímeros y se dedique a construir una iluminación constante, acumulativa y, sobre todo, &lt;strong>honesta&lt;/strong>. Es el momento de una ciencia más transparente, rigurosa y, sí, ¡más divertida de interpretar!&lt;/p>
+&lt;hr>
+&lt;h2 id="tu-turno">¡Tu Turno!&lt;/h2>
+&lt;p>¿Te has encontrado con la “tiranía del p&amp;lt;0.05” en tu campo? ¿Qué alternativas usas o te gustaría ver más promovidas en la investigación? ¡Comparte tu experiencia y tus pensamientos en los comentarios a continuación!&lt;/p>
+&lt;hr>
+&lt;h2 id="referencias">Referencias&lt;/h2>
+&lt;div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+&lt;div id="ref-amrhein2019" class="csl-entry">
+&lt;p>Amrhein, Valentin, Sander Greenland, and Blake McShane. 2019. “Scientists Rise up Against Statistical Significance.” &lt;em>Nature&lt;/em> 567 (7748): 305–7. &lt;a href="https://doi.org/10.1038/d41586-019-00857-9" target="_blank" rel="noopener">https://doi.org/10.1038/d41586-019-00857-9&lt;/a>.&lt;/p>
+&lt;/div>
+&lt;div id="ref-bohannon2015" class="csl-entry">
+&lt;p>Bohannon, John. 2015. “I Fooled Millions into Thinking Chocolate Helps Weight Loss. Here’s How.” &lt;a href="https://gizmodo.com/i-fooled-millions-into-thinking-chocolate-helps-weight-1707251800" target="_blank" rel="noopener">https://gizmodo.com/i-fooled-millions-into-thinking-chocolate-helps-weight-1707251800&lt;/a>.&lt;/p>
+&lt;/div>
+&lt;div id="ref-wasserstein2016" class="csl-entry">
+&lt;p>Wasserstein, Ronald L., and Nicole A. Lazar. 2016. “The ASA Statement on &lt;em>p&lt;/em> -Values: Context, Process, and Purpose.” &lt;em>The American Statistician&lt;/em> 70 (2): 129–33. &lt;a href="https://doi.org/10.1080/00031305.2016.1154108" target="_blank" rel="noopener">https://doi.org/10.1080/00031305.2016.1154108&lt;/a>.&lt;/p>
+&lt;/div>
+&lt;/div></description></item><item><title>Diseños Alternativos a Ensayos Clínicos Controlados Aleatorizados: Contextos de Aplicación y Riesgos Regulatorios</title><link>https://maicel.netlify.app/post/atajos/</link><pubDate>Thu, 07 Aug 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/atajos/</guid><description>&lt;p>🎧 &lt;strong>Escucha el podcast de esta publicación&lt;/strong>
 &lt;audio controls >
 &lt;source src="https://maicel.netlify.app/mp3/atajos.mp3" type="audio/mpeg">
 &lt;/audio>
