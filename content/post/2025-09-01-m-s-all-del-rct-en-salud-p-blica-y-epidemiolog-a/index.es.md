@@ -26,9 +26,11 @@ Imagina que quieres evaluar el impacto de una nueva política de vacunación. Pa
 El **marco de resultados potenciales** formaliza esta idea:
 
 
+{{< math >}}
 $$
-\tau_{sample} \equiv \frac{1}{N} \sum_{i=1}^{N} (Y_i(1) - Y_i(0))
+\tau_{\text{sample}} = \frac{1}{N} \sum_{i=1}^{N} (Y_i(1) - Y_i(0))
 $$
+{{< /math >}}
 
 
 En un ensayo controlado aleatorizado (RCT), la aleatorización nos permite estimar este efecto promedio simplemente comparando medias. Pero ¿qué pasa cuando los RCT no son factibles por razones éticas, logísticas o económicas?
