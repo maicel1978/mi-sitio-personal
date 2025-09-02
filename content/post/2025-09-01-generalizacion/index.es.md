@@ -40,7 +40,7 @@ Para que un estudio sea realmente útil, sus hallazgos no solo deben ser correct
 
 ## **Generalizabilidad y Transportabilidad: Construyendo el Puente**
 
-Tu video aclara de forma brillante la diferencia entre las dos estrategias principales para construir ese puente:
+Existen dos estrategias principales para construir ese puente:
 
 -   **Generalizabilidad:** Piensa en esto como una receta de cocina. Perfeccionaste una tarta en tu "cocina de prueba" y ahora vas a usar esa misma receta para alimentar a toda la familia. La población del estudio es solo una parte de un grupo más grande al que quieres aplicar los resultados. Por ejemplo, pasar de un estudio en California a todo Estados Unidos.
 -   **Transportabilidad:** Ahora imagina que quieres adaptar esa misma receta para que funcione en otro país, con ingredientes diferentes y un horno distinto. Aquí, la población del estudio es ajena a la población a la que quieres aplicar los resultados. Se trata de ver si los hallazgos de un estudio en Estados Unidos funcionan en una clínica en Europa.
@@ -68,14 +68,16 @@ La forma ideal es tomar una muestra aleatoria de la población objetivo, pero es
 
 **Ensayos clínicos pragmáticos:** Diseñados para imitar la práctica clínica real y ser más aplicables.
 
-**Muestreo intencional:** Seleccionar participantes para asegurar que haya una amplia representación o heterogeneidad.
+**Muestreo no probabilístico:** Seleccionar participantes para asegurar que haya una amplia representación o heterogeneidad.
 
 **Después de la Recolección de Datos (Métodos Analíticos):**
 
 Si el estudio ya se realizó, se usan métodos estadísticos para ajustar los resultados:
 
 -   **Ponderación (Weighting):** Le da más "peso" a ciertos individuos del estudio para que la muestra se parezca más a la población real. Es como darles un megáfono a las voces que necesitan ser escuchadas.
+
 -   **Regresiones de Resultado:** Se construyen modelos matemáticos para predecir lo que habría pasado si la gente del mundo real hubiera recibido el tratamiento del estudio.
+
 -   **Enfoques Doblemente Robustos:** Combinan varias técnicas para obtener resultados más sólidos.
 
 ------------------------------------------------------------------------
@@ -88,7 +90,7 @@ Como se ha destacado, "pensar sin observar es un error, pero observar sin pensar
 
 ## **Tu Papel como Consumidor de Ciencia**
 
-La próxima vez que veas un titular impactante, haz la pregunta clave que tu video sugiere: **"¿En quién se hizo este estudio?"**
+La próxima vez que veas un titular impactante, haz la pregunta clave : **"¿En quién se hizo este estudio?"**
 
 Al entender la generalizabilidad y la transportabilidad, te conviertes en un consumidor de ciencia más crítico e informado. La verdadera meta no es solo que los estudios sean rigurosos, sino que su conocimiento pueda cruzar ese puente de forma segura y tener un impacto genuino en nuestras vidas. Porque, al final, una ciencia que no puede ser aplicada al mundo real pierde gran parte de su valor.
 
