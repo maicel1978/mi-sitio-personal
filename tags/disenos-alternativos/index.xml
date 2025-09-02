@@ -5,8 +5,9 @@
 &lt;p>Imagina que quieres evaluar el impacto de una nueva política de vacunación. Para cada persona, podríamos definir dos mundos posibles: uno donde recibe la vacuna y otro donde no. Pero en la práctica solo observamos un mundo: el que ocurrió. Ese es el &lt;strong>“problema fundamental de la inferencia causal”&lt;/strong>.&lt;/p>
 &lt;p>El &lt;strong>marco de resultados potenciales&lt;/strong> formaliza esta idea:&lt;/p>
 $$
-\tau_{sample} \equiv \frac{1}{N} \sum_{i=1}^{N} (Y_i(1) - Y_i(0))
-$$&lt;p>En un ensayo controlado aleatorizado (RCT), la aleatorización nos permite estimar este efecto promedio simplemente comparando medias. Pero ¿qué pasa cuando los RCT no son factibles por razones éticas, logísticas o económicas?&lt;/p>
+\tau_{\text{sample}} = \frac{1}{N} \sum_{i=1}^{N} (Y_i(1) - Y_i(0))
+$$
+&lt;p>En un ensayo controlado aleatorizado (RCT), la aleatorización nos permite estimar este efecto promedio simplemente comparando medias. Pero ¿qué pasa cuando los RCT no son factibles por razones éticas, logísticas o económicas?&lt;/p>
 &lt;hr>
 &lt;h2 id="2-estudios-observacionales-cuando-no-hay-azar-pero-sí-ingenio">2. Estudios observacionales: cuando no hay azar, pero sí ingenio&lt;/h2>
 &lt;p>En contextos reales —salud pública, economía, políticas sociales— dependemos de datos observacionales. Allí, la clave es suponer que, condicional en ciertas variables previas ($X_i$), la asignación al tratamiento es “tan buena como aleatoria”.&lt;/p>
