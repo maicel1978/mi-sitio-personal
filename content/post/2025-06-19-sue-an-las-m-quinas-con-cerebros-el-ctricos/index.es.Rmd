@@ -16,8 +16,8 @@ tags:
 slug: sue-an-las-m-quinas-con-cerebros-el-ctricos
 bibliography: references.bib
 commentable: yes
-summary: Comparamos los enfoque explicativo de la bioestadística y el predictivo del
-  machine learning usando un caso práctico en R para predecir la diabetes.
+summary: "Comparamos los enfoque explicativo de la bioestadística y el predictivo del machine learning usando un caso práctico en R para predecir la diabetes."
+draft: true
 ---
 
 ```{r setup, include=FALSE}
