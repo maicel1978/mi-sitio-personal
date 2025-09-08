@@ -9,7 +9,7 @@ En este blog, te mostraré cómo cobran vida estas maravillas tecnológicas, des
 &lt;/div>
 &lt;p>A continuación, te explico algunos elementos importantes para entender los Modelos de Lenguaje Grandes (LLMs), como se construyen, cómo se entrenan y predicen sus resultado.&lt;/p>
 &lt;img src="fig0.png" style="width:30.0%" />
-&lt;h1 id="la-anatomía-de-un-llm-redes-neuronales-y-transformadores">La Anatomía de un LLM: Redes Neuronales y Transformadores&lt;/h1>
+&lt;h2 id="la-anatomía-de-un-llm-redes-neuronales-y-transformadores">La Anatomía de un LLM: Redes Neuronales y Transformadores&lt;/h2>
 &lt;p>En esencia, los LLMs son &lt;strong>redes neuronales&lt;/strong>.
 Lejos de simular el cerebro humano en un sentido biológico, se basan casi universalmente en una arquitectura particular conocida como &lt;strong>Transformadores&lt;/strong>.&lt;/p>
 &lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
@@ -40,7 +40,7 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;/div>&lt;/figure>
 &lt;/p>
 &lt;!-- A menudo, la academia se centra mucho en la arquitectura, pero en la práctica, lo que realmente importa es la **calidad de los datos, la evaluación y los sistemas**, ya que las pequeñas diferencias arquitectónicas son a menudo secundarias frente a la escala. -->
-&lt;h1 id="la-primera-etapa-pre-entrenamiento-modelado-del-lenguaje">La Primera Etapa: Pre-entrenamiento (Modelado del Lenguaje)&lt;/h1>
+&lt;h2 id="la-primera-etapa-pre-entrenamiento-modelado-del-lenguaje">La Primera Etapa: Pre-entrenamiento (Modelado del Lenguaje)&lt;/h2>
 &lt;p>El viaje de un LLM comienza con el &lt;strong>pre-entrenamiento&lt;/strong>, un paradigma clásico donde el modelo se entrena para &lt;strong>“modelar todo Internet”&lt;/strong>.&lt;/p>
 &lt;p>En esta fase, un modelo de lenguaje es, a grandes rasgos, un modelo de &lt;strong>distribución de probabilidad sobre secuencias de tokens o palabras&lt;/strong>.&lt;/p>
 &lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
@@ -73,7 +73,7 @@ Es una habilidad predictiva, no una comprensión conceptual.&lt;/p>
 &lt;p>Los modelos de lenguaje más modernos, como Gemini, son &lt;strong>autorregresivos&lt;/strong>.
 Esto significa que predicen la &lt;strong>siguiente palabra basándose en todas las palabras que ya han visto&lt;/strong> en la secuencia.&lt;/p>
 &lt;p>Piensa en ellos como un narrador que va construyendo una historia palabra por palabra.&lt;/p>
-&lt;h1 id="el-proceso-con-el-ratón-comió-el-queso">El Proceso con &lt;strong>“El ratón comió el queso”&lt;/strong>&lt;/h1>
+&lt;h2 id="el-proceso-con-el-ratón-comió-el-queso">El Proceso con &lt;strong>“El ratón comió el queso”&lt;/strong>&lt;/h2>
 &lt;p>Imaginemos que el modelo está generando nuestra frase, “El ratón comió el queso.” Este es el fascinante proceso que ocurre:&lt;/p>
 &lt;ol>
 &lt;li>
@@ -182,7 +182,7 @@ Es decir, se le dan ejemplos de preguntas y sus respuestas “correctas” o “
 &lt;p>Posteriormente, métodos más simples como la &lt;strong>Optimización Directa por Preferencia (Direct Preference Optimization - DPO)&lt;/strong> han demostrado ser igual de efectivos, evitando la complejidad del aprendizaje por refuerzo tradicional.&lt;/p>
 &lt;p>En definitiva, RLHF moldea el comportamiento del LLM para alinearse con lo que &lt;em>deseamos&lt;/em> ver, no con lo que el modelo &lt;em>sabe&lt;/em> o &lt;em>piensa&lt;/em>.&lt;/p>
 &lt;p>Le enseña a ser complaciente y a evitar lo “tóxico” porque los humanos así lo prefieren, no por un juicio moral inherente.&lt;/p>
-&lt;h1 id="la-materia-prima-datos-masivos-y-su-filtrado">La Materia Prima: Datos Masivos y su Filtrado&lt;/h1>
+&lt;h2 id="la-materia-prima-datos-masivos-y-su-filtrado">La Materia Prima: Datos Masivos y su Filtrado&lt;/h2>
 &lt;p>El pre-entrenamiento de los LLMs se realiza sobre &lt;strong>“todo Internet”&lt;/strong>.&lt;/p>
 &lt;p>Esto incluye vastas colecciones como Common Crawl, que contiene alrededor de &lt;strong>250 mil millones de páginas web y un petabyte de datos&lt;/strong>.&lt;/p>
 &lt;p>Pero el Internet es “sucio” y no representativo.&lt;/p>
@@ -210,7 +210,7 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;!-- 7. **Entrenamiento final con datos de alta calidad**: "Sobreajustar" el modelo con datos de muy alta calidad al final del pre-entrenamiento, reduciendo la tasa de aprendizaje. -->
 &lt;p>La escala de estos conjuntos de datos es asombrosa, pasando de &lt;strong>150 mil millones de tokens (800 GB)&lt;/strong> en benchmarks académicos anteriores, hasta &lt;strong>15 billones de tokens&lt;/strong> para modelos de última generación como Llama 3 (equivalente a miles de terabytes).&lt;/p>
 &lt;p>La recopilación y curación de datos sigue siendo un desafío enorme y un área activa de investigación.&lt;/p>
-&lt;h1 id="las-leyes-de-escalado-el-poder-de-lo-grande-y-sus-implicaciones-en-la-inteligencia">Las Leyes de Escalado: El Poder de lo Grande (y sus Implicaciones en la “Inteligencia”)&lt;/h1>
+&lt;h2 id="las-leyes-de-escalado-el-poder-de-lo-grande-y-sus-implicaciones-en-la-inteligencia">Las Leyes de Escalado: El Poder de lo Grande (y sus Implicaciones en la “Inteligencia”)&lt;/h2>
 &lt;p>Uno de los descubrimientos más sorprendentes en LLMs es que &lt;strong>cuantos más datos se entrenen los modelos y más grandes sean los modelos, mejor será su rendimiento&lt;/strong>.&lt;/p>
 &lt;p>A diferencia de lo que se enseña en muchas clases de aprendizaje automático, el “sobreajuste” (overfitting) no parece ocurrir con los LLMs.&lt;/p>
 &lt;p>Las &lt;strong>leyes de escalado&lt;/strong> nos muestran que si se aumenta la computación, los datos o el número de parámetros, la pérdida de validación del modelo disminuye de forma predecible y lineal en una escala logarítmica.&lt;/p>
@@ -228,7 +228,7 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;!-- -**Costo estimado**: El alquiler de estas GPUs costaría alrededor de **52 millones de dólares**, y sumando los salarios del equipo, el costo total de entrenamiento rondaría los **75 millones de dólares**. -->
 &lt;!-- - **Huella de carbono**: El entrenamiento de Llama 3 emitió unas 4.000 toneladas de CO2 equivalente. -->
 &lt;!-- Estos números son un testimonio de la inmensa inversión necesaria para crear estos modelos capaces de generar una ilusión tan convincente. -->
-&lt;h1 id="sistemas-el-cerebro-detrás-de-la-eficiencia">Sistemas: El Cerebro Detrás de la Eficiencia&lt;/h1>
+&lt;h2 id="sistemas-el-cerebro-detrás-de-la-eficiencia">Sistemas: El Cerebro Detrás de la Eficiencia&lt;/h2>
 &lt;p>La computación es el cuello de botella más grande en el desarrollo de LLMs.
 Comprar más GPUs es difícil por su alto costo y escasez, además de las limitaciones físicas en la comunicación entre ellas.&lt;/p>
 &lt;p>Es crucial optimizar cómo se asignan los recursos y el pipeline de entrenamiento.&lt;/p>
@@ -236,7 +236,7 @@ Comprar más GPUs es difícil por su alto costo y escasez, además de las limita
 &lt;p>Esto reduce la cantidad de datos que deben enviarse a las GPUs, acelerando la comunicación y disminuyendo el consumo de memoria.&lt;/p>
 &lt;p>&lt;strong>Fusión de Operadores (Operator Fusion)&lt;/strong>: Las GPUs son muy lentas en la comunicación.
 La fusión de operadores combina varias operaciones consecutivas en una sola llamada al kernel, lo que significa que los datos se envían a la GPU una sola vez, todas las operaciones se realizan y luego los resultados se devuelven, lo que acelera significativamente el proceso (por ejemplo, &lt;code>torch.compile&lt;/code> en PyTorch puede duplicar la velocidad).&lt;/p>
-&lt;h1 id="conclusión-una-ilusión-poderosa-no-un-pensamiento-consciente">Conclusión: Una Ilusión Poderosa, No un Pensamiento Consciente&lt;/h1>
+&lt;h2 id="conclusión-una-ilusión-poderosa-no-un-pensamiento-consciente">Conclusión: Una Ilusión Poderosa, No un Pensamiento Consciente&lt;/h2>
 &lt;p>Desde sus cimientos como redes neuronales Transformer, pasando por el pre-entrenamiento con datos masivos de Internet y el afinamiento con retroalimentación humana, hasta la optimización de sistemas y la gestión de costos astronómicos, la creación de un LLM es una hazaña de ingeniería y ciencia de datos.&lt;/p>
 &lt;p>La próxima vez que interactúes con un chatbot, recordarás que detrás de esa respuesta fluida hay billones de tokens procesados, complejos algoritmos de entrenamiento, ingeniosas técnicas de afinamiento y una infraestructura computacional masiva trabajando en conjunto.
 &lt;strong>Estos modelos no “piensan” en el sentido humano de la palabra, ni poseen conciencia o una comprensión profunda y holística del mundo&lt;/strong>.&lt;/p>
@@ -244,7 +244,7 @@ La fusión de operadores combina varias operaciones consecutivas en una sola lla
 &lt;p>Su habilidad para generar texto coherente, relevante y a menudo sorprendentemente “inteligente” es una testamentación de la &lt;strong>efectividad de la predicción a escala masiva&lt;/strong>.
 Es una &lt;strong>ilusión de razonamiento&lt;/strong> tan convincente que a menudo nos hace cuestionar la naturaleza de la inteligencia misma.
 Y es, sin duda, una de las maravillas tecnológicas más grandes de nuestro tiempo.&lt;/p>
-&lt;h1 id="bibliografía">Bibliografía&lt;/h1>
+&lt;h2 id="bibliografía">Bibliografía&lt;/h2>
 &lt;div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
 &lt;div id="ref-haykin" class="csl-entry">
 &lt;p>Haykin, Simon. n.d. “Neural Networks and Learning Machines.” &lt;a href="http://dni.dali.dartmouth.edu/9umv9yghhaoq/13-dayana-hermann-1/read-0131471392-neural-networks-and-learning-machines.pdf" target="_blank" rel="noopener">http://dni.dali.dartmouth.edu/9umv9yghhaoq/13-dayana-hermann-1/read-0131471392-neural-networks-and-learning-machines.pdf&lt;/a>.&lt;/p>
