@@ -1,4 +1,261 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>IA | Bioestadistica educativa</title><link>https://maicel.netlify.app/tags/ia/</link><atom:link href="https://maicel.netlify.app/tags/ia/index.xml" rel="self" type="application/rss+xml"/><description>IA</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es</language><lastBuildDate>Sat, 12 Apr 2025 00:00:00 +0000</lastBuildDate><image><url>https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png</url><title>IA</title><link>https://maicel.netlify.app/tags/ia/</link></image><item><title>MacroScope AI: Real-Time Nutrition Insights for Smarter Food Systems</title><link>https://maicel.netlify.app/project/plate-to-policy-real-time-ai-driven-insights-for-smarter-food-fortification/</link><pubDate>Sat, 12 Apr 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/project/plate-to-policy-real-time-ai-driven-insights-for-smarter-food-fortification/</guid><description>&lt;h1 id="transformando-platos-en-políticas-ia-para-una-nutrición-más-inteligente">Transformando Platos en Políticas: IA para una Nutrición Más Inteligente&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>IA | Bioestadistica educativa</title><link>https://maicel.netlify.app/tags/ia/</link><atom:link href="https://maicel.netlify.app/tags/ia/index.xml" rel="self" type="application/rss+xml"/><description>IA</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es</language><lastBuildDate>Sat, 06 Sep 2025 00:00:00 +0000</lastBuildDate><image><url>https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png</url><title>IA</title><link>https://maicel.netlify.app/tags/ia/</link></image><item><title>Una Inmersión Intuitiva en la Arquitectura de los LLMs</title><link>https://maicel.netlify.app/post/ia/</link><pubDate>Sat, 06 Sep 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/ia/</guid><description>&lt;p>Todos conocemos los Modelos de Lenguaje Grandes (LLMs) como &lt;strong>ChatGPT de OpenAI, Claude de Anthropic, Gemini de Google&lt;/strong> y otros modelos similares.&lt;/p>
+&lt;p>Son esos asistentes de IA con los que conversamos, que nos ayudan a escribir correos (Stanford Online 2024)electrónicos, a generar ideas e incluso a codificar.&lt;/p>
+&lt;p>Pero, ¿alguna vez te has preguntado cómo funcionan realmente estas herramientas?
+¿Están pensando o simplemente están creando una &lt;strong>magnífica ilusión de razonamiento&lt;/strong>?
+En este blog, te mostraré cómo cobran vida estas maravillas tecnológicas, desde el vasto océano de datos hasta su afinada inteligencia, y exploraremos la naturaleza de esa “inteligencia” que tanto nos asombra.&lt;/p>
+&lt;p>Puedes ver la versión en vídeo de esta publicación aquí:&lt;/p>
+&lt;div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+&lt;iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/SxIFozcvCAU?autoplay=0&amp;amp;controls=1&amp;amp;end=0&amp;amp;loop=0&amp;amp;mute=0&amp;amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video">&lt;/iframe>
+&lt;/div>
+&lt;p>A continuación, te explico algunos elementos importantes para entender los Modelos de Lenguaje Grandes (LLMs), como se construyen, cómo se entrenan y predicen sus resultado.&lt;/p>
+&lt;img src="fig0.png" style="width:30.0%" />
+&lt;h1 id="la-anatomía-de-un-llm-redes-neuronales-y-transformadores">La Anatomía de un LLM: Redes Neuronales y Transformadores&lt;/h1>
+&lt;p>En esencia, los LLMs son &lt;strong>redes neuronales&lt;/strong>.
+Lejos de simular el cerebro humano en un sentido biológico, se basan casi universalmente en una arquitectura particular conocida como &lt;strong>Transformadores&lt;/strong>.&lt;/p>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
+&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;strong>Red neuronal artificial:&lt;/strong> &lt;em>“Una red neuronal artificial es un sistema de procesamiento paralelo y distribuido, compuesto por unidades simples de procesamiento que tienen la propensión natural de almacenar conocimiento experimental y hacerlo disponible para su uso”&lt;/em> (Haykin, n.d.).&lt;/span>
+&lt;/div>
+&lt;p>Estos Transformadores fueron propuestos por Vaswani et al. en 2017 y se destacaron por su capacidad para “dibujar dependencias globales entre la entrada y la salida” utilizando únicamente mecanismos de atención, sin necesidad de redes recurrentes o convolucionales.&lt;/p>
+&lt;p>Esta capacidad es clave para su éxito: permite que el modelo procese grandes cantidades de texto en paralelo y capte relaciones a larga distancia dentro de una secuencia.(Vaswani et al., n.d.)&lt;/p>
+&lt;p>Cuando hablamos de entrenar un LLM, hay varios componentes clave que entran en juego:&lt;/p>
+&lt;!-- - **Arquitectura**: Cómo se estructura la red neuronal (los Transformadores). -->
+&lt;!-- - **Pérdida de entrenamiento y algoritmo**: Cómo se "aprende" el modelo. -->
+&lt;!-- - **Datos**: En qué información se entrena el modelo. -->
+&lt;!-- - **Evaluación**: Cómo sabemos si el modelo está mejorando. -->
+&lt;!-- - **Componentes del sistema**: Cómo se ejecutan estos modelos gigantes en hardware moderno de manera eficiente. -->
+&lt;p>
+&lt;figure >
+&lt;div class="flex justify-center ">
+&lt;div class="w-100" >&lt;img alt="" srcset="
+/post/ia/fig1_hu_18182d8f524833af.webp 400w,
+/post/ia/fig1_hu_f33bba6717280fcf.webp 760w,
+/post/ia/fig1_hu_4ee0477a1071e0cf.webp 1200w"
+src="https://maicel.netlify.app/post/ia/fig1_hu_18182d8f524833af.webp"
+width="760"
+height="410"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;/figure>
+&lt;/p>
+&lt;!-- A menudo, la academia se centra mucho en la arquitectura, pero en la práctica, lo que realmente importa es la **calidad de los datos, la evaluación y los sistemas**, ya que las pequeñas diferencias arquitectónicas son a menudo secundarias frente a la escala. -->
+&lt;h1 id="la-primera-etapa-pre-entrenamiento-modelado-del-lenguaje">La Primera Etapa: Pre-entrenamiento (Modelado del Lenguaje)&lt;/h1>
+&lt;p>El viaje de un LLM comienza con el &lt;strong>pre-entrenamiento&lt;/strong>, un paradigma clásico donde el modelo se entrena para &lt;strong>“modelar todo Internet”&lt;/strong>.&lt;/p>
+&lt;p>En esta fase, un modelo de lenguaje es, a grandes rasgos, un modelo de &lt;strong>distribución de probabilidad sobre secuencias de tokens o palabras&lt;/strong>.&lt;/p>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
+&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;strong>Tokens:&lt;/strong> &lt;em>“Un token es una instancia de una secuencia de caracteres en un documento, agrupada como una unidad semántica útil para el procesamiento automático de texto. Esta explicación se basa en una definición clara y rigurosa en el contexto del análisis de información y recuperación de documentos.”&lt;/em>&lt;/span>
+&lt;/div>
+&lt;p>Imagina la frase &lt;strong>“El ratón comió el queso”&lt;/strong>.&lt;/p>
+&lt;img src="fig2.png" style="width:30.0%" />
+&lt;p>Un modelo de lenguaje te daría la probabilidad de que esta frase sea pronunciada por un humano o encontrada en línea.&lt;/p>
+&lt;p>Si la frase tuviera errores gramaticales como &lt;strong>“El el ratón queso”&lt;/strong>, el modelo, con su conocimiento sintáctico, sabría que es menos &lt;strong>probable&lt;/strong>.&lt;/p>
+&lt;p>Y si fuera &lt;strong>“El queso comió el ratón”&lt;/strong>, su conocimiento semántico le indicaría que esto es &lt;strong>improbable&lt;/strong>.&lt;/p>
+&lt;img src="fig3.png" style="width:30.0%" />
+&lt;p>&lt;strong>Aquí es donde entra el primer matiz crítico&lt;/strong>: este &lt;strong>“conocimiento sintáctico y semántico”&lt;/strong> no implica que el modelo &lt;strong>entienda&lt;/strong> realmente la gramática o que los quesos no comen ratones.&lt;/p>
+&lt;p>Más bien, ha aprendido, a partir de patrones en billones de textos, que ciertas secuencias de palabras son estadísticamente más probables o coherentes que otras.
+Es una habilidad predictiva, no una comprensión conceptual.&lt;/p>
+&lt;p>Los LLMs son &lt;strong>modelos generativos&lt;/strong>.&lt;/p>
+&lt;p>Esto significa que, una vez que tienen esta comprensión de las distribuciones de probabilidad, pueden &lt;strong>generar nuevas oraciones o datos&lt;/strong> simplemente muestreando de esa distribución.&lt;/p>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
+&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;strong>Modelos generativos:&lt;/strong> &lt;em>“Son algoritmos diseñados para crear datos nuevos que parecen provenir de la misma distribución que los datos originales con los que fueron entrenados.”&lt;/em>&lt;/span>
+&lt;/div>
+&lt;p>Es decir, &lt;em>saben&lt;/em> cómo sonar convincentes y coherentes, pero no necesariamente &lt;em>por qué&lt;/em> lo que dicen es correcto o verdadero.&lt;/p>
+&lt;h2 id="modelos-de-lenguaje-autorregresivos-prediciendo-la-siguiente-palabra">Modelos de Lenguaje Autorregresivos: Prediciendo la Siguiente Palabra&lt;/h2>
+&lt;p>Vamos a adaptar el texto que proporcionaste para que se conecte con nuestro ejemplo del ratón y el queso.🐁🧀&lt;/p>
+&lt;h2 id="modelos-de-lenguaje-autorregresivos-prediciendo-la-siguiente-palabra-1">Modelos de Lenguaje Autorregresivos: Prediciendo la Siguiente Palabra&lt;/h2>
+&lt;p>Los modelos de lenguaje más modernos, como Gemini, son &lt;strong>autorregresivos&lt;/strong>.
+Esto significa que predicen la &lt;strong>siguiente palabra basándose en todas las palabras que ya han visto&lt;/strong> en la secuencia.&lt;/p>
+&lt;p>Piensa en ellos como un narrador que va construyendo una historia palabra por palabra.&lt;/p>
+&lt;h1 id="el-proceso-con-el-ratón-comió-el-queso">El Proceso con &lt;strong>“El ratón comió el queso”&lt;/strong>&lt;/h1>
+&lt;p>Imaginemos que el modelo está generando nuestra frase, “El ratón comió el queso.” Este es el fascinante proceso que ocurre:&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>Secuencia de palabras:&lt;/strong> El modelo empieza con la primera palabra de la oración.
+Luego, toma las palabras que ya ha generado: &lt;strong>“El ratón”&lt;/strong>.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Tokenización:&lt;/strong> Las palabras se convierten en &lt;strong>tokens&lt;/strong> (números o identificadores internos).
+Por ejemplo, “El” podría ser &lt;code>143&lt;/code>, “ratón” &lt;code>56&lt;/code>, y “comió” &lt;code>25&lt;/code>.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>El modelo predice:&lt;/strong> Estos tokens numerados entran en el modelo (la “caja negra”).
+Basado en todo lo que ha aprendido de internet, el modelo calcula cuál es el próximo token más probable.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Distribución de probabilidad:&lt;/strong> El modelo no solo predice una palabra, sino que le asigna una &lt;strong>probabilidad a cada palabra&lt;/strong> en su vocabulario.
+Por ejemplo, después de &lt;strong>“El ratón comió el”&lt;/strong>, la palabra &lt;strong>“queso”&lt;/strong> podría tener una probabilidad del 85%, “pan” un 10%, y “semillas” un 5%.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Muestreo:&lt;/strong> El modelo elige el token con la probabilidad más alta, que en este caso es el token para “queso”.
+A veces, para no sonar robótico, el modelo elige una palabra con una probabilidad un poco menor, pero en la mayoría de los casos elige la más probable.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Detokenización:&lt;/strong> El token seleccionado se convierte de nuevo en la palabra “queso”, completando así la frase.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h2 id="aprendizaje-del-modelo">Aprendizaje del Modelo&lt;/h2>
+&lt;p>Durante el &lt;strong>entrenamiento&lt;/strong>, el modelo hace este mismo proceso, pero en lugar de generar una frase nueva, compara su predicción con la palabra real en un texto de entrenamiento.&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Si el modelo predice &lt;strong>“pan”&lt;/strong> y la palabra correcta es &lt;strong>“queso”&lt;/strong>, la &lt;strong>función de pérdida de entropía cruzada&lt;/strong> le da un “castigo”.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Ese castigo se usa para ajustar los pesos del modelo.
+El objetivo es que, la próxima vez que vea un contexto similar (“El ratón comió el…”), la probabilidad de que prediga “queso” sea mucho mayor.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>Así, la “fluidez” del modelo para generar frases como “El ratón comió el queso” se basa en su capacidad para &lt;strong>predecir estadísticamente&lt;/strong> la palabra más probable en cada paso, no en un razonamiento sobre los hábitos alimenticios de los roedores.&lt;/p>
+&lt;!-- Los modelos más utilizados hoy en día son los **modelos de lenguaje autorregresivos**. -->
+&lt;!-- La idea central es descomponer la probabilidad de una secuencia de palabras en un producto de probabilidades condicionales: la probabilidad de la primera palabra, multiplicada por la probabilidad de la segunda palabra dada la primera, y así sucesivamente. -->
+&lt;!-- En términos más simples, el modelo predice la **siguiente palabra basándose en todo lo que ha ocurrido antes** en la secuencia. -->
+&lt;!-- El proceso es fascinante: -->
+&lt;!-- 1. Tomas una secuencia de palabras (como "Ella probablemente prefiere"). -->
+&lt;!-- 2. La **tokenizas**, es decir, la divides en "tokens" (palabras o subpalabras) y les asignas un ID. -->
+&lt;!-- 3. Estos tokens pasan por el modelo (la "caja negra" del Transformador). -->
+&lt;!-- 4. El modelo emite una **distribución de probabilidad** sobre la siguiente palabra o token posible. -->
+&lt;!-- 5. Se "muestrea" de esta distribución para obtener el siguiente token más probable. -->
+&lt;!-- 6. Finalmente, se "detokeniza" para obtener la palabra real. -->
+&lt;!-- Durante el entrenamiento, el objetivo es **predecir el token más probable** y ajustar los pesos del modelo para aumentar la probabilidad de generar el token correcto, utilizando la **función de pérdida de entropía cruzada (Cross-Entropy Loss)**, que es equivalente a maximizar la verosimilitud logarítmica del texto. -->
+&lt;!-- Esta es la base de su impresionante fluidez, pero recalca que su "razonamiento" es una sofisticada forma de predicción estadística. -->
+&lt;h2 id="los-tokenizadores-el-primer-paso-crucial-para-la-coherencia">Los Tokenizadores: El Primer Paso Crucial para la “Coherencia”&lt;/h2>
+&lt;p>Los &lt;strong>tokenizadores&lt;/strong> son componentes extremadamente importantes pero a menudo poco valorados.&lt;/p>
+&lt;p>¿Por qué los necesitamos?&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Más generales que las palabras&lt;/strong>: Las palabras como tokens directos fallan con errores tipográficos o en idiomas que no usan espacios (como el tailandés).&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Eficiencia de secuencia&lt;/strong>: Tokenizar carácter por carácter haría las secuencias demasiado largas, lo que es ineficiente para los Transformadores (cuya complejidad crece cuadráticamente con la longitud de la secuencia).&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>Los tokenizadores buscan encontrar &lt;strong>subsecuencias comunes&lt;/strong> y darles un token específico.
+En promedio, un token suele representar alrededor de &lt;strong>tres o cuatro letras&lt;/strong>.&lt;/p>
+&lt;p>Un algoritmo muy común es la &lt;strong>Codificación de Pares de Bytes (Byte Pair Encoding o BPE)&lt;/strong>.
+Es fundamental considerar cómo se tokeniza el texto, ya que el &lt;strong>tamaño del vocabulario afecta directamente la dimensionalidad de la salida&lt;/strong> del modelo.&lt;/p>
+&lt;p>&lt;strong>Un punto crítico aquí&lt;/strong>: Si bien son útiles, los tokenizadores tienen limitaciones, especialmente con números (matemáticas) y código.&lt;/p>
+&lt;p>Por ejemplo, un número como “327” puede tener su propio token, lo que significa que el modelo no lo ve como una composición de “3”, “2”, “7”, lo que dificulta su capacidad para razonar matemáticamente o con la estructura del código.&lt;/p>
+&lt;p>Esto nos recuerda que, a pesar de la fluidez, los LLMs operan sobre representaciones simbólicas (tokens) que no siempre se alinean con nuestra comprensión conceptual del lenguaje o las matemáticas.&lt;/p>
+&lt;h2 id="de-modelo-de-lenguaje-a-asistente-de-ia-el-post-entrenamiento-o-la-ilusión-de-la-intencionalidad">De Modelo de Lenguaje a Asistente de IA: El Post-entrenamiento (o la Ilusión de la Intencionalidad)&lt;/h2>
+&lt;p>Un modelo pre-entrenado es un experto en &lt;strong>“hablar como Internet”&lt;/strong>, pero no es un asistente de IA.&lt;/p>
+&lt;p>Si le preguntaras a &lt;strong>GPT-3&lt;/strong> (un modelo puramente de lenguaje) “explícame el aterrizaje en la luna a un niño de seis años”, podría responder con “explícame la teoría de la gravedad a un niño de seis años” porque ha aprendido que en Internet, una pregunta a menudo es seguida por preguntas similares, no por una respuesta directa.&lt;/p>
+&lt;p>El &lt;strong>post-entrenamiento (alignment)&lt;/strong> es el proceso que transforma estos modelos en asistentes útiles, asegurándose de que &lt;strong>sigan las instrucciones de los usuarios&lt;/strong> y los deseos de los diseñadores (por ejemplo, evitar contenido tóxico).&lt;/p>
+&lt;p>&lt;strong>Este es el punto donde la ilusión de intencionalidad se vuelve más fuerte.&lt;/strong>&lt;/p>
+&lt;h2 id="1-ajuste-fino-supervisado-supervised-fine-tuning---sft">1. Ajuste Fino Supervisado (Supervised Fine-Tuning - SFT)&lt;/h2>
+&lt;p>El primer paso es el &lt;strong>Ajuste Fino Supervisado (SFT)&lt;/strong>.&lt;/p>
+&lt;p>Aquí, el LLM pre-entrenado se afina con &lt;strong>respuestas deseadas recogidas de humanos&lt;/strong>.
+Es decir, se le dan ejemplos de preguntas y sus respuestas “correctas” o “ideales” escritas por humanos.&lt;/p>
+&lt;p>Este paso fue crucial para el salto de &lt;strong>GPT-3&lt;/strong> a &lt;strong>ChatGPT&lt;/strong>.&lt;/p>
+&lt;p>Curiosamente, no se necesita una cantidad masiva de datos para SFT; &lt;strong>unos pocos miles de ejemplos bien elegidos pueden ser suficientes&lt;/strong>.&lt;/p>
+&lt;p>Esto sugiere que el SFT no enseña al modelo nuevo conocimiento, sino que le enseña &lt;strong>cómo formatear las respuestas&lt;/strong> y optimizar para un “tipo de usuario” específico que ya había visto en sus datos de pre-entrenamiento.&lt;/p>
+&lt;p>En otras palabras, el modelo ya tenía el conocimiento latente; el SFT le enseña a &lt;em>expresarlo&lt;/em> de la manera que un asistente de IA “debería” hacerlo.&lt;/p>
+&lt;p>No está aprendiendo a &lt;em>pensar&lt;/em> como un asistente, sino a &lt;em>simular&lt;/em> el comportamiento de uno.&lt;/p>
+&lt;h2 id="2-aprendizaje-por-refuerzo-a-partir-de-retroalimentación-humana-reinforcement-learning-from-human-feedback---rlhf">2. Aprendizaje por Refuerzo a partir de Retroalimentación Humana (Reinforcement Learning from Human Feedback - RLHF)&lt;/h2>
+&lt;p>El SFT tiene sus limitaciones: &lt;strong>Limitado por la habilidad humana&lt;/strong>: Los humanos pueden juzgar mejor lo que es una buena respuesta de lo que pueden escribirla ellos mismos.&lt;/p>
+&lt;p>&lt;strong>Posibles alucinaciones&lt;/strong>: Como el SFT se entrena con poca data, si un humano da una respuesta que el modelo no ha visto antes (y por tanto no sabe si es cierta), el modelo puede aprender a “inventar” información plausible pero falsa.&lt;/p>
+&lt;p>&lt;strong>Aquí el matiz crítico es fundamental&lt;/strong>: la “alucinación” (generación de información falsa pero plausible) es una clara evidencia de que los LLMs no “saben” lo que es verdad o mentira, ni tienen un sentido de la realidad.&lt;/p>
+&lt;p>Simplemente generan secuencias de tokens que &lt;em>parecen&lt;/em> correctas, basándose en los patrones que han aprendido, incluso si no tienen fundamento.&lt;/p>
+&lt;p>Es la culminación de la ilusión de razonamiento.
+&lt;strong>Costo&lt;/strong>: Generar respuestas ideales es muy caro.&lt;/p>
+&lt;p>Aquí es donde entra el &lt;strong>RLHF&lt;/strong>.&lt;/p>
+&lt;p>En lugar de simplemente clonar el comportamiento humano, el objetivo es &lt;strong>maximizar la preferencia humana&lt;/strong>.&lt;/p>
+&lt;p>El proceso es el siguiente:&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Para una instrucción dada, el modelo genera &lt;strong>dos respuestas diferentes&lt;/strong>.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Etiquetadores humanos seleccionan &lt;strong>cuál de las dos respuestas es mejor&lt;/strong>.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Con esta retroalimentación, el modelo se afina para generar más de las respuestas “buenas” y menos de las “malas”.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>Para hacer esto, se entrena un &lt;strong>modelo de recompensa (Reward Model)&lt;/strong>, un clasificador que aprende a predecir cuánto prefiere un humano una respuesta sobre otra, dando una señal de recompensa continua.&lt;/p>
+&lt;p>Posteriormente, métodos más simples como la &lt;strong>Optimización Directa por Preferencia (Direct Preference Optimization - DPO)&lt;/strong> han demostrado ser igual de efectivos, evitando la complejidad del aprendizaje por refuerzo tradicional.&lt;/p>
+&lt;p>En definitiva, RLHF moldea el comportamiento del LLM para alinearse con lo que &lt;em>deseamos&lt;/em> ver, no con lo que el modelo &lt;em>sabe&lt;/em> o &lt;em>piensa&lt;/em>.&lt;/p>
+&lt;p>Le enseña a ser complaciente y a evitar lo “tóxico” porque los humanos así lo prefieren, no por un juicio moral inherente.&lt;/p>
+&lt;h1 id="la-materia-prima-datos-masivos-y-su-filtrado">La Materia Prima: Datos Masivos y su Filtrado&lt;/h1>
+&lt;p>El pre-entrenamiento de los LLMs se realiza sobre &lt;strong>“todo Internet”&lt;/strong>.&lt;/p>
+&lt;p>Esto incluye vastas colecciones como Common Crawl, que contiene alrededor de &lt;strong>250 mil millones de páginas web y un petabyte de datos&lt;/strong>.&lt;/p>
+&lt;p>Pero el Internet es “sucio” y no representativo.&lt;/p>
+&lt;p>Imagina una página web aleatoria: llena de HTML, publicidad, fragmentos sin terminar.&lt;/p>
+&lt;p>Para que estos datos sean útiles, se requieren pasos de procesamiento intensivos, que incluyen:&lt;/p>
+&lt;p>
+&lt;figure >
+&lt;div class="flex justify-center ">
+&lt;div class="w-100" >&lt;img alt="" srcset="
+/post/ia/fig4_hu_b74c97a4d4debd70.webp 400w,
+/post/ia/fig4_hu_f0bdf3ad77c25970.webp 760w,
+/post/ia/fig4_hu_6e63ba7ee8334dc3.webp 1200w"
+src="https://maicel.netlify.app/post/ia/fig4_hu_b74c97a4d4debd70.webp"
+width="507"
+height="760"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;/figure>
+&lt;/p>
+&lt;!-- 1. **Extracción de texto**: Eliminar HTML y extraer contenido. -->
+&lt;!-- 2.**Filtrado de contenido indeseable**: Eliminar contenido no seguro (NSFW), dañino o información personal (PII). -->
+&lt;!-- 3. **Deduplicación**: Eliminar contenido repetido. -->
+&lt;!-- 4. **Filtrado heurístico**: Eliminar documentos de baja calidad basándose en reglas (por ejemplo, distribuciones de tokens inusuales, longitud extrema de palabras o documentos muy cortos/largos). -->
+&lt;!-- 5. **Filtrado basado en modelos**: Entrenar un clasificador para identificar documentos de alta calidad, usando referencias de Wikipedia como punto de partida. -->
+&lt;!-- 6. **Clasificación y ponderación por dominio**: Aumentar o disminuir el peso de ciertos dominios (por ejemplo, el código puede mejorar el razonamiento, por lo que se le da más peso). -->
+&lt;!-- 7. **Entrenamiento final con datos de alta calidad**: "Sobreajustar" el modelo con datos de muy alta calidad al final del pre-entrenamiento, reduciendo la tasa de aprendizaje. -->
+&lt;p>La escala de estos conjuntos de datos es asombrosa, pasando de &lt;strong>150 mil millones de tokens (800 GB)&lt;/strong> en benchmarks académicos anteriores, hasta &lt;strong>15 billones de tokens&lt;/strong> para modelos de última generación como Llama 3 (equivalente a miles de terabytes).&lt;/p>
+&lt;p>La recopilación y curación de datos sigue siendo un desafío enorme y un área activa de investigación.&lt;/p>
+&lt;h1 id="las-leyes-de-escalado-el-poder-de-lo-grande-y-sus-implicaciones-en-la-inteligencia">Las Leyes de Escalado: El Poder de lo Grande (y sus Implicaciones en la “Inteligencia”)&lt;/h1>
+&lt;p>Uno de los descubrimientos más sorprendentes en LLMs es que &lt;strong>cuantos más datos se entrenen los modelos y más grandes sean los modelos, mejor será su rendimiento&lt;/strong>.&lt;/p>
+&lt;p>A diferencia de lo que se enseña en muchas clases de aprendizaje automático, el “sobreajuste” (overfitting) no parece ocurrir con los LLMs.&lt;/p>
+&lt;p>Las &lt;strong>leyes de escalado&lt;/strong> nos muestran que si se aumenta la computación, los datos o el número de parámetros, la pérdida de validación del modelo disminuye de forma predecible y lineal en una escala logarítmica.&lt;/p>
+&lt;p>Esto es crucial porque permite a las compañías predecir cuánto mejorarán sus modelos en el futuro y cómo optimizar la asignación de recursos.&lt;/p>
+&lt;p>Por ejemplo, el famoso artículo Chinchilla de DeepMind mostró que la relación óptima es entrenar con &lt;strong>20 tokens por cada parámetro&lt;/strong> del modelo para maximizar la eficiencia del entrenamiento.&lt;/p>
+&lt;p>&lt;strong>Un punto analítico aquí&lt;/strong>: Que los modelos “mejoren” al escalar no significa que se vuelvan intrínsecamente “más inteligentes” en un sentido humano, o que estén más cerca de la conciencia.&lt;/p>
+&lt;p>Simplemente, son &lt;strong>máquinas de patrones increíblemente sofisticadas&lt;/strong> que, con más datos y más capacidad computacional, son capaces de reconocer y generar patrones cada vez más complejos y coherentes, reduciendo su “pérdida” (es decir, volviéndose mejores en la predicción del siguiente token).&lt;/p>
+&lt;p>La “inteligencia” que percibimos es una propiedad emergente de esta capacidad de predicción a gran escala, no una mente.&lt;/p>
+&lt;!-- ### El Precio de la Ilusión de Inteligencia: ¿Cuánto Cuesta un LLM? -->
+&lt;!-- Entrenar un LLM es una empresa monumental y costosa. -->
+&lt;!-- Tomemos como ejemplo el modelo **Llama 3 400B**, uno de los mejores modelos de código abierto actuales: **Tokens de entrenamiento**: 15.6 billones de tokens. -->
+&lt;!-- - **Parámetros**: 45 mil millones. -->
+&lt;!-- - **Cómputo (FLOPs)**: Aproximadamente 3.8 x 10\^25 FLOPs. -->
+&lt;!-- - **Hardware y tiempo**: Se entrenó en **16.000 GPUs H100** durante unos 70 días (o 26 millones de horas de GPU). -->
+&lt;!-- -**Costo estimado**: El alquiler de estas GPUs costaría alrededor de **52 millones de dólares**, y sumando los salarios del equipo, el costo total de entrenamiento rondaría los **75 millones de dólares**. -->
+&lt;!-- - **Huella de carbono**: El entrenamiento de Llama 3 emitió unas 4.000 toneladas de CO2 equivalente. -->
+&lt;!-- Estos números son un testimonio de la inmensa inversión necesaria para crear estos modelos capaces de generar una ilusión tan convincente. -->
+&lt;h1 id="sistemas-el-cerebro-detrás-de-la-eficiencia">Sistemas: El Cerebro Detrás de la Eficiencia&lt;/h1>
+&lt;p>La computación es el cuello de botella más grande en el desarrollo de LLMs.
+Comprar más GPUs es difícil por su alto costo y escasez, además de las limitaciones físicas en la comunicación entre ellas.&lt;/p>
+&lt;p>Es crucial optimizar cómo se asignan los recursos y el pipeline de entrenamiento.&lt;/p>
+&lt;p>Algunos trucos clave a nivel de sistemas incluyen: &lt;strong>Baja Precisión (Low Precision)&lt;/strong>: Usar números de punto flotante de 16 bits en lugar de 32 bits.&lt;/p>
+&lt;p>Esto reduce la cantidad de datos que deben enviarse a las GPUs, acelerando la comunicación y disminuyendo el consumo de memoria.&lt;/p>
+&lt;p>&lt;strong>Fusión de Operadores (Operator Fusion)&lt;/strong>: Las GPUs son muy lentas en la comunicación.
+La fusión de operadores combina varias operaciones consecutivas en una sola llamada al kernel, lo que significa que los datos se envían a la GPU una sola vez, todas las operaciones se realizan y luego los resultados se devuelven, lo que acelera significativamente el proceso (por ejemplo, &lt;code>torch.compile&lt;/code> en PyTorch puede duplicar la velocidad).&lt;/p>
+&lt;h1 id="conclusión-una-ilusión-poderosa-no-un-pensamiento-consciente">Conclusión: Una Ilusión Poderosa, No un Pensamiento Consciente&lt;/h1>
+&lt;p>Desde sus cimientos como redes neuronales Transformer, pasando por el pre-entrenamiento con datos masivos de Internet y el afinamiento con retroalimentación humana, hasta la optimización de sistemas y la gestión de costos astronómicos, la creación de un LLM es una hazaña de ingeniería y ciencia de datos.&lt;/p>
+&lt;p>La próxima vez que interactúes con un chatbot, recordarás que detrás de esa respuesta fluida hay billones de tokens procesados, complejos algoritmos de entrenamiento, ingeniosas técnicas de afinamiento y una infraestructura computacional masiva trabajando en conjunto.
+&lt;strong>Estos modelos no “piensan” en el sentido humano de la palabra, ni poseen conciencia o una comprensión profunda y holística del mundo&lt;/strong>.&lt;/p>
+&lt;p>Lo que hacen, y lo hacen de manera magistral, es &lt;strong>identificar y reproducir patrones estadísticos&lt;/strong> en los datos con los que fueron entrenados.&lt;/p>
+&lt;p>Su habilidad para generar texto coherente, relevante y a menudo sorprendentemente “inteligente” es una testamentación de la &lt;strong>efectividad de la predicción a escala masiva&lt;/strong>.
+Es una &lt;strong>ilusión de razonamiento&lt;/strong> tan convincente que a menudo nos hace cuestionar la naturaleza de la inteligencia misma.
+Y es, sin duda, una de las maravillas tecnológicas más grandes de nuestro tiempo.&lt;/p>
+&lt;h1 id="bibliografía">Bibliografía&lt;/h1>
+&lt;div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+&lt;div id="ref-haykin" class="csl-entry">
+&lt;p>Haykin, Simon. n.d. “Neural Networks and Learning Machines.” &lt;a href="http://dni.dali.dartmouth.edu/9umv9yghhaoq/13-dayana-hermann-1/read-0131471392-neural-networks-and-learning-machines.pdf" target="_blank" rel="noopener">http://dni.dali.dartmouth.edu/9umv9yghhaoq/13-dayana-hermann-1/read-0131471392-neural-networks-and-learning-machines.pdf&lt;/a>.&lt;/p>
+&lt;/div>
+&lt;div id="ref-stanfordonline2024" class="csl-entry">
+&lt;p>Stanford Online. 2024. “Stanford CS229 i Machine Learning i Building Large Language Models (LLMs),” August. &lt;a href="https://www.youtube.com/watch?v=9vM4p9NN0Ts" target="_blank" rel="noopener">https://www.youtube.com/watch?v=9vM4p9NN0Ts&lt;/a>.&lt;/p>
+&lt;/div>
+&lt;div id="ref-vaswani" class="csl-entry">
+&lt;p>Vaswani, Ashish, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, and Illia Polosukhin. n.d. “Attention Is All You Need.” &lt;a href="https://doi.org/10.48550/ARXIV.1706.03762" target="_blank" rel="noopener">https://doi.org/10.48550/ARXIV.1706.03762&lt;/a>.&lt;/p>
+&lt;/div>
+&lt;/div></description></item><item><title>MacroScope AI: Real-Time Nutrition Insights for Smarter Food Systems</title><link>https://maicel.netlify.app/project/plate-to-policy-real-time-ai-driven-insights-for-smarter-food-fortification/</link><pubDate>Sat, 12 Apr 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/project/plate-to-policy-real-time-ai-driven-insights-for-smarter-food-fortification/</guid><description>&lt;h1 id="transformando-platos-en-políticas-ia-para-una-nutrición-más-inteligente">Transformando Platos en Políticas: IA para una Nutrición Más Inteligente&lt;/h1>
 &lt;p>En un mundo donde las deficiencias de micronutrientes afectan a millones de personas, la fortificación de alimentos a gran escala (LSFF, por sus siglas en inglés) se ha convertido en una de las intervenciones de salud pública más efectivas. Sin embargo, para que estas iniciativas sean verdaderamente exitosas, necesitamos datos precisos, oportunos y contextualizados sobre lo que realmente consumen las personas. Es aquí donde entra en juego nuestro proyecto: &lt;strong>&amp;ldquo;MacroScope AI: Real-Time Nutrition Insights for Smarter Food Systems&amp;rdquo;&lt;/strong>.&lt;/p>
 &lt;p>Este proyecto busca cerrar las brechas críticas de datos en la fortificación de alimentos mediante el uso de inteligencia artificial (IA) y la participación ciudadana. Transformaremos fotos de alimentos cotidianos en información procesable, proporcionando a los responsables de políticas públicas herramientas para diseñar intervenciones nutricionales más equitativas, efectivas y adaptadas a cada contexto.&lt;/p>
 &lt;hr>
