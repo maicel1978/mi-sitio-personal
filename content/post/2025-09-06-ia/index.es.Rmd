@@ -35,7 +35,7 @@ A continuación, te explico algunos elementos importantes para entender los Mode
 
 ![](fig0.png){width="30%"}
 
-# La Anatomía de un LLM: Redes Neuronales y Transformadores
+## La Anatomía de un LLM: Redes Neuronales y Transformadores
 
 En esencia, los LLMs son **redes neuronales**.
 Lejos de simular el cerebro humano en un sentido biológico, se basan casi universalmente en una arquitectura particular conocida como **Transformadores**.
@@ -63,7 +63,7 @@ Cuando hablamos de entrenar un LLM, hay varios componentes clave que entran en j
 
 <!-- A menudo, la academia se centra mucho en la arquitectura, pero en la práctica, lo que realmente importa es la **calidad de los datos, la evaluación y los sistemas**, ya que las pequeñas diferencias arquitectónicas son a menudo secundarias frente a la escala. -->
 
-# La Primera Etapa: Pre-entrenamiento (Modelado del Lenguaje)
+## La Primera Etapa: Pre-entrenamiento (Modelado del Lenguaje)
 
 El viaje de un LLM comienza con el **pre-entrenamiento**, un paradigma clásico donde el modelo se entrena para **"modelar todo Internet"**.
 
@@ -107,7 +107,7 @@ Esto significa que predicen la **siguiente palabra basándose en todas las palab
 
 Piensa en ellos como un narrador que va construyendo una historia palabra por palabra.
 
-# El Proceso con **"El ratón comió el queso"**
+## El Proceso con **"El ratón comió el queso"**
 
 Imaginemos que el modelo está generando nuestra frase, "El ratón comió el queso." Este es el fascinante proceso que ocurre:
 
@@ -247,7 +247,7 @@ En definitiva, RLHF moldea el comportamiento del LLM para alinearse con lo que *
 
 Le enseña a ser complaciente y a evitar lo "tóxico" porque los humanos así lo prefieren, no por un juicio moral inherente.
 
-# La Materia Prima: Datos Masivos y su Filtrado
+## La Materia Prima: Datos Masivos y su Filtrado
 
 El pre-entrenamiento de los LLMs se realiza sobre **"todo Internet"**.
 
@@ -283,7 +283,7 @@ La escala de estos conjuntos de datos es asombrosa, pasando de **150 mil millone
 
 La recopilación y curación de datos sigue siendo un desafío enorme y un área activa de investigación.
 
-# Las Leyes de Escalado: El Poder de lo Grande (y sus Implicaciones en la "Inteligencia")
+## Las Leyes de Escalado: El Poder de lo Grande (y sus Implicaciones en la "Inteligencia")
 
 Uno de los descubrimientos más sorprendentes en LLMs es que **cuantos más datos se entrenen los modelos y más grandes sean los modelos, mejor será su rendimiento**.
 
@@ -319,7 +319,7 @@ La "inteligencia" que percibimos es una propiedad emergente de esta capacidad de
 
 <!-- Estos números son un testimonio de la inmensa inversión necesaria para crear estos modelos capaces de generar una ilusión tan convincente. -->
 
-# Sistemas: El Cerebro Detrás de la Eficiencia
+## Sistemas: El Cerebro Detrás de la Eficiencia
 
 La computación es el cuello de botella más grande en el desarrollo de LLMs.
 Comprar más GPUs es difícil por su alto costo y escasez, además de las limitaciones físicas en la comunicación entre ellas.
@@ -333,7 +333,7 @@ Esto reduce la cantidad de datos que deben enviarse a las GPUs, acelerando la co
 **Fusión de Operadores (Operator Fusion)**: Las GPUs son muy lentas en la comunicación.
 La fusión de operadores combina varias operaciones consecutivas en una sola llamada al kernel, lo que significa que los datos se envían a la GPU una sola vez, todas las operaciones se realizan y luego los resultados se devuelven, lo que acelera significativamente el proceso (por ejemplo, `torch.compile` en PyTorch puede duplicar la velocidad).
 
-# Conclusión: Una Ilusión Poderosa, No un Pensamiento Consciente
+## Conclusión: Una Ilusión Poderosa, No un Pensamiento Consciente
 
 Desde sus cimientos como redes neuronales Transformer, pasando por el pre-entrenamiento con datos masivos de Internet y el afinamiento con retroalimentación humana, hasta la optimización de sistemas y la gestión de costos astronómicos, la creación de un LLM es una hazaña de ingeniería y ciencia de datos.
 
@@ -346,4 +346,4 @@ Su habilidad para generar texto coherente, relevante y a menudo sorprendentement
 Es una **ilusión de razonamiento** tan convincente que a menudo nos hace cuestionar la naturaleza de la inteligencia misma.
 Y es, sin duda, una de las maravillas tecnológicas más grandes de nuestro tiempo.
 
-# Bibliografía
+## Bibliografía
