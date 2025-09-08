@@ -17,8 +17,6 @@ editor_options:
 bibliography: references.bib
 ---
 
-<!-- https://youtu.be/SxIFozcvCAU -->
-
 Todos conocemos los Modelos de Lenguaje Grandes (LLMs) como **ChatGPT de OpenAI, Claude de Anthropic, Gemini de Google** y otros modelos similares.
 
 Son esos asistentes de IA con los que conversamos, que nos ayudan a escribir correos (Stanford Online 2024)electrónicos, a generar ideas e incluso a codificar.
@@ -35,7 +33,7 @@ A continuación, te explico algunos elementos importantes para entender los Mode
 
 <img src="fig0.png" style="width:30.0%" />
 
-### La Anatomía de un LLM: Redes Neuronales y Transformadores
+# La Anatomía de un LLM: Redes Neuronales y Transformadores
 
 En esencia, los LLMs son **redes neuronales**.
 Lejos de simular el cerebro humano en un sentido biológico, se basan casi universalmente en una arquitectura particular conocida como **Transformadores**.
@@ -63,7 +61,7 @@ Cuando hablamos de entrenar un LLM, hay varios componentes clave que entran en j
 
 <!-- A menudo, la academia se centra mucho en la arquitectura, pero en la práctica, lo que realmente importa es la **calidad de los datos, la evaluación y los sistemas**, ya que las pequeñas diferencias arquitectónicas son a menudo secundarias frente a la escala. -->
 
-### La Primera Etapa: Pre-entrenamiento (Modelado del Lenguaje)
+# La Primera Etapa: Pre-entrenamiento (Modelado del Lenguaje)
 
 El viaje de un LLM comienza con el **pre-entrenamiento**, un paradigma clásico donde el modelo se entrena para **“modelar todo Internet”**.
 
@@ -96,18 +94,18 @@ Esto significa que, una vez que tienen esta comprensión de las distribuciones d
 
 Es decir, *saben* cómo sonar convincentes y coherentes, pero no necesariamente *por qué* lo que dicen es correcto o verdadero.
 
-#### Modelos de Lenguaje Autorregresivos: Prediciendo la Siguiente Palabra
+## Modelos de Lenguaje Autorregresivos: Prediciendo la Siguiente Palabra
 
 Vamos a adaptar el texto que proporcionaste para que se conecte con nuestro ejemplo del ratón y el queso.🐁🧀
 
-### Modelos de Lenguaje Autorregresivos: Prediciendo la Siguiente Palabra
+## Modelos de Lenguaje Autorregresivos: Prediciendo la Siguiente Palabra
 
 Los modelos de lenguaje más modernos, como Gemini, son **autorregresivos**.
 Esto significa que predicen la **siguiente palabra basándose en todas las palabras que ya han visto** en la secuencia.
 
 Piensa en ellos como un narrador que va construyendo una historia palabra por palabra.
 
-### El Proceso con **“El ratón comió el queso”**
+# El Proceso con **“El ratón comió el queso”**
 
 Imaginemos que el modelo está generando nuestra frase, “El ratón comió el queso.” Este es el fascinante proceso que ocurre:
 
@@ -130,7 +128,7 @@ Imaginemos que el modelo está generando nuestra frase, “El ratón comió el q
 
 ------------------------------------------------------------------------
 
-### Aprendizaje del Modelo
+## Aprendizaje del Modelo
 
 Durante el **entrenamiento**, el modelo hace este mismo proceso, pero en lugar de generar una frase nueva, compara su predicción con la palabra real en un texto de entrenamiento.
 
@@ -165,7 +163,7 @@ Así, la “fluidez” del modelo para generar frases como “El ratón comió e
 
 <!-- Esta es la base de su impresionante fluidez, pero recalca que su "razonamiento" es una sofisticada forma de predicción estadística. -->
 
-### Los Tokenizadores: El Primer Paso Crucial para la “Coherencia”
+## Los Tokenizadores: El Primer Paso Crucial para la “Coherencia”
 
 Los **tokenizadores** son componentes extremadamente importantes pero a menudo poco valorados.
 
@@ -187,7 +185,7 @@ Por ejemplo, un número como “327” puede tener su propio token, lo que signi
 
 Esto nos recuerda que, a pesar de la fluidez, los LLMs operan sobre representaciones simbólicas (tokens) que no siempre se alinean con nuestra comprensión conceptual del lenguaje o las matemáticas.
 
-### De Modelo de Lenguaje a Asistente de IA: El Post-entrenamiento (o la Ilusión de la Intencionalidad)
+## De Modelo de Lenguaje a Asistente de IA: El Post-entrenamiento (o la Ilusión de la Intencionalidad)
 
 Un modelo pre-entrenado es un experto en **“hablar como Internet”**, pero no es un asistente de IA.
 
@@ -197,7 +195,7 @@ El **post-entrenamiento (alignment)** es el proceso que transforma estos modelos
 
 **Este es el punto donde la ilusión de intencionalidad se vuelve más fuerte.**
 
-#### 1. Ajuste Fino Supervisado (Supervised Fine-Tuning - SFT)
+## 1. Ajuste Fino Supervisado (Supervised Fine-Tuning - SFT)
 
 El primer paso es el **Ajuste Fino Supervisado (SFT)**.
 
@@ -214,7 +212,7 @@ En otras palabras, el modelo ya tenía el conocimiento latente; el SFT le enseñ
 
 No está aprendiendo a *pensar* como un asistente, sino a *simular* el comportamiento de uno.
 
-#### 2. Aprendizaje por Refuerzo a partir de Retroalimentación Humana (Reinforcement Learning from Human Feedback - RLHF)
+## 2. Aprendizaje por Refuerzo a partir de Retroalimentación Humana (Reinforcement Learning from Human Feedback - RLHF)
 
 El SFT tiene sus limitaciones: **Limitado por la habilidad humana**: Los humanos pueden juzgar mejor lo que es una buena respuesta de lo que pueden escribirla ellos mismos.
 
@@ -247,7 +245,7 @@ En definitiva, RLHF moldea el comportamiento del LLM para alinearse con lo que *
 
 Le enseña a ser complaciente y a evitar lo “tóxico” porque los humanos así lo prefieren, no por un juicio moral inherente.
 
-### La Materia Prima: Datos Masivos y su Filtrado
+# La Materia Prima: Datos Masivos y su Filtrado
 
 El pre-entrenamiento de los LLMs se realiza sobre **“todo Internet”**.
 
@@ -279,7 +277,7 @@ La escala de estos conjuntos de datos es asombrosa, pasando de **150 mil millone
 
 La recopilación y curación de datos sigue siendo un desafío enorme y un área activa de investigación.
 
-### Las Leyes de Escalado: El Poder de lo Grande (y sus Implicaciones en la “Inteligencia”)
+# Las Leyes de Escalado: El Poder de lo Grande (y sus Implicaciones en la “Inteligencia”)
 
 Uno de los descubrimientos más sorprendentes en LLMs es que **cuantos más datos se entrenen los modelos y más grandes sean los modelos, mejor será su rendimiento**.
 
@@ -315,7 +313,7 @@ La “inteligencia” que percibimos es una propiedad emergente de esta capacida
 
 <!-- Estos números son un testimonio de la inmensa inversión necesaria para crear estos modelos capaces de generar una ilusión tan convincente. -->
 
-### Sistemas: El Cerebro Detrás de la Eficiencia
+# Sistemas: El Cerebro Detrás de la Eficiencia
 
 La computación es el cuello de botella más grande en el desarrollo de LLMs.
 Comprar más GPUs es difícil por su alto costo y escasez, además de las limitaciones físicas en la comunicación entre ellas.
@@ -329,7 +327,7 @@ Esto reduce la cantidad de datos que deben enviarse a las GPUs, acelerando la co
 **Fusión de Operadores (Operator Fusion)**: Las GPUs son muy lentas en la comunicación.
 La fusión de operadores combina varias operaciones consecutivas en una sola llamada al kernel, lo que significa que los datos se envían a la GPU una sola vez, todas las operaciones se realizan y luego los resultados se devuelven, lo que acelera significativamente el proceso (por ejemplo, `torch.compile` en PyTorch puede duplicar la velocidad).
 
-### Conclusión: Una Ilusión Poderosa, No un Pensamiento Consciente
+# Conclusión: Una Ilusión Poderosa, No un Pensamiento Consciente
 
 Desde sus cimientos como redes neuronales Transformer, pasando por el pre-entrenamiento con datos masivos de Internet y el afinamiento con retroalimentación humana, hasta la optimización de sistemas y la gestión de costos astronómicos, la creación de un LLM es una hazaña de ingeniería y ciencia de datos.
 
@@ -342,7 +340,7 @@ Su habilidad para generar texto coherente, relevante y a menudo sorprendentement
 Es una **ilusión de razonamiento** tan convincente que a menudo nos hace cuestionar la naturaleza de la inteligencia misma.
 Y es, sin duda, una de las maravillas tecnológicas más grandes de nuestro tiempo.
 
-### Bibliografía
+# Bibliografía
 
 <div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
 
