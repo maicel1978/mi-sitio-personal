@@ -852,26 +852,176 @@ La FAO recomienda ajustar el consumo por tamaño del hogar usando &lt;strong>Equ
 &lt;h1 id="características-principales-de-la-interfaz">Características principales de la Interfaz:&lt;/h1>
 &lt;p>La aplicación está diseñada con una interfaz sencilla que permite a los usuarios ingresar datos relevantes fácilmente. Análisis predictivo: COVIDCENCEC emplea análisis predictivo para generar puntajes de riesgo, lo que ayuda a los usuarios a comprender sus posibles riesgos de salud asociados con COVID-19. Visualización de datos: la aplicación incluye representaciones visuales de datos y predicciones, lo que facilita a los usuarios la interpretación de los resultados.&lt;/p>
 &lt;h1 id="diseño">Diseño:&lt;/h1>
-&lt;p>La aplicación, creada con HTML y CSS, es adaptable y accesible desde varios dispositivos, lo que garantiza un amplio alcance. Esta aplicación no solo sirve como una herramienta práctica para el personal de salud que buscan calcular el riesgos de muerte en la COVID-19, sino que también contribuye al campo más amplio del modelado predictivo en el ámbito de la atención médica.&lt;/p></description></item><item><title>Analisis Exploratorio de Datos</title><link>https://maicel.netlify.app/post/eda/</link><pubDate>Tue, 11 Feb 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/eda/</guid><description>&lt;p>Análisis Exploratorio de Datos (EDA, por sus siglas en ingles) implica el análisis de datos centrado en comprender los datos, identificar valores atípicos, valores faltantes así como proporcionar la base para la formulación del modelo. Además es importante conocer como se relacionan las variables.&lt;/p>
-&lt;p>Un concepto popular en el campo de la ciencia de datos llamado &lt;strong>GIGO&lt;/strong> (Garbage in Garbage Out). Este concepto significa que los datos de mala calidad siempre producirán resultados deficientes, independientemente del modelo y la técnica utilizados. Acá te describo un flujo de trabajo que en mi opinión es muy practico, el orden de etapas y el cumplimiento depende del problema y no es una camisa de fuerza.&lt;/p>
-&lt;p>Este proceso incluye:&lt;/p>
-&lt;ol>
+&lt;p>La aplicación, creada con HTML y CSS, es adaptable y accesible desde varios dispositivos, lo que garantiza un amplio alcance. Esta aplicación no solo sirve como una herramienta práctica para el personal de salud que buscan calcular el riesgos de muerte en la COVID-19, sino que también contribuye al campo más amplio del modelado predictivo en el ámbito de la atención médica.&lt;/p></description></item><item><title>Análisis Exploratorio de Datos: Desentrañando la Verdad de tus Datos</title><link>https://maicel.netlify.app/post/eda/</link><pubDate>Tue, 11 Feb 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/eda/</guid><description>&lt;p>El &lt;strong>Análisis Exploratorio de Datos (EDA)&lt;/strong> es una disciplina fundamental en el campo de la ciencia de datos, popularizada por el matemático John Tukey. Más que una simple serie de pasos, el EDA es una filosofía que nos invita a interactuar con nuestros datos, visualizarlos, resumirlos y &amp;ldquo;hablar&amp;rdquo; con ellos antes de saltar a modelados complejos. Implica el análisis de datos centrado en comprender a fondo su estructura, identificar patrones ocultos, detectar anomalías (valores atípicos), gestionar datos ausentes y, en última instancia, proporcionar una base sólida para la formulación de modelos predictivos o inferenciales. Además, es crucial para descubrir cómo se relacionan las variables entre sí.&lt;/p>
+&lt;h2 id="la-regla-de-oro-gigo-garbage-in-garbage-out">La Regla de Oro: GIGO (Garbage In, Garbage Out)&lt;/h2>
+&lt;p>Un concepto popular y vital en el campo de la ciencia de datos es &lt;strong>GIGO&lt;/strong> (Garbage In, Garbage Out, o &amp;ldquo;Basura entra, basura sale&amp;rdquo;). Este concepto subraya que la calidad de los resultados de cualquier análisis o modelo es directamente proporcional a la calidad de los datos de entrada. No importa cuán sofisticado sea tu algoritmo o cuán potente sea tu infraestructura computacional, los datos de mala calidad siempre producirán resultados deficientes, engañosos o inútiles. El EDA es nuestra primera línea de defensa contra el GIGO, asegurando que trabajamos con datos limpios y comprensibles.&lt;/p>
+&lt;h2 id="un-flujo-de-trabajo-práctico-de-eda">Un Flujo de Trabajo Práctico de EDA&lt;/h2>
+&lt;p>Aunque el EDA es un proceso iterativo y no una &amp;ldquo;camisa de fuerza&amp;rdquo; rígida, es útil seguir un flujo de trabajo estructurado para garantizar que cubrimos los aspectos más importantes. El orden de las etapas y el énfasis en cada una dependerán en gran medida del problema específico, el tipo de datos y los objetivos del análisis.&lt;/p>
+&lt;p>Este proceso general incluye:&lt;/p>
+&lt;p>
+&lt;figure >
+&lt;div class="flex justify-center ">
+&lt;div class="w-100" >&lt;img alt="" srcset="
+/post/eda/fig01_hu_1d111632709b1b76.webp 400w,
+/post/eda/fig01_hu_b26fdc398618e3dc.webp 760w,
+/post/eda/fig01_hu_540748744cda905c.webp 1200w"
+src="https://maicel.netlify.app/post/eda/fig01_hu_1d111632709b1b76.webp"
+width="760"
+height="578"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;/figure>
+&lt;/p>
+&lt;p>A continuación, profundicemos en cada una de estas etapas:&lt;/p>
+&lt;h3 id="1-comprensión-general-de-los-datos-y-evaluación-de-su-calidad">1. Comprensión General de los Datos y Evaluación de su Calidad&lt;/h3>
+&lt;p>Antes de sumergirnos en análisis profundos, es fundamental tener una visión panorámica de nuestro conjunto de datos. Esta etapa implica:&lt;/p>
+&lt;ul>
 &lt;li>
-&lt;p>Compresión general de los datos y evaluación de su calidad&lt;/p>
+&lt;p>&lt;strong>Dimensiones del dataset:&lt;/strong> ¿Cuántas filas (observaciones) y columnas (variables) tenemos?&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>Identificación y tratamiento de valores faltantes y atípicos&lt;/p>
+&lt;p>&lt;strong>Tipos de datos:&lt;/strong> ¿Las variables son numéricas (enteros, flotantes), categóricas (factores, caracteres), lógicas o de fecha/hora? Es crucial que los tipos de datos sean correctos para las operaciones que deseamos realizar.&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>Análisis de las distribución de las variables&lt;/p>
+&lt;p>&lt;strong>Inspección inicial:&lt;/strong> Revisar las primeras y últimas filas del dataset para obtener una idea general del formato y contenido.&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>Análisis de las relaciones entre las variables&lt;/p>
+&lt;p>&lt;strong>Estadísticas descriptivas básicas:&lt;/strong> Para variables numéricas: media, mediana, desviación estándar, mínimo, máximo, cuartiles. Para variables categóricas: conteo de ocurrencias, proporciones. Esto nos da una primera impresión de la dispersión y centralidad de los datos.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>Esta fase nos ayuda a formar una primera hipótesis sobre la calidad y estructura de los datos, identificando posibles problemas desde el principio.&lt;/p>
+&lt;h4 id="2-identificación-y-tratamiento-de-valores-faltantes-y-atípicos">2. Identificación y Tratamiento de Valores Faltantes y Atípicos&lt;/h4>
+&lt;p>Los valores faltantes (NA, NaN, null) y los valores atípicos (outliers) son dos de los desafíos más comunes en cualquier conjunto de datos y pueden distorsionar significativamente los resultados de nuestros análisis y modelos.&lt;/p>
+&lt;p>&lt;strong>Valores Faltantes:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Identificación:&lt;/strong> Cuantificar la cantidad y proporción de valores faltantes por variable. Visualizar patrones de ausencia (¿los valores faltantes ocurren aleatoriamente o hay un patrón?).&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>Transformación de los datos&lt;/p>
+&lt;p>&lt;strong>Tratamiento:&lt;/strong>&lt;/p>
 &lt;/li>
-&lt;/ol></description></item><item><title>Projects</title><link>https://maicel.netlify.app/projects/</link><pubDate>Sun, 19 May 2024 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/projects/</guid><description/></item><item><title>Análisis de datos en fortificación de alimentos a gran escala con R. Una Introducción Práctica</title><link>https://maicel.netlify.app/teaching/r/</link><pubDate>Mon, 25 Mar 2024 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/teaching/r/</guid><description>&lt;h1 id="construye-investigaciones-con-r">¡Construye investigaciones con R!&lt;/h1>
+&lt;li>
+&lt;p>&lt;strong>Eliminación:&lt;/strong> Si la cantidad de valores faltantes es pequeña o si una variable tiene un porcentaje muy alto de NAs, se pueden eliminar filas o columnas.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Imputación:&lt;/strong> Rellenar los valores faltantes. Métodos comunes incluyen la media, mediana o moda (para datos numéricos y categóricos, respectivamente), o métodos más avanzados basados en modelos (regresión, k-NN, etc.). La elección depende de la naturaleza de los datos y el problema.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Valores Atípicos:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Identificación:&lt;/strong> Observaciones que se desvían significativamente del resto de los datos. Se pueden detectar mediante gráficos de caja (boxplots), diagramas de dispersión, puntuaciones Z, el método IQR (rango intercuartílico) o algoritmos más sofisticados.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Tratamiento:&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Eliminación:&lt;/strong> Si se confirma que son errores de entrada de datos.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Transformación:&lt;/strong> Aplicar transformaciones logarítmicas o de raíz cuadrada para reducir su impacto.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Capping/Flooring:&lt;/strong> Limitar los valores atípicos a un percentil superior o inferior (por ejemplo, el 99% o el 1%).&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Mantener:&lt;/strong> A veces, los valores atípicos son observaciones genuinas e importantes que no deben eliminarse.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="3-análisis-de-la-distribución-de-las-variables">3. Análisis de la Distribución de las Variables&lt;/h3>
+&lt;p>Comprender la distribución de cada variable individualmente es clave para seleccionar los métodos estadísticos y de modelado adecuados.&lt;/p>
+&lt;p>&lt;strong>Variables Numéricas:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Histogramas y gráficos de densidad:&lt;/strong> Permiten visualizar la forma de la distribución, identificar asimetrías (skewness), curtosis, y la presencia de múltiples modos.&lt;/li>
+&lt;li>&lt;strong>Medidas de asimetría y curtosis:&lt;/strong> Cuantifican la forma de la distribución.&lt;/li>
+&lt;li>&lt;strong>Pruebas de normalidad:&lt;/strong> Aunque muchas veces no son estrictamente necesarias, pueden complementar el análisis visual.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Variables Categóricas:&lt;/strong> - &lt;strong>Gráficos de barras:&lt;/strong> Muestran la frecuencia o proporción de cada categoría. - &lt;strong>Tablas de frecuencia:&lt;/strong> Resumen el conteo y porcentaje de cada nivel.&lt;/p>
+&lt;p>Este análisis nos ayuda a entender el comportamiento de cada característica y a identificar la necesidad de transformaciones futuras.&lt;/p>
+&lt;h3 id="4-análisis-de-las-relaciones-entre-las-variables">4. Análisis de las Relaciones entre las Variables&lt;/h3>
+&lt;p>Esta etapa se centra en descubrir cómo las variables interactúan entre sí. Es fundamental para la selección de características, la identificación de multicolinealidad y la comprensión de la causalidad (o correlación).&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Dos variables numéricas:&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Diagramas de dispersión (scatter plots):&lt;/strong> Visualizan la dirección y fuerza de la relación (positiva, negativa, nula, no lineal).&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Coeficientes de correlación (Pearson, Spearman):&lt;/strong> Cuantifican la fuerza y dirección de la relación lineal (Pearson) o monótona (Spearman).&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Una variable numérica y una categórica:&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Gráficos de caja (boxplots) o gráficos de violín:&lt;/strong> Comparan la distribución de la variable numérica entre las diferentes categorías.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Pruebas t de Student o ANOVA:&lt;/strong> Para determinar si hay diferencias estadísticamente significativas en las medias.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Dos variables categóricas:&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Tablas de contingencia y gráficos de barras apiladas/agrupadas:&lt;/strong> Muestran la distribución conjunta.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Pruebas de significación:&lt;/strong> Para evaluar la independencia entre las variables.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Matrices de correlación:&lt;/strong> Visualizan las correlaciones entre múltiples variables numéricas simultáneamente, a menudo con mapas de calor (heatmaps).&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="5-transformación-de-los-datos">5. Transformación de los Datos&lt;/h3>
+&lt;p>Una vez que hemos comprendido nuestros datos, es posible que necesitemos transformarlos para que sean más adecuados para los algoritmos de machine learning o para mejorar el rendimiento del modelo.&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Manejo de asimetría:&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Transformaciones logarítmicas, de raíz cuadrada o de Box-Cox:&lt;/strong> Pueden normalizar distribuciones sesgadas, reduciendo la influencia de valores extremos.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Escalado de características:&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Normalización (Min-Max Scaling):&lt;/strong> Escala los datos a un rango fijo (por ejemplo, [0, 1]). Útil para algoritmos sensibles a la escala como SVM o redes neuronales.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Estandarización (Z-score Scaling):&lt;/strong> Transforma los datos para que tengan una media de 0 y una desviación estándar de 1. Es común en algoritmos basados en distancia (k-NN, K-Means, PCA).&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Codificación de variables categóricas:&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>One-Hot Encoding:&lt;/strong> Convierte variables categóricas en múltiples columnas binarias, una por cada categoría. Esencial para algoritmos que solo trabajan con entradas numéricas.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Label Encoding:&lt;/strong> Asigna un número entero a cada categoría. Útil si hay un orden inherente en las categorías.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Ingeniería de Características (Feature Engineering):&lt;/strong> Crear nuevas variables a partir de las existentes. Esto puede ser tan simple como combinar dos columnas o tan complejo como extraer información de texto o imágenes. Esta etapa es a menudo la que más impacto tiene en el rendimiento del modelo.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="herramientas-populares-para-eda">Herramientas Populares para EDA&lt;/h2>
+&lt;p>Para realizar un EDA efectivo, contamos con potentes herramientas en lenguajes como R y Python:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>En R:&lt;/strong>
+&lt;ul>
+&lt;li>El ecosistema &lt;code>tidyverse&lt;/code> (&lt;code>dplyr&lt;/code> para manipulación, &lt;code>ggplot2&lt;/code> para visualización) es indispensable.&lt;/li>
+&lt;li>Paquetes específicos para EDA como &lt;strong>&lt;code>dlookr&lt;/code>&lt;/strong>, es excelente por su enfoque estructurado en el diagnóstico de calidad, exploración y transformación de datos, ofreciendo funciones y reportes automatizados que agilizan el proceso. Otros paquetes útiles incluyen &lt;code>DataExplorer&lt;/code>, &lt;code>skimr&lt;/code>, y &lt;code>visdat&lt;/code>.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>En Python:&lt;/strong>
+&lt;ul>
+&lt;li>&lt;code>pandas&lt;/code> para manipulación de datos.&lt;/li>
+&lt;li>&lt;code>matplotlib&lt;/code> y &lt;code>seaborn&lt;/code> para visualización estática.&lt;/li>
+&lt;li>&lt;code>plotly&lt;/code> para visualizaciones interactivas.&lt;/li>
+&lt;li>Bibliotecas como &lt;code>missingno&lt;/code> para visualizar valores faltantes, &lt;code>pandas_profiling&lt;/code> para informes automáticos de EDA, y &lt;code>sweetviz&lt;/code> para comparaciones.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="conclusión">Conclusión&lt;/h2>
+&lt;p>El Análisis Exploratorio de Datos no es solo una fase inicial, sino un proceso continuo de aprendizaje sobre tus datos. Es una inversión de tiempo que rinde grandes dividendos, ya que una comprensión profunda de los datos nos permite tomar decisiones más informadas, construir modelos más robustos y, en última instancia, extraer conocimientos más valiosos. Al dominar el EDA, te equipas con la habilidad de transformar datos brutos en una historia coherente y accionable, evitando la trampa del GIGO y asegurando que tus esfuerzos de ciencia de datos generen un impacto real.&lt;/p></description></item><item><title>Projects</title><link>https://maicel.netlify.app/projects/</link><pubDate>Sun, 19 May 2024 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/projects/</guid><description/></item><item><title>Análisis de datos en fortificación de alimentos a gran escala con R. Una Introducción Práctica</title><link>https://maicel.netlify.app/teaching/r/</link><pubDate>Mon, 25 Mar 2024 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/teaching/r/</guid><description>&lt;h1 id="construye-investigaciones-con-r">¡Construye investigaciones con R!&lt;/h1>
 &lt;p>En este curso, te convertirás en un &lt;strong>&amp;lsquo;arquitecto&amp;rsquo; del análisis de datos en la fortificación de alimentos&lt;/strong>, utilizando R como tu herramienta principal. Aprenderás a:&lt;/p>
 &lt;ul>
 &lt;li>leer datos.&lt;/li>
