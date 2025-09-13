@@ -871,7 +871,7 @@ height="578"
 loading="lazy" data-zoomable />&lt;/div>
 &lt;/div>&lt;/figure>
 &lt;/p>
-&lt;p>A continuación, profundicemos en cada una de estas etapas:&lt;/p>
+&lt;p>A continuación, profundicemos en cada una de estas etapas, utilizando ejemplos prácticos con el paquete &lt;code>dlookr&lt;/code> en R.&lt;/p>
 &lt;h3 id="1-comprensión-general-de-los-datos-y-evaluación-de-su-calidad">1. Comprensión General de los Datos y Evaluación de su Calidad&lt;/h3>
 &lt;p>Antes de sumergirnos en análisis profundos, es fundamental tener una visión panorámica de nuestro conjunto de datos. Esta etapa implica:&lt;/p>
 &lt;ul>
@@ -888,7 +888,10 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;p>&lt;strong>Estadísticas descriptivas básicas:&lt;/strong> Para variables numéricas: media, mediana, desviación estándar, mínimo, máximo, cuartiles. Para variables categóricas: conteo de ocurrencias, proporciones. Esto nos da una primera impresión de la dispersión y centralidad de los datos.&lt;/p>
 &lt;/li>
 &lt;/ul>
-&lt;p>Esta fase nos ayuda a formar una primera hipótesis sobre la calidad y estructura de los datos, identificando posibles problemas desde el principio.&lt;/p>
+&lt;p>Con &lt;code>dlookr&lt;/code>, la función &lt;code>diagnose()&lt;/code> es ideal para una revisión rápida de la calidad de los datos, mostrando el tipo de variable, el número de valores únicos, valores faltantes, valores cero y valores negativos.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Para obtener un resumen rápido de las características de los datos&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">diagnose&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_na&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Esta fase nos ayuda a formar una primera hipótesis sobre la calidad y estructura de los datos, identificando posibles problemas desde el principio.&lt;/p>
 &lt;h4 id="2-identificación-y-tratamiento-de-valores-faltantes-y-atípicos">2. Identificación y Tratamiento de Valores Faltantes y Atípicos&lt;/h4>
 &lt;p>Los valores faltantes (NA, NaN, null) y los valores atípicos (outliers) son dos de los desafíos más comunes en cualquier conjunto de datos y pueden distorsionar significativamente los resultados de nuestros análisis y modelos.&lt;/p>
 &lt;p>&lt;strong>Valores Faltantes:&lt;/strong>&lt;/p>
@@ -927,7 +930,14 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;p>&lt;strong>Mantener:&lt;/strong> A veces, los valores atípicos son observaciones genuinas e importantes que no deben eliminarse.&lt;/p>
 &lt;/li>
 &lt;/ul>
-&lt;h3 id="3-análisis-de-la-distribución-de-las-variables">3. Análisis de la Distribución de las Variables&lt;/h3>
+&lt;p>&lt;code>dlookr&lt;/code> ofrece funciones visuales y programáticas para abordar estos problemas:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Visualizar la distribución de valores faltantes&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">plot_na&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_na&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Identificar valores atípicos para una variable específica (ej. &amp;#34;hp&amp;#34;)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># plot_outlier() es excelente para visualizar.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">plot_outlier&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_df&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;hp&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="3-análisis-de-la-distribución-de-las-variables">3. Análisis de la Distribución de las Variables&lt;/h3>
 &lt;p>Comprender la distribución de cada variable individualmente es clave para seleccionar los métodos estadísticos y de modelado adecuados.&lt;/p>
 &lt;p>&lt;strong>Variables Numéricas:&lt;/strong>&lt;/p>
 &lt;ul>
@@ -936,7 +946,18 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;li>&lt;strong>Pruebas de normalidad:&lt;/strong> Aunque muchas veces no son estrictamente necesarias, pueden complementar el análisis visual.&lt;/li>
 &lt;/ul>
 &lt;p>&lt;strong>Variables Categóricas:&lt;/strong> - &lt;strong>Gráficos de barras:&lt;/strong> Muestran la frecuencia o proporción de cada categoría. - &lt;strong>Tablas de frecuencia:&lt;/strong> Resumen el conteo y porcentaje de cada nivel.&lt;/p>
-&lt;p>Este análisis nos ayuda a entender el comportamiento de cada característica y a identificar la necesidad de transformaciones futuras.&lt;/p>
+&lt;p>&lt;code>dlookr&lt;/code> simplifica la visualización de distribuciones:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Visualizar la distribución de una variable numérica (ej. &amp;#34;mpg&amp;#34;)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">plot_hist&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_df&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;mpg&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># O ver la distribución y normalidad&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">plot_normality&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_df&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;mpg&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Para variables categóricas (como &amp;#39;cyl&amp;#39; en mtcars que es numérica discreta)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Podemos convertirla a factor para un análisis categórico.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">mtcars_factor_cyl&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">mtcars_df&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span> &lt;span class="nf">mutate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cyl&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">as.factor&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cyl&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">plot_bar&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_factor_cyl&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;cyl&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Este análisis nos ayuda a entender el comportamiento de cada característica y a identificar la necesidad de transformaciones futuras.&lt;/p>
 &lt;h3 id="4-análisis-de-las-relaciones-entre-las-variables">4. Análisis de las Relaciones entre las Variables&lt;/h3>
 &lt;p>Esta etapa se centra en descubrir cómo las variables interactúan entre sí. Es fundamental para la selección de características, la identificación de multicolinealidad y la comprensión de la causalidad (o correlación).&lt;/p>
 &lt;ul>
@@ -971,7 +992,17 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;p>&lt;strong>Matrices de correlación:&lt;/strong> Visualizan las correlaciones entre múltiples variables numéricas simultáneamente, a menudo con mapas de calor (heatmaps).&lt;/p>
 &lt;/li>
 &lt;/ul>
-&lt;h3 id="5-transformación-de-los-datos">5. Transformación de los Datos&lt;/h3>
+&lt;p>&lt;code>dlookr&lt;/code> facilita la exploración de relaciones:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Visualizar la matriz de correlación entre todas las variables numéricas&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">plot_cor&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_df&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Analizar la relación entre una variable objetivo (&amp;#39;mpg&amp;#39;) y otra característica (&amp;#39;wt&amp;#39;)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># plot_eda() permite explorar diversas relaciones bivariadas.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">plot_eda&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_df&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">target&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;mpg&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">feature&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;wt&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># Numérica vs Numérica (scatterplot)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Relación entre &amp;#39;mpg&amp;#39; (numérica) y &amp;#39;cyl&amp;#39; (considerada categórica aquí)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">plot_eda&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_df&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">target&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;mpg&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">feature&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;cyl&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># Numérica vs Categórica (boxplot)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="5-transformación-de-los-datos">5. Transformación de los Datos&lt;/h3>
 &lt;p>Una vez que hemos comprendido nuestros datos, es posible que necesitemos transformarlos para que sean más adecuados para los algoritmos de machine learning o para mejorar el rendimiento del modelo.&lt;/p>
 &lt;ul>
 &lt;li>
@@ -1002,7 +1033,21 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;p>&lt;strong>Ingeniería de Características (Feature Engineering):&lt;/strong> Crear nuevas variables a partir de las existentes. Esto puede ser tan simple como combinar dos columnas o tan complejo como extraer información de texto o imágenes. Esta etapa es a menudo la que más impacto tiene en el rendimiento del modelo.&lt;/p>
 &lt;/li>
 &lt;/ul>
-&lt;h2 id="herramientas-populares-para-eda">Herramientas Populares para EDA&lt;/h2>
+&lt;p>&lt;code>dlookr&lt;/code> ofrece funciones útiles para la transformación de datos:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Transformación logarítmica para reducir la asimetría de una variable&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">mtcars_transformed_log&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">transform_df&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_df&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">mpg&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mpg&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Compara la distribución de mpg original vs. transformada&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">plot_normality&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_df&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;mpg&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">plot_normality&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_transformed_log&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;mpg&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Binarización o discretización de una variable continua (ej. &amp;#39;hp&amp;#39; en 3 bins)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">mtcars_binned&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">binning&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_df&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;hp&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">3&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">head&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_binned&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span> &lt;span class="nf">select&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hp&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">hp_Binned&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Estandarización de variables numéricas (Z-score)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">mtcars_scaled&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_df&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">method&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;scale&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">head&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_scaled&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># Observa cómo los valores de todas las columnas han cambiado&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="herramientas-populares-para-eda">Herramientas Populares para EDA&lt;/h2>
 &lt;p>Para realizar un EDA efectivo, contamos con potentes herramientas en lenguajes como R y Python:&lt;/p>
 &lt;ul>
 &lt;li>&lt;strong>En R:&lt;/strong>
