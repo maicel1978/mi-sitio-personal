@@ -29,7 +29,11 @@ Este proceso general incluye:
 
 ![](fig01.png)
 
-A continuación, profundicemos en cada una de estas etapas:
+
+A continuación, profundicemos en cada una de estas etapas, utilizando ejemplos prácticos con el paquete `dlookr` en R.
+
+
+
 
 ### 1. Comprensión General de los Datos y Evaluación de su Calidad
 
@@ -42,6 +46,16 @@ Antes de sumergirnos en análisis profundos, es fundamental tener una visión pa
 -   **Inspección inicial:** Revisar las primeras y últimas filas del dataset para obtener una idea general del formato y contenido.
 
 -   **Estadísticas descriptivas básicas:** Para variables numéricas: media, mediana, desviación estándar, mínimo, máximo, cuartiles. Para variables categóricas: conteo de ocurrencias, proporciones. Esto nos da una primera impresión de la dispersión y centralidad de los datos.
+
+Con `dlookr`, la función `diagnose()` es ideal para una revisión rápida de la calidad de los datos, mostrando el tipo de variable, el número de valores únicos, valores faltantes, valores cero y valores negativos.
+
+
+``` r
+# Para obtener un resumen rápido de las características de los datos
+diagnose(mtcars_na)
+```
+
+
 
 Esta fase nos ayuda a formar una primera hipótesis sobre la calidad y estructura de los datos, identificando posibles problemas desde el principio.
 
@@ -72,6 +86,19 @@ Los valores faltantes (NA, NaN, null) y los valores atípicos (outliers) son dos
   -   **Capping/Flooring:** Limitar los valores atípicos a un percentil superior o inferior (por ejemplo, el 99% o el 1%).
 
   -   **Mantener:** A veces, los valores atípicos son observaciones genuinas e importantes que no deben eliminarse.
+  
+`dlookr` ofrece funciones visuales y programáticas para abordar estos problemas:
+
+
+``` r
+# Visualizar la distribución de valores faltantes
+plot_na(mtcars_na)
+
+# Identificar valores atípicos para una variable específica (ej. "hp")
+# plot_outlier() es excelente para visualizar.
+plot_outlier(mtcars_df, "hp")
+```
+  
 
 ### 3. Análisis de la Distribución de las Variables
 
@@ -84,6 +111,23 @@ Comprender la distribución de cada variable individualmente es clave para selec
 -   **Pruebas de normalidad:** Aunque muchas veces no son estrictamente necesarias, pueden complementar el análisis visual.
 
 **Variables Categóricas:** - **Gráficos de barras:** Muestran la frecuencia o proporción de cada categoría. - **Tablas de frecuencia:** Resumen el conteo y porcentaje de cada nivel.
+
+`dlookr` simplifica la visualización de distribuciones:
+
+
+``` r
+# Visualizar la distribución de una variable numérica (ej. "mpg")
+plot_hist(mtcars_df, "mpg")
+
+# O ver la distribución y normalidad
+plot_normality(mtcars_df, "mpg")
+
+# Para variables categóricas (como 'cyl' en mtcars que es numérica discreta)
+# Podemos convertirla a factor para un análisis categórico.
+mtcars_factor_cyl <- mtcars_df %>% mutate(cyl = as.factor(cyl))
+plot_bar(mtcars_factor_cyl, "cyl")
+```
+
 
 Este análisis nos ayuda a entender el comportamiento de cada característica y a identificar la necesidad de transformaciones futuras.
 
@@ -106,6 +150,21 @@ Esta etapa se centra en descubrir cómo las variables interactúan entre sí. Es
   -   **Tablas de contingencia y gráficos de barras apiladas/agrupadas:** Muestran la distribución conjunta.
   -   **Pruebas de significación:** Para evaluar la independencia entre las variables.
   -   **Matrices de correlación:** Visualizan las correlaciones entre múltiples variables numéricas simultáneamente, a menudo con mapas de calor (heatmaps).
+  
+`dlookr` facilita la exploración de relaciones:
+
+
+``` r
+# Visualizar la matriz de correlación entre todas las variables numéricas
+plot_cor(mtcars_df)
+
+# Analizar la relación entre una variable objetivo ('mpg') y otra característica ('wt')
+# plot_eda() permite explorar diversas relaciones bivariadas.
+plot_eda(mtcars_df, target = "mpg", feature = "wt") # Numérica vs Numérica (scatterplot)
+
+# Relación entre 'mpg' (numérica) y 'cyl' (considerada categórica aquí)
+plot_eda(mtcars_df, target = "mpg", feature = "cyl") # Numérica vs Categórica (boxplot)
+```
 
 ### 5. Transformación de los Datos
 
@@ -128,6 +187,28 @@ Una vez que hemos comprendido nuestros datos, es posible que necesitemos transfo
 -   **Label Encoding:** Asigna un número entero a cada categoría. Útil si hay un orden inherente en las categorías.
 
 -   **Ingeniería de Características (Feature Engineering):** Crear nuevas variables a partir de las existentes. Esto puede ser tan simple como combinar dos columnas o tan complejo como extraer información de texto o imágenes. Esta etapa es a menudo la que más impacto tiene en el rendimiento del modelo.
+
+
+`dlookr` ofrece funciones útiles para la transformación de datos:
+
+
+``` r
+# Transformación logarítmica para reducir la asimetría de una variable
+mtcars_transformed_log <- transform_df(mtcars_df, mpg = log(mpg))
+# Compara la distribución de mpg original vs. transformada
+plot_normality(mtcars_df, "mpg")
+plot_normality(mtcars_transformed_log, "mpg")
+
+# Binarización o discretización de una variable continua (ej. 'hp' en 3 bins)
+mtcars_binned <- binning(mtcars_df, "hp", n = 3)
+head(mtcars_binned %>% select(hp, hp_Binned))
+
+# Estandarización de variables numéricas (Z-score)
+mtcars_scaled <- normalize(mtcars_df, method = "scale")
+head(mtcars_scaled) # Observa cómo los valores de todas las columnas han cambiado
+```
+
+
 
 ## Herramientas Populares para EDA
 
