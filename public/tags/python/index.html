@@ -1,9 +1,9 @@
 <!doctype html>
 <!-- This site was created with Hugo Blox. https://hugoblox.com -->
-<!-- Last Published: 28 de marzo de 2025 --><html lang="es" dir="ltr"
+<!-- Last Published: 13 de septiembre de 2025 --><html lang="es" dir="ltr"
       data-wc-theme-default="system">
   
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=4321&amp;path=livereload" data-no-instant defer></script>
+<head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -44,7 +44,7 @@
   <meta name="description" content="The highly-customizable Hugo Academic theme powered by Hugo Blox Builder. Easily create your personal academic website." />
 
   
-  <link rel="alternate" hreflang="es" href="http://localhost:4321/tags/python/" />
+  <link rel="alternate" hreflang="es" href="https://maicel.netlify.app/tags/python/" />
 
   
   
@@ -130,6 +130,45 @@
 
 
 
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VN0YPKYGX4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url, target) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           if (target !== '_blank') {
+             document.location = url;
+           }
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target, event.target.getAttribute('target'));  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'G-VN0YPKYGX4', {});
+  gtag('set', {'cookie_flags': 'SameSite=None;Secure'});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+
 
 
 
@@ -163,7 +202,7 @@
   <link rel="icon" type="image/png" href="/media/icon_hu_b45ae4411cf43192.png" />
   <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu_1f7e870b5f23a0ce.png" />
 
-  <link rel="canonical" href="http://localhost:4321/tags/python/" />
+  <link rel="canonical" href="https://maicel.netlify.app/tags/python/" />
 
   
   
@@ -189,13 +228,13 @@
     <meta property="twitter:creator" content="@GetResearchDev" />
   
   <meta property="og:site_name" content="Bioestadistica educativa" />
-  <meta property="og:url" content="http://localhost:4321/tags/python/" />
+  <meta property="og:url" content="https://maicel.netlify.app/tags/python/" />
   <meta property="og:title" content="Python | Bioestadistica educativa" />
-  <meta property="og:description" content="The highly-customizable Hugo Academic theme powered by Hugo Blox Builder. Easily create your personal academic website." /><meta property="og:image" content="http://localhost:4321/media/icon_hu_551fbaee136b383e.png" />
-    <meta property="twitter:image" content="http://localhost:4321/media/icon_hu_551fbaee136b383e.png" /><meta property="og:locale" content="es" />
+  <meta property="og:description" content="The highly-customizable Hugo Academic theme powered by Hugo Blox Builder. Easily create your personal academic website." /><meta property="og:image" content="https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png" />
+    <meta property="twitter:image" content="https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png" /><meta property="og:locale" content="es" />
   
     
-      <meta property="og:updated_time" content="2023-10-24T00:00:00&#43;00:00" />
+      <meta property="og:updated_time" content="2025-02-11T00:00:00&#43;00:00" />
     
   
 
@@ -240,25 +279,6 @@
   
   
   
-    
-      
-      
-        
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-        
-        
-      
-    
   
   
   
@@ -267,25 +287,10 @@
   
   
   
-    
-      
-      
-        
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-        
-        
-      
-    
+  
+  
+  
+  
   
   
   
@@ -321,23 +326,14 @@
         
       
     
-      
-      
-        
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-        
-        
-      
+  
+  
+  
+  
+  
+  
+  
+  
     
       
       
@@ -357,31 +353,6 @@
         
       
     
-      
-      
-        
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-        
-        
-      
-    
-  
-  
-  
-  
-  
-  
-  
   
   
   
@@ -459,6 +430,32 @@
         
       
     
+  
+  
+  
+  
+  
+  
+  
+    
+      
+      
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
+    
       
       
         
@@ -497,17 +494,61 @@
     
       
       
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
     
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+      
+      
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
+    
+      
+      
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
+    
+      
+      
+    
   
   
   
@@ -599,8 +640,8 @@
   
   <script
     defer
-    src="/js/hugo-blox-es.min.js"
-    integrity=""
+    src="/js/hugo-blox-es.min.e6965f872775fcb889e784756e346e58af6799db6f12e6c21a12272f7d3b1c1e.js"
+    integrity="sha256-5pZfhyd1/LiJ54R1bjRuWK9nmdtvEubCGhInL307HB4="
   ></script>
 
   
@@ -847,20 +888,20 @@
 
 
 
-<a href="/teaching/python/"  class="mb-5">
+<a href="/post/eda/"  class="mb-5">
   <div class="md:flex">
     <div class="md:flex-shrink-0 overflow-hidden">
       
         
         
-      <img class="h-48 w-full object-cover md:w-48 hover:scale-125 transition duration-500 cursor-pointer object-cover" loading="lazy" src="/teaching/python/featured_hu_4087e4548134e4b6.webp" height="655" width="655" alt="Learn Python">
+      <img class="h-48 w-full object-cover md:w-48 hover:scale-125 transition duration-500 cursor-pointer object-cover" loading="lazy" src="/post/eda/featured_hu_587c7232f27095fa.webp" height="655" width="655" alt="Análisis Exploratorio de Datos: Desentrañando la Verdad de tus Datos">
       
     </div>
     <div class="p-8">
-      <div class="uppercase tracking-wide text-md text-primary-700 dark:text-primary-200 font-semibold">Learn Python</div>
+      <div class="uppercase tracking-wide text-md text-primary-700 dark:text-primary-200 font-semibold">Análisis Exploratorio de Datos: Desentrañando la Verdad de tus Datos</div>
       <p class="block mt-1 text-sm leading-tight font-medium text-black dark:text-white">
-        Easily learn Python in 10 minutes!</p>
-      <p class="mt-2 text-gray-500 dark:text-gray-400 text-sm">oct. 24, 2023</p>
+        El Análisis Exploratorio de Datos (EDA) es la fase crítica de inspección inicial, limpieza y preparación de datos que sienta las bases para modelos robustos y conocimientos profundos, garantizando que solo los datos de la más alta calidad alimenten nuestros algoritmos.</p>
+      <p class="mt-2 text-gray-500 dark:text-gray-400 text-sm">feb. 11, 2025</p>
     </div>
   </div>
 </a>
