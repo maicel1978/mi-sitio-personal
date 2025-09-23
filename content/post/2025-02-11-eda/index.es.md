@@ -12,6 +12,8 @@ tags:
   - análisis de datos
   - R
   - Python
+  - EDA
+  - Limpieza de datos
 summary: El Análisis Exploratorio de Datos (EDA) es la fase crítica de inspección inicial, limpieza y preparación de datos que sienta las bases para modelos robustos y conocimientos profundos, garantizando que solo los datos de la más alta calidad alimenten nuestros algoritmos.
 ---
 
