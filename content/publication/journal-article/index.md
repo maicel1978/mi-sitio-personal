@@ -3,9 +3,7 @@ abstract: Este estudio revisa modelos de predicción clínica para COVID-19, ide
 author_notes:
 - Equal contribution
 - Equal contribution
-authors:
-- admin
-- Lizet Sanchez
+authors: ["admin"]
 date: "2023-02-01T00:00:00Z"
 doi: ""
 featured: false

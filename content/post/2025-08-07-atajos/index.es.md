@@ -4,15 +4,15 @@ title: 'Diseños Alternativos a Ensayos Clínicos Controlados Aleatorizados: Con
 author: ["admin"]
 date: '2025-08-07'
 categories:
-  - 'ensayos clinicos'
+  - 'Ensayos-clínicos'
 tags:
-  - 'diseños alternativos'
+  - 'Diseños-alternativos'
   - 'EMA'
-  - 'ensayos clínicos'
-  - 'evidencia clínica'
+  - 'Ensayos-clínicos'
+  - 'Evidencia-clínica'
   - 'FDA'
   - 'ICH' 
-  - 'regulación sanitaria'
+  - 'Regulación-sanitaria'
 description: 'Análisis técnico y regulatorio del uso de diseños no confirmatorios
   en sustitución de ensayos clínicos aleatorizados: justificaciones, riesgos metodológicos
   y salvaguardas requeridas por ICH, EMA y FDA.'

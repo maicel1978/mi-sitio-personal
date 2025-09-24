@@ -1,19 +1,21 @@
 ---
 title: Introducción a los diseños explicativos experimentales
-author: "Dr.C Maicel E. Monzón Pérez"
+author: ["admin"]
 date: '2025-09-22'
 summary: "Conferencia impartida en la Maestría de Atención Primaria de Salud (ENSAP, Cuba), donde se abordan los fundamentos de los diseños explicativos experimentales, los sesgos y las tendencias actuales en ensayos clínicos y comunitarios. Incluye la descarga de la presentación y un podcast complementario."
 slug: introducci-n-a-los-dise-os-explicativos-experimentales
 categories:
-  - Metodología Científica
-  - ensayos clinicos
-  - conferencia
+  - Metodología
+  - Ensayos-clinicos
+  - Conferencia
 tags:
-  - evidencia clínica
-  - ciencia
+  - Evidencia-clínica
+  - Ciencia
   - Bioestadística
-  - ensayos clínicos
-  - metodología
+  - Ensayos-clínicos
+  - Metodología
+url_slides: /pdf/presetacion_experimentosAPS.pdf
+url_video: https://youtu.be/cQ4af2j2jrg
 ---
 
 

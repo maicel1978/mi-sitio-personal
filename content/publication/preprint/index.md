@@ -1,6 +1,6 @@
 ---
 abstract: Un estudio realizado en Cuba durante la pandemia de COVID-19 utilizó un modelo de árboles de clasificación para identificar pacientes con bajo riesgo de desarrollar complicaciones graves. Este modelo se ajustó para predecir la admisión en la UCI y la mortalidad, basándose en factores como la edad y la presencia de comorbilidades. El objetivo fue crear una herramienta que permitiera identificar a los pacientes que podrían ser seguidos de forma segura en atención primaria, optimizando así los recursos hospitalarios. Los árboles de decisión demostraron ser precisos en la clasificación de riesgo, lo que podría favorecer una mejor asignación de recursos y una atención sanitaria más eficiente.
-authors: 'Maicel Monzón'
+authors: ["admin"]
 date: "2021-04-07T00:00:00Z"
 doi: ""
 featured: true

@@ -1,6 +1,6 @@
 ---
 title: CovidCencecAPK
-author: admin
+author: ["admin"]
 date: '2025-02-28'
 slug: covidcencecapk
 categories:
