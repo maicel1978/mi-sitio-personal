@@ -66,3 +66,41 @@ git push origin main                   # Sube a la rama main de GitHub
  Documentation: https://docs.hugoblox.com/
  This file is formatted using YAML syntax - learn more at https://learnxinyminutes.com/docs/yaml/
 https://docs.hugoblox.com/reference/markdown/
+
+# YML
+
+---
+abstract: Un estudio realizado en Cuba durante la pandemia de COVID-19 utilizó un modelo de árboles de clasificación para identificar pacientes con bajo riesgo de desarrollar complicaciones graves. Este modelo se ajustó para predecir la admisión en la UCI y la mortalidad, basándose en factores como la edad y la presencia de comorbilidades. El objetivo fue crear una herramienta que permitiera identificar a los pacientes que podrían ser seguidos de forma segura en atención primaria, optimizando así los recursos hospitalarios. Los árboles de decisión demostraron ser precisos en la clasificación de riesgo, lo que podría favorecer una mejor asignación de recursos y una atención sanitaria más eficiente.
+authors: 'Maicel Monzón'
+date: "2021-04-07T00:00:00Z"
+doi: ""
+featured: true
+image:
+  caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/s9CC2SKySJM)'
+  focal_point: ""
+  preview_only: false
+links:
+- name: Custom Link
+  url: http://example.org
+projects:
+- internal-project
+publication: ""
+publication_short: ""
+publication_types:
+- article
+publishDate: "2023-02-01T00:00:00Z"
+slides: example
+summary: Un estudio realizado en Cuba durante la pandemia de COVID-19 utilizó un modelo de árboles de clasificación para identificar pacientes con bajo riesgo de desarrollar complicaciones graves. Este modelo se ajustó para predecir la admisión en la UCI y la mortalidad, basándose en factores como la edad y la presencia de comorbilidades. El objetivo fue crear una herramienta que permitiera identificar a los pacientes que podrían ser seguidos de forma segura en atención primaria, optimizando así los recursos hospitalarios. Los árboles de decisión demostraron ser precisos en la clasificación de riesgo, lo que podría favorecer una mejor asignación de recursos y una atención sanitaria más eficiente.
+tags:
+- machine learning
+- triaje
+title: Identificación de pacientes de bajo riesgo de severidad en confirmados de la COVID-19. Cuba. Años 2020-2021
+url_code: https://github.com/maicel1978/ABR
+url_dataset: '#'
+url_pdf: https://revhabanera.sld.cu/index.php/rhab/article/download/4943/3276
+url_poster: https://docs.google.com/presentation/d/e/2PACX-1vTqmn0xKRJXd3Nb0KMR3bsj0FcJET5Tjlf2DwT6OiDOwu9_K7XHYpd_tMpJRW3HiHerhBJQ532NzrV4/pub?start=false&loop=false&delayms=3000
+url_project: ""
+url_slides: https://docs.google.com/presentation/d/e/2PACX-1vTqmn0xKRJXd3Nb0KMR3bsj0FcJET5Tjlf2DwT6OiDOwu9_K7XHYpd_tMpJRW3HiHerhBJQ532NzrV4/pub?start=false&loop=false&delayms=3000
+url_source: https://revhabanera.sld.cu/index.php/rhab/article/view/4943
+url_video: '#'
+---
