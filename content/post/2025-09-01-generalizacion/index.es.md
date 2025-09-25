@@ -12,6 +12,7 @@ tags:
   - ensayos clínicos
   - estadística
   - replicabilidad
+  - causalidad
 summary: 'La ciencia trasciende el laboratorio cuando sus hallazgos logran cruzar el puente hacia la vida real. Este proceso depende de conceptos clave como validez interna (rigor metodológico) y externa (aplicabilidad), así como de la generalizabilidad y transportabilidad de los resultados. Aunque existen obstáculos como sesgos de selección y variables confusoras, herramientas como ensayos pragmáticos y métodos estadísticos permiten adaptar los conocimientos a contextos diversos. Como consumidores, debemos preguntar "¿en quién se hizo este estudio?" para evaluar su verdadero impacto en nuestras vidas.'
 ---
 
@@ -22,7 +23,6 @@ summary: 'La ciencia trasciende el laboratorio cuando sus hallazgos logran cruza
 El vídeo, "El Estudio y el Mundo", captura esta idea.
 
 {{< youtube sY8-YxIeGu8 >}}
-
 
 Este blog profundiza en ese **puente a veces inestable** que conecta la ciencia con nuestra vida diaria, explicando por qué no se trata de desconfiar de la ciencia, sino de entenderla mejor para usarla de la forma más inteligente posible.
 
@@ -68,7 +68,7 @@ La forma ideal es tomar una muestra aleatoria de la población objetivo, pero es
 
 **Ensayos clínicos pragmáticos:** Diseñados para imitar la práctica clínica real y ser más aplicables.
 
-**Muestreo no probabilístico:** Seleccionar participantes para asegurar que haya una amplia representación o heterogeneidad.
+**Muestreo:** Seleccionar participantes para asegurar que haya una amplia representación o heterogeneidad.
 
 **Después de la Recolección de Datos (Métodos Analíticos):**
 

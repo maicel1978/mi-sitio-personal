@@ -3,12 +3,14 @@ title: "Las trampas de la correlación disfrazada de causalidad"
 subtitel: "cuando los números cuentan historias falsas"
 author:
   - admin
-date: '2024-02-08'
+date: '2025-09-24'
 categories:
   - epidemiología
   - opinion
+  - causalidad
 tags:
   - epidemiología
+  - causalidad
 slug: trampas-correlacion
 summary:  "Ejemplos curiosos, cápsulas de rigor y un checklist práctico para no confundir correlación con causalidad en investigación científica."
 featured: true  # Destacar en la página principal
