@@ -10,7 +10,7 @@ categories:
 tags:
   - epidemiología
 slug: trampas-correlacion
-summary: "Guía práctica con R para desarrollar modelos predictivos robustos en entornos clínicos, siguiendo la metodología de Steyerberg"
+summary:  "Ejemplos curiosos, cápsulas de rigor y un checklist práctico para no confundir correlación con causalidad en investigación científica."
 featured: true  # Destacar en la página principal
 language: es
 draft: false 
