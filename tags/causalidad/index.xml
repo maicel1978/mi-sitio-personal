@@ -1,42 +1,76 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Bioestadística | Bioestadistica educativa</title><link>https://maicel.netlify.app/tags/bioestadistica/</link><atom:link href="https://maicel.netlify.app/tags/bioestadistica/index.xml" rel="self" type="application/rss+xml"/><description>Bioestadística</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es</language><lastBuildDate>Mon, 22 Sep 2025 00:00:00 +0000</lastBuildDate><image><url>https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png</url><title>Bioestadística</title><link>https://maicel.netlify.app/tags/bioestadistica/</link></image><item><title>Introducción a los diseños explicativos experimentales</title><link>https://maicel.netlify.app/teaching/introducci-n-a-los-dise-os-explicativos-experimentales/</link><pubDate>Mon, 22 Sep 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/teaching/introducci-n-a-los-dise-os-explicativos-experimentales/</guid><description>&lt;h2 id="-conferencia-para-la-maestría-en-atención-primaria-de-salud-ensap">🎓 Conferencia para la Maestría en Atención Primaria de Salud (ENSAP)&lt;/h2>
-&lt;p>El pasado &lt;strong>22 de septiembre de 2025&lt;/strong> impartí la conferencia &lt;strong>“Introducción a los Diseños Explicativos Experimentales”&lt;/strong> como parte del programa de la Maestría en Atención Primaria de Salud de la &lt;strong>Escuela Nacional de Salud Pública (ENSAP, Cuba)&lt;/strong>.&lt;/p>
-&lt;p>El vídeo, se puede ver a continuación:&lt;/p>
-&lt;div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-&lt;iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/cQ4af2j2jrg?autoplay=0&amp;amp;controls=1&amp;amp;end=0&amp;amp;loop=0&amp;amp;mute=0&amp;amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video">&lt;/iframe>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Causalidad | Bioestadistica educativa</title><link>https://maicel.netlify.app/tags/causalidad/</link><atom:link href="https://maicel.netlify.app/tags/causalidad/index.xml" rel="self" type="application/rss+xml"/><description>Causalidad</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es</language><lastBuildDate>Wed, 24 Sep 2025 00:00:00 +0000</lastBuildDate><image><url>https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png</url><title>Causalidad</title><link>https://maicel.netlify.app/tags/causalidad/</link></image><item><title>Las trampas de la correlación disfrazada de causalidad</title><link>https://maicel.netlify.app/post/trampas-correlacion/</link><pubDate>Wed, 24 Sep 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/trampas-correlacion/</guid><description>&lt;p>El ojo humano ama los patrones: ver dos líneas que se mueven juntas y concluir que una provoca la otra. La estadística, mal interpretada, a veces alimenta esa ilusión. La correlación es apenas la danza conjunta de dos variables, no una flecha de causa. Y, sin embargo, titulares, políticas y hasta decisiones médicas se sostienen sobre esta trampa.&lt;/p>
+&lt;h1 id="1-correlaciones-curiosas-pero-falsas">1) Correlaciones curiosas (pero falsas)&lt;/h1>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Helados y ahogamientos.&lt;/strong> En verano, ambos aumentan. No porque el helado mate, sino porque el calor atrae bañistas y heladeros.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Cigüeñas y natalidad.&lt;/strong> En pueblos europeos, donde hay más cigüeñas, también hay más nacimientos… simplemente porque se trata de áreas rurales más fértiles, no porque las aves traigan bebés.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Películas de Nicolas Cage y ahogamientos en piscinas.&lt;/strong> Ejemplo clásico de correlaciones espurias recopiladas por Tyler Vigen: cómico, pero ilustrativo.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="2-la-correlación-y-su-impacto-en-la-toma-de-decisiones">2) La correlación y su impacto en la toma de decisiones&lt;/h2>
+&lt;p>La confusión entre causalidad y correlación no es solo un chiste; tiene consecuencias graves.&lt;/p>
+&lt;p>&lt;strong>Política pública:&lt;/strong> Un estudio muestra que los países con más médicos per cápita tienen más diagnósticos de cáncer. Conclusión errada: “los médicos causan cáncer”. Realidad: mayor densidad médica implica mejor detección.&lt;/p>
+&lt;p>&lt;strong>Falacia de la causa inversa:&lt;/strong> Niños con bajo rendimiento escolar pasan más horas frente a la televisión. ¿La TV los perjudica? ¿O los niños con dificultades recurren más a ella? La dirección de la causalidad puede invertirse fácilmente.&lt;/p>
+&lt;hr>
+&lt;h1 id="3-qué-mide-realmente-la-correlación">3) &lt;strong>¿Qué mide realmente la correlación?&lt;/strong>&lt;/h1>
+&lt;ul>
+&lt;li>El &lt;strong>coeficiente de correlación (r)&lt;/strong> mide la fuerza y dirección de la relación entre dos variables.&lt;/li>
+&lt;li>Sus valores van de &lt;strong>-1 a +1&lt;/strong>:
+&lt;ul>
+&lt;li>+1 → relación positiva perfecta&lt;/li>
+&lt;li>-1 → relación negativa perfecta&lt;/li>
+&lt;li>0 → ausencia de relación lineal&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
+&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;strong>Advertencia:&lt;/strong> un r alto no significa causalidad. Puede deberse a &lt;strong>confusores&lt;/strong>, &lt;strong>azar&lt;/strong> o &lt;strong>causalidad inversa&lt;/strong>.&lt;/span>
 &lt;/div>
-&lt;p>Esta conferencia busca responder una pregunta clave:&lt;br>
-👉 &lt;em>¿Qué hace diferente a una investigación científica experimetal?&lt;/em>&lt;/p>
-&lt;p>Y lo hace explorando &lt;strong>los ejes de clasificación, los sesgos y los diseños experimentales más utilizados&lt;/strong>, tanto a nivel individual como comunitario.&lt;/p>
 &lt;hr>
-&lt;h3 id="-contenido-principal">📑 Contenido principal&lt;/h3>
-&lt;ul>
-&lt;li>Características generales de las investigaciones experimentales&lt;/li>
-&lt;li>El estudio de las relaciones causales y los sesgos&lt;/li>
-&lt;li>Diseños más comunes a nivel individual y por conglomerados&lt;/li>
-&lt;li>Ensayos clínicos y ensayos comunitarios&lt;/li>
-&lt;li>Tendencias emergentes en los diseños experimentales&lt;/li>
-&lt;/ul>
-&lt;hr>
-&lt;h3 id="-materiales-disponibles">📥 Materiales disponibles&lt;/h3>
-&lt;ul>
-&lt;li>
-&lt;p>📂 &lt;strong>Descargar la presentación&lt;/strong>: &lt;a href="https://maicel.netlify.app/pdf/presetacion_experimentosAPS.pdf">PDF de la conferencia&lt;/a>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>🎧 &lt;strong>Escucha el podcast de esta conferecia&lt;/strong>
-&lt;audio controls >
-&lt;source src="https://maicel.netlify.app/mp3/podcast_expeimentosAPS.mp3" type="audio/mpeg">
-&lt;/audio>
+&lt;h1 id="4-tipos-de-coeficientes-de-correlación-más-allá-de-pearson">4) Tipos de coeficientes de correlación (más allá de Pearson)&lt;/h1>
+&lt;p>
+&lt;figure >
+&lt;div class="flex justify-center ">
+&lt;div class="w-100" >&lt;img alt="" srcset="
+/post/trampas-correlacion/correlacion_hu_c614a73ad03379b6.webp 400w,
+/post/trampas-correlacion/correlacion_hu_e6f9def3a13f9eea.webp 760w,
+/post/trampas-correlacion/correlacion_hu_dedc904516865376.webp 1200w"
+src="https://maicel.netlify.app/post/trampas-correlacion/correlacion_hu_c614a73ad03379b6.webp"
+width="507"
+height="760"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;/figure>
 &lt;/p>
-&lt;/li>
-&lt;/ul>
 &lt;hr>
-&lt;h3 id="-reflexión-final">🧭 Reflexión final&lt;/h3>
-&lt;p>Los &lt;strong>diseños experimentales&lt;/strong> siguen siendo la herramienta más robusta para establecer causalidad.&lt;br>
-El reto para la APS es lograr que, desde el paciente individual hasta la comunidad entera, la investigación sea &lt;strong>más inclusiva, innovadora y socialmente útil&lt;/strong>.&lt;/p>
+&lt;h1 id="5-causalidad-un-desafío-que-exige-rigurosidad">5) &lt;strong>Causalidad:&lt;/strong> un desafío que exige rigurosidad&lt;/h1>
+&lt;p>Identificar la causalidad no se improvisa. Requiere algo más que una simple correlación. Exige un diseño experimental riguroso, criterios de Bradford Hill y construcción de modelos causales. La estadística sugiere, pero no prueba por sí sola.&lt;/p>
 &lt;hr>
-&lt;p>✍️ &lt;em>Dr.C Maicel E. Monzón Pérez&lt;/em>&lt;br>
-Médico, Bioestadístico y Científico de Datos&lt;/p></description></item><item><title>Del Laboratorio al Mundo Real</title><link>https://maicel.netlify.app/post/generalizacion/</link><pubDate>Mon, 01 Sep 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/generalizacion/</guid><description>&lt;h2 id="del-laboratorio-al-mundo-real-cómo-la-ciencia-cruza-el-puente-hacia-tu-vida">&lt;strong>Del Laboratorio al Mundo Real: Cómo la Ciencia Cruza el Puente hacia tu Vida&lt;/strong>&lt;/h2>
+&lt;h1 id="6-metáfora-para-recordar">6) Metáfora para recordar&lt;/h1>
+&lt;p>Piensa en la correlación como ver dos hojas que caen juntas en otoño. Creer que una arrastra a la otra es ignorar el viento invisible que las mueve a ambas.&lt;/p>
+&lt;hr>
+&lt;h1 id="7-checklist-para-evitar-caer-en-la-trampa">7) Checklist para evitar caer en la trampa&lt;/h1>
+&lt;ol>
+&lt;li>¿Existe una variable oculta (confusor) que explique la relación? ✔&lt;/li>
+&lt;li>¿Podría la causalidad ir en sentido contrario? ✔&lt;/li>
+&lt;li>¿El diseño permite concluir causa o solo asociación? ✔&lt;/li>
+&lt;li>¿Hay criterios teóricos/experimentales que respalden esta relación? ✔&lt;/li>
+&lt;li>¿Se comunicó claramente que es correlación, no causalidad? ✔&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h1 id="bibliografía">Bibliografía&lt;/h1>
+&lt;p>Silva Aycaguer LC. &lt;em>Cultura estadística e investigación científica en el campo de la salud: una mirada crítica&lt;/em>. Madrid: Díaz de Santos; 1998.&lt;/p>
+&lt;p>Pearl, J. (2009). Causality: Models, Reasoning, and Inference (2nd ed.). Cambridge University Press.&lt;/p>
+&lt;p>Hernán, M. A., &amp;amp; Robins, J. M. (2020). Causal Inference: What If. Chapman &amp;amp; Hall/CRC. [Disponible gratis en línea].&lt;/p>
+&lt;p>Hill, A. B. (1965). The environment and disease: association or causation? Proceedings of the Royal Society of Medicine, 58(5), 295–300. (Criterios de Bradford Hill).&lt;/p>
+&lt;p>Freedman, D. A. (2005). Statistical Models: Theory and Practice. Cambridge University Press. (Discusión crítica sobre correlación y causalidad).&lt;/p></description></item><item><title>Del Laboratorio al Mundo Real</title><link>https://maicel.netlify.app/post/generalizacion/</link><pubDate>Mon, 01 Sep 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/generalizacion/</guid><description>&lt;h2 id="del-laboratorio-al-mundo-real-cómo-la-ciencia-cruza-el-puente-hacia-tu-vida">&lt;strong>Del Laboratorio al Mundo Real: Cómo la Ciencia Cruza el Puente hacia tu Vida&lt;/strong>&lt;/h2>
 &lt;p>¿Alguna vez has leído un titular científico y te has preguntado: &amp;ldquo;¿Esto me aplica a mí?&amp;rdquo; o &amp;ldquo;Esto suena genial, pero ¿es relevante para mi realidad?&amp;rdquo; Si es así, has tocado el nervio de uno de los mayores desafíos de la investigación: cómo saltar del estudio controlado en un laboratorio al mundo real.&lt;/p>
 &lt;p>El vídeo, &amp;ldquo;El Estudio y el Mundo&amp;rdquo;, captura esta idea.&lt;/p>
 &lt;div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">

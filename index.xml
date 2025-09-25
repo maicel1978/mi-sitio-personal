@@ -1,4 +1,76 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Bioestadistica educativa</title><link>https://maicel.netlify.app/</link><atom:link href="https://maicel.netlify.app/index.xml" rel="self" type="application/rss+xml"/><description>Bioestadistica educativa</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es</language><lastBuildDate>Mon, 24 Oct 2022 00:00:00 +0000</lastBuildDate><image><url>https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png</url><title>Bioestadistica educativa</title><link>https://maicel.netlify.app/</link></image><item><title>Introducción a los diseños explicativos experimentales</title><link>https://maicel.netlify.app/teaching/introducci-n-a-los-dise-os-explicativos-experimentales/</link><pubDate>Mon, 22 Sep 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/teaching/introducci-n-a-los-dise-os-explicativos-experimentales/</guid><description>&lt;h2 id="-conferencia-para-la-maestría-en-atención-primaria-de-salud-ensap">🎓 Conferencia para la Maestría en Atención Primaria de Salud (ENSAP)&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Bioestadistica educativa</title><link>https://maicel.netlify.app/</link><atom:link href="https://maicel.netlify.app/index.xml" rel="self" type="application/rss+xml"/><description>Bioestadistica educativa</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es</language><lastBuildDate>Mon, 24 Oct 2022 00:00:00 +0000</lastBuildDate><image><url>https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png</url><title>Bioestadistica educativa</title><link>https://maicel.netlify.app/</link></image><item><title>Las trampas de la correlación disfrazada de causalidad</title><link>https://maicel.netlify.app/post/trampas-correlacion/</link><pubDate>Wed, 24 Sep 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/trampas-correlacion/</guid><description>&lt;p>El ojo humano ama los patrones: ver dos líneas que se mueven juntas y concluir que una provoca la otra. La estadística, mal interpretada, a veces alimenta esa ilusión. La correlación es apenas la danza conjunta de dos variables, no una flecha de causa. Y, sin embargo, titulares, políticas y hasta decisiones médicas se sostienen sobre esta trampa.&lt;/p>
+&lt;h1 id="1-correlaciones-curiosas-pero-falsas">1) Correlaciones curiosas (pero falsas)&lt;/h1>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Helados y ahogamientos.&lt;/strong> En verano, ambos aumentan. No porque el helado mate, sino porque el calor atrae bañistas y heladeros.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Cigüeñas y natalidad.&lt;/strong> En pueblos europeos, donde hay más cigüeñas, también hay más nacimientos… simplemente porque se trata de áreas rurales más fértiles, no porque las aves traigan bebés.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Películas de Nicolas Cage y ahogamientos en piscinas.&lt;/strong> Ejemplo clásico de correlaciones espurias recopiladas por Tyler Vigen: cómico, pero ilustrativo.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="2-la-correlación-y-su-impacto-en-la-toma-de-decisiones">2) La correlación y su impacto en la toma de decisiones&lt;/h2>
+&lt;p>La confusión entre causalidad y correlación no es solo un chiste; tiene consecuencias graves.&lt;/p>
+&lt;p>&lt;strong>Política pública:&lt;/strong> Un estudio muestra que los países con más médicos per cápita tienen más diagnósticos de cáncer. Conclusión errada: “los médicos causan cáncer”. Realidad: mayor densidad médica implica mejor detección.&lt;/p>
+&lt;p>&lt;strong>Falacia de la causa inversa:&lt;/strong> Niños con bajo rendimiento escolar pasan más horas frente a la televisión. ¿La TV los perjudica? ¿O los niños con dificultades recurren más a ella? La dirección de la causalidad puede invertirse fácilmente.&lt;/p>
+&lt;hr>
+&lt;h1 id="3-qué-mide-realmente-la-correlación">3) &lt;strong>¿Qué mide realmente la correlación?&lt;/strong>&lt;/h1>
+&lt;ul>
+&lt;li>El &lt;strong>coeficiente de correlación (r)&lt;/strong> mide la fuerza y dirección de la relación entre dos variables.&lt;/li>
+&lt;li>Sus valores van de &lt;strong>-1 a +1&lt;/strong>:
+&lt;ul>
+&lt;li>+1 → relación positiva perfecta&lt;/li>
+&lt;li>-1 → relación negativa perfecta&lt;/li>
+&lt;li>0 → ausencia de relación lineal&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
+&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;strong>Advertencia:&lt;/strong> un r alto no significa causalidad. Puede deberse a &lt;strong>confusores&lt;/strong>, &lt;strong>azar&lt;/strong> o &lt;strong>causalidad inversa&lt;/strong>.&lt;/span>
+&lt;/div>
+&lt;hr>
+&lt;h1 id="4-tipos-de-coeficientes-de-correlación-más-allá-de-pearson">4) Tipos de coeficientes de correlación (más allá de Pearson)&lt;/h1>
+&lt;p>
+&lt;figure >
+&lt;div class="flex justify-center ">
+&lt;div class="w-100" >&lt;img alt="" srcset="
+/post/trampas-correlacion/correlacion_hu_c614a73ad03379b6.webp 400w,
+/post/trampas-correlacion/correlacion_hu_e6f9def3a13f9eea.webp 760w,
+/post/trampas-correlacion/correlacion_hu_dedc904516865376.webp 1200w"
+src="https://maicel.netlify.app/post/trampas-correlacion/correlacion_hu_c614a73ad03379b6.webp"
+width="507"
+height="760"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;/figure>
+&lt;/p>
+&lt;hr>
+&lt;h1 id="5-causalidad-un-desafío-que-exige-rigurosidad">5) &lt;strong>Causalidad:&lt;/strong> un desafío que exige rigurosidad&lt;/h1>
+&lt;p>Identificar la causalidad no se improvisa. Requiere algo más que una simple correlación. Exige un diseño experimental riguroso, criterios de Bradford Hill y construcción de modelos causales. La estadística sugiere, pero no prueba por sí sola.&lt;/p>
+&lt;hr>
+&lt;h1 id="6-metáfora-para-recordar">6) Metáfora para recordar&lt;/h1>
+&lt;p>Piensa en la correlación como ver dos hojas que caen juntas en otoño. Creer que una arrastra a la otra es ignorar el viento invisible que las mueve a ambas.&lt;/p>
+&lt;hr>
+&lt;h1 id="7-checklist-para-evitar-caer-en-la-trampa">7) Checklist para evitar caer en la trampa&lt;/h1>
+&lt;ol>
+&lt;li>¿Existe una variable oculta (confusor) que explique la relación? ✔&lt;/li>
+&lt;li>¿Podría la causalidad ir en sentido contrario? ✔&lt;/li>
+&lt;li>¿El diseño permite concluir causa o solo asociación? ✔&lt;/li>
+&lt;li>¿Hay criterios teóricos/experimentales que respalden esta relación? ✔&lt;/li>
+&lt;li>¿Se comunicó claramente que es correlación, no causalidad? ✔&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h1 id="bibliografía">Bibliografía&lt;/h1>
+&lt;p>Silva Aycaguer LC. &lt;em>Cultura estadística e investigación científica en el campo de la salud: una mirada crítica&lt;/em>. Madrid: Díaz de Santos; 1998.&lt;/p>
+&lt;p>Pearl, J. (2009). Causality: Models, Reasoning, and Inference (2nd ed.). Cambridge University Press.&lt;/p>
+&lt;p>Hernán, M. A., &amp;amp; Robins, J. M. (2020). Causal Inference: What If. Chapman &amp;amp; Hall/CRC. [Disponible gratis en línea].&lt;/p>
+&lt;p>Hill, A. B. (1965). The environment and disease: association or causation? Proceedings of the Royal Society of Medicine, 58(5), 295–300. (Criterios de Bradford Hill).&lt;/p>
+&lt;p>Freedman, D. A. (2005). Statistical Models: Theory and Practice. Cambridge University Press. (Discusión crítica sobre correlación y causalidad).&lt;/p></description></item><item><title>Introducción a los diseños explicativos experimentales</title><link>https://maicel.netlify.app/teaching/introducci-n-a-los-dise-os-explicativos-experimentales/</link><pubDate>Mon, 22 Sep 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/teaching/introducci-n-a-los-dise-os-explicativos-experimentales/</guid><description>&lt;h2 id="-conferencia-para-la-maestría-en-atención-primaria-de-salud-ensap">🎓 Conferencia para la Maestría en Atención Primaria de Salud (ENSAP)&lt;/h2>
 &lt;p>El pasado &lt;strong>22 de septiembre de 2025&lt;/strong> impartí la conferencia &lt;strong>“Introducción a los Diseños Explicativos Experimentales”&lt;/strong> como parte del programa de la Maestría en Atención Primaria de Salud de la &lt;strong>Escuela Nacional de Salud Pública (ENSAP, Cuba)&lt;/strong>.&lt;/p>
 &lt;p>El vídeo, se puede ver a continuación:&lt;/p>
 &lt;div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
@@ -327,7 +399,7 @@ Y es, sin duda, una de las maravillas tecnológicas más grandes de nuestro tiem
 &lt;p>&lt;strong>En la Fase de Diseño:&lt;/strong>&lt;/p>
 &lt;p>La forma ideal es tomar una muestra aleatoria de la población objetivo, pero esto no siempre es posible. Las alternativas incluyen:&lt;/p>
 &lt;p>&lt;strong>Ensayos clínicos pragmáticos:&lt;/strong> Diseñados para imitar la práctica clínica real y ser más aplicables.&lt;/p>
-&lt;p>&lt;strong>Muestreo no probabilístico:&lt;/strong> Seleccionar participantes para asegurar que haya una amplia representación o heterogeneidad.&lt;/p>
+&lt;p>&lt;strong>Muestreo:&lt;/strong> Seleccionar participantes para asegurar que haya una amplia representación o heterogeneidad.&lt;/p>
 &lt;p>&lt;strong>Después de la Recolección de Datos (Métodos Analíticos):&lt;/strong>&lt;/p>
 &lt;p>Si el estudio ya se realizó, se usan métodos estadísticos para ajustar los resultados:&lt;/p>
 &lt;ul>
@@ -1431,79 +1503,7 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;h1 id="bibliografía">Bibliografía&lt;/h1>
 &lt;ol>
 &lt;li>Steyerberg EW, Vergouwe Y. Towards better clinical prediction models: seven steps for development and an ABCD for validation. European Heart Journal [Internet]. 1 de agosto de 2014 [citado 9 de mayo de 2021];35(29):1925-31. Disponible en: &lt;a href="https://academic.oup.com/eurheartj/article-lookup/doi/10.1093/eurheartj/ehu207" target="_blank" rel="noopener">https://academic.oup.com/eurheartj/article-lookup/doi/10.1093/eurheartj/ehu207&lt;/a>&lt;/li>
-&lt;/ol></description></item><item><title>Las trampas de la correlación disfrazada de causalidad</title><link>https://maicel.netlify.app/post/trampas-correlacion/</link><pubDate>Thu, 08 Feb 2024 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/trampas-correlacion/</guid><description>&lt;p>El ojo humano ama los patrones: ver dos líneas que se mueven juntas y concluir que una provoca la otra. La estadística, mal interpretada, a veces alimenta esa ilusión. La correlación es apenas la danza conjunta de dos variables, no una flecha de causa. Y, sin embargo, titulares, políticas y hasta decisiones médicas se sostienen sobre esta trampa.&lt;/p>
-&lt;h1 id="1-correlaciones-curiosas-pero-falsas">1) Correlaciones curiosas (pero falsas)&lt;/h1>
-&lt;ul>
-&lt;li>
-&lt;p>&lt;strong>Helados y ahogamientos.&lt;/strong> En verano, ambos aumentan. No porque el helado mate, sino porque el calor atrae bañistas y heladeros.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Cigüeñas y natalidad.&lt;/strong> En pueblos europeos, donde hay más cigüeñas, también hay más nacimientos… simplemente porque se trata de áreas rurales más fértiles, no porque las aves traigan bebés.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Películas de Nicolas Cage y ahogamientos en piscinas.&lt;/strong> Ejemplo clásico de correlaciones espurias recopiladas por Tyler Vigen: cómico, pero ilustrativo.&lt;/p>
-&lt;/li>
-&lt;/ul>
-&lt;hr>
-&lt;h2 id="2-la-correlación-y-su-impacto-en-la-toma-de-decisiones">2) La correlación y su impacto en la toma de decisiones&lt;/h2>
-&lt;p>La confusión entre causalidad y correlación no es solo un chiste; tiene consecuencias graves.&lt;/p>
-&lt;p>&lt;strong>Política pública:&lt;/strong> Un estudio muestra que los países con más médicos per cápita tienen más diagnósticos de cáncer. Conclusión errada: “los médicos causan cáncer”. Realidad: mayor densidad médica implica mejor detección.&lt;/p>
-&lt;p>&lt;strong>Falacia de la causa inversa:&lt;/strong> Niños con bajo rendimiento escolar pasan más horas frente a la televisión. ¿La TV los perjudica? ¿O los niños con dificultades recurren más a ella? La dirección de la causalidad puede invertirse fácilmente.&lt;/p>
-&lt;hr>
-&lt;h1 id="3-qué-mide-realmente-la-correlación">3) &lt;strong>¿Qué mide realmente la correlación?&lt;/strong>&lt;/h1>
-&lt;ul>
-&lt;li>El &lt;strong>coeficiente de correlación (r)&lt;/strong> mide la fuerza y dirección de la relación entre dos variables.&lt;/li>
-&lt;li>Sus valores van de &lt;strong>-1 a +1&lt;/strong>:
-&lt;ul>
-&lt;li>+1 → relación positiva perfecta&lt;/li>
-&lt;li>-1 → relación negativa perfecta&lt;/li>
-&lt;li>0 → ausencia de relación lineal&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
-&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
-&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
-&lt;/span>
-&lt;span class="dark:text-neutral-300">&lt;strong>Advertencia:&lt;/strong> un r alto no significa causalidad. Puede deberse a &lt;strong>confusores&lt;/strong>, &lt;strong>azar&lt;/strong> o &lt;strong>causalidad inversa&lt;/strong>.&lt;/span>
-&lt;/div>
-&lt;hr>
-&lt;h1 id="4-tipos-de-coeficientes-de-correlación-más-allá-de-pearson">4) Tipos de coeficientes de correlación (más allá de Pearson)&lt;/h1>
-&lt;p>
-&lt;figure >
-&lt;div class="flex justify-center ">
-&lt;div class="w-100" >&lt;img alt="" srcset="
-/post/trampas-correlacion/correlacion_hu_c614a73ad03379b6.webp 400w,
-/post/trampas-correlacion/correlacion_hu_e6f9def3a13f9eea.webp 760w,
-/post/trampas-correlacion/correlacion_hu_dedc904516865376.webp 1200w"
-src="https://maicel.netlify.app/post/trampas-correlacion/correlacion_hu_c614a73ad03379b6.webp"
-width="507"
-height="760"
-loading="lazy" data-zoomable />&lt;/div>
-&lt;/div>&lt;/figure>
-&lt;/p>
-&lt;hr>
-&lt;h1 id="5-causalidad-un-desafío-que-exige-rigurosidad">5) &lt;strong>Causalidad:&lt;/strong> un desafío que exige rigurosidad&lt;/h1>
-&lt;p>Identificar la causalidad no se improvisa. Requiere algo más que una simple correlación. Exige un diseño experimental riguroso, criterios de Bradford Hill y construcción de modelos causales. La estadística sugiere, pero no prueba por sí sola.&lt;/p>
-&lt;hr>
-&lt;h1 id="6-metáfora-para-recordar">6) Metáfora para recordar&lt;/h1>
-&lt;p>Piensa en la correlación como ver dos hojas que caen juntas en otoño. Creer que una arrastra a la otra es ignorar el viento invisible que las mueve a ambas.&lt;/p>
-&lt;hr>
-&lt;h1 id="7-checklist-para-evitar-caer-en-la-trampa">7) Checklist para evitar caer en la trampa&lt;/h1>
-&lt;ol>
-&lt;li>¿Existe una variable oculta (confusor) que explique la relación? ✔&lt;/li>
-&lt;li>¿Podría la causalidad ir en sentido contrario? ✔&lt;/li>
-&lt;li>¿El diseño permite concluir causa o solo asociación? ✔&lt;/li>
-&lt;li>¿Hay criterios teóricos/experimentales que respalden esta relación? ✔&lt;/li>
-&lt;li>¿Se comunicó claramente que es correlación, no causalidad? ✔&lt;/li>
-&lt;/ol>
-&lt;hr>
-&lt;h1 id="bibliografía">Bibliografía&lt;/h1>
-&lt;p>Silva Aycaguer LC. &lt;em>Cultura estadística e investigación científica en el campo de la salud: una mirada crítica&lt;/em>. Madrid: Díaz de Santos; 1998.&lt;/p>
-&lt;p>Pearl, J. (2009). Causality: Models, Reasoning, and Inference (2nd ed.). Cambridge University Press.&lt;/p>
-&lt;p>Hernán, M. A., &amp;amp; Robins, J. M. (2020). Causal Inference: What If. Chapman &amp;amp; Hall/CRC. [Disponible gratis en línea].&lt;/p>
-&lt;p>Hill, A. B. (1965). The environment and disease: association or causation? Proceedings of the Royal Society of Medicine, 58(5), 295–300. (Criterios de Bradford Hill).&lt;/p>
-&lt;p>Freedman, D. A. (2005). Statistical Models: Theory and Practice. Cambridge University Press. (Discusión crítica sobre correlación y causalidad).&lt;/p></description></item><item><title>Experience</title><link>https://maicel.netlify.app/experience/</link><pubDate>Tue, 24 Oct 2023 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/experience/</guid><description/></item><item><title>Estado en la investigación sobre modelos de predicción de la severidad en confirmados de la Covid-19.</title><link>https://maicel.netlify.app/publication/journal-article/</link><pubDate>Wed, 01 Feb 2023 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/publication/journal-article/</guid><description>&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
+&lt;/ol></description></item><item><title>Experience</title><link>https://maicel.netlify.app/experience/</link><pubDate>Tue, 24 Oct 2023 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/experience/</guid><description/></item><item><title>Estado en la investigación sobre modelos de predicción de la severidad en confirmados de la Covid-19.</title><link>https://maicel.netlify.app/publication/journal-article/</link><pubDate>Wed, 01 Feb 2023 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/publication/journal-article/</guid><description>&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
 &lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
 &lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
 &lt;/span>
