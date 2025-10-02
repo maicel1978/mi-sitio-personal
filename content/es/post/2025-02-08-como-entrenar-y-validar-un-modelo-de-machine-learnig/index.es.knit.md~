@@ -1,0 +1,33 @@
+---
+title: "Como entrenar y validar un modelo de machine learnig"
+authors: ["admin"]
+date: '2024-02-08'
+categories:
+  - R
+  - Ciencia de Datos
+tags:
+  - machine learning
+slug: como-entrenar-y-validar-un-modelo-de-machine-learnig
+summary: "Guía práctica con R para desarrollar modelos predictivos robustos en entornos clínicos, siguiendo la metodología de Steyerberg"
+featured: true  # Destacar en la página principal
+language: es
+related_posts: [eda]  # Slug de tu post sobre EDA
+---
+
+🎧 **Escucha el podcast de esta publicación**  
+{{< audio src="https://ia600607.us.archive.org/24/items/articulo-steyember/_Articulo_Steyember.mp3" controls="yes" >}}  
+
+
+# Estrategia de modelado
+
+Contar con una estrategia de modelado correcta es esencial para desarrollar y validar modelos de predicción. En este artículo, exploraremos las siete etapas clave del proceso de modelado propuesto por Ewout Steyerberg en su artículo . 
+
+## 1. Definición del problema e inspección de datos {#sec-1}
+
+El primer paso en cualquier proyecto de modelado es definir claramente el problema de investigación y seleccionar la variable de resultado adecuada. 
+
+Durante esta fase, también realizamos un análisis exploratorio de datos (EDA) para comprender las características de las variables y detectar posibles problemas, como datos atípicos o valores faltantes. 
+
+
+
+
