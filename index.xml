@@ -1,4 +1,26 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Bioestadistica educativa</title><link>https://maicel.netlify.app/</link><atom:link href="https://maicel.netlify.app/index.xml" rel="self" type="application/rss+xml"/><description>Bioestadistica educativa</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es</language><lastBuildDate>Mon, 24 Oct 2022 00:00:00 +0000</lastBuildDate><image><url>https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png</url><title>Bioestadistica educativa</title><link>https://maicel.netlify.app/</link></image><item><title>Las trampas de la correlación disfrazada de causalidad</title><link>https://maicel.netlify.app/post/trampas-correlacion/</link><pubDate>Wed, 24 Sep 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/trampas-correlacion/</guid><description>&lt;p>El ojo humano ama los patrones: ver dos líneas que se mueven juntas y concluir que una provoca la otra. La estadística, mal interpretada, a veces alimenta esa ilusión. La correlación es apenas la danza conjunta de dos variables, no una flecha de causa. Y, sin embargo, titulares, políticas y hasta decisiones médicas se sostienen sobre esta trampa.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Bioestadística edu</title><link>https://maicel.netlify.app/</link><atom:link href="https://maicel.netlify.app/index.xml" rel="self" type="application/rss+xml"/><description>Bioestadística edu</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Mon, 24 Oct 2022 00:00:00 +0000</lastBuildDate><image><url>https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png</url><title>Bioestadística edu</title><link>https://maicel.netlify.app/</link></image><item><title>SIMED: Simulación Médica en Línea para el Aprendizaje del Proceso de Atención</title><link>https://maicel.netlify.app/project/simed-simulacion-medica-en-linea/</link><pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/project/simed-simulacion-medica-en-linea/</guid><description>&lt;h1 id="simed-entrenando-el-proceso-de-atención-médica-con-simulación">SIMED: Entrenando el Proceso de Atención Médica con Simulación&lt;/h1>
+&lt;p>En la enseñanza de las ciencias médicas, los estudiantes enfrentan un dilema constante: el volumen creciente de conocimientos que deben asimilar en plazos cada vez más cortos, y las limitaciones inherentes a la práctica clínica con pacientes reales. Aquí es donde la simulación médica emerge como una herramienta clave.&lt;/p>
+&lt;p>Nuestro proyecto, &lt;strong>SIMED (Sistema para Entrenamiento en Línea del Proceso de Atención Médica)&lt;/strong>, fue desarrollado para superar esas barreras. Diseñado con filosofía de código abierto y tecnología web, SIMED permite crear, editar y ejecutar simulaciones clínicas realistas que reproducen la lógica del método clínico, fortaleciendo las habilidades de razonamiento diagnóstico y la toma de decisiones.&lt;/p>
+&lt;hr>
+&lt;h1 id="por-qué-simed">¿Por qué SIMED?&lt;/h1>
+&lt;ul>
+&lt;li>
+&lt;p>Reproduce la lógica real del proceso de atención médica, evitando esquemas rígidos.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Accesible y multiplataforma, gracias a su interfaz web en PHP/MySQL.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Flexible para docentes, que pueden crear y personalizar simulaciones adaptadas a sus programas.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Seguro y colaborativo, con roles diferenciados (estudiantes, profesores y administradores).&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h1 id="una-herramienta-para-la-educación-médica">Una Herramienta para la Educación Médica&lt;/h1>
+&lt;p>El empleo de SIMED abre nuevas posibilidades para la docencia médica cubana y de otros países de la región. Su implementación contribuye a una enseñanza más racional, inclusiva y segura, sin sustituir la práctica clínica con pacientes, sino complementándola con experiencias simuladas de alta calidad.&lt;/p>
+&lt;h1 id="conclusión">Conclusión&lt;/h1>
+&lt;p>SIMED no es solo un software: es una apuesta por un modelo de enseñanza más moderno, inclusivo y efectivo. Al democratizar la creación y el uso de simulaciones clínicas, acerca la práctica médica a los estudiantes de forma segura, accesible y científicamente rigurosa.&lt;/p></description></item><item><title>Las trampas de la correlación disfrazada de causalidad</title><link>https://maicel.netlify.app/post/trampas-correlacion/</link><pubDate>Wed, 24 Sep 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/trampas-correlacion/</guid><description>&lt;p>El ojo humano ama los patrones: ver dos líneas que se mueven juntas y concluir que una provoca la otra. La estadística, mal interpretada, a veces alimenta esa ilusión. La correlación es apenas la danza conjunta de dos variables, no una flecha de causa. Y, sin embargo, titulares, políticas y hasta decisiones médicas se sostienen sobre esta trampa.&lt;/p>
 &lt;h1 id="1-correlaciones-curiosas-pero-falsas">1) Correlaciones curiosas (pero falsas)&lt;/h1>
 &lt;ul>
 &lt;li>
@@ -1507,15 +1529,35 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
 &lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
 &lt;/span>
-&lt;span class="dark:text-neutral-300">Click the &lt;em>Cite&lt;/em> button above to demo the feature to enable visitors to import publication metadata into their reference management software.&lt;/span>
-&lt;/div>
-&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
-&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
-&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
+&lt;span class="dark:text-neutral-300">&lt;p>¿Interesado en la Aplicación Práctica?&lt;/p>
+&lt;p>Descubre las variables esenciales (clínicas, de laboratorio y demográficas) que la literatura mundial considera críticas para predecir la severidad de COVID-19. Esta información es la base para el desarrollo de modelos de estratificación de riesgo adaptados a los recursos cubanos.&lt;/p>
 &lt;/span>
-&lt;span class="dark:text-neutral-300">Create your slides in Markdown - click the &lt;em>Slides&lt;/em> button to check out the example.&lt;/span>
 &lt;/div>
-&lt;p>Add the publication&amp;rsquo;s &lt;strong>full text&lt;/strong> or &lt;strong>supplementary notes&lt;/strong> here. You can use rich formatting such as including &lt;a href="https://docs.hugoblox.com/content/writing-markdown-latex/" target="_blank" rel="noopener">code, math, and images&lt;/a>.&lt;/p></description></item><item><title>Identificación de pacientes de bajo riesgo de severidad en confirmados de la COVID-19. Cuba. Años 2020-2021</title><link>https://maicel.netlify.app/publication/preprint/</link><pubDate>Wed, 07 Apr 2021 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/publication/preprint/</guid><description>&lt;p>Este trabajo está impulsado por los resultados de mi &lt;a href="https://revhabanera.sld.cu/index.php/rhab/article/view/4943" target="_blank" rel="noopener">artículo anterior&lt;/a> sobre desarrollo de modelos predictivos para el triaje.&lt;/p>
+&lt;h1 id="de-la-investigación-global-a-la-aplicación-local-predicción-de-covid-19-en-cuba">De la Investigación Global a la Aplicación Local: Predicción de COVID-19 en Cuba&lt;/h1>
+&lt;p>La pandemia de COVID-19 puso en evidencia la necesidad crítica de herramientas que permitan identificar con rapidez qué pacientes desarrollarán una forma severa de la enfermedad. Esta capacidad es fundamental para optimizar los recursos hospitalarios y ofrecer intervenciones tempranas. Por ello, hemos llevado a cabo una exhaustiva revisión de los modelos de predicción clínica de severidad que se desarrollaron y publicaron internacionalmente.&lt;/p>
+&lt;h1 id="el-desafío-de-la-generalización">El Desafío de la Generalización&lt;/h1>
+&lt;p>Nuestro estudio confirma que, si bien la literatura científica es rica en modelos de predicción, la mayoría presenta limitaciones significativas para su aplicación directa en la práctica clínica rutinaria, especialmente en contextos sanitarios diferentes a los de su origen.&lt;/p>
+&lt;p>Los principales problemas identificados son:&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>Variables no estandarizadas:&lt;/strong> Muchos modelos utilizan marcadores o pruebas que no están disponibles de forma rutinaria o universal en todos los sistemas de salud.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Falta de validación externa:&lt;/strong> La mayoría de los modelos fueron validados únicamente con los datos del centro o país que los desarrolló, lo que reduce su capacidad de generalización.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Complejidad:&lt;/strong> El uso de algoritmos avanzados o la inclusión de un número excesivo de variables dificulta su implementación rápida y sencilla en la cabecera del paciente.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h1 id="la-hoja-de-ruta-para-cuba">La Hoja de Ruta para Cuba&lt;/h1>
+&lt;p>A pesar de estas limitaciones, la revisión proporcionó información extremadamente valiosa. Nuestro objetivo no era simplemente descartar los modelos existentes, sino extraer la esencia predictiva para diseñar una estrategia local.&lt;/p>
+&lt;p>El análisis nos permitió identificar las variables clínicas y demográficas clave que consistentemente demostraron ser los predictores más robustos de severidad en la literatura global. Esta información es la piedra angular para el desarrollo de un Modelo de Predicción Adaptado al Contexto Cubano.&lt;/p>
+&lt;p>Al basarnos en este conocimiento global filtrado, podemos centrarnos en:&lt;/p>
+&lt;p>Utilizar variables de fácil acceso y bajo costo (edad, comorbilidades específicas y parámetros hematológicos básicos).&lt;/p>
+&lt;p>Implementar algoritmos predictivos robustos pero sencillos que sean aplicables de manera eficiente en el Sistema Nacional de Salud cubano.&lt;/p>
+&lt;p>Este trabajo no solo resume el estado del arte, sino que proporciona el cimiento necesario para futuras investigaciones que cierren la brecha entre la teoría predictiva y la realidad práctica de la salud pública en Cuba.&lt;/p>
+&lt;p>Para profundizar en la metodología de la revisión, los algoritmos analizados y las variables predictivas específicas identificadas, por favor, acceda al artículo completo haciendo clic en el enlace PDF que se encuentra arriba.&lt;/p>
+&lt;p>El archivo ya contiene todos tus metadatos y un texto de blog redactado para resaltar la importancia y las conclusiones de tu investigación.&lt;/p></description></item><item><title>Identificación de pacientes de bajo riesgo de severidad en confirmados de la COVID-19. Cuba. Años 2020-2021</title><link>https://maicel.netlify.app/publication/preprint/</link><pubDate>Wed, 07 Apr 2021 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/publication/preprint/</guid><description>&lt;p>Este trabajo está impulsado por los resultados de mi &lt;a href="https://revhabanera.sld.cu/index.php/rhab/article/view/4943" target="_blank" rel="noopener">artículo anterior&lt;/a> sobre desarrollo de modelos predictivos para el triaje.&lt;/p>
 &lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
 &lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
 &lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
