@@ -87,6 +87,11 @@ Integrar una redacción guiada por hallazgos es una forma moderada y práctica d
 En algunos contextos —sobre todo exploratorios— puede ser la diferencia entre un relato fiel al descubrimiento y una cronología ficticia.
 
 
+# Recursos adicionales
+
+🎧 **Escucha el podcast de esta publicación**
+{{< audio src="/mp3/Post_IMRyD.mp3" controls="yes" >}}
+
 # Bibliografía
 
 1. Pólya G. How to solve it. Princeton University Press; 1945. 
