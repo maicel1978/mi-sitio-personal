@@ -85,6 +85,9 @@ Integrating a findings-driven writing approach offers a moderate, practical way 
 In certain contexts—especially exploratory ones—it can be the difference between a narrative faithful to discovery and a fictitious chronology.
 
 
+🎧 **Listen to the podcast of this post**
+{{< audio src="/mp3/Post_IMRyDen.mp3" controls="yes" >}}
+
 # References
 
 1. Pólya G. How to solve it. Princeton University Press; 1945. 
