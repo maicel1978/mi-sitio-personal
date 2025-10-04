@@ -27,7 +27,10 @@ main:
   - name: Teaching
     url: teaching/
     weight: 40
-
+  - name: "RSS"
+    url: "/index.xml"
+    weight: 90 # Un número alto para que aparezca al final
+    # pre: '<i class="fas fa-rss"></i> ' # Icono de RSS
 
 # main:
 #   - name: Bio
