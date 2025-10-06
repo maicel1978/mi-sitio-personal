@@ -105,21 +105,19 @@ En algunos contextos —sobre todo exploratorios— puede ser la diferencia entr
 
 5. Page MJ, McKenzie JE, Bossuyt PM, others. The PRISMA 2020 statement. BMJ. 2021;372:n71. 
 
-6. Kerr NL. HARKing: Hypothesizing after the results are known. Personality and Social Psychology Review. 1998;2(3):196-217. 
+6. Munafò MR, Nosek BA, Bishop DVM, others. A manifesto for reproducible science. Nature Human Behaviour. 2017;1:0021. 
 
-7. Munafò MR, Nosek BA, Bishop DVM, others. A manifesto for reproducible science. Nature Human Behaviour. 2017;1:0021. 
+7. Nosek BA, Ebersole CR, DeHaven AC, Mellor DT. The preregistration revolution. PNAS. 2018;115(11):2600-6. 
 
-8. Nosek BA, Ebersole CR, DeHaven AC, Mellor DT. The preregistration revolution. PNAS. 2018;115(11):2600-6. 
+8. International Committee of Medical Journal Editors. Recommendations for the conduct, reporting, editing, and publication of scholarly work in medical journals. 2019; Disponible en: http://www.icmje.org/recommendations/
 
-9. International Committee of Medical Journal Editors. Recommendations for the conduct, reporting, editing, and publication of scholarly work in medical journals. 2019; Disponible en: http://www.icmje.org/recommendations/
+9. Nosek BA, others. Promoting an open research culture (TOP Guidelines). Science. 2015;348(6242):1422-5. 
 
-10. Nosek BA, others. Promoting an open research culture (TOP Guidelines). Science. 2015;348(6242):1422-5. 
+10. Wasserstein RL, Lazar NA. The asa’s statement on p-Values: Context, process, and purpose. The American Statistician. 2016;70(2):129-33. 
 
-11. Wasserstein RL, Lazar NA. The asa’s statement on p-Values: Context, process, and purpose. The American Statistician. 2016;70(2):129-33. 
+11. Wasserstein RL, Schirm AL, Lazar NA. Moving to a world beyond “p ¡ 0.05”. The American Statistician. 2019;73(sup1):1-19. 
 
-12. Wasserstein RL, Schirm AL, Lazar NA. Moving to a world beyond “p ¡ 0.05”. The American Statistician. 2019;73(sup1):1-19. 
-
-13. McShane BB, Gal D, Gelman A, Robert C, Tackett JL. Abandon statistical significance. The American Statistician. 2019;73(sup1):235-45. 
+12. McShane BB, Gal D, Gelman A, Robert C, Tackett JL. Abandon statistical significance. The American Statistician. 2019;73(sup1):235-45. 
 
 
 
