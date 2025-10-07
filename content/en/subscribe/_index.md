@@ -112,3 +112,8 @@ summary: "Get the latest articles directly to your inbox."
   </p>
 </section>
 </div>
+
+If you prefer to use a news reader like **Feedly or Inoreader**, you can subscribe directly to our official **feeds**.
+
+{{< icon name="rss" pack="fas" title="RSS en Inglés" >}} 
+[Subscribe to Feed ](/en/index.xml)
