@@ -116,4 +116,5 @@ summary: "Recibe los nuevos artículos directamente en tu correo"
 Si prefieres usar un lector de noticias como **Feedly o Inoreader**, puedes suscribirte directamente a nuestros **feeds** oficiales.
 
 {{< icon name="rss" pack="fas" title="RSS en Español" >}} 
-[Suscribirse al Feed](/index.xml)
+[Suscribirse al Feed](/post/index.xml)
+
