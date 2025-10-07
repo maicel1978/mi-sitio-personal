@@ -30,8 +30,8 @@ en:
       - name: Teaching
         url: teaching/
         weight: 40
-      - name: "RSS"
-        url: "/index.xml"
+      - name: "Subscribe"
+        url: subscribe/
         weight: 90 # Un número alto para que aparezca al final
 
 es:
@@ -63,8 +63,8 @@ es:
       - name: Docencia
         url: teaching/
         weight: 40
-      - name: "RSS"
-        url: "/index.xml"
+      - name: "Suscríbete"
+        url: subscribe/
         weight: 90 # Un número alto para que aparezca al final
 
 

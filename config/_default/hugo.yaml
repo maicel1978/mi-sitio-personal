@@ -56,12 +56,18 @@ taxonomies:
   tag: tags
   publication_type: publication_types
 markup:
-  _merge: deep
   highlight:
     lineNos: false
-  goldmark: # <-- Añade esta línea
-    renderer: # <-- Añade esta línea
-      unsafe: true # <-- Añade esta línea
+  goldmark:
+    renderer:
+      unsafe: true
+# markup:
+#   _merge: deep
+#   highlight:
+#     lineNos: false
+#   goldmark: # <-- Añade esta línea
+#     renderer: # <-- Añade esta línea
+#       unsafe: true # <-- Añade esta línea
 security:
   _merge: deep
 sitemap:
