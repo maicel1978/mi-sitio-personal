@@ -40,8 +40,8 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;/li>
 &lt;/ul>
 &lt;p>Con &lt;code>dlookr&lt;/code>, la función &lt;code>diagnose()&lt;/code> es ideal para una revisión rápida de la calidad de los datos, mostrando el tipo de variable, el número de valores únicos, valores faltantes, valores cero y valores negativos.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Para obtener un resumen rápido de las características de los datos&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">diagnose&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_na&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Para obtener un resumen rápido de las características de los datos&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">diagnose&lt;/span>(mtcars_na)
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Esta fase nos ayuda a formar una primera hipótesis sobre la calidad y estructura de los datos, identificando posibles problemas desde el principio.&lt;/p>
 &lt;h4 id="2-identificación-y-tratamiento-de-valores-faltantes-y-atípicos">2. Identificación y Tratamiento de Valores Faltantes y Atípicos&lt;/h4>
 &lt;p>Los valores faltantes (NA, NaN, null) y los valores atípicos (outliers) son dos de los desafíos más comunes en cualquier conjunto de datos y pueden distorsionar significativamente los resultados de nuestros análisis y modelos.&lt;/p>
@@ -82,12 +82,12 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;/li>
 &lt;/ul>
 &lt;p>&lt;code>dlookr&lt;/code> ofrece funciones visuales y programáticas para abordar estos problemas:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Visualizar la distribución de valores faltantes&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">plot_na&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_na&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Identificar valores atípicos para una variable específica (ej. &amp;#34;hp&amp;#34;)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># plot_outlier() es excelente para visualizar.&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">plot_outlier&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_df&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;hp&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Visualizar la distribución de valores faltantes&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_na&lt;/span>(mtcars_na)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Identificar valores atípicos para una variable específica (ej. &amp;#34;hp&amp;#34;)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># plot_outlier() es excelente para visualizar.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_outlier&lt;/span>(mtcars_df, &lt;span style="color:#e6db74">&amp;#34;hp&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="3-análisis-de-la-distribución-de-las-variables">3. Análisis de la Distribución de las Variables&lt;/h3>
 &lt;p>Comprender la distribución de cada variable individualmente es clave para seleccionar los métodos estadísticos y de modelado adecuados.&lt;/p>
 &lt;p>&lt;strong>Variables Numéricas:&lt;/strong>&lt;/p>
@@ -98,16 +98,16 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;/ul>
 &lt;p>&lt;strong>Variables Categóricas:&lt;/strong> - &lt;strong>Gráficos de barras:&lt;/strong> Muestran la frecuencia o proporción de cada categoría. - &lt;strong>Tablas de frecuencia:&lt;/strong> Resumen el conteo y porcentaje de cada nivel.&lt;/p>
 &lt;p>&lt;code>dlookr&lt;/code> simplifica la visualización de distribuciones:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Visualizar la distribución de una variable numérica (ej. &amp;#34;mpg&amp;#34;)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">plot_hist&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_df&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;mpg&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># O ver la distribución y normalidad&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">plot_normality&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_df&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;mpg&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Para variables categóricas (como &amp;#39;cyl&amp;#39; en mtcars que es numérica discreta)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Podemos convertirla a factor para un análisis categórico.&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">mtcars_factor_cyl&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">mtcars_df&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span> &lt;span class="nf">mutate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cyl&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">as.factor&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cyl&lt;/span>&lt;span class="p">))&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">plot_bar&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_factor_cyl&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;cyl&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Visualizar la distribución de una variable numérica (ej. &amp;#34;mpg&amp;#34;)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_hist&lt;/span>(mtcars_df, &lt;span style="color:#e6db74">&amp;#34;mpg&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># O ver la distribución y normalidad&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_normality&lt;/span>(mtcars_df, &lt;span style="color:#e6db74">&amp;#34;mpg&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Para variables categóricas (como &amp;#39;cyl&amp;#39; en mtcars que es numérica discreta)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Podemos convertirla a factor para un análisis categórico.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>mtcars_factor_cyl &lt;span style="color:#f92672">&amp;lt;-&lt;/span> mtcars_df &lt;span style="color:#f92672">%&amp;gt;%&lt;/span> &lt;span style="color:#a6e22e">mutate&lt;/span>(cyl &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">as.factor&lt;/span>(cyl))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_bar&lt;/span>(mtcars_factor_cyl, &lt;span style="color:#e6db74">&amp;#34;cyl&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Este análisis nos ayuda a entender el comportamiento de cada característica y a identificar la necesidad de transformaciones futuras.&lt;/p>
 &lt;h3 id="4-análisis-de-las-relaciones-entre-las-variables">4. Análisis de las Relaciones entre las Variables&lt;/h3>
 &lt;p>Esta etapa se centra en descubrir cómo las variables interactúan entre sí. Es fundamental para la selección de características, la identificación de multicolinealidad y la comprensión de la causalidad (o correlación).&lt;/p>
@@ -144,15 +144,15 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;/li>
 &lt;/ul>
 &lt;p>&lt;code>dlookr&lt;/code> facilita la exploración de relaciones:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Visualizar la matriz de correlación entre todas las variables numéricas&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">plot_cor&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_df&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Analizar la relación entre una variable objetivo (&amp;#39;mpg&amp;#39;) y otra característica (&amp;#39;wt&amp;#39;)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># plot_eda() permite explorar diversas relaciones bivariadas.&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">plot_eda&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_df&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">target&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;mpg&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">feature&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;wt&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># Numérica vs Numérica (scatterplot)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Relación entre &amp;#39;mpg&amp;#39; (numérica) y &amp;#39;cyl&amp;#39; (considerada categórica aquí)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">plot_eda&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_df&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">target&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;mpg&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">feature&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;cyl&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># Numérica vs Categórica (boxplot)&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Visualizar la matriz de correlación entre todas las variables numéricas&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_cor&lt;/span>(mtcars_df)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Analizar la relación entre una variable objetivo (&amp;#39;mpg&amp;#39;) y otra característica (&amp;#39;wt&amp;#39;)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># plot_eda() permite explorar diversas relaciones bivariadas.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_eda&lt;/span>(mtcars_df, target &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;mpg&amp;#34;&lt;/span>, feature &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;wt&amp;#34;&lt;/span>) &lt;span style="color:#75715e"># Numérica vs Numérica (scatterplot)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Relación entre &amp;#39;mpg&amp;#39; (numérica) y &amp;#39;cyl&amp;#39; (considerada categórica aquí)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_eda&lt;/span>(mtcars_df, target &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;mpg&amp;#34;&lt;/span>, feature &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;cyl&amp;#34;&lt;/span>) &lt;span style="color:#75715e"># Numérica vs Categórica (boxplot)&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="5-transformación-de-los-datos">5. Transformación de los Datos&lt;/h3>
 &lt;p>Una vez que hemos comprendido nuestros datos, es posible que necesitemos transformarlos para que sean más adecuados para los algoritmos de machine learning o para mejorar el rendimiento del modelo.&lt;/p>
 &lt;ul>
@@ -185,19 +185,19 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;/li>
 &lt;/ul>
 &lt;p>&lt;code>dlookr&lt;/code> ofrece funciones útiles para la transformación de datos:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Transformación logarítmica para reducir la asimetría de una variable&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">mtcars_transformed_log&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">transform_df&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_df&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">mpg&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mpg&lt;/span>&lt;span class="p">))&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Compara la distribución de mpg original vs. transformada&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">plot_normality&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_df&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;mpg&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">plot_normality&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_transformed_log&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;mpg&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Binarización o discretización de una variable continua (ej. &amp;#39;hp&amp;#39; en 3 bins)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">mtcars_binned&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">binning&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_df&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;hp&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">3&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">head&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_binned&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span> &lt;span class="nf">select&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hp&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">hp_Binned&lt;/span>&lt;span class="p">))&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Estandarización de variables numéricas (Z-score)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">mtcars_scaled&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_df&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">method&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;scale&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">head&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_scaled&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># Observa cómo los valores de todas las columnas han cambiado&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Transformación logarítmica para reducir la asimetría de una variable&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>mtcars_transformed_log &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">transform_df&lt;/span>(mtcars_df, mpg &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">log&lt;/span>(mpg))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Compara la distribución de mpg original vs. transformada&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_normality&lt;/span>(mtcars_df, &lt;span style="color:#e6db74">&amp;#34;mpg&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_normality&lt;/span>(mtcars_transformed_log, &lt;span style="color:#e6db74">&amp;#34;mpg&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Binarización o discretización de una variable continua (ej. &amp;#39;hp&amp;#39; en 3 bins)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>mtcars_binned &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">binning&lt;/span>(mtcars_df, &lt;span style="color:#e6db74">&amp;#34;hp&amp;#34;&lt;/span>, n &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">3&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">head&lt;/span>(mtcars_binned &lt;span style="color:#f92672">%&amp;gt;%&lt;/span> &lt;span style="color:#a6e22e">select&lt;/span>(hp, hp_Binned))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Estandarización de variables numéricas (Z-score)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>mtcars_scaled &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">normalize&lt;/span>(mtcars_df, method &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;scale&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">head&lt;/span>(mtcars_scaled) &lt;span style="color:#75715e"># Observa cómo los valores de todas las columnas han cambiado&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="herramientas-populares-para-eda">Herramientas Populares para EDA&lt;/h2>
 &lt;p>Para realizar un EDA efectivo, contamos con potentes herramientas en lenguajes como R y Python:&lt;/p>
 &lt;ul>

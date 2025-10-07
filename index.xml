@@ -94,9 +94,6 @@ En algunos contextos —sobre todo exploratorios— puede ser la diferencia entr
 &lt;p>Page MJ, McKenzie JE, Bossuyt PM, others. The PRISMA 2020 statement. BMJ. 2021;372:n71.&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>Kerr NL. HARKing: Hypothesizing after the results are known. Personality and Social Psychology Review. 1998;2(3):196-217.&lt;/p>
-&lt;/li>
-&lt;li>
 &lt;p>Munafò MR, Nosek BA, Bishop DVM, others. A manifesto for reproducible science. Nature Human Behaviour. 2017;1:0021.&lt;/p>
 &lt;/li>
 &lt;li>
@@ -1005,97 +1002,97 @@ $$
 &lt;h1 id="paso-1-preparación-de-datos-hces">Paso 1: Preparación de datos HCES&lt;/h1>
 &lt;p>&lt;strong>Concepto :&lt;/strong> Las HCES son encuestas que registran compras y consumo de alimentos a nivel de hogar 9. Son esenciales para analizar patrones dietéticos, pero requieren limpieza para eliminar inconsistencias.&lt;/p>
 &lt;p>&lt;strong>Ejemplo en R :&lt;/strong>&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">library&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tidyverse&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Datos simulados de HCES (consumo de alimentos en gramos)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">hc_data&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">tibble&lt;/span>&lt;span class="p">(&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">alimento&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Azúcar&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;Arroz&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;Azúcar morena&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;Harina fortificada&amp;#34;&lt;/span>&lt;span class="p">),&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">cantidad_g&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="m">500&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">1200&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">NA&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">800&lt;/span>&lt;span class="p">),&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">hogar_id&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="m">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">2&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Limpieza: Estandarizar nombres y eliminar valores faltantes&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">hc_clean&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">hc_data&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">mutate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">alimento&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">case_when&lt;/span>&lt;span class="p">(&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">str_detect&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">alimento&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;Azúcar&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">~&lt;/span> &lt;span class="s">&amp;#34;Azúcar&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1"># Unificar &amp;#34;Azúcar&amp;#34; y &amp;#34;Azúcar morena&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kc">TRUE&lt;/span> &lt;span class="o">~&lt;/span> &lt;span class="n">alimento&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">))&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">filter&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="nf">is.na&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cantidad_g&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="c1"># Eliminar registros sin datos&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(tidyverse)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Datos simulados de HCES (consumo de alimentos en gramos)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>hc_data &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">tibble&lt;/span>(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> alimento &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Azúcar&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;Arroz&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;Azúcar morena&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;Harina fortificada&amp;#34;&lt;/span>),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> cantidad_g &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>(&lt;span style="color:#ae81ff">500&lt;/span>, &lt;span style="color:#ae81ff">1200&lt;/span>, &lt;span style="color:#66d9ef">NA&lt;/span>, &lt;span style="color:#ae81ff">800&lt;/span>),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> hogar_id &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>(&lt;span style="color:#ae81ff">1&lt;/span>, &lt;span style="color:#ae81ff">1&lt;/span>, &lt;span style="color:#ae81ff">2&lt;/span>, &lt;span style="color:#ae81ff">2&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Limpieza: Estandarizar nombres y eliminar valores faltantes&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>hc_clean &lt;span style="color:#f92672">&amp;lt;-&lt;/span> hc_data &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">mutate&lt;/span>(alimento &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">case_when&lt;/span>(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">str_detect&lt;/span>(alimento, &lt;span style="color:#e6db74">&amp;#34;Azúcar&amp;#34;&lt;/span>) &lt;span style="color:#f92672">~&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Azúcar&amp;#34;&lt;/span>, &lt;span style="color:#75715e"># Unificar &amp;#34;Azúcar&amp;#34; y &amp;#34;Azúcar morena&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">TRUE&lt;/span> &lt;span style="color:#f92672">~&lt;/span> alimento
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> )) &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">filter&lt;/span>(&lt;span style="color:#f92672">!&lt;/span>&lt;span style="color:#a6e22e">is.na&lt;/span>(cantidad_g)) &lt;span style="color:#75715e"># Eliminar registros sin datos&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="paso-2-vinculación-con-tablas-de-composición-de-alimentos-fct">Paso 2: Vinculación con Tablas de Composición de Alimentos (FCT)&lt;/h1>
 &lt;p>Las FCT contienen información nutricional de alimentos (ej: hierro, vitamina A). Al vincularlas con HCES, calculamos la ingesta de nutrientes por hogar&lt;/p>
 &lt;p>&lt;strong>Ejemplo en R :&lt;/strong>&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># FCT simulada (nutrientes por 100g)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">fct_data&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">tibble&lt;/span>&lt;span class="p">(&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">alimento&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Azúcar&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;Arroz&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;Harina fortificada&amp;#34;&lt;/span>&lt;span class="p">),&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">hierro_mg&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="m">0.1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">2.5&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">5.0&lt;/span>&lt;span class="p">),&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">vitamina_a_ug&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="m">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">500&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Combinar HCES con FCT&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">hc_nutrientes&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">hc_clean&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">left_join&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">fct_data&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">by&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;alimento&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">mutate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hierro_total&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">cantidad_g&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">hierro_mg&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="m">100&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># Calcular hierro total consumido&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># FCT simulada (nutrientes por 100g)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>fct_data &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">tibble&lt;/span>(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> alimento &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Azúcar&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;Arroz&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;Harina fortificada&amp;#34;&lt;/span>),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> hierro_mg &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>(&lt;span style="color:#ae81ff">0.1&lt;/span>, &lt;span style="color:#ae81ff">2.5&lt;/span>, &lt;span style="color:#ae81ff">5.0&lt;/span>),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> vitamina_a_ug &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>(&lt;span style="color:#ae81ff">0&lt;/span>, &lt;span style="color:#ae81ff">0&lt;/span>, &lt;span style="color:#ae81ff">500&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Combinar HCES con FCT&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>hc_nutrientes &lt;span style="color:#f92672">&amp;lt;-&lt;/span> hc_clean &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">left_join&lt;/span>(fct_data, by &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;alimento&amp;#34;&lt;/span>) &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">mutate&lt;/span>(hierro_total &lt;span style="color:#f92672">=&lt;/span> cantidad_g &lt;span style="color:#f92672">*&lt;/span> hierro_mg &lt;span style="color:#f92672">/&lt;/span> &lt;span style="color:#ae81ff">100&lt;/span>) &lt;span style="color:#75715e"># Calcular hierro total consumido&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="paso-3-evaluación-de-adecuación-nutricional-ear-rni-ul">Paso 3: Evaluación de adecuación nutricional (EAR, RNI, UL)&lt;/h1>
 &lt;p>&lt;strong>Concepto :&lt;/strong>
 &lt;strong>EAR (Requerimiento Promedio Estimado) :&lt;/strong> Nivel de ingesta que cubre las necesidades del 50% de la población.&lt;/p>
 &lt;p>&lt;strong>RNI (Requerimiento Nutricional de Ingesta) :&lt;/strong> Meta para cubrir el 97-98% de la población.&lt;/p>
 &lt;p>&lt;strong>UL (Límite Máximo Seguro) :&lt;/strong> Ingesta máxima sin riesgo de toxicidad.&lt;/p>
 &lt;p>&lt;strong>Ejemplo en R :&lt;/strong>&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># EAR de hierro para mujeres (18-50 años): 18 mg/día&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">hc_nutrientes&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">group_by&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hogar_id&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">summarise&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ingesta_hierro&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">sum&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hierro_total&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">mutate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">adepto&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">ifelse&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ingesta_hierro&lt;/span> &lt;span class="o">&amp;gt;=&lt;/span> &lt;span class="m">18&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;Sí&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;No&amp;#34;&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># EAR de hierro para mujeres (18-50 años): 18 mg/día&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>hc_nutrientes &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">group_by&lt;/span>(hogar_id) &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">summarise&lt;/span>(ingesta_hierro &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">sum&lt;/span>(hierro_total)) &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">mutate&lt;/span>(adepto &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">ifelse&lt;/span>(ingesta_hierro &lt;span style="color:#f92672">&amp;gt;=&lt;/span> &lt;span style="color:#ae81ff">18&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;Sí&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;No&amp;#34;&lt;/span>))
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Visualización con &lt;strong>ggstatsplot&lt;/strong> :&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">library&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ggstatsplot&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">gghistostats&lt;/span>&lt;span class="p">(&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">hc_nutrientes&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">x&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">ingesta_hierro&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">title&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;Ingesta de hierro vs. EAR (18 mg/día)&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">binwidth&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">2&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">)&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(ggstatsplot)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">gghistostats&lt;/span>(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> data &lt;span style="color:#f92672">=&lt;/span> hc_nutrientes,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> x &lt;span style="color:#f92672">=&lt;/span> ingesta_hierro,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> title &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Ingesta de hierro vs. EAR (18 mg/día)&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> binwidth &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">2&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>)
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="paso-4-cálculo-de-consumo-aparente-con-ameafe">Paso 4: Cálculo de consumo aparente con AME/AFE&lt;/h1>
 &lt;p>&lt;strong>Concepto :&lt;/strong>
 La FAO recomienda ajustar el consumo por tamaño del hogar usando &lt;strong>Equivalentes Adultos (AME/AFE)&lt;/strong> . Por ejemplo, un niño &amp;lt;10 años equivale a 0.5 AME&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Datos de hogares (miembros y edades)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">hogares&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">tibble&lt;/span>&lt;span class="p">(&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">hogar_id&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="m">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">2&lt;/span>&lt;span class="p">),&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">miembros&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">list&lt;/span>&lt;span class="p">(&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">tibble&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">edad&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="m">30&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">5&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">genero&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;M&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;F&amp;#34;&lt;/span>&lt;span class="p">)),&lt;/span> &lt;span class="c1"># Hogar 1: adulto + niño&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">tibble&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">edad&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="m">40&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">15&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">genero&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;M&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;M&amp;#34;&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="c1"># Hogar 2: 2 adultos&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Calcular AME total por hogar&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">hogares&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">hogares&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">mutate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ame_total&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">map_dbl&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">miembros&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">~&lt;/span> &lt;span class="nf">sum&lt;/span>&lt;span class="p">(&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">ifelse&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">.x&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">edad&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="m">10&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">0.5&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">1&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># Niños &amp;lt;10 = 0.5 AME&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">)))&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Consumo aparente per cápita&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">hc_consumo_aparente&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">hc_nutrientes&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">left_join&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hogares&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">by&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;hogar_id&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">mutate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">consumo_aparente&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">hierro_total&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="n">ame_total&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Datos de hogares (miembros y edades)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>hogares &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">tibble&lt;/span>(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> hogar_id &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>(&lt;span style="color:#ae81ff">1&lt;/span>, &lt;span style="color:#ae81ff">2&lt;/span>),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> miembros &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">list&lt;/span>(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">tibble&lt;/span>(edad &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>(&lt;span style="color:#ae81ff">30&lt;/span>, &lt;span style="color:#ae81ff">5&lt;/span>), genero &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;M&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;F&amp;#34;&lt;/span>)), &lt;span style="color:#75715e"># Hogar 1: adulto + niño&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">tibble&lt;/span>(edad &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>(&lt;span style="color:#ae81ff">40&lt;/span>, &lt;span style="color:#ae81ff">15&lt;/span>), genero &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;M&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;M&amp;#34;&lt;/span>)) &lt;span style="color:#75715e"># Hogar 2: 2 adultos&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> )
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Calcular AME total por hogar&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>hogares &lt;span style="color:#f92672">&amp;lt;-&lt;/span> hogares &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">mutate&lt;/span>(ame_total &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">map_dbl&lt;/span>(miembros, &lt;span style="color:#f92672">~&lt;/span> &lt;span style="color:#a6e22e">sum&lt;/span>(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">ifelse&lt;/span>(.x&lt;span style="color:#f92672">$&lt;/span>edad &lt;span style="color:#f92672">&amp;lt;&lt;/span> &lt;span style="color:#ae81ff">10&lt;/span>, &lt;span style="color:#ae81ff">0.5&lt;/span>, &lt;span style="color:#ae81ff">1&lt;/span>) &lt;span style="color:#75715e"># Niños &amp;lt;10 = 0.5 AME&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> )))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Consumo aparente per cápita&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>hc_consumo_aparente &lt;span style="color:#f92672">&amp;lt;-&lt;/span> hc_nutrientes &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">left_join&lt;/span>(hogares, by &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;hogar_id&amp;#34;&lt;/span>) &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">mutate&lt;/span>(consumo_aparente &lt;span style="color:#f92672">=&lt;/span> hierro_total &lt;span style="color:#f92672">/&lt;/span> ame_total)
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="paso-5-modelado-de-escenarios-de-fortificación">Paso 5: Modelado de escenarios de fortificación&lt;/h1>
 &lt;p>&lt;strong>Concepto :&lt;/strong>&lt;/p>
 &lt;p>Simular la adición de nutrientes a alimentos (ej: hierro en harina) permite predecir impacto en la ingesta.&lt;/p>
 &lt;p>Ejemplo con &lt;strong>gtsummary&lt;/strong> :&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">library&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">gtsummary&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Escenario: Harina fortificada con +5 mg de hierro/100g&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">hc_fortificado&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">hc_nutrientes&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">mutate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hierro_total&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">ifelse&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">alimento&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s">&amp;#34;Harina fortificada&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">cantidad_g&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">hierro_mg&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="m">5&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="m">100&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">hierro_total&lt;/span>&lt;span class="p">))&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Comparación pre-post fortificación&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">tbl_summary&lt;/span>&lt;span class="p">(&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">hc_nutrientes&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span> &lt;span class="nf">select&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ingesta_hierro&lt;/span>&lt;span class="p">),&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">hc_fortificado&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span> &lt;span class="nf">select&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ingesta_hierro&lt;/span>&lt;span class="p">),&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">label&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">list&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ingesta_hierro&lt;/span> &lt;span class="o">~&lt;/span> &lt;span class="s">&amp;#34;Hierro (mg/día)&amp;#34;&lt;/span>&lt;span class="p">),&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">statistic&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">list&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ingesta_hierro&lt;/span> &lt;span class="o">~&lt;/span> &lt;span class="s">&amp;#34;{mean} ± {sd}&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">)&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(gtsummary)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Escenario: Harina fortificada con +5 mg de hierro/100g&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>hc_fortificado &lt;span style="color:#f92672">&amp;lt;-&lt;/span> hc_nutrientes &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">mutate&lt;/span>(hierro_total &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">ifelse&lt;/span>(alimento &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Harina fortificada&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> cantidad_g &lt;span style="color:#f92672">*&lt;/span> (hierro_mg &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#ae81ff">5&lt;/span>) &lt;span style="color:#f92672">/&lt;/span> &lt;span style="color:#ae81ff">100&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> hierro_total))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Comparación pre-post fortificación&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">tbl_summary&lt;/span>(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> hc_nutrientes &lt;span style="color:#f92672">%&amp;gt;%&lt;/span> &lt;span style="color:#a6e22e">select&lt;/span>(ingesta_hierro),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> hc_fortificado &lt;span style="color:#f92672">%&amp;gt;%&lt;/span> &lt;span style="color:#a6e22e">select&lt;/span>(ingesta_hierro),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> label &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">list&lt;/span>(ingesta_hierro &lt;span style="color:#f92672">~&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Hierro (mg/día)&amp;#34;&lt;/span>),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> statistic &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">list&lt;/span>(ingesta_hierro &lt;span style="color:#f92672">~&lt;/span> &lt;span style="color:#e6db74">&amp;#34;{mean} ± {sd}&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>)
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Herramientas R utilizadas :&lt;/strong>&lt;/p>
 &lt;p>&lt;strong>tidyverse :&lt;/strong> Manipulación y limpieza de datos .&lt;/p>
 &lt;p>&lt;strong>ggstatsplot :&lt;/strong> Visualización estadística rápida.&lt;/p>
@@ -1145,8 +1142,8 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;/li>
 &lt;/ul>
 &lt;p>Con &lt;code>dlookr&lt;/code>, la función &lt;code>diagnose()&lt;/code> es ideal para una revisión rápida de la calidad de los datos, mostrando el tipo de variable, el número de valores únicos, valores faltantes, valores cero y valores negativos.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Para obtener un resumen rápido de las características de los datos&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">diagnose&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_na&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Para obtener un resumen rápido de las características de los datos&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">diagnose&lt;/span>(mtcars_na)
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Esta fase nos ayuda a formar una primera hipótesis sobre la calidad y estructura de los datos, identificando posibles problemas desde el principio.&lt;/p>
 &lt;h4 id="2-identificación-y-tratamiento-de-valores-faltantes-y-atípicos">2. Identificación y Tratamiento de Valores Faltantes y Atípicos&lt;/h4>
 &lt;p>Los valores faltantes (NA, NaN, null) y los valores atípicos (outliers) son dos de los desafíos más comunes en cualquier conjunto de datos y pueden distorsionar significativamente los resultados de nuestros análisis y modelos.&lt;/p>
@@ -1187,12 +1184,12 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;/li>
 &lt;/ul>
 &lt;p>&lt;code>dlookr&lt;/code> ofrece funciones visuales y programáticas para abordar estos problemas:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Visualizar la distribución de valores faltantes&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">plot_na&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_na&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Identificar valores atípicos para una variable específica (ej. &amp;#34;hp&amp;#34;)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># plot_outlier() es excelente para visualizar.&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">plot_outlier&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_df&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;hp&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Visualizar la distribución de valores faltantes&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_na&lt;/span>(mtcars_na)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Identificar valores atípicos para una variable específica (ej. &amp;#34;hp&amp;#34;)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># plot_outlier() es excelente para visualizar.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_outlier&lt;/span>(mtcars_df, &lt;span style="color:#e6db74">&amp;#34;hp&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="3-análisis-de-la-distribución-de-las-variables">3. Análisis de la Distribución de las Variables&lt;/h3>
 &lt;p>Comprender la distribución de cada variable individualmente es clave para seleccionar los métodos estadísticos y de modelado adecuados.&lt;/p>
 &lt;p>&lt;strong>Variables Numéricas:&lt;/strong>&lt;/p>
@@ -1203,16 +1200,16 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;/ul>
 &lt;p>&lt;strong>Variables Categóricas:&lt;/strong> - &lt;strong>Gráficos de barras:&lt;/strong> Muestran la frecuencia o proporción de cada categoría. - &lt;strong>Tablas de frecuencia:&lt;/strong> Resumen el conteo y porcentaje de cada nivel.&lt;/p>
 &lt;p>&lt;code>dlookr&lt;/code> simplifica la visualización de distribuciones:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Visualizar la distribución de una variable numérica (ej. &amp;#34;mpg&amp;#34;)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">plot_hist&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_df&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;mpg&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># O ver la distribución y normalidad&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">plot_normality&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_df&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;mpg&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Para variables categóricas (como &amp;#39;cyl&amp;#39; en mtcars que es numérica discreta)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Podemos convertirla a factor para un análisis categórico.&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">mtcars_factor_cyl&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">mtcars_df&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span> &lt;span class="nf">mutate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cyl&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">as.factor&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cyl&lt;/span>&lt;span class="p">))&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">plot_bar&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_factor_cyl&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;cyl&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Visualizar la distribución de una variable numérica (ej. &amp;#34;mpg&amp;#34;)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_hist&lt;/span>(mtcars_df, &lt;span style="color:#e6db74">&amp;#34;mpg&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># O ver la distribución y normalidad&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_normality&lt;/span>(mtcars_df, &lt;span style="color:#e6db74">&amp;#34;mpg&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Para variables categóricas (como &amp;#39;cyl&amp;#39; en mtcars que es numérica discreta)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Podemos convertirla a factor para un análisis categórico.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>mtcars_factor_cyl &lt;span style="color:#f92672">&amp;lt;-&lt;/span> mtcars_df &lt;span style="color:#f92672">%&amp;gt;%&lt;/span> &lt;span style="color:#a6e22e">mutate&lt;/span>(cyl &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">as.factor&lt;/span>(cyl))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_bar&lt;/span>(mtcars_factor_cyl, &lt;span style="color:#e6db74">&amp;#34;cyl&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Este análisis nos ayuda a entender el comportamiento de cada característica y a identificar la necesidad de transformaciones futuras.&lt;/p>
 &lt;h3 id="4-análisis-de-las-relaciones-entre-las-variables">4. Análisis de las Relaciones entre las Variables&lt;/h3>
 &lt;p>Esta etapa se centra en descubrir cómo las variables interactúan entre sí. Es fundamental para la selección de características, la identificación de multicolinealidad y la comprensión de la causalidad (o correlación).&lt;/p>
@@ -1249,15 +1246,15 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;/li>
 &lt;/ul>
 &lt;p>&lt;code>dlookr&lt;/code> facilita la exploración de relaciones:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Visualizar la matriz de correlación entre todas las variables numéricas&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">plot_cor&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_df&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Analizar la relación entre una variable objetivo (&amp;#39;mpg&amp;#39;) y otra característica (&amp;#39;wt&amp;#39;)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># plot_eda() permite explorar diversas relaciones bivariadas.&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">plot_eda&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_df&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">target&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;mpg&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">feature&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;wt&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># Numérica vs Numérica (scatterplot)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Relación entre &amp;#39;mpg&amp;#39; (numérica) y &amp;#39;cyl&amp;#39; (considerada categórica aquí)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">plot_eda&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_df&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">target&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;mpg&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">feature&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;cyl&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># Numérica vs Categórica (boxplot)&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Visualizar la matriz de correlación entre todas las variables numéricas&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_cor&lt;/span>(mtcars_df)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Analizar la relación entre una variable objetivo (&amp;#39;mpg&amp;#39;) y otra característica (&amp;#39;wt&amp;#39;)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># plot_eda() permite explorar diversas relaciones bivariadas.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_eda&lt;/span>(mtcars_df, target &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;mpg&amp;#34;&lt;/span>, feature &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;wt&amp;#34;&lt;/span>) &lt;span style="color:#75715e"># Numérica vs Numérica (scatterplot)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Relación entre &amp;#39;mpg&amp;#39; (numérica) y &amp;#39;cyl&amp;#39; (considerada categórica aquí)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_eda&lt;/span>(mtcars_df, target &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;mpg&amp;#34;&lt;/span>, feature &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;cyl&amp;#34;&lt;/span>) &lt;span style="color:#75715e"># Numérica vs Categórica (boxplot)&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="5-transformación-de-los-datos">5. Transformación de los Datos&lt;/h3>
 &lt;p>Una vez que hemos comprendido nuestros datos, es posible que necesitemos transformarlos para que sean más adecuados para los algoritmos de machine learning o para mejorar el rendimiento del modelo.&lt;/p>
 &lt;ul>
@@ -1290,19 +1287,19 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;/li>
 &lt;/ul>
 &lt;p>&lt;code>dlookr&lt;/code> ofrece funciones útiles para la transformación de datos:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Transformación logarítmica para reducir la asimetría de una variable&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">mtcars_transformed_log&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">transform_df&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_df&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">mpg&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mpg&lt;/span>&lt;span class="p">))&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Compara la distribución de mpg original vs. transformada&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">plot_normality&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_df&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;mpg&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">plot_normality&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_transformed_log&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;mpg&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Binarización o discretización de una variable continua (ej. &amp;#39;hp&amp;#39; en 3 bins)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">mtcars_binned&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">binning&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_df&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;hp&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">3&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">head&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_binned&lt;/span> &lt;span class="o">%&amp;gt;%&lt;/span> &lt;span class="nf">select&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hp&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">hp_Binned&lt;/span>&lt;span class="p">))&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Estandarización de variables numéricas (Z-score)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">mtcars_scaled&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_df&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">method&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;scale&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">head&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars_scaled&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># Observa cómo los valores de todas las columnas han cambiado&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Transformación logarítmica para reducir la asimetría de una variable&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>mtcars_transformed_log &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">transform_df&lt;/span>(mtcars_df, mpg &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">log&lt;/span>(mpg))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Compara la distribución de mpg original vs. transformada&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_normality&lt;/span>(mtcars_df, &lt;span style="color:#e6db74">&amp;#34;mpg&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_normality&lt;/span>(mtcars_transformed_log, &lt;span style="color:#e6db74">&amp;#34;mpg&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Binarización o discretización de una variable continua (ej. &amp;#39;hp&amp;#39; en 3 bins)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>mtcars_binned &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">binning&lt;/span>(mtcars_df, &lt;span style="color:#e6db74">&amp;#34;hp&amp;#34;&lt;/span>, n &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">3&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">head&lt;/span>(mtcars_binned &lt;span style="color:#f92672">%&amp;gt;%&lt;/span> &lt;span style="color:#a6e22e">select&lt;/span>(hp, hp_Binned))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Estandarización de variables numéricas (Z-score)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>mtcars_scaled &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">normalize&lt;/span>(mtcars_df, method &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;scale&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">head&lt;/span>(mtcars_scaled) &lt;span style="color:#75715e"># Observa cómo los valores de todas las columnas han cambiado&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="herramientas-populares-para-eda">Herramientas Populares para EDA&lt;/h2>
 &lt;p>Para realizar un EDA efectivo, contamos con potentes herramientas en lenguajes como R y Python:&lt;/p>
 &lt;ul>
@@ -1540,94 +1537,94 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;h2 id="sec-1">1. Definición del problema e inspección de datos&lt;/h2>
 &lt;p>El primer paso en cualquier proyecto de modelado es definir claramente el problema de investigación y seleccionar la variable de resultado adecuada.&lt;/p>
 &lt;p>Durante esta fase, también realizamos un análisis exploratorio de datos (EDA) para comprender las características de las variables y detectar posibles problemas, como datos atípicos o valores faltantes.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Instalación y Carga de Librerías&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">library&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">caret&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## Loading required package: ggplot2
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## Loading required package: lattice
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">library&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">MLDataR&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># para utilizar la biblioteca diabetes_data&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">library&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">dplyr&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">##
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Attaching package: &amp;#39;dplyr&amp;#39;
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## The following objects are masked from &amp;#39;package:stats&amp;#39;:
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">##
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## filter, lag
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## The following objects are masked from &amp;#39;package:base&amp;#39;:
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">##
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## intersect, setdiff, setequal, union
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">library&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">dlookr&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># para EDA&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## Registered S3 methods overwritten by &amp;#39;dlookr&amp;#39;:
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## method from
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## plot.transform scales
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## print.transform scales
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## Because it is an offline environment, only offline fonts are imported.
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">##
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Attaching package: &amp;#39;dlookr&amp;#39;
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## The following object is masked from &amp;#39;package:base&amp;#39;:
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">##
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## transform
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">library&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">predtools&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Cargar el conjunto de datos&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">data&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;gusto&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">gusto&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">gusto&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># EDA&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">descripcion&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">overview&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">gusto&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">summary&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">descripcion&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># descripción general del conjunto de datos&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## ── Data Scale ────────────────────────────────────────────── &lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## • Number of observations : 40,830&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## • Number of variables : 29&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## • Number of values : 1,184,070&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## • Size of located memory(bytes) : 5,241,552 &lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## &lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## ── Duplicated Data ───────────────────────────────────────── &lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## • Number of duplicated observations : 4 (0.01%) &lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## &lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## ── Missing Data ──────────────────────────────────────────── &lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## • Number of completed observations : 30,510&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## • Number of observations with NA : 10,320 (25.28%)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## • Number of variables with NA : 1&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## • Number of NA : 10,320 &lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## &lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## ── Data Type ─────────────────────────────────────────────── &lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## • Number of numeric variables : 1&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## • Number of integer variables : 13&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## • Number of factors variables : 0&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## • Number of character variables : 0&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## • Number of Date variables : 0&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## • Number of POSIXct variables : 0&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## • Number of other variables : 15 &lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## &lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## ── Individual variables ──────────────────────────────────── &lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## Variables Data Type&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 1 day30 integer&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 2 sho integer&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 3 hig integer&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 4 dia labelled&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 5 hyp integer&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 6 hrt integer&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 7 ttr labelled&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 8 sex labelled&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 9 Killip labelled&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 10 age numeric&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 11 ste labelled&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 12 pulse labelled&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 13 sysbp labelled&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 14 ant integer&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 15 miloc labelled&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 16 height labelled&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 17 weight labelled&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 18 pmi labelled&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 19 htn labelled&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 20 smk labelled&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 21 pan integer&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 22 fam labelled&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 23 prevcvd integer&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 24 prevcabg integer&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 25 regl integer&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 26 grpl integer&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 27 grps integer&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 28 tpa integer&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## 29 tx labelled&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Para conocer más detalles sobre el proceso de ¨Exploratory Data Analysis (EDA)¨ ver la publicación dedicada a este tema.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Instalación y Carga de Librerías&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(caret)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;pre tabindex="0">&lt;code>## Loading required package: ggplot2
+&lt;/code>&lt;/pre>&lt;pre tabindex="0">&lt;code>## Loading required package: lattice
+&lt;/code>&lt;/pre>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(MLDataR) &lt;span style="color:#75715e"># para utilizar la biblioteca diabetes_data&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(dplyr)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;pre tabindex="0">&lt;code>##
+## Attaching package: &amp;#39;dplyr&amp;#39;
+&lt;/code>&lt;/pre>&lt;pre tabindex="0">&lt;code>## The following objects are masked from &amp;#39;package:stats&amp;#39;:
+##
+## filter, lag
+&lt;/code>&lt;/pre>&lt;pre tabindex="0">&lt;code>## The following objects are masked from &amp;#39;package:base&amp;#39;:
+##
+## intersect, setdiff, setequal, union
+&lt;/code>&lt;/pre>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(dlookr) &lt;span style="color:#75715e"># para EDA&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;pre tabindex="0">&lt;code>## Registered S3 methods overwritten by &amp;#39;dlookr&amp;#39;:
+## method from
+## plot.transform scales
+## print.transform scales
+&lt;/code>&lt;/pre>&lt;pre tabindex="0">&lt;code>## Because it is an offline environment, only offline fonts are imported.
+&lt;/code>&lt;/pre>&lt;pre tabindex="0">&lt;code>##
+## Attaching package: &amp;#39;dlookr&amp;#39;
+&lt;/code>&lt;/pre>&lt;pre tabindex="0">&lt;code>## The following object is masked from &amp;#39;package:base&amp;#39;:
+##
+## transform
+&lt;/code>&lt;/pre>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(predtools)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Cargar el conjunto de datos&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">data&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;gusto&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>gusto &lt;span style="color:#f92672">&amp;lt;-&lt;/span> gusto
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># EDA&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>descripcion &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">overview&lt;/span>(gusto)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">summary&lt;/span>(descripcion) &lt;span style="color:#75715e"># descripción general del conjunto de datos&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;pre tabindex="0">&lt;code>## ── Data Scale ──────────────────────────────────────────────
+## • Number of observations : 40,830
+## • Number of variables : 29
+## • Number of values : 1,184,070
+## • Size of located memory(bytes) : 5,241,552
+##
+## ── Duplicated Data ─────────────────────────────────────────
+## • Number of duplicated observations : 4 (0.01%)
+##
+## ── Missing Data ────────────────────────────────────────────
+## • Number of completed observations : 30,510
+## • Number of observations with NA : 10,320 (25.28%)
+## • Number of variables with NA : 1
+## • Number of NA : 10,320
+##
+## ── Data Type ───────────────────────────────────────────────
+## • Number of numeric variables : 1
+## • Number of integer variables : 13
+## • Number of factors variables : 0
+## • Number of character variables : 0
+## • Number of Date variables : 0
+## • Number of POSIXct variables : 0
+## • Number of other variables : 15
+##
+## ── Individual variables ────────────────────────────────────
+## Variables Data Type
+## 1 day30 integer
+## 2 sho integer
+## 3 hig integer
+## 4 dia labelled
+## 5 hyp integer
+## 6 hrt integer
+## 7 ttr labelled
+## 8 sex labelled
+## 9 Killip labelled
+## 10 age numeric
+## 11 ste labelled
+## 12 pulse labelled
+## 13 sysbp labelled
+## 14 ant integer
+## 15 miloc labelled
+## 16 height labelled
+## 17 weight labelled
+## 18 pmi labelled
+## 19 htn labelled
+## 20 smk labelled
+## 21 pan integer
+## 22 fam labelled
+## 23 prevcvd integer
+## 24 prevcabg integer
+## 25 regl integer
+## 26 grpl integer
+## 27 grps integer
+## 28 tpa integer
+## 29 tx labelled
+&lt;/code>&lt;/pre>&lt;p>Para conocer más detalles sobre el proceso de ¨Exploratory Data Analysis (EDA)¨ ver la publicación dedicada a este tema.&lt;/p>
 &lt;h2 id="sec-2">2. Codificación de las Variables Predictoras&lt;/h2>
 &lt;p>La codificación adecuada de las variables predictoras es fundamental para construir modelos robustos. En este estudio, se utilizaron técnicas como la agrupación de categorías poco frecuentes y la creación de predictores resúmenes para simplificar información correlacionada. Además, cuando las relaciones entre variables no son lineales, aplicamos herramientas como splines cúbicos restringidos , que permiten capturar patrones complejos sin comprometer la precisión del modelo.&lt;/p>
 &lt;h2 id="sec-3">3 .Especificación del Tipo de Modelo&lt;/h2>
