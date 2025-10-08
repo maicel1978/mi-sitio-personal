@@ -5,116 +5,23 @@ type: page
 summary: "Recibe los nuevos artículos directamente en tu correo"
 ---
 
-<style>
-/* Variables para facilitar la personalización */
-:root {
-  --main-bg-color: #ffffff;
-  --text-color: #374151;
-  --main-brand-color: #0d9488; /* Un verde azulado limpio */
-  --light-border-color: #e5e7eb;
-}
+## 📧 Suscripción por Correo Electrónico
 
-.minimal-subscription-section {
-  max-width: 400px;
-  margin: 3rem auto;
-  padding: 1.5rem;
-  text-align: center;
-  background: var(--main-bg-color);
-  border: 1px solid var(--light-border-color);
-  border-radius: 0.5rem;
-  font-family: system-ui, sans-serif;
-}
+Recibe nuestros nuevos artículos directamente en tu bandeja de entrada. Es la manera más sencilla de no perderte ninguna publicación.
 
-.minimal-subscription-section h2 {
-  color: var(--main-brand-color);
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-  font-size: 1.5rem;
-}
+<script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '1837025');
+</script>
 
-.minimal-subscription-section p {
-  color: var(--text-color);
-  margin-bottom: 1.5rem;
-}
+<div class="ml-embedded" data-form="FBRJZM"></div>
 
-.form-group {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-}
+------------------------------------------------------------------------
 
-.email-input {
-  flex: 1;
-  padding: 0.6rem 0.75rem;
-  border: 1px solid var(--light-border-color);
-  border-radius: 0.3rem;
-  font-size: 1rem;
-  outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
+## 📰 Suscripción por Feed RSS
 
-/* Efecto de foco solo con CSS */
-.email-input:focus {
-  border-color: var(--main-brand-color);
-  box-shadow: 0 0 0 2px rgba(13, 148, 136, 0.2);
-}
-
-.submit-button {
-  background: var(--main-brand-color);
-  color: white;
-  border: none;
-  padding: 0.6rem 1.25rem;
-  border-radius: 0.3rem;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background 0.2s;
-}
-
-/* Efecto de hover solo con CSS */
-.submit-button:hover {
-  background: #0f766e; /* Un tono más oscuro */
-}
-
-.disclaimer {
-  font-size: 0.875rem;
-  color: #9ca3af;
-  margin-top: 1rem;
-}
-</style>
-
-<div class="container">
-<section class="minimal-subscription-section">
-  <h2>Recibe Nuestro Contenido</h2>
-  <p>
-    Suscríbete y recibe las últimas publicaciones directamente en tu correo.
-  </p>
-
-  <form name="suscripcion_es" method="POST" data-netlify="true">
-    <div class="form-group">
-      <input 
-        type="email" 
-        name="email" 
-        placeholder="tu@correo.com" 
-        required 
-        class="email-input"
-      >
-      <button 
-        type="submit" 
-        class="submit-button"
-      >
-        Suscribirse
-      </button>
-    </div>
-  </form>
-
-  <p class="disclaimer">
-    Cero spam. Cancela cuando quieras.
-  </p>
-</section>
-</div>
-
-Si prefieres usar un lector de noticias como **Feedly o Inoreader**, puedes suscribirte directamente a nuestros **feeds** oficiales.
-
-{{< icon name="rss" pack="fas" title="RSS en Español" >}} 
-[Suscribirse al Feed](/post/index.xml)
+Para los usuarios que prefieren la lectura en agregadores de noticias dedicados, ofrecemos nuestro [Feed RSS](/post/index.xml).
 
