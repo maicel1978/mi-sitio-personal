@@ -30,7 +30,8 @@ education:
     date_start: '1997-09-01'
     institution: Instituto Superior de Ciencias médicas de Villa Clara
     summary: |
-      -Carrera de Medicina
+      - Fecha de inicio:  *1 de septiembre de 1997*
+      - Fecha de graduación: *8 de julio de 2003*
   - area: Máster en Informática en Salud
     button:
       text: Leer tesis
@@ -39,7 +40,9 @@ education:
     date_start: '2004-09-01'
     institution: Centro de Cibernética Aplicada a la Medicina (CECAM)
     summary: |
-      Tesis sobre _Simulaciones de casos_. Supervisada por [Prof Luis Corona]. 
+      - Fecha de inicio:  *9 de septiembre de 2004*
+      - Fecha de graduación:  *18 de enero de 2007*
+      - Tesis sobre _Simed, Sistema para entrenamiento en línea del proceso de atención médica mediante simulaciones de casos._ Supervisada por [Prof Luis Corona].
   - area: Especialista de Primer Grado en Bioestadística
     button:
       text: Leer tesis
@@ -48,13 +51,15 @@ education:
     date_start: '2005-01-01'
     institution: Escuela Nacional de Salud Pública
     summary: |
-      Tesis sobre _Dinamica no lineal en enfermedades de declaración obligatorias_. Supervisada por [Prof Herdandez Cáceres].
+      - Fecha de inicio:  *1 de enero de 2005*
+      - Fecha de graduación:  *12 de diciembre de 2008*    
+      - Tesis sobre _Dinamica no lineal en enfermedades de declaración obligatorias_. Supervisada por [Prof Herdandez Cáceres].
   - area: Especialista de Segundo Grado en Bioestadística
     date_end: '2023-04-18'
     date_start: '2021-01-01'
     institution: Escuela Nacional de Salud Pública
     summary: |
-      - Ejercicio de especialidad de segundo grado 
+      - Fecha del ejercicio: *18 de abril de 2023*
   - area: Doctor en Ciencias Médicas
     button:
       text: Leer tesis
@@ -63,7 +68,8 @@ education:
     date_start: '2022-10-01'
     institution: Universidad de Ciencias Médicas de La Habana
     summary: |
-       Tesis sobre _Modelos de predicción clínica para la estimación y clasificación del riesgo de muerte con COVID-19 _.
+      - Fecha del ejercicio: *22 de marzo de 2025*
+      - Tesis sobre _Modelos de predicción clínica para la estimación y clasificación del riesgo de muerte con COVID-19_. Supervisada por [Prof Lisset Sánchez]
 first_name: Maicel Eugenio
 highlight_name: yes
 interests:
