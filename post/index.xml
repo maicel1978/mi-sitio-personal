@@ -1,1217 +1,464 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog | Bioestadística edu</title><link>https://maicel.netlify.app/post/</link><atom:link href="https://maicel.netlify.app/post/index.xml" rel="self" type="application/rss+xml"/><description>Blog</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Sat, 04 Oct 2025 00:00:00 +0000</lastBuildDate><image><url>https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png</url><title>Blog</title><link>https://maicel.netlify.app/post/</link></image><item><title>¿Escribir ciencia o reescribir la realidad?</title><link>https://maicel.netlify.app/post/imryd-redaccion-inversa/</link><pubDate>Sat, 04 Oct 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/imryd-redaccion-inversa/</guid><description>&lt;h1 id="introducción">Introducción&lt;/h1>
-&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
-&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
-&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
-&lt;/span>
-&lt;span class="dark:text-neutral-300">&amp;ldquo;¿Y si escribimos al revés? No de la Introducción a los hallazgos, sino de los hallazgos a la Introducción.&amp;rdquo;&lt;/span>
-&lt;/div>
-&lt;p>&lt;strong>IMRyD —Introducción, Métodos, Resultados y Discusión—&lt;/strong> funciona como un bien público editorial: estandariza, facilita la revisión y permite comparar artículos.
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blog | Bioestadística edu</title>
+    <link>https://maicel.netlify.app/post/</link>
+      <atom:link href="https://maicel.netlify.app/post/index.xml" rel="self" type="application/rss+xml" />
+    <description>Blog</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Sat, 04 Oct 2025 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png</url>
+      <title>Blog</title>
+      <link>https://maicel.netlify.app/post/</link>
+    </image>
+    
+    <item>
+      <title>¿Escribir ciencia o reescribir la realidad?</title>
+      <link>https://maicel.netlify.app/post/imryd-redaccion-inversa/</link>
+      <pubDate>Sat, 04 Oct 2025 00:00:00 +0000</pubDate>
+      <guid>https://maicel.netlify.app/post/imryd-redaccion-inversa/</guid>
+      <description>&lt;h1 id=&#34;introducción&#34;&gt;Introducción&lt;/h1&gt;
+&lt;div class=&#34;flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900&#34;&gt;
+&lt;span class=&#34;pr-3 pt-1 text-primary-600 dark:text-primary-300&#34;&gt;
+  &lt;svg height=&#34;24&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 24 24&#34;&gt;&lt;path fill=&#34;none&#34; stroke=&#34;currentColor&#34; stroke-linecap=&#34;round&#34; stroke-linejoin=&#34;round&#34; stroke-width=&#34;1.5&#34; d=&#34;m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z&#34;/&gt;&lt;/svg&gt;
+&lt;/span&gt;
+  &lt;span class=&#34;dark:text-neutral-300&#34;&gt;&amp;ldquo;¿Y si escribimos al revés? No de la Introducción a los hallazgos, sino de los hallazgos a la Introducción.&amp;rdquo;&lt;/span&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;IMRyD —Introducción, Métodos, Resultados y Discusión—&lt;/strong&gt; funciona como un bien público editorial: estandariza, facilita la revisión y permite comparar artículos.
 Además, comenzar por el problema científico importa: formularlo bien equivale a haber recorrido media solución (1).
-Este post no propone abandonar &lt;strong>IMRyD&lt;/strong>, sino distinguir dos órdenes complementarios:&lt;/p>
-&lt;ul>
-&lt;li>
-&lt;p>&lt;strong>Orden de publicación (IMRyD):&lt;/strong> útil para evaluación y recuperación de información&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Orden de redacción (guiada por hallazgos):&lt;/strong> útil para alinear el relato con lo que realmente aprendimos y separar lo confirmatorio de lo exploratorio (2,3).&lt;/p>
-&lt;/li>
-&lt;/ul>
-&lt;p>&lt;strong>En la práctica:&lt;/strong> redacta primero los &lt;strong>resultados&lt;/strong> clave (estimaciones, intervalos de confianza, relevancia), después la &lt;strong>Discusión&lt;/strong> (plausibilidad, sesgos, sensibilidad), luego &lt;strong>Métodos&lt;/strong> con transparencia radical (qué estaba preespecificado, qué cambió y por qué), y cierra con una &lt;strong>Introducción&lt;/strong> breve y precisa al problema (formular preguntas o hipótesis) que realmente se ajusta los resultados.
-El formato final sigue siendo &lt;strong>IMRyD&lt;/strong>.&lt;/p>
-&lt;h1 id="cuándo-sí-y-cuándo-no">Cuándo sí y cuándo no&lt;/h1>
-&lt;p>&lt;strong>Conviene:&lt;/strong> estudios observacionales, análisis secundarios, descubrimientos no previstos, ciencia de datos aplicada donde la iteración es inevitable.&lt;/p>
-&lt;p>&lt;strong>Precaución/No conviene:&lt;/strong> Registered Reports, ensayos confirmatorios con plan de análisis estadístico (PAE) preespecificado (CONSORT), revisiones sistemáticas con protocolo (PRISMA).
-En estos casos, mantén la primacía del plan y señala lo exploratorio como tal (4,5).&lt;/p>
-&lt;h1 id="objeciones-críticas-y-respuestas-con-evidencia">Objeciones críticas (y respuestas con evidencia)&lt;/h1>
-&lt;p>&lt;strong>“Esto fomenta HARKing.”&lt;/strong>&lt;/p>
-&lt;p>&lt;strong>Respuesta:&lt;/strong> justo lo contrario si se exige señalización explícita y materiales abiertos.
-&lt;em>HARKing es ocultar; aquí pedimos diferenciar confirmatorio vs. exploratorio y documentar cambios (6-8).&lt;/em>&lt;/p>
-&lt;p>&lt;strong>“La Introducción pierde su papel.”&lt;/strong>&lt;/p>
-&lt;p>&lt;strong>Respuesta:&lt;/strong> se fortalece.
-&lt;em>Enmarca el problema real que la evidencia iluminó, sin forzar una cronología ficticia.ICMJE promueve IMRAD para claridad, no para reescribir la historia (9).&lt;/em>&lt;/p>
-&lt;p>&lt;strong>“Los editores piden IMRyD estricto.”&lt;/strong>&lt;/p>
-&lt;p>&lt;strong>Respuesta:&lt;/strong> lo mantenemos.
-&lt;em>Cambia el flujo de trabajo, no la macroestructura. Además, TOP y prácticas abiertas refuerzan la confianza editorial (10).&lt;/em>&lt;/p>
-&lt;p>&lt;strong>“Se sobrevaloran resultados inesperados.”&lt;/strong>&lt;/p>
-&lt;p>&lt;strong>Respuesta:&lt;/strong> exige sensibilidad, controles negativos, replicación y no fetichizar p&amp;lt;0,05&lt;/p>
-&lt;h1 id="checklist-de-transparencia">Checklist de transparencia&lt;/h1>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>Elemento&lt;/th>
-&lt;th>Confirmatorio&lt;/th>
-&lt;th>Exploratorio&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>Especificación previa&lt;/td>
-&lt;td>Protocolo/SAP enlazado&lt;/td>
-&lt;td>No preespecificado (justificación)&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>Resultados&lt;/td>
-&lt;td>Etiquetados como preespecificados&lt;/td>
-&lt;td>Etiquetados como post hoc&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>Análisis&lt;/td>
-&lt;td>Según plan&lt;/td>
-&lt;td>Limitados, con sensibilidad&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>Recursos abiertos&lt;/td>
-&lt;td>Datos/código/cuaderno&lt;/td>
-&lt;td>Código y criterios documentados&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;h2 id="conclusión">Conclusión&lt;/h2>
-&lt;p>IMRyD ordena y hace comparables nuestros artículos.
+Este post no propone abandonar &lt;strong&gt;IMRyD&lt;/strong&gt;, sino distinguir dos órdenes complementarios:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Orden de publicación (IMRyD):&lt;/strong&gt; útil para evaluación y recuperación de información&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Orden de redacción (guiada por hallazgos):&lt;/strong&gt; útil para alinear el relato con lo que realmente aprendimos y separar lo confirmatorio de lo exploratorio (2,3).&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;En la práctica:&lt;/strong&gt; redacta primero los &lt;strong&gt;resultados&lt;/strong&gt; clave (estimaciones, intervalos de confianza, relevancia), después la &lt;strong&gt;Discusión&lt;/strong&gt; (plausibilidad, sesgos, sensibilidad), luego &lt;strong&gt;Métodos&lt;/strong&gt; con transparencia radical (qué estaba preespecificado, qué cambió y por qué), y cierra con una &lt;strong&gt;Introducción&lt;/strong&gt; breve y precisa al problema (formular preguntas o hipótesis) que realmente se ajusta los resultados.
+El formato final sigue siendo &lt;strong&gt;IMRyD&lt;/strong&gt;.&lt;/p&gt;
+&lt;h1 id=&#34;cuándo-sí-y-cuándo-no&#34;&gt;Cuándo sí y cuándo no&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;Conviene:&lt;/strong&gt; estudios observacionales, análisis secundarios, descubrimientos no previstos, ciencia de datos aplicada donde la iteración es inevitable.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Precaución/No conviene:&lt;/strong&gt; Registered Reports, ensayos confirmatorios con plan de análisis estadístico (PAE) preespecificado (CONSORT), revisiones sistemáticas con protocolo (PRISMA).
+En estos casos, mantén la primacía del plan y señala lo exploratorio como tal (4,5).&lt;/p&gt;
+&lt;h1 id=&#34;objeciones-críticas-y-respuestas-con-evidencia&#34;&gt;Objeciones críticas (y respuestas con evidencia)&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;“Esto fomenta HARKing.”&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Respuesta:&lt;/strong&gt; justo lo contrario si se exige señalización explícita y materiales abiertos.
+&lt;em&gt;HARKing es ocultar; aquí pedimos diferenciar confirmatorio vs. exploratorio y documentar cambios (6-8).&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;“La Introducción pierde su papel.”&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Respuesta:&lt;/strong&gt; se fortalece.
+&lt;em&gt;Enmarca el problema real que la evidencia iluminó, sin forzar una cronología ficticia.ICMJE promueve IMRAD para claridad, no para reescribir la historia (9).&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;“Los editores piden IMRyD estricto.”&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Respuesta:&lt;/strong&gt; lo mantenemos.
+&lt;em&gt;Cambia el flujo de trabajo, no la macroestructura. Además, TOP y prácticas abiertas refuerzan la confianza editorial (10).&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;“Se sobrevaloran resultados inesperados.”&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Respuesta:&lt;/strong&gt; exige sensibilidad, controles negativos, replicación y no fetichizar p&amp;lt;0,05&lt;/p&gt;
+&lt;h1 id=&#34;checklist-de-transparencia&#34;&gt;Checklist de transparencia&lt;/h1&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;Elemento&lt;/th&gt;
+          &lt;th&gt;Confirmatorio&lt;/th&gt;
+          &lt;th&gt;Exploratorio&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Especificación previa&lt;/td&gt;
+          &lt;td&gt;Protocolo/SAP enlazado&lt;/td&gt;
+          &lt;td&gt;No preespecificado (justificación)&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Resultados&lt;/td&gt;
+          &lt;td&gt;Etiquetados como preespecificados&lt;/td&gt;
+          &lt;td&gt;Etiquetados como post hoc&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Análisis&lt;/td&gt;
+          &lt;td&gt;Según plan&lt;/td&gt;
+          &lt;td&gt;Limitados, con sensibilidad&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Recursos abiertos&lt;/td&gt;
+          &lt;td&gt;Datos/código/cuaderno&lt;/td&gt;
+          &lt;td&gt;Código y criterios documentados&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;conclusión&#34;&gt;Conclusión&lt;/h2&gt;
+&lt;p&gt;IMRyD ordena y hace comparables nuestros artículos.
 Integrar una redacción guiada por hallazgos es una forma moderada y práctica de ganar honestidad, utilidad y trazabilidad, sin sacrificar rigor metodológico ni claridad editorial.
-En algunos contextos —sobre todo exploratorios— puede ser la diferencia entre un relato fiel al descubrimiento y una cronología ficticia.&lt;/p>
-&lt;h1 id="recursos-adicionales">Recursos adicionales&lt;/h1>
-&lt;p>🎧 &lt;strong>Escucha el podcast de esta publicación&lt;/strong>
-&lt;audio controls >
-&lt;source src="https://maicel.netlify.app/mp3/Post_IMRyD.mp3" type="audio/mpeg">
-&lt;/audio>
-&lt;/p>
-&lt;h1 id="bibliografía">Bibliografía&lt;/h1>
-&lt;ol>
-&lt;li>
-&lt;p>Pólya G. How to solve it. Princeton University Press; 1945.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Kerr NL. HARKing: Hypothesizing after the results are known. Personality and Social Psychology Review. 1998;2(3):196-217.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Gelman A, Loken E. The garden of forking paths: Why multiple comparisons can be a problem [Internet]. 2013. Disponible en: &lt;a href="https://stat.columbia.edu/~gelman/research/unpublished/p_hacking.pdf" target="_blank" rel="noopener">https://stat.columbia.edu/~gelman/research/unpublished/p_hacking.pdf&lt;/a>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Schulz KF, Altman DG, Moher D. CONSORT 2010 statement. BMJ. 2010;340:c332.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Page MJ, McKenzie JE, Bossuyt PM, others. The PRISMA 2020 statement. BMJ. 2021;372:n71.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Munafò MR, Nosek BA, Bishop DVM, others. A manifesto for reproducible science. Nature Human Behaviour. 2017;1:0021.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Nosek BA, Ebersole CR, DeHaven AC, Mellor DT. The preregistration revolution. PNAS. 2018;115(11):2600-6.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>International Committee of Medical Journal Editors. Recommendations for the conduct, reporting, editing, and publication of scholarly work in medical journals. 2019; Disponible en: &lt;a href="http://www.icmje.org/recommendations/" target="_blank" rel="noopener">http://www.icmje.org/recommendations/&lt;/a>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Nosek BA, others. Promoting an open research culture (TOP Guidelines). Science. 2015;348(6242):1422-5.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Wasserstein RL, Lazar NA. The asa’s statement on p-Values: Context, process, and purpose. The American Statistician. 2016;70(2):129-33.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Wasserstein RL, Schirm AL, Lazar NA. Moving to a world beyond “p ¡ 0.05”. The American Statistician. 2019;73(sup1):1-19.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>McShane BB, Gal D, Gelman A, Robert C, Tackett JL. Abandon statistical significance. The American Statistician. 2019;73(sup1):235-45.&lt;/p>
-&lt;/li>
-&lt;/ol></description></item><item><title>Las trampas de la correlación disfrazada de causalidad</title><link>https://maicel.netlify.app/post/trampas-correlacion/</link><pubDate>Wed, 24 Sep 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/trampas-correlacion/</guid><description>&lt;p>El ojo humano ama los patrones: ver dos líneas que se mueven juntas y concluir que una provoca la otra. La estadística, mal interpretada, a veces alimenta esa ilusión. La correlación es apenas la danza conjunta de dos variables, no una flecha de causa. Y, sin embargo, titulares, políticas y hasta decisiones médicas se sostienen sobre esta trampa.&lt;/p>
-&lt;h1 id="1-correlaciones-curiosas-pero-falsas">1) Correlaciones curiosas (pero falsas)&lt;/h1>
-&lt;ul>
-&lt;li>
-&lt;p>&lt;strong>Helados y ahogamientos.&lt;/strong> En verano, ambos aumentan. No porque el helado mate, sino porque el calor atrae bañistas y heladeros.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Cigüeñas y natalidad.&lt;/strong> En pueblos europeos, donde hay más cigüeñas, también hay más nacimientos… simplemente porque se trata de áreas rurales más fértiles, no porque las aves traigan bebés.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Películas de Nicolas Cage y ahogamientos en piscinas.&lt;/strong> Ejemplo clásico de correlaciones espurias recopiladas por Tyler Vigen: cómico, pero ilustrativo.&lt;/p>
-&lt;/li>
-&lt;/ul>
-&lt;hr>
-&lt;h2 id="2-la-correlación-y-su-impacto-en-la-toma-de-decisiones">2) La correlación y su impacto en la toma de decisiones&lt;/h2>
-&lt;p>La confusión entre causalidad y correlación no es solo un chiste; tiene consecuencias graves.&lt;/p>
-&lt;p>&lt;strong>Política pública:&lt;/strong> Un estudio muestra que los países con más médicos per cápita tienen más diagnósticos de cáncer. Conclusión errada: “los médicos causan cáncer”. Realidad: mayor densidad médica implica mejor detección.&lt;/p>
-&lt;p>&lt;strong>Falacia de la causa inversa:&lt;/strong> Niños con bajo rendimiento escolar pasan más horas frente a la televisión. ¿La TV los perjudica? ¿O los niños con dificultades recurren más a ella? La dirección de la causalidad puede invertirse fácilmente.&lt;/p>
-&lt;hr>
-&lt;h1 id="3-qué-mide-realmente-la-correlación">3) &lt;strong>¿Qué mide realmente la correlación?&lt;/strong>&lt;/h1>
-&lt;ul>
-&lt;li>El &lt;strong>coeficiente de correlación (r)&lt;/strong> mide la fuerza y dirección de la relación entre dos variables.&lt;/li>
-&lt;li>Sus valores van de &lt;strong>-1 a +1&lt;/strong>:
-&lt;ul>
-&lt;li>+1 → relación positiva perfecta&lt;/li>
-&lt;li>-1 → relación negativa perfecta&lt;/li>
-&lt;li>0 → ausencia de relación lineal&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
-&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
-&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
-&lt;/span>
-&lt;span class="dark:text-neutral-300">&lt;strong>Advertencia:&lt;/strong> un r alto no significa causalidad. Puede deberse a &lt;strong>confusores&lt;/strong>, &lt;strong>azar&lt;/strong> o &lt;strong>causalidad inversa&lt;/strong>.&lt;/span>
-&lt;/div>
-&lt;hr>
-&lt;h1 id="4-tipos-de-coeficientes-de-correlación-más-allá-de-pearson">4) Tipos de coeficientes de correlación (más allá de Pearson)&lt;/h1>
-&lt;p>
-&lt;figure >
-&lt;div class="flex justify-center ">
-&lt;div class="w-100" >&lt;img alt="" srcset="
-/post/trampas-correlacion/correlacion_hu_c614a73ad03379b6.webp 400w,
-/post/trampas-correlacion/correlacion_hu_e6f9def3a13f9eea.webp 760w,
-/post/trampas-correlacion/correlacion_hu_dedc904516865376.webp 1200w"
-src="https://maicel.netlify.app/post/trampas-correlacion/correlacion_hu_c614a73ad03379b6.webp"
-width="507"
-height="760"
-loading="lazy" data-zoomable />&lt;/div>
-&lt;/div>&lt;/figure>
-&lt;/p>
-&lt;hr>
-&lt;h1 id="5-causalidad-un-desafío-que-exige-rigurosidad">5) &lt;strong>Causalidad:&lt;/strong> un desafío que exige rigurosidad&lt;/h1>
-&lt;p>Identificar la causalidad no se improvisa. Requiere algo más que una simple correlación. Exige un diseño experimental riguroso, criterios de Bradford Hill y construcción de modelos causales. La estadística sugiere, pero no prueba por sí sola.&lt;/p>
-&lt;hr>
-&lt;h1 id="6-metáfora-para-recordar">6) Metáfora para recordar&lt;/h1>
-&lt;p>Piensa en la correlación como ver dos hojas que caen juntas en otoño. Creer que una arrastra a la otra es ignorar el viento invisible que las mueve a ambas.&lt;/p>
-&lt;hr>
-&lt;h1 id="7-checklist-para-evitar-caer-en-la-trampa">7) Checklist para evitar caer en la trampa&lt;/h1>
-&lt;ol>
-&lt;li>¿Existe una variable oculta (confusor) que explique la relación? ✔&lt;/li>
-&lt;li>¿Podría la causalidad ir en sentido contrario? ✔&lt;/li>
-&lt;li>¿El diseño permite concluir causa o solo asociación? ✔&lt;/li>
-&lt;li>¿Hay criterios teóricos/experimentales que respalden esta relación? ✔&lt;/li>
-&lt;li>¿Se comunicó claramente que es correlación, no causalidad? ✔&lt;/li>
-&lt;/ol>
-&lt;hr>
-&lt;h1 id="bibliografía">Bibliografía&lt;/h1>
-&lt;p>Silva Aycaguer LC. &lt;em>Cultura estadística e investigación científica en el campo de la salud: una mirada crítica&lt;/em>. Madrid: Díaz de Santos; 1998.&lt;/p>
-&lt;p>Pearl, J. (2009). Causality: Models, Reasoning, and Inference (2nd ed.). Cambridge University Press.&lt;/p>
-&lt;p>Hernán, M. A., &amp;amp; Robins, J. M. (2020). Causal Inference: What If. Chapman &amp;amp; Hall/CRC. [Disponible gratis en línea].&lt;/p>
-&lt;p>Hill, A. B. (1965). The environment and disease: association or causation? Proceedings of the Royal Society of Medicine, 58(5), 295–300. (Criterios de Bradford Hill).&lt;/p>
-&lt;p>Freedman, D. A. (2005). Statistical Models: Theory and Practice. Cambridge University Press. (Discusión crítica sobre correlación y causalidad).&lt;/p></description></item><item><title>Una Inmersión Intuitiva en la Arquitectura de los LLMs</title><link>https://maicel.netlify.app/post/ia/</link><pubDate>Sat, 06 Sep 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/ia/</guid><description>&lt;p>Todos conocemos los Modelos de Lenguaje Grandes (LLMs) como &lt;strong>ChatGPT de OpenAI, Claude de Anthropic, Gemini de Google&lt;/strong> y otros modelos similares.&lt;/p>
-&lt;p>Son esos asistentes de IA con los que conversamos, que nos ayudan a escribir correos (Stanford Online 2024)electrónicos, a generar ideas e incluso a codificar.&lt;/p>
-&lt;p>Pero, ¿alguna vez te has preguntado cómo funcionan realmente estas herramientas?
-¿Están pensando o simplemente están creando una &lt;strong>magnífica ilusión de razonamiento&lt;/strong>?
-En este blog, te mostraré cómo cobran vida estas maravillas tecnológicas, desde el vasto océano de datos hasta su afinada inteligencia, y exploraremos la naturaleza de esa “inteligencia” que tanto nos asombra.&lt;/p>
-&lt;p>Puedes ver la versión en vídeo de esta publicación aquí:&lt;/p>
-&lt;div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-&lt;iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/SxIFozcvCAU?autoplay=0&amp;amp;controls=1&amp;amp;end=0&amp;amp;loop=0&amp;amp;mute=0&amp;amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video">&lt;/iframe>
-&lt;/div>
-&lt;p>A continuación, te explico algunos elementos importantes para entender los Modelos de Lenguaje Grandes (LLMs), como se construyen, cómo se entrenan y predicen sus resultado.&lt;/p>
-&lt;img src="fig0.png" style="width:30.0%" />
-&lt;h2 id="la-anatomía-de-un-llm-redes-neuronales-y-transformadores">La Anatomía de un LLM: Redes Neuronales y Transformadores&lt;/h2>
-&lt;p>En esencia, los LLMs son &lt;strong>redes neuronales&lt;/strong>.
-Lejos de simular el cerebro humano en un sentido biológico, se basan casi universalmente en una arquitectura particular conocida como &lt;strong>Transformadores&lt;/strong>.&lt;/p>
-&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
-&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
-&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
-&lt;/span>
-&lt;span class="dark:text-neutral-300">&lt;strong>Red neuronal artificial:&lt;/strong> &lt;em>“Una red neuronal artificial es un sistema de procesamiento paralelo y distribuido, compuesto por unidades simples de procesamiento que tienen la propensión natural de almacenar conocimiento experimental y hacerlo disponible para su uso”&lt;/em> (Haykin, n.d.).&lt;/span>
-&lt;/div>
-&lt;p>Estos Transformadores fueron propuestos por Vaswani et al. en 2017 y se destacaron por su capacidad para “dibujar dependencias globales entre la entrada y la salida” utilizando únicamente mecanismos de atención, sin necesidad de redes recurrentes o convolucionales.&lt;/p>
-&lt;p>Esta capacidad es clave para su éxito: permite que el modelo procese grandes cantidades de texto en paralelo y capte relaciones a larga distancia dentro de una secuencia.(Vaswani et al., n.d.)&lt;/p>
-&lt;p>Cuando hablamos de entrenar un LLM, hay varios componentes clave que entran en juego:&lt;/p>
-&lt;!-- - **Arquitectura**: Cómo se estructura la red neuronal (los Transformadores). -->
-&lt;!-- - **Pérdida de entrenamiento y algoritmo**: Cómo se "aprende" el modelo. -->
-&lt;!-- - **Datos**: En qué información se entrena el modelo. -->
-&lt;!-- - **Evaluación**: Cómo sabemos si el modelo está mejorando. -->
-&lt;!-- - **Componentes del sistema**: Cómo se ejecutan estos modelos gigantes en hardware moderno de manera eficiente. -->
-&lt;p>
-&lt;figure >
-&lt;div class="flex justify-center ">
-&lt;div class="w-100" >&lt;img alt="" srcset="
-/post/ia/fig1_hu_18182d8f524833af.webp 400w,
-/post/ia/fig1_hu_f33bba6717280fcf.webp 760w,
-/post/ia/fig1_hu_4ee0477a1071e0cf.webp 1200w"
-src="https://maicel.netlify.app/post/ia/fig1_hu_18182d8f524833af.webp"
-width="760"
-height="410"
-loading="lazy" data-zoomable />&lt;/div>
-&lt;/div>&lt;/figure>
-&lt;/p>
-&lt;!-- A menudo, la academia se centra mucho en la arquitectura, pero en la práctica, lo que realmente importa es la **calidad de los datos, la evaluación y los sistemas**, ya que las pequeñas diferencias arquitectónicas son a menudo secundarias frente a la escala. -->
-&lt;h2 id="la-primera-etapa-pre-entrenamiento-modelado-del-lenguaje">La Primera Etapa: Pre-entrenamiento (Modelado del Lenguaje)&lt;/h2>
-&lt;p>El viaje de un LLM comienza con el &lt;strong>pre-entrenamiento&lt;/strong>, un paradigma clásico donde el modelo se entrena para &lt;strong>“modelar todo Internet”&lt;/strong>.&lt;/p>
-&lt;p>En esta fase, un modelo de lenguaje es, a grandes rasgos, un modelo de &lt;strong>distribución de probabilidad sobre secuencias de tokens o palabras&lt;/strong>.&lt;/p>
-&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
-&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
-&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
-&lt;/span>
-&lt;span class="dark:text-neutral-300">&lt;strong>Tokens:&lt;/strong> &lt;em>“Un token es una instancia de una secuencia de caracteres en un documento, agrupada como una unidad semántica útil para el procesamiento automático de texto. Esta explicación se basa en una definición clara y rigurosa en el contexto del análisis de información y recuperación de documentos.”&lt;/em>&lt;/span>
-&lt;/div>
-&lt;p>Imagina la frase &lt;strong>“El ratón comió el queso”&lt;/strong>.&lt;/p>
-&lt;img src="fig2.png" style="width:30.0%" />
-&lt;p>Un modelo de lenguaje te daría la probabilidad de que esta frase sea pronunciada por un humano o encontrada en línea.&lt;/p>
-&lt;p>Si la frase tuviera errores gramaticales como &lt;strong>“El el ratón queso”&lt;/strong>, el modelo, con su conocimiento sintáctico, sabría que es menos &lt;strong>probable&lt;/strong>.&lt;/p>
-&lt;p>Y si fuera &lt;strong>“El queso comió el ratón”&lt;/strong>, su conocimiento semántico le indicaría que esto es &lt;strong>improbable&lt;/strong>.&lt;/p>
-&lt;img src="fig3.png" style="width:30.0%" />
-&lt;p>&lt;strong>Aquí es donde entra el primer matiz crítico&lt;/strong>: este &lt;strong>“conocimiento sintáctico y semántico”&lt;/strong> no implica que el modelo &lt;strong>entienda&lt;/strong> realmente la gramática o que los quesos no comen ratones.&lt;/p>
-&lt;p>Más bien, ha aprendido, a partir de patrones en billones de textos, que ciertas secuencias de palabras son estadísticamente más probables o coherentes que otras.
-Es una habilidad predictiva, no una comprensión conceptual.&lt;/p>
-&lt;p>Los LLMs son &lt;strong>modelos generativos&lt;/strong>.&lt;/p>
-&lt;p>Esto significa que, una vez que tienen esta comprensión de las distribuciones de probabilidad, pueden &lt;strong>generar nuevas oraciones o datos&lt;/strong> simplemente muestreando de esa distribución.&lt;/p>
-&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
-&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
-&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
-&lt;/span>
-&lt;span class="dark:text-neutral-300">&lt;strong>Modelos generativos:&lt;/strong> &lt;em>“Son algoritmos diseñados para crear datos nuevos que parecen provenir de la misma distribución que los datos originales con los que fueron entrenados.”&lt;/em>&lt;/span>
-&lt;/div>
-&lt;p>Es decir, &lt;em>saben&lt;/em> cómo sonar convincentes y coherentes, pero no necesariamente &lt;em>por qué&lt;/em> lo que dicen es correcto o verdadero.&lt;/p>
-&lt;h2 id="modelos-de-lenguaje-autorregresivos-prediciendo-la-siguiente-palabra">Modelos de Lenguaje Autorregresivos: Prediciendo la Siguiente Palabra&lt;/h2>
-&lt;p>Vamos a adaptar el texto que proporcionaste para que se conecte con nuestro ejemplo del ratón y el queso.🐁🧀&lt;/p>
-&lt;h2 id="modelos-de-lenguaje-autorregresivos-prediciendo-la-siguiente-palabra-1">Modelos de Lenguaje Autorregresivos: Prediciendo la Siguiente Palabra&lt;/h2>
-&lt;p>Los modelos de lenguaje más modernos, como Gemini, son &lt;strong>autorregresivos&lt;/strong>.
-Esto significa que predicen la &lt;strong>siguiente palabra basándose en todas las palabras que ya han visto&lt;/strong> en la secuencia.&lt;/p>
-&lt;p>Piensa en ellos como un narrador que va construyendo una historia palabra por palabra.&lt;/p>
-&lt;h2 id="el-proceso-con-el-ratón-comió-el-queso">El Proceso con &lt;strong>“El ratón comió el queso”&lt;/strong>&lt;/h2>
-&lt;p>Imaginemos que el modelo está generando nuestra frase, “El ratón comió el queso.” Este es el fascinante proceso que ocurre:&lt;/p>
-&lt;ol>
-&lt;li>
-&lt;p>&lt;strong>Secuencia de palabras:&lt;/strong> El modelo empieza con la primera palabra de la oración.
-Luego, toma las palabras que ya ha generado: &lt;strong>“El ratón”&lt;/strong>.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Tokenización:&lt;/strong> Las palabras se convierten en &lt;strong>tokens&lt;/strong> (números o identificadores internos).
-Por ejemplo, “El” podría ser &lt;code>143&lt;/code>, “ratón” &lt;code>56&lt;/code>, y “comió” &lt;code>25&lt;/code>.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>El modelo predice:&lt;/strong> Estos tokens numerados entran en el modelo (la “caja negra”).
-Basado en todo lo que ha aprendido de internet, el modelo calcula cuál es el próximo token más probable.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Distribución de probabilidad:&lt;/strong> El modelo no solo predice una palabra, sino que le asigna una &lt;strong>probabilidad a cada palabra&lt;/strong> en su vocabulario.
-Por ejemplo, después de &lt;strong>“El ratón comió el”&lt;/strong>, la palabra &lt;strong>“queso”&lt;/strong> podría tener una probabilidad del 85%, “pan” un 10%, y “semillas” un 5%.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Muestreo:&lt;/strong> El modelo elige el token con la probabilidad más alta, que en este caso es el token para “queso”.
-A veces, para no sonar robótico, el modelo elige una palabra con una probabilidad un poco menor, pero en la mayoría de los casos elige la más probable.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Detokenización:&lt;/strong> El token seleccionado se convierte de nuevo en la palabra “queso”, completando así la frase.&lt;/p>
-&lt;/li>
-&lt;/ol>
-&lt;hr>
-&lt;h2 id="aprendizaje-del-modelo">Aprendizaje del Modelo&lt;/h2>
-&lt;p>Durante el &lt;strong>entrenamiento&lt;/strong>, el modelo hace este mismo proceso, pero en lugar de generar una frase nueva, compara su predicción con la palabra real en un texto de entrenamiento.&lt;/p>
-&lt;ul>
-&lt;li>
-&lt;p>Si el modelo predice &lt;strong>“pan”&lt;/strong> y la palabra correcta es &lt;strong>“queso”&lt;/strong>, la &lt;strong>función de pérdida de entropía cruzada&lt;/strong> le da un “castigo”.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Ese castigo se usa para ajustar los pesos del modelo.
-El objetivo es que, la próxima vez que vea un contexto similar (“El ratón comió el…”), la probabilidad de que prediga “queso” sea mucho mayor.&lt;/p>
-&lt;/li>
-&lt;/ul>
-&lt;p>Así, la “fluidez” del modelo para generar frases como “El ratón comió el queso” se basa en su capacidad para &lt;strong>predecir estadísticamente&lt;/strong> la palabra más probable en cada paso, no en un razonamiento sobre los hábitos alimenticios de los roedores.&lt;/p>
-&lt;!-- Los modelos más utilizados hoy en día son los **modelos de lenguaje autorregresivos**. -->
-&lt;!-- La idea central es descomponer la probabilidad de una secuencia de palabras en un producto de probabilidades condicionales: la probabilidad de la primera palabra, multiplicada por la probabilidad de la segunda palabra dada la primera, y así sucesivamente. -->
-&lt;!-- En términos más simples, el modelo predice la **siguiente palabra basándose en todo lo que ha ocurrido antes** en la secuencia. -->
-&lt;!-- El proceso es fascinante: -->
-&lt;!-- 1. Tomas una secuencia de palabras (como "Ella probablemente prefiere"). -->
-&lt;!-- 2. La **tokenizas**, es decir, la divides en "tokens" (palabras o subpalabras) y les asignas un ID. -->
-&lt;!-- 3. Estos tokens pasan por el modelo (la "caja negra" del Transformador). -->
-&lt;!-- 4. El modelo emite una **distribución de probabilidad** sobre la siguiente palabra o token posible. -->
-&lt;!-- 5. Se "muestrea" de esta distribución para obtener el siguiente token más probable. -->
-&lt;!-- 6. Finalmente, se "detokeniza" para obtener la palabra real. -->
-&lt;!-- Durante el entrenamiento, el objetivo es **predecir el token más probable** y ajustar los pesos del modelo para aumentar la probabilidad de generar el token correcto, utilizando la **función de pérdida de entropía cruzada (Cross-Entropy Loss)**, que es equivalente a maximizar la verosimilitud logarítmica del texto. -->
-&lt;!-- Esta es la base de su impresionante fluidez, pero recalca que su "razonamiento" es una sofisticada forma de predicción estadística. -->
-&lt;h2 id="los-tokenizadores-el-primer-paso-crucial-para-la-coherencia">Los Tokenizadores: El Primer Paso Crucial para la “Coherencia”&lt;/h2>
-&lt;p>Los &lt;strong>tokenizadores&lt;/strong> son componentes extremadamente importantes pero a menudo poco valorados.&lt;/p>
-&lt;p>¿Por qué los necesitamos?&lt;/p>
-&lt;ul>
-&lt;li>
-&lt;p>&lt;strong>Más generales que las palabras&lt;/strong>: Las palabras como tokens directos fallan con errores tipográficos o en idiomas que no usan espacios (como el tailandés).&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Eficiencia de secuencia&lt;/strong>: Tokenizar carácter por carácter haría las secuencias demasiado largas, lo que es ineficiente para los Transformadores (cuya complejidad crece cuadráticamente con la longitud de la secuencia).&lt;/p>
-&lt;/li>
-&lt;/ul>
-&lt;p>Los tokenizadores buscan encontrar &lt;strong>subsecuencias comunes&lt;/strong> y darles un token específico.
-En promedio, un token suele representar alrededor de &lt;strong>tres o cuatro letras&lt;/strong>.&lt;/p>
-&lt;p>Un algoritmo muy común es la &lt;strong>Codificación de Pares de Bytes (Byte Pair Encoding o BPE)&lt;/strong>.
-Es fundamental considerar cómo se tokeniza el texto, ya que el &lt;strong>tamaño del vocabulario afecta directamente la dimensionalidad de la salida&lt;/strong> del modelo.&lt;/p>
-&lt;p>&lt;strong>Un punto crítico aquí&lt;/strong>: Si bien son útiles, los tokenizadores tienen limitaciones, especialmente con números (matemáticas) y código.&lt;/p>
-&lt;p>Por ejemplo, un número como “327” puede tener su propio token, lo que significa que el modelo no lo ve como una composición de “3”, “2”, “7”, lo que dificulta su capacidad para razonar matemáticamente o con la estructura del código.&lt;/p>
-&lt;p>Esto nos recuerda que, a pesar de la fluidez, los LLMs operan sobre representaciones simbólicas (tokens) que no siempre se alinean con nuestra comprensión conceptual del lenguaje o las matemáticas.&lt;/p>
-&lt;h2 id="de-modelo-de-lenguaje-a-asistente-de-ia-el-post-entrenamiento-o-la-ilusión-de-la-intencionalidad">De Modelo de Lenguaje a Asistente de IA: El Post-entrenamiento (o la Ilusión de la Intencionalidad)&lt;/h2>
-&lt;p>Un modelo pre-entrenado es un experto en &lt;strong>“hablar como Internet”&lt;/strong>, pero no es un asistente de IA.&lt;/p>
-&lt;p>Si le preguntaras a &lt;strong>GPT-3&lt;/strong> (un modelo puramente de lenguaje) “explícame el aterrizaje en la luna a un niño de seis años”, podría responder con “explícame la teoría de la gravedad a un niño de seis años” porque ha aprendido que en Internet, una pregunta a menudo es seguida por preguntas similares, no por una respuesta directa.&lt;/p>
-&lt;p>El &lt;strong>post-entrenamiento (alignment)&lt;/strong> es el proceso que transforma estos modelos en asistentes útiles, asegurándose de que &lt;strong>sigan las instrucciones de los usuarios&lt;/strong> y los deseos de los diseñadores (por ejemplo, evitar contenido tóxico).&lt;/p>
-&lt;p>&lt;strong>Este es el punto donde la ilusión de intencionalidad se vuelve más fuerte.&lt;/strong>&lt;/p>
-&lt;h2 id="1-ajuste-fino-supervisado-supervised-fine-tuning---sft">1. Ajuste Fino Supervisado (Supervised Fine-Tuning - SFT)&lt;/h2>
-&lt;p>El primer paso es el &lt;strong>Ajuste Fino Supervisado (SFT)&lt;/strong>.&lt;/p>
-&lt;p>Aquí, el LLM pre-entrenado se afina con &lt;strong>respuestas deseadas recogidas de humanos&lt;/strong>.
-Es decir, se le dan ejemplos de preguntas y sus respuestas “correctas” o “ideales” escritas por humanos.&lt;/p>
-&lt;p>Este paso fue crucial para el salto de &lt;strong>GPT-3&lt;/strong> a &lt;strong>ChatGPT&lt;/strong>.&lt;/p>
-&lt;p>Curiosamente, no se necesita una cantidad masiva de datos para SFT; &lt;strong>unos pocos miles de ejemplos bien elegidos pueden ser suficientes&lt;/strong>.&lt;/p>
-&lt;p>Esto sugiere que el SFT no enseña al modelo nuevo conocimiento, sino que le enseña &lt;strong>cómo formatear las respuestas&lt;/strong> y optimizar para un “tipo de usuario” específico que ya había visto en sus datos de pre-entrenamiento.&lt;/p>
-&lt;p>En otras palabras, el modelo ya tenía el conocimiento latente; el SFT le enseña a &lt;em>expresarlo&lt;/em> de la manera que un asistente de IA “debería” hacerlo.&lt;/p>
-&lt;p>No está aprendiendo a &lt;em>pensar&lt;/em> como un asistente, sino a &lt;em>simular&lt;/em> el comportamiento de uno.&lt;/p>
-&lt;h2 id="2-aprendizaje-por-refuerzo-a-partir-de-retroalimentación-humana-reinforcement-learning-from-human-feedback---rlhf">2. Aprendizaje por Refuerzo a partir de Retroalimentación Humana (Reinforcement Learning from Human Feedback - RLHF)&lt;/h2>
-&lt;p>El SFT tiene sus limitaciones: &lt;strong>Limitado por la habilidad humana&lt;/strong>: Los humanos pueden juzgar mejor lo que es una buena respuesta de lo que pueden escribirla ellos mismos.&lt;/p>
-&lt;p>&lt;strong>Posibles alucinaciones&lt;/strong>: Como el SFT se entrena con poca data, si un humano da una respuesta que el modelo no ha visto antes (y por tanto no sabe si es cierta), el modelo puede aprender a “inventar” información plausible pero falsa.&lt;/p>
-&lt;p>&lt;strong>Aquí el matiz crítico es fundamental&lt;/strong>: la “alucinación” (generación de información falsa pero plausible) es una clara evidencia de que los LLMs no “saben” lo que es verdad o mentira, ni tienen un sentido de la realidad.&lt;/p>
-&lt;p>Simplemente generan secuencias de tokens que &lt;em>parecen&lt;/em> correctas, basándose en los patrones que han aprendido, incluso si no tienen fundamento.&lt;/p>
-&lt;p>Es la culminación de la ilusión de razonamiento.
-&lt;strong>Costo&lt;/strong>: Generar respuestas ideales es muy caro.&lt;/p>
-&lt;p>Aquí es donde entra el &lt;strong>RLHF&lt;/strong>.&lt;/p>
-&lt;p>En lugar de simplemente clonar el comportamiento humano, el objetivo es &lt;strong>maximizar la preferencia humana&lt;/strong>.&lt;/p>
-&lt;p>El proceso es el siguiente:&lt;/p>
-&lt;ol>
-&lt;li>
-&lt;p>Para una instrucción dada, el modelo genera &lt;strong>dos respuestas diferentes&lt;/strong>.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Etiquetadores humanos seleccionan &lt;strong>cuál de las dos respuestas es mejor&lt;/strong>.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Con esta retroalimentación, el modelo se afina para generar más de las respuestas “buenas” y menos de las “malas”.&lt;/p>
-&lt;/li>
-&lt;/ol>
-&lt;p>Para hacer esto, se entrena un &lt;strong>modelo de recompensa (Reward Model)&lt;/strong>, un clasificador que aprende a predecir cuánto prefiere un humano una respuesta sobre otra, dando una señal de recompensa continua.&lt;/p>
-&lt;p>Posteriormente, métodos más simples como la &lt;strong>Optimización Directa por Preferencia (Direct Preference Optimization - DPO)&lt;/strong> han demostrado ser igual de efectivos, evitando la complejidad del aprendizaje por refuerzo tradicional.&lt;/p>
-&lt;p>En definitiva, RLHF moldea el comportamiento del LLM para alinearse con lo que &lt;em>deseamos&lt;/em> ver, no con lo que el modelo &lt;em>sabe&lt;/em> o &lt;em>piensa&lt;/em>.&lt;/p>
-&lt;p>Le enseña a ser complaciente y a evitar lo “tóxico” porque los humanos así lo prefieren, no por un juicio moral inherente.&lt;/p>
-&lt;h2 id="la-materia-prima-datos-masivos-y-su-filtrado">La Materia Prima: Datos Masivos y su Filtrado&lt;/h2>
-&lt;p>El pre-entrenamiento de los LLMs se realiza sobre &lt;strong>“todo Internet”&lt;/strong>.&lt;/p>
-&lt;p>Esto incluye vastas colecciones como Common Crawl, que contiene alrededor de &lt;strong>250 mil millones de páginas web y un petabyte de datos&lt;/strong>.&lt;/p>
-&lt;p>Pero el Internet es “sucio” y no representativo.&lt;/p>
-&lt;p>Imagina una página web aleatoria: llena de HTML, publicidad, fragmentos sin terminar.&lt;/p>
-&lt;p>Para que estos datos sean útiles, se requieren pasos de procesamiento intensivos, que incluyen:&lt;/p>
-&lt;p>
-&lt;figure >
-&lt;div class="flex justify-center ">
-&lt;div class="w-100" >&lt;img alt="" srcset="
-/post/ia/fig4_hu_b74c97a4d4debd70.webp 400w,
-/post/ia/fig4_hu_f0bdf3ad77c25970.webp 760w,
-/post/ia/fig4_hu_6e63ba7ee8334dc3.webp 1200w"
-src="https://maicel.netlify.app/post/ia/fig4_hu_b74c97a4d4debd70.webp"
-width="507"
-height="760"
-loading="lazy" data-zoomable />&lt;/div>
-&lt;/div>&lt;/figure>
-&lt;/p>
-&lt;!-- 1. **Extracción de texto**: Eliminar HTML y extraer contenido. -->
-&lt;!-- 2.**Filtrado de contenido indeseable**: Eliminar contenido no seguro (NSFW), dañino o información personal (PII). -->
-&lt;!-- 3. **Deduplicación**: Eliminar contenido repetido. -->
-&lt;!-- 4. **Filtrado heurístico**: Eliminar documentos de baja calidad basándose en reglas (por ejemplo, distribuciones de tokens inusuales, longitud extrema de palabras o documentos muy cortos/largos). -->
-&lt;!-- 5. **Filtrado basado en modelos**: Entrenar un clasificador para identificar documentos de alta calidad, usando referencias de Wikipedia como punto de partida. -->
-&lt;!-- 6. **Clasificación y ponderación por dominio**: Aumentar o disminuir el peso de ciertos dominios (por ejemplo, el código puede mejorar el razonamiento, por lo que se le da más peso). -->
-&lt;!-- 7. **Entrenamiento final con datos de alta calidad**: "Sobreajustar" el modelo con datos de muy alta calidad al final del pre-entrenamiento, reduciendo la tasa de aprendizaje. -->
-&lt;p>La escala de estos conjuntos de datos es asombrosa, pasando de &lt;strong>150 mil millones de tokens (800 GB)&lt;/strong> en benchmarks académicos anteriores, hasta &lt;strong>15 billones de tokens&lt;/strong> para modelos de última generación como Llama 3 (equivalente a miles de terabytes).&lt;/p>
-&lt;p>La recopilación y curación de datos sigue siendo un desafío enorme y un área activa de investigación.&lt;/p>
-&lt;h2 id="las-leyes-de-escalado-el-poder-de-lo-grande-y-sus-implicaciones-en-la-inteligencia">Las Leyes de Escalado: El Poder de lo Grande (y sus Implicaciones en la “Inteligencia”)&lt;/h2>
-&lt;p>Uno de los descubrimientos más sorprendentes en LLMs es que &lt;strong>cuantos más datos se entrenen los modelos y más grandes sean los modelos, mejor será su rendimiento&lt;/strong>.&lt;/p>
-&lt;p>A diferencia de lo que se enseña en muchas clases de aprendizaje automático, el “sobreajuste” (overfitting) no parece ocurrir con los LLMs.&lt;/p>
-&lt;p>Las &lt;strong>leyes de escalado&lt;/strong> nos muestran que si se aumenta la computación, los datos o el número de parámetros, la pérdida de validación del modelo disminuye de forma predecible y lineal en una escala logarítmica.&lt;/p>
-&lt;p>Esto es crucial porque permite a las compañías predecir cuánto mejorarán sus modelos en el futuro y cómo optimizar la asignación de recursos.&lt;/p>
-&lt;p>Por ejemplo, el famoso artículo Chinchilla de DeepMind mostró que la relación óptima es entrenar con &lt;strong>20 tokens por cada parámetro&lt;/strong> del modelo para maximizar la eficiencia del entrenamiento.&lt;/p>
-&lt;p>&lt;strong>Un punto analítico aquí&lt;/strong>: Que los modelos “mejoren” al escalar no significa que se vuelvan intrínsecamente “más inteligentes” en un sentido humano, o que estén más cerca de la conciencia.&lt;/p>
-&lt;p>Simplemente, son &lt;strong>máquinas de patrones increíblemente sofisticadas&lt;/strong> que, con más datos y más capacidad computacional, son capaces de reconocer y generar patrones cada vez más complejos y coherentes, reduciendo su “pérdida” (es decir, volviéndose mejores en la predicción del siguiente token).&lt;/p>
-&lt;p>La “inteligencia” que percibimos es una propiedad emergente de esta capacidad de predicción a gran escala, no una mente.&lt;/p>
-&lt;!-- ### El Precio de la Ilusión de Inteligencia: ¿Cuánto Cuesta un LLM? -->
-&lt;!-- Entrenar un LLM es una empresa monumental y costosa. -->
-&lt;!-- Tomemos como ejemplo el modelo **Llama 3 400B**, uno de los mejores modelos de código abierto actuales: **Tokens de entrenamiento**: 15.6 billones de tokens. -->
-&lt;!-- - **Parámetros**: 45 mil millones. -->
-&lt;!-- - **Cómputo (FLOPs)**: Aproximadamente 3.8 x 10\^25 FLOPs. -->
-&lt;!-- - **Hardware y tiempo**: Se entrenó en **16.000 GPUs H100** durante unos 70 días (o 26 millones de horas de GPU). -->
-&lt;!-- -**Costo estimado**: El alquiler de estas GPUs costaría alrededor de **52 millones de dólares**, y sumando los salarios del equipo, el costo total de entrenamiento rondaría los **75 millones de dólares**. -->
-&lt;!-- - **Huella de carbono**: El entrenamiento de Llama 3 emitió unas 4.000 toneladas de CO2 equivalente. -->
-&lt;!-- Estos números son un testimonio de la inmensa inversión necesaria para crear estos modelos capaces de generar una ilusión tan convincente. -->
-&lt;h2 id="sistemas-el-cerebro-detrás-de-la-eficiencia">Sistemas: El Cerebro Detrás de la Eficiencia&lt;/h2>
-&lt;p>La computación es el cuello de botella más grande en el desarrollo de LLMs.
-Comprar más GPUs es difícil por su alto costo y escasez, además de las limitaciones físicas en la comunicación entre ellas.&lt;/p>
-&lt;p>Es crucial optimizar cómo se asignan los recursos y el pipeline de entrenamiento.&lt;/p>
-&lt;p>Algunos trucos clave a nivel de sistemas incluyen: &lt;strong>Baja Precisión (Low Precision)&lt;/strong>: Usar números de punto flotante de 16 bits en lugar de 32 bits.&lt;/p>
-&lt;p>Esto reduce la cantidad de datos que deben enviarse a las GPUs, acelerando la comunicación y disminuyendo el consumo de memoria.&lt;/p>
-&lt;p>&lt;strong>Fusión de Operadores (Operator Fusion)&lt;/strong>: Las GPUs son muy lentas en la comunicación.
-La fusión de operadores combina varias operaciones consecutivas en una sola llamada al kernel, lo que significa que los datos se envían a la GPU una sola vez, todas las operaciones se realizan y luego los resultados se devuelven, lo que acelera significativamente el proceso (por ejemplo, &lt;code>torch.compile&lt;/code> en PyTorch puede duplicar la velocidad).&lt;/p>
-&lt;h2 id="conclusión-una-ilusión-poderosa-no-un-pensamiento-consciente">Conclusión: Una Ilusión Poderosa, No un Pensamiento Consciente&lt;/h2>
-&lt;p>Desde sus cimientos como redes neuronales Transformer, pasando por el pre-entrenamiento con datos masivos de Internet y el afinamiento con retroalimentación humana, hasta la optimización de sistemas y la gestión de costos astronómicos, la creación de un LLM es una hazaña de ingeniería y ciencia de datos.&lt;/p>
-&lt;p>La próxima vez que interactúes con un chatbot, recordarás que detrás de esa respuesta fluida hay billones de tokens procesados, complejos algoritmos de entrenamiento, ingeniosas técnicas de afinamiento y una infraestructura computacional masiva trabajando en conjunto.
-&lt;strong>Estos modelos no “piensan” en el sentido humano de la palabra, ni poseen conciencia o una comprensión profunda y holística del mundo&lt;/strong>.&lt;/p>
-&lt;p>Lo que hacen, y lo hacen de manera magistral, es &lt;strong>identificar y reproducir patrones estadísticos&lt;/strong> en los datos con los que fueron entrenados.&lt;/p>
-&lt;p>Su habilidad para generar texto coherente, relevante y a menudo sorprendentemente “inteligente” es una testamentación de la &lt;strong>efectividad de la predicción a escala masiva&lt;/strong>.
-Es una &lt;strong>ilusión de razonamiento&lt;/strong> tan convincente que a menudo nos hace cuestionar la naturaleza de la inteligencia misma.
-Y es, sin duda, una de las maravillas tecnológicas más grandes de nuestro tiempo.&lt;/p>
-&lt;h2 id="bibliografía">Bibliografía&lt;/h2>
-&lt;div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
-&lt;div id="ref-haykin" class="csl-entry">
-&lt;p>Haykin, Simon. n.d. “Neural Networks and Learning Machines.” &lt;a href="http://dni.dali.dartmouth.edu/9umv9yghhaoq/13-dayana-hermann-1/read-0131471392-neural-networks-and-learning-machines.pdf" target="_blank" rel="noopener">http://dni.dali.dartmouth.edu/9umv9yghhaoq/13-dayana-hermann-1/read-0131471392-neural-networks-and-learning-machines.pdf&lt;/a>.&lt;/p>
-&lt;/div>
-&lt;div id="ref-stanfordonline2024" class="csl-entry">
-&lt;p>Stanford Online. 2024. “Stanford CS229 i Machine Learning i Building Large Language Models (LLMs),” August. &lt;a href="https://www.youtube.com/watch?v=9vM4p9NN0Ts" target="_blank" rel="noopener">https://www.youtube.com/watch?v=9vM4p9NN0Ts&lt;/a>.&lt;/p>
-&lt;/div>
-&lt;div id="ref-vaswani" class="csl-entry">
-&lt;p>Vaswani, Ashish, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, and Illia Polosukhin. n.d. “Attention Is All You Need.” &lt;a href="https://doi.org/10.48550/ARXIV.1706.03762" target="_blank" rel="noopener">https://doi.org/10.48550/ARXIV.1706.03762&lt;/a>.&lt;/p>
-&lt;/div>
-&lt;/div></description></item><item><title>Del Laboratorio al Mundo Real</title><link>https://maicel.netlify.app/post/generalizacion/</link><pubDate>Mon, 01 Sep 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/generalizacion/</guid><description>&lt;h2 id="del-laboratorio-al-mundo-real-cómo-la-ciencia-cruza-el-puente-hacia-tu-vida">&lt;strong>Del Laboratorio al Mundo Real: Cómo la Ciencia Cruza el Puente hacia tu Vida&lt;/strong>&lt;/h2>
-&lt;p>¿Alguna vez has leído un titular científico y te has preguntado: &amp;ldquo;¿Esto me aplica a mí?&amp;rdquo; o &amp;ldquo;Esto suena genial, pero ¿es relevante para mi realidad?&amp;rdquo; Si es así, has tocado el nervio de uno de los mayores desafíos de la investigación: cómo saltar del estudio controlado en un laboratorio al mundo real.&lt;/p>
-&lt;p>El vídeo, &amp;ldquo;El Estudio y el Mundo&amp;rdquo;, captura esta idea.&lt;/p>
-&lt;div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-&lt;iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/sY8-YxIeGu8?autoplay=0&amp;amp;controls=1&amp;amp;end=0&amp;amp;loop=0&amp;amp;mute=0&amp;amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video">&lt;/iframe>
-&lt;/div>
-&lt;p>Este blog profundiza en ese &lt;strong>puente a veces inestable&lt;/strong> que conecta la ciencia con nuestra vida diaria, explicando por qué no se trata de desconfiar de la ciencia, sino de entenderla mejor para usarla de la forma más inteligente posible.&lt;/p>
-&lt;hr>
-&lt;h2 id="los-pilares-fundamentales-validez-interna-y-externa">&lt;strong>Los Pilares Fundamentales: Validez Interna y Externa&lt;/strong>&lt;/h2>
-&lt;p>Para que un estudio sea realmente útil, sus hallazgos no solo deben ser correctos, sino también aplicables. Aquí es donde entran en juego dos conceptos clave:&lt;/p>
-&lt;p>&lt;strong>Validez Interna: ¿Se hizo bien el estudio?&lt;/strong> Se pregunta si los resultados son fiables para el grupo de personas que realmente participaron en la investigación. Un estudio puede ser metodológicamente impecable y tener una validez interna &amp;ldquo;de 10&amp;rdquo;.&lt;/p>
-&lt;p>&lt;strong>Validez Externa: ¿Sirven estos resultados fuera del estudio?&lt;/strong> Se refiere a la capacidad de los hallazgos de un estudio para aplicarse a otros contextos, poblaciones o situaciones. Un estudio perfecto a nivel interno podría ser casi inútil si sus participantes son tan específicos que sus resultados no pueden generalizarse.&lt;/p>
-&lt;hr>
-&lt;h2 id="generalizabilidad-y-transportabilidad-construyendo-el-puente">&lt;strong>Generalizabilidad y Transportabilidad: Construyendo el Puente&lt;/strong>&lt;/h2>
-&lt;p>Existen dos estrategias principales para construir ese puente:&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>Generalizabilidad:&lt;/strong> Piensa en esto como una receta de cocina. Perfeccionaste una tarta en tu &amp;ldquo;cocina de prueba&amp;rdquo; y ahora vas a usar esa misma receta para alimentar a toda la familia. La población del estudio es solo una parte de un grupo más grande al que quieres aplicar los resultados. Por ejemplo, pasar de un estudio en California a todo Estados Unidos.&lt;/li>
-&lt;li>&lt;strong>Transportabilidad:&lt;/strong> Ahora imagina que quieres adaptar esa misma receta para que funcione en otro país, con ingredientes diferentes y un horno distinto. Aquí, la población del estudio es ajena a la población a la que quieres aplicar los resultados. Se trata de ver si los hallazgos de un estudio en Estados Unidos funcionan en una clínica en Europa.&lt;/li>
-&lt;/ul>
-&lt;hr>
-&lt;h2 id="por-qué-es-tan-difícil-construir-el-puente">&lt;strong>¿Por Qué es Tan Difícil Construir el Puente?&lt;/strong>&lt;/h2>
-&lt;p>La principal dificultad es que los estudios, especialmente los ensayos clínicos aleatorios (RCTs), a menudo seleccionan a los participantes con criterios muy estrictos para garantizar una alta validez interna. Esto los hace poco representativos de la población general.&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>El Sesgo de Selección:&lt;/strong> Ocurre cuando las personas que participan en el estudio son diferentes de la población a la que se busca aplicar los resultados. No se trata solo de que no sean &amp;ldquo;representativas&amp;rdquo;, sino de que esas diferencias afecten la efectividad del tratamiento.&lt;/li>
-&lt;li>&lt;strong>La Trampa de los Confusores:&lt;/strong> Factores no controlados en el estudio pueden generar asociaciones falsas o &amp;ldquo;espurias&amp;rdquo;, ocultando la verdadera relación entre el tratamiento y el resultado.&lt;/li>
-&lt;li>&lt;strong>El Riesgo de la Subjetividad:&lt;/strong> La estadística es una herramienta, no una verdad absoluta. La elección de variables y la interpretación de los resultados requieren un profundo conocimiento y juicio. La subjetividad puede &amp;ldquo;disfrazarse&amp;rdquo; detrás de números y algoritmos, llevando a conclusiones erróneas si no se razona con cuidado. Sin embargo, esta subjetividad no debe confundirse con la arbitrariedad, ya que se basa en la experiencia y el sentido común del investigador.&lt;/li>
-&lt;li>&lt;strong>El Dilema del Tamaño de Muestra:&lt;/strong> A pesar de lo que se podría pensar, la determinación del tamaño de muestra de un estudio es más un arte que una ciencia exacta, basada en el juicio y la intuición, no solo en una fórmula.&lt;/li>
-&lt;/ul>
-&lt;hr>
-&lt;h2 id="herramientas-para-construir-un-puente-fuerte">&lt;strong>Herramientas para Construir un Puente Fuerte&lt;/strong>&lt;/h2>
-&lt;p>Los estadísticos se dedican a medir la distancia entre el mundo del estudio y el mundo real. Una vez diagnosticado el problema, hay varias estrategias y herramientas para corregir el rumbo:&lt;/p>
-&lt;p>&lt;strong>En la Fase de Diseño:&lt;/strong>&lt;/p>
-&lt;p>La forma ideal es tomar una muestra aleatoria de la población objetivo, pero esto no siempre es posible. Las alternativas incluyen:&lt;/p>
-&lt;p>&lt;strong>Ensayos clínicos pragmáticos:&lt;/strong> Diseñados para imitar la práctica clínica real y ser más aplicables.&lt;/p>
-&lt;p>&lt;strong>Muestreo:&lt;/strong> Seleccionar participantes para asegurar que haya una amplia representación o heterogeneidad.&lt;/p>
-&lt;p>&lt;strong>Después de la Recolección de Datos (Métodos Analíticos):&lt;/strong>&lt;/p>
-&lt;p>Si el estudio ya se realizó, se usan métodos estadísticos para ajustar los resultados:&lt;/p>
-&lt;ul>
-&lt;li>
-&lt;p>&lt;strong>Ponderación (Weighting):&lt;/strong> Le da más &amp;ldquo;peso&amp;rdquo; a ciertos individuos del estudio para que la muestra se parezca más a la población real. Es como darles un megáfono a las voces que necesitan ser escuchadas.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Regresiones de Resultado:&lt;/strong> Se construyen modelos matemáticos para predecir lo que habría pasado si la gente del mundo real hubiera recibido el tratamiento del estudio.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Enfoques Doblemente Robustos:&lt;/strong> Combinan varias técnicas para obtener resultados más sólidos.&lt;/p>
-&lt;/li>
-&lt;/ul>
-&lt;hr>
-&lt;h2 id="la-sabiduría-detrás-de-los-números">&lt;strong>La Sabiduría Detrás de los Números&lt;/strong>&lt;/h2>
-&lt;p>La estadística es una herramienta. Hay un poder inmenso en dominarla, pero también un riesgo si se aplica sin un pensamiento crítico. El peligro de la &amp;ldquo;fábrica de publicaciones&amp;rdquo; que prioriza la significación estadística (un valor p bajo) a veces eclipsa la relevancia clínica o biológica de los hallazgos. No basta con que un resultado sea &amp;ldquo;estadísticamente significativo&amp;rdquo;. Lo realmente importante es si es significativo para la vida de las personas.&lt;/p>
-&lt;p>Como se ha destacado, &amp;ldquo;pensar sin observar es un error, pero observar sin pensar es igualmente peligroso.&amp;rdquo; La aplicación mecánica de un método poderoso puede llevar a conclusiones erróneas.&lt;/p>
-&lt;h2 id="tu-papel-como-consumidor-de-ciencia">&lt;strong>Tu Papel como Consumidor de Ciencia&lt;/strong>&lt;/h2>
-&lt;p>La próxima vez que veas un titular impactante, haz la pregunta clave : &lt;strong>&amp;quot;¿En quién se hizo este estudio?&amp;quot;&lt;/strong>&lt;/p>
-&lt;p>Al entender la generalizabilidad y la transportabilidad, te conviertes en un consumidor de ciencia más crítico e informado. La verdadera meta no es solo que los estudios sean rigurosos, sino que su conocimiento pueda cruzar ese puente de forma segura y tener un impacto genuino en nuestras vidas. Porque, al final, una ciencia que no puede ser aplicada al mundo real pierde gran parte de su valor.&lt;/p>
-&lt;h2 id="biblografía">Biblografía&lt;/h2>
-&lt;ol>
-&lt;li>Degtiar I, Rose S. A Review of Generalizability and Transportability. Annual Review of Statistics and Its Application [Internet]. 9 de marzo de 2023 [citado 1 de septiembre de 2025];10(Volume 10, 2023):501-24. Disponible en: &lt;a href="https://www.annualreviews.org/content/journals/10.1146/annurev-statistics-042522-103837" target="_blank" rel="noopener">https://www.annualreviews.org/content/journals/10.1146/annurev-statistics-042522-103837&lt;/a>&lt;/li>
-&lt;/ol></description></item><item><title>Desvelando la Lógica Matemática Detrás de Causa y Efecto</title><link>https://maicel.netlify.app/post/m-s-all-del-rct-en-salud-p-blica-y-epidemiolog-a/</link><pubDate>Mon, 01 Sep 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/m-s-all-del-rct-en-salud-p-blica-y-epidemiolog-a/</guid><description>&lt;h1 id="inferencia-causal-">Inferencia Causal :&lt;/h1>
-&lt;p>El &lt;strong>marco de resultados potenciales&lt;/strong> se mantiene como la piedra angular del pensamiento causal, proporcionando el andamiaje conceptual para diferenciar la mera correlación de la causalidad. Ante la imposibilidad de llevar a cabo &lt;strong>ensayos controlados aleatorizados (RCT)&lt;/strong>, la investigación se ha nutrido de &lt;strong>métodos robustos&lt;/strong> que permiten extraer inferencias causales creíbles de datos observacionales. En este contexto, herramientas como el &lt;strong>Propensity Score&lt;/strong> y los &lt;strong>estimadores doblemente robustos&lt;/strong> (DR) se utilizan para controlar los sesgos de selección a partir de covariables observables, mientras que los &lt;strong>Efectos de Tratamiento Promedio Condicionales (CATE)&lt;/strong>, apoyados en machine learning, permiten explorar la heterogeneidad del efecto entre subpoblaciones. Asimismo, un conjunto de estrategias cuasi-experimentales ha abierto nuevos horizontes en la investigación, incluyendo el uso de &lt;strong>Variables Instrumentales (IV)&lt;/strong> para corregir la confusión no observada, el &lt;strong>Diferencias-en-Diferencias (DID)&lt;/strong> y el &lt;strong>Control Sintético (SC)&lt;/strong> para comparar trayectorias temporales, y la &lt;strong>Regresión Discontinua (RDD)&lt;/strong> para explotar umbrales de asignación, todas ellas permitiendo identificar efectos causales en contextos donde la aleatorización no es factible.&lt;/p>
-&lt;hr>
-&lt;h2 id="1-el-desafío-central-solo-vemos-un-lado-de-la-moneda">1. El desafío central: solo vemos un lado de la moneda&lt;/h2>
-&lt;p>Imagina que quieres evaluar el impacto de una nueva política de vacunación. Para cada persona, podríamos definir dos mundos posibles: uno donde recibe la vacuna y otro donde no. Pero en la práctica solo observamos un mundo: el que ocurrió. Ese es el &lt;strong>“problema fundamental de la inferencia causal”&lt;/strong>.&lt;/p>
-&lt;p>El &lt;strong>marco de resultados potenciales&lt;/strong> formaliza esta idea:&lt;/p>
-$$
-\tau_{\text{sample}} = \frac{1}{N} \sum_{i=1}^{N} (Y_i(1) - Y_i(0))
-$$
-&lt;p>En un ensayo controlado aleatorizado (RCT), la aleatorización nos permite estimar este efecto promedio simplemente comparando medias. Pero ¿qué pasa cuando los RCT no son factibles por razones éticas, logísticas o económicas?&lt;/p>
-&lt;hr>
-&lt;h2 id="2-estudios-observacionales-cuando-no-hay-azar-pero-sí-ingenio">2. Estudios observacionales: cuando no hay azar, pero sí ingenio&lt;/h2>
-&lt;p>En contextos reales —salud pública, economía, políticas sociales— dependemos de datos observacionales. Allí, la clave es suponer que, condicional en ciertas variables previas ($X_i$), la asignación al tratamiento es “tan buena como aleatoria”.&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>Propensity Score (Rosenbaum &amp;amp; Rubin, 1983):&lt;/strong> condensa múltiples covariables en una única probabilidad de recibir tratamiento, facilitando el emparejamiento y la ponderación.&lt;/li>
-&lt;li>&lt;strong>Estimadores doblemente robustos:&lt;/strong> combinan modelos de resultado y de asignación al tratamiento; basta con que uno esté bien especificado para obtener estimaciones consistentes.&lt;/li>
-&lt;li>&lt;strong>CATE (Conditional Average Treatment Effect):&lt;/strong> con machine learning, hoy podemos explorar cómo los efectos varían entre subpoblaciones (ej. políticas de empleo más efectivas en jóvenes que en adultos mayores).&lt;/li>
-&lt;/ul>
-&lt;p>⚠️ Cuando sospechamos de confusión no observada, entran en juego &lt;strong>análisis de sensibilidad&lt;/strong> (Manski bounds, métodos de Rosenbaum).&lt;/p>
-&lt;hr>
-&lt;h2 id="3-estrategias-avanzadas-cuando-la-confusión-no-puede-ignorarse">3. Estrategias avanzadas cuando la confusión no puede ignorarse&lt;/h2>
-&lt;h3 id="a-variables-instrumentales-iv">a) Variables Instrumentales (IV)&lt;/h3>
-&lt;p>Si un confusor no observado afecta tanto al tratamiento como al resultado, un &lt;strong>instrumento válido&lt;/strong> ($Z$) puede rescatar el análisis. Ejemplo clásico: la distancia a una universidad como instrumento para estudiar el impacto de la educación en ingresos.&lt;/p>
-&lt;p>Bajo ciertos supuestos, identificamos el &lt;strong>LATE (Local Average Treatment Effect)&lt;/strong> para quienes cambian su estado de tratamiento debido al instrumento.&lt;/p>
-&lt;hr>
-&lt;h3 id="b-diferencias-en-diferencias-did-y-control-sintético-sc">b) Diferencias-en-Diferencias (DID) y Control Sintético (SC)&lt;/h3>
-&lt;ul>
-&lt;li>&lt;strong>DID&lt;/strong>: compara tendencias pre y post en grupos tratados y no tratados. Ejemplo: medir el impacto de un aumento del salario mínimo sobre el empleo.&lt;/li>
-&lt;li>&lt;strong>SC&lt;/strong>: construye un “gemelo sintético” de la unidad tratada combinando unidades no tratadas. Ejemplo: evaluar el impacto de una ley antitabaco en California comparando con un control sintético formado por otros estados.&lt;/li>
-&lt;/ul>
-&lt;hr>
-&lt;h3 id="c-regresión-discontinua-rdd">c) Regresión Discontinua (RDD)&lt;/h3>
-&lt;p>Aprovecha umbrales de asignación. Ejemplo: un programa de becas asignado a estudiantes con notas ≥ 8.0. Comparar resultados justo por encima y por debajo del corte estima el efecto del programa en los “marginales”.&lt;/p>
-&lt;hr>
-&lt;h2 id="4-horizontes-emergentes-combinar-evidencia">4. Horizontes emergentes: combinar evidencia&lt;/h2>
-&lt;p>Dos líneas prometedoras:&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>Surrogacy:&lt;/strong> usar resultados a corto plazo como sustitutos de resultados de largo plazo.&lt;/li>
-&lt;li>&lt;strong>Integración de experimentos y observacionales:&lt;/strong> Athey et al. (2020) proponen usar experimentos para identificar y corregir confusores en estudios observacionales.&lt;/li>
-&lt;/ul>
-&lt;hr>
-&lt;h2 id="-tabla-comparativa-de-métodos-de-inferencia-causal">📊 Tabla comparativa de métodos de inferencia causal&lt;/h2>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>Método&lt;/th>
-&lt;th>Supuesto clave&lt;/th>
-&lt;th>Ventajas&lt;/th>
-&lt;th>Limitaciones&lt;/th>
-&lt;th>Ejemplo típico&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>&lt;strong>RCT&lt;/strong>&lt;/td>
-&lt;td>Asignación aleatoria&lt;/td>
-&lt;td>Estimador insesgado, alta validez interna&lt;/td>
-&lt;td>Costoso, a veces poco ético, baja validez externa&lt;/td>
-&lt;td>Ensayo clínico de un fármaco&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;strong>Propensity Score / DR&lt;/strong>&lt;/td>
-&lt;td>Confusión controlada por covariables observadas&lt;/td>
-&lt;td>Flexibilidad, usa datos observacionales grandes&lt;/td>
-&lt;td>Vulnerable a confusión no observada&lt;/td>
-&lt;td>Impacto de programas sociales&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;strong>IV&lt;/strong>&lt;/td>
-&lt;td>Relevancia + exclusión + exogeneidad&lt;/td>
-&lt;td>Corrige confusión no observada&lt;/td>
-&lt;td>Difícil encontrar instrumentos válidos&lt;/td>
-&lt;td>Educación → ingresos&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;strong>DID&lt;/strong>&lt;/td>
-&lt;td>Tendencias paralelas&lt;/td>
-&lt;td>Simple, interpretable&lt;/td>
-&lt;td>Frágil si tendencias difieren&lt;/td>
-&lt;td>Políticas laborales&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;strong>SC&lt;/strong>&lt;/td>
-&lt;td>Unidades control combinan bien la pre-tendencia&lt;/td>
-&lt;td>Más creíble que DID en casos individuales&lt;/td>
-&lt;td>Requiere datos ricos pre-tratamiento&lt;/td>
-&lt;td>Leyes de salud pública&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;strong>RDD&lt;/strong>&lt;/td>
-&lt;td>Continuidad de potenciales en el umbral&lt;/td>
-&lt;td>Interpretación clara, diseño cuasi-experimental&lt;/td>
-&lt;td>Válido solo cerca del umbral&lt;/td>
-&lt;td>Programas de becas&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;hr>
-&lt;h2 id="5-conclusión-práctica">5. Conclusión práctica&lt;/h2>
-&lt;p>La inferencia causal no es una caja negra: es un conjunto de &lt;strong>herramientas matemáticas y conceptuales&lt;/strong> que, bien aplicadas, permiten a responsables de políticas, clínicos y científicos sociales responder la pregunta clave: &lt;em>¿qué pasaría si?&lt;/em>&lt;/p>
-&lt;p>La frontera actual está en combinar evidencia, explotar machine learning para heterogeneidad y desarrollar métodos más robustos frente a confusión no observada.&lt;/p>
-&lt;hr>
-&lt;h2 id="-referencias-recomendadas">📚 Referencias recomendadas&lt;/h2>
-&lt;ul>
-&lt;li>Rosenbaum PR, Rubin DB. &lt;em>The central role of the propensity score…&lt;/em> Biometrika. 1983. &lt;a href="https://pubmed.ncbi.nlm.nih.gov/12009849/" target="_blank" rel="noopener">PubMed PMID: 12009849&lt;/a>&lt;/li>
-&lt;li>Hernán MA, Robins JM. &lt;em>Causal Inference: What If&lt;/em>. 2020. &lt;a href="https://pubmed.ncbi.nlm.nih.gov/33290294/" target="_blank" rel="noopener">PubMed PMID: 33290294&lt;/a>&lt;/li>
-&lt;li>Imbens GW, Rubin DB. &lt;em>Causal Inference for Statistics, Social, and Biomedical Sciences&lt;/em>. 2015.&lt;/li>
-&lt;li>Athey S, Imbens GW. &lt;em>Design-based analysis in difference-in-differences settings.&lt;/em> J Econometrics. 2022. &lt;a href="https://pubmed.ncbi.nlm.nih.gov/36212825/" target="_blank" rel="noopener">PubMed PMID: 36212825&lt;/a>&lt;/li>
-&lt;li>Abadie A. &lt;em>Using synthetic controls.&lt;/em> J Econometrics. 2021.&lt;/li>
-&lt;/ul></description></item><item><title>Ciencia o Pirotecnia: Por Qué la 'Significación Estadística' Nos Ciega con Falsos Destellos</title><link>https://maicel.netlify.app/post/2025-08-10-significacion/</link><pubDate>Sun, 10 Aug 2025 15:30:00 +0000</pubDate><guid>https://maicel.netlify.app/post/2025-08-10-significacion/</guid><description>&lt;p>Ese momento de euforia al ver &lt;code>p &amp;lt; 0.05&lt;/code>… ¿es un descubrimiento genuino o solo un destello engañoso de pirotecnia estadística?&lt;/p>
-&lt;p>En la ciencia, hay un instante que todos los investigadores anhelan. Es la culminación de meses, a veces años, de riguroso trabajo. Corres el análisis y, de repente, ahí está: &lt;code>p &amp;lt; 0.05&lt;/code>. Es una &lt;strong>explosión de alivio&lt;/strong>, un destello de “¡Eureka!” en la oscuridad de la incertidumbre. Sentimos que hemos encontrado algo real, algo digno de ser publicado.&lt;/p>
-&lt;p>Pero, ¿y si ese destello es solo eso? Un estallido momentáneo, deslumbrante y ruidoso, pero que en el fondo significa muy poco. ¿Y si nuestro ritual más sagrado es, en realidad, un simple juego de pirotecnia, diseñado para impresionar más que para iluminar?&lt;/p>
-&lt;p>Durante décadas, hemos aceptado el umbral de significación estadística como el árbitro indiscutible de la verdad científica. Sin embargo, la evidencia acumulada —desde las críticas de su propio creador (Ronald Fisher) hasta las advertencias oficiales de la American Statistical Association (ASA) en 2016 y el clamor de cientos de científicos en la revista &lt;em>Nature&lt;/em> — nos obliga a una conclusión incómoda(Amrhein, Greenland, and McShane 2019; Wasserstein and Lazar 2016) : &lt;strong>el emperador estadístico está desnudo&lt;/strong>. La práctica de las Pruebas de Significación de la Hipótesis Nula (NHST, por sus siglas en inglés) no es un pilar de rigor, sino un ritual plagado de lógica errónea, confusión e inadecuación para la verdadera investigación.&lt;/p>
-&lt;h2 id="el-cohete-más-grande-no-significa-mejor">El Cohete: Más Grande no Significa Mejor&lt;/h2>
-&lt;p>En la pirotecnia, un cohete más grande produce una explosión más fuerte. Es simple física. En la estadística, ocurre algo perturbadoramente similar. El “cohete” es nuestro tamaño muestral.&lt;/p>
-&lt;p>La conclusión de una prueba de significación depende de manera crucial del tamaño de la muestra. Con un cohete lo suficientemente grande (una muestra de miles o decenas de miles de personas), la diferencia más trivial e insignificante para el mundo real se convertirá, casi por arte de magia, en “estadísticamente significativa”. Por el contrario, un efecto importante y real puede pasar desapercibido si nuestro cohete es demasiado pequeño.&lt;/p>
-&lt;p>Esto nos lleva a una &lt;strong>verdad grotesca&lt;/strong>: la decisión sobre si un hallazgo es “real” a menudo depende más de los recursos del investigador para recolectar datos masivos que de la naturaleza fundamental del fenómeno estudiado. El estallido nos dice más sobre el tamaño del cohete que sobre la belleza del cielo que intenta iluminar.&lt;/p>
-&lt;!-- ```{r} -->
-&lt;!-- set.seed(123) -->
-&lt;!-- library(ggplot2) -->
-&lt;!-- effect &lt;- 0.1 -->
-&lt;!-- sd &lt;- 1 -->
-&lt;!-- N &lt;- seq(20, 10000, by=50) -->
-&lt;!-- p_values &lt;- sapply(N, function(n) { -->
-&lt;!-- t.test(rnorm(n, mean=effect, sd=sd), mu=0)$p.value -->
-&lt;!-- }) -->
-&lt;!-- data &lt;- data.frame(N, p_values) -->
-&lt;!-- ggplot(data, aes(N, p_values)) + -->
-&lt;!-- geom_line() + -->
-&lt;!-- geom_hline(yintercept = 0.05, linetype = "dashed", color="red") + -->
-&lt;!-- labs(x = "Tamaño muestral (N)", y = "Valor p") + -->
-&lt;!-- theme_minimal() -->
-&lt;!-- ``` -->
-&lt;!-- Aquí iría tu gráfico explicativo del "Cohete (Tamaño Muestral)": -->
-&lt;!-- Un gráfico mostrando cómo un efecto trivial (ej: diferencia de 0.1 unidades) se vuelve "significativo" (p&lt;0.05) a medida que N aumenta de 100 a 10,000. Puedes usar `ggplot2` en R para esto. -->
-&lt;!-- Ejemplo de código R (este no generaría un gráfico, solo un placeholder para tu referencia): -->
-&lt;!-- ```{r cohete_plot, echo=FALSE, fig.cap="Impacto del tamaño muestral en la significación estadística para un efecto constante."} -->
-&lt;!-- # Código para generar el gráfico de N vs p-valor -->
-&lt;!-- # plot(your_data$N, your_data$p_value, type="l", main="Cómo N afecta el p-valor", -->
-&lt;!-- # xlab="Tamaño Muestral (N)", ylab="Valor p") -->
-&lt;!-- # abline(h=0.05, col="red", lty=2) -->
-&lt;!-- ``` -->
-&lt;h2 id="la-explosión-un-caos-de-luz-y-malentendidos">La Explosión: Un Caos de Luz y Malentendidos&lt;/h2>
-&lt;p>La explosión de un fuego artificial es un evento caótico. Su interpretación es subjetiva. ¿Fue espectacular? ¿Fue un fracaso? Lo mismo ocurre con el valor &lt;em>p&lt;/em>.&lt;/p>
-&lt;h2 id="lógica-errónea-juzgando-por-lo-que-no-vimos">Lógica Errónea: Juzgando por lo que no Vimos&lt;/h2>
-&lt;p>La lógica detrás del valor &lt;em>p&lt;/em> es, siendo generosos, peculiar. Se calcula asumiendo que la hipótesis nula (H₀ —la hipótesis de no-efecto, de que no hay diferencia o relación) es cierta, y luego se determina la probabilidad de haber observado nuestros datos &lt;em>o datos aún más extremos&lt;/em> bajo esa suposición. Piénsalo: nuestra conclusión sobre lo que &lt;em>sí&lt;/em> ocurrió depende de la probabilidad de cosas que ni siquiera presenciamos. Es un &lt;strong>absurdo subyacente&lt;/strong>.&lt;/p>
-&lt;p>Además, caemos constantemente en la &lt;strong>falacia de la probabilidad invertida&lt;/strong>: el valor &lt;em>p&lt;/em> nos dice la probabilidad de los datos dada la hipótesis nula (P(Datos|H₀)), pero nosotros creemos erróneamente que nos dice la probabilidad de que la hipótesis nula sea cierta dados nuestros datos (P(H₀|Datos)). Son dos cosas radicalmente distintas, y confundirlas es un error fundamental.&lt;/p>
-&lt;!-- &lt;!-- Aquí iría tu diagrama de flujo simple o tabla comparativa para "Confusión P(D|H) vs P(H|D)": -->
-&lt;!-- Puedes usarmermaid para diagramas simples en RMarkdown o una tabla Markdown para la comparación. -->
-&lt;!-- Ejemplo de código mermaid (necesitarías `config: {mermaid: {sequence: {diagramMarginX: 10}}}` en el YAML para que funcione): -->
-&lt;h2 id="confusión-el-ruido-no-es-la-señal">Confusión: El Ruido no es la Señal&lt;/h2>
-&lt;p>La confusión más extendida es la de equiparar “significación estadística” con “importancia práctica” o “relevancia científica”. Un estallido muy ruidoso no significa que el descubrimiento sea importante, útil o generalizable. Esta obsesión por el ruido estadístico, esta endémica “significant-itis”, nos ha distraído de lo que realmente importa en la investigación: la magnitud del efecto y la relevancia clínica, social o teórica de nuestros hallazgos.&lt;/p>
-&lt;h2 id="el-caso-del-chocolate-que-hace-perder-peso">El Caso del Chocolate que Hace Perder Peso&lt;/h2>
-&lt;p>Para ilustrar esta locura, consideremos el tristemente famoso estudio de John Bohannon en 2015, “Chocolate con fines de pérdida de peso” . Con un pequeño presupuesto, Bohannon realizó un ensayo aleatorio, controlado con chocolate, utilizando un número muy reducido de participantes y midiendo 18 variables distintas(Bohannon 2015). Al analizar &lt;em>todas&lt;/em> las combinaciones posibles, encontró que con una muestra tan pequeña y al realizar múltiples pruebas (un tipo de &lt;em>p-hacking&lt;/em>), era casi inevitable que alguna variable arrojara un p-valor menor a 0.05 &lt;strong>por pura casualidad&lt;/strong>. Con su &lt;code>p &amp;lt; 0.05&lt;/code> “significativo”, los medios de comunicación sensacionalistas se lanzaron a la noticia: “El chocolate hace perder peso!”. Este caso es un claro ejemplo de cómo un “destello” estadístico puede ser completamente engañoso y carecer de cualquier importancia real, pero aun así generar titulares y confusión(Bohannon 2015).&lt;/p>
-&lt;h2 id="el-veredicto-la-falsa-dicotomía-del-ohhh-o-el-silencio">El Veredicto: La Falsa Dicotomía del “Ohhh” o el Silencio&lt;/h2>
-&lt;p>Quien observa fuegos artificiales emite un veredicto simple: el “¡Ohhh!” de asombro o el silencio de la indiferencia. Las pruebas de significación nos han impuesto esta misma decisión binaria: o un resultado es significativo (&lt;code>p &amp;lt; 0.05&lt;/code>), o no lo es. Es un interruptor de encendido/apagado.&lt;/p>
-&lt;p>Pero la ciencia no funciona así. El conocimiento científico no es una serie de decisiones de “sí/no”. Es un proceso gradual de ajuste de nuestras creencias a la luz de la evidencia acumulada. Es un paisaje de grises, no un contraste de blanco y negro. Al forzarnos a este mecanicismo, a esta “sucesión de ‘decisiones’ automáticas” que el propio Fisher denunció, hemos empobrecido el discurso científico, ignorando matices cruciales como la magnitud del efecto o la precisión de la estimación.&lt;/p>
-&lt;h2 id="después-del-humo-hacia-una-ciencia-iluminada">Después del Humo: Hacia una Ciencia Iluminada&lt;/h2>
-&lt;p>Cuando el humo de la pirotecnia se disipa, ¿qué nos queda? Nos queda la tarea de encontrar una luz más honesta y duradera para la ciencia. Afortunadamente, esta luz existe y está ganando terreno.&lt;/p>
-&lt;p>La alternativa fundamental es pasar de la &lt;strong>decisión binaria&lt;/strong> a la &lt;strong>estimación&lt;/strong>. En lugar de preguntar obsesivamente “¿Hay un efecto (sí/no)?”, debemos preguntar “¿Cuál es la magnitud del efecto y cuán seguros estamos de esa estimación?”.&lt;/p>
-&lt;ul>
-&lt;li>
-&lt;p>&lt;strong>Intervalos de Confianza (o de Compatibilidad):&lt;/strong> Son nuestra primera y más accesible herramienta para una inferencia más sensata. Los Intervalos de Confianza no nos dan un simple “sí/no”, sino un &lt;strong>rango de valores plausibles&lt;/strong> para el efecto real en la población. Nos muestran tanto la magnitud estimada del efecto como la incertidumbre que lo rodea.&lt;/p>
-&lt;p>Cuando vemos un Intervalo de Confianza del 95% para una diferencia, por ejemplo, esto significa que si repitiéramos el estudio muchas, muchas veces bajo las mismas condiciones, el 95% de esos intervalos contendrían el verdadero valor del efecto que estamos tratando de estimar. Nos invitan a pensar en la variabilidad y la precisión de nuestras estimaciones, no solo en un umbral arbitrario. Son una luz constante que ilumina un paisaje, permitiéndonos ver el terreno completo, no un destello que ciega momentáneamente.&lt;/p>
-&lt;/li>
-&lt;/ul>
-&lt;!-- &lt;!-- Aquí iría tu gráfico de "Intervalos de Confianza/Compatibilidad": -->
-&lt;!-- Un gráfico con varios ICs superpuestos (algunos estrechos, otros anchos, algunos cruzando cero, otros no) para ilustrar que muestran magnitud *e* incertidumbre, no solo "sí/no". -->
-&lt;!-- ```{r ic_plot, echo=FALSE, fig.cap="Visualización de Intervalos de Confianza: Magnitud y Incertidumbre."} -->
-&lt;!-- # Código para generar el gráfico de ICs -->
-&lt;!-- # library(ggplot2) -->
-&lt;!-- # data.frame( -->
-&lt;!-- # Effect = c(0.5, 1.2, -0.3, 0.8), -->
-&lt;!-- # Lower = c(0.1, 0.8, -0.7, 0.2), -->
-&lt;!-- # Upper = c(0.9, 1.6, 0.1, 1.4) -->
-&lt;!-- # ) %>% -->
-&lt;!-- # ggplot(aes(y = factor(1:4), x = Effect, xmin = Lower, xmax = Upper)) + -->
-&lt;!-- # geom_point() + geom_errorbarh(height = 0.2) + -->
-&lt;!-- # geom_vline(xintercept = 0, linetype = "dashed", color = "grey") + -->
-&lt;!-- # labs(x = "Magnitud del Efecto", y = "Estudio") + -->
-&lt;!-- # theme_minimal() -->
-&lt;!-- ``` -->
-&lt;!-- -->
-&lt;ul>
-&lt;li>
-&lt;p>&lt;strong>El Enfoque Bayesiano:&lt;/strong> Es el siguiente paso evolutivo en la inferencia estadística, y es la encarnación matemática del razonamiento científico. Los métodos bayesianos nos permiten hacer lo que siempre hemos querido hacer: &lt;strong>combinar la evidencia de nuestro estudio actual con todo el conocimiento previo existente&lt;/strong> (estudios anteriores, plausibilidad biológica, experiencia clínica) para llegar a una conclusión actualizada y probabilística sobre nuestras hipótesis.&lt;/p>
-&lt;p>A diferencia del valor &lt;em>p&lt;/em>, el enfoque bayesiano responde directamente a la pregunta que realmente queremos hacer: “&lt;strong>Dados estos nuevos datos, ¿qué tan creíble es mi hipótesis ahora?&lt;/strong>”. Nos da una probabilidad posterior de nuestra hipótesis, una medida directa de nuestra creencia actualizada. Aunque puede parecer más complejo al principio, el razonamiento bayesiano se alinea intuitivamente con cómo los científicos y las personas actualizan sus creencias en la vida real.&lt;/p>
-&lt;/li>
-&lt;/ul>
-&lt;p>Dejemos la pirotecnia para las celebraciones. Es hora de que la ciencia deje de buscar destellos efímeros y se dedique a construir una iluminación constante, acumulativa y, sobre todo, &lt;strong>honesta&lt;/strong>. Es el momento de una ciencia más transparente, rigurosa y, sí, ¡más divertida de interpretar!&lt;/p>
-&lt;hr>
-&lt;h2 id="tu-turno">¡Tu Turno!&lt;/h2>
-&lt;p>¿Te has encontrado con la “tiranía del p&amp;lt;0.05” en tu campo? ¿Qué alternativas usas o te gustaría ver más promovidas en la investigación? ¡Comparte tu experiencia y tus pensamientos en los comentarios a continuación!&lt;/p>
-&lt;hr>
-&lt;h2 id="referencias">Referencias&lt;/h2>
-&lt;div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
-&lt;div id="ref-amrhein2019" class="csl-entry">
-&lt;p>Amrhein, Valentin, Sander Greenland, and Blake McShane. 2019. “Scientists Rise up Against Statistical Significance.” &lt;em>Nature&lt;/em> 567 (7748): 305–7. &lt;a href="https://doi.org/10.1038/d41586-019-00857-9" target="_blank" rel="noopener">https://doi.org/10.1038/d41586-019-00857-9&lt;/a>.&lt;/p>
-&lt;/div>
-&lt;div id="ref-bohannon2015" class="csl-entry">
-&lt;p>Bohannon, John. 2015. “I Fooled Millions into Thinking Chocolate Helps Weight Loss. Here’s How.” &lt;a href="https://gizmodo.com/i-fooled-millions-into-thinking-chocolate-helps-weight-1707251800" target="_blank" rel="noopener">https://gizmodo.com/i-fooled-millions-into-thinking-chocolate-helps-weight-1707251800&lt;/a>.&lt;/p>
-&lt;/div>
-&lt;div id="ref-wasserstein2016" class="csl-entry">
-&lt;p>Wasserstein, Ronald L., and Nicole A. Lazar. 2016. “The ASA Statement on &lt;em>p&lt;/em> -Values: Context, Process, and Purpose.” &lt;em>The American Statistician&lt;/em> 70 (2): 129–33. &lt;a href="https://doi.org/10.1080/00031305.2016.1154108" target="_blank" rel="noopener">https://doi.org/10.1080/00031305.2016.1154108&lt;/a>.&lt;/p>
-&lt;/div>
-&lt;/div></description></item><item><title>Diseños Alternativos a Ensayos Clínicos Controlados Aleatorizados: Contextos de Aplicación y Riesgos Regulatorios</title><link>https://maicel.netlify.app/post/atajos/</link><pubDate>Thu, 07 Aug 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/atajos/</guid><description>&lt;p>🎧 &lt;strong>Escucha el podcast de esta publicación&lt;/strong>
-&lt;audio controls >
-&lt;source src="https://maicel.netlify.app/mp3/atajos.mp3" type="audio/mpeg">
-&lt;/audio>
-&lt;/p>
-&lt;h1 id="introducción-fundamentos-de-evidencia-confirmatoria">Introducción: Fundamentos de evidencia confirmatoria&lt;/h1>
-&lt;p>Los ensayos clínicos controlados, aleatorizados y enmascarados (ECAs) constituyen el marco metodológico más robusto para evaluar la &lt;strong>eficacia y seguridad&lt;/strong> de nuevas intervenciones terapéuticas. Son considerados el &amp;ldquo;estándar de oro&amp;rdquo; en investigación clínica por agencias como &lt;strong>ICH, EMA y FDA&lt;/strong>, ya que proporcionan el mayor control contra el sesgo y la mayor solidez en inferencia causal.&lt;/p>
-&lt;p>En este marco, los &lt;strong>ensayos confirmatorios&lt;/strong> son aquellos diseñados explícitamente para confirmar hipótesis clínicas relevantes, con base en análisis predefinidos y control adecuado de errores. Cuando estos estudios sustentan una solicitud de comercialización, adquieren la condición de &lt;strong>ensayos pivotal&lt;/strong> (terminología empleada por FDA y EMA).&lt;/p>
-&lt;p>En principio, se recomienda la presentación de &lt;strong>dos ensayos confirmatorios independientes&lt;/strong>. Sin embargo, &lt;strong>tanto EMA como FDA&lt;/strong> contemplan aprobaciones basadas en &lt;strong>un único ensayo pivotal&lt;/strong>, siempre que esté respaldado por &lt;strong>evidencia complementaria rigurosa&lt;/strong>. La &lt;strong>FDA&lt;/strong>, mediante el concepto de &lt;strong>evidencia confirmatoria&lt;/strong> (FDA 2023), formaliza esta vía alternativa. La &lt;strong>EMA&lt;/strong>, aunque no utiliza esa denominación, acepta enfoques equivalentes (meta-análisis, controles históricos validados, análisis de consistencia interna).&lt;/p>
-&lt;h2 id="tabla-1-términos-clave-definición-origen-normativo-y-función-regulatoria">Tabla 1. Términos clave: definición, origen normativo y función regulatoria&lt;/h2>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>&lt;strong>Término&lt;/strong>&lt;/th>
-&lt;th>&lt;strong>Fuente regulatoria&lt;/strong>&lt;/th>
-&lt;th>&lt;strong>Definición técnica&lt;/strong>&lt;/th>
-&lt;th>&lt;strong>Función regulatoria&lt;/strong>&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>&lt;strong>Ensayo clínico confirmatorio&lt;/strong>&lt;/td>
-&lt;td>ICH E9&lt;/td>
-&lt;td>Estudio con hipótesis explícita, análisis planificado y diseño robusto para inferencia causal.&lt;/td>
-&lt;td>Fuente principal de evidencia en autorizaciones de comercialización.&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;strong>Ensayo pivotal&lt;/strong>&lt;/td>
-&lt;td>FDA, EMA&lt;/td>
-&lt;td>Estudio esencial para demostrar eficacia y seguridad en el expediente regulatorio.&lt;/td>
-&lt;td>Sustento central del dossier clínico.&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;strong>Evidencia confirmatoria&lt;/strong>&lt;/td>
-&lt;td>FDA (2023)&lt;/td>
-&lt;td>Datos adicionales (clínicos/no clínicos) que refuerzan un ensayo pivotal único.&lt;/td>
-&lt;td>Permite cumplir el estándar de &amp;ldquo;evidencia sustancial&amp;rdquo; con un solo ECA.&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;strong>Evidencia sustancial&lt;/strong>&lt;/td>
-&lt;td>FDA (21 CFR 314.126)&lt;/td>
-&lt;td>Estándar legal que puede cumplirse mediante 2 ECAs o, cuando esté justificado, 1 ECA + confirmación.&lt;/td>
-&lt;td>Requisito para la aprobación de nuevos medicamentos en EE.UU.&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;strong>Evidencia complementaria&lt;/strong>&lt;/td>
-&lt;td>ICH E9; EMA, FDA&lt;/td>
-&lt;td>Estudios no pivotal que aportan consistencia (ej. subgrupos, dosis, seguridad, datos externos).&lt;/td>
-&lt;td>Reforzar la plausibilidad de los hallazgos principales.&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;hr>
-&lt;h1 id="estructura-metodológica-de-los-ecas-y-su-anclaje-normativo">Estructura metodológica de los ECAs y su anclaje normativo&lt;/h1>
-&lt;p>Los ECAs incorporan tres garantías fundamentales: &lt;strong>aleatorización&lt;/strong>, &lt;strong>grupo control&lt;/strong> y &lt;strong>cegamiento&lt;/strong>. Estos componentes son esenciales para maximizar la validez interna y minimizar fuentes de sesgo sistemático.&lt;/p>
-&lt;h2 id="tabla-2-garantías-anti-sesgo-en-ecas">Tabla 2. Garantías anti-sesgo en ECAs&lt;/h2>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>&lt;strong>Componente metodológico&lt;/strong>&lt;/th>
-&lt;th>&lt;strong>Función específica&lt;/strong>&lt;/th>
-&lt;th>&lt;strong>Cómo reduce el sesgo&lt;/strong>&lt;/th>
-&lt;th>&lt;strong>Referencia normativa ICH&lt;/strong>&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>&lt;strong>Aleatorización&lt;/strong>&lt;/td>
-&lt;td>Asignación no predecible de tratamientos&lt;/td>
-&lt;td>Mitiga el sesgo de selección; equilibra factores conocidos/desconocidos&lt;/td>
-&lt;td>ICH E9 Sección 2.2.3&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;strong>Grupo control&lt;/strong>&lt;/td>
-&lt;td>Comparación con placebo o tratamiento estándar&lt;/td>
-&lt;td>Permite contrafactual válido e inferencia causal robusta&lt;/td>
-&lt;td>ICH E10; ICH E8(R1)&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;strong>Cegamiento (blinding)&lt;/strong>&lt;/td>
-&lt;td>Ocultamiento de asignación a participantes e investigadores&lt;/td>
-&lt;td>Previene sesgo de evaluación, expectativa y cointervención&lt;/td>
-&lt;td>ICH E9 Sección 2.2.4&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;hr>
-&lt;h1 id="contextos-que-permiten-prescindir-de-ecas">Contextos que permiten prescindir de ECAs&lt;/h1>
-&lt;p>La omisión de ECAs solo es aceptable en contextos claramente delimitados por justificaciones éticas, científicas o logísticas:&lt;/p>
-&lt;ol>
-&lt;li>&lt;strong>Enfermedades raras o ultrarraras&lt;/strong>, con poblaciones muy limitadas.&lt;/li>
-&lt;li>&lt;strong>Situaciones de emergencia sanitaria&lt;/strong>, con necesidades clínicas urgentes.&lt;/li>
-&lt;li>Cuando la &lt;strong>aleatorización o el cegamiento son éticamente problemáticos&lt;/strong>.&lt;/li>
-&lt;li>Cuando existen &lt;strong>datos históricos o reales bien estructurados y validados&lt;/strong>.&lt;/li>
-&lt;/ol>
-&lt;p>La aceptación de estos diseños como base regulatoria &lt;strong>requiere validación metodológica específica y evaluación caso por caso&lt;/strong>, según guías EMA y FDA.&lt;/p>
-&lt;hr>
-&lt;h1 id="diseños-alternativos-más-empleados-y-criterios-de-validación">Diseños alternativos más empleados y criterios de validación&lt;/h1>
-&lt;h2 id="tabla-3-diseños-alternativos-justificación-limitaciones-y-requisitos-regulatorios">Tabla 3. Diseños alternativos: justificación, limitaciones y requisitos regulatorios&lt;/h2>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>&lt;strong>Diseño alternativo&lt;/strong>&lt;/th>
-&lt;th>&lt;strong>Justificación de uso&lt;/strong>&lt;/th>
-&lt;th>&lt;strong>Limitaciones críticas&lt;/strong>&lt;/th>
-&lt;th>&lt;strong>Requisitos de validación&lt;/strong>&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>&lt;strong>Single-Arm Trials (SAT)&lt;/strong>&lt;/td>
-&lt;td>Enfermedades raras; oncología sin comparador disponible&lt;/td>
-&lt;td>Ausencia de grupo control; alta vulnerabilidad a sesgo de selección&lt;/td>
-&lt;td>Control externo robusto; endpoints validados; análisis de consistencia&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;strong>Controles externos/sintéticos&lt;/strong>&lt;/td>
-&lt;td>Cohortes históricas o datos de mundo real&lt;/td>
-&lt;td>Riesgo de confusión residual y sesgo de canalización&lt;/td>
-&lt;td>Propensity score matching; alineación temporal; CHMP/4366/2020 (EMA)&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;strong>Diseños adaptativos&lt;/strong>&lt;/td>
-&lt;td>Eficiencia en reclutamiento; ajustes preplanificados&lt;/td>
-&lt;td>Riesgo de error tipo I si no se prespecifican adecuadamente&lt;/td>
-&lt;td>Control de multiplicidad; simulación previa; ICH E9(R1)&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;strong>Real-World Evidence (RWE)&lt;/strong>&lt;/td>
-&lt;td>Acceso a datos de rutina clínica; seguimiento largo; baja carga ética&lt;/td>
-&lt;td>Falta de aleatorización; sesgo de confusión no medido&lt;/td>
-&lt;td>PROACE principles (FDA 2023); data provenance; calidad del DMR; plan de análisis riguroso&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;hr>
-&lt;h1 id="riesgos-del-uso-estratégico-de-diseños-no-confirmatorios">Riesgos del uso estratégico de diseños no confirmatorios&lt;/h1>
-&lt;p>Aunque válidos en contextos excepcionales, el uso frecuente y estratégico de estos diseños plantea &lt;strong>serios desafíos regulatorios&lt;/strong>, especialmente si se recurre a ellos como vía para &lt;strong>prescindir de ECAs sin justificación metodológica sólida&lt;/strong>.&lt;/p>
-&lt;h3 id="riesgos-identificados">Riesgos identificados:&lt;/h3>
-&lt;ul>
-&lt;li>Aprobaciones basadas en &lt;strong>evidencia débil o no reproducible&lt;/strong>.&lt;/li>
-&lt;li>Incremento del &lt;strong>sesgo sistemático&lt;/strong> en resultados de eficacia.&lt;/li>
-&lt;li>Exposición de pacientes a intervenciones &lt;strong>no validadas rigurosamente&lt;/strong>.&lt;/li>
-&lt;li>&lt;strong>Deslegitimación del proceso regulatorio&lt;/strong> ante la comunidad científica y la sociedad.&lt;/li>
-&lt;/ul>
-&lt;hr>
-&lt;h1 id="recomendaciones-regulatorias">Recomendaciones regulatorias&lt;/h1>
-&lt;h2 id="a-para-la-industria">A. Para la industria&lt;/h2>
-&lt;ul>
-&lt;li>Presentar &lt;strong>justificación exhaustiva&lt;/strong> cuando no se utilicen ECAs.&lt;/li>
-&lt;li>Cumplir con requisitos metodológicos específicos según tipo de diseño alternativo.&lt;/li>
-&lt;li>Incluir análisis de sensibilidad, consistencia y control de sesgo.&lt;/li>
-&lt;/ul>
-&lt;h2 id="b-para-las-agencias-reguladoras">B. Para las agencias reguladoras&lt;/h2>
-&lt;ul>
-&lt;li>&lt;strong>Reforzar guías específicas&lt;/strong> (EMA, FDA) que regulen el uso de diseños alternativos.&lt;/li>
-&lt;li>Exigir &lt;strong>registro público&lt;/strong>, transparencia y acceso a protocolos completos.&lt;/li>
-&lt;li>Fortalecer &lt;strong>capacidades internas&lt;/strong> en estadística avanzada y diseño de estudios no aleatorizados.&lt;/li>
-&lt;li>Establecer &lt;strong>comités independientes&lt;/strong> de evaluación para salvaguardas éticas y científicas.&lt;/li>
-&lt;/ul>
-&lt;hr>
-&lt;h1 id="conclusión">Conclusión&lt;/h1>
-&lt;p>Los diseños alternativos no deben entenderse como sustitutos genéricos del ECA, sino como herramientas &lt;strong>válidas solo bajo condiciones estrictamente justificadas y validadas&lt;/strong>. El regulador tiene la responsabilidad científica y ética de exigir evidencia que no solo sea suficiente, sino también sólida, reproducible y libre de sesgos. La precisión metodológica y la claridad terminológica no son un lujo en este proceso: &lt;strong>son el principio rector que protege la salud pública frente a la ambigüedad científica&lt;/strong>.&lt;/p>
-&lt;hr>
-&lt;h1 id="bibliografía">Bibliografía&lt;/h1>
-&lt;ol>
-&lt;li>FDA. &lt;em>Demonstrating Substantial Evidence of Effectiveness with One Adequate and Well-Controlled Clinical Investigation and Confirmatory Evidence&lt;/em>. Draft Guidance. 2023.&lt;/li>
-&lt;li>EMA. &lt;em>Reflection Paper on Single‑Arm Trials as Pivotal Evidence&lt;/em>. EMA/CHMP/161300/2023.&lt;/li>
-&lt;li>FDA. &lt;em>Real-World Evidence Framework&lt;/em>. 2023 Update.&lt;/li>
-&lt;li>EMA. &lt;em>Use of Real‑World Evidence in Regulatory Decision-Making&lt;/em>. EMA/INS/GCP/455222/2024.&lt;/li>
-&lt;li>ICH. &lt;em>E9: Statistical Principles for Clinical Trials&lt;/em>. 1998.&lt;/li>
-&lt;li>ICH. &lt;em>E9(R1): Addendum on Estimands and Sensitivity Analysis in Clinical Trials&lt;/em>. 2020.&lt;/li>
-&lt;li>EMA. &lt;em>Guideline on Adjustment for Baseline Covariates in Clinical Trials&lt;/em>. CHMP/EWP/2863/99.&lt;/li>
-&lt;li>FDA. &lt;em>Real-World Evidence Program Annual Report 2025 (PUB-245)&lt;/em>.&lt;/li>
-&lt;li>Temple R, Ellenberg SS. &lt;em>Placebo-Controlled Trials and Active-Control Trials in the Evaluation of New Treatments&lt;/em>. &lt;em>Ann Intern Med&lt;/em>. 2000;133(6):455–463.&lt;/li>
-&lt;/ol></description></item><item><title>Análisis Exploratorio de Datos: Desentrañando la Verdad de tus Datos</title><link>https://maicel.netlify.app/post/eda/</link><pubDate>Tue, 11 Feb 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/eda/</guid><description>&lt;p>🎧 &lt;strong>Escucha el podcast de esta publicación&lt;/strong>
-&lt;audio controls >
-&lt;source src="https://maicel.netlify.app/mp3/eda.mp3" type="audio/mpeg">
-&lt;/audio>
-&lt;/p>
-&lt;p>El &lt;strong>Análisis Exploratorio de Datos (EDA)&lt;/strong> es una disciplina fundamental en el campo de la ciencia de datos, popularizada por el matemático John Tukey. Más que una simple serie de pasos, el EDA es una filosofía que nos invita a interactuar con nuestros datos, visualizarlos, resumirlos y &amp;ldquo;hablar&amp;rdquo; con ellos antes de saltar a modelados complejos. Implica el análisis de datos centrado en comprender a fondo su estructura, identificar patrones ocultos, detectar anomalías (valores atípicos), gestionar datos ausentes y, en última instancia, proporcionar una base sólida para la formulación de modelos predictivos o inferenciales. Además, es crucial para descubrir cómo se relacionan las variables entre sí.&lt;/p>
-&lt;h2 id="la-regla-de-oro-gigo-garbage-in-garbage-out">La Regla de Oro: GIGO (Garbage In, Garbage Out)&lt;/h2>
-&lt;p>Un concepto popular y vital en el campo de la ciencia de datos es &lt;strong>GIGO&lt;/strong> (Garbage In, Garbage Out, o &amp;ldquo;Basura entra, basura sale&amp;rdquo;). Este concepto subraya que la calidad de los resultados de cualquier análisis o modelo es directamente proporcional a la calidad de los datos de entrada. No importa cuán sofisticado sea tu algoritmo o cuán potente sea tu infraestructura computacional, los datos de mala calidad siempre producirán resultados deficientes, engañosos o inútiles. El EDA es nuestra primera línea de defensa contra el GIGO, asegurando que trabajamos con datos limpios y comprensibles.&lt;/p>
-&lt;h2 id="un-flujo-de-trabajo-práctico-de-eda">Un Flujo de Trabajo Práctico de EDA&lt;/h2>
-&lt;p>Aunque el EDA es un proceso iterativo y no una &amp;ldquo;camisa de fuerza&amp;rdquo; rígida, es útil seguir un flujo de trabajo estructurado para garantizar que cubrimos los aspectos más importantes. El orden de las etapas y el énfasis en cada una dependerán en gran medida del problema específico, el tipo de datos y los objetivos del análisis.&lt;/p>
-&lt;p>Este proceso general incluye:&lt;/p>
-&lt;p>
-&lt;figure >
-&lt;div class="flex justify-center ">
-&lt;div class="w-100" >&lt;img alt="" srcset="
-/post/eda/fig01_hu_1d111632709b1b76.webp 400w,
-/post/eda/fig01_hu_b26fdc398618e3dc.webp 760w,
-/post/eda/fig01_hu_540748744cda905c.webp 1200w"
-src="https://maicel.netlify.app/post/eda/fig01_hu_1d111632709b1b76.webp"
-width="760"
-height="578"
-loading="lazy" data-zoomable />&lt;/div>
-&lt;/div>&lt;/figure>
-&lt;/p>
-&lt;p>A continuación, profundicemos en cada una de estas etapas, utilizando ejemplos prácticos con el paquete &lt;code>dlookr&lt;/code> en R.&lt;/p>
-&lt;h3 id="1-comprensión-general-de-los-datos-y-evaluación-de-su-calidad">1. Comprensión General de los Datos y Evaluación de su Calidad&lt;/h3>
-&lt;p>Antes de sumergirnos en análisis profundos, es fundamental tener una visión panorámica de nuestro conjunto de datos. Esta etapa implica:&lt;/p>
-&lt;ul>
-&lt;li>
-&lt;p>&lt;strong>Dimensiones del dataset:&lt;/strong> ¿Cuántas filas (observaciones) y columnas (variables) tenemos?&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Tipos de datos:&lt;/strong> ¿Las variables son numéricas (enteros, flotantes), categóricas (factores, caracteres), lógicas o de fecha/hora? Es crucial que los tipos de datos sean correctos para las operaciones que deseamos realizar.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Inspección inicial:&lt;/strong> Revisar las primeras y últimas filas del dataset para obtener una idea general del formato y contenido.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Estadísticas descriptivas básicas:&lt;/strong> Para variables numéricas: media, mediana, desviación estándar, mínimo, máximo, cuartiles. Para variables categóricas: conteo de ocurrencias, proporciones. Esto nos da una primera impresión de la dispersión y centralidad de los datos.&lt;/p>
-&lt;/li>
-&lt;/ul>
-&lt;p>Con &lt;code>dlookr&lt;/code>, la función &lt;code>diagnose()&lt;/code> es ideal para una revisión rápida de la calidad de los datos, mostrando el tipo de variable, el número de valores únicos, valores faltantes, valores cero y valores negativos.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Para obtener un resumen rápido de las características de los datos&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">diagnose&lt;/span>(mtcars_na)
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Esta fase nos ayuda a formar una primera hipótesis sobre la calidad y estructura de los datos, identificando posibles problemas desde el principio.&lt;/p>
-&lt;h4 id="2-identificación-y-tratamiento-de-valores-faltantes-y-atípicos">2. Identificación y Tratamiento de Valores Faltantes y Atípicos&lt;/h4>
-&lt;p>Los valores faltantes (NA, NaN, null) y los valores atípicos (outliers) son dos de los desafíos más comunes en cualquier conjunto de datos y pueden distorsionar significativamente los resultados de nuestros análisis y modelos.&lt;/p>
-&lt;p>&lt;strong>Valores Faltantes:&lt;/strong>&lt;/p>
-&lt;ul>
-&lt;li>
-&lt;p>&lt;strong>Identificación:&lt;/strong> Cuantificar la cantidad y proporción de valores faltantes por variable. Visualizar patrones de ausencia (¿los valores faltantes ocurren aleatoriamente o hay un patrón?).&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Tratamiento:&lt;/strong>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Eliminación:&lt;/strong> Si la cantidad de valores faltantes es pequeña o si una variable tiene un porcentaje muy alto de NAs, se pueden eliminar filas o columnas.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Imputación:&lt;/strong> Rellenar los valores faltantes. Métodos comunes incluyen la media, mediana o moda (para datos numéricos y categóricos, respectivamente), o métodos más avanzados basados en modelos (regresión, k-NN, etc.). La elección depende de la naturaleza de los datos y el problema.&lt;/p>
-&lt;/li>
-&lt;/ul>
-&lt;p>&lt;strong>Valores Atípicos:&lt;/strong>&lt;/p>
-&lt;ul>
-&lt;li>
-&lt;p>&lt;strong>Identificación:&lt;/strong> Observaciones que se desvían significativamente del resto de los datos. Se pueden detectar mediante gráficos de caja (boxplots), diagramas de dispersión, puntuaciones Z, el método IQR (rango intercuartílico) o algoritmos más sofisticados.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Tratamiento:&lt;/strong>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Eliminación:&lt;/strong> Si se confirma que son errores de entrada de datos.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Transformación:&lt;/strong> Aplicar transformaciones logarítmicas o de raíz cuadrada para reducir su impacto.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Capping/Flooring:&lt;/strong> Limitar los valores atípicos a un percentil superior o inferior (por ejemplo, el 99% o el 1%).&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Mantener:&lt;/strong> A veces, los valores atípicos son observaciones genuinas e importantes que no deben eliminarse.&lt;/p>
-&lt;/li>
-&lt;/ul>
-&lt;p>&lt;code>dlookr&lt;/code> ofrece funciones visuales y programáticas para abordar estos problemas:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Visualizar la distribución de valores faltantes&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_na&lt;/span>(mtcars_na)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Identificar valores atípicos para una variable específica (ej. &amp;#34;hp&amp;#34;)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># plot_outlier() es excelente para visualizar.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_outlier&lt;/span>(mtcars_df, &lt;span style="color:#e6db74">&amp;#34;hp&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="3-análisis-de-la-distribución-de-las-variables">3. Análisis de la Distribución de las Variables&lt;/h3>
-&lt;p>Comprender la distribución de cada variable individualmente es clave para seleccionar los métodos estadísticos y de modelado adecuados.&lt;/p>
-&lt;p>&lt;strong>Variables Numéricas:&lt;/strong>&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>Histogramas y gráficos de densidad:&lt;/strong> Permiten visualizar la forma de la distribución, identificar asimetrías (skewness), curtosis, y la presencia de múltiples modos.&lt;/li>
-&lt;li>&lt;strong>Medidas de asimetría y curtosis:&lt;/strong> Cuantifican la forma de la distribución.&lt;/li>
-&lt;li>&lt;strong>Pruebas de normalidad:&lt;/strong> Aunque muchas veces no son estrictamente necesarias, pueden complementar el análisis visual.&lt;/li>
-&lt;/ul>
-&lt;p>&lt;strong>Variables Categóricas:&lt;/strong> - &lt;strong>Gráficos de barras:&lt;/strong> Muestran la frecuencia o proporción de cada categoría. - &lt;strong>Tablas de frecuencia:&lt;/strong> Resumen el conteo y porcentaje de cada nivel.&lt;/p>
-&lt;p>&lt;code>dlookr&lt;/code> simplifica la visualización de distribuciones:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Visualizar la distribución de una variable numérica (ej. &amp;#34;mpg&amp;#34;)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_hist&lt;/span>(mtcars_df, &lt;span style="color:#e6db74">&amp;#34;mpg&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># O ver la distribución y normalidad&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_normality&lt;/span>(mtcars_df, &lt;span style="color:#e6db74">&amp;#34;mpg&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Para variables categóricas (como &amp;#39;cyl&amp;#39; en mtcars que es numérica discreta)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Podemos convertirla a factor para un análisis categórico.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>mtcars_factor_cyl &lt;span style="color:#f92672">&amp;lt;-&lt;/span> mtcars_df &lt;span style="color:#f92672">%&amp;gt;%&lt;/span> &lt;span style="color:#a6e22e">mutate&lt;/span>(cyl &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">as.factor&lt;/span>(cyl))
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_bar&lt;/span>(mtcars_factor_cyl, &lt;span style="color:#e6db74">&amp;#34;cyl&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Este análisis nos ayuda a entender el comportamiento de cada característica y a identificar la necesidad de transformaciones futuras.&lt;/p>
-&lt;h3 id="4-análisis-de-las-relaciones-entre-las-variables">4. Análisis de las Relaciones entre las Variables&lt;/h3>
-&lt;p>Esta etapa se centra en descubrir cómo las variables interactúan entre sí. Es fundamental para la selección de características, la identificación de multicolinealidad y la comprensión de la causalidad (o correlación).&lt;/p>
-&lt;ul>
-&lt;li>
-&lt;p>&lt;strong>Dos variables numéricas:&lt;/strong>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Diagramas de dispersión (scatter plots):&lt;/strong> Visualizan la dirección y fuerza de la relación (positiva, negativa, nula, no lineal).&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Coeficientes de correlación (Pearson, Spearman):&lt;/strong> Cuantifican la fuerza y dirección de la relación lineal (Pearson) o monótona (Spearman).&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Una variable numérica y una categórica:&lt;/strong>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Gráficos de caja (boxplots) o gráficos de violín:&lt;/strong> Comparan la distribución de la variable numérica entre las diferentes categorías.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Pruebas t de Student o ANOVA:&lt;/strong> Para determinar si hay diferencias estadísticamente significativas en las medias.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Dos variables categóricas:&lt;/strong>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Tablas de contingencia y gráficos de barras apiladas/agrupadas:&lt;/strong> Muestran la distribución conjunta.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Pruebas de significación:&lt;/strong> Para evaluar la independencia entre las variables.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Matrices de correlación:&lt;/strong> Visualizan las correlaciones entre múltiples variables numéricas simultáneamente, a menudo con mapas de calor (heatmaps).&lt;/p>
-&lt;/li>
-&lt;/ul>
-&lt;p>&lt;code>dlookr&lt;/code> facilita la exploración de relaciones:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Visualizar la matriz de correlación entre todas las variables numéricas&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_cor&lt;/span>(mtcars_df)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Analizar la relación entre una variable objetivo (&amp;#39;mpg&amp;#39;) y otra característica (&amp;#39;wt&amp;#39;)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># plot_eda() permite explorar diversas relaciones bivariadas.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_eda&lt;/span>(mtcars_df, target &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;mpg&amp;#34;&lt;/span>, feature &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;wt&amp;#34;&lt;/span>) &lt;span style="color:#75715e"># Numérica vs Numérica (scatterplot)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Relación entre &amp;#39;mpg&amp;#39; (numérica) y &amp;#39;cyl&amp;#39; (considerada categórica aquí)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_eda&lt;/span>(mtcars_df, target &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;mpg&amp;#34;&lt;/span>, feature &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;cyl&amp;#34;&lt;/span>) &lt;span style="color:#75715e"># Numérica vs Categórica (boxplot)&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="5-transformación-de-los-datos">5. Transformación de los Datos&lt;/h3>
-&lt;p>Una vez que hemos comprendido nuestros datos, es posible que necesitemos transformarlos para que sean más adecuados para los algoritmos de machine learning o para mejorar el rendimiento del modelo.&lt;/p>
-&lt;ul>
-&lt;li>
-&lt;p>&lt;strong>Manejo de asimetría:&lt;/strong>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Transformaciones logarítmicas, de raíz cuadrada o de Box-Cox:&lt;/strong> Pueden normalizar distribuciones sesgadas, reduciendo la influencia de valores extremos.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Escalado de características:&lt;/strong>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Normalización (Min-Max Scaling):&lt;/strong> Escala los datos a un rango fijo (por ejemplo, [0, 1]). Útil para algoritmos sensibles a la escala como SVM o redes neuronales.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Estandarización (Z-score Scaling):&lt;/strong> Transforma los datos para que tengan una media de 0 y una desviación estándar de 1. Es común en algoritmos basados en distancia (k-NN, K-Means, PCA).&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Codificación de variables categóricas:&lt;/strong>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>One-Hot Encoding:&lt;/strong> Convierte variables categóricas en múltiples columnas binarias, una por cada categoría. Esencial para algoritmos que solo trabajan con entradas numéricas.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Label Encoding:&lt;/strong> Asigna un número entero a cada categoría. Útil si hay un orden inherente en las categorías.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Ingeniería de Características (Feature Engineering):&lt;/strong> Crear nuevas variables a partir de las existentes. Esto puede ser tan simple como combinar dos columnas o tan complejo como extraer información de texto o imágenes. Esta etapa es a menudo la que más impacto tiene en el rendimiento del modelo.&lt;/p>
-&lt;/li>
-&lt;/ul>
-&lt;p>&lt;code>dlookr&lt;/code> ofrece funciones útiles para la transformación de datos:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Transformación logarítmica para reducir la asimetría de una variable&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>mtcars_transformed_log &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">transform_df&lt;/span>(mtcars_df, mpg &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">log&lt;/span>(mpg))
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Compara la distribución de mpg original vs. transformada&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_normality&lt;/span>(mtcars_df, &lt;span style="color:#e6db74">&amp;#34;mpg&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_normality&lt;/span>(mtcars_transformed_log, &lt;span style="color:#e6db74">&amp;#34;mpg&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Binarización o discretización de una variable continua (ej. &amp;#39;hp&amp;#39; en 3 bins)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>mtcars_binned &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">binning&lt;/span>(mtcars_df, &lt;span style="color:#e6db74">&amp;#34;hp&amp;#34;&lt;/span>, n &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">3&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">head&lt;/span>(mtcars_binned &lt;span style="color:#f92672">%&amp;gt;%&lt;/span> &lt;span style="color:#a6e22e">select&lt;/span>(hp, hp_Binned))
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Estandarización de variables numéricas (Z-score)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>mtcars_scaled &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">normalize&lt;/span>(mtcars_df, method &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;scale&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">head&lt;/span>(mtcars_scaled) &lt;span style="color:#75715e"># Observa cómo los valores de todas las columnas han cambiado&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="herramientas-populares-para-eda">Herramientas Populares para EDA&lt;/h2>
-&lt;p>Para realizar un EDA efectivo, contamos con potentes herramientas en lenguajes como R y Python:&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>En R:&lt;/strong>
-&lt;ul>
-&lt;li>El ecosistema &lt;code>tidyverse&lt;/code> (&lt;code>dplyr&lt;/code> para manipulación, &lt;code>ggplot2&lt;/code> para visualización) es indispensable.&lt;/li>
-&lt;li>Paquetes específicos para EDA como &lt;strong>&lt;code>dlookr&lt;/code>&lt;/strong>, es excelente por su enfoque estructurado en el diagnóstico de calidad, exploración y transformación de datos, ofreciendo funciones y reportes automatizados que agilizan el proceso. Otros paquetes útiles incluyen &lt;code>DataExplorer&lt;/code>, &lt;code>skimr&lt;/code>, y &lt;code>visdat&lt;/code>.&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>&lt;strong>En Python:&lt;/strong>
-&lt;ul>
-&lt;li>&lt;code>pandas&lt;/code> para manipulación de datos.&lt;/li>
-&lt;li>&lt;code>matplotlib&lt;/code> y &lt;code>seaborn&lt;/code> para visualización estática.&lt;/li>
-&lt;li>&lt;code>plotly&lt;/code> para visualizaciones interactivas.&lt;/li>
-&lt;li>Bibliotecas como &lt;code>missingno&lt;/code> para visualizar valores faltantes, &lt;code>pandas_profiling&lt;/code> para informes automáticos de EDA, y &lt;code>sweetviz&lt;/code> para comparaciones.&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;h2 id="conclusión">Conclusión&lt;/h2>
-&lt;p>El Análisis Exploratorio de Datos no es solo una fase inicial, sino un proceso continuo de aprendizaje sobre tus datos. Es una inversión de tiempo que rinde grandes dividendos, ya que una comprensión profunda de los datos nos permite tomar decisiones más informadas, construir modelos más robustos y, en última instancia, extraer conocimientos más valiosos. Al dominar el EDA, te equipas con la habilidad de transformar datos brutos en una historia coherente y accionable, evitando la trampa del GIGO y asegurando que tus esfuerzos de ciencia de datos generen un impacto real.&lt;/p></description></item><item><title>Como entrenar y validar un modelo de machine learnig</title><link>https://maicel.netlify.app/post/como-entrenar-y-validar-un-modelo-de-machine-learnig/</link><pubDate>Thu, 08 Feb 2024 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/como-entrenar-y-validar-un-modelo-de-machine-learnig/</guid><description>&lt;p>🎧 &lt;strong>Escucha el podcast de esta publicación&lt;/strong>&lt;br>
-&lt;audio controls >
-&lt;source src="https://ia600607.us.archive.org/24/items/articulo-steyember/_Articulo_Steyember.mp3" type="audio/mpeg">
-&lt;/audio>
-&lt;/p>
-&lt;h1 id="estrategia-de-modelado">Estrategia de modelado&lt;/h1>
-&lt;p>Contar con una estrategia de modelado correcta es esencial para desarrollar y validar modelos de predicción. En este artículo, exploraremos las siete etapas clave del proceso de modelado propuesto por Ewout Steyerberg en su artículo .&lt;/p>
-&lt;h2 id="sec-1">1. Definición del problema e inspección de datos&lt;/h2>
-&lt;p>El primer paso en cualquier proyecto de modelado es definir claramente el problema de investigación y seleccionar la variable de resultado adecuada.&lt;/p>
-&lt;p>Durante esta fase, también realizamos un análisis exploratorio de datos (EDA) para comprender las características de las variables y detectar posibles problemas, como datos atípicos o valores faltantes.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Instalación y Carga de Librerías&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(caret)
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;pre tabindex="0">&lt;code>## Loading required package: ggplot2
-&lt;/code>&lt;/pre>&lt;pre tabindex="0">&lt;code>## Loading required package: lattice
-&lt;/code>&lt;/pre>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(MLDataR) &lt;span style="color:#75715e"># para utilizar la biblioteca diabetes_data&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(dplyr)
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;pre tabindex="0">&lt;code>##
-## Attaching package: &amp;#39;dplyr&amp;#39;
-&lt;/code>&lt;/pre>&lt;pre tabindex="0">&lt;code>## The following objects are masked from &amp;#39;package:stats&amp;#39;:
-##
-## filter, lag
-&lt;/code>&lt;/pre>&lt;pre tabindex="0">&lt;code>## The following objects are masked from &amp;#39;package:base&amp;#39;:
-##
-## intersect, setdiff, setequal, union
-&lt;/code>&lt;/pre>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(dlookr) &lt;span style="color:#75715e"># para EDA&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;pre tabindex="0">&lt;code>## Registered S3 methods overwritten by &amp;#39;dlookr&amp;#39;:
-## method from
-## plot.transform scales
-## print.transform scales
-&lt;/code>&lt;/pre>&lt;pre tabindex="0">&lt;code>## Because it is an offline environment, only offline fonts are imported.
-&lt;/code>&lt;/pre>&lt;pre tabindex="0">&lt;code>##
-## Attaching package: &amp;#39;dlookr&amp;#39;
-&lt;/code>&lt;/pre>&lt;pre tabindex="0">&lt;code>## The following object is masked from &amp;#39;package:base&amp;#39;:
-##
-## transform
-&lt;/code>&lt;/pre>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(predtools)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Cargar el conjunto de datos&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">data&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;gusto&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>gusto &lt;span style="color:#f92672">&amp;lt;-&lt;/span> gusto
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># EDA&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>descripcion &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">overview&lt;/span>(gusto)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">summary&lt;/span>(descripcion) &lt;span style="color:#75715e"># descripción general del conjunto de datos&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;pre tabindex="0">&lt;code>## ── Data Scale ──────────────────────────────────────────────
-## • Number of observations : 40,830
-## • Number of variables : 29
-## • Number of values : 1,184,070
-## • Size of located memory(bytes) : 5,241,552
-##
-## ── Duplicated Data ─────────────────────────────────────────
-## • Number of duplicated observations : 4 (0.01%)
-##
-## ── Missing Data ────────────────────────────────────────────
-## • Number of completed observations : 30,510
-## • Number of observations with NA : 10,320 (25.28%)
-## • Number of variables with NA : 1
-## • Number of NA : 10,320
-##
-## ── Data Type ───────────────────────────────────────────────
-## • Number of numeric variables : 1
-## • Number of integer variables : 13
-## • Number of factors variables : 0
-## • Number of character variables : 0
-## • Number of Date variables : 0
-## • Number of POSIXct variables : 0
-## • Number of other variables : 15
-##
-## ── Individual variables ────────────────────────────────────
-## Variables Data Type
-## 1 day30 integer
-## 2 sho integer
-## 3 hig integer
-## 4 dia labelled
-## 5 hyp integer
-## 6 hrt integer
-## 7 ttr labelled
-## 8 sex labelled
-## 9 Killip labelled
-## 10 age numeric
-## 11 ste labelled
-## 12 pulse labelled
-## 13 sysbp labelled
-## 14 ant integer
-## 15 miloc labelled
-## 16 height labelled
-## 17 weight labelled
-## 18 pmi labelled
-## 19 htn labelled
-## 20 smk labelled
-## 21 pan integer
-## 22 fam labelled
-## 23 prevcvd integer
-## 24 prevcabg integer
-## 25 regl integer
-## 26 grpl integer
-## 27 grps integer
-## 28 tpa integer
-## 29 tx labelled
-&lt;/code>&lt;/pre>&lt;p>Para conocer más detalles sobre el proceso de ¨Exploratory Data Analysis (EDA)¨ ver la publicación dedicada a este tema.&lt;/p>
-&lt;h2 id="sec-2">2. Codificación de las Variables Predictoras&lt;/h2>
-&lt;p>La codificación adecuada de las variables predictoras es fundamental para construir modelos robustos. En este estudio, se utilizaron técnicas como la agrupación de categorías poco frecuentes y la creación de predictores resúmenes para simplificar información correlacionada. Además, cuando las relaciones entre variables no son lineales, aplicamos herramientas como splines cúbicos restringidos , que permiten capturar patrones complejos sin comprometer la precisión del modelo.&lt;/p>
-&lt;h2 id="sec-3">3 .Especificación del Tipo de Modelo&lt;/h2>
-&lt;p>La elección del modelo depende del tipo de relación que queremos capturar entre las variables. En este estudio, combinamos dos enfoques: regresión logística binaria múltiple y árboles de clasificación . Mientras que la regresión logística es ideal para modelar relaciones lineales y proporcionar probabilidades, los árboles de clasificación son útiles para identificar interacciones complejas y establecer indicadores de riesgo.&lt;/p>
-&lt;p>Un aspecto clave fue la selección de predictores finales, que se basó en criterios como la plausibilidad biológica , el respaldo de la literatura científica y métodos computacionales avanzados. Esto nos permitió evitar el uso exclusivo de valores p, que pueden ser engañosos en algunos contextos.&lt;/p>
-&lt;h2 id="sec-4">4. Estimación del Modelo&lt;/h2>
-&lt;p>Para ajustar los parámetros del modelo, utilizamos el método de máxima verosimilitud (MLE) , reconocido por su versatilidad y eficiencia computacional. Además, evaluamos cuidadosamente las interacciones entre variables predictoras, incluyéndolas solo cuando había evidencia empírica y teórica que respaldaba su relevancia. Un modelo más simple suele ser más robusto y fácil de interpretar, lo que es crucial en entornos clínicos.&lt;/p>
-&lt;h2 id="sec-5">5. Evaluación del Rendimiento del Modelo&lt;/h2>
-&lt;p>El rendimiento del modelo se evalúa mediante métricas como calibración y discriminación . La calibración mide la concordancia entre las predicciones y los resultados observados, mientras que la discriminación evalúa la capacidad del modelo para distinguir entre pacientes con diferentes resultados. Herramientas como las rectas de calibración y la validación cruzada de 10 pliegues fueron fundamentales para asegurar la calidad del modelo.&lt;/p>
-&lt;h2 id="sec-6">6. Evaluación de la Validez del Modelo&lt;/h2>
-&lt;p>La validación del modelo es un paso crítico para garantizar su aplicabilidad en diferentes contextos. En este estudio, utilizamos tanto validación interna como externa , empleando particiones temporales y geográficas para reflejar escenarios reales. Este enfoque nos permitió evaluar la robustez del modelo frente a cambios en el tiempo y variaciones regionales.&lt;/p>
-&lt;h2 id="sec-7">7. Presentación del Modelo&lt;/h2>
-&lt;p>La presentación del modelo puede ser a través de un nomograma o aplicación.&lt;/p>
-&lt;h1 id="bibliografía">Bibliografía&lt;/h1>
-&lt;ol>
-&lt;li>Steyerberg EW, Vergouwe Y. Towards better clinical prediction models: seven steps for development and an ABCD for validation. European Heart Journal [Internet]. 1 de agosto de 2014 [citado 9 de mayo de 2021];35(29):1925-31. Disponible en: &lt;a href="https://academic.oup.com/eurheartj/article-lookup/doi/10.1093/eurheartj/ehu207" target="_blank" rel="noopener">https://academic.oup.com/eurheartj/article-lookup/doi/10.1093/eurheartj/ehu207&lt;/a>&lt;/li>
-&lt;/ol></description></item></channel></rss>
+En algunos contextos —sobre todo exploratorios— puede ser la diferencia entre un relato fiel al descubrimiento y una cronología ficticia.&lt;/p&gt;
+&lt;h1 id=&#34;recursos-adicionales&#34;&gt;Recursos adicionales&lt;/h1&gt;
+&lt;p&gt;🎧 &lt;strong&gt;Escucha el podcast de esta publicación&lt;/strong&gt;
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+&lt;audio controls &gt;
+  &lt;source src=&#34;https://maicel.netlify.app/mp3/Post_IMRyD.mp3&#34; type=&#34;audio/mpeg&#34;&gt;
+&lt;/audio&gt;
+&lt;/p&gt;
+&lt;h1 id=&#34;bibliografía&#34;&gt;Bibliografía&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Pólya G. How to solve it. Princeton University Press; 1945.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Kerr NL. HARKing: Hypothesizing after the results are known. Personality and Social Psychology Review. 1998;2(3):196-217.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Gelman A, Loken E. The garden of forking paths: Why multiple comparisons can be a problem [Internet]. 2013. Disponible en: &lt;a href=&#34;https://stat.columbia.edu/~gelman/research/unpublished/p_hacking.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://stat.columbia.edu/~gelman/research/unpublished/p_hacking.pdf&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Schulz KF, Altman DG, Moher D. CONSORT 2010 statement. BMJ. 2010;340:c332.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Page MJ, McKenzie JE, Bossuyt PM, others. The PRISMA 2020 statement. BMJ. 2021;372:n71.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Munafò MR, Nosek BA, Bishop DVM, others. A manifesto for reproducible science. Nature Human Behaviour. 2017;1:0021.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Nosek BA, Ebersole CR, DeHaven AC, Mellor DT. The preregistration revolution. PNAS. 2018;115(11):2600-6.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;International Committee of Medical Journal Editors. Recommendations for the conduct, reporting, editing, and publication of scholarly work in medical journals. 2019; Disponible en: &lt;a href=&#34;http://www.icmje.org/recommendations/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;http://www.icmje.org/recommendations/&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Nosek BA, others. Promoting an open research culture (TOP Guidelines). Science. 2015;348(6242):1422-5.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Wasserstein RL, Lazar NA. The asa’s statement on p-Values: Context, process, and purpose. The American Statistician. 2016;70(2):129-33.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Wasserstein RL, Schirm AL, Lazar NA. Moving to a world beyond “p ¡ 0.05”. The American Statistician. 2019;73(sup1):1-19.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;McShane BB, Gal D, Gelman A, Robert C, Tackett JL. Abandon statistical significance. The American Statistician. 2019;73(sup1):235-45.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Ciencia o Pirotecnia: Por Qué la &#39;Significación Estadística&#39; Nos Ciega con Falsos Destellos</title>
+      <link>https://maicel.netlify.app/post/2025-08-10-significacion/</link>
+      <pubDate>Sun, 10 Aug 2025 15:30:00 +0000</pubDate>
+      <guid>https://maicel.netlify.app/post/2025-08-10-significacion/</guid>
+      <description>&lt;p&gt;Ese momento de euforia al ver &lt;code&gt;p &amp;lt; 0.05&lt;/code&gt;… ¿es un descubrimiento genuino o solo un destello engañoso de pirotecnia estadística?&lt;/p&gt;
+&lt;p&gt;En la ciencia, hay un instante que todos los investigadores anhelan. Es la culminación de meses, a veces años, de riguroso trabajo. Corres el análisis y, de repente, ahí está: &lt;code&gt;p &amp;lt; 0.05&lt;/code&gt;. Es una &lt;strong&gt;explosión de alivio&lt;/strong&gt;, un destello de “¡Eureka!” en la oscuridad de la incertidumbre. Sentimos que hemos encontrado algo real, algo digno de ser publicado.&lt;/p&gt;
+&lt;p&gt;Pero, ¿y si ese destello es solo eso? Un estallido momentáneo, deslumbrante y ruidoso, pero que en el fondo significa muy poco. ¿Y si nuestro ritual más sagrado es, en realidad, un simple juego de pirotecnia, diseñado para impresionar más que para iluminar?&lt;/p&gt;
+&lt;p&gt;Durante décadas, hemos aceptado el umbral de significación estadística como el árbitro indiscutible de la verdad científica. Sin embargo, la evidencia acumulada —desde las críticas de su propio creador (Ronald Fisher) hasta las advertencias oficiales de la American Statistical Association (ASA) en 2016 y el clamor de cientos de científicos en la revista &lt;em&gt;Nature&lt;/em&gt; — nos obliga a una conclusión incómoda(Amrhein, Greenland, and McShane 2019; Wasserstein and Lazar 2016) : &lt;strong&gt;el emperador estadístico está desnudo&lt;/strong&gt;. La práctica de las Pruebas de Significación de la Hipótesis Nula (NHST, por sus siglas en inglés) no es un pilar de rigor, sino un ritual plagado de lógica errónea, confusión e inadecuación para la verdadera investigación.&lt;/p&gt;
+&lt;h2 id=&#34;el-cohete-más-grande-no-significa-mejor&#34;&gt;El Cohete: Más Grande no Significa Mejor&lt;/h2&gt;
+&lt;p&gt;En la pirotecnia, un cohete más grande produce una explosión más fuerte. Es simple física. En la estadística, ocurre algo perturbadoramente similar. El “cohete” es nuestro tamaño muestral.&lt;/p&gt;
+&lt;p&gt;La conclusión de una prueba de significación depende de manera crucial del tamaño de la muestra. Con un cohete lo suficientemente grande (una muestra de miles o decenas de miles de personas), la diferencia más trivial e insignificante para el mundo real se convertirá, casi por arte de magia, en “estadísticamente significativa”. Por el contrario, un efecto importante y real puede pasar desapercibido si nuestro cohete es demasiado pequeño.&lt;/p&gt;
+&lt;p&gt;Esto nos lleva a una &lt;strong&gt;verdad grotesca&lt;/strong&gt;: la decisión sobre si un hallazgo es “real” a menudo depende más de los recursos del investigador para recolectar datos masivos que de la naturaleza fundamental del fenómeno estudiado. El estallido nos dice más sobre el tamaño del cohete que sobre la belleza del cielo que intenta iluminar.&lt;/p&gt;
+&lt;!-- ```{r} --&gt;
+&lt;!-- set.seed(123) --&gt;
+&lt;!-- library(ggplot2) --&gt;
+&lt;!-- effect &lt;- 0.1 --&gt;
+&lt;!-- sd &lt;- 1 --&gt;
+&lt;!-- N &lt;- seq(20, 10000, by=50) --&gt;
+&lt;!-- p_values &lt;- sapply(N, function(n) { --&gt;
+&lt;!--   t.test(rnorm(n, mean=effect, sd=sd), mu=0)$p.value --&gt;
+&lt;!-- }) --&gt;
+&lt;!-- data &lt;- data.frame(N, p_values) --&gt;
+&lt;!-- ggplot(data, aes(N, p_values)) + --&gt;
+&lt;!--   geom_line() + --&gt;
+&lt;!--   geom_hline(yintercept = 0.05, linetype = &#34;dashed&#34;, color=&#34;red&#34;) + --&gt;
+&lt;!--   labs(x = &#34;Tamaño muestral (N)&#34;, y = &#34;Valor p&#34;) + --&gt;
+&lt;!--   theme_minimal() --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- Aquí iría tu gráfico explicativo del &#34;Cohete (Tamaño Muestral)&#34;: --&gt;
+&lt;!-- Un gráfico mostrando cómo un efecto trivial (ej: diferencia de 0.1 unidades) se vuelve &#34;significativo&#34; (p&lt;0.05) a medida que N aumenta de 100 a 10,000. Puedes usar `ggplot2` en R para esto. --&gt;
+&lt;!-- Ejemplo de código R (este no generaría un gráfico, solo un placeholder para tu referencia): --&gt;
+&lt;!-- ```{r cohete_plot, echo=FALSE, fig.cap=&#34;Impacto del tamaño muestral en la significación estadística para un efecto constante.&#34;} --&gt;
+&lt;!-- # Código para generar el gráfico de N vs p-valor --&gt;
+&lt;!-- # plot(your_data$N, your_data$p_value, type=&#34;l&#34;, main=&#34;Cómo N afecta el p-valor&#34;, --&gt;
+&lt;!-- #      xlab=&#34;Tamaño Muestral (N)&#34;, ylab=&#34;Valor p&#34;) --&gt;
+&lt;!-- # abline(h=0.05, col=&#34;red&#34;, lty=2) --&gt;
+&lt;!-- ``` --&gt;
+&lt;h2 id=&#34;la-explosión-un-caos-de-luz-y-malentendidos&#34;&gt;La Explosión: Un Caos de Luz y Malentendidos&lt;/h2&gt;
+&lt;p&gt;La explosión de un fuego artificial es un evento caótico. Su interpretación es subjetiva. ¿Fue espectacular? ¿Fue un fracaso? Lo mismo ocurre con el valor &lt;em&gt;p&lt;/em&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;lógica-errónea-juzgando-por-lo-que-no-vimos&#34;&gt;Lógica Errónea: Juzgando por lo que no Vimos&lt;/h2&gt;
+&lt;p&gt;La lógica detrás del valor &lt;em&gt;p&lt;/em&gt; es, siendo generosos, peculiar. Se calcula asumiendo que la hipótesis nula (H₀ —la hipótesis de no-efecto, de que no hay diferencia o relación) es cierta, y luego se determina la probabilidad de haber observado nuestros datos &lt;em&gt;o datos aún más extremos&lt;/em&gt; bajo esa suposición. Piénsalo: nuestra conclusión sobre lo que &lt;em&gt;sí&lt;/em&gt; ocurrió depende de la probabilidad de cosas que ni siquiera presenciamos. Es un &lt;strong&gt;absurdo subyacente&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Además, caemos constantemente en la &lt;strong&gt;falacia de la probabilidad invertida&lt;/strong&gt;: el valor &lt;em&gt;p&lt;/em&gt; nos dice la probabilidad de los datos dada la hipótesis nula (P(Datos|H₀)), pero nosotros creemos erróneamente que nos dice la probabilidad de que la hipótesis nula sea cierta dados nuestros datos (P(H₀|Datos)). Son dos cosas radicalmente distintas, y confundirlas es un error fundamental.&lt;/p&gt;
+&lt;!-- &lt;!-- Aquí iría tu diagrama de flujo simple o tabla comparativa para &#34;Confusión P(D|H) vs P(H|D)&#34;: --&gt;
+&lt;!-- Puedes usarmermaid para diagramas simples en RMarkdown o una tabla Markdown para la comparación. --&gt;
+&lt;!-- Ejemplo de código mermaid (necesitarías `config: {mermaid: {sequence: {diagramMarginX: 10}}}` en el YAML para que funcione): --&gt;
+&lt;h2 id=&#34;confusión-el-ruido-no-es-la-señal&#34;&gt;Confusión: El Ruido no es la Señal&lt;/h2&gt;
+&lt;p&gt;La confusión más extendida es la de equiparar “significación estadística” con “importancia práctica” o “relevancia científica”. Un estallido muy ruidoso no significa que el descubrimiento sea importante, útil o generalizable. Esta obsesión por el ruido estadístico, esta endémica “significant-itis”, nos ha distraído de lo que realmente importa en la investigación: la magnitud del efecto y la relevancia clínica, social o teórica de nuestros hallazgos.&lt;/p&gt;
+&lt;h2 id=&#34;el-caso-del-chocolate-que-hace-perder-peso&#34;&gt;El Caso del Chocolate que Hace Perder Peso&lt;/h2&gt;
+&lt;p&gt;Para ilustrar esta locura, consideremos el tristemente famoso estudio de John Bohannon en 2015, “Chocolate con fines de pérdida de peso” . Con un pequeño presupuesto, Bohannon realizó un ensayo aleatorio, controlado con chocolate, utilizando un número muy reducido de participantes y midiendo 18 variables distintas(Bohannon 2015). Al analizar &lt;em&gt;todas&lt;/em&gt; las combinaciones posibles, encontró que con una muestra tan pequeña y al realizar múltiples pruebas (un tipo de &lt;em&gt;p-hacking&lt;/em&gt;), era casi inevitable que alguna variable arrojara un p-valor menor a 0.05 &lt;strong&gt;por pura casualidad&lt;/strong&gt;. Con su &lt;code&gt;p &amp;lt; 0.05&lt;/code&gt; “significativo”, los medios de comunicación sensacionalistas se lanzaron a la noticia: “El chocolate hace perder peso!”. Este caso es un claro ejemplo de cómo un “destello” estadístico puede ser completamente engañoso y carecer de cualquier importancia real, pero aun así generar titulares y confusión(Bohannon 2015).&lt;/p&gt;
+&lt;h2 id=&#34;el-veredicto-la-falsa-dicotomía-del-ohhh-o-el-silencio&#34;&gt;El Veredicto: La Falsa Dicotomía del “Ohhh” o el Silencio&lt;/h2&gt;
+&lt;p&gt;Quien observa fuegos artificiales emite un veredicto simple: el “¡Ohhh!” de asombro o el silencio de la indiferencia. Las pruebas de significación nos han impuesto esta misma decisión binaria: o un resultado es significativo (&lt;code&gt;p &amp;lt; 0.05&lt;/code&gt;), o no lo es. Es un interruptor de encendido/apagado.&lt;/p&gt;
+&lt;p&gt;Pero la ciencia no funciona así. El conocimiento científico no es una serie de decisiones de “sí/no”. Es un proceso gradual de ajuste de nuestras creencias a la luz de la evidencia acumulada. Es un paisaje de grises, no un contraste de blanco y negro. Al forzarnos a este mecanicismo, a esta “sucesión de ‘decisiones’ automáticas” que el propio Fisher denunció, hemos empobrecido el discurso científico, ignorando matices cruciales como la magnitud del efecto o la precisión de la estimación.&lt;/p&gt;
+&lt;h2 id=&#34;después-del-humo-hacia-una-ciencia-iluminada&#34;&gt;Después del Humo: Hacia una Ciencia Iluminada&lt;/h2&gt;
+&lt;p&gt;Cuando el humo de la pirotecnia se disipa, ¿qué nos queda? Nos queda la tarea de encontrar una luz más honesta y duradera para la ciencia. Afortunadamente, esta luz existe y está ganando terreno.&lt;/p&gt;
+&lt;p&gt;La alternativa fundamental es pasar de la &lt;strong&gt;decisión binaria&lt;/strong&gt; a la &lt;strong&gt;estimación&lt;/strong&gt;. En lugar de preguntar obsesivamente “¿Hay un efecto (sí/no)?”, debemos preguntar “¿Cuál es la magnitud del efecto y cuán seguros estamos de esa estimación?”.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Intervalos de Confianza (o de Compatibilidad):&lt;/strong&gt; Son nuestra primera y más accesible herramienta para una inferencia más sensata. Los Intervalos de Confianza no nos dan un simple “sí/no”, sino un &lt;strong&gt;rango de valores plausibles&lt;/strong&gt; para el efecto real en la población. Nos muestran tanto la magnitud estimada del efecto como la incertidumbre que lo rodea.&lt;/p&gt;
+&lt;p&gt;Cuando vemos un Intervalo de Confianza del 95% para una diferencia, por ejemplo, esto significa que si repitiéramos el estudio muchas, muchas veces bajo las mismas condiciones, el 95% de esos intervalos contendrían el verdadero valor del efecto que estamos tratando de estimar. Nos invitan a pensar en la variabilidad y la precisión de nuestras estimaciones, no solo en un umbral arbitrario. Son una luz constante que ilumina un paisaje, permitiéndonos ver el terreno completo, no un destello que ciega momentáneamente.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- &lt;!-- Aquí iría tu gráfico de &#34;Intervalos de Confianza/Compatibilidad&#34;: --&gt;
+&lt;!-- Un gráfico con varios ICs superpuestos (algunos estrechos, otros anchos, algunos cruzando cero, otros no) para ilustrar que muestran magnitud *e* incertidumbre, no solo &#34;sí/no&#34;. --&gt;
+&lt;!-- ```{r ic_plot, echo=FALSE, fig.cap=&#34;Visualización de Intervalos de Confianza: Magnitud y Incertidumbre.&#34;} --&gt;
+&lt;!-- # Código para generar el gráfico de ICs --&gt;
+&lt;!-- # library(ggplot2) --&gt;
+&lt;!-- # data.frame( --&gt;
+&lt;!-- #   Effect = c(0.5, 1.2, -0.3, 0.8), --&gt;
+&lt;!-- #   Lower = c(0.1, 0.8, -0.7, 0.2), --&gt;
+&lt;!-- #   Upper = c(0.9, 1.6, 0.1, 1.4) --&gt;
+&lt;!-- # ) %&gt;% --&gt;
+&lt;!-- #   ggplot(aes(y = factor(1:4), x = Effect, xmin = Lower, xmax = Upper)) + --&gt;
+&lt;!-- #   geom_point() + geom_errorbarh(height = 0.2) + --&gt;
+&lt;!-- #   geom_vline(xintercept = 0, linetype = &#34;dashed&#34;, color = &#34;grey&#34;) + --&gt;
+&lt;!-- #   labs(x = &#34;Magnitud del Efecto&#34;, y = &#34;Estudio&#34;) + --&gt;
+&lt;!-- #   theme_minimal() --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- --&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;El Enfoque Bayesiano:&lt;/strong&gt; Es el siguiente paso evolutivo en la inferencia estadística, y es la encarnación matemática del razonamiento científico. Los métodos bayesianos nos permiten hacer lo que siempre hemos querido hacer: &lt;strong&gt;combinar la evidencia de nuestro estudio actual con todo el conocimiento previo existente&lt;/strong&gt; (estudios anteriores, plausibilidad biológica, experiencia clínica) para llegar a una conclusión actualizada y probabilística sobre nuestras hipótesis.&lt;/p&gt;
+&lt;p&gt;A diferencia del valor &lt;em&gt;p&lt;/em&gt;, el enfoque bayesiano responde directamente a la pregunta que realmente queremos hacer: “&lt;strong&gt;Dados estos nuevos datos, ¿qué tan creíble es mi hipótesis ahora?&lt;/strong&gt;”. Nos da una probabilidad posterior de nuestra hipótesis, una medida directa de nuestra creencia actualizada. Aunque puede parecer más complejo al principio, el razonamiento bayesiano se alinea intuitivamente con cómo los científicos y las personas actualizan sus creencias en la vida real.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Dejemos la pirotecnia para las celebraciones. Es hora de que la ciencia deje de buscar destellos efímeros y se dedique a construir una iluminación constante, acumulativa y, sobre todo, &lt;strong&gt;honesta&lt;/strong&gt;. Es el momento de una ciencia más transparente, rigurosa y, sí, ¡más divertida de interpretar!&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;tu-turno&#34;&gt;¡Tu Turno!&lt;/h2&gt;
+&lt;p&gt;¿Te has encontrado con la “tiranía del p&amp;lt;0.05” en tu campo? ¿Qué alternativas usas o te gustaría ver más promovidas en la investigación? ¡Comparte tu experiencia y tus pensamientos en los comentarios a continuación!&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;referencias&#34;&gt;Referencias&lt;/h2&gt;
+&lt;div id=&#34;refs&#34; class=&#34;references csl-bib-body hanging-indent&#34; entry-spacing=&#34;0&#34;&gt;
+&lt;div id=&#34;ref-amrhein2019&#34; class=&#34;csl-entry&#34;&gt;
+&lt;p&gt;Amrhein, Valentin, Sander Greenland, and Blake McShane. 2019. “Scientists Rise up Against Statistical Significance.” &lt;em&gt;Nature&lt;/em&gt; 567 (7748): 305–7. &lt;a href=&#34;https://doi.org/10.1038/d41586-019-00857-9&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://doi.org/10.1038/d41586-019-00857-9&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-bohannon2015&#34; class=&#34;csl-entry&#34;&gt;
+&lt;p&gt;Bohannon, John. 2015. “I Fooled Millions into Thinking Chocolate Helps Weight Loss. Here’s How.” &lt;a href=&#34;https://gizmodo.com/i-fooled-millions-into-thinking-chocolate-helps-weight-1707251800&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://gizmodo.com/i-fooled-millions-into-thinking-chocolate-helps-weight-1707251800&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-wasserstein2016&#34; class=&#34;csl-entry&#34;&gt;
+&lt;p&gt;Wasserstein, Ronald L., and Nicole A. Lazar. 2016. “The ASA Statement on &lt;em&gt;p&lt;/em&gt; -Values: Context, Process, and Purpose.” &lt;em&gt;The American Statistician&lt;/em&gt; 70 (2): 129–33. &lt;a href=&#34;https://doi.org/10.1080/00031305.2016.1154108&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://doi.org/10.1080/00031305.2016.1154108&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Diseños Alternativos a Ensayos Clínicos Controlados Aleatorizados: Contextos de Aplicación y Riesgos Regulatorios</title>
+      <link>https://maicel.netlify.app/post/atajos/</link>
+      <pubDate>Thu, 07 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>https://maicel.netlify.app/post/atajos/</guid>
+      <description>&lt;p&gt;🎧 &lt;strong&gt;Escucha el podcast de esta publicación&lt;/strong&gt;
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+&lt;audio controls &gt;
+  &lt;source src=&#34;https://maicel.netlify.app/mp3/atajos.mp3&#34; type=&#34;audio/mpeg&#34;&gt;
+&lt;/audio&gt;
+&lt;/p&gt;
+&lt;h1 id=&#34;introducción-fundamentos-de-evidencia-confirmatoria&#34;&gt;Introducción: Fundamentos de evidencia confirmatoria&lt;/h1&gt;
+&lt;p&gt;Los ensayos clínicos controlados, aleatorizados y enmascarados (ECAs) constituyen el marco metodológico más robusto para evaluar la &lt;strong&gt;eficacia y seguridad&lt;/strong&gt; de nuevas intervenciones terapéuticas. Son considerados el &amp;ldquo;estándar de oro&amp;rdquo; en investigación clínica por agencias como &lt;strong&gt;ICH, EMA y FDA&lt;/strong&gt;, ya que proporcionan el mayor control contra el sesgo y la mayor solidez en inferencia causal.&lt;/p&gt;
+&lt;p&gt;En este marco, los &lt;strong&gt;ensayos confirmatorios&lt;/strong&gt; son aquellos diseñados explícitamente para confirmar hipótesis clínicas relevantes, con base en análisis predefinidos y control adecuado de errores. Cuando estos estudios sustentan una solicitud de comercialización, adquieren la condición de &lt;strong&gt;ensayos pivotal&lt;/strong&gt; (terminología empleada por FDA y EMA).&lt;/p&gt;
+&lt;p&gt;En principio, se recomienda la presentación de &lt;strong&gt;dos ensayos confirmatorios independientes&lt;/strong&gt;. Sin embargo, &lt;strong&gt;tanto EMA como FDA&lt;/strong&gt; contemplan aprobaciones basadas en &lt;strong&gt;un único ensayo pivotal&lt;/strong&gt;, siempre que esté respaldado por &lt;strong&gt;evidencia complementaria rigurosa&lt;/strong&gt;. La &lt;strong&gt;FDA&lt;/strong&gt;, mediante el concepto de &lt;strong&gt;evidencia confirmatoria&lt;/strong&gt; (FDA 2023), formaliza esta vía alternativa. La &lt;strong&gt;EMA&lt;/strong&gt;, aunque no utiliza esa denominación, acepta enfoques equivalentes (meta-análisis, controles históricos validados, análisis de consistencia interna).&lt;/p&gt;
+&lt;h2 id=&#34;tabla-1-términos-clave-definición-origen-normativo-y-función-regulatoria&#34;&gt;Tabla 1. Términos clave: definición, origen normativo y función regulatoria&lt;/h2&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;strong&gt;Término&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;Fuente regulatoria&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;Definición técnica&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;Función regulatoria&lt;/strong&gt;&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Ensayo clínico confirmatorio&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;ICH E9&lt;/td&gt;
+          &lt;td&gt;Estudio con hipótesis explícita, análisis planificado y diseño robusto para inferencia causal.&lt;/td&gt;
+          &lt;td&gt;Fuente principal de evidencia en autorizaciones de comercialización.&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Ensayo pivotal&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;FDA, EMA&lt;/td&gt;
+          &lt;td&gt;Estudio esencial para demostrar eficacia y seguridad en el expediente regulatorio.&lt;/td&gt;
+          &lt;td&gt;Sustento central del dossier clínico.&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Evidencia confirmatoria&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;FDA (2023)&lt;/td&gt;
+          &lt;td&gt;Datos adicionales (clínicos/no clínicos) que refuerzan un ensayo pivotal único.&lt;/td&gt;
+          &lt;td&gt;Permite cumplir el estándar de &amp;ldquo;evidencia sustancial&amp;rdquo; con un solo ECA.&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Evidencia sustancial&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;FDA (21 CFR 314.126)&lt;/td&gt;
+          &lt;td&gt;Estándar legal que puede cumplirse mediante 2 ECAs o, cuando esté justificado, 1 ECA + confirmación.&lt;/td&gt;
+          &lt;td&gt;Requisito para la aprobación de nuevos medicamentos en EE.UU.&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Evidencia complementaria&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;ICH E9; EMA, FDA&lt;/td&gt;
+          &lt;td&gt;Estudios no pivotal que aportan consistencia (ej. subgrupos, dosis, seguridad, datos externos).&lt;/td&gt;
+          &lt;td&gt;Reforzar la plausibilidad de los hallazgos principales.&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;estructura-metodológica-de-los-ecas-y-su-anclaje-normativo&#34;&gt;Estructura metodológica de los ECAs y su anclaje normativo&lt;/h1&gt;
+&lt;p&gt;Los ECAs incorporan tres garantías fundamentales: &lt;strong&gt;aleatorización&lt;/strong&gt;, &lt;strong&gt;grupo control&lt;/strong&gt; y &lt;strong&gt;cegamiento&lt;/strong&gt;. Estos componentes son esenciales para maximizar la validez interna y minimizar fuentes de sesgo sistemático.&lt;/p&gt;
+&lt;h2 id=&#34;tabla-2-garantías-anti-sesgo-en-ecas&#34;&gt;Tabla 2. Garantías anti-sesgo en ECAs&lt;/h2&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;strong&gt;Componente metodológico&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;Función específica&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;Cómo reduce el sesgo&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;Referencia normativa ICH&lt;/strong&gt;&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Aleatorización&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;Asignación no predecible de tratamientos&lt;/td&gt;
+          &lt;td&gt;Mitiga el sesgo de selección; equilibra factores conocidos/desconocidos&lt;/td&gt;
+          &lt;td&gt;ICH E9 Sección 2.2.3&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Grupo control&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;Comparación con placebo o tratamiento estándar&lt;/td&gt;
+          &lt;td&gt;Permite contrafactual válido e inferencia causal robusta&lt;/td&gt;
+          &lt;td&gt;ICH E10; ICH E8(R1)&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Cegamiento (blinding)&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;Ocultamiento de asignación a participantes e investigadores&lt;/td&gt;
+          &lt;td&gt;Previene sesgo de evaluación, expectativa y cointervención&lt;/td&gt;
+          &lt;td&gt;ICH E9 Sección 2.2.4&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;contextos-que-permiten-prescindir-de-ecas&#34;&gt;Contextos que permiten prescindir de ECAs&lt;/h1&gt;
+&lt;p&gt;La omisión de ECAs solo es aceptable en contextos claramente delimitados por justificaciones éticas, científicas o logísticas:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Enfermedades raras o ultrarraras&lt;/strong&gt;, con poblaciones muy limitadas.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Situaciones de emergencia sanitaria&lt;/strong&gt;, con necesidades clínicas urgentes.&lt;/li&gt;
+&lt;li&gt;Cuando la &lt;strong&gt;aleatorización o el cegamiento son éticamente problemáticos&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;Cuando existen &lt;strong&gt;datos históricos o reales bien estructurados y validados&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;La aceptación de estos diseños como base regulatoria &lt;strong&gt;requiere validación metodológica específica y evaluación caso por caso&lt;/strong&gt;, según guías EMA y FDA.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;diseños-alternativos-más-empleados-y-criterios-de-validación&#34;&gt;Diseños alternativos más empleados y criterios de validación&lt;/h1&gt;
+&lt;h2 id=&#34;tabla-3-diseños-alternativos-justificación-limitaciones-y-requisitos-regulatorios&#34;&gt;Tabla 3. Diseños alternativos: justificación, limitaciones y requisitos regulatorios&lt;/h2&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;strong&gt;Diseño alternativo&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;Justificación de uso&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;Limitaciones críticas&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;Requisitos de validación&lt;/strong&gt;&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Single-Arm Trials (SAT)&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;Enfermedades raras; oncología sin comparador disponible&lt;/td&gt;
+          &lt;td&gt;Ausencia de grupo control; alta vulnerabilidad a sesgo de selección&lt;/td&gt;
+          &lt;td&gt;Control externo robusto; endpoints validados; análisis de consistencia&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Controles externos/sintéticos&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;Cohortes históricas o datos de mundo real&lt;/td&gt;
+          &lt;td&gt;Riesgo de confusión residual y sesgo de canalización&lt;/td&gt;
+          &lt;td&gt;Propensity score matching; alineación temporal; CHMP/4366/2020 (EMA)&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Diseños adaptativos&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;Eficiencia en reclutamiento; ajustes preplanificados&lt;/td&gt;
+          &lt;td&gt;Riesgo de error tipo I si no se prespecifican adecuadamente&lt;/td&gt;
+          &lt;td&gt;Control de multiplicidad; simulación previa; ICH E9(R1)&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Real-World Evidence (RWE)&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;Acceso a datos de rutina clínica; seguimiento largo; baja carga ética&lt;/td&gt;
+          &lt;td&gt;Falta de aleatorización; sesgo de confusión no medido&lt;/td&gt;
+          &lt;td&gt;PROACE principles (FDA 2023); data provenance; calidad del DMR; plan de análisis riguroso&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;riesgos-del-uso-estratégico-de-diseños-no-confirmatorios&#34;&gt;Riesgos del uso estratégico de diseños no confirmatorios&lt;/h1&gt;
+&lt;p&gt;Aunque válidos en contextos excepcionales, el uso frecuente y estratégico de estos diseños plantea &lt;strong&gt;serios desafíos regulatorios&lt;/strong&gt;, especialmente si se recurre a ellos como vía para &lt;strong&gt;prescindir de ECAs sin justificación metodológica sólida&lt;/strong&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;riesgos-identificados&#34;&gt;Riesgos identificados:&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Aprobaciones basadas en &lt;strong&gt;evidencia débil o no reproducible&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;Incremento del &lt;strong&gt;sesgo sistemático&lt;/strong&gt; en resultados de eficacia.&lt;/li&gt;
+&lt;li&gt;Exposición de pacientes a intervenciones &lt;strong&gt;no validadas rigurosamente&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Deslegitimación del proceso regulatorio&lt;/strong&gt; ante la comunidad científica y la sociedad.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;recomendaciones-regulatorias&#34;&gt;Recomendaciones regulatorias&lt;/h1&gt;
+&lt;h2 id=&#34;a-para-la-industria&#34;&gt;A. Para la industria&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Presentar &lt;strong&gt;justificación exhaustiva&lt;/strong&gt; cuando no se utilicen ECAs.&lt;/li&gt;
+&lt;li&gt;Cumplir con requisitos metodológicos específicos según tipo de diseño alternativo.&lt;/li&gt;
+&lt;li&gt;Incluir análisis de sensibilidad, consistencia y control de sesgo.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;b-para-las-agencias-reguladoras&#34;&gt;B. Para las agencias reguladoras&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Reforzar guías específicas&lt;/strong&gt; (EMA, FDA) que regulen el uso de diseños alternativos.&lt;/li&gt;
+&lt;li&gt;Exigir &lt;strong&gt;registro público&lt;/strong&gt;, transparencia y acceso a protocolos completos.&lt;/li&gt;
+&lt;li&gt;Fortalecer &lt;strong&gt;capacidades internas&lt;/strong&gt; en estadística avanzada y diseño de estudios no aleatorizados.&lt;/li&gt;
+&lt;li&gt;Establecer &lt;strong&gt;comités independientes&lt;/strong&gt; de evaluación para salvaguardas éticas y científicas.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;conclusión&#34;&gt;Conclusión&lt;/h1&gt;
+&lt;p&gt;Los diseños alternativos no deben entenderse como sustitutos genéricos del ECA, sino como herramientas &lt;strong&gt;válidas solo bajo condiciones estrictamente justificadas y validadas&lt;/strong&gt;. El regulador tiene la responsabilidad científica y ética de exigir evidencia que no solo sea suficiente, sino también sólida, reproducible y libre de sesgos. La precisión metodológica y la claridad terminológica no son un lujo en este proceso: &lt;strong&gt;son el principio rector que protege la salud pública frente a la ambigüedad científica&lt;/strong&gt;.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;bibliografía&#34;&gt;Bibliografía&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;FDA. &lt;em&gt;Demonstrating Substantial Evidence of Effectiveness with One Adequate and Well-Controlled Clinical Investigation and Confirmatory Evidence&lt;/em&gt;. Draft Guidance. 2023.&lt;/li&gt;
+&lt;li&gt;EMA. &lt;em&gt;Reflection Paper on Single‑Arm Trials as Pivotal Evidence&lt;/em&gt;. EMA/CHMP/161300/2023.&lt;/li&gt;
+&lt;li&gt;FDA. &lt;em&gt;Real-World Evidence Framework&lt;/em&gt;. 2023 Update.&lt;/li&gt;
+&lt;li&gt;EMA. &lt;em&gt;Use of Real‑World Evidence in Regulatory Decision-Making&lt;/em&gt;. EMA/INS/GCP/455222/2024.&lt;/li&gt;
+&lt;li&gt;ICH. &lt;em&gt;E9: Statistical Principles for Clinical Trials&lt;/em&gt;. 1998.&lt;/li&gt;
+&lt;li&gt;ICH. &lt;em&gt;E9(R1): Addendum on Estimands and Sensitivity Analysis in Clinical Trials&lt;/em&gt;. 2020.&lt;/li&gt;
+&lt;li&gt;EMA. &lt;em&gt;Guideline on Adjustment for Baseline Covariates in Clinical Trials&lt;/em&gt;. CHMP/EWP/2863/99.&lt;/li&gt;
+&lt;li&gt;FDA. &lt;em&gt;Real-World Evidence Program Annual Report 2025 (PUB-245)&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;Temple R, Ellenberg SS. &lt;em&gt;Placebo-Controlled Trials and Active-Control Trials in the Evaluation of New Treatments&lt;/em&gt;. &lt;em&gt;Ann Intern Med&lt;/em&gt;. 2000;133(6):455–463.&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

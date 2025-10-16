@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Evitar HARKing en Tesis Médicas | Bioestadística edu</title><link>https://maicel.netlify.app/tags/evitar-harking-en-tesis-medicas/</link><atom:link href="https://maicel.netlify.app/tags/evitar-harking-en-tesis-medicas/index.xml" rel="self" type="application/rss+xml"/><description>Evitar HARKing en Tesis Médicas</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Sat, 04 Oct 2025 00:00:00 +0000</lastBuildDate><image><url>https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png</url><title>Evitar HARKing en Tesis Médicas</title><link>https://maicel.netlify.app/tags/evitar-harking-en-tesis-medicas/</link></image><item><title>¿Escribir ciencia o reescribir la realidad?</title><link>https://maicel.netlify.app/posts/imryd-redaccion-inversa/</link><pubDate>Sat, 04 Oct 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/posts/imryd-redaccion-inversa/</guid><description>&lt;h1 id="introducción">Introducción&lt;/h1>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
+&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&amp;ldquo;¿Y si escribimos al revés? No de la Introducción a los hallazgos, sino de los hallazgos a la Introducción.&amp;rdquo;&lt;/span>
+&lt;/div>
+&lt;p>&lt;strong>IMRyD —Introducción, Métodos, Resultados y Discusión—&lt;/strong> funciona como un bien público editorial: estandariza, facilita la revisión y permite comparar artículos.
+Además, comenzar por el problema científico importa: formularlo bien equivale a haber recorrido media solución (1).
+Este post no propone abandonar &lt;strong>IMRyD&lt;/strong>, sino distinguir dos órdenes complementarios:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Orden de publicación (IMRyD):&lt;/strong> útil para evaluación y recuperación de información&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Orden de redacción (guiada por hallazgos):&lt;/strong> útil para alinear el relato con lo que realmente aprendimos y separar lo confirmatorio de lo exploratorio (2,3).&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>En la práctica:&lt;/strong> redacta primero los &lt;strong>resultados&lt;/strong> clave (estimaciones, intervalos de confianza, relevancia), después la &lt;strong>Discusión&lt;/strong> (plausibilidad, sesgos, sensibilidad), luego &lt;strong>Métodos&lt;/strong> con transparencia radical (qué estaba preespecificado, qué cambió y por qué), y cierra con una &lt;strong>Introducción&lt;/strong> breve y precisa al problema (formular preguntas o hipótesis) que realmente se ajusta los resultados.
+El formato final sigue siendo &lt;strong>IMRyD&lt;/strong>.&lt;/p>
+&lt;h1 id="cuándo-sí-y-cuándo-no">Cuándo sí y cuándo no&lt;/h1>
+&lt;p>&lt;strong>Conviene:&lt;/strong> estudios observacionales, análisis secundarios, descubrimientos no previstos, ciencia de datos aplicada donde la iteración es inevitable.&lt;/p>
+&lt;p>&lt;strong>Precaución/No conviene:&lt;/strong> Registered Reports, ensayos confirmatorios con plan de análisis estadístico (PAE) preespecificado (CONSORT), revisiones sistemáticas con protocolo (PRISMA).
+En estos casos, mantén la primacía del plan y señala lo exploratorio como tal (4,5).&lt;/p>
+&lt;h1 id="objeciones-críticas-y-respuestas-con-evidencia">Objeciones críticas (y respuestas con evidencia)&lt;/h1>
+&lt;p>&lt;strong>“Esto fomenta HARKing.”&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>Respuesta:&lt;/strong> justo lo contrario si se exige señalización explícita y materiales abiertos.
+&lt;em>HARKing es ocultar; aquí pedimos diferenciar confirmatorio vs. exploratorio y documentar cambios (6-8).&lt;/em>&lt;/p>
+&lt;p>&lt;strong>“La Introducción pierde su papel.”&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>Respuesta:&lt;/strong> se fortalece.
+&lt;em>Enmarca el problema real que la evidencia iluminó, sin forzar una cronología ficticia.ICMJE promueve IMRAD para claridad, no para reescribir la historia (9).&lt;/em>&lt;/p>
+&lt;p>&lt;strong>“Los editores piden IMRyD estricto.”&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>Respuesta:&lt;/strong> lo mantenemos.
+&lt;em>Cambia el flujo de trabajo, no la macroestructura. Además, TOP y prácticas abiertas refuerzan la confianza editorial (10).&lt;/em>&lt;/p>
+&lt;p>&lt;strong>“Se sobrevaloran resultados inesperados.”&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>Respuesta:&lt;/strong> exige sensibilidad, controles negativos, replicación y no fetichizar p&amp;lt;0,05&lt;/p>
+&lt;h1 id="checklist-de-transparencia">Checklist de transparencia&lt;/h1>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Elemento&lt;/th>
+&lt;th>Confirmatorio&lt;/th>
+&lt;th>Exploratorio&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Especificación previa&lt;/td>
+&lt;td>Protocolo/SAP enlazado&lt;/td>
+&lt;td>No preespecificado (justificación)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Resultados&lt;/td>
+&lt;td>Etiquetados como preespecificados&lt;/td>
+&lt;td>Etiquetados como post hoc&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Análisis&lt;/td>
+&lt;td>Según plan&lt;/td>
+&lt;td>Limitados, con sensibilidad&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Recursos abiertos&lt;/td>
+&lt;td>Datos/código/cuaderno&lt;/td>
+&lt;td>Código y criterios documentados&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="conclusión">Conclusión&lt;/h2>
+&lt;p>IMRyD ordena y hace comparables nuestros artículos.
+Integrar una redacción guiada por hallazgos es una forma moderada y práctica de ganar honestidad, utilidad y trazabilidad, sin sacrificar rigor metodológico ni claridad editorial.
+En algunos contextos —sobre todo exploratorios— puede ser la diferencia entre un relato fiel al descubrimiento y una cronología ficticia.&lt;/p>
+&lt;h1 id="recursos-adicionales">Recursos adicionales&lt;/h1>
+&lt;p>🎧 &lt;strong>Escucha el podcast de esta publicación&lt;/strong>
+&lt;audio controls >
+&lt;source src="https://maicel.netlify.app/mp3/Post_IMRyD.mp3" type="audio/mpeg">
+&lt;/audio>
+&lt;/p>
+&lt;h1 id="bibliografía">Bibliografía&lt;/h1>
+&lt;ol>
+&lt;li>
+&lt;p>Pólya G. How to solve it. Princeton University Press; 1945.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Kerr NL. HARKing: Hypothesizing after the results are known. Personality and Social Psychology Review. 1998;2(3):196-217.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Gelman A, Loken E. The garden of forking paths: Why multiple comparisons can be a problem [Internet]. 2013. Disponible en: &lt;a href="https://stat.columbia.edu/~gelman/research/unpublished/p_hacking.pdf" target="_blank" rel="noopener">https://stat.columbia.edu/~gelman/research/unpublished/p_hacking.pdf&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Schulz KF, Altman DG, Moher D. CONSORT 2010 statement. BMJ. 2010;340:c332.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Page MJ, McKenzie JE, Bossuyt PM, others. The PRISMA 2020 statement. BMJ. 2021;372:n71.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Munafò MR, Nosek BA, Bishop DVM, others. A manifesto for reproducible science. Nature Human Behaviour. 2017;1:0021.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Nosek BA, Ebersole CR, DeHaven AC, Mellor DT. The preregistration revolution. PNAS. 2018;115(11):2600-6.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>International Committee of Medical Journal Editors. Recommendations for the conduct, reporting, editing, and publication of scholarly work in medical journals. 2019; Disponible en: &lt;a href="http://www.icmje.org/recommendations/" target="_blank" rel="noopener">http://www.icmje.org/recommendations/&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Nosek BA, others. Promoting an open research culture (TOP Guidelines). Science. 2015;348(6242):1422-5.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Wasserstein RL, Lazar NA. The asa’s statement on p-Values: Context, process, and purpose. The American Statistician. 2016;70(2):129-33.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Wasserstein RL, Schirm AL, Lazar NA. Moving to a world beyond “p ¡ 0.05”. The American Statistician. 2019;73(sup1):1-19.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>McShane BB, Gal D, Gelman A, Robert C, Tackett JL. Abandon statistical significance. The American Statistician. 2019;73(sup1):235-45.&lt;/p>
+&lt;/li>
+&lt;/ol></description></item></channel></rss>

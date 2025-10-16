@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Metodología De Investigación | Bioestadística edu</title><link>https://maicel.netlify.app/categories/metodologia-de-investigacion/</link><atom:link href="https://maicel.netlify.app/categories/metodologia-de-investigacion/index.xml" rel="self" type="application/rss+xml"/><description>Metodología De Investigación</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Sat, 04 Oct 2025 00:00:00 +0000</lastBuildDate><image><url>https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png</url><title>Metodología De Investigación</title><link>https://maicel.netlify.app/categories/metodologia-de-investigacion/</link></image><item><title>¿Escribir ciencia o reescribir la realidad?</title><link>https://maicel.netlify.app/posts/imryd-redaccion-inversa/</link><pubDate>Sat, 04 Oct 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/posts/imryd-redaccion-inversa/</guid><description>&lt;h1 id="introducción">Introducción&lt;/h1>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
+&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&amp;ldquo;¿Y si escribimos al revés? No de la Introducción a los hallazgos, sino de los hallazgos a la Introducción.&amp;rdquo;&lt;/span>
+&lt;/div>
+&lt;p>&lt;strong>IMRyD —Introducción, Métodos, Resultados y Discusión—&lt;/strong> funciona como un bien público editorial: estandariza, facilita la revisión y permite comparar artículos.
+Además, comenzar por el problema científico importa: formularlo bien equivale a haber recorrido media solución (1).
+Este post no propone abandonar &lt;strong>IMRyD&lt;/strong>, sino distinguir dos órdenes complementarios:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Orden de publicación (IMRyD):&lt;/strong> útil para evaluación y recuperación de información&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Orden de redacción (guiada por hallazgos):&lt;/strong> útil para alinear el relato con lo que realmente aprendimos y separar lo confirmatorio de lo exploratorio (2,3).&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>En la práctica:&lt;/strong> redacta primero los &lt;strong>resultados&lt;/strong> clave (estimaciones, intervalos de confianza, relevancia), después la &lt;strong>Discusión&lt;/strong> (plausibilidad, sesgos, sensibilidad), luego &lt;strong>Métodos&lt;/strong> con transparencia radical (qué estaba preespecificado, qué cambió y por qué), y cierra con una &lt;strong>Introducción&lt;/strong> breve y precisa al problema (formular preguntas o hipótesis) que realmente se ajusta los resultados.
+El formato final sigue siendo &lt;strong>IMRyD&lt;/strong>.&lt;/p>
+&lt;h1 id="cuándo-sí-y-cuándo-no">Cuándo sí y cuándo no&lt;/h1>
+&lt;p>&lt;strong>Conviene:&lt;/strong> estudios observacionales, análisis secundarios, descubrimientos no previstos, ciencia de datos aplicada donde la iteración es inevitable.&lt;/p>
+&lt;p>&lt;strong>Precaución/No conviene:&lt;/strong> Registered Reports, ensayos confirmatorios con plan de análisis estadístico (PAE) preespecificado (CONSORT), revisiones sistemáticas con protocolo (PRISMA).
+En estos casos, mantén la primacía del plan y señala lo exploratorio como tal (4,5).&lt;/p>
+&lt;h1 id="objeciones-críticas-y-respuestas-con-evidencia">Objeciones críticas (y respuestas con evidencia)&lt;/h1>
+&lt;p>&lt;strong>“Esto fomenta HARKing.”&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>Respuesta:&lt;/strong> justo lo contrario si se exige señalización explícita y materiales abiertos.
+&lt;em>HARKing es ocultar; aquí pedimos diferenciar confirmatorio vs. exploratorio y documentar cambios (6-8).&lt;/em>&lt;/p>
+&lt;p>&lt;strong>“La Introducción pierde su papel.”&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>Respuesta:&lt;/strong> se fortalece.
+&lt;em>Enmarca el problema real que la evidencia iluminó, sin forzar una cronología ficticia.ICMJE promueve IMRAD para claridad, no para reescribir la historia (9).&lt;/em>&lt;/p>
+&lt;p>&lt;strong>“Los editores piden IMRyD estricto.”&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>Respuesta:&lt;/strong> lo mantenemos.
+&lt;em>Cambia el flujo de trabajo, no la macroestructura. Además, TOP y prácticas abiertas refuerzan la confianza editorial (10).&lt;/em>&lt;/p>
+&lt;p>&lt;strong>“Se sobrevaloran resultados inesperados.”&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>Respuesta:&lt;/strong> exige sensibilidad, controles negativos, replicación y no fetichizar p&amp;lt;0,05&lt;/p>
+&lt;h1 id="checklist-de-transparencia">Checklist de transparencia&lt;/h1>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Elemento&lt;/th>
+&lt;th>Confirmatorio&lt;/th>
+&lt;th>Exploratorio&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Especificación previa&lt;/td>
+&lt;td>Protocolo/SAP enlazado&lt;/td>
+&lt;td>No preespecificado (justificación)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Resultados&lt;/td>
+&lt;td>Etiquetados como preespecificados&lt;/td>
+&lt;td>Etiquetados como post hoc&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Análisis&lt;/td>
+&lt;td>Según plan&lt;/td>
+&lt;td>Limitados, con sensibilidad&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Recursos abiertos&lt;/td>
+&lt;td>Datos/código/cuaderno&lt;/td>
+&lt;td>Código y criterios documentados&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="conclusión">Conclusión&lt;/h2>
+&lt;p>IMRyD ordena y hace comparables nuestros artículos.
+Integrar una redacción guiada por hallazgos es una forma moderada y práctica de ganar honestidad, utilidad y trazabilidad, sin sacrificar rigor metodológico ni claridad editorial.
+En algunos contextos —sobre todo exploratorios— puede ser la diferencia entre un relato fiel al descubrimiento y una cronología ficticia.&lt;/p>
+&lt;h1 id="recursos-adicionales">Recursos adicionales&lt;/h1>
+&lt;p>🎧 &lt;strong>Escucha el podcast de esta publicación&lt;/strong>
+&lt;audio controls >
+&lt;source src="https://maicel.netlify.app/mp3/Post_IMRyD.mp3" type="audio/mpeg">
+&lt;/audio>
+&lt;/p>
+&lt;h1 id="bibliografía">Bibliografía&lt;/h1>
+&lt;ol>
+&lt;li>
+&lt;p>Pólya G. How to solve it. Princeton University Press; 1945.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Kerr NL. HARKing: Hypothesizing after the results are known. Personality and Social Psychology Review. 1998;2(3):196-217.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Gelman A, Loken E. The garden of forking paths: Why multiple comparisons can be a problem [Internet]. 2013. Disponible en: &lt;a href="https://stat.columbia.edu/~gelman/research/unpublished/p_hacking.pdf" target="_blank" rel="noopener">https://stat.columbia.edu/~gelman/research/unpublished/p_hacking.pdf&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Schulz KF, Altman DG, Moher D. CONSORT 2010 statement. BMJ. 2010;340:c332.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Page MJ, McKenzie JE, Bossuyt PM, others. The PRISMA 2020 statement. BMJ. 2021;372:n71.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Munafò MR, Nosek BA, Bishop DVM, others. A manifesto for reproducible science. Nature Human Behaviour. 2017;1:0021.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Nosek BA, Ebersole CR, DeHaven AC, Mellor DT. The preregistration revolution. PNAS. 2018;115(11):2600-6.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>International Committee of Medical Journal Editors. Recommendations for the conduct, reporting, editing, and publication of scholarly work in medical journals. 2019; Disponible en: &lt;a href="http://www.icmje.org/recommendations/" target="_blank" rel="noopener">http://www.icmje.org/recommendations/&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Nosek BA, others. Promoting an open research culture (TOP Guidelines). Science. 2015;348(6242):1422-5.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Wasserstein RL, Lazar NA. The asa’s statement on p-Values: Context, process, and purpose. The American Statistician. 2016;70(2):129-33.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Wasserstein RL, Schirm AL, Lazar NA. Moving to a world beyond “p ¡ 0.05”. The American Statistician. 2019;73(sup1):1-19.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>McShane BB, Gal D, Gelman A, Robert C, Tackett JL. Abandon statistical significance. The American Statistician. 2019;73(sup1):235-45.&lt;/p>
+&lt;/li>
+&lt;/ol></description></item><item><title>Del Laboratorio al Mundo Real</title><link>https://maicel.netlify.app/posts/2025-09-01-generalizacion/</link><pubDate>Mon, 01 Sep 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/posts/2025-09-01-generalizacion/</guid><description>&lt;h2 id="del-laboratorio-al-mundo-real-cómo-la-ciencia-cruza-el-puente-hacia-tu-vida">&lt;strong>Del Laboratorio al Mundo Real: Cómo la Ciencia Cruza el Puente hacia tu Vida&lt;/strong>&lt;/h2>
+&lt;p>¿Alguna vez has leído un titular científico y te has preguntado: &amp;ldquo;¿Esto me aplica a mí?&amp;rdquo; o &amp;ldquo;Esto suena genial, pero ¿es relevante para mi realidad?&amp;rdquo; Si es así, has tocado el nervio de uno de los mayores desafíos de la investigación: cómo saltar del estudio controlado en un laboratorio al mundo real.&lt;/p>
+&lt;p>El vídeo, &amp;ldquo;El Estudio y el Mundo&amp;rdquo;, captura esta idea.&lt;/p>
+&lt;div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+&lt;iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/sY8-YxIeGu8?autoplay=0&amp;amp;controls=1&amp;amp;end=0&amp;amp;loop=0&amp;amp;mute=0&amp;amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video">&lt;/iframe>
+&lt;/div>
+&lt;p>Este blog profundiza en ese &lt;strong>puente a veces inestable&lt;/strong> que conecta la ciencia con nuestra vida diaria, explicando por qué no se trata de desconfiar de la ciencia, sino de entenderla mejor para usarla de la forma más inteligente posible.&lt;/p>
+&lt;hr>
+&lt;h2 id="los-pilares-fundamentales-validez-interna-y-externa">&lt;strong>Los Pilares Fundamentales: Validez Interna y Externa&lt;/strong>&lt;/h2>
+&lt;p>Para que un estudio sea realmente útil, sus hallazgos no solo deben ser correctos, sino también aplicables. Aquí es donde entran en juego dos conceptos clave:&lt;/p>
+&lt;p>&lt;strong>Validez Interna: ¿Se hizo bien el estudio?&lt;/strong> Se pregunta si los resultados son fiables para el grupo de personas que realmente participaron en la investigación. Un estudio puede ser metodológicamente impecable y tener una validez interna &amp;ldquo;de 10&amp;rdquo;.&lt;/p>
+&lt;p>&lt;strong>Validez Externa: ¿Sirven estos resultados fuera del estudio?&lt;/strong> Se refiere a la capacidad de los hallazgos de un estudio para aplicarse a otros contextos, poblaciones o situaciones. Un estudio perfecto a nivel interno podría ser casi inútil si sus participantes son tan específicos que sus resultados no pueden generalizarse.&lt;/p>
+&lt;hr>
+&lt;h2 id="generalizabilidad-y-transportabilidad-construyendo-el-puente">&lt;strong>Generalizabilidad y Transportabilidad: Construyendo el Puente&lt;/strong>&lt;/h2>
+&lt;p>Existen dos estrategias principales para construir ese puente:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Generalizabilidad:&lt;/strong> Piensa en esto como una receta de cocina. Perfeccionaste una tarta en tu &amp;ldquo;cocina de prueba&amp;rdquo; y ahora vas a usar esa misma receta para alimentar a toda la familia. La población del estudio es solo una parte de un grupo más grande al que quieres aplicar los resultados. Por ejemplo, pasar de un estudio en California a todo Estados Unidos.&lt;/li>
+&lt;li>&lt;strong>Transportabilidad:&lt;/strong> Ahora imagina que quieres adaptar esa misma receta para que funcione en otro país, con ingredientes diferentes y un horno distinto. Aquí, la población del estudio es ajena a la población a la que quieres aplicar los resultados. Se trata de ver si los hallazgos de un estudio en Estados Unidos funcionan en una clínica en Europa.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="por-qué-es-tan-difícil-construir-el-puente">&lt;strong>¿Por Qué es Tan Difícil Construir el Puente?&lt;/strong>&lt;/h2>
+&lt;p>La principal dificultad es que los estudios, especialmente los ensayos clínicos aleatorios (RCTs), a menudo seleccionan a los participantes con criterios muy estrictos para garantizar una alta validez interna. Esto los hace poco representativos de la población general.&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>El Sesgo de Selección:&lt;/strong> Ocurre cuando las personas que participan en el estudio son diferentes de la población a la que se busca aplicar los resultados. No se trata solo de que no sean &amp;ldquo;representativas&amp;rdquo;, sino de que esas diferencias afecten la efectividad del tratamiento.&lt;/li>
+&lt;li>&lt;strong>La Trampa de los Confusores:&lt;/strong> Factores no controlados en el estudio pueden generar asociaciones falsas o &amp;ldquo;espurias&amp;rdquo;, ocultando la verdadera relación entre el tratamiento y el resultado.&lt;/li>
+&lt;li>&lt;strong>El Riesgo de la Subjetividad:&lt;/strong> La estadística es una herramienta, no una verdad absoluta. La elección de variables y la interpretación de los resultados requieren un profundo conocimiento y juicio. La subjetividad puede &amp;ldquo;disfrazarse&amp;rdquo; detrás de números y algoritmos, llevando a conclusiones erróneas si no se razona con cuidado. Sin embargo, esta subjetividad no debe confundirse con la arbitrariedad, ya que se basa en la experiencia y el sentido común del investigador.&lt;/li>
+&lt;li>&lt;strong>El Dilema del Tamaño de Muestra:&lt;/strong> A pesar de lo que se podría pensar, la determinación del tamaño de muestra de un estudio es más un arte que una ciencia exacta, basada en el juicio y la intuición, no solo en una fórmula.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="herramientas-para-construir-un-puente-fuerte">&lt;strong>Herramientas para Construir un Puente Fuerte&lt;/strong>&lt;/h2>
+&lt;p>Los estadísticos se dedican a medir la distancia entre el mundo del estudio y el mundo real. Una vez diagnosticado el problema, hay varias estrategias y herramientas para corregir el rumbo:&lt;/p>
+&lt;p>&lt;strong>En la Fase de Diseño:&lt;/strong>&lt;/p>
+&lt;p>La forma ideal es tomar una muestra aleatoria de la población objetivo, pero esto no siempre es posible. Las alternativas incluyen:&lt;/p>
+&lt;p>&lt;strong>Ensayos clínicos pragmáticos:&lt;/strong> Diseñados para imitar la práctica clínica real y ser más aplicables.&lt;/p>
+&lt;p>&lt;strong>Muestreo:&lt;/strong> Seleccionar participantes para asegurar que haya una amplia representación o heterogeneidad.&lt;/p>
+&lt;p>&lt;strong>Después de la Recolección de Datos (Métodos Analíticos):&lt;/strong>&lt;/p>
+&lt;p>Si el estudio ya se realizó, se usan métodos estadísticos para ajustar los resultados:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Ponderación (Weighting):&lt;/strong> Le da más &amp;ldquo;peso&amp;rdquo; a ciertos individuos del estudio para que la muestra se parezca más a la población real. Es como darles un megáfono a las voces que necesitan ser escuchadas.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Regresiones de Resultado:&lt;/strong> Se construyen modelos matemáticos para predecir lo que habría pasado si la gente del mundo real hubiera recibido el tratamiento del estudio.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Enfoques Doblemente Robustos:&lt;/strong> Combinan varias técnicas para obtener resultados más sólidos.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="la-sabiduría-detrás-de-los-números">&lt;strong>La Sabiduría Detrás de los Números&lt;/strong>&lt;/h2>
+&lt;p>La estadística es una herramienta. Hay un poder inmenso en dominarla, pero también un riesgo si se aplica sin un pensamiento crítico. El peligro de la &amp;ldquo;fábrica de publicaciones&amp;rdquo; que prioriza la significación estadística (un valor p bajo) a veces eclipsa la relevancia clínica o biológica de los hallazgos. No basta con que un resultado sea &amp;ldquo;estadísticamente significativo&amp;rdquo;. Lo realmente importante es si es significativo para la vida de las personas.&lt;/p>
+&lt;p>Como se ha destacado, &amp;ldquo;pensar sin observar es un error, pero observar sin pensar es igualmente peligroso.&amp;rdquo; La aplicación mecánica de un método poderoso puede llevar a conclusiones erróneas.&lt;/p>
+&lt;h2 id="tu-papel-como-consumidor-de-ciencia">&lt;strong>Tu Papel como Consumidor de Ciencia&lt;/strong>&lt;/h2>
+&lt;p>La próxima vez que veas un titular impactante, haz la pregunta clave : &lt;strong>&amp;quot;¿En quién se hizo este estudio?&amp;quot;&lt;/strong>&lt;/p>
+&lt;p>Al entender la generalizabilidad y la transportabilidad, te conviertes en un consumidor de ciencia más crítico e informado. La verdadera meta no es solo que los estudios sean rigurosos, sino que su conocimiento pueda cruzar ese puente de forma segura y tener un impacto genuino en nuestras vidas. Porque, al final, una ciencia que no puede ser aplicada al mundo real pierde gran parte de su valor.&lt;/p>
+&lt;h2 id="biblografía">Biblografía&lt;/h2>
+&lt;ol>
+&lt;li>Degtiar I, Rose S. A Review of Generalizability and Transportability. Annual Review of Statistics and Its Application [Internet]. 9 de marzo de 2023 [citado 1 de septiembre de 2025];10(Volume 10, 2023):501-24. Disponible en: &lt;a href="https://www.annualreviews.org/content/journals/10.1146/annurev-statistics-042522-103837" target="_blank" rel="noopener">https://www.annualreviews.org/content/journals/10.1146/annurev-statistics-042522-103837&lt;/a>&lt;/li>
+&lt;/ol></description></item><item><title>Cómo entrenar y validar un modelo de predicción clínica</title><link>https://maicel.netlify.app/posts/2025-02-08-como-entrenar-y-validar-un-modelo-de-machine-learnig/</link><pubDate>Thu, 08 Feb 2024 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/posts/2025-02-08-como-entrenar-y-validar-un-modelo-de-machine-learnig/</guid><description>&lt;p>🎧 &lt;strong>Escucha el podcast de esta publicación&lt;/strong>&lt;/p>
+&lt;audio controls >
+&lt;source src="https://ia600607.us.archive.org/24/items/articulo-steyember/_Articulo_Steyember.mp3" type="audio/mpeg">
+&lt;/audio>
+&lt;p>Si usted es un investigador en salud, estudiante de posgrado, maestría o doctorado en el campo de las ciencias biomédicas, y quiere enfocar su trabajo en el desarrollo de &lt;strong>modelos de predicción clínica&lt;/strong> para el &lt;strong>diagnóstico&lt;/strong> o el &lt;strong>pronóstico&lt;/strong>, es probable que haya llegado a la fase donde la metodología se vuelve un muro. No conoce qué pasos seguir, qué software utilizar o, después de meses de trabajo, existen dudas sobre su utilidad en contextos diferentes a los que fue creado.&lt;/p>
+&lt;p>Hoy en día, muchas tesis de alto nivel giran en torno a la creación de modelos de predicción clínica (usando técnicas de regresiones avanzadas o Machine Learning).&lt;/p>
+&lt;p>Este post es su traductor metodológico y un tutorial. Muestro algunos consejos sobre cómo hacer un modelo predictivo y algunas experiencias que yo mismo pasé en mi tesis de doctorado.&lt;/p>
+&lt;p>Olvídese del código críptico y céntrese en la lógica: vamos a desglosar los siete pasos cruciales del método Steyerberg para que su modelo predictivo sea robusto, confiable y publicable. Deje de sentir dolor con la estadística; convierta su modelo en una herramienta clínica útil.&lt;/p>
+&lt;h1 id="estrategia-de-modelado">Estrategia de modelado&lt;/h1>
+&lt;p>Contar con una estrategia de modelado correcta es esencial para desarrollar y validar modelos de predicción. En este artículo, exploraremos las siete etapas clave del proceso de modelado propuesto por Ewout Steyerberg en su artículo (1).&lt;/p>
+&lt;h2 id="sec-1">1. Definición del problema e inspección de datos&lt;/h2>
+&lt;p>El primer paso en cualquier proyecto de modelado es &lt;strong>definir claramente el problema de investigación&lt;/strong> y seleccionar la &lt;strong>variable de resultado&lt;/strong> adecuada.&lt;/p>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
+&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;h3 id="variable-de-resultado">Variable de resultado&lt;/h3>
+&lt;p>La &lt;strong>variable de resultado&lt;/strong> debe definirse con precisión: especifica &lt;strong>qué evento se predice&lt;/strong>, &lt;strong>cómo y cuándo se mide&lt;/strong>, y el &lt;strong>horizonte temporal de predicción&lt;/strong> (por ejemplo, mortalidad a 30 días). Indica además el método de evaluación y si hubo &lt;strong>cegamiento&lt;/strong> respecto a los predictores, para garantizar coherencia y validez del modelo.&lt;/p>&lt;/span>
+&lt;/div>
+&lt;p>Durante esta fase, también realizamos un análisis exploratorio de datos (EDA) para comprender las características de las variables y detectar posibles problemas, como &lt;strong>datos atípicos&lt;/strong> o &lt;strong>valores faltantes&lt;/strong>.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Realiza una descripción general del conjunto de datos&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Instala y Carga de Librerías útiles &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(caret)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(MLDataR) &lt;span style="color:#75715e"># para utilizar la biblioteca diabetes_data&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(dplyr)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(dlookr) &lt;span style="color:#75715e"># para EDA&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(predtools)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Cargar el conjunto de datos&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">data&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;gusto&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>gusto &lt;span style="color:#f92672">&amp;lt;-&lt;/span> gusto
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># EDA&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>descripcion &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">overview&lt;/span>(gusto)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">summary&lt;/span>(descripcion) &lt;span style="color:#75715e"># descripción general del conjunto de datos&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;!-- Para conocer más detalles sobre el proceso de ¨Exploratory Data Analysis (EDA)¨ [ver la publicación dedicada a este tema](es/post/2025-02-11-eda/_index.Rmd) -->
+&lt;h2 id="sec-2">2. Codificación de las variables predictoras&lt;/h2>
+&lt;p>La &lt;strong>codificación&lt;/strong> adecuada de las &lt;strong>variables predictoras&lt;/strong> es fundamental para construir modelos robustos.&lt;/p>
+&lt;p>Es probable que debas utilizar técnicas como la agrupación de categorías poco frecuentes y la creación de predictores resúmenes para simplificar información correlacionada. Además, cuando las relaciones entre variables no son lineales, aplicamos herramientas como &lt;strong>splines cúbicos restringidos&lt;/strong> , que permiten capturar patrones complejos sin comprometer la precisión del modelo.&lt;/p>
+&lt;p>Dicotomizar predictores cuantitativos (por ejemplo, transformar una variable continua como la edad o la presión arterial en una variable binaria, como “≥65 años = 1” y “&amp;lt;65 = 0”) es considerada una mala práctica metodológica.&lt;/p>
+&lt;h2 id="sec-3">3 .Especificación del tipo de modelo&lt;/h2>
+&lt;p>La elección del modelo depende del tipo de relación que queremos capturar entre las variables.&lt;/p>
+&lt;p>
+&lt;figure >
+&lt;div class="flex justify-center ">
+&lt;div class="w-100" >&lt;img alt="" srcset="
+/posts/2025-02-08-como-entrenar-y-validar-un-modelo-de-machine-learnig/modelos_elecion_hu_8c0e0341cce17729.webp 400w,
+/posts/2025-02-08-como-entrenar-y-validar-un-modelo-de-machine-learnig/modelos_elecion_hu_7b91ac5dc10d2f43.webp 760w,
+/posts/2025-02-08-como-entrenar-y-validar-un-modelo-de-machine-learnig/modelos_elecion_hu_e3e07ff54d991fd6.webp 1200w"
+src="https://maicel.netlify.app/posts/2025-02-08-como-entrenar-y-validar-un-modelo-de-machine-learnig/modelos_elecion_hu_8c0e0341cce17729.webp"
+width="760"
+height="507"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;/figure>
+&lt;/p>
+&lt;p>Un aspecto clave es la selección de predictores finales para lo que se emplean varios métodos. Sin embargo, la aplicación mecánica de métodos algorítmicos tradicionales, como la Regresión Paso a Paso (RPP), ha demostrado ser inconsistente y poco robusta, especialmente en el contexto de las aplicaciones biomédicas y sociales.&lt;/p>
+&lt;h2 id="sec-4">4. Estimación del Modelo&lt;/h2>
+&lt;p>El paso de estimación del modelo es un componente central del desarrollo de modelos predictivos, orientado a obtener los parámetros o estructuras que mejor expliquen los datos de entrenamiento. Su propósito es equilibrar el ajuste al conjunto de datos con la capacidad del modelo para generalizar a nuevas observaciones.&lt;/p>
+&lt;p>La regularización es una estrategia clave dentro de este proceso, diseñada para reducir el sobreajuste (overfitting) mediante la introducción controlada de sesgo que estabiliza las predicciones.&lt;/p>
+&lt;p>Modelos paramétricos (p. ej., regresión): emplean técnicas de contracción o shrinkage (como LASSO o Ridge regression) que aplican una penalización sobre los coeficientes estimados —basados en máxima verosimilitud penalizada—, reduciendo la varianza y evitando predicciones extremas.&lt;/p>
+&lt;p>Modelos de machine learning (p. ej., XGBoost, SVM, Random Forest): utilizan la optimización de hiperparámetros (como la tasa de aprendizaje, el parámetro C o la profundidad de los árboles) para controlar la complejidad del modelo. Estos ajustes inducen un sesgo controlado que mejora la validez externa y la estabilidad predictiva frente a nuevos datos.&lt;/p>
+&lt;p>En conjunto, la estimación y la regularización contribuyen a lograr un modelo más robusto y generalizable, especialmente cuando se combinan con una validación interna adecuada (como cross-validation o bootstrap).&lt;/p>
+&lt;h2 id="sec-5">5. Evaluación del Rendimiento del Modelo&lt;/h2>
+&lt;p>El rendimiento del modelo se evalúa mediante métricas como calibración y discriminación . La calibración mide la concordancia entre las predicciones y los resultados observados, mientras que la discriminación evalúa la capacidad del modelo para distinguir entre pacientes con diferentes resultados. Herramientas como las rectas de calibración y la validación cruzada de 10 pliegues fueron fundamentales para asegurar la calidad del modelo.&lt;/p>
+&lt;h2 id="sec-6">6. Evaluación de la Validez del Modelo&lt;/h2>
+&lt;p>La validación del modelo es un paso crítico para garantizar su aplicabilidad en diferentes contextos. En este estudio, utilizamos tanto validación interna como externa , empleando particiones temporales y geográficas para reflejar escenarios reales. Este enfoque nos permitió evaluar la robustez del modelo frente a cambios en el tiempo y variaciones regionales.&lt;/p>
+&lt;h2 id="sec-7">7. Presentación del modelo&lt;/h2>
+&lt;p>La presentación efectiva es crucial para la adopción clínica. Un modelo perfecto es inútil si los médicos no pueden interpretarlo fácilmente. Considera:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Nomogramas&lt;/strong>: Ideales para uso rápido en consulta&lt;/li>
+&lt;li>&lt;strong>Aplicaciones web/móviles&lt;/strong>: Para integración en flujos de trabajo clínicos&lt;/li>
+&lt;li>&lt;strong>Puntuaciones de riesgo&lt;/strong>: Simplificadas para triaje rápido&lt;/li>
+&lt;li>&lt;strong>Documentación clara&lt;/strong>: Incluyendo limitaciones y casos de uso&lt;/li>
+&lt;/ul>
+&lt;p>Recuerda: la transparencia en la presentación favorece la confianza clínica.&lt;/p>
+&lt;p>¿Has aplicado estas técnicas en tus proyectos de Machine Learning? ¿Qué estrategias usas para entrenar y validar tus modelos? Déjame tus comentarios 💬: comparte tus experiencias, dificultades o tips contigo. ¡Juntos podemos enriquecer este conocimiento!&lt;/p>
+&lt;h1 id="bibliografía">Bibliografía&lt;/h1>
+&lt;ol>
+&lt;li>Steyerberg EW, Vergouwe Y. Towards better clinical prediction models: seven steps for development and an ABCD for validation. European Heart Journal [Internet]. 1 de agosto de 2014 [citado 9 de mayo de 2021];35(29):1925-31. Disponible en: &lt;a href="https://academic.oup.com/eurheartj/article-lookup/doi/10.1093/eurheartj/ehu207" target="_blank" rel="noopener">https://academic.oup.com/eurheartj/article-lookup/doi/10.1093/eurheartj/ehu207&lt;/a>&lt;/li>
+&lt;/ol></description></item></channel></rss>

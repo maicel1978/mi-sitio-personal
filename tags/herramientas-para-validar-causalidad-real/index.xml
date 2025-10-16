@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Herramientas Para Validar Causalidad Real | Bioestadística edu</title><link>https://maicel.netlify.app/tags/herramientas-para-validar-causalidad-real/</link><atom:link href="https://maicel.netlify.app/tags/herramientas-para-validar-causalidad-real/index.xml" rel="self" type="application/rss+xml"/><description>Herramientas Para Validar Causalidad Real</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Wed, 24 Sep 2025 00:00:00 +0000</lastBuildDate><image><url>https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png</url><title>Herramientas Para Validar Causalidad Real</title><link>https://maicel.netlify.app/tags/herramientas-para-validar-causalidad-real/</link></image><item><title>Las trampas de la correlación disfrazada de causalidad</title><link>https://maicel.netlify.app/posts/2025-09-24-correlacionvscausalidad/</link><pubDate>Wed, 24 Sep 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/posts/2025-09-24-correlacionvscausalidad/</guid><description>&lt;p>El ojo humano ama los patrones: ver dos líneas que se mueven juntas y concluir que una provoca la otra. La estadística, mal interpretada, a veces alimenta esa ilusión. La correlación es apenas la danza conjunta de dos variables, no una flecha de causa. Y, sin embargo, titulares, políticas y hasta decisiones médicas se sostienen sobre esta trampa.&lt;/p>
+&lt;h1 id="1-correlaciones-curiosas-pero-falsas">1) Correlaciones curiosas (pero falsas)&lt;/h1>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Helados y ahogamientos.&lt;/strong> En verano, ambos aumentan. No porque el helado mate, sino porque el calor atrae bañistas y heladeros.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Cigüeñas y natalidad.&lt;/strong> En pueblos europeos, donde hay más cigüeñas, también hay más nacimientos… simplemente porque se trata de áreas rurales más fértiles, no porque las aves traigan bebés.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Películas de Nicolas Cage y ahogamientos en piscinas.&lt;/strong> Ejemplo clásico de correlaciones espurias recopiladas por Tyler Vigen: cómico, pero ilustrativo.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="2-la-correlación-y-su-impacto-en-la-toma-de-decisiones">2) La correlación y su impacto en la toma de decisiones&lt;/h2>
+&lt;p>La confusión entre causalidad y correlación no es solo un chiste; tiene consecuencias graves.&lt;/p>
+&lt;p>&lt;strong>Política pública:&lt;/strong> Un estudio muestra que los países con más médicos per cápita tienen más diagnósticos de cáncer. Conclusión errada: “los médicos causan cáncer”. Realidad: mayor densidad médica implica mejor detección.&lt;/p>
+&lt;p>&lt;strong>Falacia de la causa inversa:&lt;/strong> Niños con bajo rendimiento escolar pasan más horas frente a la televisión. ¿La TV los perjudica? ¿O los niños con dificultades recurren más a ella? La dirección de la causalidad puede invertirse fácilmente.&lt;/p>
+&lt;hr>
+&lt;h1 id="3-qué-mide-realmente-la-correlación">3) &lt;strong>¿Qué mide realmente la correlación?&lt;/strong>&lt;/h1>
+&lt;ul>
+&lt;li>El &lt;strong>coeficiente de correlación (r)&lt;/strong> mide la fuerza y dirección de la relación entre dos variables.&lt;/li>
+&lt;li>Sus valores van de &lt;strong>-1 a +1&lt;/strong>:
+&lt;ul>
+&lt;li>+1 → relación positiva perfecta&lt;/li>
+&lt;li>-1 → relación negativa perfecta&lt;/li>
+&lt;li>0 → ausencia de relación lineal&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
+&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;strong>Advertencia:&lt;/strong> un r alto no significa causalidad. Puede deberse a &lt;strong>confusores&lt;/strong>, &lt;strong>azar&lt;/strong> o &lt;strong>causalidad inversa&lt;/strong>.&lt;/span>
+&lt;/div>
+&lt;hr>
+&lt;h1 id="4-tipos-de-coeficientes-de-correlación-más-allá-de-pearson">4) Tipos de coeficientes de correlación (más allá de Pearson)&lt;/h1>
+&lt;p>
+&lt;figure >
+&lt;div class="flex justify-center ">
+&lt;div class="w-100" >&lt;img alt="" srcset="
+/posts/2025-09-24-correlacionvscausalidad/correlacion_hu_c614a73ad03379b6.webp 400w,
+/posts/2025-09-24-correlacionvscausalidad/correlacion_hu_e6f9def3a13f9eea.webp 760w,
+/posts/2025-09-24-correlacionvscausalidad/correlacion_hu_dedc904516865376.webp 1200w"
+src="https://maicel.netlify.app/posts/2025-09-24-correlacionvscausalidad/correlacion_hu_c614a73ad03379b6.webp"
+width="507"
+height="760"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;/figure>
+&lt;/p>
+&lt;hr>
+&lt;h1 id="5-causalidad-un-desafío-que-exige-rigurosidad">5) &lt;strong>Causalidad:&lt;/strong> un desafío que exige rigurosidad&lt;/h1>
+&lt;p>Identificar la causalidad no se improvisa. Requiere algo más que una simple correlación. Exige un diseño experimental riguroso, criterios de Bradford Hill y construcción de modelos causales. La estadística sugiere, pero no prueba por sí sola.&lt;/p>
+&lt;hr>
+&lt;h1 id="6-metáfora-para-recordar">6) Metáfora para recordar&lt;/h1>
+&lt;p>Piensa en la correlación como ver dos hojas que caen juntas en otoño. Creer que una arrastra a la otra es ignorar el viento invisible que las mueve a ambas.&lt;/p>
+&lt;hr>
+&lt;h1 id="7-checklist-para-evitar-caer-en-la-trampa">7) Checklist para evitar caer en la trampa&lt;/h1>
+&lt;ol>
+&lt;li>¿Existe una variable oculta (confusor) que explique la relación? ✔&lt;/li>
+&lt;li>¿Podría la causalidad ir en sentido contrario? ✔&lt;/li>
+&lt;li>¿El diseño permite concluir causa o solo asociación? ✔&lt;/li>
+&lt;li>¿Hay criterios teóricos/experimentales que respalden esta relación? ✔&lt;/li>
+&lt;li>¿Se comunicó claramente que es correlación, no causalidad? ✔&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h1 id="bibliografía">Bibliografía&lt;/h1>
+&lt;p>Silva Aycaguer LC. &lt;em>Cultura estadística e investigación científica en el campo de la salud: una mirada crítica&lt;/em>. Madrid: Díaz de Santos; 1998.&lt;/p>
+&lt;p>Pearl, J. (2009). Causality: Models, Reasoning, and Inference (2nd ed.). Cambridge University Press.&lt;/p>
+&lt;p>Hernán, M. A., &amp;amp; Robins, J. M. (2020). Causal Inference: What If. Chapman &amp;amp; Hall/CRC. [Disponible gratis en línea].&lt;/p>
+&lt;p>Hill, A. B. (1965). The environment and disease: association or causation? Proceedings of the Royal Society of Medicine, 58(5), 295–300. (Criterios de Bradford Hill).&lt;/p>
+&lt;p>Freedman, D. A. (2005). Statistical Models: Theory and Practice. Cambridge University Press. (Discusión crítica sobre correlación y causalidad).&lt;/p></description></item></channel></rss>
