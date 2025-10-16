@@ -70,7 +70,7 @@ education:
     summary: |
       - Fecha del ejercicio: *22 de marzo de 2025*
       - Tesis sobre _Modelos de predicción clínica para la estimación y clasificación del riesgo de muerte con COVID-19_. Supervisada por [Prof Lisset Sánchez]
-first_name: Maicel Eugenio
+first_name: Maicel
 highlight_name: yes
 interests:
   - Bioestadística
@@ -84,8 +84,6 @@ languages:
     percent: 100
   - name: English
     percent: 40
-  - name: Portuguese
-    percent: 25
 last_name: Monzon Perez
 name_pronunciation: Maicel Monzon Perez
 organizations:
@@ -141,7 +139,7 @@ skills:
     percent: 90
     description: |
       Creación de documentos técnicos y académicos bien estructurados.
-    name: Hobbies
+
 status:
   icon: ☕️
 superuser: yes

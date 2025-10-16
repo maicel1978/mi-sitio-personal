@@ -68,4 +68,7 @@ features:
       theme: "preferred_color_scheme"
       mapping: "pathname"
       
-
+posts: 
+  enable: true  # Activa la sección
+  rss: true     # Feed RSS para blog
+  paginate: 10  # Posts por página

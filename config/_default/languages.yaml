@@ -25,13 +25,16 @@ en:
         url: experience/
         weight: 20
       - name: Projects
-        url: projects/
+        url: /projects/
         weight: 30
       - name: Teaching
-        url: teaching/
+        url: /teaching/
         weight: 40
+      - name: Blog
+        url: /posts/
+        weight: 50
       - name: "Subscribe"
-        url: subscribe/
+        url: /subscribe/
         weight: 90 # Un número alto para que aparezca al final
 
 es:
@@ -55,16 +58,19 @@ es:
         url: /#news
         weight: 13
       - name: Experiencia
-        url: experience/
+        url: /experience/
         weight: 20
       - name: Proyectos
-        url: projects/
+        url: /projects/
         weight: 30
       - name: Docencia
-        url: teaching/
+        url: /teaching/
         weight: 40
+      - name: Blog
+        url: /posts/
+        weight: 50
       - name: "Suscríbete"
-        url: subscribe/
+        url: /subscribe/
         weight: 90 # Un número alto para que aparezca al final
 
 

@@ -2,6 +2,20 @@ Estructura Principal del Proyecto
 (Hugo Academic CV Theme)
 fecha de modificacion 12/02/2025
 
+comandos improtantes
+
+blogdown::build_site()
+blogdown:::serve_site()
+blogdown:::stop_server()
+
+blogdown:::check_site()
+
+Promt generico
+
+
+
+
+
 tu_sitio/
 ├── config/
 │   └── _default/          <- Configuración global del sitio
@@ -105,21 +119,31 @@ url_source: https://revhabanera.sld.cu/index.php/rhab/article/view/4943
 url_video: '#'
 ---
 
-categories:
-  - Metodología
-  - Ensayos-clinicos
-  - Conferencia
-tags:
-  - Evidencia-clínica
-  - Ciencia
-  - Bioestadística
-  - Ensayos-clínicos
-  - Metodología
-  - Modelacion
-  - Epidemiología
-  - Pandemias
-  - Ética
-  - Diseños-alternativos
-  - Regulación-sanitaria
-  - Fortificación-alimentos
-  - Intervención
+
+diagnostico
+
+| Área                  | Estado actual                           | Recomendación clave                                  | Prioridad |
+|-----------------------|------------------------------------------|------------------------------------------------------|------------|
+| Estructura del sitio  | Sin categorías ni menú claros            | Añadir 4–5 categorías base                           | Alta       |
+| SEO                   | Etiquetas genéricas                      | Introducir etiquetas long-tail                       | Media      |
+| Idioma                | Solo español                             | Publicar 1 de cada 5 posts en inglés                 | Media      |
+| Engagement            | Sin CTA ni newsletter                    | Añadir suscripción e interacción en posts            | Alta       |
+| Métricas              | No implementadas                         | Activar Google Analytics / Panel de control simple   | Alta       |
+
+
+
+La propuesta de 5–7 categorías principales
+
+Google Keyword Planner
+
+Categorías
+
+"Estadística en Salud"
+"Metodología de Investigación"
+"Evaluación Regulatoria"
+"Código Práctico en R/Python"
+"Reflexiones Críticas"
+
+
+tags: es ideal para las etiquetas long-tail (frases específicas como "cómo interpretar p-valor en tesis médicas")
+

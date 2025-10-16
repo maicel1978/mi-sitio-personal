@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Publications | Bioestadistica educativa</title>
+    <title>Publications | Bioestadística edu</title>
     <link>https://maicel.netlify.app/publication/</link>
       <atom:link href="https://maicel.netlify.app/publication/index.xml" rel="self" type="application/rss+xml" />
     <description>Publications</description>
-    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es</language><lastBuildDate>Wed, 01 Feb 2023 00:00:00 +0000</lastBuildDate>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Wed, 01 Feb 2023 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png</url>
       <title>Publications</title>
@@ -21,15 +21,35 @@
 &lt;span class=&#34;pr-3 pt-1 text-primary-600 dark:text-primary-300&#34;&gt;
   &lt;svg height=&#34;24&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 24 24&#34;&gt;&lt;path fill=&#34;none&#34; stroke=&#34;currentColor&#34; stroke-linecap=&#34;round&#34; stroke-linejoin=&#34;round&#34; stroke-width=&#34;1.5&#34; d=&#34;m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z&#34;/&gt;&lt;/svg&gt;
 &lt;/span&gt;
-  &lt;span class=&#34;dark:text-neutral-300&#34;&gt;Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.&lt;/span&gt;
-&lt;/div&gt;
-&lt;div class=&#34;flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900&#34;&gt;
-&lt;span class=&#34;pr-3 pt-1 text-primary-600 dark:text-primary-300&#34;&gt;
-  &lt;svg height=&#34;24&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 24 24&#34;&gt;&lt;path fill=&#34;none&#34; stroke=&#34;currentColor&#34; stroke-linecap=&#34;round&#34; stroke-linejoin=&#34;round&#34; stroke-width=&#34;1.5&#34; d=&#34;m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z&#34;/&gt;&lt;/svg&gt;
+  &lt;span class=&#34;dark:text-neutral-300&#34;&gt;&lt;p&gt;¿Interesado en la Aplicación Práctica?&lt;/p&gt;
+&lt;p&gt;Descubre las variables esenciales (clínicas, de laboratorio y demográficas) que la literatura mundial considera críticas para predecir la severidad de COVID-19. Esta información es la base para el desarrollo de modelos de estratificación de riesgo adaptados a los recursos cubanos.&lt;/p&gt;
 &lt;/span&gt;
-  &lt;span class=&#34;dark:text-neutral-300&#34;&gt;Create your slides in Markdown - click the &lt;em&gt;Slides&lt;/em&gt; button to check out the example.&lt;/span&gt;
 &lt;/div&gt;
-&lt;p&gt;Add the publication&amp;rsquo;s &lt;strong&gt;full text&lt;/strong&gt; or &lt;strong&gt;supplementary notes&lt;/strong&gt; here. You can use rich formatting such as including &lt;a href=&#34;https://docs.hugoblox.com/content/writing-markdown-latex/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;code, math, and images&lt;/a&gt;.&lt;/p&gt;
+&lt;h1 id=&#34;de-la-investigación-global-a-la-aplicación-local-predicción-de-covid-19-en-cuba&#34;&gt;De la Investigación Global a la Aplicación Local: Predicción de COVID-19 en Cuba&lt;/h1&gt;
+&lt;p&gt;La pandemia de COVID-19 puso en evidencia la necesidad crítica de herramientas que permitan identificar con rapidez qué pacientes desarrollarán una forma severa de la enfermedad. Esta capacidad es fundamental para optimizar los recursos hospitalarios y ofrecer intervenciones tempranas. Por ello, hemos llevado a cabo una exhaustiva revisión de los modelos de predicción clínica de severidad que se desarrollaron y publicaron internacionalmente.&lt;/p&gt;
+&lt;h1 id=&#34;el-desafío-de-la-generalización&#34;&gt;El Desafío de la Generalización&lt;/h1&gt;
+&lt;p&gt;Nuestro estudio confirma que, si bien la literatura científica es rica en modelos de predicción, la mayoría presenta limitaciones significativas para su aplicación directa en la práctica clínica rutinaria, especialmente en contextos sanitarios diferentes a los de su origen.&lt;/p&gt;
+&lt;p&gt;Los principales problemas identificados son:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Variables no estandarizadas:&lt;/strong&gt; Muchos modelos utilizan marcadores o pruebas que no están disponibles de forma rutinaria o universal en todos los sistemas de salud.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Falta de validación externa:&lt;/strong&gt; La mayoría de los modelos fueron validados únicamente con los datos del centro o país que los desarrolló, lo que reduce su capacidad de generalización.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Complejidad:&lt;/strong&gt; El uso de algoritmos avanzados o la inclusión de un número excesivo de variables dificulta su implementación rápida y sencilla en la cabecera del paciente.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;la-hoja-de-ruta-para-cuba&#34;&gt;La Hoja de Ruta para Cuba&lt;/h1&gt;
+&lt;p&gt;A pesar de estas limitaciones, la revisión proporcionó información extremadamente valiosa. Nuestro objetivo no era simplemente descartar los modelos existentes, sino extraer la esencia predictiva para diseñar una estrategia local.&lt;/p&gt;
+&lt;p&gt;El análisis nos permitió identificar las variables clínicas y demográficas clave que consistentemente demostraron ser los predictores más robustos de severidad en la literatura global. Esta información es la piedra angular para el desarrollo de un Modelo de Predicción Adaptado al Contexto Cubano.&lt;/p&gt;
+&lt;p&gt;Al basarnos en este conocimiento global filtrado, podemos centrarnos en:&lt;/p&gt;
+&lt;p&gt;Utilizar variables de fácil acceso y bajo costo (edad, comorbilidades específicas y parámetros hematológicos básicos).&lt;/p&gt;
+&lt;p&gt;Implementar algoritmos predictivos robustos pero sencillos que sean aplicables de manera eficiente en el Sistema Nacional de Salud cubano.&lt;/p&gt;
+&lt;p&gt;Este trabajo no solo resume el estado del arte, sino que proporciona el cimiento necesario para futuras investigaciones que cierren la brecha entre la teoría predictiva y la realidad práctica de la salud pública en Cuba.&lt;/p&gt;
+&lt;p&gt;Para profundizar en la metodología de la revisión, los algoritmos analizados y las variables predictivas específicas identificadas, por favor, acceda al artículo completo haciendo clic en el enlace PDF que se encuentra arriba.&lt;/p&gt;
+&lt;p&gt;El archivo ya contiene todos tus metadatos y un texto de blog redactado para resaltar la importancia y las conclusiones de tu investigación.&lt;/p&gt;
 </description>
     </item>
     
@@ -76,6 +96,110 @@
 &lt;/div&gt;
 &lt;p&gt;&lt;strong&gt;Figura 1. Árbol de bajo riesgo&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;La actualización de este modelo se encuentra disponible en la  &lt;a href=&#34;https://www.researchgate.net/publication/388656780_MODELOS_PREDICTIVOS_PARA_LA_ESTIMACION_Y_CLASIFICACION_DEL_RIESGO_DE_MUERTE_EN_COVID-19&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;tesis de dotorado &lt;/a&gt; titulada  &lt;em&gt;MODELOS PREDICTIVOS PARA LA ESTIMACIÓN Y CLASIFICACIÓN DEL RIESGO DE MUERTE EN COVID-19&lt;/em&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Modelo SIR para epidemias: Persistencia en el tiempo y nuevos retos en la era de la Informática y las pandemias.</title>
+      <link>https://maicel.netlify.app/publication/2025-09-23-modelo-sir-para-epidemias-persistencia-en-el-tiempo-y-nuevos-retos-en-la-era-de-la-inform-tica-y-las-pandemias/</link>
+      <pubDate>Sat, 01 Aug 2020 00:00:00 +0000</pubDate>
+      <guid>https://maicel.netlify.app/publication/2025-09-23-modelo-sir-para-epidemias-persistencia-en-el-tiempo-y-nuevos-retos-en-la-era-de-la-inform-tica-y-las-pandemias/</guid>
+      <description>&lt;h1 id=&#34;introducción-un-mapa-centenario-para-las-crisis-modernas&#34;&gt;&lt;strong&gt;Introducción: Un Mapa Centenario para las Crisis Modernas&lt;/strong&gt;&lt;/h1&gt;
+&lt;p&gt;En los últimos años, hemos vivido en carne propia la incertidumbre de una pandemia global. Todos anhelábamos tener una bola de cristal para predecir el siguiente pico o el impacto de las medidas de salud pública. Lo que pocos saben es que, mucho antes de la COVID-19, uno de los modelos matemáticos más poderosos para entender y anticipar el comportamiento de las epidemias no era una creación de la era de la supercomputación, sino una idea elegante propuesta en 1927.&lt;/p&gt;
+&lt;p&gt;Este es el modelo SIR (Susceptible, Infectado, Removido), una herramienta conceptual que, a casi un siglo de su creación, sigue revelando verdades fundamentales sobre la propagación de las enfermedades. A continuación, te invito a explorar las lecciones más impactantes que este modelo centenario nos ofrece, basadas en mi artículo original, publicado antes de la pandemia de COVID-19.&lt;/p&gt;
+&lt;h1 id=&#34;1-el-efecto-umbral-por-qué-no-es-necesario-vacunar-a-todos-para-detener-una-epidemia&#34;&gt;&lt;strong&gt;1. El &amp;ldquo;Efecto Umbral&amp;rdquo;: Por qué no es necesario vacunar a todos para detener una epidemia&lt;/strong&gt;&lt;/h1&gt;
+&lt;p&gt;El modelo SIR revela un concepto matemático conocido como el &amp;ldquo;umbral epidémico&amp;rdquo;. Esto significa que una epidemia solo puede desatarse y propagarse si el número de personas susceptibles en una comunidad supera un cierto punto crítico. Si la cantidad de susceptibles está por debajo de ese umbral, el brote se extingue por sí solo. Piénselo como un incendio forestal. Si los árboles (los susceptibles) están demasiado separados, una chispa (un infectado) se extinguirá sola. Solo cuando la densidad de árboles supera un umbral crítico, el fuego se propaga sin control.&lt;/p&gt;
+&lt;p&gt;Esta idea es revolucionaria por su implicación práctica. Demuestra matemáticamente que el objetivo de una campaña de vacunación no tiene por qué ser inmunizar al 100 % de la población. El verdadero objetivo es reducir el número de personas susceptibles hasta que caiga por debajo de ese umbral crítico, rompiendo así la cadena de transmisión de manera efectiva. Esto valida estrategias de salud pública que deben priorizar recursos limitados. Como señalan los autores del estudio:&lt;/p&gt;
+&lt;p&gt;Este resultado teórico nos muestra que la vacunación selectiva cuando no es posible extenderla a toda la comunidad no es una opción impracticable, pues el número de susceptibles no tiene necesariamente que ser igual cero.&lt;/p&gt;
+&lt;h1 id=&#34;2-el-poder-de-lo-simple-cómo-un-modelo-de-tres-pasos-descifra-la-complejidad&#34;&gt;&lt;strong&gt;2. El Poder de lo Simple: Cómo un Modelo de Tres Pasos Descifra la Complejidad&lt;/strong&gt;&lt;/h1&gt;
+&lt;p&gt;La genialidad del modelo SIR es una lección de humildad intelectual. Divide a toda la población en solo tres grupos: los &lt;strong&gt;Susceptibles&lt;/strong&gt; (que pueden enfermar), los &lt;strong&gt;Infectados&lt;/strong&gt; (que tienen la enfermedad y pueden contagiar) y los &lt;strong&gt;Removidos&lt;/strong&gt;. Este último grupo incluye a quienes salen de la categoría de infectados por distintos mecanismos: el curso natural de la enfermedad con inmunidad adquirida, la muerte o la cuarentena. El modelo se basa en ideas que, como indica la fuente, &amp;ldquo;hasta una persona sin preparación especial&amp;rdquo; entiende: las enfermedades se contagian y, tras un tiempo, la gente deja de ser infecciosa.&lt;/p&gt;
+&lt;p&gt;Aunque la realidad es mucho más compleja, la capacidad predictiva de este modelo básico es asombrosa. Logra capturar la esencia del comportamiento de una epidemia sin perderse en detalles que lo harían intratable.&lt;/p&gt;
+&lt;p&gt;Lo que resulta sorprendente es que un modelo tan simple sea capaz de corresponderse con un gran número de situaciones reales.&lt;/p&gt;
+&lt;p&gt;En la modelación matemática siempre existe un compromiso: el modelo debe ser lo bastante simple para ser manejable, pero lo bastante completo para reflejar la realidad. El modelo SIR demuestra que, a veces, la solución más elegante y útil es también la más sencilla.&lt;/p&gt;
+&lt;h1 id=&#34;3-la-curva-universal-la-sorprendente-similitud-matemática-de-las-epidemias&#34;&gt;&lt;strong&gt;3. La &amp;ldquo;Curva Universal&amp;rdquo;: La Sorprendente Similitud Matemática de las Epidemias&lt;/strong&gt;&lt;/h1&gt;
+&lt;p&gt;Los creadores del modelo, Kermack y McKendrick, encontraron una solución matemática simplificada (la función de secante hiperbólica) que describe con gran precisión la curva de &amp;ldquo;removidos&amp;rdquo;. Esta curva representa la velocidad a la que las personas salen del grupo de &amp;lsquo;Infectados&amp;rsquo; para entrar al grupo de &amp;lsquo;Removidos&amp;rsquo; (ya sea por recuperación, aislamiento o fallecimiento). En la práctica, esta curva se asemeja mucho a la curva de nuevos casos que vemos en las noticias, pero con un ligero desfase.&lt;/p&gt;
+&lt;p&gt;Lo más sorprendente es que esta forma matemática no solo se ajusta a epidemias que siguen el modelo SIR, como un brote de gripe, sino que también describe notablemente bien epidemias con mecanismos mucho más complejos, como el dengue, donde la transmisión depende de la interacción entre humanos y mosquitos. Este hallazgo es extraordinario porque sugiere que, a pesar de las diferencias biológicas (un virus respiratorio frente a uno transmitido por mosquitos), la dinámica matemática de la propagación masiva comparte una firma universal, un ritmo predecible. Por ejemplo, en el análisis de un brote en una escuela interna, esta simple función explicó el 95 % de la varianza de los datos.&lt;/p&gt;
+&lt;h1 id=&#34;4-una-bola-de-cristal-matemática-prediciendo-el-pico-con-los-primeros-datos&#34;&gt;&lt;strong&gt;4. Una &amp;ldquo;Bola de Cristal&amp;rdquo; Matemática: Prediciendo el Pico con los Primeros Datos&lt;/strong&gt;&lt;/h1&gt;
+&lt;p&gt;Mucho antes del &amp;lsquo;big data&amp;rsquo; y el aprendizaje automático, este modelo de 1927 ya ofrecía un enfoque de &amp;lsquo;small data&amp;rsquo; para la predicción que sigue siendo increíblemente poderoso. Quizás la aplicación más innovadora, propuesta por los propios autores del estudio que sirve de fuente a este artículo, es una metodología para predecir el curso completo de una epidemia utilizando únicamente los datos de su fase inicial. Descubrieron que si se toman los datos de incidencia diaria del inicio de un brote y se transforman matemáticamente (calculando la raíz cuarta de su recíproco), esos puntos forman una línea recta.&lt;/p&gt;
+&lt;p&gt;La genialidad de este truco matemático es que convierte un problema complejo (predecir una curva) en uno simple (extender una línea recta). Una vez que tienes una línea, puedes ver fácilmente hacia dónde se dirige, dándote un pronóstico del pico epidémico con una antelación crucial. Este método no es solo un ejercicio teórico; se aplicó con éxito a datos históricos reales, como la epidemia de peste en Bombay (1905-1906) y una epidemia de dengue en Santiago de Cuba (1997), demostrando su utilidad para que las autoridades evalúen la severidad de un brote y se preparen en consecuencia.&lt;/p&gt;
+&lt;h1 id=&#34;conclusión-la-vigencia-de-las-ideas-elegantes&#34;&gt;&lt;strong&gt;Conclusión: La Vigencia de las Ideas Elegantes&lt;/strong&gt;&lt;/h1&gt;
+&lt;p&gt;En una era que venera la complejidad computacional, la lección más profunda del modelo SIR es la perdurable potencia de la elegancia matemática. Casi un siglo después, sus tres simples pasos siguen ofreciendo un mapa más claro de las crisis sanitarias que muchos algoritmos modernos. A raíz de la reciente pandemia, la conexión entre estos modelos y quienes toman las decisiones es más crucial que nunca. Como señalo en el artículo original:&lt;/p&gt;
+&lt;p&gt;&amp;hellip;lograr romper las barreras que alejan la organización de los modelos matemáticos de los proveedores de salud podría revertirse en tomas de decisiones más justas&amp;hellip;&lt;/p&gt;
+&lt;p&gt;Este estudio, que realicé antes de la COVID-19, demuestra que las herramientas para entender y prepararnos para eventos como este ya existían en la literatura científica. Te invito a leer el artículo completo para profundizar en estos conceptos y su aplicación.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;http://www.rcim.sld.cu/revista_13/articulos_htm/modelosir.htm&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Lee mi artículo completo: &amp;ldquo;Modelos matemáticos en epidemiología. Una aplicación a la predicción del pico epidémico&amp;rdquo;&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;En un mundo obsesionado con la complejidad y los &amp;ldquo;big data&amp;rdquo;, ¿qué otras soluciones simples y elegantes podríamos estar pasando por alto?&lt;/p&gt;
+&lt;h1 id=&#34;podcast-y-más&#34;&gt;&lt;strong&gt;Podcast y más&amp;hellip;&lt;/strong&gt;&lt;/h1&gt;
+&lt;p&gt;🎧 &lt;strong&gt;Escucha el podcast de esta publicación&lt;/strong&gt;
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+&lt;audio controls &gt;
+  &lt;source src=&#34;https://maicel.netlify.app/mp3/articulo02SIR.mp3&#34; type=&#34;audio/mpeg&#34;&gt;
+&lt;/audio&gt;
+&lt;/p&gt;
+&lt;h1 id=&#34;bibliografía&#34;&gt;Bibliografía&lt;/h1&gt;
+&lt;p&gt;Argote, K. MEM, Caceres JLH, Monzon MP. Modelo “SIR” para epidemias: Persistencia en el tiempo y nuevos retos en la era de la Informatica y las pandemias. [citado 12 de octubre de 2012]; Disponible en: &lt;a href=&#34;http://www.bvs.hn/cu-2007/ponencias/SLD/SLD126.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;http://www.bvs.hn/cu-2007/ponencias/SLD/SLD126.pdf&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Plagio en artículos de investigación en revistas biomédicas cubanas. 2016</title>
+      <link>https://maicel.netlify.app/publication/2025-09-23-plagio-en-art-culos-de-investigaci-n-en-revistas-biom-dicas-cubanas-2016/</link>
+      <pubDate>Sat, 01 Aug 2020 00:00:00 +0000</pubDate>
+      <guid>https://maicel.netlify.app/publication/2025-09-23-plagio-en-art-culos-de-investigaci-n-en-revistas-biom-dicas-cubanas-2016/</guid>
+      <description>&lt;h1 id=&#34;plagio-en-revistas-biomédicas-cubanas-un-análisis-de-los-desafíos-y-las-oportunidades&#34;&gt;&lt;strong&gt;¿Plagio en Revistas Biomédicas Cubanas? Un Análisis de los Desafíos y las Oportunidades&lt;/strong&gt;&lt;/h1&gt;
+&lt;p&gt;La integridad y la confianza son los pilares fundamentales de la investigación científica. Cada avance se construye sobre el trabajo de sus predecesores, en un proceso que exige rigor y honestidad. Sin embargo, ¿qué ocurre cuando estos cimientos se ven desafiados?&lt;/p&gt;
+&lt;p&gt;En 2016, realicé un estudio sobre revistas biomédicas cubanas, el cual arrojó resultados que invitan a la reflexión. Mi análisis no busca juzgar, sino explorar la realidad del plagio en nuestras publicaciones para comprender sus características y las posibles causas que lo originan.&lt;/p&gt;
+&lt;p&gt;Los hallazgos de esta investigación, publicada en la &lt;strong&gt;Revista Habanera de Ciencias Médicas&lt;/strong&gt;, revelan un problema sistémico que requiere la atención de toda la comunidad académica. La frecuencia y las formas de plagio detectadas sugieren que es fundamental fortalecer nuestros procesos editoriales y de formación.&lt;/p&gt;
+&lt;p&gt;Te invito a leer el artículo completo, donde se detallan los siguientes puntos clave:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;La frecuencia de plagio:&lt;/strong&gt; Exploramos el porcentaje de artículos que cumplen con los criterios de plagio, y lo que esto implica para la calidad de las publicaciones.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Las secciones más afectadas:&lt;/strong&gt; Identificamos dónde se concentra el plagio, con un enfoque en las estructuras teóricas del artículo.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;El tipo de plagio más común:&lt;/strong&gt; Analizamos la prevalencia del &amp;ldquo;plagio en mosaico&amp;rdquo; y sus implicaciones para la originalidad de los textos.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Las posibles causas:&lt;/strong&gt; Abordamos el problema desde una perspectiva educativa, señalando la falta de formación y los desafíos en la gestión de referencias como factores contribuyentes.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Este estudio es una contribución al desarrollo y calidad de las publicaciones en las revistas biomédicas cubanas. Sirve como una llamada de atención para los autores sobre el riesgo de cometer plagio involuntario por desconocimiento, y es útil para prevenir la mala conducta científica.&lt;/p&gt;
+&lt;p&gt;Puedes acceder al artículo completo aquí:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;http://scielo.sld.cu/scielo.php?pid=S1729-519X2020000500016&amp;amp;script=sci_arttext&amp;amp;tlng=pt&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Lee el artículo completo: &amp;ldquo;Plagio en artículos de investigación en revistas biomédicas cubanas. 2016&amp;rdquo;&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;h1 id=&#34;podcast-y-más&#34;&gt;&lt;strong&gt;Podcast y más&amp;hellip;&lt;/strong&gt;&lt;/h1&gt;
+&lt;p&gt;🎧 &lt;strong&gt;Escucha el podcast de esta publicación&lt;/strong&gt;
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+&lt;audio controls &gt;
+  &lt;source src=&#34;https://maicel.netlify.app/mp3/articulo01plagio.mp3&#34; type=&#34;audio/mpeg&#34;&gt;
+&lt;/audio&gt;
+&lt;/p&gt;
+&lt;h1 id=&#34;bibliografía&#34;&gt;Bibliografía&lt;/h1&gt;
+&lt;p&gt;Monzón Pérez ME, Oviedo Herrera LC, Sánchez-Ferrán T, Valdés-Balbín R, Camayd Viera I, Calero Ricardo JL. Plagio en artículos de investigación en revistas biomédicas cubanas. 2016. Revista Habanera de Ciencias Médicas [Internet]. 2020;19(4). Disponible en: &lt;a href=&#34;http://scielo.sld.cu/scielo.php?pid=S1729-519X2020000500016&amp;amp;script=sci_arttext&amp;amp;tlng=pt&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;http://scielo.sld.cu/scielo.php?pid=S1729-519X2020000500016&amp;script=sci_arttext&amp;tlng=pt&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     

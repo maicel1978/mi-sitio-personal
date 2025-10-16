@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Blog | Bioestadistica educativa</title>
+    <title>Blog | Bioestadística edu</title>
     <link>https://maicel.netlify.app/post/</link>
       <atom:link href="https://maicel.netlify.app/post/index.xml" rel="self" type="application/rss+xml" />
     <description>Blog</description>
-    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es</language><lastBuildDate>Sat, 06 Sep 2025 00:00:00 +0000</lastBuildDate>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Sat, 04 Oct 2025 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png</url>
       <title>Blog</title>
@@ -13,488 +13,144 @@
     </image>
     
     <item>
-      <title>Una Inmersión Intuitiva en la Arquitectura de los LLMs</title>
-      <link>https://maicel.netlify.app/post/ia/</link>
-      <pubDate>Sat, 06 Sep 2025 00:00:00 +0000</pubDate>
-      <guid>https://maicel.netlify.app/post/ia/</guid>
-      <description>&lt;p&gt;Todos conocemos los Modelos de Lenguaje Grandes (LLMs) como &lt;strong&gt;ChatGPT de OpenAI, Claude de Anthropic, Gemini de Google&lt;/strong&gt; y otros modelos similares.&lt;/p&gt;
-&lt;p&gt;Son esos asistentes de IA con los que conversamos, que nos ayudan a escribir correos (Stanford Online 2024)electrónicos, a generar ideas e incluso a codificar.&lt;/p&gt;
-&lt;p&gt;Pero, ¿alguna vez te has preguntado cómo funcionan realmente estas herramientas?
-¿Están pensando o simplemente están creando una &lt;strong&gt;magnífica ilusión de razonamiento&lt;/strong&gt;?
-En este blog, te mostraré cómo cobran vida estas maravillas tecnológicas, desde el vasto océano de datos hasta su afinada inteligencia, y exploraremos la naturaleza de esa “inteligencia” que tanto nos asombra.&lt;/p&gt;
-&lt;p&gt;Puedes ver la versión en vídeo de esta publicación aquí:&lt;/p&gt;
-&lt;div style=&#34;position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;&#34;&gt;
-      &lt;iframe allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen=&#34;allowfullscreen&#34; loading=&#34;eager&#34; referrerpolicy=&#34;strict-origin-when-cross-origin&#34; src=&#34;https://www.youtube.com/embed/SxIFozcvCAU?autoplay=0&amp;amp;controls=1&amp;amp;end=0&amp;amp;loop=0&amp;amp;mute=0&amp;amp;start=0&#34; style=&#34;position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;&#34; title=&#34;YouTube video&#34;&gt;&lt;/iframe&gt;
-    &lt;/div&gt;
-
-&lt;p&gt;A continuación, te explico algunos elementos importantes para entender los Modelos de Lenguaje Grandes (LLMs), como se construyen, cómo se entrenan y predicen sus resultado.&lt;/p&gt;
-&lt;img src=&#34;fig0.png&#34; style=&#34;width:30.0%&#34; /&gt;
-&lt;h2 id=&#34;la-anatomía-de-un-llm-redes-neuronales-y-transformadores&#34;&gt;La Anatomía de un LLM: Redes Neuronales y Transformadores&lt;/h2&gt;
-&lt;p&gt;En esencia, los LLMs son &lt;strong&gt;redes neuronales&lt;/strong&gt;.
-Lejos de simular el cerebro humano en un sentido biológico, se basan casi universalmente en una arquitectura particular conocida como &lt;strong&gt;Transformadores&lt;/strong&gt;.&lt;/p&gt;
+      <title>¿Escribir ciencia o reescribir la realidad?</title>
+      <link>https://maicel.netlify.app/post/imryd-redaccion-inversa/</link>
+      <pubDate>Sat, 04 Oct 2025 00:00:00 +0000</pubDate>
+      <guid>https://maicel.netlify.app/post/imryd-redaccion-inversa/</guid>
+      <description>&lt;h1 id=&#34;introducción&#34;&gt;Introducción&lt;/h1&gt;
 &lt;div class=&#34;flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900&#34;&gt;
 &lt;span class=&#34;pr-3 pt-1 text-primary-600 dark:text-primary-300&#34;&gt;
   &lt;svg height=&#34;24&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 24 24&#34;&gt;&lt;path fill=&#34;none&#34; stroke=&#34;currentColor&#34; stroke-linecap=&#34;round&#34; stroke-linejoin=&#34;round&#34; stroke-width=&#34;1.5&#34; d=&#34;m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z&#34;/&gt;&lt;/svg&gt;
 &lt;/span&gt;
-  &lt;span class=&#34;dark:text-neutral-300&#34;&gt;&lt;strong&gt;Red neuronal artificial:&lt;/strong&gt; &lt;em&gt;“Una red neuronal artificial es un sistema de procesamiento paralelo y distribuido, compuesto por unidades simples de procesamiento que tienen la propensión natural de almacenar conocimiento experimental y hacerlo disponible para su uso”&lt;/em&gt; (Haykin, n.d.).&lt;/span&gt;
+  &lt;span class=&#34;dark:text-neutral-300&#34;&gt;&amp;ldquo;¿Y si escribimos al revés? No de la Introducción a los hallazgos, sino de los hallazgos a la Introducción.&amp;rdquo;&lt;/span&gt;
 &lt;/div&gt;
-&lt;p&gt;Estos Transformadores fueron propuestos por Vaswani et al. en 2017 y se destacaron por su capacidad para “dibujar dependencias globales entre la entrada y la salida” utilizando únicamente mecanismos de atención, sin necesidad de redes recurrentes o convolucionales.&lt;/p&gt;
-&lt;p&gt;Esta capacidad es clave para su éxito: permite que el modelo procese grandes cantidades de texto en paralelo y capte relaciones a larga distancia dentro de una secuencia.(Vaswani et al., n.d.)&lt;/p&gt;
-&lt;p&gt;Cuando hablamos de entrenar un LLM, hay varios componentes clave que entran en juego:&lt;/p&gt;
-&lt;!-- -   **Arquitectura**: Cómo se estructura la red neuronal (los Transformadores). --&gt;
-&lt;!-- -   **Pérdida de entrenamiento y algoritmo**: Cómo se &#34;aprende&#34; el modelo. --&gt;
-&lt;!-- -   **Datos**: En qué información se entrena el modelo. --&gt;
-&lt;!-- -   **Evaluación**: Cómo sabemos si el modelo está mejorando. --&gt;
-&lt;!-- -   **Componentes del sistema**: Cómo se ejecutan estos modelos gigantes en hardware moderno de manera eficiente. --&gt;
-&lt;p&gt;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-&lt;figure  &gt;
-  &lt;div class=&#34;flex justify-center	&#34;&gt;
-    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
-               /post/ia/fig1_hu_18182d8f524833af.webp 400w,
-               /post/ia/fig1_hu_f33bba6717280fcf.webp 760w,
-               /post/ia/fig1_hu_4ee0477a1071e0cf.webp 1200w&#34;
-               src=&#34;https://maicel.netlify.app/post/ia/fig1_hu_18182d8f524833af.webp&#34;
-               width=&#34;760&#34;
-               height=&#34;410&#34;
-               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
-  &lt;/div&gt;&lt;/figure&gt;
-&lt;/p&gt;
-&lt;!-- A menudo, la academia se centra mucho en la arquitectura, pero en la práctica, lo que realmente importa es la **calidad de los datos, la evaluación y los sistemas**, ya que las pequeñas diferencias arquitectónicas son a menudo secundarias frente a la escala. --&gt;
-&lt;h2 id=&#34;la-primera-etapa-pre-entrenamiento-modelado-del-lenguaje&#34;&gt;La Primera Etapa: Pre-entrenamiento (Modelado del Lenguaje)&lt;/h2&gt;
-&lt;p&gt;El viaje de un LLM comienza con el &lt;strong&gt;pre-entrenamiento&lt;/strong&gt;, un paradigma clásico donde el modelo se entrena para &lt;strong&gt;“modelar todo Internet”&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;En esta fase, un modelo de lenguaje es, a grandes rasgos, un modelo de &lt;strong&gt;distribución de probabilidad sobre secuencias de tokens o palabras&lt;/strong&gt;.&lt;/p&gt;
-&lt;div class=&#34;flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900&#34;&gt;
-&lt;span class=&#34;pr-3 pt-1 text-primary-600 dark:text-primary-300&#34;&gt;
-  &lt;svg height=&#34;24&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 24 24&#34;&gt;&lt;path fill=&#34;none&#34; stroke=&#34;currentColor&#34; stroke-linecap=&#34;round&#34; stroke-linejoin=&#34;round&#34; stroke-width=&#34;1.5&#34; d=&#34;m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z&#34;/&gt;&lt;/svg&gt;
-&lt;/span&gt;
-  &lt;span class=&#34;dark:text-neutral-300&#34;&gt;&lt;strong&gt;Tokens:&lt;/strong&gt; &lt;em&gt;“Un token es una instancia de una secuencia de caracteres en un documento, agrupada como una unidad semántica útil para el procesamiento automático de texto. Esta explicación se basa en una definición clara y rigurosa en el contexto del análisis de información y recuperación de documentos.”&lt;/em&gt;&lt;/span&gt;
-&lt;/div&gt;
-&lt;p&gt;Imagina la frase &lt;strong&gt;“El ratón comió el queso”&lt;/strong&gt;.&lt;/p&gt;
-&lt;img src=&#34;fig2.png&#34; style=&#34;width:30.0%&#34; /&gt;
-&lt;p&gt;Un modelo de lenguaje te daría la probabilidad de que esta frase sea pronunciada por un humano o encontrada en línea.&lt;/p&gt;
-&lt;p&gt;Si la frase tuviera errores gramaticales como &lt;strong&gt;“El el ratón queso”&lt;/strong&gt;, el modelo, con su conocimiento sintáctico, sabría que es menos &lt;strong&gt;probable&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;Y si fuera &lt;strong&gt;“El queso comió el ratón”&lt;/strong&gt;, su conocimiento semántico le indicaría que esto es &lt;strong&gt;improbable&lt;/strong&gt;.&lt;/p&gt;
-&lt;img src=&#34;fig3.png&#34; style=&#34;width:30.0%&#34; /&gt;
-&lt;p&gt;&lt;strong&gt;Aquí es donde entra el primer matiz crítico&lt;/strong&gt;: este &lt;strong&gt;“conocimiento sintáctico y semántico”&lt;/strong&gt; no implica que el modelo &lt;strong&gt;entienda&lt;/strong&gt; realmente la gramática o que los quesos no comen ratones.&lt;/p&gt;
-&lt;p&gt;Más bien, ha aprendido, a partir de patrones en billones de textos, que ciertas secuencias de palabras son estadísticamente más probables o coherentes que otras.
-Es una habilidad predictiva, no una comprensión conceptual.&lt;/p&gt;
-&lt;p&gt;Los LLMs son &lt;strong&gt;modelos generativos&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;Esto significa que, una vez que tienen esta comprensión de las distribuciones de probabilidad, pueden &lt;strong&gt;generar nuevas oraciones o datos&lt;/strong&gt; simplemente muestreando de esa distribución.&lt;/p&gt;
-&lt;div class=&#34;flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900&#34;&gt;
-&lt;span class=&#34;pr-3 pt-1 text-primary-600 dark:text-primary-300&#34;&gt;
-  &lt;svg height=&#34;24&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 24 24&#34;&gt;&lt;path fill=&#34;none&#34; stroke=&#34;currentColor&#34; stroke-linecap=&#34;round&#34; stroke-linejoin=&#34;round&#34; stroke-width=&#34;1.5&#34; d=&#34;m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z&#34;/&gt;&lt;/svg&gt;
-&lt;/span&gt;
-  &lt;span class=&#34;dark:text-neutral-300&#34;&gt;&lt;strong&gt;Modelos generativos:&lt;/strong&gt; &lt;em&gt;“Son algoritmos diseñados para crear datos nuevos que parecen provenir de la misma distribución que los datos originales con los que fueron entrenados.”&lt;/em&gt;&lt;/span&gt;
-&lt;/div&gt;
-&lt;p&gt;Es decir, &lt;em&gt;saben&lt;/em&gt; cómo sonar convincentes y coherentes, pero no necesariamente &lt;em&gt;por qué&lt;/em&gt; lo que dicen es correcto o verdadero.&lt;/p&gt;
-&lt;h2 id=&#34;modelos-de-lenguaje-autorregresivos-prediciendo-la-siguiente-palabra&#34;&gt;Modelos de Lenguaje Autorregresivos: Prediciendo la Siguiente Palabra&lt;/h2&gt;
-&lt;p&gt;Vamos a adaptar el texto que proporcionaste para que se conecte con nuestro ejemplo del ratón y el queso.🐁🧀&lt;/p&gt;
-&lt;h2 id=&#34;modelos-de-lenguaje-autorregresivos-prediciendo-la-siguiente-palabra-1&#34;&gt;Modelos de Lenguaje Autorregresivos: Prediciendo la Siguiente Palabra&lt;/h2&gt;
-&lt;p&gt;Los modelos de lenguaje más modernos, como Gemini, son &lt;strong&gt;autorregresivos&lt;/strong&gt;.
-Esto significa que predicen la &lt;strong&gt;siguiente palabra basándose en todas las palabras que ya han visto&lt;/strong&gt; en la secuencia.&lt;/p&gt;
-&lt;p&gt;Piensa en ellos como un narrador que va construyendo una historia palabra por palabra.&lt;/p&gt;
-&lt;h2 id=&#34;el-proceso-con-el-ratón-comió-el-queso&#34;&gt;El Proceso con &lt;strong&gt;“El ratón comió el queso”&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;Imaginemos que el modelo está generando nuestra frase, “El ratón comió el queso.” Este es el fascinante proceso que ocurre:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Secuencia de palabras:&lt;/strong&gt; El modelo empieza con la primera palabra de la oración.
-Luego, toma las palabras que ya ha generado: &lt;strong&gt;“El ratón”&lt;/strong&gt;.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Tokenización:&lt;/strong&gt; Las palabras se convierten en &lt;strong&gt;tokens&lt;/strong&gt; (números o identificadores internos).
-Por ejemplo, “El” podría ser &lt;code&gt;143&lt;/code&gt;, “ratón” &lt;code&gt;56&lt;/code&gt;, y “comió” &lt;code&gt;25&lt;/code&gt;.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;El modelo predice:&lt;/strong&gt; Estos tokens numerados entran en el modelo (la “caja negra”).
-Basado en todo lo que ha aprendido de internet, el modelo calcula cuál es el próximo token más probable.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Distribución de probabilidad:&lt;/strong&gt; El modelo no solo predice una palabra, sino que le asigna una &lt;strong&gt;probabilidad a cada palabra&lt;/strong&gt; en su vocabulario.
-Por ejemplo, después de &lt;strong&gt;“El ratón comió el”&lt;/strong&gt;, la palabra &lt;strong&gt;“queso”&lt;/strong&gt; podría tener una probabilidad del 85%, “pan” un 10%, y “semillas” un 5%.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Muestreo:&lt;/strong&gt; El modelo elige el token con la probabilidad más alta, que en este caso es el token para “queso”.
-A veces, para no sonar robótico, el modelo elige una palabra con una probabilidad un poco menor, pero en la mayoría de los casos elige la más probable.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Detokenización:&lt;/strong&gt; El token seleccionado se convierte de nuevo en la palabra “queso”, completando así la frase.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;aprendizaje-del-modelo&#34;&gt;Aprendizaje del Modelo&lt;/h2&gt;
-&lt;p&gt;Durante el &lt;strong&gt;entrenamiento&lt;/strong&gt;, el modelo hace este mismo proceso, pero en lugar de generar una frase nueva, compara su predicción con la palabra real en un texto de entrenamiento.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;IMRyD —Introducción, Métodos, Resultados y Discusión—&lt;/strong&gt; funciona como un bien público editorial: estandariza, facilita la revisión y permite comparar artículos.
+Además, comenzar por el problema científico importa: formularlo bien equivale a haber recorrido media solución (1).
+Este post no propone abandonar &lt;strong&gt;IMRyD&lt;/strong&gt;, sino distinguir dos órdenes complementarios:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;Si el modelo predice &lt;strong&gt;“pan”&lt;/strong&gt; y la palabra correcta es &lt;strong&gt;“queso”&lt;/strong&gt;, la &lt;strong&gt;función de pérdida de entropía cruzada&lt;/strong&gt; le da un “castigo”.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Orden de publicación (IMRyD):&lt;/strong&gt; útil para evaluación y recuperación de información&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Ese castigo se usa para ajustar los pesos del modelo.
-El objetivo es que, la próxima vez que vea un contexto similar (“El ratón comió el…”), la probabilidad de que prediga “queso” sea mucho mayor.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Orden de redacción (guiada por hallazgos):&lt;/strong&gt; útil para alinear el relato con lo que realmente aprendimos y separar lo confirmatorio de lo exploratorio (2,3).&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Así, la “fluidez” del modelo para generar frases como “El ratón comió el queso” se basa en su capacidad para &lt;strong&gt;predecir estadísticamente&lt;/strong&gt; la palabra más probable en cada paso, no en un razonamiento sobre los hábitos alimenticios de los roedores.&lt;/p&gt;
-&lt;!-- Los modelos más utilizados hoy en día son los **modelos de lenguaje autorregresivos**. --&gt;
-&lt;!-- La idea central es descomponer la probabilidad de una secuencia de palabras en un producto de probabilidades condicionales: la probabilidad de la primera palabra, multiplicada por la probabilidad de la segunda palabra dada la primera, y así sucesivamente. --&gt;
-&lt;!-- En términos más simples, el modelo predice la **siguiente palabra basándose en todo lo que ha ocurrido antes** en la secuencia. --&gt;
-&lt;!-- El proceso es fascinante:  --&gt;
-&lt;!-- 1. Tomas una secuencia de palabras (como &#34;Ella probablemente prefiere&#34;). --&gt;
-&lt;!-- 2. La **tokenizas**, es decir, la divides en &#34;tokens&#34; (palabras o subpalabras) y les asignas un ID.  --&gt;
-&lt;!-- 3. Estos tokens pasan por el modelo (la &#34;caja negra&#34; del Transformador). --&gt;
-&lt;!-- 4. El modelo emite una **distribución de probabilidad** sobre la siguiente palabra o token posible. --&gt;
-&lt;!-- 5. Se &#34;muestrea&#34; de esta distribución para obtener el siguiente token más probable. --&gt;
-&lt;!-- 6. Finalmente, se &#34;detokeniza&#34; para obtener la palabra real. --&gt;
-&lt;!-- Durante el entrenamiento, el objetivo es **predecir el token más probable** y ajustar los pesos del modelo para aumentar la probabilidad de generar el token correcto, utilizando la **función de pérdida de entropía cruzada (Cross-Entropy Loss)**, que es equivalente a maximizar la verosimilitud logarítmica del texto. --&gt;
-&lt;!-- Esta es la base de su impresionante fluidez, pero recalca que su &#34;razonamiento&#34; es una sofisticada forma de predicción estadística. --&gt;
-&lt;h2 id=&#34;los-tokenizadores-el-primer-paso-crucial-para-la-coherencia&#34;&gt;Los Tokenizadores: El Primer Paso Crucial para la “Coherencia”&lt;/h2&gt;
-&lt;p&gt;Los &lt;strong&gt;tokenizadores&lt;/strong&gt; son componentes extremadamente importantes pero a menudo poco valorados.&lt;/p&gt;
-&lt;p&gt;¿Por qué los necesitamos?&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Más generales que las palabras&lt;/strong&gt;: Las palabras como tokens directos fallan con errores tipográficos o en idiomas que no usan espacios (como el tailandés).&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Eficiencia de secuencia&lt;/strong&gt;: Tokenizar carácter por carácter haría las secuencias demasiado largas, lo que es ineficiente para los Transformadores (cuya complejidad crece cuadráticamente con la longitud de la secuencia).&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Los tokenizadores buscan encontrar &lt;strong&gt;subsecuencias comunes&lt;/strong&gt; y darles un token específico.
-En promedio, un token suele representar alrededor de &lt;strong&gt;tres o cuatro letras&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;Un algoritmo muy común es la &lt;strong&gt;Codificación de Pares de Bytes (Byte Pair Encoding o BPE)&lt;/strong&gt;.
-Es fundamental considerar cómo se tokeniza el texto, ya que el &lt;strong&gt;tamaño del vocabulario afecta directamente la dimensionalidad de la salida&lt;/strong&gt; del modelo.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Un punto crítico aquí&lt;/strong&gt;: Si bien son útiles, los tokenizadores tienen limitaciones, especialmente con números (matemáticas) y código.&lt;/p&gt;
-&lt;p&gt;Por ejemplo, un número como “327” puede tener su propio token, lo que significa que el modelo no lo ve como una composición de “3”, “2”, “7”, lo que dificulta su capacidad para razonar matemáticamente o con la estructura del código.&lt;/p&gt;
-&lt;p&gt;Esto nos recuerda que, a pesar de la fluidez, los LLMs operan sobre representaciones simbólicas (tokens) que no siempre se alinean con nuestra comprensión conceptual del lenguaje o las matemáticas.&lt;/p&gt;
-&lt;h2 id=&#34;de-modelo-de-lenguaje-a-asistente-de-ia-el-post-entrenamiento-o-la-ilusión-de-la-intencionalidad&#34;&gt;De Modelo de Lenguaje a Asistente de IA: El Post-entrenamiento (o la Ilusión de la Intencionalidad)&lt;/h2&gt;
-&lt;p&gt;Un modelo pre-entrenado es un experto en &lt;strong&gt;“hablar como Internet”&lt;/strong&gt;, pero no es un asistente de IA.&lt;/p&gt;
-&lt;p&gt;Si le preguntaras a &lt;strong&gt;GPT-3&lt;/strong&gt; (un modelo puramente de lenguaje) “explícame el aterrizaje en la luna a un niño de seis años”, podría responder con “explícame la teoría de la gravedad a un niño de seis años” porque ha aprendido que en Internet, una pregunta a menudo es seguida por preguntas similares, no por una respuesta directa.&lt;/p&gt;
-&lt;p&gt;El &lt;strong&gt;post-entrenamiento (alignment)&lt;/strong&gt; es el proceso que transforma estos modelos en asistentes útiles, asegurándose de que &lt;strong&gt;sigan las instrucciones de los usuarios&lt;/strong&gt; y los deseos de los diseñadores (por ejemplo, evitar contenido tóxico).&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Este es el punto donde la ilusión de intencionalidad se vuelve más fuerte.&lt;/strong&gt;&lt;/p&gt;
-&lt;h2 id=&#34;1-ajuste-fino-supervisado-supervised-fine-tuning---sft&#34;&gt;1. Ajuste Fino Supervisado (Supervised Fine-Tuning - SFT)&lt;/h2&gt;
-&lt;p&gt;El primer paso es el &lt;strong&gt;Ajuste Fino Supervisado (SFT)&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;Aquí, el LLM pre-entrenado se afina con &lt;strong&gt;respuestas deseadas recogidas de humanos&lt;/strong&gt;.
-Es decir, se le dan ejemplos de preguntas y sus respuestas “correctas” o “ideales” escritas por humanos.&lt;/p&gt;
-&lt;p&gt;Este paso fue crucial para el salto de &lt;strong&gt;GPT-3&lt;/strong&gt; a &lt;strong&gt;ChatGPT&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;Curiosamente, no se necesita una cantidad masiva de datos para SFT; &lt;strong&gt;unos pocos miles de ejemplos bien elegidos pueden ser suficientes&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;Esto sugiere que el SFT no enseña al modelo nuevo conocimiento, sino que le enseña &lt;strong&gt;cómo formatear las respuestas&lt;/strong&gt; y optimizar para un “tipo de usuario” específico que ya había visto en sus datos de pre-entrenamiento.&lt;/p&gt;
-&lt;p&gt;En otras palabras, el modelo ya tenía el conocimiento latente; el SFT le enseña a &lt;em&gt;expresarlo&lt;/em&gt; de la manera que un asistente de IA “debería” hacerlo.&lt;/p&gt;
-&lt;p&gt;No está aprendiendo a &lt;em&gt;pensar&lt;/em&gt; como un asistente, sino a &lt;em&gt;simular&lt;/em&gt; el comportamiento de uno.&lt;/p&gt;
-&lt;h2 id=&#34;2-aprendizaje-por-refuerzo-a-partir-de-retroalimentación-humana-reinforcement-learning-from-human-feedback---rlhf&#34;&gt;2. Aprendizaje por Refuerzo a partir de Retroalimentación Humana (Reinforcement Learning from Human Feedback - RLHF)&lt;/h2&gt;
-&lt;p&gt;El SFT tiene sus limitaciones: &lt;strong&gt;Limitado por la habilidad humana&lt;/strong&gt;: Los humanos pueden juzgar mejor lo que es una buena respuesta de lo que pueden escribirla ellos mismos.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Posibles alucinaciones&lt;/strong&gt;: Como el SFT se entrena con poca data, si un humano da una respuesta que el modelo no ha visto antes (y por tanto no sabe si es cierta), el modelo puede aprender a “inventar” información plausible pero falsa.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Aquí el matiz crítico es fundamental&lt;/strong&gt;: la “alucinación” (generación de información falsa pero plausible) es una clara evidencia de que los LLMs no “saben” lo que es verdad o mentira, ni tienen un sentido de la realidad.&lt;/p&gt;
-&lt;p&gt;Simplemente generan secuencias de tokens que &lt;em&gt;parecen&lt;/em&gt; correctas, basándose en los patrones que han aprendido, incluso si no tienen fundamento.&lt;/p&gt;
-&lt;p&gt;Es la culminación de la ilusión de razonamiento.
-&lt;strong&gt;Costo&lt;/strong&gt;: Generar respuestas ideales es muy caro.&lt;/p&gt;
-&lt;p&gt;Aquí es donde entra el &lt;strong&gt;RLHF&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;En lugar de simplemente clonar el comportamiento humano, el objetivo es &lt;strong&gt;maximizar la preferencia humana&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;El proceso es el siguiente:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;Para una instrucción dada, el modelo genera &lt;strong&gt;dos respuestas diferentes&lt;/strong&gt;.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Etiquetadores humanos seleccionan &lt;strong&gt;cuál de las dos respuestas es mejor&lt;/strong&gt;.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Con esta retroalimentación, el modelo se afina para generar más de las respuestas “buenas” y menos de las “malas”.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;Para hacer esto, se entrena un &lt;strong&gt;modelo de recompensa (Reward Model)&lt;/strong&gt;, un clasificador que aprende a predecir cuánto prefiere un humano una respuesta sobre otra, dando una señal de recompensa continua.&lt;/p&gt;
-&lt;p&gt;Posteriormente, métodos más simples como la &lt;strong&gt;Optimización Directa por Preferencia (Direct Preference Optimization - DPO)&lt;/strong&gt; han demostrado ser igual de efectivos, evitando la complejidad del aprendizaje por refuerzo tradicional.&lt;/p&gt;
-&lt;p&gt;En definitiva, RLHF moldea el comportamiento del LLM para alinearse con lo que &lt;em&gt;deseamos&lt;/em&gt; ver, no con lo que el modelo &lt;em&gt;sabe&lt;/em&gt; o &lt;em&gt;piensa&lt;/em&gt;.&lt;/p&gt;
-&lt;p&gt;Le enseña a ser complaciente y a evitar lo “tóxico” porque los humanos así lo prefieren, no por un juicio moral inherente.&lt;/p&gt;
-&lt;h2 id=&#34;la-materia-prima-datos-masivos-y-su-filtrado&#34;&gt;La Materia Prima: Datos Masivos y su Filtrado&lt;/h2&gt;
-&lt;p&gt;El pre-entrenamiento de los LLMs se realiza sobre &lt;strong&gt;“todo Internet”&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;Esto incluye vastas colecciones como Common Crawl, que contiene alrededor de &lt;strong&gt;250 mil millones de páginas web y un petabyte de datos&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;Pero el Internet es “sucio” y no representativo.&lt;/p&gt;
-&lt;p&gt;Imagina una página web aleatoria: llena de HTML, publicidad, fragmentos sin terminar.&lt;/p&gt;
-&lt;p&gt;Para que estos datos sean útiles, se requieren pasos de procesamiento intensivos, que incluyen:&lt;/p&gt;
-&lt;p&gt;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-&lt;figure  &gt;
-  &lt;div class=&#34;flex justify-center	&#34;&gt;
-    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
-               /post/ia/fig4_hu_b74c97a4d4debd70.webp 400w,
-               /post/ia/fig4_hu_f0bdf3ad77c25970.webp 760w,
-               /post/ia/fig4_hu_6e63ba7ee8334dc3.webp 1200w&#34;
-               src=&#34;https://maicel.netlify.app/post/ia/fig4_hu_b74c97a4d4debd70.webp&#34;
-               width=&#34;507&#34;
-               height=&#34;760&#34;
-               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
-  &lt;/div&gt;&lt;/figure&gt;
-&lt;/p&gt;
-&lt;!-- 1.  **Extracción de texto**: Eliminar HTML y extraer contenido. --&gt;
-&lt;!-- 2.**Filtrado de contenido indeseable**: Eliminar contenido no seguro (NSFW), dañino o información personal (PII). --&gt;
-&lt;!-- 3.  **Deduplicación**: Eliminar contenido repetido. --&gt;
-&lt;!-- 4.  **Filtrado heurístico**: Eliminar documentos de baja calidad basándose en reglas (por ejemplo, distribuciones de tokens inusuales, longitud extrema de palabras o documentos muy cortos/largos). --&gt;
-&lt;!-- 5.  **Filtrado basado en modelos**: Entrenar un clasificador para identificar documentos de alta calidad, usando referencias de Wikipedia como punto de partida. --&gt;
-&lt;!-- 6.  **Clasificación y ponderación por dominio**: Aumentar o disminuir el peso de ciertos dominios (por ejemplo, el código puede mejorar el razonamiento, por lo que se le da más peso). --&gt;
-&lt;!-- 7.  **Entrenamiento final con datos de alta calidad**: &#34;Sobreajustar&#34; el modelo con datos de muy alta calidad al final del pre-entrenamiento, reduciendo la tasa de aprendizaje. --&gt;
-&lt;p&gt;La escala de estos conjuntos de datos es asombrosa, pasando de &lt;strong&gt;150 mil millones de tokens (800 GB)&lt;/strong&gt; en benchmarks académicos anteriores, hasta &lt;strong&gt;15 billones de tokens&lt;/strong&gt; para modelos de última generación como Llama 3 (equivalente a miles de terabytes).&lt;/p&gt;
-&lt;p&gt;La recopilación y curación de datos sigue siendo un desafío enorme y un área activa de investigación.&lt;/p&gt;
-&lt;h2 id=&#34;las-leyes-de-escalado-el-poder-de-lo-grande-y-sus-implicaciones-en-la-inteligencia&#34;&gt;Las Leyes de Escalado: El Poder de lo Grande (y sus Implicaciones en la “Inteligencia”)&lt;/h2&gt;
-&lt;p&gt;Uno de los descubrimientos más sorprendentes en LLMs es que &lt;strong&gt;cuantos más datos se entrenen los modelos y más grandes sean los modelos, mejor será su rendimiento&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;A diferencia de lo que se enseña en muchas clases de aprendizaje automático, el “sobreajuste” (overfitting) no parece ocurrir con los LLMs.&lt;/p&gt;
-&lt;p&gt;Las &lt;strong&gt;leyes de escalado&lt;/strong&gt; nos muestran que si se aumenta la computación, los datos o el número de parámetros, la pérdida de validación del modelo disminuye de forma predecible y lineal en una escala logarítmica.&lt;/p&gt;
-&lt;p&gt;Esto es crucial porque permite a las compañías predecir cuánto mejorarán sus modelos en el futuro y cómo optimizar la asignación de recursos.&lt;/p&gt;
-&lt;p&gt;Por ejemplo, el famoso artículo Chinchilla de DeepMind mostró que la relación óptima es entrenar con &lt;strong&gt;20 tokens por cada parámetro&lt;/strong&gt; del modelo para maximizar la eficiencia del entrenamiento.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Un punto analítico aquí&lt;/strong&gt;: Que los modelos “mejoren” al escalar no significa que se vuelvan intrínsecamente “más inteligentes” en un sentido humano, o que estén más cerca de la conciencia.&lt;/p&gt;
-&lt;p&gt;Simplemente, son &lt;strong&gt;máquinas de patrones increíblemente sofisticadas&lt;/strong&gt; que, con más datos y más capacidad computacional, son capaces de reconocer y generar patrones cada vez más complejos y coherentes, reduciendo su “pérdida” (es decir, volviéndose mejores en la predicción del siguiente token).&lt;/p&gt;
-&lt;p&gt;La “inteligencia” que percibimos es una propiedad emergente de esta capacidad de predicción a gran escala, no una mente.&lt;/p&gt;
-&lt;!-- ### El Precio de la Ilusión de Inteligencia: ¿Cuánto Cuesta un LLM? --&gt;
-&lt;!-- Entrenar un LLM es una empresa monumental y costosa. --&gt;
-&lt;!-- Tomemos como ejemplo el modelo **Llama 3 400B**, uno de los mejores modelos de código abierto actuales: **Tokens de entrenamiento**: 15.6 billones de tokens. --&gt;
-&lt;!-- -   **Parámetros**: 45 mil millones. --&gt;
-&lt;!-- -   **Cómputo (FLOPs)**: Aproximadamente 3.8 x 10\^25 FLOPs. --&gt;
-&lt;!-- -   **Hardware y tiempo**: Se entrenó en **16.000 GPUs H100** durante unos 70 días (o 26 millones de horas de GPU). --&gt;
-&lt;!-- -**Costo estimado**: El alquiler de estas GPUs costaría alrededor de **52 millones de dólares**, y sumando los salarios del equipo, el costo total de entrenamiento rondaría los **75 millones de dólares**. --&gt;
-&lt;!-- - **Huella de carbono**: El entrenamiento de Llama 3 emitió unas 4.000 toneladas de CO2 equivalente. --&gt;
-&lt;!-- Estos números son un testimonio de la inmensa inversión necesaria para crear estos modelos capaces de generar una ilusión tan convincente. --&gt;
-&lt;h2 id=&#34;sistemas-el-cerebro-detrás-de-la-eficiencia&#34;&gt;Sistemas: El Cerebro Detrás de la Eficiencia&lt;/h2&gt;
-&lt;p&gt;La computación es el cuello de botella más grande en el desarrollo de LLMs.
-Comprar más GPUs es difícil por su alto costo y escasez, además de las limitaciones físicas en la comunicación entre ellas.&lt;/p&gt;
-&lt;p&gt;Es crucial optimizar cómo se asignan los recursos y el pipeline de entrenamiento.&lt;/p&gt;
-&lt;p&gt;Algunos trucos clave a nivel de sistemas incluyen: &lt;strong&gt;Baja Precisión (Low Precision)&lt;/strong&gt;: Usar números de punto flotante de 16 bits en lugar de 32 bits.&lt;/p&gt;
-&lt;p&gt;Esto reduce la cantidad de datos que deben enviarse a las GPUs, acelerando la comunicación y disminuyendo el consumo de memoria.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Fusión de Operadores (Operator Fusion)&lt;/strong&gt;: Las GPUs son muy lentas en la comunicación.
-La fusión de operadores combina varias operaciones consecutivas en una sola llamada al kernel, lo que significa que los datos se envían a la GPU una sola vez, todas las operaciones se realizan y luego los resultados se devuelven, lo que acelera significativamente el proceso (por ejemplo, &lt;code&gt;torch.compile&lt;/code&gt; en PyTorch puede duplicar la velocidad).&lt;/p&gt;
-&lt;h2 id=&#34;conclusión-una-ilusión-poderosa-no-un-pensamiento-consciente&#34;&gt;Conclusión: Una Ilusión Poderosa, No un Pensamiento Consciente&lt;/h2&gt;
-&lt;p&gt;Desde sus cimientos como redes neuronales Transformer, pasando por el pre-entrenamiento con datos masivos de Internet y el afinamiento con retroalimentación humana, hasta la optimización de sistemas y la gestión de costos astronómicos, la creación de un LLM es una hazaña de ingeniería y ciencia de datos.&lt;/p&gt;
-&lt;p&gt;La próxima vez que interactúes con un chatbot, recordarás que detrás de esa respuesta fluida hay billones de tokens procesados, complejos algoritmos de entrenamiento, ingeniosas técnicas de afinamiento y una infraestructura computacional masiva trabajando en conjunto.
-&lt;strong&gt;Estos modelos no “piensan” en el sentido humano de la palabra, ni poseen conciencia o una comprensión profunda y holística del mundo&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;Lo que hacen, y lo hacen de manera magistral, es &lt;strong&gt;identificar y reproducir patrones estadísticos&lt;/strong&gt; en los datos con los que fueron entrenados.&lt;/p&gt;
-&lt;p&gt;Su habilidad para generar texto coherente, relevante y a menudo sorprendentemente “inteligente” es una testamentación de la &lt;strong&gt;efectividad de la predicción a escala masiva&lt;/strong&gt;.
-Es una &lt;strong&gt;ilusión de razonamiento&lt;/strong&gt; tan convincente que a menudo nos hace cuestionar la naturaleza de la inteligencia misma.
-Y es, sin duda, una de las maravillas tecnológicas más grandes de nuestro tiempo.&lt;/p&gt;
-&lt;h2 id=&#34;bibliografía&#34;&gt;Bibliografía&lt;/h2&gt;
-&lt;div id=&#34;refs&#34; class=&#34;references csl-bib-body hanging-indent&#34; entry-spacing=&#34;0&#34;&gt;
-&lt;div id=&#34;ref-haykin&#34; class=&#34;csl-entry&#34;&gt;
-&lt;p&gt;Haykin, Simon. n.d. “Neural Networks and Learning Machines.” &lt;a href=&#34;http://dni.dali.dartmouth.edu/9umv9yghhaoq/13-dayana-hermann-1/read-0131471392-neural-networks-and-learning-machines.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;http://dni.dali.dartmouth.edu/9umv9yghhaoq/13-dayana-hermann-1/read-0131471392-neural-networks-and-learning-machines.pdf&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;ref-stanfordonline2024&#34; class=&#34;csl-entry&#34;&gt;
-&lt;p&gt;Stanford Online. 2024. “Stanford CS229 i Machine Learning i Building Large Language Models (LLMs),” August. &lt;a href=&#34;https://www.youtube.com/watch?v=9vM4p9NN0Ts&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.youtube.com/watch?v=9vM4p9NN0Ts&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;ref-vaswani&#34; class=&#34;csl-entry&#34;&gt;
-&lt;p&gt;Vaswani, Ashish, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, and Illia Polosukhin. n.d. “Attention Is All You Need.” &lt;a href=&#34;https://doi.org/10.48550/ARXIV.1706.03762&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://doi.org/10.48550/ARXIV.1706.03762&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Del Laboratorio al Mundo Real</title>
-      <link>https://maicel.netlify.app/post/generalizacion/</link>
-      <pubDate>Mon, 01 Sep 2025 00:00:00 +0000</pubDate>
-      <guid>https://maicel.netlify.app/post/generalizacion/</guid>
-      <description>&lt;h2 id=&#34;del-laboratorio-al-mundo-real-cómo-la-ciencia-cruza-el-puente-hacia-tu-vida&#34;&gt;&lt;strong&gt;Del Laboratorio al Mundo Real: Cómo la Ciencia Cruza el Puente hacia tu Vida&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;¿Alguna vez has leído un titular científico y te has preguntado: &amp;ldquo;¿Esto me aplica a mí?&amp;rdquo; o &amp;ldquo;Esto suena genial, pero ¿es relevante para mi realidad?&amp;rdquo; Si es así, has tocado el nervio de uno de los mayores desafíos de la investigación: cómo saltar del estudio controlado en un laboratorio al mundo real.&lt;/p&gt;
-&lt;p&gt;El vídeo, &amp;ldquo;El Estudio y el Mundo&amp;rdquo;, captura esta idea.&lt;/p&gt;
-&lt;div style=&#34;position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;&#34;&gt;
-      &lt;iframe allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; allowfullscreen=&#34;allowfullscreen&#34; loading=&#34;eager&#34; referrerpolicy=&#34;strict-origin-when-cross-origin&#34; src=&#34;https://www.youtube.com/embed/sY8-YxIeGu8?autoplay=0&amp;amp;controls=1&amp;amp;end=0&amp;amp;loop=0&amp;amp;mute=0&amp;amp;start=0&#34; style=&#34;position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;&#34; title=&#34;YouTube video&#34;&gt;&lt;/iframe&gt;
-    &lt;/div&gt;
-
-&lt;p&gt;Este blog profundiza en ese &lt;strong&gt;puente a veces inestable&lt;/strong&gt; que conecta la ciencia con nuestra vida diaria, explicando por qué no se trata de desconfiar de la ciencia, sino de entenderla mejor para usarla de la forma más inteligente posible.&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;los-pilares-fundamentales-validez-interna-y-externa&#34;&gt;&lt;strong&gt;Los Pilares Fundamentales: Validez Interna y Externa&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;Para que un estudio sea realmente útil, sus hallazgos no solo deben ser correctos, sino también aplicables. Aquí es donde entran en juego dos conceptos clave:&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Validez Interna: ¿Se hizo bien el estudio?&lt;/strong&gt; Se pregunta si los resultados son fiables para el grupo de personas que realmente participaron en la investigación. Un estudio puede ser metodológicamente impecable y tener una validez interna &amp;ldquo;de 10&amp;rdquo;.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Validez Externa: ¿Sirven estos resultados fuera del estudio?&lt;/strong&gt; Se refiere a la capacidad de los hallazgos de un estudio para aplicarse a otros contextos, poblaciones o situaciones. Un estudio perfecto a nivel interno podría ser casi inútil si sus participantes son tan específicos que sus resultados no pueden generalizarse.&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;generalizabilidad-y-transportabilidad-construyendo-el-puente&#34;&gt;&lt;strong&gt;Generalizabilidad y Transportabilidad: Construyendo el Puente&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;Existen dos estrategias principales para construir ese puente:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Generalizabilidad:&lt;/strong&gt; Piensa en esto como una receta de cocina. Perfeccionaste una tarta en tu &amp;ldquo;cocina de prueba&amp;rdquo; y ahora vas a usar esa misma receta para alimentar a toda la familia. La población del estudio es solo una parte de un grupo más grande al que quieres aplicar los resultados. Por ejemplo, pasar de un estudio en California a todo Estados Unidos.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Transportabilidad:&lt;/strong&gt; Ahora imagina que quieres adaptar esa misma receta para que funcione en otro país, con ingredientes diferentes y un horno distinto. Aquí, la población del estudio es ajena a la población a la que quieres aplicar los resultados. Se trata de ver si los hallazgos de un estudio en Estados Unidos funcionan en una clínica en Europa.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;por-qué-es-tan-difícil-construir-el-puente&#34;&gt;&lt;strong&gt;¿Por Qué es Tan Difícil Construir el Puente?&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;La principal dificultad es que los estudios, especialmente los ensayos clínicos aleatorios (RCTs), a menudo seleccionan a los participantes con criterios muy estrictos para garantizar una alta validez interna. Esto los hace poco representativos de la población general.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;El Sesgo de Selección:&lt;/strong&gt; Ocurre cuando las personas que participan en el estudio son diferentes de la población a la que se busca aplicar los resultados. No se trata solo de que no sean &amp;ldquo;representativas&amp;rdquo;, sino de que esas diferencias afecten la efectividad del tratamiento.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;La Trampa de los Confusores:&lt;/strong&gt; Factores no controlados en el estudio pueden generar asociaciones falsas o &amp;ldquo;espurias&amp;rdquo;, ocultando la verdadera relación entre el tratamiento y el resultado.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;El Riesgo de la Subjetividad:&lt;/strong&gt; La estadística es una herramienta, no una verdad absoluta. La elección de variables y la interpretación de los resultados requieren un profundo conocimiento y juicio. La subjetividad puede &amp;ldquo;disfrazarse&amp;rdquo; detrás de números y algoritmos, llevando a conclusiones erróneas si no se razona con cuidado. Sin embargo, esta subjetividad no debe confundirse con la arbitrariedad, ya que se basa en la experiencia y el sentido común del investigador.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;El Dilema del Tamaño de Muestra:&lt;/strong&gt; A pesar de lo que se podría pensar, la determinación del tamaño de muestra de un estudio es más un arte que una ciencia exacta, basada en el juicio y la intuición, no solo en una fórmula.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;herramientas-para-construir-un-puente-fuerte&#34;&gt;&lt;strong&gt;Herramientas para Construir un Puente Fuerte&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;Los estadísticos se dedican a medir la distancia entre el mundo del estudio y el mundo real. Una vez diagnosticado el problema, hay varias estrategias y herramientas para corregir el rumbo:&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;En la Fase de Diseño:&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;La forma ideal es tomar una muestra aleatoria de la población objetivo, pero esto no siempre es posible. Las alternativas incluyen:&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Ensayos clínicos pragmáticos:&lt;/strong&gt; Diseñados para imitar la práctica clínica real y ser más aplicables.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Muestreo no probabilístico:&lt;/strong&gt; Seleccionar participantes para asegurar que haya una amplia representación o heterogeneidad.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Después de la Recolección de Datos (Métodos Analíticos):&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Si el estudio ya se realizó, se usan métodos estadísticos para ajustar los resultados:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Ponderación (Weighting):&lt;/strong&gt; Le da más &amp;ldquo;peso&amp;rdquo; a ciertos individuos del estudio para que la muestra se parezca más a la población real. Es como darles un megáfono a las voces que necesitan ser escuchadas.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Regresiones de Resultado:&lt;/strong&gt; Se construyen modelos matemáticos para predecir lo que habría pasado si la gente del mundo real hubiera recibido el tratamiento del estudio.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Enfoques Doblemente Robustos:&lt;/strong&gt; Combinan varias técnicas para obtener resultados más sólidos.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;la-sabiduría-detrás-de-los-números&#34;&gt;&lt;strong&gt;La Sabiduría Detrás de los Números&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;La estadística es una herramienta. Hay un poder inmenso en dominarla, pero también un riesgo si se aplica sin un pensamiento crítico. El peligro de la &amp;ldquo;fábrica de publicaciones&amp;rdquo; que prioriza la significación estadística (un valor p bajo) a veces eclipsa la relevancia clínica o biológica de los hallazgos. No basta con que un resultado sea &amp;ldquo;estadísticamente significativo&amp;rdquo;. Lo realmente importante es si es significativo para la vida de las personas.&lt;/p&gt;
-&lt;p&gt;Como se ha destacado, &amp;ldquo;pensar sin observar es un error, pero observar sin pensar es igualmente peligroso.&amp;rdquo; La aplicación mecánica de un método poderoso puede llevar a conclusiones erróneas.&lt;/p&gt;
-&lt;h2 id=&#34;tu-papel-como-consumidor-de-ciencia&#34;&gt;&lt;strong&gt;Tu Papel como Consumidor de Ciencia&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;La próxima vez que veas un titular impactante, haz la pregunta clave : &lt;strong&gt;&amp;quot;¿En quién se hizo este estudio?&amp;quot;&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Al entender la generalizabilidad y la transportabilidad, te conviertes en un consumidor de ciencia más crítico e informado. La verdadera meta no es solo que los estudios sean rigurosos, sino que su conocimiento pueda cruzar ese puente de forma segura y tener un impacto genuino en nuestras vidas. Porque, al final, una ciencia que no puede ser aplicada al mundo real pierde gran parte de su valor.&lt;/p&gt;
-&lt;h2 id=&#34;biblografía&#34;&gt;Biblografía&lt;/h2&gt;
-&lt;ol&gt;
-&lt;li&gt;Degtiar I, Rose S. A Review of Generalizability and Transportability. Annual Review of Statistics and Its Application [Internet]. 9 de marzo de 2023 [citado 1 de septiembre de 2025];10(Volume 10, 2023):501-24. Disponible en: &lt;a href=&#34;https://www.annualreviews.org/content/journals/10.1146/annurev-statistics-042522-103837&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.annualreviews.org/content/journals/10.1146/annurev-statistics-042522-103837&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Desvelando la Lógica Matemática Detrás de Causa y Efecto</title>
-      <link>https://maicel.netlify.app/post/m-s-all-del-rct-en-salud-p-blica-y-epidemiolog-a/</link>
-      <pubDate>Mon, 01 Sep 2025 00:00:00 +0000</pubDate>
-      <guid>https://maicel.netlify.app/post/m-s-all-del-rct-en-salud-p-blica-y-epidemiolog-a/</guid>
-      <description>&lt;h1 id=&#34;inferencia-causal-&#34;&gt;Inferencia Causal :&lt;/h1&gt;
-&lt;p&gt;El &lt;strong&gt;marco de resultados potenciales&lt;/strong&gt; se mantiene como la piedra angular del pensamiento causal, proporcionando el andamiaje conceptual para diferenciar la mera correlación de la causalidad. Ante la imposibilidad de llevar a cabo &lt;strong&gt;ensayos controlados aleatorizados (RCT)&lt;/strong&gt;, la investigación se ha nutrido de &lt;strong&gt;métodos robustos&lt;/strong&gt; que permiten extraer inferencias causales creíbles de datos observacionales. En este contexto, herramientas como el &lt;strong&gt;Propensity Score&lt;/strong&gt; y los &lt;strong&gt;estimadores doblemente robustos&lt;/strong&gt; (DR) se utilizan para controlar los sesgos de selección a partir de covariables observables, mientras que los &lt;strong&gt;Efectos de Tratamiento Promedio Condicionales (CATE)&lt;/strong&gt;, apoyados en machine learning, permiten explorar la heterogeneidad del efecto entre subpoblaciones. Asimismo, un conjunto de estrategias cuasi-experimentales ha abierto nuevos horizontes en la investigación, incluyendo el uso de &lt;strong&gt;Variables Instrumentales (IV)&lt;/strong&gt; para corregir la confusión no observada, el &lt;strong&gt;Diferencias-en-Diferencias (DID)&lt;/strong&gt; y el &lt;strong&gt;Control Sintético (SC)&lt;/strong&gt; para comparar trayectorias temporales, y la &lt;strong&gt;Regresión Discontinua (RDD)&lt;/strong&gt; para explotar umbrales de asignación, todas ellas permitiendo identificar efectos causales en contextos donde la aleatorización no es factible.&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;1-el-desafío-central-solo-vemos-un-lado-de-la-moneda&#34;&gt;1. El desafío central: solo vemos un lado de la moneda&lt;/h2&gt;
-&lt;p&gt;Imagina que quieres evaluar el impacto de una nueva política de vacunación. Para cada persona, podríamos definir dos mundos posibles: uno donde recibe la vacuna y otro donde no. Pero en la práctica solo observamos un mundo: el que ocurrió. Ese es el &lt;strong&gt;“problema fundamental de la inferencia causal”&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;El &lt;strong&gt;marco de resultados potenciales&lt;/strong&gt; formaliza esta idea:&lt;/p&gt;
-
-$$
-\tau_{\text{sample}} = \frac{1}{N} \sum_{i=1}^{N} (Y_i(1) - Y_i(0))
-$$
-
-
-&lt;p&gt;En un ensayo controlado aleatorizado (RCT), la aleatorización nos permite estimar este efecto promedio simplemente comparando medias. Pero ¿qué pasa cuando los RCT no son factibles por razones éticas, logísticas o económicas?&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;2-estudios-observacionales-cuando-no-hay-azar-pero-sí-ingenio&#34;&gt;2. Estudios observacionales: cuando no hay azar, pero sí ingenio&lt;/h2&gt;
-&lt;p&gt;En contextos reales —salud pública, economía, políticas sociales— dependemos de datos observacionales. Allí, la clave es suponer que, condicional en ciertas variables previas ($X_i$), la asignación al tratamiento es “tan buena como aleatoria”.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Propensity Score (Rosenbaum &amp;amp; Rubin, 1983):&lt;/strong&gt; condensa múltiples covariables en una única probabilidad de recibir tratamiento, facilitando el emparejamiento y la ponderación.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Estimadores doblemente robustos:&lt;/strong&gt; combinan modelos de resultado y de asignación al tratamiento; basta con que uno esté bien especificado para obtener estimaciones consistentes.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;CATE (Conditional Average Treatment Effect):&lt;/strong&gt; con machine learning, hoy podemos explorar cómo los efectos varían entre subpoblaciones (ej. políticas de empleo más efectivas en jóvenes que en adultos mayores).&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;⚠️ Cuando sospechamos de confusión no observada, entran en juego &lt;strong&gt;análisis de sensibilidad&lt;/strong&gt; (Manski bounds, métodos de Rosenbaum).&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;3-estrategias-avanzadas-cuando-la-confusión-no-puede-ignorarse&#34;&gt;3. Estrategias avanzadas cuando la confusión no puede ignorarse&lt;/h2&gt;
-&lt;h3 id=&#34;a-variables-instrumentales-iv&#34;&gt;a) Variables Instrumentales (IV)&lt;/h3&gt;
-&lt;p&gt;Si un confusor no observado afecta tanto al tratamiento como al resultado, un &lt;strong&gt;instrumento válido&lt;/strong&gt; ($Z$) puede rescatar el análisis. Ejemplo clásico: la distancia a una universidad como instrumento para estudiar el impacto de la educación en ingresos.&lt;/p&gt;
-&lt;p&gt;Bajo ciertos supuestos, identificamos el &lt;strong&gt;LATE (Local Average Treatment Effect)&lt;/strong&gt; para quienes cambian su estado de tratamiento debido al instrumento.&lt;/p&gt;
-&lt;hr&gt;
-&lt;h3 id=&#34;b-diferencias-en-diferencias-did-y-control-sintético-sc&#34;&gt;b) Diferencias-en-Diferencias (DID) y Control Sintético (SC)&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;DID&lt;/strong&gt;: compara tendencias pre y post en grupos tratados y no tratados. Ejemplo: medir el impacto de un aumento del salario mínimo sobre el empleo.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;SC&lt;/strong&gt;: construye un “gemelo sintético” de la unidad tratada combinando unidades no tratadas. Ejemplo: evaluar el impacto de una ley antitabaco en California comparando con un control sintético formado por otros estados.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;h3 id=&#34;c-regresión-discontinua-rdd&#34;&gt;c) Regresión Discontinua (RDD)&lt;/h3&gt;
-&lt;p&gt;Aprovecha umbrales de asignación. Ejemplo: un programa de becas asignado a estudiantes con notas ≥ 8.0. Comparar resultados justo por encima y por debajo del corte estima el efecto del programa en los “marginales”.&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;4-horizontes-emergentes-combinar-evidencia&#34;&gt;4. Horizontes emergentes: combinar evidencia&lt;/h2&gt;
-&lt;p&gt;Dos líneas prometedoras:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Surrogacy:&lt;/strong&gt; usar resultados a corto plazo como sustitutos de resultados de largo plazo.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Integración de experimentos y observacionales:&lt;/strong&gt; Athey et al. (2020) proponen usar experimentos para identificar y corregir confusores en estudios observacionales.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;-tabla-comparativa-de-métodos-de-inferencia-causal&#34;&gt;📊 Tabla comparativa de métodos de inferencia causal&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;En la práctica:&lt;/strong&gt; redacta primero los &lt;strong&gt;resultados&lt;/strong&gt; clave (estimaciones, intervalos de confianza, relevancia), después la &lt;strong&gt;Discusión&lt;/strong&gt; (plausibilidad, sesgos, sensibilidad), luego &lt;strong&gt;Métodos&lt;/strong&gt; con transparencia radical (qué estaba preespecificado, qué cambió y por qué), y cierra con una &lt;strong&gt;Introducción&lt;/strong&gt; breve y precisa al problema (formular preguntas o hipótesis) que realmente se ajusta los resultados.
+El formato final sigue siendo &lt;strong&gt;IMRyD&lt;/strong&gt;.&lt;/p&gt;
+&lt;h1 id=&#34;cuándo-sí-y-cuándo-no&#34;&gt;Cuándo sí y cuándo no&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;Conviene:&lt;/strong&gt; estudios observacionales, análisis secundarios, descubrimientos no previstos, ciencia de datos aplicada donde la iteración es inevitable.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Precaución/No conviene:&lt;/strong&gt; Registered Reports, ensayos confirmatorios con plan de análisis estadístico (PAE) preespecificado (CONSORT), revisiones sistemáticas con protocolo (PRISMA).
+En estos casos, mantén la primacía del plan y señala lo exploratorio como tal (4,5).&lt;/p&gt;
+&lt;h1 id=&#34;objeciones-críticas-y-respuestas-con-evidencia&#34;&gt;Objeciones críticas (y respuestas con evidencia)&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;“Esto fomenta HARKing.”&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Respuesta:&lt;/strong&gt; justo lo contrario si se exige señalización explícita y materiales abiertos.
+&lt;em&gt;HARKing es ocultar; aquí pedimos diferenciar confirmatorio vs. exploratorio y documentar cambios (6-8).&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;“La Introducción pierde su papel.”&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Respuesta:&lt;/strong&gt; se fortalece.
+&lt;em&gt;Enmarca el problema real que la evidencia iluminó, sin forzar una cronología ficticia.ICMJE promueve IMRAD para claridad, no para reescribir la historia (9).&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;“Los editores piden IMRyD estricto.”&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Respuesta:&lt;/strong&gt; lo mantenemos.
+&lt;em&gt;Cambia el flujo de trabajo, no la macroestructura. Además, TOP y prácticas abiertas refuerzan la confianza editorial (10).&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;“Se sobrevaloran resultados inesperados.”&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Respuesta:&lt;/strong&gt; exige sensibilidad, controles negativos, replicación y no fetichizar p&amp;lt;0,05&lt;/p&gt;
+&lt;h1 id=&#34;checklist-de-transparencia&#34;&gt;Checklist de transparencia&lt;/h1&gt;
 &lt;table&gt;
   &lt;thead&gt;
       &lt;tr&gt;
-          &lt;th&gt;Método&lt;/th&gt;
-          &lt;th&gt;Supuesto clave&lt;/th&gt;
-          &lt;th&gt;Ventajas&lt;/th&gt;
-          &lt;th&gt;Limitaciones&lt;/th&gt;
-          &lt;th&gt;Ejemplo típico&lt;/th&gt;
+          &lt;th&gt;Elemento&lt;/th&gt;
+          &lt;th&gt;Confirmatorio&lt;/th&gt;
+          &lt;th&gt;Exploratorio&lt;/th&gt;
       &lt;/tr&gt;
   &lt;/thead&gt;
   &lt;tbody&gt;
       &lt;tr&gt;
-          &lt;td&gt;&lt;strong&gt;RCT&lt;/strong&gt;&lt;/td&gt;
-          &lt;td&gt;Asignación aleatoria&lt;/td&gt;
-          &lt;td&gt;Estimador insesgado, alta validez interna&lt;/td&gt;
-          &lt;td&gt;Costoso, a veces poco ético, baja validez externa&lt;/td&gt;
-          &lt;td&gt;Ensayo clínico de un fármaco&lt;/td&gt;
+          &lt;td&gt;Especificación previa&lt;/td&gt;
+          &lt;td&gt;Protocolo/SAP enlazado&lt;/td&gt;
+          &lt;td&gt;No preespecificado (justificación)&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
-          &lt;td&gt;&lt;strong&gt;Propensity Score / DR&lt;/strong&gt;&lt;/td&gt;
-          &lt;td&gt;Confusión controlada por covariables observadas&lt;/td&gt;
-          &lt;td&gt;Flexibilidad, usa datos observacionales grandes&lt;/td&gt;
-          &lt;td&gt;Vulnerable a confusión no observada&lt;/td&gt;
-          &lt;td&gt;Impacto de programas sociales&lt;/td&gt;
+          &lt;td&gt;Resultados&lt;/td&gt;
+          &lt;td&gt;Etiquetados como preespecificados&lt;/td&gt;
+          &lt;td&gt;Etiquetados como post hoc&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
-          &lt;td&gt;&lt;strong&gt;IV&lt;/strong&gt;&lt;/td&gt;
-          &lt;td&gt;Relevancia + exclusión + exogeneidad&lt;/td&gt;
-          &lt;td&gt;Corrige confusión no observada&lt;/td&gt;
-          &lt;td&gt;Difícil encontrar instrumentos válidos&lt;/td&gt;
-          &lt;td&gt;Educación → ingresos&lt;/td&gt;
+          &lt;td&gt;Análisis&lt;/td&gt;
+          &lt;td&gt;Según plan&lt;/td&gt;
+          &lt;td&gt;Limitados, con sensibilidad&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
-          &lt;td&gt;&lt;strong&gt;DID&lt;/strong&gt;&lt;/td&gt;
-          &lt;td&gt;Tendencias paralelas&lt;/td&gt;
-          &lt;td&gt;Simple, interpretable&lt;/td&gt;
-          &lt;td&gt;Frágil si tendencias difieren&lt;/td&gt;
-          &lt;td&gt;Políticas laborales&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;strong&gt;SC&lt;/strong&gt;&lt;/td&gt;
-          &lt;td&gt;Unidades control combinan bien la pre-tendencia&lt;/td&gt;
-          &lt;td&gt;Más creíble que DID en casos individuales&lt;/td&gt;
-          &lt;td&gt;Requiere datos ricos pre-tratamiento&lt;/td&gt;
-          &lt;td&gt;Leyes de salud pública&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;strong&gt;RDD&lt;/strong&gt;&lt;/td&gt;
-          &lt;td&gt;Continuidad de potenciales en el umbral&lt;/td&gt;
-          &lt;td&gt;Interpretación clara, diseño cuasi-experimental&lt;/td&gt;
-          &lt;td&gt;Válido solo cerca del umbral&lt;/td&gt;
-          &lt;td&gt;Programas de becas&lt;/td&gt;
+          &lt;td&gt;Recursos abiertos&lt;/td&gt;
+          &lt;td&gt;Datos/código/cuaderno&lt;/td&gt;
+          &lt;td&gt;Código y criterios documentados&lt;/td&gt;
       &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;5-conclusión-práctica&#34;&gt;5. Conclusión práctica&lt;/h2&gt;
-&lt;p&gt;La inferencia causal no es una caja negra: es un conjunto de &lt;strong&gt;herramientas matemáticas y conceptuales&lt;/strong&gt; que, bien aplicadas, permiten a responsables de políticas, clínicos y científicos sociales responder la pregunta clave: &lt;em&gt;¿qué pasaría si?&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;La frontera actual está en combinar evidencia, explotar machine learning para heterogeneidad y desarrollar métodos más robustos frente a confusión no observada.&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;-referencias-recomendadas&#34;&gt;📚 Referencias recomendadas&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Rosenbaum PR, Rubin DB. &lt;em&gt;The central role of the propensity score…&lt;/em&gt; Biometrika. 1983. &lt;a href=&#34;https://pubmed.ncbi.nlm.nih.gov/12009849/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;PubMed PMID: 12009849&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Hernán MA, Robins JM. &lt;em&gt;Causal Inference: What If&lt;/em&gt;. 2020. &lt;a href=&#34;https://pubmed.ncbi.nlm.nih.gov/33290294/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;PubMed PMID: 33290294&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Imbens GW, Rubin DB. &lt;em&gt;Causal Inference for Statistics, Social, and Biomedical Sciences&lt;/em&gt;. 2015.&lt;/li&gt;
-&lt;li&gt;Athey S, Imbens GW. &lt;em&gt;Design-based analysis in difference-in-differences settings.&lt;/em&gt; J Econometrics. 2022. &lt;a href=&#34;https://pubmed.ncbi.nlm.nih.gov/36212825/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;PubMed PMID: 36212825&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Abadie A. &lt;em&gt;Using synthetic controls.&lt;/em&gt; J Econometrics. 2021.&lt;/li&gt;
-&lt;/ul&gt;
+&lt;h2 id=&#34;conclusión&#34;&gt;Conclusión&lt;/h2&gt;
+&lt;p&gt;IMRyD ordena y hace comparables nuestros artículos.
+Integrar una redacción guiada por hallazgos es una forma moderada y práctica de ganar honestidad, utilidad y trazabilidad, sin sacrificar rigor metodológico ni claridad editorial.
+En algunos contextos —sobre todo exploratorios— puede ser la diferencia entre un relato fiel al descubrimiento y una cronología ficticia.&lt;/p&gt;
+&lt;h1 id=&#34;recursos-adicionales&#34;&gt;Recursos adicionales&lt;/h1&gt;
+&lt;p&gt;🎧 &lt;strong&gt;Escucha el podcast de esta publicación&lt;/strong&gt;
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+&lt;audio controls &gt;
+  &lt;source src=&#34;https://maicel.netlify.app/mp3/Post_IMRyD.mp3&#34; type=&#34;audio/mpeg&#34;&gt;
+&lt;/audio&gt;
+&lt;/p&gt;
+&lt;h1 id=&#34;bibliografía&#34;&gt;Bibliografía&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Pólya G. How to solve it. Princeton University Press; 1945.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Kerr NL. HARKing: Hypothesizing after the results are known. Personality and Social Psychology Review. 1998;2(3):196-217.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Gelman A, Loken E. The garden of forking paths: Why multiple comparisons can be a problem [Internet]. 2013. Disponible en: &lt;a href=&#34;https://stat.columbia.edu/~gelman/research/unpublished/p_hacking.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://stat.columbia.edu/~gelman/research/unpublished/p_hacking.pdf&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Schulz KF, Altman DG, Moher D. CONSORT 2010 statement. BMJ. 2010;340:c332.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Page MJ, McKenzie JE, Bossuyt PM, others. The PRISMA 2020 statement. BMJ. 2021;372:n71.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Munafò MR, Nosek BA, Bishop DVM, others. A manifesto for reproducible science. Nature Human Behaviour. 2017;1:0021.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Nosek BA, Ebersole CR, DeHaven AC, Mellor DT. The preregistration revolution. PNAS. 2018;115(11):2600-6.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;International Committee of Medical Journal Editors. Recommendations for the conduct, reporting, editing, and publication of scholarly work in medical journals. 2019; Disponible en: &lt;a href=&#34;http://www.icmje.org/recommendations/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;http://www.icmje.org/recommendations/&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Nosek BA, others. Promoting an open research culture (TOP Guidelines). Science. 2015;348(6242):1422-5.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Wasserstein RL, Lazar NA. The asa’s statement on p-Values: Context, process, and purpose. The American Statistician. 2016;70(2):129-33.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Wasserstein RL, Schirm AL, Lazar NA. Moving to a world beyond “p ¡ 0.05”. The American Statistician. 2019;73(sup1):1-19.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;McShane BB, Gal D, Gelman A, Robert C, Tackett JL. Abandon statistical significance. The American Statistician. 2019;73(sup1):235-45.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
 </description>
     </item>
     
@@ -800,422 +456,6 @@ $$
 &lt;li&gt;EMA. &lt;em&gt;Guideline on Adjustment for Baseline Covariates in Clinical Trials&lt;/em&gt;. CHMP/EWP/2863/99.&lt;/li&gt;
 &lt;li&gt;FDA. &lt;em&gt;Real-World Evidence Program Annual Report 2025 (PUB-245)&lt;/em&gt;.&lt;/li&gt;
 &lt;li&gt;Temple R, Ellenberg SS. &lt;em&gt;Placebo-Controlled Trials and Active-Control Trials in the Evaluation of New Treatments&lt;/em&gt;. &lt;em&gt;Ann Intern Med&lt;/em&gt;. 2000;133(6):455–463.&lt;/li&gt;
-&lt;/ol&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Conferencia Introducción al análisis estadístico en ensayos clínicos</title>
-      <link>https://maicel.netlify.app/post/conferencia-introducci-n-al-an-lisis-estad-stico-en-ensayos-cl-nicos/</link>
-      <pubDate>Wed, 12 Mar 2025 00:00:00 +0000</pubDate>
-      <guid>https://maicel.netlify.app/post/conferencia-introducci-n-al-an-lisis-estad-stico-en-ensayos-cl-nicos/</guid>
-      <description>&lt;h1 id=&#34;conferencia-introducción-al-análisis-estadístico-en-ensayos-clínicos&#34;&gt;Conferencia: Introducción al Análisis Estadístico en Ensayos Clínicos&lt;/h1&gt;
-&lt;h2 id=&#34;presentación&#34;&gt;Presentación&lt;/h2&gt;
-&lt;p&gt;Estimados colegas,&lt;/p&gt;
-&lt;p&gt;Es un honor anunciar que el próximo &lt;strong&gt;12 de marzo de 2025&lt;/strong&gt; estaré impartiendo la conferencia titulada &lt;strong&gt;&amp;ldquo;Introducción al Análisis Estadístico en Ensayos Clínicos&amp;rdquo;&lt;/strong&gt;. Este evento tiene como objetivo proporcionar una visión introductoria y estructurada sobre cómo los métodos estadísticos se aplican en el diseño, ejecución y evaluación de ensayos clínicos.&lt;/p&gt;
-&lt;p&gt;Durante la conferencia, exploraremos conceptos fundamentales y técnicas prácticas que son ampliamente utilizadas en este campo.&lt;/p&gt;
-&lt;h2 id=&#34;objetivos-de-la-conferencia&#34;&gt;Objetivos de la Conferencia&lt;/h2&gt;
-&lt;h2 id=&#34;audiencia&#34;&gt;Audiencia&lt;/h2&gt;
-&lt;p&gt;Esta conferencia está dirigida a:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Profesionales del CECMED&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;No es necesario tener conocimientos avanzados en estadística para seguir la presentación&lt;/p&gt;
-&lt;h2 id=&#34;detalles-del-evento&#34;&gt;Detalles del Evento&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Fecha&lt;/strong&gt;: 12 de marzo de 2025&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Hora&lt;/strong&gt;: 10 00 am&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Lugar/Plataforma&lt;/strong&gt;: &lt;a href=&#34;https://rpubs.com/maicel/cecmedEC&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://rpubs.com/maicel/cecmedEC&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Para más información y registro, visite el siguiente enlace: &lt;a href=&#34;https://rpubs.com/maicel/cecmedEC&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Enlace a la conferencia&lt;/a&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;material-complementario&#34;&gt;Material Complementario&lt;/h2&gt;
-&lt;p&gt;Adjunto a esta publicación, pueden encontrar una versión preliminar de los temas que serán abordados durante la conferencia.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://rpubs.com/maicel/cecmedEC&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Acceder al material complementario&lt;/a&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;conclusión&#34;&gt;Conclusión&lt;/h2&gt;
-&lt;p&gt;La correcta aplicación del análisis estadístico en ensayos clínicos es crucial para garantizar la validez y relevancia de los resultados obtenidos. Espero que esta conferencia sirva como una introducción útil y práctica para aquellos interesados en este campo.&lt;/p&gt;
-&lt;p&gt;Quedo a disposición para cualquier consulta o comentario previo al evento. ¡Espero contar con su participación!&lt;/p&gt;
-&lt;p&gt;Atentamente,&lt;br&gt;
-&lt;strong&gt;Dr. Maicel Monzón&lt;/strong&gt;&lt;br&gt;
-Profesor Auxilar&lt;/p&gt;
-&lt;p&gt;Especialista de primer y segundo grado en Biestadística&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;mailto:maicel@cecmed.cu&#34;&gt;maicel@cecmed.cu&lt;/a&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Análisis Exploratorio de Datos: Desentrañando la Verdad de tus Datos</title>
-      <link>https://maicel.netlify.app/post/eda/</link>
-      <pubDate>Tue, 11 Feb 2025 00:00:00 +0000</pubDate>
-      <guid>https://maicel.netlify.app/post/eda/</guid>
-      <description>&lt;p&gt;El &lt;strong&gt;Análisis Exploratorio de Datos (EDA)&lt;/strong&gt; es una disciplina fundamental en el campo de la ciencia de datos, popularizada por el matemático John Tukey. Más que una simple serie de pasos, el EDA es una filosofía que nos invita a interactuar con nuestros datos, visualizarlos, resumirlos y &amp;ldquo;hablar&amp;rdquo; con ellos antes de saltar a modelados complejos. Implica el análisis de datos centrado en comprender a fondo su estructura, identificar patrones ocultos, detectar anomalías (valores atípicos), gestionar datos ausentes y, en última instancia, proporcionar una base sólida para la formulación de modelos predictivos o inferenciales. Además, es crucial para descubrir cómo se relacionan las variables entre sí.&lt;/p&gt;
-&lt;h2 id=&#34;la-regla-de-oro-gigo-garbage-in-garbage-out&#34;&gt;La Regla de Oro: GIGO (Garbage In, Garbage Out)&lt;/h2&gt;
-&lt;p&gt;Un concepto popular y vital en el campo de la ciencia de datos es &lt;strong&gt;GIGO&lt;/strong&gt; (Garbage In, Garbage Out, o &amp;ldquo;Basura entra, basura sale&amp;rdquo;). Este concepto subraya que la calidad de los resultados de cualquier análisis o modelo es directamente proporcional a la calidad de los datos de entrada. No importa cuán sofisticado sea tu algoritmo o cuán potente sea tu infraestructura computacional, los datos de mala calidad siempre producirán resultados deficientes, engañosos o inútiles. El EDA es nuestra primera línea de defensa contra el GIGO, asegurando que trabajamos con datos limpios y comprensibles.&lt;/p&gt;
-&lt;h2 id=&#34;un-flujo-de-trabajo-práctico-de-eda&#34;&gt;Un Flujo de Trabajo Práctico de EDA&lt;/h2&gt;
-&lt;p&gt;Aunque el EDA es un proceso iterativo y no una &amp;ldquo;camisa de fuerza&amp;rdquo; rígida, es útil seguir un flujo de trabajo estructurado para garantizar que cubrimos los aspectos más importantes. El orden de las etapas y el énfasis en cada una dependerán en gran medida del problema específico, el tipo de datos y los objetivos del análisis.&lt;/p&gt;
-&lt;p&gt;Este proceso general incluye:&lt;/p&gt;
-&lt;p&gt;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-&lt;figure  &gt;
-  &lt;div class=&#34;flex justify-center	&#34;&gt;
-    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
-               /post/eda/fig01_hu_1d111632709b1b76.webp 400w,
-               /post/eda/fig01_hu_b26fdc398618e3dc.webp 760w,
-               /post/eda/fig01_hu_540748744cda905c.webp 1200w&#34;
-               src=&#34;https://maicel.netlify.app/post/eda/fig01_hu_1d111632709b1b76.webp&#34;
-               width=&#34;760&#34;
-               height=&#34;578&#34;
-               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
-  &lt;/div&gt;&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;A continuación, profundicemos en cada una de estas etapas, utilizando ejemplos prácticos con el paquete &lt;code&gt;dlookr&lt;/code&gt; en R.&lt;/p&gt;
-&lt;h3 id=&#34;1-comprensión-general-de-los-datos-y-evaluación-de-su-calidad&#34;&gt;1. Comprensión General de los Datos y Evaluación de su Calidad&lt;/h3&gt;
-&lt;p&gt;Antes de sumergirnos en análisis profundos, es fundamental tener una visión panorámica de nuestro conjunto de datos. Esta etapa implica:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Dimensiones del dataset:&lt;/strong&gt; ¿Cuántas filas (observaciones) y columnas (variables) tenemos?&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Tipos de datos:&lt;/strong&gt; ¿Las variables son numéricas (enteros, flotantes), categóricas (factores, caracteres), lógicas o de fecha/hora? Es crucial que los tipos de datos sean correctos para las operaciones que deseamos realizar.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Inspección inicial:&lt;/strong&gt; Revisar las primeras y últimas filas del dataset para obtener una idea general del formato y contenido.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Estadísticas descriptivas básicas:&lt;/strong&gt; Para variables numéricas: media, mediana, desviación estándar, mínimo, máximo, cuartiles. Para variables categóricas: conteo de ocurrencias, proporciones. Esto nos da una primera impresión de la dispersión y centralidad de los datos.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Con &lt;code&gt;dlookr&lt;/code&gt;, la función &lt;code&gt;diagnose()&lt;/code&gt; es ideal para una revisión rápida de la calidad de los datos, mostrando el tipo de variable, el número de valores únicos, valores faltantes, valores cero y valores negativos.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Para obtener un resumen rápido de las características de los datos&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;diagnose&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mtcars_na&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Esta fase nos ayuda a formar una primera hipótesis sobre la calidad y estructura de los datos, identificando posibles problemas desde el principio.&lt;/p&gt;
-&lt;h4 id=&#34;2-identificación-y-tratamiento-de-valores-faltantes-y-atípicos&#34;&gt;2. Identificación y Tratamiento de Valores Faltantes y Atípicos&lt;/h4&gt;
-&lt;p&gt;Los valores faltantes (NA, NaN, null) y los valores atípicos (outliers) son dos de los desafíos más comunes en cualquier conjunto de datos y pueden distorsionar significativamente los resultados de nuestros análisis y modelos.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Valores Faltantes:&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Identificación:&lt;/strong&gt; Cuantificar la cantidad y proporción de valores faltantes por variable. Visualizar patrones de ausencia (¿los valores faltantes ocurren aleatoriamente o hay un patrón?).&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Tratamiento:&lt;/strong&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Eliminación:&lt;/strong&gt; Si la cantidad de valores faltantes es pequeña o si una variable tiene un porcentaje muy alto de NAs, se pueden eliminar filas o columnas.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Imputación:&lt;/strong&gt; Rellenar los valores faltantes. Métodos comunes incluyen la media, mediana o moda (para datos numéricos y categóricos, respectivamente), o métodos más avanzados basados en modelos (regresión, k-NN, etc.). La elección depende de la naturaleza de los datos y el problema.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Valores Atípicos:&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Identificación:&lt;/strong&gt; Observaciones que se desvían significativamente del resto de los datos. Se pueden detectar mediante gráficos de caja (boxplots), diagramas de dispersión, puntuaciones Z, el método IQR (rango intercuartílico) o algoritmos más sofisticados.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Tratamiento:&lt;/strong&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Eliminación:&lt;/strong&gt; Si se confirma que son errores de entrada de datos.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Transformación:&lt;/strong&gt; Aplicar transformaciones logarítmicas o de raíz cuadrada para reducir su impacto.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Capping/Flooring:&lt;/strong&gt; Limitar los valores atípicos a un percentil superior o inferior (por ejemplo, el 99% o el 1%).&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Mantener:&lt;/strong&gt; A veces, los valores atípicos son observaciones genuinas e importantes que no deben eliminarse.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;code&gt;dlookr&lt;/code&gt; ofrece funciones visuales y programáticas para abordar estos problemas:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Visualizar la distribución de valores faltantes&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;plot_na&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mtcars_na&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Identificar valores atípicos para una variable específica (ej. &amp;#34;hp&amp;#34;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# plot_outlier() es excelente para visualizar.&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;plot_outlier&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mtcars_df&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;hp&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;3-análisis-de-la-distribución-de-las-variables&#34;&gt;3. Análisis de la Distribución de las Variables&lt;/h3&gt;
-&lt;p&gt;Comprender la distribución de cada variable individualmente es clave para seleccionar los métodos estadísticos y de modelado adecuados.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Variables Numéricas:&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Histogramas y gráficos de densidad:&lt;/strong&gt; Permiten visualizar la forma de la distribución, identificar asimetrías (skewness), curtosis, y la presencia de múltiples modos.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Medidas de asimetría y curtosis:&lt;/strong&gt; Cuantifican la forma de la distribución.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Pruebas de normalidad:&lt;/strong&gt; Aunque muchas veces no son estrictamente necesarias, pueden complementar el análisis visual.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Variables Categóricas:&lt;/strong&gt; - &lt;strong&gt;Gráficos de barras:&lt;/strong&gt; Muestran la frecuencia o proporción de cada categoría. - &lt;strong&gt;Tablas de frecuencia:&lt;/strong&gt; Resumen el conteo y porcentaje de cada nivel.&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;dlookr&lt;/code&gt; simplifica la visualización de distribuciones:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Visualizar la distribución de una variable numérica (ej. &amp;#34;mpg&amp;#34;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;plot_hist&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mtcars_df&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;mpg&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# O ver la distribución y normalidad&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;plot_normality&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mtcars_df&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;mpg&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Para variables categóricas (como &amp;#39;cyl&amp;#39; en mtcars que es numérica discreta)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Podemos convertirla a factor para un análisis categórico.&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;mtcars_factor_cyl&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mtcars_df&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;%&amp;gt;%&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;mutate&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cyl&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;as.factor&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cyl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;plot_bar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mtcars_factor_cyl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;cyl&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Este análisis nos ayuda a entender el comportamiento de cada característica y a identificar la necesidad de transformaciones futuras.&lt;/p&gt;
-&lt;h3 id=&#34;4-análisis-de-las-relaciones-entre-las-variables&#34;&gt;4. Análisis de las Relaciones entre las Variables&lt;/h3&gt;
-&lt;p&gt;Esta etapa se centra en descubrir cómo las variables interactúan entre sí. Es fundamental para la selección de características, la identificación de multicolinealidad y la comprensión de la causalidad (o correlación).&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Dos variables numéricas:&lt;/strong&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Diagramas de dispersión (scatter plots):&lt;/strong&gt; Visualizan la dirección y fuerza de la relación (positiva, negativa, nula, no lineal).&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Coeficientes de correlación (Pearson, Spearman):&lt;/strong&gt; Cuantifican la fuerza y dirección de la relación lineal (Pearson) o monótona (Spearman).&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Una variable numérica y una categórica:&lt;/strong&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Gráficos de caja (boxplots) o gráficos de violín:&lt;/strong&gt; Comparan la distribución de la variable numérica entre las diferentes categorías.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Pruebas t de Student o ANOVA:&lt;/strong&gt; Para determinar si hay diferencias estadísticamente significativas en las medias.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Dos variables categóricas:&lt;/strong&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Tablas de contingencia y gráficos de barras apiladas/agrupadas:&lt;/strong&gt; Muestran la distribución conjunta.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Pruebas de significación:&lt;/strong&gt; Para evaluar la independencia entre las variables.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Matrices de correlación:&lt;/strong&gt; Visualizan las correlaciones entre múltiples variables numéricas simultáneamente, a menudo con mapas de calor (heatmaps).&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;code&gt;dlookr&lt;/code&gt; facilita la exploración de relaciones:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Visualizar la matriz de correlación entre todas las variables numéricas&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;plot_cor&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mtcars_df&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Analizar la relación entre una variable objetivo (&amp;#39;mpg&amp;#39;) y otra característica (&amp;#39;wt&amp;#39;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# plot_eda() permite explorar diversas relaciones bivariadas.&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;plot_eda&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mtcars_df&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;target&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;mpg&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;feature&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;wt&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Numérica vs Numérica (scatterplot)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Relación entre &amp;#39;mpg&amp;#39; (numérica) y &amp;#39;cyl&amp;#39; (considerada categórica aquí)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;plot_eda&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mtcars_df&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;target&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;mpg&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;feature&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;cyl&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Numérica vs Categórica (boxplot)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;5-transformación-de-los-datos&#34;&gt;5. Transformación de los Datos&lt;/h3&gt;
-&lt;p&gt;Una vez que hemos comprendido nuestros datos, es posible que necesitemos transformarlos para que sean más adecuados para los algoritmos de machine learning o para mejorar el rendimiento del modelo.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Manejo de asimetría:&lt;/strong&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Transformaciones logarítmicas, de raíz cuadrada o de Box-Cox:&lt;/strong&gt; Pueden normalizar distribuciones sesgadas, reduciendo la influencia de valores extremos.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Escalado de características:&lt;/strong&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Normalización (Min-Max Scaling):&lt;/strong&gt; Escala los datos a un rango fijo (por ejemplo, [0, 1]). Útil para algoritmos sensibles a la escala como SVM o redes neuronales.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Estandarización (Z-score Scaling):&lt;/strong&gt; Transforma los datos para que tengan una media de 0 y una desviación estándar de 1. Es común en algoritmos basados en distancia (k-NN, K-Means, PCA).&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Codificación de variables categóricas:&lt;/strong&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;One-Hot Encoding:&lt;/strong&gt; Convierte variables categóricas en múltiples columnas binarias, una por cada categoría. Esencial para algoritmos que solo trabajan con entradas numéricas.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Label Encoding:&lt;/strong&gt; Asigna un número entero a cada categoría. Útil si hay un orden inherente en las categorías.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Ingeniería de Características (Feature Engineering):&lt;/strong&gt; Crear nuevas variables a partir de las existentes. Esto puede ser tan simple como combinar dos columnas o tan complejo como extraer información de texto o imágenes. Esta etapa es a menudo la que más impacto tiene en el rendimiento del modelo.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;code&gt;dlookr&lt;/code&gt; ofrece funciones útiles para la transformación de datos:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Transformación logarítmica para reducir la asimetría de una variable&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;mtcars_transformed_log&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;transform_df&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mtcars_df&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mpg&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mpg&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Compara la distribución de mpg original vs. transformada&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;plot_normality&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mtcars_df&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;mpg&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;plot_normality&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mtcars_transformed_log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;mpg&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Binarización o discretización de una variable continua (ej. &amp;#39;hp&amp;#39; en 3 bins)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;mtcars_binned&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;binning&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mtcars_df&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;hp&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;head&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mtcars_binned&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;%&amp;gt;%&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;select&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;hp_Binned&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Estandarización de variables numéricas (Z-score)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;mtcars_scaled&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;normalize&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mtcars_df&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;method&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;scale&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;head&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mtcars_scaled&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Observa cómo los valores de todas las columnas han cambiado&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;herramientas-populares-para-eda&#34;&gt;Herramientas Populares para EDA&lt;/h2&gt;
-&lt;p&gt;Para realizar un EDA efectivo, contamos con potentes herramientas en lenguajes como R y Python:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;En R:&lt;/strong&gt;
-&lt;ul&gt;
-&lt;li&gt;El ecosistema &lt;code&gt;tidyverse&lt;/code&gt; (&lt;code&gt;dplyr&lt;/code&gt; para manipulación, &lt;code&gt;ggplot2&lt;/code&gt; para visualización) es indispensable.&lt;/li&gt;
-&lt;li&gt;Paquetes específicos para EDA como &lt;strong&gt;&lt;code&gt;dlookr&lt;/code&gt;&lt;/strong&gt;, es excelente por su enfoque estructurado en el diagnóstico de calidad, exploración y transformación de datos, ofreciendo funciones y reportes automatizados que agilizan el proceso. Otros paquetes útiles incluyen &lt;code&gt;DataExplorer&lt;/code&gt;, &lt;code&gt;skimr&lt;/code&gt;, y &lt;code&gt;visdat&lt;/code&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;En Python:&lt;/strong&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;pandas&lt;/code&gt; para manipulación de datos.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;matplotlib&lt;/code&gt; y &lt;code&gt;seaborn&lt;/code&gt; para visualización estática.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;plotly&lt;/code&gt; para visualizaciones interactivas.&lt;/li&gt;
-&lt;li&gt;Bibliotecas como &lt;code&gt;missingno&lt;/code&gt; para visualizar valores faltantes, &lt;code&gt;pandas_profiling&lt;/code&gt; para informes automáticos de EDA, y &lt;code&gt;sweetviz&lt;/code&gt; para comparaciones.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;conclusión&#34;&gt;Conclusión&lt;/h2&gt;
-&lt;p&gt;El Análisis Exploratorio de Datos no es solo una fase inicial, sino un proceso continuo de aprendizaje sobre tus datos. Es una inversión de tiempo que rinde grandes dividendos, ya que una comprensión profunda de los datos nos permite tomar decisiones más informadas, construir modelos más robustos y, en última instancia, extraer conocimientos más valiosos. Al dominar el EDA, te equipas con la habilidad de transformar datos brutos en una historia coherente y accionable, evitando la trampa del GIGO y asegurando que tus esfuerzos de ciencia de datos generen un impacto real.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Como entrenar y validar un modelo de machine learnig</title>
-      <link>https://maicel.netlify.app/post/como-entrenar-y-validar-un-modelo-de-machine-learnig/</link>
-      <pubDate>Thu, 08 Feb 2024 00:00:00 +0000</pubDate>
-      <guid>https://maicel.netlify.app/post/como-entrenar-y-validar-un-modelo-de-machine-learnig/</guid>
-      <description>&lt;p&gt;🎧 &lt;strong&gt;Escucha el podcast de esta publicación&lt;/strong&gt;&lt;br&gt;
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-&lt;audio controls &gt;
-  &lt;source src=&#34;https://ia600607.us.archive.org/24/items/articulo-steyember/_Articulo_Steyember.mp3&#34; type=&#34;audio/mpeg&#34;&gt;
-&lt;/audio&gt;
-&lt;/p&gt;
-&lt;h1 id=&#34;estrategia-de-modelado&#34;&gt;Estrategia de modelado&lt;/h1&gt;
-&lt;p&gt;Contar con una estrategia de modelado correcta es esencial para desarrollar y validar modelos de predicción. En este artículo, exploraremos las siete etapas clave del proceso de modelado propuesto por Ewout Steyerberg en su artículo .&lt;/p&gt;
-&lt;h2 id=&#34;sec-1&#34;&gt;1. Definición del problema e inspección de datos&lt;/h2&gt;
-&lt;p&gt;El primer paso en cualquier proyecto de modelado es definir claramente el problema de investigación y seleccionar la variable de resultado adecuada.&lt;/p&gt;
-&lt;p&gt;Durante esta fase, también realizamos un análisis exploratorio de datos (EDA) para comprender las características de las variables y detectar posibles problemas, como datos atípicos o valores faltantes.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Instalación y Carga de Librerías&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;library&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;caret&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## Loading required package: ggplot2
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## Loading required package: lattice
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;library&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MLDataR&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# para utilizar la biblioteca diabetes_data&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;library&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dplyr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## 
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## Attaching package: &amp;#39;dplyr&amp;#39;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## The following objects are masked from &amp;#39;package:stats&amp;#39;:
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## 
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;##     filter, lag
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## The following objects are masked from &amp;#39;package:base&amp;#39;:
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## 
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;##     intersect, setdiff, setequal, union
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;library&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dlookr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# para EDA&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## Registered S3 methods overwritten by &amp;#39;dlookr&amp;#39;:
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;##   method          from  
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;##   plot.transform  scales
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;##   print.transform scales
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## Because it is an offline environment, only offline fonts are imported.
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## 
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## Attaching package: &amp;#39;dlookr&amp;#39;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## The following object is masked from &amp;#39;package:base&amp;#39;:
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## 
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;##     transform
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;library&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;predtools&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Cargar el conjunto de datos&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;gusto&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;gusto&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;gusto&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# EDA&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;descripcion&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;overview&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;gusto&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;summary&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;descripcion&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# descripción general del conjunto de datos&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-gdscript3&#34; data-lang=&#34;gdscript3&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## ── Data Scale ────────────────────────────────────────────── &lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## • Number of observations            :     40,830&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## • Number of variables               :         29&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## • Number of values                  :  1,184,070&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## • Size of located memory(bytes)     :  5,241,552 &lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## &lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## ── Duplicated Data ───────────────────────────────────────── &lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## • Number of duplicated observations :          4 (0.01%) &lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## &lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## ── Missing Data ──────────────────────────────────────────── &lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## • Number of completed observations  :     30,510&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## • Number of observations with NA    :     10,320 (25.28%)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## • Number of variables with NA       :          1&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## • Number of NA                      :     10,320 &lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## &lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## ── Data Type ─────────────────────────────────────────────── &lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## • Number of numeric variables       :          1&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## • Number of integer variables       :         13&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## • Number of factors variables       :          0&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## • Number of character variables     :          0&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## • Number of Date variables          :          0&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## • Number of POSIXct variables       :          0&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## • Number of other variables         :         15 &lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## &lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## ── Individual variables ──────────────────────────────────── &lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;##    Variables Data Type&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## 1      day30   integer&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## 2        sho   integer&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## 3        hig   integer&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## 4        dia  labelled&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## 5        hyp   integer&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## 6        hrt   integer&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## 7        ttr  labelled&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## 8        sex  labelled&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## 9     Killip  labelled&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## 10       age   numeric&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## 11       ste  labelled&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## 12     pulse  labelled&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## 13     sysbp  labelled&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## 14       ant   integer&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## 15     miloc  labelled&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## 16    height  labelled&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## 17    weight  labelled&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## 18       pmi  labelled&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## 19       htn  labelled&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## 20       smk  labelled&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## 21       pan   integer&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## 22       fam  labelled&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## 23   prevcvd   integer&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## 24  prevcabg   integer&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## 25      regl   integer&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## 26      grpl   integer&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## 27      grps   integer&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## 28       tpa   integer&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## 29        tx  labelled&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Para conocer más detalles sobre el proceso de ¨Exploratory Data Analysis (EDA)¨ ver la publicación dedicada a este tema.&lt;/p&gt;
-&lt;h2 id=&#34;sec-2&#34;&gt;2. Codificación de las Variables Predictoras&lt;/h2&gt;
-&lt;p&gt;La codificación adecuada de las variables predictoras es fundamental para construir modelos robustos. En este estudio, se utilizaron técnicas como la agrupación de categorías poco frecuentes y la creación de predictores resúmenes para simplificar información correlacionada. Además, cuando las relaciones entre variables no son lineales, aplicamos herramientas como splines cúbicos restringidos , que permiten capturar patrones complejos sin comprometer la precisión del modelo.&lt;/p&gt;
-&lt;h2 id=&#34;sec-3&#34;&gt;3 .Especificación del Tipo de Modelo&lt;/h2&gt;
-&lt;p&gt;La elección del modelo depende del tipo de relación que queremos capturar entre las variables. En este estudio, combinamos dos enfoques: regresión logística binaria múltiple y árboles de clasificación . Mientras que la regresión logística es ideal para modelar relaciones lineales y proporcionar probabilidades, los árboles de clasificación son útiles para identificar interacciones complejas y establecer indicadores de riesgo.&lt;/p&gt;
-&lt;p&gt;Un aspecto clave fue la selección de predictores finales, que se basó en criterios como la plausibilidad biológica , el respaldo de la literatura científica y métodos computacionales avanzados. Esto nos permitió evitar el uso exclusivo de valores p, que pueden ser engañosos en algunos contextos.&lt;/p&gt;
-&lt;h2 id=&#34;sec-4&#34;&gt;4. Estimación del Modelo&lt;/h2&gt;
-&lt;p&gt;Para ajustar los parámetros del modelo, utilizamos el método de máxima verosimilitud (MLE) , reconocido por su versatilidad y eficiencia computacional. Además, evaluamos cuidadosamente las interacciones entre variables predictoras, incluyéndolas solo cuando había evidencia empírica y teórica que respaldaba su relevancia. Un modelo más simple suele ser más robusto y fácil de interpretar, lo que es crucial en entornos clínicos.&lt;/p&gt;
-&lt;h2 id=&#34;sec-5&#34;&gt;5. Evaluación del Rendimiento del Modelo&lt;/h2&gt;
-&lt;p&gt;El rendimiento del modelo se evalúa mediante métricas como calibración y discriminación . La calibración mide la concordancia entre las predicciones y los resultados observados, mientras que la discriminación evalúa la capacidad del modelo para distinguir entre pacientes con diferentes resultados. Herramientas como las rectas de calibración y la validación cruzada de 10 pliegues fueron fundamentales para asegurar la calidad del modelo.&lt;/p&gt;
-&lt;h2 id=&#34;sec-6&#34;&gt;6. Evaluación de la Validez del Modelo&lt;/h2&gt;
-&lt;p&gt;La validación del modelo es un paso crítico para garantizar su aplicabilidad en diferentes contextos. En este estudio, utilizamos tanto validación interna como externa , empleando particiones temporales y geográficas para reflejar escenarios reales. Este enfoque nos permitió evaluar la robustez del modelo frente a cambios en el tiempo y variaciones regionales.&lt;/p&gt;
-&lt;h2 id=&#34;sec-7&#34;&gt;7. Presentación del Modelo&lt;/h2&gt;
-&lt;p&gt;La presentación del modelo puede ser a través de un nomograma o aplicación.&lt;/p&gt;
-&lt;h1 id=&#34;bibliografía&#34;&gt;Bibliografía&lt;/h1&gt;
-&lt;ol&gt;
-&lt;li&gt;Steyerberg EW, Vergouwe Y. Towards better clinical prediction models: seven steps for development and an ABCD for validation. European Heart Journal [Internet]. 1 de agosto de 2014 [citado 9 de mayo de 2021];35(29):1925-31. Disponible en: &lt;a href=&#34;https://academic.oup.com/eurheartj/article-lookup/doi/10.1093/eurheartj/ehu207&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://academic.oup.com/eurheartj/article-lookup/doi/10.1093/eurheartj/ehu207&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 </description>
     </item>

@@ -23,4 +23,4 @@ Get our new articles delivered directly to your **inbox**. It is the simplest wa
 
 ## 📰 RSS Feed Subscription
 
-For users who prefer reading in dedicated **news aggregators**, we offer our [RSS Feed](/en/post/index.xml).
+For users who prefer reading in dedicated **news aggregators**, we offer our [RSS Feed](/en/posts/index.xml).

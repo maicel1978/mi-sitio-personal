@@ -23,5 +23,5 @@ Recibe nuestros nuevos artículos directamente en tu bandeja de entrada. Es la m
 
 ## 📰 Suscripción por Feed RSS
 
-Para los usuarios que prefieren la lectura en agregadores de noticias dedicados, ofrecemos nuestro [Feed RSS](/post/index.xml).
+Para los usuarios que prefieren la lectura en agregadores de noticias dedicados, ofrecemos nuestro [Feed RSS](/posts/index.xml).
 

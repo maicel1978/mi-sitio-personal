@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Source Themes | Bioestadistica educativa</title>
+    <title>Source Themes | Bioestadística edu</title>
     <link>https://maicel.netlify.app/tags/source-themes/</link>
       <atom:link href="https://maicel.netlify.app/tags/source-themes/index.xml" rel="self" type="application/rss+xml" />
     <description>Source Themes</description>
-    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es</language><lastBuildDate>Wed, 01 Feb 2023 00:00:00 +0000</lastBuildDate>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Wed, 01 Feb 2023 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png</url>
       <title>Source Themes</title>
@@ -21,15 +21,35 @@
 &lt;span class=&#34;pr-3 pt-1 text-primary-600 dark:text-primary-300&#34;&gt;
   &lt;svg height=&#34;24&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 24 24&#34;&gt;&lt;path fill=&#34;none&#34; stroke=&#34;currentColor&#34; stroke-linecap=&#34;round&#34; stroke-linejoin=&#34;round&#34; stroke-width=&#34;1.5&#34; d=&#34;m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z&#34;/&gt;&lt;/svg&gt;
 &lt;/span&gt;
-  &lt;span class=&#34;dark:text-neutral-300&#34;&gt;Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.&lt;/span&gt;
-&lt;/div&gt;
-&lt;div class=&#34;flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900&#34;&gt;
-&lt;span class=&#34;pr-3 pt-1 text-primary-600 dark:text-primary-300&#34;&gt;
-  &lt;svg height=&#34;24&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 24 24&#34;&gt;&lt;path fill=&#34;none&#34; stroke=&#34;currentColor&#34; stroke-linecap=&#34;round&#34; stroke-linejoin=&#34;round&#34; stroke-width=&#34;1.5&#34; d=&#34;m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z&#34;/&gt;&lt;/svg&gt;
+  &lt;span class=&#34;dark:text-neutral-300&#34;&gt;&lt;p&gt;¿Interesado en la Aplicación Práctica?&lt;/p&gt;
+&lt;p&gt;Descubre las variables esenciales (clínicas, de laboratorio y demográficas) que la literatura mundial considera críticas para predecir la severidad de COVID-19. Esta información es la base para el desarrollo de modelos de estratificación de riesgo adaptados a los recursos cubanos.&lt;/p&gt;
 &lt;/span&gt;
-  &lt;span class=&#34;dark:text-neutral-300&#34;&gt;Create your slides in Markdown - click the &lt;em&gt;Slides&lt;/em&gt; button to check out the example.&lt;/span&gt;
 &lt;/div&gt;
-&lt;p&gt;Add the publication&amp;rsquo;s &lt;strong&gt;full text&lt;/strong&gt; or &lt;strong&gt;supplementary notes&lt;/strong&gt; here. You can use rich formatting such as including &lt;a href=&#34;https://docs.hugoblox.com/content/writing-markdown-latex/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;code, math, and images&lt;/a&gt;.&lt;/p&gt;
+&lt;h1 id=&#34;de-la-investigación-global-a-la-aplicación-local-predicción-de-covid-19-en-cuba&#34;&gt;De la Investigación Global a la Aplicación Local: Predicción de COVID-19 en Cuba&lt;/h1&gt;
+&lt;p&gt;La pandemia de COVID-19 puso en evidencia la necesidad crítica de herramientas que permitan identificar con rapidez qué pacientes desarrollarán una forma severa de la enfermedad. Esta capacidad es fundamental para optimizar los recursos hospitalarios y ofrecer intervenciones tempranas. Por ello, hemos llevado a cabo una exhaustiva revisión de los modelos de predicción clínica de severidad que se desarrollaron y publicaron internacionalmente.&lt;/p&gt;
+&lt;h1 id=&#34;el-desafío-de-la-generalización&#34;&gt;El Desafío de la Generalización&lt;/h1&gt;
+&lt;p&gt;Nuestro estudio confirma que, si bien la literatura científica es rica en modelos de predicción, la mayoría presenta limitaciones significativas para su aplicación directa en la práctica clínica rutinaria, especialmente en contextos sanitarios diferentes a los de su origen.&lt;/p&gt;
+&lt;p&gt;Los principales problemas identificados son:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Variables no estandarizadas:&lt;/strong&gt; Muchos modelos utilizan marcadores o pruebas que no están disponibles de forma rutinaria o universal en todos los sistemas de salud.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Falta de validación externa:&lt;/strong&gt; La mayoría de los modelos fueron validados únicamente con los datos del centro o país que los desarrolló, lo que reduce su capacidad de generalización.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Complejidad:&lt;/strong&gt; El uso de algoritmos avanzados o la inclusión de un número excesivo de variables dificulta su implementación rápida y sencilla en la cabecera del paciente.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;la-hoja-de-ruta-para-cuba&#34;&gt;La Hoja de Ruta para Cuba&lt;/h1&gt;
+&lt;p&gt;A pesar de estas limitaciones, la revisión proporcionó información extremadamente valiosa. Nuestro objetivo no era simplemente descartar los modelos existentes, sino extraer la esencia predictiva para diseñar una estrategia local.&lt;/p&gt;
+&lt;p&gt;El análisis nos permitió identificar las variables clínicas y demográficas clave que consistentemente demostraron ser los predictores más robustos de severidad en la literatura global. Esta información es la piedra angular para el desarrollo de un Modelo de Predicción Adaptado al Contexto Cubano.&lt;/p&gt;
+&lt;p&gt;Al basarnos en este conocimiento global filtrado, podemos centrarnos en:&lt;/p&gt;
+&lt;p&gt;Utilizar variables de fácil acceso y bajo costo (edad, comorbilidades específicas y parámetros hematológicos básicos).&lt;/p&gt;
+&lt;p&gt;Implementar algoritmos predictivos robustos pero sencillos que sean aplicables de manera eficiente en el Sistema Nacional de Salud cubano.&lt;/p&gt;
+&lt;p&gt;Este trabajo no solo resume el estado del arte, sino que proporciona el cimiento necesario para futuras investigaciones que cierren la brecha entre la teoría predictiva y la realidad práctica de la salud pública en Cuba.&lt;/p&gt;
+&lt;p&gt;Para profundizar en la metodología de la revisión, los algoritmos analizados y las variables predictivas específicas identificadas, por favor, acceda al artículo completo haciendo clic en el enlace PDF que se encuentra arriba.&lt;/p&gt;
+&lt;p&gt;El archivo ya contiene todos tus metadatos y un texto de blog redactado para resaltar la importancia y las conclusiones de tu investigación.&lt;/p&gt;
 </description>
     </item>
     

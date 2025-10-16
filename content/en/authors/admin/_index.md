@@ -123,7 +123,7 @@ skills:
     percent: 90
     description: |
       Development of well-structured technical and academic documents.
-    name: Hobbies
+
 status:
   icon: ☕️
 superuser: yes

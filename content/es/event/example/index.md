@@ -23,11 +23,11 @@ projects:
 publishDate: "2017-01-01T00:00:00Z"
 slides: ""
 summary: ¡Próximamente! Curso práctico de R para fortificación, impulsado por el taller de noviembre 2024.
-tags: []
+# tags: []
 title: 👋 Curso de Análisis de Datos en Fortificación de Alimentos con R. Una Introducción Práctica
 url_code: https://github.com/maicel1978/cursoR
 url_pdf: ""
-url_slides: https://slideshare.net
+# url_slides: https://slideshare.net
 url_video: https://www.youtube.com/watch?v=ycnteDZRMxM
 ---
 
