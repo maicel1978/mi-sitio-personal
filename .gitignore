@@ -4,13 +4,15 @@
 .RData
 .Ruserdata
 
+
 # Carpeta pública generada por Hugo
-public/
-resources/
+/public/
+/resources/
 
 # Archivos del sistema
 .DS_Store
 Thumbs.db
+.hugo_build.lock
 
 # Tema Academic (si lo tienes como submódulo Git)
 /themes/

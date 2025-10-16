@@ -1,12 +1,13 @@
 ---
 title: 'Tutorial: Análisis de Fortificación de Alimentos con HCES y R'
-author: admin
+author: 
+  - "admin"
 summary: "Aprende en este tutorial a usar R para analizar Encuestas de Consumo y Gasto en Hogares  y Tablas de Composición de Alimentos."
 date: "2025-03-05"
 slug: "tutorial-an-lisis-de-fortificaci-n-de-alimentos-con-hces-y-r"
 tags:
-- R
-- Fortificación
+  - R
+  - Fortificación
 ---
 
 En este tutorial, aprenderás a usar datos de Encuestas de Consumo y Gasto en Hogares (HCES) , Tablas de Composición de Alimentos (FCT) y herramientas de R (tidyverse, gtsummary, ggstatsplot) para evaluar la adecuación nutricional y modelar escenarios de fortificación. Los conceptos se explican desde cero, con ejemplos reproducibles.

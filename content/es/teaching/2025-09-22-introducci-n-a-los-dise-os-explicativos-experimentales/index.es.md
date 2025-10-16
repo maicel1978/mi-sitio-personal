@@ -1,19 +1,14 @@
 ---
 title: Introducción a los diseños explicativos experimentales
-author: ["admin"]
+author: 
+  - "admin"
 date: '2025-09-22'
 summary: "Conferencia impartida en la Maestría de Atención Primaria de Salud (ENSAP, Cuba), donde se abordan los fundamentos de los diseños explicativos experimentales, los sesgos y las tendencias actuales en ensayos clínicos y comunitarios. Incluye la descarga de la presentación y un podcast complementario."
 slug: introducci-n-a-los-dise-os-explicativos-experimentales
-categories:
-  - Metodología
-  - Ensayos-clinicos
-  - Conferencia
 tags:
-  - Evidencia-clínica
-  - Ciencia
-  - Bioestadística
-  - Ensayos-clínicos
-  - Metodología
+  - "diseños-experimentales"
+  - "ensayos-clínicos"
+  - "conferecias"
 url_slides: /pdf/presetacion_experimentosAPS.pdf
 url_video: https://youtu.be/cQ4af2j2jrg
 ---

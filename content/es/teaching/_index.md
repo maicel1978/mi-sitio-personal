@@ -15,7 +15,7 @@ sections:
     columns: 2
     view: article-grid
   id: teaching
-summary: My courses
+summary: "Mis cursos y conferencias"
 title: Teaching
 type: landing
 ---

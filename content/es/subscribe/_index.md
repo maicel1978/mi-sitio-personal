@@ -21,7 +21,6 @@ Recibe nuestros nuevos artículos directamente en tu bandeja de entrada. Es la m
 
 ------------------------------------------------------------------------
 
-## 📰 Suscripción por Feed RSS
+## 📰 Suscripción por Feed RSS y telegram
 
-Para los usuarios que prefieren la lectura en agregadores de noticias dedicados, ofrecemos nuestro [Feed RSS](/posts/index.xml).
-
+Para los usuarios que prefieren la lectura en agregadores de noticias dedicados, ofrecemos nuestro [Feed RSS](/posts/index.xml). También nos puedes seguir por nuestro [canal de telegram](https://t.me/bioestadisticaedu)
