@@ -5,9 +5,10 @@ fecha de modificacion 12/02/2025
 comandos importantes
 
 blogdown:::build_site()
+blogdown:::check_site()
 blogdown:::serve_site()
 blogdown:::stop_server()
-blogdown:::check_site()
+
 
 
 ---

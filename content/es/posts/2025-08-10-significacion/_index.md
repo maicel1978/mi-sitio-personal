@@ -1,5 +1,5 @@
 ---
-title: "Significación Estadística: ¿Ciencia o Pirotecnia?"
+title: "Significación Estadística, ¿Ciencia o Pirotecnia?"
 subtitle: "De cómo el ritual del p<0.05 distorsiona la ciencia y las alternativas que iluminan el camino real" # Subtítulo atractivo
 summary: "¿El sagrado p<0.05 es ciencia o solo pirotecnia estadística? Crítica demoledora a la 'significación estadística': sus falacias lógicas, su confusión con la importancia real, y por qué los intervalos de compatibilidad y el enfoque bayesiano son la luz que necesitamos para una investigación más honesta y efectiva." # Resumen más contundente y con palabras clave
 authors:

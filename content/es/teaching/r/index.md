@@ -5,10 +5,12 @@ image:
 math: false
 summary: "Aprende a usar R para analizar datos relacionados con la fortificación de alimentos. Este curso práctico te guiará desde los conceptos básicos hasta la generación de informes profesionales."
 tags:
-  - "cursos"
-  - "fortificación de alimento"
+  - "conferencia"
+  - "curso"
 title: "Curso de Análisis de datos en fortificación de alimentos a gran escala con R. Una Introducción Práctica"
-type: docs
+author: 
+  - "admin"
+type: page
 ---
 
 # ¡Construye investigaciones con R!

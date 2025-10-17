@@ -1,20 +1,18 @@
 ---
-title: Introducción a los diseños explicativos experimentales
+title: "Conferencia de Introducción a los diseños explicativos experimentales"
 author: 
   - "admin"
 date: '2025-09-22'
 summary: "Conferencia impartida en la Maestría de Atención Primaria de Salud (ENSAP, Cuba), donde se abordan los fundamentos de los diseños explicativos experimentales, los sesgos y las tendencias actuales en ensayos clínicos y comunitarios. Incluye la descarga de la presentación y un podcast complementario."
 slug: introducci-n-a-los-dise-os-explicativos-experimentales
 tags:
-  - "diseños-experimentales"
-  - "ensayos-clínicos"
-  - "conferecias"
+  - "conferencia"
+  - "curso"
 url_slides: /pdf/presetacion_experimentosAPS.pdf
 url_video: https://youtu.be/cQ4af2j2jrg
+type: page
 ---
 
-
-## 🎓 Conferencia para la Maestría en Atención Primaria de Salud (ENSAP)
 
 
 El pasado **22 de septiembre de 2025** impartí la conferencia **“Introducción a los Diseños Explicativos Experimentales”** como parte del programa de la Maestría en Atención Primaria de Salud de la **Escuela Nacional de Salud Pública (ENSAP, Cuba)**.  
@@ -30,18 +28,17 @@ Esta conferencia busca responder una pregunta clave:
 
 Y lo hace explorando **los ejes de clasificación, los sesgos y los diseños experimentales más utilizados**, tanto a nivel individual como comunitario.
 
----
 
-### 📑 Contenido principal
+
+# Contenido principal
 - Características generales de las investigaciones experimentales  
 - El estudio de las relaciones causales y los sesgos  
 - Diseños más comunes a nivel individual y por conglomerados  
 - Ensayos clínicos y ensayos comunitarios  
 - Tendencias emergentes en los diseños experimentales  
 
----
 
-### 📥 Materiales disponibles
+# Materiales disponibles
 
 - 📂 **Descargar la presentación**: [PDF de la conferencia](/pdf/presetacion_experimentosAPS.pdf)  
 
@@ -49,14 +46,14 @@ Y lo hace explorando **los ejes de clasificación, los sesgos y los diseños exp
 {{< audio src="/mp3/podcast_expeimentosAPS.mp3" controls="yes" >}}
 
 
----
 
-### 🧭 Reflexión final
+
+# Reflexión final
 
 Los **diseños experimentales** siguen siendo la herramienta más robusta para establecer causalidad.  
 El reto para la APS es lograr que, desde el paciente individual hasta la comunidad entera, la investigación sea **más inclusiva, innovadora y socialmente útil**.  
 
----
+
 
 ✍️ *Dr.C Maicel E. Monzón Pérez*  
 Médico, Bioestadístico y Científico de Datos  
