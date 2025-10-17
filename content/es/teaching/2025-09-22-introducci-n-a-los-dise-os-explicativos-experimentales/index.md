@@ -13,7 +13,7 @@ url_video: https://youtu.be/cQ4af2j2jrg
 type: page
 ---
 
-
+# Anuncio
 
 El pasado **22 de septiembre de 2025** impartí la conferencia **“Introducción a los Diseños Explicativos Experimentales”** como parte del programa de la Maestría en Atención Primaria de Salud de la **Escuela Nacional de Salud Pública (ENSAP, Cuba)**.  
 
@@ -30,7 +30,10 @@ Y lo hace explorando **los ejes de clasificación, los sesgos y los diseños exp
 
 
 
-# Contenido principal
+# Contenido de la conferencia
+
+## Sumario
+
 - Características generales de las investigaciones experimentales  
 - El estudio de las relaciones causales y los sesgos  
 - Diseños más comunes a nivel individual y por conglomerados  
@@ -38,7 +41,7 @@ Y lo hace explorando **los ejes de clasificación, los sesgos y los diseños exp
 - Tendencias emergentes en los diseños experimentales  
 
 
-# Materiales disponibles
+## Materiales disponibles
 
 - 📂 **Descargar la presentación**: [PDF de la conferencia](/pdf/presetacion_experimentosAPS.pdf)  
 
@@ -48,7 +51,7 @@ Y lo hace explorando **los ejes de clasificación, los sesgos y los diseños exp
 
 
 
-# Reflexión final
+## Reflexión final
 
 Los **diseños experimentales** siguen siendo la herramienta más robusta para establecer causalidad.  
 El reto para la APS es lograr que, desde el paciente individual hasta la comunidad entera, la investigación sea **más inclusiva, innovadora y socialmente útil**.  
