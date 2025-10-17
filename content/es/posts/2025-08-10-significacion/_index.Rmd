@@ -1,11 +1,11 @@
 ---
-title: "Ciencia o Pirotecnia: Por Qué la 'Significación Estadística' Nos Ciega con Falsos Destellos"
+title: "Significación Estadística: ¿Ciencia o Pirotecnia?"
 subtitle: "De cómo el ritual del p<0.05 distorsiona la ciencia y las alternativas que iluminan el camino real" # Subtítulo atractivo
 summary: "¿El sagrado p<0.05 es ciencia o solo pirotecnia estadística? Crítica demoledora a la 'significación estadística': sus falacias lógicas, su confusión con la importancia real, y por qué los intervalos de compatibilidad y el enfoque bayesiano son la luz que necesitamos para una investigación más honesta y efectiva." # Resumen más contundente y con palabras clave
 authors:
   - "admin"
 categories:
-  - "Estadística en Salud"
+  - "Reflexiones Críticas"
 tags:
   - "interpretar p-valor en tesis de bioestadística"
   - "alternativas a p-valores en artículos académicos"
@@ -13,7 +13,7 @@ tags:
   - "guía intervalos confianza vs. p-valores" 
   - "evitar abusos p-valores en investigación clínica"
 date: "2025-08-10T15:30:00Z" # Asegúrate de que la fecha y hora sean correctas
-lastmod: "2025-08-10T15:30:00Z" # Puedes actualizar si editas el post
+lastmod: "2025-10-16T15:30:00Z" # Puedes actualizar si editas el post
 featured: true # Cambia a true si quieres destacarlo en la página principal
 draft: false # Cambia a true si aún estás trabajando en él
 bibliography: references.bib
@@ -26,6 +26,8 @@ knit_engines$set(mermaid = function(options) {
   DiagrammeR::mermaid(options$code)
 })
 ```
+
+![](fig01.png){width="45%"}
 
 Ese momento de euforia al ver `p < 0.05`... ¿es un descubrimiento genuino o solo un destello engañoso de pirotecnia estadística?
 

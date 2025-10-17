@@ -18,8 +18,8 @@ en:
       - name: Talks
         url: /#talks
         weight: 12
-      - name: News
-        url: /#news
+      # - name: News
+      #   url: /#news
         weight: 13
       - name: Experience
         url: experience/
@@ -54,8 +54,8 @@ es:
       - name: Conferencias
         url: /#talks
         weight: 12
-      - name: Noticias
-        url: /#news
+      # - name: Noticias
+      #   url: /#news
         weight: 13
       - name: Experiencia
         url: /experience/
@@ -67,11 +67,38 @@ es:
         url: /teaching/
         weight: 40
       - name: Blog
-        url: /posts/
+        url: /posts/ # no funciona al hacerl clic sobre el
         weight: 50
+        identifier: blog  # Identificador único para el padre
+      #   has_children: true  # ¡Agregado! Fuerza el dropdown
+      - name: "Ver Todos los Artículos" # ¡NUEVO HIJO!
+        url: /posts/ # Este enlace SIEMPRE funcionará
+        weight: 51 # Aparece primero en el submenú
+        parent: blog
+      # Usar un texto claro mejora la UX, guiando al usuario.     
+      - name: "Estadística en Salud"
+        url: /categories/estadistica-en-salud/
+        weight: 52
+        parent: blog  # Referencia al identificador del padre
+      - name: "Metodología de Investigación"
+        url: /categories/metodologia-de-investigacion/
+        weight: 54
+        parent: blog
+      - name: "Evaluación Regulatoria"
+        url: /categories/evaluacion-regulatoria/
+        weight: 56
+        parent: blog
+      - name: "Código Práctico en R/Python"
+        url: /categories/codigo-practico-en-r-o-python/  # ¡Corregido! Agregado -python
+        weight: 58
+        parent: blog
+      - name: "Reflexiones Críticas"
+        url: /categories/reflexiones-criticas/
+        weight: 60  # ¡Corregido! Peso único para orden
+        parent: blog
       - name: "Suscríbete"
         url: /subscribe/
-        weight: 90 # Un número alto para que aparezca al final
+        weight: 90  # Un número alto para que aparezca al final
 
 
 # # Español (idioma por defecto)

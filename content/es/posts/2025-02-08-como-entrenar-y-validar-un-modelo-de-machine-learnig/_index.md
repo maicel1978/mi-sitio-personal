@@ -6,8 +6,7 @@ authors:
 date: '2024-02-08'
 summary: "Guía práctica con R para desarrollar modelos predictivos robustos en entornos clínicos"
 categories: 
-  - "Código Práctico en R/Python"
-  - "Metodología de Investigación"
+  - "Código Práctico en R o Python"
 tags:
   - "entrenar modelo ML en R para predicciones clínicas"
   - "tutorial en r para modelos predictivos médicos"
