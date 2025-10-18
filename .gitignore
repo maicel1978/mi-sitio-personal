@@ -16,3 +16,11 @@ Thumbs.db
 
 # Tema Academic (si lo tienes como submódulo Git)
 /themes/
+# es correcto si no modificas el tema (/themes/).
+
+/prompts/
+
+# archivos temporales de editor o sistema operativo adicionales
+*.log
+*.tmp
+*.swp

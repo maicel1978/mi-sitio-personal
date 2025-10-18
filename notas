@@ -1,227 +1,141 @@
-Estructura Principal del Proyecto
-(Hugo Academic CV Theme)
-fecha de modificacion 12/02/2025
-
-comandos importantes
-
-blogdown:::build_site()
-blogdown:::check_site()
-blogdown:::serve_site()
-blogdown:::stop_server()
-
+# Notebook  de Trabajo Optimizadas
+Actualización: 18/10/2025 
+💡Tip: actualiza fechas y to-dos regularmente para mantener el éxito del proyecto.
 
 
 ---
 
-## **PROMPT MAESTRO PARA PORTAFOLIO ACADÉMICO-PROFESIONAL**
+## Comandos Esenciales para Flujo Diario (Blogdown + Git)
 
-### **📋 CONTEXTO Y ROL ESPECÍFICO**
-Eres **asesor técnico-editorial especializado** en portafolios académicos para profesionales de la salud y estadística. Tu expertise combina:
-- 20+ años en bioestadística aplicada a salud y regulación sanitaria
-- Experiencia probada en divulgación científica exitosa
-- Dominio técnico de **blogdown 1.21 + Hugo 0.143.0 extended + Hugo Blox Builder 1.0.0**
-- Conocimiento profundo de estrategias de contenido para nichos técnico-científicos
-
-### **🎯 PARÁMETROS TÉCNICOS ESTRICTOS**
-```yaml
-Stack_Técnico:
-  versiones: 
-    blogdown: "1.21"
-    hugo: "0.143.0 extended"
-    tema: "Hugo Blox Builder 1.0.0 (theme-academic-cv)"
-  estructura:
-    config: "config/_default/hugo.yaml"
-    multilingual: ["content/es", "content/en"]
-  despliegue: "Netlify (builds automáticos)"
-  control_versiones: "GitHub"
-```
-
-### **⚖️ PRINCIPIOS OPERATIVOS**
-1. **Precisión versionada**: Cada recomendación debe validarse contra documentación oficial de las versiones especificadas
-2. **Seguridad primero**: Para cambios estructurales → proponer plan de rollback explícito
-3. **Rigor científico**: Justificar técnicamente cada recomendación, evitando "opiniones no fundamentadas"
-4. **Enfoque práctico**: Priorizar implementaciones con ROI claro en visibilidad/autoridad profesional
-
-### **🌐 ESTRATEGIA MULTILINGÜE**
-- Mantener equivalencia de contenido entre `/es` y `/en`
-- Slugs semánticos consistentes entre idiomas
-- Estrategia de interlinking entre versiones lingüísticas
-
-### **📊 LÍNEA EDITORIAL (70/20/10)**
-```python
-distribución_contenido = {
-    "70%_útil": "Guías estadísticas aplicadas a salud/regulación",
-    "20%_reputacional": "Ensayos críticos sobre metodología/regulación",
-    "10%_experimental": "Casos reales con datos (R/Python) + anécdotas profesionales"
-}
-```
-
-### **🏗️ ESTRUCTURA DE CONTENIDO**
-```markdown
-Categorías_principales:
-  - "Estadística en Salud"
-  - "Metodología de Investigación" 
-  - "Evaluación Regulatoria"
-  - "Código Práctico (R/Python)"
-  - "Reflexiones Críticas"
-```
-
-### **🛠️ HERRAMIENTAS INTEGRADAS**
-- **Analítica**: Google Analytics (bioestadisticaedu.com)
-- **Email**: Mailerlite
-- **Comentarios**: Sistema basado en GitHub
-- **Dominio principal**: https://bioestadisticaedu.com
+### Blogdown
+blogdown:::build_site()  # Construye el sitio localmente.
+blogdown:::check_site()  # Verifica errores.
+blogdown:::serve_site()  # Sirve localmente para preview.
+blogdown:::stop_server() # Detiene el servidor.
+### Git (Para Netlify Deploy):
+`git add content/post/nuevo-post.md` # Añade cambios.
+`git commit -m "Mensaje descriptivo"` # Commit.
+`git push origin main` # Push a GitHub/Netlify.
+  
+## To do list para Publicaciones:
+1. Define categoría/tags alineados con editorial.
+2. Escribe content con shortcodes si needed (e.g., {{% blogdown/postref %}}).
+3. Completa front matter; verifica multilingüe.
+4. Build/serve localmente.
+5. Commit/push; monitorea Netlify deploy.
+6. Post-publicación: Actualiza métricas y related links.
+7. Revisa el cheklist en la carpeta de Promts
 
 ---
 
-### **INSTRUCCIONES PARA RESPUESTAS**
-Para cada consulta que te haga posteriormente:
-1. **Contextualiza** mi pregunta dentro de mi stack técnico y línea editorial
-2. **Evalúa** impacto en SEO, experiencia de usuario y autoridad profesional  
-3. **Propón** soluciones específicas respetando versiones y configuración actual
-4. **Prioriza** implementación según complejidad/beneficio
-5. **Anticipa** riesgos y mitiga con planes de contingencia
+## Línea Editorial (70/20/10) 
+Alineada con Calidad (Distribución para enfocarte en utilidad y reputación):
+
+- 70% Útil: Guías estadísticas aplicadas a salud/regulación (e.g., intervalos de confianza en ensayos clínicos).
+- 20% Reputacional: Ensayos críticos sobre metodología/regulación (e.g., abusos de p-valores).
+- 10% Experimental: Casos reales con datos (R/Python) + anécdotas profesionales (e.g., triaje COVID-19 con árboles de decisión).
+
+Tip: Para cada post, verifica alineación antes de draft; usa prompts como prompt_maestro.yaml para generar contenido.
 
 ---
 
-### **MI PREGUNTA ACTUAL:**
-[INSERTAR AQUÍ MI PREGUNTA ESPECÍFICA]
 
----
+## Estructura de Contenido: Categorías y Tags Optimizados
 
-**Ejemplo de uso futuro**:  
-*"¿Cómo optimizar el rendimiento de visualizaciones R/Shiny embebidas manteniendo la compatibilidad con Hugo Blox Builder 1.0.0?"*
+### Categorías (Alineadas con Bundles)
 
-Este prompt te garantiza respuestas técnicas precisas, editorialmente alineadas y operativamente seguras para tu proyecto. ¿Te gustaría que ajustemos algún aspecto específico?
+categories: 
+- "Estadística en Salud"
+- "Metodología de Investigación"
+- "Evaluación Regulatoria"
+- "Código Práctico en R y Python"
+- "Reflexiones Críticas"
 
-tu_sitio/
-├── config/
-│   └── _default/          <- Configuración global del sitio
-│       ├── hugo.yaml      <- Archivo principal de configuración
-│       ├── params.yaml    <- Personalización del tema
-│       └── menus.yaml     <- Menús de navegación
-│       └── module.yaml    <- Solo si usas Hugo Modules
-├── content/
-│   ├── authors/           <- Información de autores (tu perfil)
-│   │   └── admin/         <- Carpeta con tu información (avatar, bio)
-│   ├── home/              <- Widgets de la página de inicio
-│   │   ├── about.md       <- Sección "Sobre mí"
-│   │   ├── posts.md       <- Sección del blog
-│   │   └── ...            <- Otros widgets (proyectos, contactos)
-│   └── post/              <- Tus entradas de blog (si aplica)
-├── static/                <- Archivos estáticos (imágenes, PDFs, CSS)
-│   └── media/             <- Recomendado para subir imágenes
-├── themes/                <- Aquí está el tema Academic (¡no lo modifiques!)
-└── public/                <- Sitio generado (se crea al ejecutar blogdown::build_site())
+Buenas prácticas: Asigna una por post; vincula a _index.md en bundles para listados.
 
+### Tags (Enfoque Long-Tail para SEO)
+- Ejemplos: "interpretar p-valor en tesis de bioestadística", "alternativas a p-valores en artículos académicos", "errores comunes en significancia estadística salud", "guía intervalos confianza vs. p-valores", "evitar abusos p-valores en investigación clínica".
 
-1.	config/_default/
--	hugo.yaml: Configuración global de Hugo (ej: baseURL, título del sitio, temas, módulos).
--	languages.yaml: Configuración de idiomas (si tu sitio es multilingüe).
--	menus.yaml: Define los menús de navegación (barra superior, footer).
--	params.yaml: Parámetros del tema (colores, redes sociales, widgets de la página de inicio).
-o	module.yaml: Configuración de módulos de Hugo (no suele modificarse).
+Tips: Usa Google Keyword Planner para validar volumen de búsqueda. Limita a 3-5 por post; incorpora en front matter para schema markup.
 
-2.	content/
-o	_index.md: Página principal de tu sitio.
-o	authors/admin/: Información del autor (tú).
-	_index.md: Nombre, biografía, redes sociales.
-	avatar.jpg: Tu foto de perfil.
-o	post/, project/, publication/: Contenido de tus posts, proyectos y publicaciones.
-o	teaching/, event/: Otras secciones personalizables.
-
-3.	themes/
-o	github.com/HugoBlox/hugo-blox-builder/: El tema principal (¡no lo modifiques directamente!).
-o	theme-academic-cv/: Posiblemente tu tema personalizado o modificaciones locales.
-
-4.	layouts/
-o	Sobrescribe plantillas del tema sin modificar el original (ej: shortcodes/, partials/).
-
-5.	assets/
-o	Archivos estáticos como imágenes, CSS/JS personalizados.
-
-6.	public/
-o	Sitio web generado (no edites esto directamente).
-
-
-Add your publications in the “content/publication/” folder
-
-# Para actualizar (GIT)
-
-git add content/post/mi-primer-post.md  # Agrega el archivo modificado
-git commit -m "Actualizo contenido de 'Mi Primer Post'"  # Mensaje descriptivo
-git push origin main                   # Sube a la rama main de GitHub
-
-# Bibliografia
-
- Guide: https://docs.hugoblox.com/tutorial/
- Documentation: https://docs.hugoblox.com/
- This file is formatted using YAML syntax - learn more at https://learnxinyminutes.com/docs/yaml/
-https://docs.hugoblox.com/reference/markdown/
-
-# YML
-
----
-abstract: Un estudio realizado en Cuba durante la pandemia de COVID-19 utilizó un modelo de árboles de clasificación para identificar pacientes con bajo riesgo de desarrollar complicaciones graves. Este modelo se ajustó para predecir la admisión en la UCI y la mortalidad, basándose en factores como la edad y la presencia de comorbilidades. El objetivo fue crear una herramienta que permitiera identificar a los pacientes que podrían ser seguidos de forma segura en atención primaria, optimizando así los recursos hospitalarios. Los árboles de decisión demostraron ser precisos en la clasificación de riesgo, lo que podría favorecer una mejor asignación de recursos y una atención sanitaria más eficiente.
-authors: 'Maicel Monzón'
-date: "2021-04-07T00:00:00Z"
-doi: ""
-featured: true
-image:
-  caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/s9CC2SKySJM)'
-  focal_point: ""
-  preview_only: false
-links:
-- name: Custom Link
-  url: http://example.org
-projects:
-- internal-project
-publication: ""
-publication_short: ""
-publication_types:
-- article
-publishDate: "2023-02-01T00:00:00Z"
-slides: example
-summary: Un estudio realizado en Cuba durante la pandemia de COVID-19 utilizó un modelo de árboles de clasificación para identificar pacientes con bajo riesgo de desarrollar complicaciones graves. Este modelo se ajustó para predecir la admisión en la UCI y la mortalidad, basándose en factores como la edad y la presencia de comorbilidades. El objetivo fue crear una herramienta que permitiera identificar a los pacientes que podrían ser seguidos de forma segura en atención primaria, optimizando así los recursos hospitalarios. Los árboles de decisión demostraron ser precisos en la clasificación de riesgo, lo que podría favorecer una mejor asignación de recursos y una atención sanitaria más eficiente.
 tags:
-- machine learning
-- triaje
-title: Identificación de pacientes de bajo riesgo de severidad en confirmados de la COVID-19. Cuba. Años 2020-2021
-url_code: https://github.com/maicel1978/ABR
-url_dataset: '#'
-url_pdf: https://revhabanera.sld.cu/index.php/rhab/article/download/4943/3276
-url_poster: https://docs.google.com/presentation/d/e/2PACX-1vTqmn0xKRJXd3Nb0KMR3bsj0FcJET5Tjlf2DwT6OiDOwu9_K7XHYpd_tMpJRW3HiHerhBJQ532NzrV4/pub?start=false&loop=false&delayms=3000
-url_project: ""
-url_slides: https://docs.google.com/presentation/d/e/2PACX-1vTqmn0xKRJXd3Nb0KMR3bsj0FcJET5Tjlf2DwT6OiDOwu9_K7XHYpd_tMpJRW3HiHerhBJQ532NzrV4/pub?start=false&loop=false&delayms=3000
-url_source: https://revhabanera.sld.cu/index.php/rhab/article/view/4943
-url_video: '#'
+- "interpretar p-valor en tesis de bioestadística"
+- "alternativas a p-valores en artículos académicos"
+- "errores comunes en significancia estadística salud"
+- "guía intervalos confianza vs. p-valores" 
+- "evitar abusos p-valores en investigación clínica"
+
+long-tail:  (frases específicas como "cómo interpretar p-valor en tesis médicas")
+
+---
+
+## To-Do List Actualizada para Mejora Continua
+
+| Área                  | Estado Actual                            | Recomendación Clave                                  | Prioridad  |
+|-----------------------|------------------------------------------|------------------------------------------------------|------------|
+| Estructura del Sitio  | Con categorías y menú básicos            | Refina bundles (posts, projects) con interlinks      | Media      |
+| SEO                   | Etiquetas long-tail implementadas        | Integra schema markup en front matter para E-E-A-T   | Alta       |
+| Idioma                | Principalmente español, algunos en inglés| Asegura equivalencia es/en con enlaces recíprocos    | Alta       |
+| Engagement            | CTA y newsletter básicos                 | Añade comentarios Disqus y pop-ups de suscripción    | Media      |
+| Métricas              | Google Analytics activado                | Integra dashboard con Netlify analytics para tráfico | Alta       |
+
+Nuevos Items (Pendientes para Beginner):
+- Multilingüe: Configura content/es y content/en; riesgo de duplicación si no se mantiene consistencia.
+- Seguridad: Añade HTTPS forzado en Netlify para trustworthiness (E-E-A-T).
+- Testing: Prueba builds locales con `blogdown:::build_site()` antes de push.
+
+
+
+💡 Tip: Automatiza con Netlify build command "hugo" para deploys rápidos.
+
+
+
+### Prompts para Optimización
+- prompt_maestro.yaml: Para crear contenido multilingüe/SEO.
+- prompt_tags.yaml: Para generar tags long-tail.
+- prompt_imagenes.yaml: Para descripciones alt_text accesibles.
+
+Ejemplo de uso: "Optimiza tags para post sobre p-valores en salud usando prompt_tags.yaml".
+
+
+
+## Bibliografía y Recursos
+
+- Guía Hugo Blox: https://docs.hugoblox.com/tutorial/
+- Documentación: https://docs.hugoblox.com/
+- YAML Syntax: https://learnxinyminutes.com/docs/yaml/
+- Markdown Reference: https://docs.hugoblox.com/reference/markdown/
+
+
+shortcodes:
+- "blogdown/postref.html"
+languages:
+es: "/es/notas-trabajo-optimizadas-guia-diaria-hugo-blox"
+en: "/en/optimized-work-notes-daily-guide-hugo-blox"
 ---
 
 
-diagnostico
 
-| Área                  | Estado actual                           | Recomendación clave                                  | Prioridad |
-|-----------------------|------------------------------------------|------------------------------------------------------|------------|
-| Estructura del sitio  | Sin categorías ni menú claros            | Añadir 4–5 categorías base                           | Alta       |
-| SEO                   | Etiquetas genéricas                      | Introducir etiquetas long-tail                       | Media      |
-| Idioma                | Solo español                             | Publicar 1 de cada 5 posts en inglés                 | Media      |
-| Engagement            | Sin CTA ni newsletter                    | Añadir suscripción e interacción en posts            | Alta       |
-| Métricas              | No implementadas                         | Activar Google Analytics / Panel de control simple   | Alta       |
+## Anexo Front Matter Esencial para Publicaciones Diarias (template base para consistencia)
 
+---
+title: "Título Optimizado con Keyword"
+slug: "slug-keyword-optimizado"
+authors: ["maicel"]
+date: "2025-10-18T00:00:00Z"
+publishDate: "2025-10-18T08:00:00Z"
+categories: ["Categoría Principal"]
+tags: ["tag1", "tag2", "tag3"]
+summary: "Resumen de 150 chars con keyword para SEO."
+image:
+  caption: "Descripción técnica"
+  focal_point: "Smart"
+  alt_text: "Alt text keyword-rich para accesibilidad/SEO"
+related: ["post-relacionado1", "post-relacionado2"]
+languages:
+  es: "/es/slug"
+  en: "/en/slug-en"
+commentable: yes
+---
 
-
-La propuesta de 5–7 categorías principales
-
-Google Keyword Planner
-
-Categorías
-
-"Estadística en Salud"
-"Metodología de Investigación"
-"Evaluación Regulatoria"
-"Código Práctico en R y Python"
-"Reflexiones Críticas"
-
-
-tags: es ideal para las etiquetas long-tail (frases específicas como "cómo interpretar p-valor en tesis médicas")
-
+💡 Tip: evita DOI/citation en posts no formales.
