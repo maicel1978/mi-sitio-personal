@@ -8,7 +8,7 @@ date: "2024-02-08"
 categories: 
   - "Código Práctico en R o Python"
 tags:
-  - "entrenar modelo ML en R para predicciones clínicas"
+  - "entrenar modelo en R para predicciones clínicas"
   - "tutorial en r para modelos predictivos médicos"
   - "guía Steyerberg para modelos predictivos médicos"
   - "evitar overfitting en validación de ML"
