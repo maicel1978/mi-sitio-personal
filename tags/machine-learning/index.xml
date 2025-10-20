@@ -2,24 +2,7 @@
 &lt;h1 id="características-principales-de-la-interfaz">Características principales de la Interfaz:&lt;/h1>
 &lt;p>La aplicación está diseñada con una interfaz sencilla que permite a los usuarios ingresar datos relevantes fácilmente. Análisis predictivo: COVIDCENCEC emplea análisis predictivo para generar puntajes de riesgo, lo que ayuda a los usuarios a comprender sus posibles riesgos de salud asociados con COVID-19. Visualización de datos: la aplicación incluye representaciones visuales de datos y predicciones, lo que facilita a los usuarios la interpretación de los resultados.&lt;/p>
 &lt;h1 id="diseño">Diseño:&lt;/h1>
-&lt;p>La aplicación, creada con HTML y CSS, es adaptable y accesible desde varios dispositivos, lo que garantiza un amplio alcance. Esta aplicación no solo sirve como una herramienta práctica para el personal de salud que buscan calcular el riesgos de muerte en la COVID-19, sino que también contribuye al campo más amplio del modelado predictivo en el ámbito de la atención médica.&lt;/p></description></item><item><title>Cómo entrenar y validar un modelo de predicción clínica</title><link>https://maicel.netlify.app/posts/2025-02-08-como-entrenar-y-validar-un-modelo-de-machine-learnig/</link><pubDate>Thu, 08 Feb 2024 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/posts/2025-02-08-como-entrenar-y-validar-un-modelo-de-machine-learnig/</guid><description>&lt;p>
-&lt;figure >
-&lt;div class="flex justify-center ">
-&lt;div class="w-100" >&lt;img alt="" srcset="
-/posts/2025-02-08-como-entrenar-y-validar-un-modelo-de-machine-learnig/featured_hu_564ae7e977ddfb8b.webp 400w,
-/posts/2025-02-08-como-entrenar-y-validar-un-modelo-de-machine-learnig/featured_hu_bc7b6945a7be688d.webp 760w,
-/posts/2025-02-08-como-entrenar-y-validar-un-modelo-de-machine-learnig/featured_hu_42984c94e53220af.webp 1200w"
-src="https://maicel.netlify.app/posts/2025-02-08-como-entrenar-y-validar-un-modelo-de-machine-learnig/featured_hu_564ae7e977ddfb8b.webp"
-width="760"
-height="507"
-loading="lazy" data-zoomable />&lt;/div>
-&lt;/div>&lt;/figure>
-&lt;/p>
-&lt;p>🎧 &lt;strong>Escucha el podcast de esta publicación&lt;/strong>&lt;/p>
-&lt;audio controls >
-&lt;source src="https://ia600607.us.archive.org/24/items/articulo-steyember/_Articulo_Steyember.mp3" type="audio/mpeg">
-&lt;/audio>
-&lt;p>Si usted es Investigador en Salud o, peor aún, estudiante de posgrado, maestría o doctorado en el campo de las ciencias biomédicas&amp;hellip; &lt;strong>¡bienvenido al club del estrés!&lt;/strong>&lt;/p>
+&lt;p>La aplicación, creada con HTML y CSS, es adaptable y accesible desde varios dispositivos, lo que garantiza un amplio alcance. Esta aplicación no solo sirve como una herramienta práctica para el personal de salud que buscan calcular el riesgos de muerte en la COVID-19, sino que también contribuye al campo más amplio del modelado predictivo en el ámbito de la atención médica.&lt;/p></description></item><item><title>Cómo entrenar y validar un modelo de predicción clínica</title><link>https://maicel.netlify.app/post/como-entrenar-y-validar-modelo-prediccion-clinica/</link><pubDate>Thu, 08 Feb 2024 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/como-entrenar-y-validar-modelo-prediccion-clinica/</guid><description>&lt;p>Si usted es Investigador en Salud o, peor aún, estudiante de posgrado, maestría o doctorado en el campo de las ciencias biomédicas&amp;hellip; &lt;strong>¡bienvenido al club del estrés!&lt;/strong>&lt;/p>
 &lt;p>Seguro que usted está enfocado en desarrollar esos geniales &lt;strong>modelos de predicción clínica&lt;/strong> para el &lt;strong>diagnóstico&lt;/strong> o el &lt;strong>pronóstico&lt;/strong>. Y es casi seguro que ha llegado a esa fase donde la metodología se siente como un muro de ladrillos. Un día estás bien, y al siguiente te das cuenta de que no sabes qué pasos seguir, qué software usar, o lo peor: si tu modelo servirá para algo más allá de llenar un repositorio de tesis.&lt;/p>
 &lt;p>Lo digo sin tapujos: esa frase lapidaria de &lt;strong>&amp;lsquo;Ese valor tan alto de la Curva Roc y la ausencia de métricas de calibración&amp;rsquo;&lt;/strong> puede significar que tu modelo tiene el famoso &lt;strong>síndrome del &amp;ldquo;sobreajuste&amp;rdquo;&lt;/strong>. En otras palabras, funciona espectacularmente bien&amp;hellip; solo para la muestra que lo creó.&lt;/p>
 &lt;p>Es una locura, ¿verdad? Mientras las tesis de alto nivel giran en torno a crear estos modelos de predicción clínica, los cursos de Bioestadística (¡incluida la especialidad!) pasan de puntillas por el tema. Hay una brecha gigantesca, y la ansiedad de tener que aprenderlo todo YA es real. Pero respira. Este post es tu chaleco salvavidas: tu Traductor Metodológico no oficial y (casi) libre de lágrimas. Yo mismo pasé por ese infierno metodológico en mi tesis de doctorado, así que no solo doy consejos: comparto la experiencia de quien ya quemó sus pestañas por ti.&lt;/p>
@@ -74,10 +57,10 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;figure >
 &lt;div class="flex justify-center ">
 &lt;div class="w-100" >&lt;img alt="" srcset="
-/posts/2025-02-08-como-entrenar-y-validar-un-modelo-de-machine-learnig/modelos_elecion_hu_8c0e0341cce17729.webp 400w,
-/posts/2025-02-08-como-entrenar-y-validar-un-modelo-de-machine-learnig/modelos_elecion_hu_7b91ac5dc10d2f43.webp 760w,
-/posts/2025-02-08-como-entrenar-y-validar-un-modelo-de-machine-learnig/modelos_elecion_hu_e3e07ff54d991fd6.webp 1200w"
-src="https://maicel.netlify.app/posts/2025-02-08-como-entrenar-y-validar-un-modelo-de-machine-learnig/modelos_elecion_hu_8c0e0341cce17729.webp"
+/post/como-entrenar-y-validar-modelo-prediccion-clinica/modelos_elecion_hu_8c0e0341cce17729.webp 400w,
+/post/como-entrenar-y-validar-modelo-prediccion-clinica/modelos_elecion_hu_7b91ac5dc10d2f43.webp 760w,
+/post/como-entrenar-y-validar-modelo-prediccion-clinica/modelos_elecion_hu_e3e07ff54d991fd6.webp 1200w"
+src="https://maicel.netlify.app/post/como-entrenar-y-validar-modelo-prediccion-clinica/modelos_elecion_hu_8c0e0341cce17729.webp"
 width="760"
 height="507"
 loading="lazy" data-zoomable />&lt;/div>
@@ -121,7 +104,7 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># GRÁFICOS DE SUPERVIVENCIA &lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot&lt;/span>(cal_boot, main &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Probabilidasde predichas vs observadas&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">abline&lt;/span>(&lt;span style="color:#ae81ff">0&lt;/span>, &lt;span style="color:#ae81ff">1&lt;/span>, lty &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">2&lt;/span>, col &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;red&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;img src="https://maicel.netlify.app/es/posts/2025-02-08-como-entrenar-y-validar-un-modelo-de-machine-learnig/_index_files/figure-html/calibracion-1.png" width="672" style="display: block; margin: auto;" />
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;img src="https://maicel.netlify.app/post/como-entrenar-y-validar-modelo-prediccion-clinica/index_files/figure-html/calibracion-1.png" width="672" style="display: block; margin: auto;" />
 &lt;ul>
 &lt;li>&lt;strong>Discriminación:&lt;/strong> Evalúa la capacidad del modelo para distinguir entre pacientes que experimentan el evento y aquellos que no. La métrica más común es el estadístico C (o AUC-ROC), que representa la probabilidad de que un paciente con el evento tenga una puntuación de riesgo más alta que uno sin él.&lt;/li>
 &lt;/ul>
@@ -133,7 +116,7 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> main &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">paste&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;AUC =&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">round&lt;/span>(&lt;span style="color:#a6e22e">auc&lt;/span>(roc_obj), &lt;span style="color:#ae81ff">3&lt;/span>)),
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> col &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;blue&amp;#34;&lt;/span>,
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> legacy.axes &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">TRUE&lt;/span>)
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;img src="https://maicel.netlify.app/es/posts/2025-02-08-como-entrenar-y-validar-un-modelo-de-machine-learnig/_index_files/figure-html/discriminacion-1.png" width="672" style="display: block; margin: auto;" />
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;img src="https://maicel.netlify.app/post/como-entrenar-y-validar-modelo-prediccion-clinica/index_files/figure-html/discriminacion-1.png" width="672" style="display: block; margin: auto;" />
 &lt;ul>
 &lt;li>&lt;strong>Utilidad Clínica:&lt;/strong> Determina si el modelo es útil para la toma de decisiones. El análisis de curvas de decisión y el Beneficio Neto (NB) permiten evaluar si el uso del modelo conduce a mejores resultados clínicos netos en comparación con estrategias alternativas (como tratar a todos o a ninguno).&lt;/li>
 &lt;/ul>
@@ -165,7 +148,7 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># NOMOGRAMA: EL TEST DE USABILIDAD CLÍNICA &lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>nom &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">nomogram&lt;/span>(modelo, fun &lt;span style="color:#f92672">=&lt;/span> plogis, funlabel &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Riesgo Diabetes&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot&lt;/span>(nom)
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;img src="https://maicel.netlify.app/es/posts/2025-02-08-como-entrenar-y-validar-un-modelo-de-machine-learnig/_index_files/figure-html/prersentacion-1.png" width="672" style="display: block; margin: auto;" />
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;img src="https://maicel.netlify.app/post/como-entrenar-y-validar-modelo-prediccion-clinica/index_files/figure-html/prersentacion-1.png" width="672" style="display: block; margin: auto;" />
 &lt;!-- ## 🛠️ EL KIT DE SUPERVIVENCIA (Tu Script) -->
 &lt;!-- [Descarga el script completo] -->
 &lt;p>¿Has aplicado estas técnicas en tus proyectos de Machine Learning? ¿Qué estrategias usas para entrenar y validar tus modelos? Déjame tus comentarios 💬: comparte tus experiencias, dificultades o tips contigo. ¡Juntos podemos enriquecer este conocimiento!&lt;/p>

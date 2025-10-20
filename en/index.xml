@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Biostatistics edu</title><link>https://maicel.netlify.app/en/</link><atom:link href="https://maicel.netlify.app/en/index.xml" rel="self" type="application/rss+xml"/><description>Biostatistics edu</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Mon, 24 Oct 2022 00:00:00 +0000</lastBuildDate><image><url>https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png</url><title>Biostatistics edu</title><link>https://maicel.netlify.app/en/</link></image><item><title>Writing Science or Rewriting Reality?</title><link>https://maicel.netlify.app/en/posts/imryd-redaccion-inversa/</link><pubDate>Sat, 04 Oct 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/en/posts/imryd-redaccion-inversa/</guid><description>&lt;h1 id="introduction">Introduction&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Biostatistics edu</title><link>https://maicel.netlify.app/en/</link><atom:link href="https://maicel.netlify.app/en/index.xml" rel="self" type="application/rss+xml"/><description>Biostatistics edu</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Mon, 24 Oct 2022 00:00:00 +0000</lastBuildDate><image><url>https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png</url><title>Biostatistics edu</title><link>https://maicel.netlify.app/en/</link></image><item><title>Writing Science or Rewriting Reality?</title><link>https://maicel.netlify.app/en/post/imryd-redaccion-inversa/</link><pubDate>Sat, 04 Oct 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/en/post/imryd-redaccion-inversa/</guid><description>&lt;h1 id="introduction">Introduction&lt;/h1>
 &lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
 &lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
 &lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
@@ -112,95 +112,61 @@ In certain contexts—especially exploratory ones—it can be the difference bet
 &lt;li>
 &lt;p>McShane BB, Gal D, Gelman A, Robert C, Tackett JL. Abandon statistical significance. The American Statistician. 2019;73(sup1):235-45.&lt;/p>
 &lt;/li>
-&lt;/ol></description></item><item><title>Las trampas de la correlación disfrazada de causalidad</title><link>https://maicel.netlify.app/en/posts/trampas-correlacion/</link><pubDate>Wed, 24 Sep 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/en/posts/trampas-correlacion/</guid><description>&lt;p>El ojo humano ama los patrones: ver dos líneas que se mueven juntas y concluir que una provoca la otra. La estadística, mal interpretada, a veces alimenta esa ilusión. La correlación es apenas la danza conjunta de dos variables, no una flecha de causa. Y, sin embargo, titulares, políticas y hasta decisiones médicas se sostienen sobre esta trampa.&lt;/p>
-&lt;h1 id="1-correlaciones-curiosas-pero-falsas">1) Correlaciones curiosas (pero falsas)&lt;/h1>
-&lt;ul>
-&lt;li>
-&lt;p>&lt;strong>Helados y ahogamientos.&lt;/strong> En verano, ambos aumentan. No porque el helado mate, sino porque el calor atrae bañistas y heladeros.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Cigüeñas y natalidad.&lt;/strong> En pueblos europeos, donde hay más cigüeñas, también hay más nacimientos… simplemente porque se trata de áreas rurales más fértiles, no porque las aves traigan bebés.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Películas de Nicolas Cage y ahogamientos en piscinas.&lt;/strong> Ejemplo clásico de correlaciones espurias recopiladas por Tyler Vigen: cómico, pero ilustrativo.&lt;/p>
-&lt;/li>
-&lt;/ul>
-&lt;hr>
-&lt;h2 id="2-la-correlación-y-su-impacto-en-la-toma-de-decisiones">2) La correlación y su impacto en la toma de decisiones&lt;/h2>
-&lt;p>La confusión entre causalidad y correlación no es solo un chiste; tiene consecuencias graves.&lt;/p>
-&lt;p>&lt;strong>Política pública:&lt;/strong> Un estudio muestra que los países con más médicos per cápita tienen más diagnósticos de cáncer. Conclusión errada: “los médicos causan cáncer”. Realidad: mayor densidad médica implica mejor detección.&lt;/p>
-&lt;p>&lt;strong>Falacia de la causa inversa:&lt;/strong> Niños con bajo rendimiento escolar pasan más horas frente a la televisión. ¿La TV los perjudica? ¿O los niños con dificultades recurren más a ella? La dirección de la causalidad puede invertirse fácilmente.&lt;/p>
-&lt;hr>
-&lt;h1 id="3-qué-mide-realmente-la-correlación">3) &lt;strong>¿Qué mide realmente la correlación?&lt;/strong>&lt;/h1>
-&lt;ul>
-&lt;li>El &lt;strong>coeficiente de correlación (r)&lt;/strong> mide la fuerza y dirección de la relación entre dos variables.&lt;/li>
-&lt;li>Sus valores van de &lt;strong>-1 a +1&lt;/strong>:
-&lt;ul>
-&lt;li>+1 → relación positiva perfecta&lt;/li>
-&lt;li>-1 → relación negativa perfecta&lt;/li>
-&lt;li>0 → ausencia de relación lineal&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
-&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
-&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
-&lt;/span>
-&lt;span class="dark:text-neutral-300">&lt;strong>Advertencia:&lt;/strong> un r alto no significa causalidad. Puede deberse a &lt;strong>confusores&lt;/strong>, &lt;strong>azar&lt;/strong> o &lt;strong>causalidad inversa&lt;/strong>.&lt;/span>
+&lt;/ol></description></item><item><title>Introducción a los diseños explicativos experimentales</title><link>https://maicel.netlify.app/en/teaching/introducci-n-a-los-dise-os-explicativos-experimentales/</link><pubDate>Mon, 22 Sep 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/en/teaching/introducci-n-a-los-dise-os-explicativos-experimentales/</guid><description>&lt;h2 id="-conferencia-para-la-maestría-en-atención-primaria-de-salud-ensap">🎓 Conferencia para la Maestría en Atención Primaria de Salud (ENSAP)&lt;/h2>
+&lt;p>El pasado &lt;strong>22 de septiembre de 2025&lt;/strong> impartí la conferencia &lt;strong>“Introducción a los Diseños Explicativos Experimentales”&lt;/strong> como parte del programa de la Maestría en Atención Primaria de Salud de la &lt;strong>Escuela Nacional de Salud Pública (ENSAP, Cuba)&lt;/strong>.&lt;/p>
+&lt;p>El vídeo, se puede ver a continuación:&lt;/p>
+&lt;div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+&lt;iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/cQ4af2j2jrg?autoplay=0&amp;amp;controls=1&amp;amp;end=0&amp;amp;loop=0&amp;amp;mute=0&amp;amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video">&lt;/iframe>
 &lt;/div>
+&lt;p>Esta conferencia busca responder una pregunta clave:&lt;br>
+👉 &lt;em>¿Qué hace diferente a una investigación científica experimetal?&lt;/em>&lt;/p>
+&lt;p>Y lo hace explorando &lt;strong>los ejes de clasificación, los sesgos y los diseños experimentales más utilizados&lt;/strong>, tanto a nivel individual como comunitario.&lt;/p>
 &lt;hr>
-&lt;h1 id="4-tipos-de-coeficientes-de-correlación-más-allá-de-pearson">4) Tipos de coeficientes de correlación (más allá de Pearson)&lt;/h1>
-&lt;p>
-&lt;figure >
-&lt;div class="flex justify-center ">
-&lt;div class="w-100" >&lt;img alt="" srcset="
-/en/posts/trampas-correlacion/correlacion_hu_c614a73ad03379b6.webp 400w,
-/en/posts/trampas-correlacion/correlacion_hu_e6f9def3a13f9eea.webp 760w,
-/en/posts/trampas-correlacion/correlacion_hu_dedc904516865376.webp 1200w"
-src="https://maicel.netlify.app/en/posts/trampas-correlacion/correlacion_hu_c614a73ad03379b6.webp"
-width="507"
-height="760"
-loading="lazy" data-zoomable />&lt;/div>
-&lt;/div>&lt;/figure>
+&lt;h3 id="-contenido-principal">📑 Contenido principal&lt;/h3>
+&lt;ul>
+&lt;li>Características generales de las investigaciones experimentales&lt;/li>
+&lt;li>El estudio de las relaciones causales y los sesgos&lt;/li>
+&lt;li>Diseños más comunes a nivel individual y por conglomerados&lt;/li>
+&lt;li>Ensayos clínicos y ensayos comunitarios&lt;/li>
+&lt;li>Tendencias emergentes en los diseños experimentales&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="-materiales-disponibles">📥 Materiales disponibles&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>📂 &lt;strong>Descargar la presentación&lt;/strong>: &lt;a href="https://maicel.netlify.app/pdf/presetacion_experimentosAPS.pdf">PDF de la conferencia&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>🎧 &lt;strong>Escucha el podcast de esta conferecia&lt;/strong>
+&lt;audio controls >
+&lt;source src="https://maicel.netlify.app/mp3/podcast_expeimentosAPS.mp3" type="audio/mpeg">
+&lt;/audio>
 &lt;/p>
+&lt;/li>
+&lt;/ul>
 &lt;hr>
-&lt;h1 id="5-causalidad-un-desafío-que-exige-rigurosidad">5) &lt;strong>Causalidad:&lt;/strong> un desafío que exige rigurosidad&lt;/h1>
-&lt;p>Identificar la causalidad no se improvisa. Requiere algo más que una simple correlación. Exige un diseño experimental riguroso, criterios de Bradford Hill y construcción de modelos causales. La estadística sugiere, pero no prueba por sí sola.&lt;/p>
+&lt;h3 id="-reflexión-final">🧭 Reflexión final&lt;/h3>
+&lt;p>Los &lt;strong>diseños experimentales&lt;/strong> siguen siendo la herramienta más robusta para establecer causalidad.&lt;br>
+El reto para la APS es lograr que, desde el paciente individual hasta la comunidad entera, la investigación sea &lt;strong>más inclusiva, innovadora y socialmente útil&lt;/strong>.&lt;/p>
 &lt;hr>
-&lt;h1 id="6-metáfora-para-recordar">6) Metáfora para recordar&lt;/h1>
-&lt;p>Piensa en la correlación como ver dos hojas que caen juntas en otoño. Creer que una arrastra a la otra es ignorar el viento invisible que las mueve a ambas.&lt;/p>
+&lt;p>✍️ &lt;em>Dr.C Maicel E. Monzón Pérez&lt;/em>&lt;br>
+Médico, Bioestadístico y Científico de Datos&lt;/p></description></item><item><title>MacroScope AI: Real-Time Nutrition Insights for Smarter Food Systems</title><link>https://maicel.netlify.app/en/project/plate-to-policy-real-time-ai-driven-insights-for-smarter-food-fortification/</link><pubDate>Sat, 12 Apr 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/en/project/plate-to-policy-real-time-ai-driven-insights-for-smarter-food-fortification/</guid><description>&lt;h1 id="transformando-platos-en-políticas-ia-para-una-nutrición-más-inteligente">Transformando Platos en Políticas: IA para una Nutrición Más Inteligente&lt;/h1>
+&lt;p>En un mundo donde las deficiencias de micronutrientes afectan a millones de personas, la fortificación de alimentos a gran escala (LSFF, por sus siglas en inglés) se ha convertido en una de las intervenciones de salud pública más efectivas. Sin embargo, para que estas iniciativas sean verdaderamente exitosas, necesitamos datos precisos, oportunos y contextualizados sobre lo que realmente consumen las personas. Es aquí donde entra en juego nuestro proyecto: &lt;strong>&amp;ldquo;MacroScope AI: Real-Time Nutrition Insights for Smarter Food Systems&amp;rdquo;&lt;/strong>.&lt;/p>
+&lt;p>Este proyecto busca cerrar las brechas críticas de datos en la fortificación de alimentos mediante el uso de inteligencia artificial (IA) y la participación ciudadana. Transformaremos fotos de alimentos cotidianos en información procesable, proporcionando a los responsables de políticas públicas herramientas para diseñar intervenciones nutricionales más equitativas, efectivas y adaptadas a cada contexto.&lt;/p>
 &lt;hr>
-&lt;h1 id="7-checklist-para-evitar-caer-en-la-trampa">7) Checklist para evitar caer en la trampa&lt;/h1>
-&lt;ol>
-&lt;li>¿Existe una variable oculta (confusor) que explique la relación? ✔&lt;/li>
-&lt;li>¿Podría la causalidad ir en sentido contrario? ✔&lt;/li>
-&lt;li>¿El diseño permite concluir causa o solo asociación? ✔&lt;/li>
-&lt;li>¿Hay criterios teóricos/experimentales que respalden esta relación? ✔&lt;/li>
-&lt;li>¿Se comunicó claramente que es correlación, no causalidad? ✔&lt;/li>
-&lt;/ol>
+&lt;h1 id="un-puente-entre-ciencia-y-comunidades">Un Puente entre Ciencia y Comunidades&lt;/h1>
+&lt;p>La clave de este proyecto es su capacidad para democratizar la generación de datos. A través de una aplicación móvil/web impulsada por IA, cualquier persona podrá capturar imágenes de sus comidas y contribuir a un ecosistema de datos compartidos. Estas imágenes serán analizadas por modelos avanzados de reconocimiento de imágenes, capaces de identificar alimentos , estimar tamaños de porciones y calcular el consumo de micronutrientes con alta precisión.&lt;/p>
+&lt;p>Pero no se trata solo de tecnología; se trata de inclusión. La plataforma está diseñada para ser accesible en áreas con baja conectividad, ofreciendo funcionalidad fuera de línea y soporte multilingüe. Esto garantiza que grupos subrepresentados también sean tomados en cuenta y reflejadas en los datos.&lt;/p>
 &lt;hr>
-&lt;h1 id="bibliografía">Bibliografía&lt;/h1>
-&lt;p>Silva Aycaguer LC. &lt;em>Cultura estadística e investigación científica en el campo de la salud: una mirada crítica&lt;/em>. Madrid: Díaz de Santos; 1998.&lt;/p>
-&lt;p>Pearl, J. (2009). Causality: Models, Reasoning, and Inference (2nd ed.). Cambridge University Press.&lt;/p>
-&lt;p>Hernán, M. A., &amp;amp; Robins, J. M. (2020). Causal Inference: What If. Chapman &amp;amp; Hall/CRC. [Disponible gratis en línea].&lt;/p>
-&lt;p>Hill, A. B. (1965). The environment and disease: association or causation? Proceedings of the Royal Society of Medicine, 58(5), 295–300. (Criterios de Bradford Hill).&lt;/p>
-&lt;p>Freedman, D. A. (2005). Statistical Models: Theory and Practice. Cambridge University Press. (Discusión crítica sobre correlación y causalidad).&lt;/p></description></item><item><title>MacroScope AI: Real-Time Nutrition Insights for Smarter Food Systems</title><link>https://maicel.netlify.app/en/project/plate-to-policy-real-time-ai-driven-insights-for-smarter-food-fortification/</link><pubDate>Sat, 12 Apr 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/en/project/plate-to-policy-real-time-ai-driven-insights-for-smarter-food-fortification/</guid><description>&lt;h1 id="transforming-plates-into-policies-ai-for-smarter-nutrition">Transforming Plates into Policies: AI for Smarter Nutrition&lt;/h1>
-&lt;p>In a world where micronutrient deficiencies affect millions of people, large-scale food fortification (LSFF) has become one of the most effective public health interventions. However, for these initiatives to be truly successful, we need precise, timely, and contextualized data on what people actually consume. This is where our project comes into play: &lt;strong>&amp;ldquo;MacroScope AI: Real-Time Nutrition Insights for Smarter Food Systems&amp;rdquo;&lt;/strong>&lt;/p>
-&lt;p>This project seeks to close critical data gaps in food fortification through the use of artificial intelligence (AI) and citizen participation. We will transform everyday food photos into actionable information, providing policymakers with tools to design more equitable, effective, and context-specific nutritional interventions.&lt;/p>
+&lt;h1 id="herramientas-para-una-mejor-toma-de-decisiones">Herramientas para una Mejor Toma de Decisiones&lt;/h1>
+&lt;p>Uno de los resultados más emocionantes de este proyecto es la creación de &lt;strong>tableros de datos LSFF&lt;/strong> y un &lt;strong>kit de herramientas de apoyo a políticas&lt;/strong>. Estas herramientas permitirán a los responsables de políticas monitorear la cobertura de alimentos fortificados, identificar brechas en el consumo de micronutrientes y diseñar intervenciones específicas para poblaciones vulnerables.&lt;/p>
 &lt;hr>
-&lt;h1 id="a-bridge-between-science-and-communities">A Bridge Between Science and Communities&lt;/h1>
-&lt;p>The key to this project lies in its ability to democratize data generation. Through an AI-powered mobile/web application, anyone will be able to capture images of their meals and contribute to a shared data ecosystem. These images will be analyzed by advanced image recognition models capable of identifying foods, estimating portion sizes, and calculating micronutrient consumption with high accuracy.&lt;/p>
-&lt;p>But it’s not just about technology; it’s about inclusion. The platform is designed to be accessible in low-connectivity areas, offering offline functionality and multilingual support. This ensures that underrepresented groups are also included and reflected in the data.&lt;/p>
+&lt;h1 id="un-ecosistema-colaborativo">Un Ecosistema Colaborativo&lt;/h1>
+&lt;p>Este proyecto no sería posible sin la colaboración de múltiples actores. Desde expertos en IA y científicos de datos, nutricionistas y entre otros, hemos reunido un equipo multidisciplinario comprometido con el impacto social. Además, trabajamos en estrecha colaboración con ministerios de salud, agricultura y la industria alimenticia, así como con ONG y socios académicos, para garantizar que nuestras soluciones sean técnicamente sólidas, éticamente responsables y culturalmente relevantes.&lt;/p>
 &lt;hr>
-&lt;h1 id="tools-for-better-decision-making">Tools for Better Decision-Making&lt;/h1>
-&lt;p>One of the most exciting outcomes of this project is the creation of &lt;strong>LSFF data dashboards&lt;/strong> and a &lt;strong>policy support toolkit&lt;/strong>. These tools will allow policymakers to monitor the coverage of fortified foods, identify gaps in micronutrient consumption, and design targeted interventions for vulnerable populations.&lt;/p>
-&lt;hr>
-&lt;h1 id="a-collaborative-ecosystem">A Collaborative Ecosystem&lt;/h1>
-&lt;p>This project would not be possible without the collaboration of multiple actors. From AI experts, data scientists, nutritionists, and others, we have assembled a multidisciplinary team committed to social impact. Additionally, we work closely with ministries of health, agriculture, and the food industry, as well as NGOs and academic partners, to ensure that our solutions are technically robust, ethically responsible, and culturally relevant.&lt;/p>
-&lt;hr>
-&lt;h4 id="join-us-in-this-nutritional-revolution">Join Us in this Nutritional Revolution&lt;/h4>
-&lt;p>&amp;ldquo;Plate to Policy&amp;rdquo; is more than just a project; it is a movement toward a future where food fortification policies are based on real data, generated by the very communities they aim to benefit. Together, we can transform how we approach nutritional security and ensure that no one is left behind.&lt;/p>
-&lt;p>If you’d like to learn more about how you can participate or collaborate, don’t hesitate to contact us! Together, we can build a healthier, fairer, and more sustainable world.&lt;/p>
+&lt;h4 id="únete-a-nosotros-en-esta-revolución-nutricional">Únete a Nosotros en esta Revolución Nutricional&lt;/h4>
+&lt;p>&amp;ldquo;Plate to Policy&amp;rdquo; no es solo un proyecto; es un movimiento hacia un futuro donde las políticas de fortificación alimentaria se basen en datos reales, generados por las mismas comunidades que buscan beneficiar. Juntos, podemos transformar la forma en que abordamos la seguridad nutricional y asegurar que nadie se quede atrás.&lt;/p>
+&lt;p>Si deseas saber más sobre cómo puedes participar o colaborar, ¡no dudes en contactarnos! Juntos, podemos construir un mundo más saludable, equitativo y sostenible.&lt;/p>
 &lt;hr></description></item><item><title>👋 Curso de Análisis de Datos en Fortificación de Alimentos con R. Una Introducción Práctica</title><link>https://maicel.netlify.app/en/event/example/</link><pubDate>Mon, 24 Mar 2025 09:00:00 +0000</pubDate><guid>https://maicel.netlify.app/en/event/example/</guid><description>&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
 &lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
 &lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
@@ -212,7 +178,138 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;li>&lt;a href="https://ia600808.us.archive.org/23/items/programa_curso_fotificacion/programa_curso_fotificacion.pdf" target="_blank" rel="noopener">programa&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://ia600807.us.archive.org/6/items/guia_gamificacion/guia_gamificacion.pdf" target="_blank" rel="noopener">guía de gamificación&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://es.r4ds.hadley.nz/" target="_blank" rel="noopener">bibliografía&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Projects</title><link>https://maicel.netlify.app/en/projects/</link><pubDate>Sun, 19 May 2024 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/en/projects/</guid><description/></item><item><title>Análisis de datos en fortificación de alimentos a gran escala con R. Una Introducción Práctica</title><link>https://maicel.netlify.app/en/teaching/r/</link><pubDate>Mon, 25 Mar 2024 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/en/teaching/r/</guid><description>&lt;h1 id="construye-investigaciones-con-r">¡Construye investigaciones con R!&lt;/h1>
+&lt;/ul></description></item><item><title>Conferencia Introducción al análisis estadístico en ensayos clínicos</title><link>https://maicel.netlify.app/en/teaching/conferencia-introducci-n-al-an-lisis-estad-stico-en-ensayos-cl-nicos/</link><pubDate>Wed, 12 Mar 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/en/teaching/conferencia-introducci-n-al-an-lisis-estad-stico-en-ensayos-cl-nicos/</guid><description>&lt;p>&lt;a href="https://www.youtube.com/watch?v=MoUhKkX6crY" target="_blank" rel="noopener">https://www.youtube.com/watch?v=MoUhKkX6crY&lt;/a>&lt;/p>
+&lt;h1 id="conferencia-introducción-al-análisis-estadístico-en-ensayos-clínicos">Conferencia: Introducción al Análisis Estadístico en Ensayos Clínicos&lt;/h1>
+&lt;h2 id="presentación">Presentación&lt;/h2>
+&lt;p>Estimados colegas,&lt;/p>
+&lt;p>Es un honor anunciar que el próximo &lt;strong>12 de marzo de 2025&lt;/strong> estaré impartiendo la conferencia titulada &lt;strong>&amp;ldquo;Introducción al Análisis Estadístico en Ensayos Clínicos&amp;rdquo;&lt;/strong>. Este evento tiene como objetivo proporcionar una visión introductoria y estructurada sobre cómo los métodos estadísticos se aplican en el diseño, ejecución y evaluación de ensayos clínicos.&lt;/p>
+&lt;p>Durante la conferencia, exploraremos conceptos fundamentales y técnicas prácticas que son ampliamente utilizadas en este campo.&lt;/p>
+&lt;h2 id="objetivos-de-la-conferencia">Objetivos de la Conferencia&lt;/h2>
+&lt;h2 id="audiencia">Audiencia&lt;/h2>
+&lt;p>Esta conferencia está dirigida a:&lt;/p>
+&lt;ul>
+&lt;li>Profesionales del CECMED&lt;/li>
+&lt;/ul>
+&lt;p>No es necesario tener conocimientos avanzados en estadística para seguir la presentación&lt;/p>
+&lt;h2 id="detalles-del-evento">Detalles del Evento&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>Fecha&lt;/strong>: 12 de marzo de 2025&lt;/li>
+&lt;li>&lt;strong>Hora&lt;/strong>: 10 00 am&lt;/li>
+&lt;li>&lt;strong>Lugar/Plataforma&lt;/strong>: &lt;a href="https://rpubs.com/maicel/cecmedEC" target="_blank" rel="noopener">https://rpubs.com/maicel/cecmedEC&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>Para más información y registro, visite el siguiente enlace: &lt;a href="https://rpubs.com/maicel/cecmedEC" target="_blank" rel="noopener">Enlace a la conferencia&lt;/a>.&lt;/p>
+&lt;h2 id="material-complementario">Material Complementario&lt;/h2>
+&lt;p>Adjunto a esta publicación, pueden encontrar una versión preliminar de los temas que serán abordados durante la conferencia.&lt;/p>
+&lt;p>&lt;a href="https://rpubs.com/maicel/cecmedEC" target="_blank" rel="noopener">Acceder al material complementario&lt;/a>.&lt;/p>
+&lt;h2 id="conclusión">Conclusión&lt;/h2>
+&lt;p>La correcta aplicación del análisis estadístico en ensayos clínicos es crucial para garantizar la validez y relevancia de los resultados obtenidos. Espero que esta conferencia sirva como una introducción útil y práctica para aquellos interesados en este campo.&lt;/p>
+&lt;p>Quedo a disposición para cualquier consulta o comentario previo al evento. ¡Espero contar con su participación!&lt;/p>
+&lt;p>Atentamente,&lt;br>
+&lt;strong>Dr.C Maicel Monzón&lt;/strong>&lt;/p>
+&lt;p>Especialista de primer y segundo grado en Biestadística&lt;/p>
+&lt;p>&lt;a href="mailto:maicel@cecmed.cu">maicel@cecmed.cu&lt;/a>&lt;/p></description></item><item><title>Tutorial: Análisis de Fortificación de Alimentos con HCES y R</title><link>https://maicel.netlify.app/en/teaching/tutorial-an-lisis-de-fortificaci-n-de-alimentos-con-hces-y-r/</link><pubDate>Wed, 05 Mar 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/en/teaching/tutorial-an-lisis-de-fortificaci-n-de-alimentos-con-hces-y-r/</guid><description>&lt;p>En este tutorial, aprenderás a usar datos de Encuestas de Consumo y Gasto en Hogares (HCES) , Tablas de Composición de Alimentos (FCT) y herramientas de R (tidyverse, gtsummary, ggstatsplot) para evaluar la adecuación nutricional y modelar escenarios de fortificación. Los conceptos se explican desde cero, con ejemplos reproducibles.&lt;/p>
+&lt;h1 id="paso-1-preparación-de-datos-hces">Paso 1: Preparación de datos HCES&lt;/h1>
+&lt;p>&lt;strong>Concepto :&lt;/strong> Las HCES son encuestas que registran compras y consumo de alimentos a nivel de hogar 9. Son esenciales para analizar patrones dietéticos, pero requieren limpieza para eliminar inconsistencias.&lt;/p>
+&lt;p>&lt;strong>Ejemplo en R :&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(tidyverse)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Datos simulados de HCES (consumo de alimentos en gramos)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>hc_data &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">tibble&lt;/span>(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> alimento &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Azúcar&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;Arroz&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;Azúcar morena&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;Harina fortificada&amp;#34;&lt;/span>),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> cantidad_g &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>(&lt;span style="color:#ae81ff">500&lt;/span>, &lt;span style="color:#ae81ff">1200&lt;/span>, &lt;span style="color:#66d9ef">NA&lt;/span>, &lt;span style="color:#ae81ff">800&lt;/span>),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> hogar_id &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>(&lt;span style="color:#ae81ff">1&lt;/span>, &lt;span style="color:#ae81ff">1&lt;/span>, &lt;span style="color:#ae81ff">2&lt;/span>, &lt;span style="color:#ae81ff">2&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Limpieza: Estandarizar nombres y eliminar valores faltantes&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>hc_clean &lt;span style="color:#f92672">&amp;lt;-&lt;/span> hc_data &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">mutate&lt;/span>(alimento &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">case_when&lt;/span>(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">str_detect&lt;/span>(alimento, &lt;span style="color:#e6db74">&amp;#34;Azúcar&amp;#34;&lt;/span>) &lt;span style="color:#f92672">~&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Azúcar&amp;#34;&lt;/span>, &lt;span style="color:#75715e"># Unificar &amp;#34;Azúcar&amp;#34; y &amp;#34;Azúcar morena&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">TRUE&lt;/span> &lt;span style="color:#f92672">~&lt;/span> alimento
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> )) &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">filter&lt;/span>(&lt;span style="color:#f92672">!&lt;/span>&lt;span style="color:#a6e22e">is.na&lt;/span>(cantidad_g)) &lt;span style="color:#75715e"># Eliminar registros sin datos&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="paso-2-vinculación-con-tablas-de-composición-de-alimentos-fct">Paso 2: Vinculación con Tablas de Composición de Alimentos (FCT)&lt;/h1>
+&lt;p>Las FCT contienen información nutricional de alimentos (ej: hierro, vitamina A). Al vincularlas con HCES, calculamos la ingesta de nutrientes por hogar&lt;/p>
+&lt;p>&lt;strong>Ejemplo en R :&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># FCT simulada (nutrientes por 100g)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>fct_data &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">tibble&lt;/span>(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> alimento &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Azúcar&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;Arroz&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;Harina fortificada&amp;#34;&lt;/span>),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> hierro_mg &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>(&lt;span style="color:#ae81ff">0.1&lt;/span>, &lt;span style="color:#ae81ff">2.5&lt;/span>, &lt;span style="color:#ae81ff">5.0&lt;/span>),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> vitamina_a_ug &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>(&lt;span style="color:#ae81ff">0&lt;/span>, &lt;span style="color:#ae81ff">0&lt;/span>, &lt;span style="color:#ae81ff">500&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Combinar HCES con FCT&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>hc_nutrientes &lt;span style="color:#f92672">&amp;lt;-&lt;/span> hc_clean &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">left_join&lt;/span>(fct_data, by &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;alimento&amp;#34;&lt;/span>) &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">mutate&lt;/span>(hierro_total &lt;span style="color:#f92672">=&lt;/span> cantidad_g &lt;span style="color:#f92672">*&lt;/span> hierro_mg &lt;span style="color:#f92672">/&lt;/span> &lt;span style="color:#ae81ff">100&lt;/span>) &lt;span style="color:#75715e"># Calcular hierro total consumido&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="paso-3-evaluación-de-adecuación-nutricional-ear-rni-ul">Paso 3: Evaluación de adecuación nutricional (EAR, RNI, UL)&lt;/h1>
+&lt;p>&lt;strong>Concepto :&lt;/strong>
+&lt;strong>EAR (Requerimiento Promedio Estimado) :&lt;/strong> Nivel de ingesta que cubre las necesidades del 50% de la población.&lt;/p>
+&lt;p>&lt;strong>RNI (Requerimiento Nutricional de Ingesta) :&lt;/strong> Meta para cubrir el 97-98% de la población.&lt;/p>
+&lt;p>&lt;strong>UL (Límite Máximo Seguro) :&lt;/strong> Ingesta máxima sin riesgo de toxicidad.&lt;/p>
+&lt;p>&lt;strong>Ejemplo en R :&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># EAR de hierro para mujeres (18-50 años): 18 mg/día&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>hc_nutrientes &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">group_by&lt;/span>(hogar_id) &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">summarise&lt;/span>(ingesta_hierro &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">sum&lt;/span>(hierro_total)) &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">mutate&lt;/span>(adepto &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">ifelse&lt;/span>(ingesta_hierro &lt;span style="color:#f92672">&amp;gt;=&lt;/span> &lt;span style="color:#ae81ff">18&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;Sí&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;No&amp;#34;&lt;/span>))
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Visualización con &lt;strong>ggstatsplot&lt;/strong> :&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(ggstatsplot)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">gghistostats&lt;/span>(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> data &lt;span style="color:#f92672">=&lt;/span> hc_nutrientes,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> x &lt;span style="color:#f92672">=&lt;/span> ingesta_hierro,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> title &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Ingesta de hierro vs. EAR (18 mg/día)&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> binwidth &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">2&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="paso-4-cálculo-de-consumo-aparente-con-ameafe">Paso 4: Cálculo de consumo aparente con AME/AFE&lt;/h1>
+&lt;p>&lt;strong>Concepto :&lt;/strong>
+La FAO recomienda ajustar el consumo por tamaño del hogar usando &lt;strong>Equivalentes Adultos (AME/AFE)&lt;/strong> . Por ejemplo, un niño &amp;lt;10 años equivale a 0.5 AME&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Datos de hogares (miembros y edades)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>hogares &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">tibble&lt;/span>(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> hogar_id &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>(&lt;span style="color:#ae81ff">1&lt;/span>, &lt;span style="color:#ae81ff">2&lt;/span>),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> miembros &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">list&lt;/span>(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">tibble&lt;/span>(edad &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>(&lt;span style="color:#ae81ff">30&lt;/span>, &lt;span style="color:#ae81ff">5&lt;/span>), genero &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;M&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;F&amp;#34;&lt;/span>)), &lt;span style="color:#75715e"># Hogar 1: adulto + niño&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">tibble&lt;/span>(edad &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>(&lt;span style="color:#ae81ff">40&lt;/span>, &lt;span style="color:#ae81ff">15&lt;/span>), genero &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;M&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;M&amp;#34;&lt;/span>)) &lt;span style="color:#75715e"># Hogar 2: 2 adultos&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> )
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Calcular AME total por hogar&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>hogares &lt;span style="color:#f92672">&amp;lt;-&lt;/span> hogares &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">mutate&lt;/span>(ame_total &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">map_dbl&lt;/span>(miembros, &lt;span style="color:#f92672">~&lt;/span> &lt;span style="color:#a6e22e">sum&lt;/span>(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">ifelse&lt;/span>(.x&lt;span style="color:#f92672">$&lt;/span>edad &lt;span style="color:#f92672">&amp;lt;&lt;/span> &lt;span style="color:#ae81ff">10&lt;/span>, &lt;span style="color:#ae81ff">0.5&lt;/span>, &lt;span style="color:#ae81ff">1&lt;/span>) &lt;span style="color:#75715e"># Niños &amp;lt;10 = 0.5 AME&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> )))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Consumo aparente per cápita&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>hc_consumo_aparente &lt;span style="color:#f92672">&amp;lt;-&lt;/span> hc_nutrientes &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">left_join&lt;/span>(hogares, by &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;hogar_id&amp;#34;&lt;/span>) &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">mutate&lt;/span>(consumo_aparente &lt;span style="color:#f92672">=&lt;/span> hierro_total &lt;span style="color:#f92672">/&lt;/span> ame_total)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="paso-5-modelado-de-escenarios-de-fortificación">Paso 5: Modelado de escenarios de fortificación&lt;/h1>
+&lt;p>&lt;strong>Concepto :&lt;/strong>&lt;/p>
+&lt;p>Simular la adición de nutrientes a alimentos (ej: hierro en harina) permite predecir impacto en la ingesta.&lt;/p>
+&lt;p>Ejemplo con &lt;strong>gtsummary&lt;/strong> :&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(gtsummary)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Escenario: Harina fortificada con +5 mg de hierro/100g&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>hc_fortificado &lt;span style="color:#f92672">&amp;lt;-&lt;/span> hc_nutrientes &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">mutate&lt;/span>(hierro_total &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">ifelse&lt;/span>(alimento &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Harina fortificada&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> cantidad_g &lt;span style="color:#f92672">*&lt;/span> (hierro_mg &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#ae81ff">5&lt;/span>) &lt;span style="color:#f92672">/&lt;/span> &lt;span style="color:#ae81ff">100&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> hierro_total))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Comparación pre-post fortificación&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">tbl_summary&lt;/span>(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> hc_nutrientes &lt;span style="color:#f92672">%&amp;gt;%&lt;/span> &lt;span style="color:#a6e22e">select&lt;/span>(ingesta_hierro),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> hc_fortificado &lt;span style="color:#f92672">%&amp;gt;%&lt;/span> &lt;span style="color:#a6e22e">select&lt;/span>(ingesta_hierro),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> label &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">list&lt;/span>(ingesta_hierro &lt;span style="color:#f92672">~&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Hierro (mg/día)&amp;#34;&lt;/span>),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> statistic &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">list&lt;/span>(ingesta_hierro &lt;span style="color:#f92672">~&lt;/span> &lt;span style="color:#e6db74">&amp;#34;{mean} ± {sd}&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Herramientas R utilizadas :&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>tidyverse :&lt;/strong> Manipulación y limpieza de datos .&lt;/p>
+&lt;p>&lt;strong>ggstatsplot :&lt;/strong> Visualización estadística rápida.&lt;/p>
+&lt;p>&lt;strong>gtsummary :&lt;/strong> Resúmenes tabulares para comparaciones.&lt;/p></description></item><item><title>CovidCencecAPK</title><link>https://maicel.netlify.app/en/project/covidcencecapk/</link><pubDate>Fri, 28 Feb 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/en/project/covidcencecapk/</guid><description>&lt;p>COVIDCENCEC, es un modelo predictivo diseñado para estimar y clasificar el riesgo de muerte por COVID-19. Este proyecto es parte de su tesis titulada &amp;ldquo;Modelos predictivos para estimar y clasificar el riesgo de muerte por COVID-19&amp;rdquo;, escrita por el Dr. Maicel Monzón Peres. COVIDCENCEC utiliza una combinación de JavaScript, HTML y CSS para crear una aplicación web interactiva. La función principal de esta aplicación es predecir la probabilidad de muerte por COVID-19 basándose en predictores seleccionados. Al emplear técnicas estadísticas avanzadas y algoritmos de aprendizaje automático, el modelo analiza varios indicadores de salud y factores demográficos para proporcionar a los usuarios evaluaciones de riesgo.&lt;/p>
+&lt;h1 id="características-principales-de-la-interfaz">Características principales de la Interfaz:&lt;/h1>
+&lt;p>La aplicación está diseñada con una interfaz sencilla que permite a los usuarios ingresar datos relevantes fácilmente. Análisis predictivo: COVIDCENCEC emplea análisis predictivo para generar puntajes de riesgo, lo que ayuda a los usuarios a comprender sus posibles riesgos de salud asociados con COVID-19. Visualización de datos: la aplicación incluye representaciones visuales de datos y predicciones, lo que facilita a los usuarios la interpretación de los resultados.&lt;/p>
+&lt;h1 id="diseño">Diseño:&lt;/h1>
+&lt;p>La aplicación, creada con HTML y CSS, es adaptable y accesible desde varios dispositivos, lo que garantiza un amplio alcance. Esta aplicación no solo sirve como una herramienta práctica para el personal de salud que buscan calcular el riesgos de muerte en la COVID-19, sino que también contribuye al campo más amplio del modelado predictivo en el ámbito de la atención médica.&lt;/p></description></item><item><title>Projects</title><link>https://maicel.netlify.app/en/projects/</link><pubDate>Sun, 19 May 2024 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/en/projects/</guid><description/></item><item><title>Análisis de datos en fortificación de alimentos a gran escala con R. Una Introducción Práctica</title><link>https://maicel.netlify.app/en/teaching/r/</link><pubDate>Mon, 25 Mar 2024 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/en/teaching/r/</guid><description>&lt;h1 id="construye-investigaciones-con-r">¡Construye investigaciones con R!&lt;/h1>
 &lt;p>En este curso, te convertirás en un &lt;strong>&amp;lsquo;arquitecto&amp;rsquo; del análisis de datos en la fortificación de alimentos&lt;/strong>, utilizando R como tu herramienta principal. Aprenderás a:&lt;/p>
 &lt;ul>
 &lt;li>leer datos.&lt;/li>
@@ -464,4 +561,56 @@ class L mediumRed
 class M darkRed
 &lt;/div>
 &lt;p>&lt;strong>Figura 1. Árbol de bajo riesgo&lt;/strong>&lt;/p>
-&lt;p>La actualización de este modelo se encuentra disponible en la &lt;a href="https://www.researchgate.net/publication/388656780_MODELOS_PREDICTIVOS_PARA_LA_ESTIMACION_Y_CLASIFICACION_DEL_RIESGO_DE_MUERTE_EN_COVID-19" target="_blank" rel="noopener">tesis de dotorado &lt;/a> titulada &lt;em>MODELOS PREDICTIVOS PARA LA ESTIMACIÓN Y CLASIFICACIÓN DEL RIESGO DE MUERTE EN COVID-19&lt;/em>&lt;/p></description></item></channel></rss>
+&lt;p>La actualización de este modelo se encuentra disponible en la &lt;a href="https://www.researchgate.net/publication/388656780_MODELOS_PREDICTIVOS_PARA_LA_ESTIMACION_Y_CLASIFICACION_DEL_RIESGO_DE_MUERTE_EN_COVID-19" target="_blank" rel="noopener">tesis de dotorado &lt;/a> titulada &lt;em>MODELOS PREDICTIVOS PARA LA ESTIMACIÓN Y CLASIFICACIÓN DEL RIESGO DE MUERTE EN COVID-19&lt;/em>&lt;/p></description></item><item><title>Modelo SIR para epidemias: Persistencia en el tiempo y nuevos retos en la era de la Informática y las pandemias.</title><link>https://maicel.netlify.app/en/publication/2025-09-23-modelo-sir-para-epidemias-persistencia-en-el-tiempo-y-nuevos-retos-en-la-era-de-la-inform-tica-y-las-pandemias/</link><pubDate>Sat, 01 Aug 2020 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/en/publication/2025-09-23-modelo-sir-para-epidemias-persistencia-en-el-tiempo-y-nuevos-retos-en-la-era-de-la-inform-tica-y-las-pandemias/</guid><description>&lt;h1 id="introducción-un-mapa-centenario-para-las-crisis-modernas">&lt;strong>Introducción: Un Mapa Centenario para las Crisis Modernas&lt;/strong>&lt;/h1>
+&lt;p>En los últimos años, hemos vivido en carne propia la incertidumbre de una pandemia global. Todos anhelábamos tener una bola de cristal para predecir el siguiente pico o el impacto de las medidas de salud pública. Lo que pocos saben es que, mucho antes de la COVID-19, uno de los modelos matemáticos más poderosos para entender y anticipar el comportamiento de las epidemias no era una creación de la era de la supercomputación, sino una idea elegante propuesta en 1927.&lt;/p>
+&lt;p>Este es el modelo SIR (Susceptible, Infectado, Removido), una herramienta conceptual que, a casi un siglo de su creación, sigue revelando verdades fundamentales sobre la propagación de las enfermedades. A continuación, te invito a explorar las lecciones más impactantes que este modelo centenario nos ofrece, basadas en mi artículo original, publicado antes de la pandemia de COVID-19.&lt;/p>
+&lt;h1 id="1-el-efecto-umbral-por-qué-no-es-necesario-vacunar-a-todos-para-detener-una-epidemia">&lt;strong>1. El &amp;ldquo;Efecto Umbral&amp;rdquo;: Por qué no es necesario vacunar a todos para detener una epidemia&lt;/strong>&lt;/h1>
+&lt;p>El modelo SIR revela un concepto matemático conocido como el &amp;ldquo;umbral epidémico&amp;rdquo;. Esto significa que una epidemia solo puede desatarse y propagarse si el número de personas susceptibles en una comunidad supera un cierto punto crítico. Si la cantidad de susceptibles está por debajo de ese umbral, el brote se extingue por sí solo. Piénselo como un incendio forestal. Si los árboles (los susceptibles) están demasiado separados, una chispa (un infectado) se extinguirá sola. Solo cuando la densidad de árboles supera un umbral crítico, el fuego se propaga sin control.&lt;/p>
+&lt;p>Esta idea es revolucionaria por su implicación práctica. Demuestra matemáticamente que el objetivo de una campaña de vacunación no tiene por qué ser inmunizar al 100 % de la población. El verdadero objetivo es reducir el número de personas susceptibles hasta que caiga por debajo de ese umbral crítico, rompiendo así la cadena de transmisión de manera efectiva. Esto valida estrategias de salud pública que deben priorizar recursos limitados. Como señalan los autores del estudio:&lt;/p>
+&lt;p>Este resultado teórico nos muestra que la vacunación selectiva cuando no es posible extenderla a toda la comunidad no es una opción impracticable, pues el número de susceptibles no tiene necesariamente que ser igual cero.&lt;/p>
+&lt;h1 id="2-el-poder-de-lo-simple-cómo-un-modelo-de-tres-pasos-descifra-la-complejidad">&lt;strong>2. El Poder de lo Simple: Cómo un Modelo de Tres Pasos Descifra la Complejidad&lt;/strong>&lt;/h1>
+&lt;p>La genialidad del modelo SIR es una lección de humildad intelectual. Divide a toda la población en solo tres grupos: los &lt;strong>Susceptibles&lt;/strong> (que pueden enfermar), los &lt;strong>Infectados&lt;/strong> (que tienen la enfermedad y pueden contagiar) y los &lt;strong>Removidos&lt;/strong>. Este último grupo incluye a quienes salen de la categoría de infectados por distintos mecanismos: el curso natural de la enfermedad con inmunidad adquirida, la muerte o la cuarentena. El modelo se basa en ideas que, como indica la fuente, &amp;ldquo;hasta una persona sin preparación especial&amp;rdquo; entiende: las enfermedades se contagian y, tras un tiempo, la gente deja de ser infecciosa.&lt;/p>
+&lt;p>Aunque la realidad es mucho más compleja, la capacidad predictiva de este modelo básico es asombrosa. Logra capturar la esencia del comportamiento de una epidemia sin perderse en detalles que lo harían intratable.&lt;/p>
+&lt;p>Lo que resulta sorprendente es que un modelo tan simple sea capaz de corresponderse con un gran número de situaciones reales.&lt;/p>
+&lt;p>En la modelación matemática siempre existe un compromiso: el modelo debe ser lo bastante simple para ser manejable, pero lo bastante completo para reflejar la realidad. El modelo SIR demuestra que, a veces, la solución más elegante y útil es también la más sencilla.&lt;/p>
+&lt;h1 id="3-la-curva-universal-la-sorprendente-similitud-matemática-de-las-epidemias">&lt;strong>3. La &amp;ldquo;Curva Universal&amp;rdquo;: La Sorprendente Similitud Matemática de las Epidemias&lt;/strong>&lt;/h1>
+&lt;p>Los creadores del modelo, Kermack y McKendrick, encontraron una solución matemática simplificada (la función de secante hiperbólica) que describe con gran precisión la curva de &amp;ldquo;removidos&amp;rdquo;. Esta curva representa la velocidad a la que las personas salen del grupo de &amp;lsquo;Infectados&amp;rsquo; para entrar al grupo de &amp;lsquo;Removidos&amp;rsquo; (ya sea por recuperación, aislamiento o fallecimiento). En la práctica, esta curva se asemeja mucho a la curva de nuevos casos que vemos en las noticias, pero con un ligero desfase.&lt;/p>
+&lt;p>Lo más sorprendente es que esta forma matemática no solo se ajusta a epidemias que siguen el modelo SIR, como un brote de gripe, sino que también describe notablemente bien epidemias con mecanismos mucho más complejos, como el dengue, donde la transmisión depende de la interacción entre humanos y mosquitos. Este hallazgo es extraordinario porque sugiere que, a pesar de las diferencias biológicas (un virus respiratorio frente a uno transmitido por mosquitos), la dinámica matemática de la propagación masiva comparte una firma universal, un ritmo predecible. Por ejemplo, en el análisis de un brote en una escuela interna, esta simple función explicó el 95 % de la varianza de los datos.&lt;/p>
+&lt;h1 id="4-una-bola-de-cristal-matemática-prediciendo-el-pico-con-los-primeros-datos">&lt;strong>4. Una &amp;ldquo;Bola de Cristal&amp;rdquo; Matemática: Prediciendo el Pico con los Primeros Datos&lt;/strong>&lt;/h1>
+&lt;p>Mucho antes del &amp;lsquo;big data&amp;rsquo; y el aprendizaje automático, este modelo de 1927 ya ofrecía un enfoque de &amp;lsquo;small data&amp;rsquo; para la predicción que sigue siendo increíblemente poderoso. Quizás la aplicación más innovadora, propuesta por los propios autores del estudio que sirve de fuente a este artículo, es una metodología para predecir el curso completo de una epidemia utilizando únicamente los datos de su fase inicial. Descubrieron que si se toman los datos de incidencia diaria del inicio de un brote y se transforman matemáticamente (calculando la raíz cuarta de su recíproco), esos puntos forman una línea recta.&lt;/p>
+&lt;p>La genialidad de este truco matemático es que convierte un problema complejo (predecir una curva) en uno simple (extender una línea recta). Una vez que tienes una línea, puedes ver fácilmente hacia dónde se dirige, dándote un pronóstico del pico epidémico con una antelación crucial. Este método no es solo un ejercicio teórico; se aplicó con éxito a datos históricos reales, como la epidemia de peste en Bombay (1905-1906) y una epidemia de dengue en Santiago de Cuba (1997), demostrando su utilidad para que las autoridades evalúen la severidad de un brote y se preparen en consecuencia.&lt;/p>
+&lt;h1 id="conclusión-la-vigencia-de-las-ideas-elegantes">&lt;strong>Conclusión: La Vigencia de las Ideas Elegantes&lt;/strong>&lt;/h1>
+&lt;p>En una era que venera la complejidad computacional, la lección más profunda del modelo SIR es la perdurable potencia de la elegancia matemática. Casi un siglo después, sus tres simples pasos siguen ofreciendo un mapa más claro de las crisis sanitarias que muchos algoritmos modernos. A raíz de la reciente pandemia, la conexión entre estos modelos y quienes toman las decisiones es más crucial que nunca. Como señalo en el artículo original:&lt;/p>
+&lt;p>&amp;hellip;lograr romper las barreras que alejan la organización de los modelos matemáticos de los proveedores de salud podría revertirse en tomas de decisiones más justas&amp;hellip;&lt;/p>
+&lt;p>Este estudio, que realicé antes de la COVID-19, demuestra que las herramientas para entender y prepararnos para eventos como este ya existían en la literatura científica. Te invito a leer el artículo completo para profundizar en estos conceptos y su aplicación.&lt;/p>
+&lt;p>&lt;strong>&lt;a href="http://www.rcim.sld.cu/revista_13/articulos_htm/modelosir.htm" target="_blank" rel="noopener">Lee mi artículo completo: &amp;ldquo;Modelos matemáticos en epidemiología. Una aplicación a la predicción del pico epidémico&amp;rdquo;&lt;/a>&lt;/strong>&lt;/p>
+&lt;p>En un mundo obsesionado con la complejidad y los &amp;ldquo;big data&amp;rdquo;, ¿qué otras soluciones simples y elegantes podríamos estar pasando por alto?&lt;/p>
+&lt;h1 id="podcast-y-más">&lt;strong>Podcast y más&amp;hellip;&lt;/strong>&lt;/h1>
+&lt;p>🎧 &lt;strong>Escucha el podcast de esta publicación&lt;/strong>
+&lt;audio controls >
+&lt;source src="https://maicel.netlify.app/mp3/articulo02SIR.mp3" type="audio/mpeg">
+&lt;/audio>
+&lt;/p>
+&lt;h1 id="bibliografía">Bibliografía&lt;/h1>
+&lt;p>Argote, K. MEM, Caceres JLH, Monzon MP. Modelo “SIR” para epidemias: Persistencia en el tiempo y nuevos retos en la era de la Informatica y las pandemias. [citado 12 de octubre de 2012]; Disponible en: &lt;a href="http://www.bvs.hn/cu-2007/ponencias/SLD/SLD126.pdf" target="_blank" rel="noopener">http://www.bvs.hn/cu-2007/ponencias/SLD/SLD126.pdf&lt;/a>&lt;/p></description></item><item><title>Plagio en artículos de investigación en revistas biomédicas cubanas. 2016</title><link>https://maicel.netlify.app/en/publication/2025-09-23-plagio-en-art-culos-de-investigaci-n-en-revistas-biom-dicas-cubanas-2016/</link><pubDate>Sat, 01 Aug 2020 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/en/publication/2025-09-23-plagio-en-art-culos-de-investigaci-n-en-revistas-biom-dicas-cubanas-2016/</guid><description>&lt;h1 id="plagio-en-revistas-biomédicas-cubanas-un-análisis-de-los-desafíos-y-las-oportunidades">&lt;strong>¿Plagio en Revistas Biomédicas Cubanas? Un Análisis de los Desafíos y las Oportunidades&lt;/strong>&lt;/h1>
+&lt;p>La integridad y la confianza son los pilares fundamentales de la investigación científica. Cada avance se construye sobre el trabajo de sus predecesores, en un proceso que exige rigor y honestidad. Sin embargo, ¿qué ocurre cuando estos cimientos se ven desafiados?&lt;/p>
+&lt;p>En 2016, realicé un estudio sobre revistas biomédicas cubanas, el cual arrojó resultados que invitan a la reflexión. Mi análisis no busca juzgar, sino explorar la realidad del plagio en nuestras publicaciones para comprender sus características y las posibles causas que lo originan.&lt;/p>
+&lt;p>Los hallazgos de esta investigación, publicada en la &lt;strong>Revista Habanera de Ciencias Médicas&lt;/strong>, revelan un problema sistémico que requiere la atención de toda la comunidad académica. La frecuencia y las formas de plagio detectadas sugieren que es fundamental fortalecer nuestros procesos editoriales y de formación.&lt;/p>
+&lt;p>Te invito a leer el artículo completo, donde se detallan los siguientes puntos clave:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>La frecuencia de plagio:&lt;/strong> Exploramos el porcentaje de artículos que cumplen con los criterios de plagio, y lo que esto implica para la calidad de las publicaciones.&lt;/li>
+&lt;li>&lt;strong>Las secciones más afectadas:&lt;/strong> Identificamos dónde se concentra el plagio, con un enfoque en las estructuras teóricas del artículo.&lt;/li>
+&lt;li>&lt;strong>El tipo de plagio más común:&lt;/strong> Analizamos la prevalencia del &amp;ldquo;plagio en mosaico&amp;rdquo; y sus implicaciones para la originalidad de los textos.&lt;/li>
+&lt;li>&lt;strong>Las posibles causas:&lt;/strong> Abordamos el problema desde una perspectiva educativa, señalando la falta de formación y los desafíos en la gestión de referencias como factores contribuyentes.&lt;/li>
+&lt;/ul>
+&lt;p>Este estudio es una contribución al desarrollo y calidad de las publicaciones en las revistas biomédicas cubanas. Sirve como una llamada de atención para los autores sobre el riesgo de cometer plagio involuntario por desconocimiento, y es útil para prevenir la mala conducta científica.&lt;/p>
+&lt;p>Puedes acceder al artículo completo aquí:&lt;/p>
+&lt;p>&lt;strong>&lt;a href="http://scielo.sld.cu/scielo.php?pid=S1729-519X2020000500016&amp;amp;script=sci_arttext&amp;amp;tlng=pt" target="_blank" rel="noopener">Lee el artículo completo: &amp;ldquo;Plagio en artículos de investigación en revistas biomédicas cubanas. 2016&amp;rdquo;&lt;/a>&lt;/strong>&lt;/p>
+&lt;h1 id="podcast-y-más">&lt;strong>Podcast y más&amp;hellip;&lt;/strong>&lt;/h1>
+&lt;p>🎧 &lt;strong>Escucha el podcast de esta publicación&lt;/strong>
+&lt;audio controls >
+&lt;source src="https://maicel.netlify.app/mp3/articulo01plagio.mp3" type="audio/mpeg">
+&lt;/audio>
+&lt;/p>
+&lt;h1 id="bibliografía">Bibliografía&lt;/h1>
+&lt;p>Monzón Pérez ME, Oviedo Herrera LC, Sánchez-Ferrán T, Valdés-Balbín R, Camayd Viera I, Calero Ricardo JL. Plagio en artículos de investigación en revistas biomédicas cubanas. 2016. Revista Habanera de Ciencias Médicas [Internet]. 2020;19(4). Disponible en: &lt;a href="http://scielo.sld.cu/scielo.php?pid=S1729-519X2020000500016&amp;amp;script=sci_arttext&amp;amp;tlng=pt" target="_blank" rel="noopener">http://scielo.sld.cu/scielo.php?pid=S1729-519X2020000500016&amp;script=sci_arttext&amp;tlng=pt&lt;/a>&lt;/p></description></item></channel></rss>
