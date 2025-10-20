@@ -31,8 +31,38 @@ en:
         url: /teaching/
         weight: 40
       - name: Blog
-        url: /posts/
+        url: /post/ # no funciona al hacerl clic sobre el
         weight: 50
+        identifier: blog  # Identificador único para el padre
+      #   has_children: true  # ¡Agregado! Fuerza el dropdown
+      - name: "See All Articles" # ¡NUEVO HIJO!
+        url: /post/ # Este enlace SIEMPRE funcionará
+        weight: 51 # Aparece primero en el submenú
+        parent: blog
+      # Usar un texto claro mejora la UX, guiando al usuario.     
+      - name: "Health Statistics"
+        url: /categories/estadistica-en-salud/
+        weight: 52
+        parent: blog  # Referencia al identificador del padre
+      - name: "Research Methodology"
+        url: /categories/metodologia-de-investigacion/
+        weight: 54
+        parent: blog
+      - name: "Regulatory Assessment"
+        url: /categories/evaluacion-regulatoria/
+        weight: 56
+        parent: blog
+      - name: "Practical Code in R or Python"
+        url: /categories/codigo-practico-en-r-o-python/  # ¡Corregido! Agregado -python
+        weight: 58
+        parent: blog
+      - name: "Critical Reflections"
+        url: /categories/reflexiones-criticas/
+        weight: 60  # ¡Corregido! Peso único para orden
+        parent: blog
+      # - name: Blog
+      #   url: /post/
+        # weight: 50
       - name: "Subscribe"
         url: /subscribe/
         weight: 90 # Un número alto para que aparezca al final
@@ -67,12 +97,12 @@ es:
         url: /teaching/
         weight: 40
       - name: Blog
-        url: /posts/ # no funciona al hacerl clic sobre el
+        url: /post/ # no funciona al hacerl clic sobre el
         weight: 50
         identifier: blog  # Identificador único para el padre
       #   has_children: true  # ¡Agregado! Fuerza el dropdown
       - name: "Ver Todos los Artículos" # ¡NUEVO HIJO!
-        url: /posts/ # Este enlace SIEMPRE funcionará
+        url: /post/ # Este enlace SIEMPRE funcionará
         weight: 51 # Aparece primero en el submenú
         parent: blog
       # Usar un texto claro mejora la UX, guiando al usuario.     

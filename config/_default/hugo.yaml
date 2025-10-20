@@ -8,6 +8,8 @@ title: Bioestadisticaedu
 # Website URL
 baseURL: 'https://maicel.netlify.app/'
 
+# theme: "hugo-blox-builder"
+
 ############################
 ## LANGUAGE
 ############################
@@ -40,6 +42,7 @@ enableEmoji: true
 enableRobotsTXT: true
 footnotereturnlinkcontents: <sup>^</sup>
 ignoreFiles: [\.ipynb$, .ipynb_checkpoints$, \.Rmd$, \.Rmarkdown$, _cache$]
+# ignoreFiles: [\.ipynb$, .ipynb_checkpoints$, _cache$] # <--- ¡CORREGIDO!
 permalinks:
   authors: '/author/:slug/'
 disableAliases: true

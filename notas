@@ -4,6 +4,18 @@ Actualización: 18/10/2025
 
 
 ---
+languages:
+  es: "/es/posts/como-entrenar-y-validar-modelo-prediccion-clinica "
+  en: "/en/posts/how-to-train-and-validate-clinical-prediction-model" 
+# Control visual y funcional del post
+# commentable: yes
+featured: true # Cambia a true si quieres destacarlo en la página principal
+# type: post
+commentable: yes
+draft: true
+---
+
+
 
 ## Comandos Esenciales para Flujo Diario (Blogdown + Git)
 
@@ -141,3 +153,10 @@ commentable: yes
 ---
 
 💡 Tip: evita DOI/citation en posts no formales.
+
+
+
+Valor type:,Bundle/Ubicación Típica,Consistencia
+post,/content/post/,"Recomendado para Blog (Guías estadísticas, Ensayos, Casos Reales)."
+publication,/content/publication/,"Recomendado si el contenido es una referencia formal (Paper, Conferencia, Reporte)."
+project,/content/project/,Útil para describir proyectos de consultoría o investigación con código.

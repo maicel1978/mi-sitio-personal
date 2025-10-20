@@ -59,7 +59,7 @@ features:
     enable: false
   privacy_pack:
     enable: false
-  comment:
+  comment: #cambi e comment
     provider: giscus
     giscus:
       repo: "maicel1978/mi-sitio-personal"
