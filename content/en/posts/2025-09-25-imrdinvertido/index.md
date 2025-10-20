@@ -12,7 +12,9 @@ tags:
   - Metodología Científica
 summary:  "IMRaD is the publication standard, but it need not dictate the writing process. This post argues for a 'reverse' writing strategy—from findings back to the introduction—as a method to enhance honesty and clarity, distinguishing it from HARKing and aligning narrative with genuine scientific discovery."
 featured: true  # Destacar en la página principal
-language: en
+languages:
+  es: "/es/imryd-redaccion-inversa"
+  en: "/en/imryd-redaccion-inversa"
 draft: false
 commentable: yes
 ---

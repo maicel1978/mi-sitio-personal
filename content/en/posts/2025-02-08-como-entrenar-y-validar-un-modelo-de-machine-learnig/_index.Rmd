@@ -7,10 +7,10 @@ date: "2024-02-08"
 categories: ["Código Práctico en R o Python"]
 tags: 
   - "entrenar modelo en R para predicciones clínicas"
-  - "modelo predicción clínica robusto"
+  - "tutorial en r para modelos predictivos médicos"
   - "guía Steyerberg para modelos predictivos médicos"
+  - "evitar overfitting en validación de ML"
   - "paso a paso R para machine learning en tesis"
-  - "tutorial en r"  
 slug: como-entrenar-y-validar-un-modelo-de-machine-learnig
 featured: true  # Destacar en la página principal
 languages:
@@ -19,40 +19,22 @@ languages:
 related_posts:
   - "eda"  # Slug de tu post sobre EDA, luego añadir categoria superior para cluster
 commentable: yes
+draft: false
 ---
-
-
-```{r setup, include=FALSE}
-# Opciones globales para los chunks de código
-knitr::opts_chunk$set(
-  echo = TRUE,       # Muestra el código
-  message = FALSE,   # Oculta mensajes de paquetes
-  warning = FALSE,   # Oculta advertencias
-  results = FALSE,
-  fig.align = 'center', # Centra las figuras
-  fig.retina = 2     # Mejora la resolución de las figuras
-)
-```
 
 
 ![](featured.png)
 
-🎧 **Escucha el podcast de esta publicación**
 
-{{< audio src="https://ia600607.us.archive.org/24/items/articulo-steyember/_Articulo_Steyember.mp3" controls="yes" >}}
-
-
+# Introducción
 
 Si usted es Investigador en Salud o, peor aún, estudiante de posgrado, maestría o doctorado en el campo de las ciencias biomédicas... **¡bienvenido al club del estrés!**
 
-Seguro que usted está enfocado en desarrollar esos geniales **modelos de predicción clínica** para el **diagnóstico** o el **pronóstico**. Y es casi seguro que ha llegado a esa fase donde la metodología se siente como un muro de ladrillos. Un día estás bien, y al siguiente te das cuenta de que no sabes qué pasos seguir, qué software usar, o lo peor: si tu modelo servirá para algo más allá de llenar un repositorio de tesis. 
-
-
-Lo digo sin tapujos: esa frase lapidaria de **'Ese valor tan alto de la Curva Roc y la ausencia de métricas de calibración'** puede significar que tu modelo tiene el famoso **síndrome del "sobreajuste"**. En otras palabras, funciona espectacularmente bien... solo para la muestra que lo creó.
+Seguro que usted está enfocado en desarrollar esos geniales **modelos de predicción clínica** para el **diagnóstico** o el **pronóstico**. Y es casi seguro que ha llegado a esa fase donde la metodología se siente como un muro de ladrillos. Un día estás bien, y al siguiente te das cuenta de que no sabes qué pasos seguir, qué software usar, o lo peor: si tu modelo servirá para algo más allá de llenar un repositorio de tesis. Lo digo sin tapujos: esa frase lapidaria de **'Ese valor tan alto de la Curva Roc y la ausencia de métricas de calibración'** puede significar que tu modelo tiene el famoso **síndrome del "sobreajuste"**. En otras palabras, funciona espectacularmente bien... solo para la muestra que lo creó.
 
 Es una locura, ¿verdad? Mientras las tesis de alto nivel giran en torno a crear estos modelos de predicción clínica, los cursos de Bioestadística (¡incluida la especialidad!) pasan de puntillas por el tema. Hay una brecha gigantesca, y la ansiedad de tener que aprenderlo todo YA es real. Pero respira. Este post es tu chaleco salvavidas: tu Traductor Metodológico no oficial y (casi) libre de lágrimas. Yo mismo pasé por ese infierno metodológico en mi tesis de doctorado, así que no solo doy consejos: comparto la experiencia de quien ya quemó sus pestañas por ti.
 
-Olvida el código complejo y enrevesado. Aquí nos enfocamos en la lógica esencial para construir un modelo predictivo robusto y fiable. Desglosaremos el proceso paso a paso, quitándole el miedo a la estadística con un **Código Práctico en R**. Empezaremos con la **Estrategia de Modelado**; el código  vendrá después. **¡Empecemos!**
+Olvida el código complejo y enrevesado. Aquí nos enfocamos en la lógica esencial para construir un modelo predictivo robusto y fiable. Desglosaremos el proceso paso a paso, quitándole el miedo a la estadística con un **Código Práctico en R**. Empezaremos con la **Estrategia de Modelado**; el código (y opciones para quienes prefieren SPSS) vendrá después. **¡Empecemos!**
 
 # Estrategia de modelado
 
@@ -62,41 +44,27 @@ Contar con una estrategia de modelado adecuada es esencial para desarrollar y va
 
 El primer paso en cualquier proyecto de modelado es **definir claramente el problema de investigación** y seleccionar la **variable de resultado** adecuada.
 
-{{% callout note %}} 
-
-La **variable de resultado** debe definirse con precisión: especifica **qué evento se predice**, **cómo y cuándo se mide**, y el **horizonte temporal de predicción** (por ejemplo, mortalidad a 30 días). Indica además el método de evaluación y si hubo **cegamiento** respecto a los predictores, para garantizar coherencia y validez del modelo.
-
-{{% /callout %}}
+{{% callout note %}} La **variable de resultado** debe definirse con precisión: especifica **qué evento se predice**, **cómo y cuándo se mide**, y el **horizonte temporal de predicción** (por ejemplo, mortalidad a 30 días). Indica además el método de evaluación y si hubo **cegamiento** respecto a los predictores, para garantizar coherencia y validez del modelo. {{% /callout %}}
 
 Durante esta fase, también realizamos un análisis exploratorio de datos (EDA) para comprender las características de las variables y detectar posibles problemas, como **datos atípicos** o **valores faltantes**.
 
-```{r paso_1}
-# bibliotecas
-library(rms)    # El alma de la metodología 
-library(pROC)   # ROC confiable
-library(ggplot2)# Gráficos publicación
-library(missRanger)
-library(mlbench)
+```{r paso_1, echo=TRUE, eval=FALSE, include=TRUE, message=FALSE, warning=FALSE, paged.print=TRUE}
+# Realiza una descripción general del conjunto de datos
+# Instala y Carga de Librerías útiles 
+library(caret)
+library(MLDataR) # para utilizar la biblioteca diabetes_data
 library(dplyr)
-library(conflicted)
-set.seed(123)   # para reproducibilidad
-# DATOS: 
-data("PimaIndiansDiabetes")
-datos <- PimaIndiansDiabetes
-# predictores
-vars_clinicas <- c("glucose", "pressure", "triceps", "insulin", "mass")
-# PASO CRÍTICO: Transformacion de datos
-datos <- datos %>%
-  # Reemplaza 0 por NA solo en las columnas especificadas en vars_clinicas
-  mutate(across(all_of(vars_clinicas), ~ ifelse(.x == 0, NA, .x))) %>%
-  # Luego aplica missRanger al dataset completo (o se puede focalizar si se desea)
-  missRanger()
-# CONFIGURACIÓN RMS (NO OMITIR)
-dd <- datadist(datos)
-options(datadist = "dd")
+library(dlookr) # para EDA
+library(predtools)
+# Cargar el conjunto de datos
+data("gusto")
+gusto <- gusto
+# EDA
+descripcion <- overview(gusto)
+summary(descripcion) # descripción general del conjunto de datos
 ```
 
-
+<!-- Para conocer más detalles sobre el proceso de ¨Exploratory Data Analysis (EDA)¨ [ver la publicación dedicada a este tema](es/post/2025-02-11-eda/_index.Rmd) -->
 
 ## 2. Codificación de las variables predictoras 
 
@@ -126,15 +94,6 @@ La elección de predictores no debe basarse en la aplicación mecánica de méto
 
 Una vez especificado el modelo (es decir, definidos los predictores y la estructura funcional), el paso de estimación tiene como objetivo calcular los coeficientes o parámetros que mejor se ajusten a los datos de entrenamiento.
 
-```{r paso_4}
-#MODELO: PREDICTORES POR FISIOPATOLOGÍA, NO p-valores
-modelo <- lrm(diabetes ~ rcs(glucose, 3) + rcs(mass, 3) + age + pregnant + pedigree, 
-              data = datos, 
-              x = TRUE,
-              y = TRUE)
-```
-
-
 En modelos de regresión, esto implica típicamente el uso de métodos como la **máxima verosimilitud**. Sin embargo, cuando el número de eventos es limitado o el de predictores es alto, el riesgo de sobreajuste es elevado, lo que genera predicciones extremas y poco generalizables. Para mitigarlo, se emplean técnicas de **regularización, penalización o shrinkage**, que ajustan los coeficientes hacia cero para mejorar la estabilidad y la calibración en nuevas poblaciones.
 
 El objetivo final no es maximizar el rendimiento aparente en la muestra de desarrollo, sino obtener un modelo con **predicciones estables, bien calibradas y clínicamente útiles**.
@@ -147,35 +106,9 @@ Una vez desarrollado el modelo, es esencial cuantificar su capacidad predictiva 
 
 -   **Calibración:** Mide la concordancia entre las probabilidades predichas y las observadas. Por ejemplo, ¿un 10% de riesgo predicho se corresponde con un 10% de eventos observados? Se evalúa visualmente con curvas de calibración y cuantitativamente con parámetros como el intercepto (A, calibración-in-the-large) y la pendiente de calibración (B).
 
-```{r calibracion}
-# calibrate(): Bootstrap para evaluar y corregir la calibración
-cal_boot <- calibrate(modelo, method = "boot", B = 200)
-
-# GRÁFICOS DE SUPERVIVENCIA 
-plot(cal_boot, main = "Probabilidasde predichas vs observadas")
-abline(0, 1, lty = 2, col = "red")
-```
-
-
 -   **Discriminación:** Evalúa la capacidad del modelo para distinguir entre pacientes que experimentan el evento y aquellos que no. La métrica más común es el estadístico C (o AUC-ROC), que representa la probabilidad de que un paciente con el evento tenga una puntuación de riesgo más alta que uno sin él.
 
-```{r discriminacion}
-# validate(): Bootstrap para estimar el optimismo y corregir métricas de discriminación
-val_boot <- validate(modelo, method = "boot", B = 200)
-
-roc_obj <- roc(datos$diabetes, predict(modelo, type = "fitted"))
-plot(roc_obj, 
-     main = paste("AUC =", round(auc(roc_obj), 3)),
-     col = "blue", 
-     legacy.axes = TRUE)
-```
-
-
-
 -   **Utilidad Clínica:** Determina si el modelo es útil para la toma de decisiones. El análisis de curvas de decisión y el Beneficio Neto (NB) permiten evaluar si el uso del modelo conduce a mejores resultados clínicos netos en comparación con estrategias alternativas (como tratar a todos o a ninguno).
-
-
-
 
 ## 6. Evaluación de la Validez del Modelo 
 
@@ -193,9 +126,6 @@ La evaluación del rendimiento en los datos de desarrollo suele ser optimista. P
 
 Este paso es fundamental para confirmar que el modelo mantiene su calibración, discriminación y utilidad clínica en la práctica real.
 
-
-
-
 ## 7. Presentación del modelo 
 
 La presentación efectiva es crucial para la adopción clínica. Un modelo perfecto es inútil si los médicos no pueden interpretarlo fácilmente. Considera:
@@ -207,21 +137,13 @@ La presentación efectiva es crucial para la adopción clínica. Un modelo perfe
 
 Recuerda: la transparencia en la presentación favorece la confianza clínica.
 
-
-```{r prersentacion}
-# NOMOGRAMA: EL TEST DE USABILIDAD CLÍNICA  
-nom <- nomogram(modelo, fun = plogis, funlabel = "Riesgo Diabetes")
-plot(nom)
-```
-
-<!-- ## 🛠️ EL KIT DE SUPERVIVENCIA (Tu Script) -->
-<!-- [Descarga el script completo] -->
-
-
-
 ¿Has aplicado estas técnicas en tus proyectos de Machine Learning? ¿Qué estrategias usas para entrenar y validar tus modelos? Déjame tus comentarios 💬: comparte tus experiencias, dificultades o tips contigo. ¡Juntos podemos enriquecer este conocimiento!
 
+# Recursos adicionales
 
+🎧 **Escucha el podcast de esta publicación**
+
+{{< audio src="https://ia600607.us.archive.org/24/items/articulo-steyember/_Articulo_Steyember.mp3" controls="yes" >}}
 
 
 # Bibliografía
