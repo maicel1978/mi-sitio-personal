@@ -1,5 +1,6 @@
 ---
-title: Maicel
+title: "Maicel Monzón Pérez"
+name: "admin"
 author: 'admin'
 date: '2025-02-03'
 awards:
@@ -52,7 +53,7 @@ education:
     institution: University of Medical Sciences of Havana
     summary: |
       Thesis on _Clinical prediction models for estimating and classifying the risk of death from COVID-19_.
-first_name: Maicel Eugenio
+# first_name: Maicel Eugenio
 highlight_name: yes
 interests:
   - Biostatistics
@@ -68,7 +69,7 @@ languages:
     percent: 40
   - name: Portuguese
     percent: 25
-last_name: Monzon Perez
+# last_name: Monzon Perez
 name_pronunciation: Maicel Monzon Perez
 organizations:
   - name: ENSAP & CECMED

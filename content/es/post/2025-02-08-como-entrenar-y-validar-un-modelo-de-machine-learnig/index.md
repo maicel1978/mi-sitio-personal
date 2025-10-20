@@ -20,6 +20,7 @@ featured: true # Cambia a true si quieres destacarlo en la página principal
 # type: post
 commentable: yes
 draft: false
+show_author_profile: true
 ---
 
 

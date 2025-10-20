@@ -1,5 +1,6 @@
 ---
-title: Maicel
+title: "Maicel Monzón Pérez"
+name: "admin"
 author: 'admin'
 date: '2025-02-03'
 awards:
@@ -70,7 +71,7 @@ education:
     summary: |
       - Fecha del ejercicio: *22 de marzo de 2025*
       - Tesis sobre _Modelos de predicción clínica para la estimación y clasificación del riesgo de muerte con COVID-19_. Supervisada por [Prof Lisset Sánchez]
-first_name: Maicel
+# first_name: Maicel
 highlight_name: yes
 interests:
   - Bioestadística
@@ -84,7 +85,7 @@ languages:
     percent: 100
   - name: English
     percent: 40
-last_name: Monzon Perez
+# last_name: Monzon Perez
 name_pronunciation: Maicel Monzon Perez
 organizations:
   - name: ENSAP & CECMED

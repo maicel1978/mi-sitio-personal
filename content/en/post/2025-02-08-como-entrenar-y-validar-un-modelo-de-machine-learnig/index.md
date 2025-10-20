@@ -16,14 +16,12 @@ featured: true  # Destacar en la página principal
 languages:
   es: "/es/como-entrenar-y-validar-un-modelo-de-machine-learnig"
   en: "/en/how-to-train-and-validate-clinical-prediction-model"
-related_posts:
-  - "eda"  # Slug de tu post sobre EDA, luego añadir categoria superior para cluster
+# related_posts:
+#   - "eda"  # Slug de tu post sobre EDA, luego añadir categoria superior para cluster
 commentable: yes
 draft: true
+show_author_profile: true
 ---
-
-
-
 
 
 
