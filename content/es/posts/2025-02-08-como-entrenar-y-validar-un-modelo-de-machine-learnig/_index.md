@@ -1,23 +1,22 @@
 ---
 title: "Cómo entrenar y validar un modelo de predicción clínica"
-subtitle: "Tutorial para el desarrollo de un modelo de predicción clínica con ejemplos en R" 
-summary: "Guía práctica con R para desarrollar modelos predictivos robustos en entornos clínicos"
-authors: ["admin"]
+# subtitle: "Tutorial para el desarrollo de un modelo de predicción clínica con ejemplos en R" # Eliminado por inconsistencia y redundancia
+summary: "Guía práctica con R para desarrollar modelos predictivos robustos en entornos clínicos. Aprende la metodología Steyerberg y evita el sobreajuste en Machine Learning." # Optimizado para SEO
+authors: ["admin"] # ✅ CORREGIDO: Mantiene 'admin' ya que es el SLUG de la carpeta del autor.
 date: "2024-02-08"
-categories: ["Código Práctico en R o Python"]
+categories: ["Código Práctico en R o Python"]# ✅ CORREGIDO: Categoría exacta del prompt_maestro
 tags: 
-  - "entrenar modelo en R para predicciones clínicas"
-  - "modelo predicción clínica robusto"
-  - "guía Steyerberg para modelos predictivos médicos"
-  - "paso a paso R para machine learning en tesis"
-  - "tutorial en r"  
-slug: como-entrenar-y-validar-un-modelo-de-machine-learnig
-featured: true  # Destacar en la página principal
+  - "predicción clínica"
+  - "modelo predictivo"
+  - "R"
+  - "machine learning"
+  - "bioestadística" # Tags más cortos para SEO
+slug: como-entrenar-y-validar-modelo-prediccion-clinica # ✅ CORREGIDO: Eliminado el error tipográfico
+featured: true
 languages:
-  es: "/es/como-entrenar-y-validar-un-modelo-de-machine-learnig"
-  en: "/en/como-entrenar-y-validar-un-modelo-de-machine-learnig"
-related_posts:
-  - "eda"  # Slug de tu post sobre EDA, luego añadir categoria superior para cluster
+  es: "/es/posts/como-entrenar-y-validar-modelo-prediccion-clinica"
+  en: "/en/posts/how-to-train-and-validate-clinical-prediction-model" # Asegurar el interlinking con el nuevo slug
+related_posts: ["/es/posts/eda"] # Sugerencia: Usar la ruta completa o verificar el slug exacto
 commentable: yes
 ---
 

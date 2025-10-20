@@ -11,11 +11,11 @@ tags:
   - "guía Steyerberg para modelos predictivos médicos"
   - "evitar overfitting en validación de ML"
   - "paso a paso R para machine learning en tesis"
-slug: como-entrenar-y-validar-un-modelo-de-machine-learnig
+slug: how-to-train-and-validate-clinical-prediction-model
 featured: true  # Destacar en la página principal
 languages:
   es: "/es/como-entrenar-y-validar-un-modelo-de-machine-learnig"
-  en: "/en/como-entrenar-y-validar-un-modelo-de-machine-learnig"
+  en: "/en/how-to-train-and-validate-clinical-prediction-model"
 related_posts:
   - "eda"  # Slug de tu post sobre EDA, luego añadir categoria superior para cluster
 commentable: yes
