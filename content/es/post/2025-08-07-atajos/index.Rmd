@@ -24,7 +24,7 @@ commentable: yes
 🎧 **Escucha el podcast de esta publicación**
 {{< audio src="/mp3/atajos.mp3" controls="yes" >}}
 
-# Introducción: Fundamentos de evidencia confirmatoria
+## Introducción
 
 Los ensayos clínicos controlados, aleatorizados y enmascarados (ECAs) constituyen el marco metodológico más robusto para evaluar la **eficacia y seguridad** de nuevas intervenciones terapéuticas. Son considerados el "estándar de oro" en investigación clínica por agencias como **ICH, EMA y FDA**, ya que proporcionan el mayor control contra el sesgo y la mayor solidez en inferencia causal.
 
@@ -88,7 +88,7 @@ La aceptación de estos diseños como base regulatoria **requiere validación me
 
 Aunque válidos en contextos excepcionales, el uso frecuente y estratégico de estos diseños plantea **serios desafíos regulatorios**, especialmente si se recurre a ellos como vía para **prescindir de ECAs sin justificación metodológica sólida**.
 
-### Riesgos identificados:
+## Riesgos identificados:
 
 -   Aprobaciones basadas en **evidencia débil o no reproducible**.
 -   Incremento del **sesgo sistemático** en resultados de eficacia.

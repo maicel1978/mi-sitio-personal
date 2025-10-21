@@ -23,7 +23,7 @@ url_video: https://youtu.be/0JNt-uWHqDg
 ---
 
 
-# Introducción
+## Introducción
 
 
 {{% callout note  %}} "¿Y si escribimos al revés? No de la Introducción a los hallazgos, sino de los hallazgos a la Introducción."
@@ -42,7 +42,7 @@ Este post no propone abandonar **IMRyD**, sino distinguir dos órdenes complemen
 **En la práctica:** redacta primero los **resultados** clave (estimaciones, intervalos de confianza, relevancia), después la **Discusión** (plausibilidad, sesgos, sensibilidad), luego **Métodos** con transparencia radical (qué estaba preespecificado, qué cambió y por qué), y cierra con una **Introducción** breve y precisa al problema (formular preguntas o hipótesis) que realmente se ajusta los resultados.
 El formato final sigue siendo **IMRyD**.
 
-# Cuándo sí y cuándo no
+## Cuándo sí y cuándo no
 
 **Conviene:** estudios observacionales, análisis secundarios, descubrimientos no previstos, ciencia de datos aplicada donde la iteración es inevitable.
 
@@ -50,7 +50,7 @@ El formato final sigue siendo **IMRyD**.
 En estos casos, mantén la primacía del plan y señala lo exploratorio como tal (4,5).
 
 
-# Objeciones críticas (y respuestas con evidencia)
+## Objeciones críticas (y respuestas con evidencia)
 
 
 **“Esto fomenta HARKing.”**
@@ -74,7 +74,7 @@ En estos casos, mantén la primacía del plan y señala lo exploratorio como tal
 
 
 
-# Checklist de transparencia
+## Checklist de transparencia
 
 | Elemento | Confirmatorio | Exploratorio |
 |------------------------|------------------------|------------------------|
@@ -92,12 +92,12 @@ Integrar una redacción guiada por hallazgos es una forma moderada y práctica d
 En algunos contextos —sobre todo exploratorios— puede ser la diferencia entre un relato fiel al descubrimiento y una cronología ficticia.
 
 
-# Recursos adicionales
+## Recursos adicionales
 
 🎧 **Escucha el podcast de esta publicación**
 {{< audio src="/mp3/Post_IMRyD.mp3" controls="yes" >}}
 
-# Bibliografía
+## Bibliografía
 
 1. Pólya G. How to solve it. Princeton University Press; 1945. 
 

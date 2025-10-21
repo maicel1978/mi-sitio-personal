@@ -13,18 +13,15 @@ tags:
 summary: El Análisis Exploratorio de Datos (EDA) es la fase crítica de inspección inicial, limpieza y preparación de datos que sienta las bases para modelos robustos y conocimientos profundos, garantizando que solo los datos de la más alta calidad alimenten nuestros algoritmos.
 featured: false  # Destacar en la página principal
 related_posts: [como-entrenar-y-validar-un-modelo-de-machine-learnig]  # Slug de tu post sobre EDA
-commentable: yes
 ---
 
 
 🎧 **Escucha el podcast de esta publicación**
 {{< audio src="/mp3/eda.mp3" controls="yes" >}}
 
-# Introducción
+## Introducción
 
 El **Análisis Exploratorio de Datos (EDA)** es una disciplina fundamental en el campo de la ciencia de datos, popularizada por el matemático John Tukey. Más que una simple serie de pasos, el EDA es una filosofía que nos invita a interactuar con nuestros datos, visualizarlos, resumirlos y "hablar" con ellos antes de saltar a modelados complejos. Implica el análisis de datos centrado en comprender a fondo su estructura, identificar patrones ocultos, detectar anomalías (valores atípicos), gestionar datos ausentes y, en última instancia, proporcionar una base sólida para la formulación de modelos predictivos o inferenciales. Además, es crucial para descubrir cómo se relacionan las variables entre sí.
-
-## La Regla de Oro: GIGO (Garbage In, Garbage Out)
 
 Un concepto popular y vital en el campo de la ciencia de datos es **GIGO** (Garbage In, Garbage Out, o "Basura entra, basura sale"). Este concepto subraya que la calidad de los resultados de cualquier análisis o modelo es directamente proporcional a la calidad de los datos de entrada. No importa cuán sofisticado sea tu algoritmo o cuán potente sea tu infraestructura computacional, los datos de mala calidad siempre producirán resultados deficientes, engañosos o inútiles. El EDA es nuestra primera línea de defensa contra el GIGO, asegurando que trabajamos con datos limpios y comprensibles.
 
@@ -66,7 +63,7 @@ diagnose(mtcars_na)
 
 Esta fase nos ayuda a formar una primera hipótesis sobre la calidad y estructura de los datos, identificando posibles problemas desde el principio.
 
-#### 2. Identificación y Tratamiento de Valores Faltantes y Atípicos
+### 2. Identificación y Tratamiento de Valores Faltantes y Atípicos
 
 Los valores faltantes (NA, NaN, null) y los valores atípicos (outliers) son dos de los desafíos más comunes en cualquier conjunto de datos y pueden distorsionar significativamente los resultados de nuestros análisis y modelos.
 

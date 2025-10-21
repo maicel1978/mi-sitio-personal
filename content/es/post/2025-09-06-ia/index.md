@@ -11,6 +11,7 @@ tags:
 bibliography: references.bib
 ---
 
+
 Todos conocemos los Modelos de Lenguaje Grandes (LLMs) como **ChatGPT de OpenAI, Claude de Anthropic, Gemini de Google** y otros modelos similares.
 
 Son esos asistentes de IA con los que conversamos, que nos ayudan a escribir correos (Stanford Online 2024)electrónicos, a generar ideas e incluso a codificar.
@@ -92,6 +93,8 @@ Es decir, *saben* cómo sonar convincentes y coherentes, pero no necesariamente 
 
 Vamos a adaptar el texto que proporcionaste para que se conecte con nuestro ejemplo del ratón y el queso.🐁🧀
 
+
+
 ## Modelos de Lenguaje Autorregresivos: Prediciendo la Siguiente Palabra
 
 Los modelos de lenguaje más modernos, como Gemini, son **autorregresivos**.
@@ -99,7 +102,7 @@ Esto significa que predicen la **siguiente palabra basándose en todas las palab
 
 Piensa en ellos como un narrador que va construyendo una historia palabra por palabra.
 
-## El Proceso con **“El ratón comió el queso”**
+El Proceso con **“El ratón comió el queso”**
 
 Imaginemos que el modelo está generando nuestra frase, “El ratón comió el queso.” Este es el fascinante proceso que ocurre:
 
@@ -157,6 +160,7 @@ Así, la “fluidez” del modelo para generar frases como “El ratón comió e
 
 <!-- Esta es la base de su impresionante fluidez, pero recalca que su "razonamiento" es una sofisticada forma de predicción estadística. -->
 
+
 ## Los Tokenizadores: El Primer Paso Crucial para la “Coherencia”
 
 Los **tokenizadores** son componentes extremadamente importantes pero a menudo poco valorados.
@@ -189,7 +193,7 @@ El **post-entrenamiento (alignment)** es el proceso que transforma estos modelos
 
 **Este es el punto donde la ilusión de intencionalidad se vuelve más fuerte.**
 
-## 1. Ajuste Fino Supervisado (Supervised Fine-Tuning - SFT)
+### 1. Ajuste Fino Supervisado (Supervised Fine-Tuning - SFT)
 
 El primer paso es el **Ajuste Fino Supervisado (SFT)**.
 
@@ -206,7 +210,8 @@ En otras palabras, el modelo ya tenía el conocimiento latente; el SFT le enseñ
 
 No está aprendiendo a *pensar* como un asistente, sino a *simular* el comportamiento de uno.
 
-## 2. Aprendizaje por Refuerzo a partir de Retroalimentación Humana (Reinforcement Learning from Human Feedback - RLHF)
+
+### 2. Aprendizaje por Refuerzo a partir de Retroalimentación Humana (Reinforcement Learning from Human Feedback - RLHF)
 
 El SFT tiene sus limitaciones: **Limitado por la habilidad humana**: Los humanos pueden juzgar mejor lo que es una buena respuesta de lo que pueden escribirla ellos mismos.
 
@@ -239,7 +244,8 @@ En definitiva, RLHF moldea el comportamiento del LLM para alinearse con lo que *
 
 Le enseña a ser complaciente y a evitar lo “tóxico” porque los humanos así lo prefieren, no por un juicio moral inherente.
 
-## La Materia Prima: Datos Masivos y su Filtrado
+
+### La Materia Prima: Datos Masivos y su Filtrado
 
 El pre-entrenamiento de los LLMs se realiza sobre **“todo Internet”**.
 
@@ -306,6 +312,7 @@ La “inteligencia” que percibimos es una propiedad emergente de esta capacida
 <!-- - **Huella de carbono**: El entrenamiento de Llama 3 emitió unas 4.000 toneladas de CO2 equivalente. -->
 
 <!-- Estos números son un testimonio de la inmensa inversión necesaria para crear estos modelos capaces de generar una ilusión tan convincente. -->
+
 
 ## Sistemas: El Cerebro Detrás de la Eficiencia
 

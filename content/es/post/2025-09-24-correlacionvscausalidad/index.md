@@ -17,9 +17,11 @@ language: es
 draft: false 
 ---
 
+## Introducción
+
 El ojo humano ama los patrones: ver dos líneas que se mueven juntas y concluir que una provoca la otra. La estadística, mal interpretada, a veces alimenta esa ilusión. La correlación es apenas la danza conjunta de dos variables, no una flecha de causa. Y, sin embargo, titulares, políticas y hasta decisiones médicas se sostienen sobre esta trampa.
 
-# 1) Correlaciones curiosas (pero falsas)
+## 1) Correlaciones curiosas (pero falsas)
 
 - **Helados y ahogamientos.** En verano, ambos aumentan. No porque el helado mate, sino porque el calor atrae bañistas y heladeros.
 
@@ -39,7 +41,7 @@ La confusión entre causalidad y correlación no es solo un chiste; tiene consec
 
 ---
 
-# 3) **¿Qué mide realmente la correlación?**
+# 3) ¿Qué mide realmente la correlación?
 
 - El **coeficiente de correlación (r)** mide la fuerza y dirección de la relación entre dos variables.  
 - Sus valores van de **-1 a +1**:  
@@ -61,7 +63,7 @@ La confusión entre causalidad y correlación no es solo un chiste; tiene consec
 
 ---
 
-# 5) **Causalidad:** un desafío que exige rigurosidad
+# 5) Causalidad: un desafío que exige rigurosidad
 
 Identificar la causalidad no se improvisa. Requiere algo más que una simple correlación. Exige un diseño experimental riguroso, criterios de Bradford Hill y construcción de modelos causales. La estadística sugiere, pero no prueba por sí sola.
 

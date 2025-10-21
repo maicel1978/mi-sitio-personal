@@ -14,7 +14,7 @@ summary: La ciencia trasciende el laboratorio cuando sus hallazgos logran cruzar
 commentable: yes
 ---
 
-## **Del Laboratorio al Mundo Real: Cómo la Ciencia Cruza el Puente hacia tu Vida**
+## Introducción
 
 ¿Alguna vez has leído un titular científico y te has preguntado: "¿Esto me aplica a mí?" o "Esto suena genial, pero ¿es relevante para mi realidad?" Si es así, has tocado el nervio de uno de los mayores desafíos de la investigación: cómo saltar del estudio controlado en un laboratorio al mundo real.
 
@@ -26,7 +26,7 @@ Este blog profundiza en ese **puente a veces inestable** que conecta la ciencia 
 
 ------------------------------------------------------------------------
 
-## **Los Pilares Fundamentales: Validez Interna y Externa**
+## Los Pilares Fundamentales: Validez Interna y Externa
 
 Para que un estudio sea realmente útil, sus hallazgos no solo deben ser correctos, sino también aplicables. Aquí es donde entran en juego dos conceptos clave:
 
@@ -36,7 +36,7 @@ Para que un estudio sea realmente útil, sus hallazgos no solo deben ser correct
 
 ------------------------------------------------------------------------
 
-## **Generalizabilidad y Transportabilidad: Construyendo el Puente**
+## Generalizabilidad y Transportabilidad: Construyendo el Puente
 
 Existen dos estrategias principales para construir ese puente:
 
@@ -45,7 +45,7 @@ Existen dos estrategias principales para construir ese puente:
 
 ------------------------------------------------------------------------
 
-## **¿Por Qué es Tan Difícil Construir el Puente?**
+## ¿Por Qué es Tan Difícil Construir el Puente?
 
 La principal dificultad es que los estudios, especialmente los ensayos clínicos aleatorios (RCTs), a menudo seleccionan a los participantes con criterios muy estrictos para garantizar una alta validez interna. Esto los hace poco representativos de la población general.
 
@@ -56,7 +56,7 @@ La principal dificultad es que los estudios, especialmente los ensayos clínicos
 
 ------------------------------------------------------------------------
 
-## **Herramientas para Construir un Puente Fuerte**
+## Herramientas para Construir un Puente Fuerte
 
 Los estadísticos se dedican a medir la distancia entre el mundo del estudio y el mundo real. Una vez diagnosticado el problema, hay varias estrategias y herramientas para corregir el rumbo:
 
@@ -80,13 +80,13 @@ Si el estudio ya se realizó, se usan métodos estadísticos para ajustar los re
 
 ------------------------------------------------------------------------
 
-## **La Sabiduría Detrás de los Números**
+## La Sabiduría Detrás de los Números
 
 La estadística es una herramienta. Hay un poder inmenso en dominarla, pero también un riesgo si se aplica sin un pensamiento crítico. El peligro de la "fábrica de publicaciones" que prioriza la significación estadística (un valor p bajo) a veces eclipsa la relevancia clínica o biológica de los hallazgos. No basta con que un resultado sea "estadísticamente significativo". Lo realmente importante es si es significativo para la vida de las personas.
 
 Como se ha destacado, "pensar sin observar es un error, pero observar sin pensar es igualmente peligroso." La aplicación mecánica de un método poderoso puede llevar a conclusiones erróneas.
 
-## **Tu Papel como Consumidor de Ciencia**
+## Tu Papel como Consumidor de Ciencia
 
 La próxima vez que veas un titular impactante, haz la pregunta clave : **"¿En quién se hizo este estudio?"**
 

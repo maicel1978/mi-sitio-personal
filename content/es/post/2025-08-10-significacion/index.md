@@ -20,6 +20,8 @@ commentable: yes
 bibliography: references.bib
 ---
 
+## Introducción
+
 Ese momento de euforia al ver `p < 0.05`… ¿es un descubrimiento genuino o solo un destello engañoso de pirotecnia estadística?
 
 En la ciencia, hay un instante que todos los investigadores anhelan. Es la culminación de meses, a veces años, de riguroso trabajo. Corres el análisis y, de repente, ahí está: `p < 0.05`. Es una **explosión de alivio**, un destello de “¡Eureka!” en la oscuridad de la incertidumbre. Sentimos que hemos encontrado algo real, algo digno de ser publicado.
