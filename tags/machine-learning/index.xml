@@ -7,9 +7,9 @@
 &lt;p>Lo digo sin tapujos: esa frase lapidaria de &lt;strong>&amp;lsquo;Ese valor tan alto de la Curva Roc y la ausencia de métricas de calibración&amp;rsquo;&lt;/strong> puede significar que tu modelo tiene el famoso &lt;strong>síndrome del &amp;ldquo;sobreajuste&amp;rdquo;&lt;/strong>. En otras palabras, funciona espectacularmente bien&amp;hellip; solo para la muestra que lo creó.&lt;/p>
 &lt;p>Es una locura, ¿verdad? Mientras las tesis de alto nivel giran en torno a crear estos modelos de predicción clínica, los cursos de Bioestadística (¡incluida la especialidad!) pasan de puntillas por el tema. Hay una brecha gigantesca, y la ansiedad de tener que aprenderlo todo YA es real. Pero respira. Este post es tu chaleco salvavidas: tu Traductor Metodológico no oficial y (casi) libre de lágrimas. Yo mismo pasé por ese infierno metodológico en mi tesis de doctorado, así que no solo doy consejos: comparto la experiencia de quien ya quemó sus pestañas por ti.&lt;/p>
 &lt;p>Olvida el código complejo y enrevesado. Aquí nos enfocamos en la lógica esencial para construir un modelo predictivo robusto y fiable. Desglosaremos el proceso paso a paso, quitándole el miedo a la estadística con un &lt;strong>Código Práctico en R&lt;/strong>. Empezaremos con la &lt;strong>Estrategia de Modelado&lt;/strong>; el código vendrá después. &lt;strong>¡Empecemos!&lt;/strong>&lt;/p>
-&lt;h1 id="estrategia-de-modelado">Estrategia de modelado&lt;/h1>
+&lt;h2 id="estrategia-de-modelado">Estrategia de modelado&lt;/h2>
 &lt;p>Contar con una estrategia de modelado adecuada es esencial para desarrollar y validar modelos de predicción. En este artículo exploraremos las siete etapas clave propuestas por Ewout Steyerberg en su trabajo (1).&lt;/p>
-&lt;h2 id="1-definición-del-problema-e-inspección-de-datos">1. Definición del problema e inspección de datos&lt;/h2>
+&lt;h3 id="1-definición-del-problema-e-inspección-de-datos">1. Definición del problema e inspección de datos&lt;/h3>
 &lt;p>El primer paso en cualquier proyecto de modelado es &lt;strong>definir claramente el problema de investigación&lt;/strong> y seleccionar la &lt;strong>variable de resultado&lt;/strong> adecuada.&lt;/p>
 &lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
 &lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
@@ -41,7 +41,7 @@
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># CONFIGURACIÓN RMS (NO OMITIR)&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>dd &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">datadist&lt;/span>(datos)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">options&lt;/span>(datadist &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;dd&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="2-codificación-de-las-variables-predictoras">2. Codificación de las variables predictoras&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="2-codificación-de-las-variables-predictoras">2. Codificación de las variables predictoras&lt;/h3>
 &lt;p>La &lt;strong>codificación&lt;/strong> adecuada de las &lt;strong>variables predictoras&lt;/strong> es fundamental para construir modelos robustos.&lt;/p>
 &lt;p>Es probable que debas utilizar técnicas como la agrupación de categorías poco frecuentes y la creación de predictores resúmenes para simplificar información correlacionada. Si el algoritmo seleccionado es la &lt;strong>regresión logística&lt;/strong>, es posible que le haga falta aplicar técnicas como los &lt;strong>splines cúbicos restringidos&lt;/strong> para relajar el supuesto de linealidad entre la variable dependiente y el resultado.&lt;/p>
 &lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
@@ -51,7 +51,7 @@
 &lt;span class="dark:text-neutral-300">Cada variable predictora debe definirse con su método de medición y momento. Las variables continuas deben reportarse con sus unidades; si se categorizan, debe justificarse los puntos de corte. Las variables categóricas deben listar todas sus categorías y especificar la categoría de referencia. El modelo final debe presentar la codificación completa utilizada para cada predictor.&lt;/span>
 &lt;/div>
 &lt;p>💡 &lt;strong>Tip:&lt;/strong> Dicotomizar predictores cuantitativos (por ejemplo, transformar una variable continua como la edad o la presión arterial en una variable binaria, como “≥65 años = 1” y “&amp;lt;65 = 0”) es considerada una mala práctica metodológica por pérdida de información, menos poder estadístico, puntos de corte arbitrarios y riesgo de sobreajuste.&lt;/p>
-&lt;h2 id="3-especificación-del-tipo-de-modelo">3 .Especificación del tipo de modelo&lt;/h2>
+&lt;h3 id="3-especificación-del-tipo-de-modelo">3 .Especificación del tipo de modelo&lt;/h3>
 &lt;p>En esta etapa se define la estructura formal del modelo, lo que incluye el tipo de relación entre variables (p. ej., lineal, no lineal) y, de manera crucial, la selección de los predictores finales que lo integrarán.&lt;/p>
 &lt;p>
 &lt;figure >
@@ -78,7 +78,7 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;p>Optar por un conjunto reducido de predictores clínicamente relevantes definidos a priori, o incluir todos los candidatos en el modelo multivariable inicial sin filtrado estadístico previo.&lt;/p>
 &lt;/li>
 &lt;/ul>
-&lt;h2 id="4-estimación-del-modelo">4. Estimación del Modelo&lt;/h2>
+&lt;h3 id="4-estimación-del-modelo">4. Estimación del Modelo&lt;/h3>
 &lt;p>Una vez especificado el modelo (es decir, definidos los predictores y la estructura funcional), el paso de estimación tiene como objetivo calcular los coeficientes o parámetros que mejor se ajusten a los datos de entrenamiento.&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#MODELO: PREDICTORES POR FISIOPATOLOGÍA, NO p-valores&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>modelo &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">lrm&lt;/span>(diabetes &lt;span style="color:#f92672">~&lt;/span> &lt;span style="color:#a6e22e">rcs&lt;/span>(glucose, &lt;span style="color:#ae81ff">3&lt;/span>) &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#a6e22e">rcs&lt;/span>(mass, &lt;span style="color:#ae81ff">3&lt;/span>) &lt;span style="color:#f92672">+&lt;/span> age &lt;span style="color:#f92672">+&lt;/span> pregnant &lt;span style="color:#f92672">+&lt;/span> pedigree,
@@ -93,7 +93,7 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;/span>
 &lt;span class="dark:text-neutral-300">Es recomendable aplicar siempre una validación interna (como bootstrapping o cross-validation) para cuantificar y corregir el optimismo en las métricas de rendimiento. La ecuación final del modelo debe presentarse de forma completa —incluyendo todos los coeficientes, el intercepto y, si corresponde, la supervivencia basal—, reportando métricas de calibración y discriminación con sus intervalos de confianza.&lt;/span>
 &lt;/div>
-&lt;h2 id="5-evaluación-del-rendimiento-del-modelo">5. Evaluación del Rendimiento del Modelo&lt;/h2>
+&lt;h3 id="5-evaluación-del-rendimiento-del-modelo">5. Evaluación del Rendimiento del Modelo&lt;/h3>
 &lt;p>Una vez desarrollado el modelo, es esencial cuantificar su capacidad predictiva antes de su validación. Esta evaluación se centra en tres aspectos clave:&lt;/p>
 &lt;ul>
 &lt;li>&lt;strong>Calibración:&lt;/strong> Mide la concordancia entre las probabilidades predichas y las observadas. Por ejemplo, ¿un 10% de riesgo predicho se corresponde con un 10% de eventos observados? Se evalúa visualmente con curvas de calibración y cuantitativamente con parámetros como el intercepto (A, calibración-in-the-large) y la pendiente de calibración (B).&lt;/li>
@@ -120,7 +120,7 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;ul>
 &lt;li>&lt;strong>Utilidad Clínica:&lt;/strong> Determina si el modelo es útil para la toma de decisiones. El análisis de curvas de decisión y el Beneficio Neto (NB) permiten evaluar si el uso del modelo conduce a mejores resultados clínicos netos en comparación con estrategias alternativas (como tratar a todos o a ninguno).&lt;/li>
 &lt;/ul>
-&lt;h2 id="6-evaluación-de-la-validez-del-modelo">6. Evaluación de la Validez del Modelo&lt;/h2>
+&lt;h3 id="6-evaluación-de-la-validez-del-modelo">6. Evaluación de la Validez del Modelo&lt;/h3>
 &lt;p>La evaluación del rendimiento en los datos de desarrollo suele ser optimista. Por ello, es crucial evaluar la validez del modelo en datos no utilizados para su construcción, un proceso que se divide en:&lt;/p>
 &lt;p>&lt;strong>Validación Interna:&lt;/strong> Evalúa la reproducibilidad del modelo, es decir, su rendimiento en múltiples muestras de la misma población subyacente. Técnicas como el bootstrapping o la validación cruzada son superiores a la división simple de la muestra, ya que cuantifican y corrigen el optimismo en las métricas de rendimiento sin reducir el tamaño de la muestra de desarrollo.&lt;/p>
 &lt;p>&lt;strong>Validación Externa:&lt;/strong> Es la prueba definitiva de la generalizabilidad o transportabilidad del modelo. Consiste en aplicar el modelo a una población completamente independiente, lo que puede incluir:&lt;/p>
@@ -136,7 +136,7 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;/li>
 &lt;/ul>
 &lt;p>Este paso es fundamental para confirmar que el modelo mantiene su calibración, discriminación y utilidad clínica en la práctica real.&lt;/p>
-&lt;h2 id="7-presentación-del-modelo">7. Presentación del modelo&lt;/h2>
+&lt;h3 id="7-presentación-del-modelo">7. Presentación del modelo&lt;/h3>
 &lt;p>La presentación efectiva es crucial para la adopción clínica. Un modelo perfecto es inútil si los médicos no pueden interpretarlo fácilmente. Considera:&lt;/p>
 &lt;ul>
 &lt;li>&lt;strong>Nomogramas&lt;/strong>: Ideales para uso rápido en consulta&lt;/li>
@@ -152,7 +152,7 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;!-- ## 🛠️ EL KIT DE SUPERVIVENCIA (Tu Script) -->
 &lt;!-- [Descarga el script completo] -->
 &lt;p>¿Has aplicado estas técnicas en tus proyectos de Machine Learning? ¿Qué estrategias usas para entrenar y validar tus modelos? Déjame tus comentarios 💬: comparte tus experiencias, dificultades o tips contigo. ¡Juntos podemos enriquecer este conocimiento!&lt;/p>
-&lt;h1 id="bibliografía">Bibliografía&lt;/h1>
+&lt;h2 id="bibliografía">Bibliografía&lt;/h2>
 &lt;ol>
 &lt;li>Steyerberg EW, Vergouwe Y. Towards better clinical prediction models: seven steps for development and an ABCD for validation. European Heart Journal [Internet]. 1 de agosto de 2014 [citado 9 de mayo de 2021];35(29):1925-31. Disponible en: &lt;a href="https://academic.oup.com/eurheartj/article-lookup/doi/10.1093/eurheartj/ehu207" target="_blank" rel="noopener">https://academic.oup.com/eurheartj/article-lookup/doi/10.1093/eurheartj/ehu207&lt;/a>&lt;/li>
 &lt;/ol></description></item><item><title>Identificación de pacientes de bajo riesgo de severidad en confirmados de la COVID-19. Cuba. Años 2020-2021</title><link>https://maicel.netlify.app/publication/preprint/</link><pubDate>Wed, 07 Apr 2021 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/publication/preprint/</guid><description>&lt;p>Este trabajo está impulsado por los resultados de mi &lt;a href="https://revhabanera.sld.cu/index.php/rhab/article/view/4943" target="_blank" rel="noopener">artículo anterior&lt;/a> sobre desarrollo de modelos predictivos para el triaje.&lt;/p>

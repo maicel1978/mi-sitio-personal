@@ -73,7 +73,7 @@ Es una habilidad predictiva, no una comprensión conceptual.&lt;/p>
 &lt;p>Los modelos de lenguaje más modernos, como Gemini, son &lt;strong>autorregresivos&lt;/strong>.
 Esto significa que predicen la &lt;strong>siguiente palabra basándose en todas las palabras que ya han visto&lt;/strong> en la secuencia.&lt;/p>
 &lt;p>Piensa en ellos como un narrador que va construyendo una historia palabra por palabra.&lt;/p>
-&lt;h2 id="el-proceso-con-el-ratón-comió-el-queso">El Proceso con &lt;strong>“El ratón comió el queso”&lt;/strong>&lt;/h2>
+&lt;p>El Proceso con &lt;strong>“El ratón comió el queso”&lt;/strong>&lt;/p>
 &lt;p>Imaginemos que el modelo está generando nuestra frase, “El ratón comió el queso.” Este es el fascinante proceso que ocurre:&lt;/p>
 &lt;ol>
 &lt;li>
@@ -148,7 +148,7 @@ Es fundamental considerar cómo se tokeniza el texto, ya que el &lt;strong>tama�
 &lt;p>Si le preguntaras a &lt;strong>GPT-3&lt;/strong> (un modelo puramente de lenguaje) “explícame el aterrizaje en la luna a un niño de seis años”, podría responder con “explícame la teoría de la gravedad a un niño de seis años” porque ha aprendido que en Internet, una pregunta a menudo es seguida por preguntas similares, no por una respuesta directa.&lt;/p>
 &lt;p>El &lt;strong>post-entrenamiento (alignment)&lt;/strong> es el proceso que transforma estos modelos en asistentes útiles, asegurándose de que &lt;strong>sigan las instrucciones de los usuarios&lt;/strong> y los deseos de los diseñadores (por ejemplo, evitar contenido tóxico).&lt;/p>
 &lt;p>&lt;strong>Este es el punto donde la ilusión de intencionalidad se vuelve más fuerte.&lt;/strong>&lt;/p>
-&lt;h2 id="1-ajuste-fino-supervisado-supervised-fine-tuning---sft">1. Ajuste Fino Supervisado (Supervised Fine-Tuning - SFT)&lt;/h2>
+&lt;h3 id="1-ajuste-fino-supervisado-supervised-fine-tuning---sft">1. Ajuste Fino Supervisado (Supervised Fine-Tuning - SFT)&lt;/h3>
 &lt;p>El primer paso es el &lt;strong>Ajuste Fino Supervisado (SFT)&lt;/strong>.&lt;/p>
 &lt;p>Aquí, el LLM pre-entrenado se afina con &lt;strong>respuestas deseadas recogidas de humanos&lt;/strong>.
 Es decir, se le dan ejemplos de preguntas y sus respuestas “correctas” o “ideales” escritas por humanos.&lt;/p>
@@ -157,7 +157,7 @@ Es decir, se le dan ejemplos de preguntas y sus respuestas “correctas” o “
 &lt;p>Esto sugiere que el SFT no enseña al modelo nuevo conocimiento, sino que le enseña &lt;strong>cómo formatear las respuestas&lt;/strong> y optimizar para un “tipo de usuario” específico que ya había visto en sus datos de pre-entrenamiento.&lt;/p>
 &lt;p>En otras palabras, el modelo ya tenía el conocimiento latente; el SFT le enseña a &lt;em>expresarlo&lt;/em> de la manera que un asistente de IA “debería” hacerlo.&lt;/p>
 &lt;p>No está aprendiendo a &lt;em>pensar&lt;/em> como un asistente, sino a &lt;em>simular&lt;/em> el comportamiento de uno.&lt;/p>
-&lt;h2 id="2-aprendizaje-por-refuerzo-a-partir-de-retroalimentación-humana-reinforcement-learning-from-human-feedback---rlhf">2. Aprendizaje por Refuerzo a partir de Retroalimentación Humana (Reinforcement Learning from Human Feedback - RLHF)&lt;/h2>
+&lt;h3 id="2-aprendizaje-por-refuerzo-a-partir-de-retroalimentación-humana-reinforcement-learning-from-human-feedback---rlhf">2. Aprendizaje por Refuerzo a partir de Retroalimentación Humana (Reinforcement Learning from Human Feedback - RLHF)&lt;/h3>
 &lt;p>El SFT tiene sus limitaciones: &lt;strong>Limitado por la habilidad humana&lt;/strong>: Los humanos pueden juzgar mejor lo que es una buena respuesta de lo que pueden escribirla ellos mismos.&lt;/p>
 &lt;p>&lt;strong>Posibles alucinaciones&lt;/strong>: Como el SFT se entrena con poca data, si un humano da una respuesta que el modelo no ha visto antes (y por tanto no sabe si es cierta), el modelo puede aprender a “inventar” información plausible pero falsa.&lt;/p>
 &lt;p>&lt;strong>Aquí el matiz crítico es fundamental&lt;/strong>: la “alucinación” (generación de información falsa pero plausible) es una clara evidencia de que los LLMs no “saben” lo que es verdad o mentira, ni tienen un sentido de la realidad.&lt;/p>
@@ -182,7 +182,7 @@ Es decir, se le dan ejemplos de preguntas y sus respuestas “correctas” o “
 &lt;p>Posteriormente, métodos más simples como la &lt;strong>Optimización Directa por Preferencia (Direct Preference Optimization - DPO)&lt;/strong> han demostrado ser igual de efectivos, evitando la complejidad del aprendizaje por refuerzo tradicional.&lt;/p>
 &lt;p>En definitiva, RLHF moldea el comportamiento del LLM para alinearse con lo que &lt;em>deseamos&lt;/em> ver, no con lo que el modelo &lt;em>sabe&lt;/em> o &lt;em>piensa&lt;/em>.&lt;/p>
 &lt;p>Le enseña a ser complaciente y a evitar lo “tóxico” porque los humanos así lo prefieren, no por un juicio moral inherente.&lt;/p>
-&lt;h2 id="la-materia-prima-datos-masivos-y-su-filtrado">La Materia Prima: Datos Masivos y su Filtrado&lt;/h2>
+&lt;h3 id="la-materia-prima-datos-masivos-y-su-filtrado">La Materia Prima: Datos Masivos y su Filtrado&lt;/h3>
 &lt;p>El pre-entrenamiento de los LLMs se realiza sobre &lt;strong>“todo Internet”&lt;/strong>.&lt;/p>
 &lt;p>Esto incluye vastas colecciones como Common Crawl, que contiene alrededor de &lt;strong>250 mil millones de páginas web y un petabyte de datos&lt;/strong>.&lt;/p>
 &lt;p>Pero el Internet es “sucio” y no representativo.&lt;/p>
@@ -255,7 +255,8 @@ Y es, sin duda, una de las maravillas tecnológicas más grandes de nuestro tiem
 &lt;div id="ref-vaswani" class="csl-entry">
 &lt;p>Vaswani, Ashish, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, and Illia Polosukhin. n.d. “Attention Is All You Need.” &lt;a href="https://doi.org/10.48550/ARXIV.1706.03762" target="_blank" rel="noopener">https://doi.org/10.48550/ARXIV.1706.03762&lt;/a>.&lt;/p>
 &lt;/div>
-&lt;/div></description></item><item><title>Significación Estadística, ¿Ciencia o Pirotecnia?</title><link>https://maicel.netlify.app/post/2025-08-10-significacion/</link><pubDate>Sun, 10 Aug 2025 15:30:00 +0000</pubDate><guid>https://maicel.netlify.app/post/2025-08-10-significacion/</guid><description>&lt;p>Ese momento de euforia al ver &lt;code>p &amp;lt; 0.05&lt;/code>… ¿es un descubrimiento genuino o solo un destello engañoso de pirotecnia estadística?&lt;/p>
+&lt;/div></description></item><item><title>Significación Estadística, ¿Ciencia o Pirotecnia?</title><link>https://maicel.netlify.app/post/2025-08-10-significacion/</link><pubDate>Sun, 10 Aug 2025 15:30:00 +0000</pubDate><guid>https://maicel.netlify.app/post/2025-08-10-significacion/</guid><description>&lt;h2 id="introducción">Introducción&lt;/h2>
+&lt;p>Ese momento de euforia al ver &lt;code>p &amp;lt; 0.05&lt;/code>… ¿es un descubrimiento genuino o solo un destello engañoso de pirotecnia estadística?&lt;/p>
 &lt;p>En la ciencia, hay un instante que todos los investigadores anhelan. Es la culminación de meses, a veces años, de riguroso trabajo. Corres el análisis y, de repente, ahí está: &lt;code>p &amp;lt; 0.05&lt;/code>. Es una &lt;strong>explosión de alivio&lt;/strong>, un destello de “¡Eureka!” en la oscuridad de la incertidumbre. Sentimos que hemos encontrado algo real, algo digno de ser publicado.&lt;/p>
 &lt;p>Pero, ¿y si ese destello es solo eso? Un estallido momentáneo, deslumbrante y ruidoso, pero que en el fondo significa muy poco. ¿Y si nuestro ritual más sagrado es, en realidad, un simple juego de pirotecnia, diseñado para impresionar más que para iluminar?&lt;/p>
 &lt;p>Durante décadas, hemos aceptado el umbral de significación estadística como el árbitro indiscutible de la verdad científica. Sin embargo, la evidencia acumulada —desde las críticas de su propio creador (Ronald Fisher) hasta las advertencias oficiales de la American Statistical Association (ASA) en 2016 y el clamor de cientos de científicos en la revista &lt;em>Nature&lt;/em> — nos obliga a una conclusión incómoda(Amrhein, Greenland, and McShane 2019; Wasserstein and Lazar 2016) : &lt;strong>el emperador estadístico está desnudo&lt;/strong>. La práctica de las Pruebas de Significación de la Hipótesis Nula (NHST, por sus siglas en inglés) no es un pilar de rigor, sino un ritual plagado de lógica errónea, confusión e inadecuación para la verdadera investigación.&lt;/p>
