@@ -1,4 +1,272 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog | Bioestadística edu</title><link>https://maicel.netlify.app/post/</link><atom:link href="https://maicel.netlify.app/post/index.xml" rel="self" type="application/rss+xml"/><description>Blog</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Sat, 04 Oct 2025 00:00:00 +0000</lastBuildDate><image><url>https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png</url><title>Blog</title><link>https://maicel.netlify.app/post/</link></image><item><title>¿Escribir ciencia o reescribir la realidad?</title><link>https://maicel.netlify.app/post/imryd-redaccion-inversa/</link><pubDate>Sat, 04 Oct 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/imryd-redaccion-inversa/</guid><description>&lt;h2 id="introducción">Introducción&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog | Bioestadística edu</title><link>https://maicel.netlify.app/post/</link><atom:link href="https://maicel.netlify.app/post/index.xml" rel="self" type="application/rss+xml"/><description>Blog</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Wed, 22 Oct 2025 00:00:00 +0000</lastBuildDate><image><url>https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png</url><title>Blog</title><link>https://maicel.netlify.app/post/</link></image><item><title>Cómo entrenar y validar un modelo de predicción clínica</title><link>https://maicel.netlify.app/post/como-entrenar-y-validar-un-modelo-de-machine-learnig/</link><pubDate>Wed, 22 Oct 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/como-entrenar-y-validar-un-modelo-de-machine-learnig/</guid><description>&lt;p>🎧 &lt;strong>Escucha el podcast de esta publicación&lt;/strong>&lt;/p>
+&lt;audio controls >
+&lt;source src="https://ia600607.us.archive.org/24/items/articulo-steyember/_Articulo_Steyember.mp3" type="audio/mpeg">
+&lt;/audio>
+&lt;p>Si está leyendo esta publicación, es probable que le interese desarrollar &lt;strong>modelos de predicción clínica&lt;/strong> para &lt;strong>diagnosticar&lt;/strong> o &lt;strong>pronosticar&lt;/strong> enfermedades en pacientes. Seguramente sea investigador o estudiante de posgrado —en maestría o doctorado— en ciencias biomédicas, y busque cómo &lt;strong>desarrollar&lt;/strong> y &lt;strong>validar&lt;/strong> esos modelos en un &lt;strong>artículo científico&lt;/strong> o &lt;strong>tesis&lt;/strong>.&lt;/p>
+&lt;p>Casi seguro ha llegado a esa fase en la que la metodología se siente como un muro de ladrillos: no sabe &lt;strong>qué pasos seguir&lt;/strong>, &lt;strong>qué software usar&lt;/strong>, si lo que necesita se puede hacer en &lt;strong>SPSS&lt;/strong> o si tendrá que meterse con esos &lt;strong>códigos&lt;/strong> inquietantes de &lt;strong>R o Python&lt;/strong> —y encima no tiene experiencia en programación. Y, lo peor de todo: le asalta la duda de si su modelo servirá para algo más allá de llenar un repositorio de tesis… o si siquiera &lt;strong>será útil&lt;/strong> para los propios pacientes de su &lt;strong>muestra&lt;/strong>, sin hablar de otros &lt;strong>contextos clínicos&lt;/strong>.&lt;/p>
+&lt;p>Seamos francos: en el fondo, todos le huimos a ese comentario punzante que nos estalla la burbuja predictiva de un solo golpe:&lt;/p>
+&lt;blockquote>
+&lt;p>¡Vaya!, un área bajo la curva de ensueño, sin rastros de calibración ni validación externa… probablemente fruto de una receta clásica: exceso de predictores, dicotomización entusiasta, escasez de eventos y una pizca de selección automática. TRIPOD lo llamaría ‘optimismo aparente’; nosotros, la receta del sobreajuste gourmet —con un cigarro y un guiño para rematar.&lt;/p>&lt;/blockquote>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
+&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">El &lt;strong>sobreajuste&lt;/strong> ocurre cuando un modelo aprende tan bien los datos de entrenamiento (incluyendo ruido o detalles irrelevantes) que su rendimiento en datos nuevos es mucho peor.&lt;/span>
+&lt;/div>
+&lt;p>En otras palabras, el modelo &lt;strong>funciona&lt;/strong> espectacularmente bien… pero &lt;strong>solo con su muestra&lt;/strong> de pacientes. &lt;em>¡Las métricas de desempeño en otros conjuntos de datos son un desastre!&lt;/em> Más adelante retomaremos esa idea.&lt;/p>
+&lt;p>Mientras las tesis de alto nivel se centran en construir modelos de predicción clínica con &lt;strong>técnicas estadísticas&lt;/strong> clásicas o sofisticados &lt;strong>algoritmos de aprendizaje automático&lt;/strong> como los bosques aleatorios, los cursos de bioestadística &lt;em>—¡incluso en programas de estudio de esta especialidad!—&lt;/em> apenas rozan el asunto. La &lt;strong>brecha es real&lt;/strong>, y con ella viene la ansiedad de tener que aprenderlo todo ya.&lt;/p>
+&lt;p>Pero respire hondo. Este post puede endurecer su burbuja predictiva con una capa extra de titanio: su traductor metodológico no oficial, (casi) libre de lágrimas y cargado de herramientas prácticas. Yo mismo navegué ese infierno metodológico en mi &lt;strong>proceso doctoral&lt;/strong>, así que no solo le ofrezco &lt;strong>consejos genéricos&lt;/strong>: comparto las lecciones de alguien que ya se quemó las pestañas por usted, para que avance con &lt;strong>confianza&lt;/strong> y &lt;strong>evite&lt;/strong> los mismos &lt;strong>tropiezos&lt;/strong>.&lt;/p>
+&lt;p>Olvídese del código complejo y enrevesado. Aquí nos enfocamos en la &lt;strong>lógica esencial&lt;/strong> para construir un &lt;strong>modelo predictivo fiable&lt;/strong>. Desglosaremos el &lt;strong>proceso paso a paso&lt;/strong>, quitándole el miedo al procesamiento de datos con ejemplos de &lt;strong>código práctico en R&lt;/strong>.&lt;/p>
+&lt;p>Si bien este post se centra en las cuestiones prácticas del &lt;strong>procesamiento de datos&lt;/strong>, es importante destacar que la elección del diseño de la investigación está determinada por el &lt;strong>objetivo del estudio&lt;/strong> de predicción, el cual según &lt;em>TRIPOD (Transparent Reporting of a multivariable prediction model for Individual Prognosis Or Diagnosis)&lt;/em> se &lt;strong>clasifica&lt;/strong> en tres &lt;strong>categorías fundamentales&lt;/strong> (1):&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Desarrollo&lt;/strong> de un nuevo modelo&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Validación&lt;/strong> de un modelo existente&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Actualización&lt;/strong> de un modelo&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>Según el &lt;strong>objetivo de la investigación&lt;/strong> se pueden optar por uno de los siguientes &lt;strong>diseños&lt;/strong> de estudios:&lt;/p>
+&lt;div class="markmap" style="height: 200px;">
+&lt;pre>- Diseños según Objetivo
+- Desarrollo de Modelos
+- Estudios de Cohorte
+- Ensayos Aleatorizados
+- Datos de Atención Rutinaria
+- Validación de Modelos
+- Estudios de Cohorte Independientes
+- Meta-análisis
+- Datos de Registro
+- Actualización de Modelos
+- Cualquier diseño anterior con nuevos datos
+- Datos con Estructura de Clúster&lt;/pre>
+&lt;/div>
+&lt;p>Se recomienda profundizar en estos temas a partir de la bibliografía propuesta para esta publicación. En este post no centraremos en la &lt;strong>secuencia de etapas clave&lt;/strong> para desarrollar un &lt;strong>modelo predictivo&lt;/strong>. Como base usaré el artículo &lt;em>“Siete pasos para el desarrollo y un ABCD para la validación”&lt;/em> de Ewout Steyerberg (1), así como su libro &lt;em>Clinical Prediction Models&lt;/em> (2). A la receta añadiré las recomendaciones de Frank Harrell desde su obra &lt;em>Regression Modeling Strategies&lt;/em> (3), y nos basaremos en su biblioteca &lt;strong>rms&lt;/strong> para desarrollar este tutorial con &lt;strong>código práctico en R&lt;/strong>. Finalmente daré mi propia visión del polémico asunto de particionar los datos en &lt;strong>conjunto de entrenamiento&lt;/strong> y &lt;strong>conjunto de prueba&lt;/strong> en una &lt;strong>proporción 70:30&lt;/strong> y otras cuestiones que seguramente resultarán interesantes.&lt;/p>
+&lt;p>Empezaremos con la &lt;strong>estrategia de modelado&lt;/strong>; el tutorial con todo el código vendrá después.&lt;br>
+&lt;strong>¡Empecemos!&lt;/strong>&lt;/p>
+&lt;h2 id="estrategia-de-modelado">Estrategia de modelado&lt;/h2>
+&lt;p>Seguir una &lt;strong>estrategia de modelado&lt;/strong> adecuada es esencial para &lt;strong>desarrollar y validar modelos de predicción&lt;/strong>: no solo &lt;strong>mitiga el sesgo&lt;/strong> y el &lt;strong>sobreajuste&lt;/strong>, sino que nos &lt;strong>orienta&lt;/strong> en un proceso que, de otro modo, puede volverse caótico.&lt;/p>
+&lt;p>A continuación, se muestran un conjunto de &lt;strong>bibliotecas en R&lt;/strong> que nos ayudará implementar estas ideas, pero este proceso se puede realizar de igual manera en en SPSS o Python &lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>.&lt;/p>
+&lt;p>&lt;a href="https://cran.r-project.org/web/packages/rms/index.html" target="_blank" rel="noopener">Puedes descargar e instalar el paquete &lt;strong>rms&lt;/strong> desde su página oficial en el repositorio de CRAN.&lt;/a>
+Tambien le harán falta otras bibliotecas para el manejo de datos, confeccionar tablas y gráficos para su publicación, entre otras acciones.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(conflicted) &lt;span style="color:#75715e"># Detecta y resuelve conflictos de funciones&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(rms) &lt;span style="color:#75715e"># Modelado logístico restringido (lrm) y splines (rcs)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(pROC) &lt;span style="color:#75715e"># Curvas ROC y AUC&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(ggplot2) &lt;span style="color:#75715e"># Gráficos pulidos (usado por rms internamente)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(missRanger) &lt;span style="color:#75715e"># Imputación iterativa con random forests&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(mlbench) &lt;span style="color:#75715e"># Dataset de ejemplo: PimaIndiansDiabetes&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(dplyr) &lt;span style="color:#75715e"># Manipulación de datos (pipe %&amp;gt;%)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(caret) &lt;span style="color:#75715e"># Particiones de datos (createDataPartition)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="1-definición-del-problema-e-inspección-de-datos">1. Definición del problema e inspección de datos&lt;/h3>
+&lt;p>El primer paso en cualquier proyecto de modelado es &lt;strong>definir claramente el problema de investigación&lt;/strong> y seleccionar la &lt;strong>variable de resultado&lt;/strong> adecuada.&lt;/p>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
+&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">La &lt;strong>variable de resultado&lt;/strong> debe definirse con precisión: especifique &lt;strong>qué evento se predice&lt;/strong>, &lt;strong>cómo y cuándo se mide&lt;/strong>, y el &lt;strong>horizonte temporal de predicción&lt;/strong> (por ejemplo, mortalidad a los 30 días). También es clave indicar el método de evaluación del evento y si se aplicó &lt;strong>cegamiento&lt;/strong> respecto a los predictores, para asegurar coherencia interna y validez del modelo.&lt;/span>
+&lt;/div>
+&lt;p>Durante esta fase también realizamos un &lt;em>análisis exploratorio de datos (EDA, por sus siglas en ingles)&lt;/em> para entender las características de las variables y detectar posibles problemas, como &lt;strong>datos atípicos&lt;/strong> o &lt;strong>valores faltantes&lt;/strong>.&lt;/p>
+&lt;p>&lt;a href="https://maicel.netlify.app/post/eda/">Para conocer más detalles, ver mi post sobre EDA&lt;/a>.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">set.seed&lt;/span>(&lt;span style="color:#ae81ff">123&lt;/span>) &lt;span style="color:#75715e"># Reproducibilidad total (imputación, splits, bootstrap)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Carga del dataset nativo&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">data&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;PimaIndiansDiabetes&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>datos &lt;span style="color:#f92672">&amp;lt;-&lt;/span> PimaIndiansDiabetes
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Variables clínicas con 0s imposibles (biológicamente)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>vars_clinicas &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;glucose&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;pressure&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;triceps&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;insulin&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;mass&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Limpieza: 0 → NA, luego imputación&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>datos &lt;span style="color:#f92672">&amp;lt;-&lt;/span> datos &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">mutate&lt;/span>(&lt;span style="color:#a6e22e">across&lt;/span>(&lt;span style="color:#a6e22e">all_of&lt;/span>(vars_clinicas), &lt;span style="color:#f92672">~&lt;/span> &lt;span style="color:#a6e22e">ifelse&lt;/span>(.x &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>, &lt;span style="color:#66d9ef">NA&lt;/span>, .x))) &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">missRanger&lt;/span>() &lt;span style="color:#75715e"># Imputa NA con random forests iterativos&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Configuración rms: datadist para predicciones automáticas&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>dd &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">datadist&lt;/span>(&lt;span style="color:#a6e22e">as.data.frame&lt;/span>(datos))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">options&lt;/span>(datadist &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;dd&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="2-codificación-de-las-variables-predictoras">2. Codificación de las variables predictoras&lt;/h3>
+&lt;p>La &lt;strong>codificación adecuada de las variables predictoras&lt;/strong> es fundamental para construir &lt;strong>modelos robustos&lt;/strong>.&lt;/p>
+&lt;p>Es probable que necesites &lt;strong>agrupar categorías poco frecuentes&lt;/strong> o crear &lt;strong>predictores resumen&lt;/strong> para condensar información redundante o altamente correlacionada. Y si tu modelo se basa en &lt;strong>regresión logística&lt;/strong>, no asumas linealidad de entrada: muchas veces es necesario aplicar &lt;strong>splines cúbicos restringidos&lt;/strong> para relajar el &lt;strong>supuesto de linealidad&lt;/strong> entre los predictores y el resultado.&lt;/p>
+&lt;p>💡 &lt;strong>Tip para la publicación:&lt;/strong> Reporta cada predictor con su &lt;em>método de medición&lt;/em>, &lt;em>momento&lt;/em> de registro y &lt;em>unidades&lt;/em> (si es continuo). Si categorizas, &lt;em>justifica los puntos de corte&lt;/em>. Si es categórico, muestra todas las categorías y la de referencia. El modelo final debe reflejar &lt;em>exactamente&lt;/em> la &lt;em>codificación&lt;/em> usada.&lt;/p>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-yellow-100 dark:bg-yellow-900">
+&lt;span class="pr-3 pt-1 text-red-400">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0zM12 15.75h.007v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;strong>Alerta:&lt;/strong> Dicotomizar predictores cuantitativos —por ejemplo, convertir una variable continua como la edad o la presión arterial en una binaria (“≥65 años = 1”, “&amp;lt;65 = 0”)— es una mala práctica ampliamente desaconsejada. Esta estrategia desperdicia información, reduce el poder estadístico, introduce puntos de corte arbitrarios y aumenta el riesgo de sobreajuste. En lugar de categorizar, modela la relación continua (por ejemplo, con splines) para preservar la señal clínica real.&lt;/span>
+&lt;/div>
+&lt;h3 id="3-especificación-del-tipo-de-modelo">3 .Especificación del tipo de modelo&lt;/h3>
+&lt;p>En esta etapa se define la &lt;strong>estructura formal del modelo&lt;/strong>, lo que incluye el tipo de relación entre variables (p. ej., lineal, no lineal) y, de manera crucial, la &lt;strong>selección de los predictores&lt;/strong> finales que lo integrarán.&lt;/p>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-yellow-100 dark:bg-yellow-900">
+&lt;span class="pr-3 pt-1 text-red-400">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0zM12 15.75h.007v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;strong>Alerta:&lt;/strong> La elección de predictores no debe basarse en la aplicación mecánica de métodos algorítmicos como la Regresión Paso a Paso (RPP), ya que suelen producir modelos inestables y sobreajustados, especialmente en contextos biomédicos y sociales.&lt;/span>
+&lt;/div>
+&lt;p>En lugar de la preselección de variables basada únicamente en valores &lt;em>p&lt;/em> de análisis bivariados, se recomienda:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Priorizar el &lt;strong>juicio clínico, la revisión sistemática de la literatura y la experiencia previa.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Optar por un conjunto reducido de predictores clínicamente relevantes definidos a priori, o incluir todos los candidatos en el modelo multivariable inicial sin filtrado estadístico previo.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>Existen algoritmos que tienen enfoques alternativos a la selección automática de predictores como la regresión Lasso o los árboles de clasificación. En la guía propuesta por Heinze se puede profundizar sobre este tema (5)&lt;/p>
+&lt;h3 id="4-estimación-del-modelo">4. Estimación del Modelo&lt;/h3>
+&lt;p>Una vez especificado el modelo (es decir, definidos los predictores y la estructura funcional), el siguiente paso de estimación tiene como objetivo calcular los coeficientes o parámetros que mejor se ajusten a los datos.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>modelo &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">lrm&lt;/span>(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> diabetes &lt;span style="color:#f92672">~&lt;/span> &lt;span style="color:#a6e22e">rcs&lt;/span>(glucose, &lt;span style="color:#ae81ff">3&lt;/span>) &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#a6e22e">rcs&lt;/span>(mass, &lt;span style="color:#ae81ff">3&lt;/span>) &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#a6e22e">rcs&lt;/span>(age, &lt;span style="color:#ae81ff">3&lt;/span>) &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#a6e22e">rcs&lt;/span>(pedigree, &lt;span style="color:#ae81ff">3&lt;/span>) &lt;span style="color:#f92672">+&lt;/span> pregnant,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> data &lt;span style="color:#f92672">=&lt;/span> datos,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> x &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">TRUE&lt;/span>, &lt;span style="color:#75715e"># Guarda diseño para bootstrap&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> y &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">TRUE&lt;/span> &lt;span style="color:#75715e"># Guarda respuesta para bootstrap&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>En modelos de regresión, la &lt;strong>estimación del modelo&lt;/strong> se realiza a partir de métodos como la &lt;strong>máxima verosimilitud&lt;/strong>. Sin embargo, cuando el número de eventos es limitado o el de predictores es alto, el riesgo de sobreajuste es elevado, lo que genera predicciones extremas y poco generalizables. Para mitigarlo, se emplean técnicas de &lt;strong>regularización, penalización o shrinkage&lt;/strong>, que ajustan los coeficientes hacia cero para mejorar la estabilidad y la calibración en nuevas poblaciones.&lt;/p>
+&lt;p>El objetivo final no es maximizar el rendimiento aparente en la muestra de desarrollo, sino obtener un modelo con &lt;strong>predicciones estables, bien calibradas y clínicamente útiles&lt;/strong>.&lt;/p>
+&lt;p>💡 &lt;strong>Tip para la publicación:&lt;/strong> La ecuación final del modelo debe presentarse de forma completa —incluyendo todos los coeficientes, el intercepto y, si corresponde, la supervivencia basal—, reportando métricas de calibración y discriminación con sus intervalos de confianza.&lt;/p>
+&lt;p>En machine learning es común dividir los datos en entrenamiento y prueba. Sin embargo, en contextos clínicos es diferente:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Los &lt;strong>conjuntos de datos&lt;/strong> suelen ser &lt;strong>pequeños o medianos&lt;/strong> (usualmente menos de 1000 filas) → dividir reduce la información disponible para entrenar.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Las &lt;strong>métricas&lt;/strong> derivadas de la prueba pueden ser &lt;strong>altamente variables&lt;/strong>, dependiendo de qué observaciones caen en la partición.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Esto genera un &lt;strong>modelo menos estable&lt;/strong> y menos confiable, especialmente en estimaciones de probabilidades individuales.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
+&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">La ausencia de particiones en su estudio ser un &lt;strong>tema polémico&lt;/strong>, pero no se preocupe!
+&lt;a href="#hi">Más adelante, se comentan algunos argumentos para la discusión.&lt;/a>&lt;/span>
+&lt;/div>
+&lt;h3 id="5-evaluación-del-rendimiento-del-modelo">5. Evaluación del Rendimiento del Modelo&lt;/h3>
+&lt;p>Una vez desarrollado el modelo, es esencial cuantificar su capacidad predictiva antes de su validación. Esta evaluación se centra en tres aspectos clave:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Calibración:&lt;/strong> Mide la concordancia entre las probabilidades predichas y las observadas. Por ejemplo, ¿un 10% de riesgo predicho se corresponde con un 10% de eventos observados? Se evalúa visualmente con curvas de calibración y cuantitativamente con parámetros como el intercepto (A, calibración-in-the-large) y la pendiente de calibración (B).&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>cal_boot &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">calibrate&lt;/span>(modelo, method &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;boot&amp;#34;&lt;/span>, B &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">100&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot&lt;/span>(cal_boot, main &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Calibración: Predichas vs Observadas&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">## &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">## n=768 Mean absolute error=0.016 Mean squared error=0.00045&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">## 0.9 Quantile of absolute error=0.034&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">abline&lt;/span>(&lt;span style="color:#ae81ff">0&lt;/span>, &lt;span style="color:#ae81ff">1&lt;/span>, lty &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">2&lt;/span>, col &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;red&amp;#34;&lt;/span>) &lt;span style="color:#75715e"># Línea ideal&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;img src="calibracion-1.png" width="80%" style="display: block; margin: auto;" />
+&lt;ul>
+&lt;li>&lt;strong>Discriminación:&lt;/strong> Evalúa la capacidad del modelo para distinguir entre pacientes que experimentan el evento y aquellos que no. La métrica más común es el estadístico C (o AUC-ROC), que representa la probabilidad de que un paciente con el evento tenga una puntuación de riesgo más alta que uno sin él.&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>val_boot &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">validate&lt;/span>(modelo, method &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;boot&amp;#34;&lt;/span>, B &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">100&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>roc_obj &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">roc&lt;/span>(datos&lt;span style="color:#f92672">$&lt;/span>diabetes, &lt;span style="color:#a6e22e">predict&lt;/span>(modelo, type &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;fitted&amp;#34;&lt;/span>))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot&lt;/span>(roc_obj,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> main &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">paste&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Curva ROC - AUC =&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">round&lt;/span>(&lt;span style="color:#a6e22e">auc&lt;/span>(roc_obj), &lt;span style="color:#ae81ff">3&lt;/span>)),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> col &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;blue&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> legacy.axes &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">TRUE&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;img src="Discriminacion-1.png" width="80%" style="display: block; margin: auto;" />
+&lt;ul>
+&lt;li>&lt;strong>Utilidad Clínica:&lt;/strong> Determina si el modelo es útil para la toma de decisiones. El análisis de curvas de decisión y el Beneficio Neto (NB) permiten evaluar si el uso del modelo conduce a mejores resultados clínicos netos en comparación con estrategias alternativas (como tratar a todos o a ninguno).&lt;/li>
+&lt;/ul>
+&lt;h3 id="6-evaluación-de-la-validez-del-modelo">6. Evaluación de la Validez del Modelo&lt;/h3>
+&lt;p>La &lt;strong>evaluación del rendimiento&lt;/strong> en los datos suele ser optimista. Por ello, es crucial evaluar la validez del modelo en datos no utilizados para su construcción, un proceso que se divide en:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Validación Interna:&lt;/strong> Evalúa la reproducibilidad del modelo, es decir, su rendimiento en múltiples muestras de la misma población subyacente. Técnicas como el bootstrapping o la validación cruzada son superiores a la división simple de la muestra, ya que cuantifican y corrigen el optimismo en las métricas de rendimiento sin reducir el tamaño de la muestra de desarrollo.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Validación Externa:&lt;/strong> Es la prueba definitiva de la generalizabilidad o transportabilidad del modelo. Consiste en aplicar el modelo a una población completamente independiente, lo que puede incluir:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Validación Temporal:&lt;/strong> Usar pacientes reclutados en un período posterior.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Validación Geográfica:&lt;/strong> Aplicar el modelo en pacientes de otros centros u hospitales.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="7-presentación-del-modelo">7. Presentación del modelo&lt;/h3>
+&lt;p>La presentación efectiva es crucial para la adopción clínica. Un modelo perfecto es inútil si los médicos no pueden usarlo fácilmente. Algunas opciones para llevar el modelo a la práctica asistencial son:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Nomogramas&lt;/strong>: Ideales para uso rápido en consulta.&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>nom &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">nomogram&lt;/span>(modelo, fun &lt;span style="color:#f92672">=&lt;/span> plogis, funlabel &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Riesgo de Diabetes&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot&lt;/span>(nom, main &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Nomograma del Modelo&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;img src="nomograma-1.png" width="80%" style="display: block; margin: auto;" />
+&lt;ul>
+&lt;li>&lt;strong>Aplicaciones web/móviles&lt;/strong>: Para integración en flujos de trabajo clínicos&lt;/li>
+&lt;/ul>
+&lt;p>Una aplicación funcional para ejecutar el modelo en una pagina web, teléfono movil o tableta es una muy buena opción para generalizar el modelo.&lt;/p>
+&lt;p>En este enlace te muestro la calculadora web que programé en js, html y css, para el modelo de mi tesis.&lt;/p>
+&lt;p>&lt;a href="https://maicel.netlify.app/project/covidcencecapk/">ver CovidCencecAPK&lt;/a>&lt;/p>
+&lt;h2 id="hi">Recomendaciones y análisis crítico&lt;/h2>
+&lt;p>En el contexto de modelos predictivos clínicos, una práctica común pero problemática es el uso exclusivo de una &lt;strong>partición simple (entranamento/preuba)&lt;/strong> para el desarrollo, ajuste y evaluación final. A continuación, detallo los motivos clave con argumentos fundamentados.&lt;/p>
+&lt;p>El enfoque es aceptado por buena parte de la comunidad científica como se pono de manifiesto en el siguiente tweet:&lt;/p>
+&lt;!-- &lt;blockquote class="twitter-tweet">&lt;p lang="en" dir="ltr">Good description of leakage, but very often an even better solution is not to split your data into train-test sets at all. Cross validation and internal-external validation should be the starting point (deviate only when necessary) &lt;a href="https://t.co/l3ZDmv2kzb">https://t.co/l3ZDmv2kzb&lt;/a>&lt;/p>&amp;mdash; Maarten van Smeden (@MaartenvSmeden) &lt;a href="https://twitter.com/MaartenvSmeden/status/1544599686488723461?ref_src=twsrc%5Etfw">July 6, 2022&lt;/a>&lt;/blockquote>
+&lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8">&lt;/script>
+-->
+&lt;p>Pero abordemos en detalles algunas de las principales razones para abandonar esa práctica en contextos como los que habitualmente nos enfrentamos.&lt;/p>
+&lt;h3 id="1-ineficiencia-en-el-uso-de-los-datos-y-pérdida-de-poder">1. Ineficiencia en el uso de los datos y pérdida de poder&lt;/h3>
+&lt;p>Los datasets clínicos suelen ser pequeños (por ejemplo, menos de 500 pacientes) debido a limitaciones como costos o eventos raros. Una partición típica (70% train / 30% test) desperdicia hasta un 30% de los datos en la evaluación, reduciendo el tamaño efectivo para entrenar. Esto baja los eventos por variable predictora (EPV) —una métrica que indica cuántos eventos (como diagnósticos positivos) hay por cada predictor en el modelo— por debajo de 10-20, lo que genera modelos inestables y sesgados. Como resultado, el rendimiento aparente (por ejemplo, AUC alta en train) cae drásticamente en datos nuevos (de 0.85 a 0.65). En contextos clínicos, maximizar todos los datos es clave para capturar patrones reales sin perder poder estadístico.&lt;/p>
+&lt;h3 id="2-evaluaciones-de-rendimiento-con-alta-variabilidad-e-inestabilidad">2. Evaluaciones de rendimiento con alta variabilidad e inestabilidad&lt;/h3>
+&lt;p>Con una sola partición, las métricas (como AUC para discriminación o Brier score para calibración, que mide el acuerdo entre predicciones y resultados reales) dependen del azar de cómo se dividen los datos. Simulaciones muestran variaciones de ±0.10-0.15 en AUC, similar a ruido aleatorio, y una varianza 2-3 veces mayor en muestras pequeñas (por ejemplo, 200 pacientes con 10% de eventos). Esto puede inflar o subestimar la calibración (evaluada con tests como Hosmer-Lemeshow), llevando a decisiones clínicas erróneas, como subtratar pacientes.&lt;/p>
+&lt;p>Para ilustrarlo en R con un dataset de ejemplo (PimaIndiansDiabetes), simula la variabilidad de AUC en splits repetidos:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>auc_splits &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">replicate&lt;/span>(&lt;span style="color:#ae81ff">100&lt;/span>, {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> trainIndex &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">createDataPartition&lt;/span>(datos&lt;span style="color:#f92672">$&lt;/span>diabetes, p &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">0.7&lt;/span>, list &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">FALSE&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> train &lt;span style="color:#f92672">&amp;lt;-&lt;/span> datos[trainIndex, ]; test &lt;span style="color:#f92672">&amp;lt;-&lt;/span> datos[&lt;span style="color:#f92672">-&lt;/span>trainIndex, ]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> model_simple &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">glm&lt;/span>(diabetes &lt;span style="color:#f92672">~&lt;/span> glucose &lt;span style="color:#f92672">+&lt;/span> mass &lt;span style="color:#f92672">+&lt;/span> age, family &lt;span style="color:#f92672">=&lt;/span> binomial, data &lt;span style="color:#f92672">=&lt;/span> train)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> pred &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">predict&lt;/span>(model_simple, test, type &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;response&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">roc&lt;/span>(test&lt;span style="color:#f92672">$&lt;/span>diabetes, pred)&lt;span style="color:#f92672">$&lt;/span>auc
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>})
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">hist&lt;/span>(auc_splits,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> main &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Distribución de AUC en 100 Splits Simples&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> xlab &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;AUC&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> col &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;lightgray&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> border &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;black&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;img src="Simular-1.png" width="80%" style="display: block; margin: auto;" />
+&lt;p>En comparación, métodos repetidos como validación cruzada son más estables y confiables.&lt;/p>
+&lt;h3 id="3-riesgo-de-sobreajuste-y-falta-de-generalización-robusta">3. Riesgo de sobreajuste y falta de generalización robusta&lt;/h3>
+&lt;p>Una &amp;ldquo;instantánea&amp;rdquo; en el test set no corrige sobreajuste: el modelo se ajusta al train (incluyendo ruido), inflando rendimiento aparente (optimismo de 5-20% en R², per Harrell). Sin repetición, no se obtiene un error de generalización realista. Métodos repetidos (e.g., k-fold CV) promedian estimaciones para reducir sesgo, mejorando estabilidad. Esto afecta validez interna (sin corrección de optimismo) y generalización (fallos en cohortes externas por idiosincrasias de la muestra).&lt;/p>
+&lt;h3 id="recomendaciones-prácticas">Recomendaciones prácticas&lt;/h3>
+&lt;p>En su lugar, usa métodos que aprovechen todos los datos, como validación cruzada repetida (divide en folds, repite múltiples veces para promediar) o bootstrapping (muestrea con reemplazo para estimar estabilidad). Estos corrigen optimismo y reducen variabilidad, alineándose con buenas prácticas para modelos clínicos. En R, prueba rms::validate() para bootstrapping. Para datasets pequeños, evita splits simples: prioriza robustez para resultados útiles en la práctica asistencial.&lt;/p>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-yellow-100 dark:bg-yellow-900">
+&lt;span class="pr-3 pt-1 text-red-400">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0zM12 15.75h.007v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;strong>Recomendación clave:&lt;/strong> En datasets clínicos pequeños, evite particiones simples; opte por bootstrapping en &lt;code>rms&lt;/code> para validación interna. Esto asegura modelos estables y útiles, alineados con evidencia científica.&lt;/span>
+&lt;/div>
+&lt;h2 id="llamada-a-la-acción">Llamada a la acción&lt;/h2>
+&lt;p>¿Has aplicado estas técnicas en tus proyectos de Machine Learning? ¿Qué estrategias usas para entrenar y validar tus modelos? Déjame tus comentarios 💬: comparte tus experiencias, dificultades o tips contigo. ¡Juntos podemos enriquecer este conocimiento!&lt;/p>
+&lt;h2 id="bibliografía">Bibliografía&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>Collins GS, Moons KGM, Dhiman P, Riley RD, Beam AL, Van Calster B, et al. TRIPOD+AI statement: updated guidance for reporting clinical prediction models that use regression or machine learning methods. BMJ [Internet]. 16 de abril de 2024 [citado 3 de octubre de 2025];e078378. Disponible en: &lt;a href="https://www.bmj.com/lookup/doi/10.1136/bmj-2023-078378" target="_blank" rel="noopener">https://www.bmj.com/lookup/doi/10.1136/bmj-2023-078378&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Steyerberg EW, Vergouwe Y. Towards better clinical prediction models: seven steps for development and an ABCD for validation. European Heart Journal [Internet]. 1 de agosto de 2014 [citado 9 de mayo de 2021];35(29):1925-31. Disponible en: &lt;a href="https://academic.oup.com/eurheartj/article-lookup/doi/10.1093/eurheartj/ehu207" target="_blank" rel="noopener">https://academic.oup.com/eurheartj/article-lookup/doi/10.1093/eurheartj/ehu207&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Steyerberg E. Clinical Prediction Models. 1th ed. USA: Springer; 2009. (Statistics for Biology and Health).&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Harrell Jr FE. Regression Modeling Strategies. 1era ed. New York: Springer; 2015.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Heinze G, Wallisch C, Dunkler D. Variable selection - A review and recommendations for the practicing statistician. Biom J [Internet]. mayo de 2018 [citado 9 de mayo de 2021];60(3):431-49. Disponible en: &lt;a href="http://doi.wiley.com/10.1002/bimj.201700067" target="_blank" rel="noopener">http://doi.wiley.com/10.1002/bimj.201700067&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;div class="footnotes" role="doc-endnotes">
+&lt;hr>
+&lt;ol>
+&lt;li id="fn:1">
+&lt;p>Puede contactarme para una consultoría personalizada donde puedo ayudarle a desarrollar un modelo predictivo o enseñarle a desarrollar la estrategia de modelado con otras herramientas como &lt;strong>SPSS&lt;/strong> o &lt;strong>Python&lt;/strong> a mi correo personal &lt;a href="mailto:maicel.monzon@gmail.com">maicel.monzon@gmail.com&lt;/a> .&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/div></description></item><item><title>¿Escribir ciencia o reescribir la realidad?</title><link>https://maicel.netlify.app/post/imryd-redaccion-inversa/</link><pubDate>Sat, 04 Oct 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/imryd-redaccion-inversa/</guid><description>&lt;h2 id="introducción">Introducción&lt;/h2>
 &lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
 &lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
 &lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
@@ -1102,157 +1370,4 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;/li>
 &lt;/ul>
 &lt;h2 id="conclusión">Conclusión&lt;/h2>
-&lt;p>El Análisis Exploratorio de Datos no es solo una fase inicial, sino un proceso continuo de aprendizaje sobre tus datos. Es una inversión de tiempo que rinde grandes dividendos, ya que una comprensión profunda de los datos nos permite tomar decisiones más informadas, construir modelos más robustos y, en última instancia, extraer conocimientos más valiosos. Al dominar el EDA, te equipas con la habilidad de transformar datos brutos en una historia coherente y accionable, evitando la trampa del GIGO y asegurando que tus esfuerzos de ciencia de datos generen un impacto real.&lt;/p></description></item><item><title>Cómo entrenar y validar un modelo de predicción clínica</title><link>https://maicel.netlify.app/post/como-entrenar-y-validar-modelo-prediccion-clinica/</link><pubDate>Thu, 08 Feb 2024 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/como-entrenar-y-validar-modelo-prediccion-clinica/</guid><description>&lt;p>Si usted es Investigador en Salud o, peor aún, estudiante de posgrado, maestría o doctorado en el campo de las ciencias biomédicas&amp;hellip; &lt;strong>¡bienvenido al club del estrés!&lt;/strong>&lt;/p>
-&lt;p>Seguro que usted está enfocado en desarrollar esos geniales &lt;strong>modelos de predicción clínica&lt;/strong> para el &lt;strong>diagnóstico&lt;/strong> o el &lt;strong>pronóstico&lt;/strong>. Y es casi seguro que ha llegado a esa fase donde la metodología se siente como un muro de ladrillos. Un día estás bien, y al siguiente te das cuenta de que no sabes qué pasos seguir, qué software usar, o lo peor: si tu modelo servirá para algo más allá de llenar un repositorio de tesis.&lt;/p>
-&lt;p>Lo digo sin tapujos: esa frase lapidaria de &lt;strong>&amp;lsquo;Ese valor tan alto de la Curva Roc y la ausencia de métricas de calibración&amp;rsquo;&lt;/strong> puede significar que tu modelo tiene el famoso &lt;strong>síndrome del &amp;ldquo;sobreajuste&amp;rdquo;&lt;/strong>. En otras palabras, funciona espectacularmente bien&amp;hellip; solo para la muestra que lo creó.&lt;/p>
-&lt;p>Es una locura, ¿verdad? Mientras las tesis de alto nivel giran en torno a crear estos modelos de predicción clínica, los cursos de Bioestadística (¡incluida la especialidad!) pasan de puntillas por el tema. Hay una brecha gigantesca, y la ansiedad de tener que aprenderlo todo YA es real. Pero respira. Este post es tu chaleco salvavidas: tu Traductor Metodológico no oficial y (casi) libre de lágrimas. Yo mismo pasé por ese infierno metodológico en mi tesis de doctorado, así que no solo doy consejos: comparto la experiencia de quien ya quemó sus pestañas por ti.&lt;/p>
-&lt;p>Olvida el código complejo y enrevesado. Aquí nos enfocamos en la lógica esencial para construir un modelo predictivo robusto y fiable. Desglosaremos el proceso paso a paso, quitándole el miedo a la estadística con un &lt;strong>Código Práctico en R&lt;/strong>. Empezaremos con la &lt;strong>Estrategia de Modelado&lt;/strong>; el código vendrá después. &lt;strong>¡Empecemos!&lt;/strong>&lt;/p>
-&lt;h2 id="estrategia-de-modelado">Estrategia de modelado&lt;/h2>
-&lt;p>Contar con una estrategia de modelado adecuada es esencial para desarrollar y validar modelos de predicción. En este artículo exploraremos las siete etapas clave propuestas por Ewout Steyerberg en su trabajo (1).&lt;/p>
-&lt;h3 id="1-definición-del-problema-e-inspección-de-datos">1. Definición del problema e inspección de datos&lt;/h3>
-&lt;p>El primer paso en cualquier proyecto de modelado es &lt;strong>definir claramente el problema de investigación&lt;/strong> y seleccionar la &lt;strong>variable de resultado&lt;/strong> adecuada.&lt;/p>
-&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
-&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
-&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
-&lt;/span>
-&lt;span class="dark:text-neutral-300">La &lt;strong>variable de resultado&lt;/strong> debe definirse con precisión: especifica &lt;strong>qué evento se predice&lt;/strong>, &lt;strong>cómo y cuándo se mide&lt;/strong>, y el &lt;strong>horizonte temporal de predicción&lt;/strong> (por ejemplo, mortalidad a 30 días). Indica además el método de evaluación y si hubo &lt;strong>cegamiento&lt;/strong> respecto a los predictores, para garantizar coherencia y validez del modelo.&lt;/span>
-&lt;/div>
-&lt;p>Durante esta fase, también realizamos un análisis exploratorio de datos (EDA) para comprender las características de las variables y detectar posibles problemas, como &lt;strong>datos atípicos&lt;/strong> o &lt;strong>valores faltantes&lt;/strong>.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># bibliotecas&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(rms) &lt;span style="color:#75715e"># El alma de la metodología &lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(pROC) &lt;span style="color:#75715e"># ROC confiable&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(ggplot2)&lt;span style="color:#75715e"># Gráficos publicación&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(missRanger)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(mlbench)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(dplyr)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(conflicted)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">set.seed&lt;/span>(&lt;span style="color:#ae81ff">123&lt;/span>) &lt;span style="color:#75715e"># para reproducibilidad&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># DATOS: &lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">data&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;PimaIndiansDiabetes&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>datos &lt;span style="color:#f92672">&amp;lt;-&lt;/span> PimaIndiansDiabetes
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># predictores&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>vars_clinicas &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;glucose&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;pressure&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;triceps&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;insulin&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;mass&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># PASO CRÍTICO: Transformacion de datos&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>datos &lt;span style="color:#f92672">&amp;lt;-&lt;/span> datos &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># Reemplaza 0 por NA solo en las columnas especificadas en vars_clinicas&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">mutate&lt;/span>(&lt;span style="color:#a6e22e">across&lt;/span>(&lt;span style="color:#a6e22e">all_of&lt;/span>(vars_clinicas), &lt;span style="color:#f92672">~&lt;/span> &lt;span style="color:#a6e22e">ifelse&lt;/span>(.x &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>, &lt;span style="color:#66d9ef">NA&lt;/span>, .x))) &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># Luego aplica missRanger al dataset completo (o se puede focalizar si se desea)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">missRanger&lt;/span>()
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># CONFIGURACIÓN RMS (NO OMITIR)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>dd &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">datadist&lt;/span>(datos)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">options&lt;/span>(datadist &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;dd&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="2-codificación-de-las-variables-predictoras">2. Codificación de las variables predictoras&lt;/h3>
-&lt;p>La &lt;strong>codificación&lt;/strong> adecuada de las &lt;strong>variables predictoras&lt;/strong> es fundamental para construir modelos robustos.&lt;/p>
-&lt;p>Es probable que debas utilizar técnicas como la agrupación de categorías poco frecuentes y la creación de predictores resúmenes para simplificar información correlacionada. Si el algoritmo seleccionado es la &lt;strong>regresión logística&lt;/strong>, es posible que le haga falta aplicar técnicas como los &lt;strong>splines cúbicos restringidos&lt;/strong> para relajar el supuesto de linealidad entre la variable dependiente y el resultado.&lt;/p>
-&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
-&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
-&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
-&lt;/span>
-&lt;span class="dark:text-neutral-300">Cada variable predictora debe definirse con su método de medición y momento. Las variables continuas deben reportarse con sus unidades; si se categorizan, debe justificarse los puntos de corte. Las variables categóricas deben listar todas sus categorías y especificar la categoría de referencia. El modelo final debe presentar la codificación completa utilizada para cada predictor.&lt;/span>
-&lt;/div>
-&lt;p>💡 &lt;strong>Tip:&lt;/strong> Dicotomizar predictores cuantitativos (por ejemplo, transformar una variable continua como la edad o la presión arterial en una variable binaria, como “≥65 años = 1” y “&amp;lt;65 = 0”) es considerada una mala práctica metodológica por pérdida de información, menos poder estadístico, puntos de corte arbitrarios y riesgo de sobreajuste.&lt;/p>
-&lt;h3 id="3-especificación-del-tipo-de-modelo">3 .Especificación del tipo de modelo&lt;/h3>
-&lt;p>En esta etapa se define la estructura formal del modelo, lo que incluye el tipo de relación entre variables (p. ej., lineal, no lineal) y, de manera crucial, la selección de los predictores finales que lo integrarán.&lt;/p>
-&lt;p>
-&lt;figure >
-&lt;div class="flex justify-center ">
-&lt;div class="w-100" >&lt;img alt="" srcset="
-/post/como-entrenar-y-validar-modelo-prediccion-clinica/modelos_elecion_hu_8c0e0341cce17729.webp 400w,
-/post/como-entrenar-y-validar-modelo-prediccion-clinica/modelos_elecion_hu_7b91ac5dc10d2f43.webp 760w,
-/post/como-entrenar-y-validar-modelo-prediccion-clinica/modelos_elecion_hu_e3e07ff54d991fd6.webp 1200w"
-src="https://maicel.netlify.app/post/como-entrenar-y-validar-modelo-prediccion-clinica/modelos_elecion_hu_8c0e0341cce17729.webp"
-width="760"
-height="507"
-loading="lazy" data-zoomable />&lt;/div>
-&lt;/div>&lt;/figure>
-&lt;/p>
-&lt;p>La elección de predictores no debe basarse en la aplicación mecánica de métodos algorítmicos como la &lt;strong>Regresión Paso a Paso (RPP)&lt;/strong>, ya que suelen producir modelos inestables y sobreajustados, especialmente en contextos biomédicos y sociales. En su lugar, se recomienda:&lt;/p>
-&lt;ul>
-&lt;li>
-&lt;p>Priorizar el &lt;strong>juicio clínico, la revisión sistemática de la literatura y la experiencia previa.&lt;/strong>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Evitar la preselección de variables basada únicamente en valores &lt;em>p&lt;/em> de análisis bivariados.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Optar por un conjunto reducido de predictores clínicamente relevantes definidos a priori, o incluir todos los candidatos en el modelo multivariable inicial sin filtrado estadístico previo.&lt;/p>
-&lt;/li>
-&lt;/ul>
-&lt;h3 id="4-estimación-del-modelo">4. Estimación del Modelo&lt;/h3>
-&lt;p>Una vez especificado el modelo (es decir, definidos los predictores y la estructura funcional), el paso de estimación tiene como objetivo calcular los coeficientes o parámetros que mejor se ajusten a los datos de entrenamiento.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#MODELO: PREDICTORES POR FISIOPATOLOGÍA, NO p-valores&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>modelo &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">lrm&lt;/span>(diabetes &lt;span style="color:#f92672">~&lt;/span> &lt;span style="color:#a6e22e">rcs&lt;/span>(glucose, &lt;span style="color:#ae81ff">3&lt;/span>) &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#a6e22e">rcs&lt;/span>(mass, &lt;span style="color:#ae81ff">3&lt;/span>) &lt;span style="color:#f92672">+&lt;/span> age &lt;span style="color:#f92672">+&lt;/span> pregnant &lt;span style="color:#f92672">+&lt;/span> pedigree,
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> data &lt;span style="color:#f92672">=&lt;/span> datos,
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> x &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">TRUE&lt;/span>,
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> y &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">TRUE&lt;/span>)
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>En modelos de regresión, esto implica típicamente el uso de métodos como la &lt;strong>máxima verosimilitud&lt;/strong>. Sin embargo, cuando el número de eventos es limitado o el de predictores es alto, el riesgo de sobreajuste es elevado, lo que genera predicciones extremas y poco generalizables. Para mitigarlo, se emplean técnicas de &lt;strong>regularización, penalización o shrinkage&lt;/strong>, que ajustan los coeficientes hacia cero para mejorar la estabilidad y la calibración en nuevas poblaciones.&lt;/p>
-&lt;p>El objetivo final no es maximizar el rendimiento aparente en la muestra de desarrollo, sino obtener un modelo con &lt;strong>predicciones estables, bien calibradas y clínicamente útiles&lt;/strong>.&lt;/p>
-&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
-&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
-&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
-&lt;/span>
-&lt;span class="dark:text-neutral-300">Es recomendable aplicar siempre una validación interna (como bootstrapping o cross-validation) para cuantificar y corregir el optimismo en las métricas de rendimiento. La ecuación final del modelo debe presentarse de forma completa —incluyendo todos los coeficientes, el intercepto y, si corresponde, la supervivencia basal—, reportando métricas de calibración y discriminación con sus intervalos de confianza.&lt;/span>
-&lt;/div>
-&lt;h3 id="5-evaluación-del-rendimiento-del-modelo">5. Evaluación del Rendimiento del Modelo&lt;/h3>
-&lt;p>Una vez desarrollado el modelo, es esencial cuantificar su capacidad predictiva antes de su validación. Esta evaluación se centra en tres aspectos clave:&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>Calibración:&lt;/strong> Mide la concordancia entre las probabilidades predichas y las observadas. Por ejemplo, ¿un 10% de riesgo predicho se corresponde con un 10% de eventos observados? Se evalúa visualmente con curvas de calibración y cuantitativamente con parámetros como el intercepto (A, calibración-in-the-large) y la pendiente de calibración (B).&lt;/li>
-&lt;/ul>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># calibrate(): Bootstrap para evaluar y corregir la calibración&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>cal_boot &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">calibrate&lt;/span>(modelo, method &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;boot&amp;#34;&lt;/span>, B &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">200&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># GRÁFICOS DE SUPERVIVENCIA &lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot&lt;/span>(cal_boot, main &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Probabilidasde predichas vs observadas&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">abline&lt;/span>(&lt;span style="color:#ae81ff">0&lt;/span>, &lt;span style="color:#ae81ff">1&lt;/span>, lty &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">2&lt;/span>, col &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;red&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;img src="https://maicel.netlify.app/post/como-entrenar-y-validar-modelo-prediccion-clinica/index_files/figure-html/calibracion-1.png" width="672" style="display: block; margin: auto;" />
-&lt;ul>
-&lt;li>&lt;strong>Discriminación:&lt;/strong> Evalúa la capacidad del modelo para distinguir entre pacientes que experimentan el evento y aquellos que no. La métrica más común es el estadístico C (o AUC-ROC), que representa la probabilidad de que un paciente con el evento tenga una puntuación de riesgo más alta que uno sin él.&lt;/li>
-&lt;/ul>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># validate(): Bootstrap para estimar el optimismo y corregir métricas de discriminación&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>val_boot &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">validate&lt;/span>(modelo, method &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;boot&amp;#34;&lt;/span>, B &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">200&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>roc_obj &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">roc&lt;/span>(datos&lt;span style="color:#f92672">$&lt;/span>diabetes, &lt;span style="color:#a6e22e">predict&lt;/span>(modelo, type &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;fitted&amp;#34;&lt;/span>))
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot&lt;/span>(roc_obj,
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> main &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">paste&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;AUC =&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">round&lt;/span>(&lt;span style="color:#a6e22e">auc&lt;/span>(roc_obj), &lt;span style="color:#ae81ff">3&lt;/span>)),
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> col &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;blue&amp;#34;&lt;/span>,
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> legacy.axes &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">TRUE&lt;/span>)
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;img src="https://maicel.netlify.app/post/como-entrenar-y-validar-modelo-prediccion-clinica/index_files/figure-html/discriminacion-1.png" width="672" style="display: block; margin: auto;" />
-&lt;ul>
-&lt;li>&lt;strong>Utilidad Clínica:&lt;/strong> Determina si el modelo es útil para la toma de decisiones. El análisis de curvas de decisión y el Beneficio Neto (NB) permiten evaluar si el uso del modelo conduce a mejores resultados clínicos netos en comparación con estrategias alternativas (como tratar a todos o a ninguno).&lt;/li>
-&lt;/ul>
-&lt;h3 id="6-evaluación-de-la-validez-del-modelo">6. Evaluación de la Validez del Modelo&lt;/h3>
-&lt;p>La evaluación del rendimiento en los datos de desarrollo suele ser optimista. Por ello, es crucial evaluar la validez del modelo en datos no utilizados para su construcción, un proceso que se divide en:&lt;/p>
-&lt;p>&lt;strong>Validación Interna:&lt;/strong> Evalúa la reproducibilidad del modelo, es decir, su rendimiento en múltiples muestras de la misma población subyacente. Técnicas como el bootstrapping o la validación cruzada son superiores a la división simple de la muestra, ya que cuantifican y corrigen el optimismo en las métricas de rendimiento sin reducir el tamaño de la muestra de desarrollo.&lt;/p>
-&lt;p>&lt;strong>Validación Externa:&lt;/strong> Es la prueba definitiva de la generalizabilidad o transportabilidad del modelo. Consiste en aplicar el modelo a una población completamente independiente, lo que puede incluir:&lt;/p>
-&lt;ul>
-&lt;li>
-&lt;p>&lt;strong>Validación Temporal:&lt;/strong> Usar pacientes reclutados en un período posterior.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Validación Geográfica:&lt;/strong> Aplicar el modelo en pacientes de otros centros u hospitales.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Validación Fuerte:&lt;/strong> Probar el modelo en un entorno clínico o una población con características diferentes a las originales.&lt;/p>
-&lt;/li>
-&lt;/ul>
-&lt;p>Este paso es fundamental para confirmar que el modelo mantiene su calibración, discriminación y utilidad clínica en la práctica real.&lt;/p>
-&lt;h3 id="7-presentación-del-modelo">7. Presentación del modelo&lt;/h3>
-&lt;p>La presentación efectiva es crucial para la adopción clínica. Un modelo perfecto es inútil si los médicos no pueden interpretarlo fácilmente. Considera:&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>Nomogramas&lt;/strong>: Ideales para uso rápido en consulta&lt;/li>
-&lt;li>&lt;strong>Aplicaciones web/móviles&lt;/strong>: Para integración en flujos de trabajo clínicos&lt;/li>
-&lt;li>&lt;strong>Puntuaciones de riesgo&lt;/strong>: Simplificadas para triaje rápido&lt;/li>
-&lt;li>&lt;strong>Documentación clara&lt;/strong>: Incluyendo limitaciones y casos de uso&lt;/li>
-&lt;/ul>
-&lt;p>Recuerda: la transparencia en la presentación favorece la confianza clínica.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># NOMOGRAMA: EL TEST DE USABILIDAD CLÍNICA &lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>nom &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">nomogram&lt;/span>(modelo, fun &lt;span style="color:#f92672">=&lt;/span> plogis, funlabel &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Riesgo Diabetes&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot&lt;/span>(nom)
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;img src="https://maicel.netlify.app/post/como-entrenar-y-validar-modelo-prediccion-clinica/index_files/figure-html/prersentacion-1.png" width="672" style="display: block; margin: auto;" />
-&lt;!-- ## 🛠️ EL KIT DE SUPERVIVENCIA (Tu Script) -->
-&lt;!-- [Descarga el script completo] -->
-&lt;p>¿Has aplicado estas técnicas en tus proyectos de Machine Learning? ¿Qué estrategias usas para entrenar y validar tus modelos? Déjame tus comentarios 💬: comparte tus experiencias, dificultades o tips contigo. ¡Juntos podemos enriquecer este conocimiento!&lt;/p>
-&lt;h2 id="bibliografía">Bibliografía&lt;/h2>
-&lt;ol>
-&lt;li>Steyerberg EW, Vergouwe Y. Towards better clinical prediction models: seven steps for development and an ABCD for validation. European Heart Journal [Internet]. 1 de agosto de 2014 [citado 9 de mayo de 2021];35(29):1925-31. Disponible en: &lt;a href="https://academic.oup.com/eurheartj/article-lookup/doi/10.1093/eurheartj/ehu207" target="_blank" rel="noopener">https://academic.oup.com/eurheartj/article-lookup/doi/10.1093/eurheartj/ehu207&lt;/a>&lt;/li>
-&lt;/ol></description></item></channel></rss>
+&lt;p>El Análisis Exploratorio de Datos no es solo una fase inicial, sino un proceso continuo de aprendizaje sobre tus datos. Es una inversión de tiempo que rinde grandes dividendos, ya que una comprensión profunda de los datos nos permite tomar decisiones más informadas, construir modelos más robustos y, en última instancia, extraer conocimientos más valiosos. Al dominar el EDA, te equipas con la habilidad de transformar datos brutos en una historia coherente y accionable, evitando la trampa del GIGO y asegurando que tus esfuerzos de ciencia de datos generen un impacto real.&lt;/p></description></item></channel></rss>
