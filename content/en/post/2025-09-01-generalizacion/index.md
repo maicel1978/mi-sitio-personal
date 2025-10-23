@@ -1,8 +1,8 @@
 ---
 title: 'Del Laboratorio al Mundo Real'
-authors: ["admin"]
+authors: ["admin-en"]
 date: '2025-09-01'
-slug: generalizacion
+slug: generalizacion-en
 categories:
   - ensayos clinicos
   - Opinión

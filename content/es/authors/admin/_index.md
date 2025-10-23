@@ -79,7 +79,7 @@ interests:
   - Ciencia de datos
   - Inteligencia artificial
   - Ensayos clínicos
-  - Progranción en R y python
+  - Programación en R y Python
 languages:
   - name: Spanish
     percent: 100

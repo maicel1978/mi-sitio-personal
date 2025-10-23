@@ -82,15 +82,14 @@ cascade:
   # Configure blog posts
   - _target:
       path: /post/**
-    type: post # esto no se
     show_author: true
     pager: true
-    editable: true
     reading_time: true
     commentable: true
     show_related: true
-    show_breadcrumb: true
+    profile: true
     share: true
+    show_breadcrumb: true
     header:
       navbar:
         enable: false

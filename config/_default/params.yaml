@@ -76,4 +76,6 @@ features:
 #   rss: true     # Feed RSS para blog
 #   paginate: 10  # Posts por página
 
-
+extensions:
+  academicons:
+    enable: true
