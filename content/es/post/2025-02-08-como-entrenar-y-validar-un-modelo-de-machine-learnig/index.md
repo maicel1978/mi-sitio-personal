@@ -85,7 +85,7 @@ Según el **objetivo de la investigación** se pueden optar por uno de los sigui
     - Cualquier diseño anterior con nuevos datos
     - Datos con Estructura de Clúster
 ```
-Se recomienda profundizar en estos temas a partir de la bibliografía propuesta para esta publicación. En este post no centraremos en la **secuencia de etapas clave** para desarrollar un **modelo predictivo**. Como base usaré el artículo *“Siete pasos para el desarrollo y un ABCD para la validación”* de  Ewout Steyerberg (1), así como su libro *Clinical Prediction Models* (2). A la receta añadiré las recomendaciones de Frank Harrell desde su obra *Regression Modeling Strategies* (3), y nos basaremos en su biblioteca **rms** para desarrollar este tutorial con **código práctico en R**. Finalmente daré mi propia visión del polémico asunto de particionar los datos en **conjunto de entrenamiento** y **conjunto de prueba** en una **proporción 70:30** y otras cuestiones que seguramente resultarán interesantes.
+Se recomienda profundizar en estos temas a partir de la bibliografía propuesta para esta publicación. En este post nos centraremos en la **secuencia de etapas clave** para desarrollar un **modelo predictivo**. Como base usaré el artículo *“Siete pasos para el desarrollo y un ABCD para la validación”* de  Ewout Steyerberg (1), así como su libro *Clinical Prediction Models* (2). A la receta añadiré las recomendaciones de Frank Harrell desde su obra *Regression Modeling Strategies* (3), y nos basaremos en su biblioteca **rms** para desarrollar este tutorial con **código práctico en R**. Finalmente daré mi propia visión del polémico asunto de particionar los datos en **conjunto de entrenamiento** y **conjunto de prueba** en una **proporción 70:30** y otras cuestiones que seguramente resultarán interesantes.
 
 Empezaremos con la **estrategia de modelado**; el tutorial con todo el código vendrá después.  
 **¡Empecemos!**
@@ -180,7 +180,7 @@ Existen algoritmos que tienen  enfoques alternativos a la selección automática
 
 ### 4. Estimación del Modelo
 
-Una vez especificado el modelo (es decir, definidos los predictores y la estructura funcional), el siguiente paso de estimación tiene como objetivo calcular los coeficientes o parámetros que mejor se ajusten a los datos.
+Una vez especificado el modelo (es decir, definidos los predictores y la estructura funcional), el siguiente paso tiene como objetivo calcular los coeficientes o parámetros que mejor se ajusten a los datos.
 
 
 ``` r
@@ -310,7 +310,7 @@ Pero abordemos en detalles algunas de las principales razones para abandonar esa
 
 ### 1. Ineficiencia en el uso de los datos y pérdida de poder
 
-Los datasets clínicos suelen ser pequeños (por ejemplo, menos de 500 pacientes) debido a limitaciones como costos o eventos raros. Una partición típica (70% train / 30% test) desperdicia hasta un 30% de los datos en la evaluación, reduciendo el tamaño efectivo para entrenar. Esto baja los eventos por variable predictora (EPV) —una métrica que indica cuántos eventos (como diagnósticos positivos) hay por cada predictor en el modelo— por debajo de 10-20, lo que genera modelos inestables y sesgados. Como resultado, el rendimiento aparente (por ejemplo, AUC alta en train) cae drásticamente en datos nuevos (de 0.85 a 0.65). En contextos clínicos, maximizar todos los datos es clave para capturar patrones reales sin perder poder estadístico.
+Los datasets clínicos suelen ser pequeños (por ejemplo, menos de 500 pacientes) debido a limitaciones como costos o eventos raros. Una partición típica (70% entrenamiento / 30% prueba) desperdicia hasta un 30% de los datos en la evaluación, reduciendo el tamaño efectivo para entrenar. Esto baja los eventos por variable predictora (EPV) —una métrica que indica cuántos eventos (como diagnósticos positivos) hay por cada predictor en el modelo— por debajo de 10-20, lo que genera modelos inestables y sesgados. Como resultado, el rendimiento aparente (por ejemplo, AUC alta en train) cae drásticamente en datos nuevos (de 0.85 a 0.65). En contextos clínicos, maximizar todos los datos es clave para capturar patrones reales sin perder poder estadístico.
 
 ### 2. Evaluaciones de rendimiento con alta variabilidad e inestabilidad
 
@@ -343,13 +343,12 @@ En comparación, métodos repetidos como validación cruzada son más estables y
 
 ### 3. Riesgo de sobreajuste y falta de generalización robusta
 
-Una "instantánea" en el test set no corrige sobreajuste: el modelo se ajusta al train (incluyendo ruido), inflando rendimiento aparente (optimismo de 5-20% en R², per Harrell). Sin repetición, no se obtiene un error de generalización realista. Métodos repetidos (e.g., k-fold CV) promedian estimaciones para reducir sesgo, mejorando estabilidad. Esto afecta validez interna (sin corrección de optimismo) y generalización (fallos en cohortes externas por idiosincrasias de la muestra).
-
+Una "instantánea" en el test set no corrige sobreajuste: el modelo se ajusta al train (incluyendo ruido), inflando rendimiento aparente (optimismo de 5-20% en R², per Harrell). Sin repetición, no se obtiene un error de generalización realista. Métodos repetidos (ej., validación cruzada de k pliegues ) promedian estimaciones para reducir sesgo, mejorando estabilidad. Esto afecta validez interna (sin corrección de optimismo) y generalización (fallos en cohortes externas por idiosincrasias de la muestra).
 
 
 ### Recomendaciones prácticas
 
-En su lugar, usa métodos que aprovechen todos los datos, como validación cruzada repetida (divide en folds, repite múltiples veces para promediar) o bootstrapping (muestrea con reemplazo para estimar estabilidad). Estos corrigen optimismo y reducen variabilidad, alineándose con buenas prácticas para modelos clínicos. En R, prueba rms::validate() para bootstrapping. Para datasets pequeños, evita splits simples: prioriza robustez para resultados útiles en la práctica asistencial.
+En su lugar, usa métodos que aprovechen todos los datos, como validación cruzada repetida (divide en particiones, repite múltiples veces para promediar) o bootstrapping (muestrea con reemplazo para estimar estabilidad). Estos corrigen optimismo y reducen variabilidad, alineándose con buenas prácticas para modelos clínicos. En R, prueba rms::validate() para bootstrapping. Para conjunto de datos pequeños, evita divisiones simples: prioriza robustez para resultados útiles en la práctica asistencial.
 
 {{% callout warning %}}
 **Recomendación clave:** En datasets clínicos pequeños, evite particiones simples; opte por bootstrapping en `rms` para validación interna. Esto asegura modelos estables y útiles, alineados con evidencia científica.
@@ -359,7 +358,7 @@ En su lugar, usa métodos que aprovechen todos los datos, como validación cruza
 
 ## Llamada a la acción 
 
-¿Has aplicado estas técnicas en tus proyectos de Machine Learning? ¿Qué estrategias usas para entrenar y validar tus modelos? Déjame tus comentarios 💬: comparte tus experiencias, dificultades o tips contigo. ¡Juntos podemos enriquecer este conocimiento!
+¿Has aplicado estas técnicas en tus proyectos de modelos predictivos? ¿Qué estrategias usas para entrenar y validar tus modelos? Déjame tus comentarios 💬: comparte tus experiencias, dificultades o tips contigo. ¡Juntos podemos enriquecer este conocimiento!
 
 
 ## Bibliografía
