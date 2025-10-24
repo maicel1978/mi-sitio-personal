@@ -270,22 +270,40 @@ La calibración perfecta ocurre cuando las probabilidades predichas coinciden co
 &lt;p>Cuando no se corrige este optimismo, no solo se afecta la validez interna del estudio, sino que se compromete la generalización del modelo, pues fallará al aplicarse a cohortes externas debido a las idiosincrasias (detalles únicos) de la muestra original.&lt;/p>
 &lt;h3 id="-mi-sugerencia">💡 Mi Sugerencia&lt;/h3>
 &lt;p>En lugar de depender de particiones simples, mi recomendación es clara: utilizar métodos que aprovechen la totalidad de los datos y ofrezcan estimaciones más estables. Esto incluye:&lt;/p>
+&lt;ul>
+&lt;li>
 &lt;p>Validación Cruzada Repetida: Divide los datos en particiones y repite el proceso de división y evaluación múltiples veces para promediar los resultados.&lt;/p>
+&lt;/li>
+&lt;li>
 &lt;p>Bootstrapping: Muestrea con reemplazo para estimar la estabilidad y corregir el optimismo inherente.&lt;/p>
+&lt;/li>
+&lt;li>
 &lt;p>Estos métodos no solo corrigen el optimismo sino que reducen la variabilidad, alineándose con las buenas prácticas en el desarrollo de modelos de pronóstico clínico. Por esta razón, seleccioné bibliotecas como rms::validate() en R para el ejemplo, ya que se adhieren a esta filosofía.&lt;/p>
+&lt;/li>
+&lt;li>
 &lt;p>Para conjuntos de datos pequeños, la robustez es lo primero. Evite las divisiones simples y priorice la estabilidad para generar resultados que sean verdaderamente útiles en la práctica asistencial.&lt;/p>
+&lt;/li>
+&lt;/ul>
 &lt;p>&lt;strong>Un Apunte sobre la Validación Externa&lt;/strong>&lt;/p>
 &lt;p>Coincido en que la validación externa es crucial y debe realizarse con un conjunto de datos independiente en otros contextos, ya sea en diferentes momentos (validación temporal) o en distintos hospitales (validación geográfica), para confirmar la verdadera generalización.&lt;/p>
 &lt;p>En mi experiencia, las cuestiones operativas y logísticas que implica realizar una validación externa en otro centro o en otro momento a menudo desmotivan al investigador que está desarrollando un modelo con datos de su propia consulta. Sin embargo, creo que este enfoque es el que abre el camino para obtener mejores resultados a partir de la investigación en condiciones reales. Además, es un acto de mérito y un pilar de la ciencia realizar validaciones de modelos de otros en su propia consulta; la ciencia se nutre de la replicación y la colaboración.&lt;/p>
 &lt;h2 id="tu-turno-pasa-de-la-teoría-a-la-práctica">¡Tu Turno! Pasa de la Teoría a la Práctica&lt;/h2>
 &lt;p>Este material es solo la punta del iceberg. Hay muchos temas cruciales que, por síntesis, no abordamos aquí, pero que se construyen sobre esta base: la reproducibilidad, el ajuste del intercepto de la regresión logística en escenarios con prevalencias diferentes, los métodos de recalibración continua, o la construcción de escalas y clasificaciones clínicas.&lt;/p>
 &lt;p>Ahora, me encantaría leerte. ¡La experiencia es la que enriquece el conocimiento!&lt;/p>
-&lt;p>💬 Déjanos tu Comentario
-¿Has aplicado estas técnicas de remuestreo en tus proyectos de modelos predictivos?&lt;/p>
-&lt;p>¿Qué estrategias usas habitualmente para entrenar y validar tus modelos clínicos?&lt;/p>
-&lt;p>Tus comentarios, tus dificultades y tus logros nos ayudan a todos a seguir aprendiendo.&lt;/p>
+&lt;p>💬 Déjanos tu comentario en la caja de comentarios:&lt;/p>
+&lt;ul>
+&lt;li>¿Has aplicado estas técnicas de remuestreo en tus proyectos de modelos predictivos?&lt;/li>
+&lt;li>¿Qué estrategias usas habitualmente para entrenar y validar tus modelos clínicos?&lt;/li>
+&lt;li>Tus comentarios, tus dificultades y tus logros nos ayudan a todos a seguir aprendiendo.&lt;/li>
+&lt;/ul>
 &lt;p>🚀 Lleva el Código a tu Proyecto&lt;/p>
-&lt;p>Únete a nuestra comunidad de bioestadísticaedu. Al suscribirte, te enviaré inmediatamente una plantilla completa con todo el código comentado (¡incluyendo tablas y estructura!) para aplicar este proceso en tu próxima publicación o tesis.&lt;/p>
+&lt;p>&lt;a href="https://maicel.netlify.app/subscribe/">Únete a nuestra comunidad de bioestadísticaedu.com&lt;/a>.&lt;/p>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
+&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">Al suscribirte, te enviaré inmediatamente una plantilla completa con todo el código comentado (¡incluyendo tablas y estructura!) para aplicar este proceso en tu próxima publicación o tesis.&lt;/span>
+&lt;/div>
 &lt;p>🤝 ¿Necesitas un Enfoque Personalizado?&lt;/p>
 &lt;p>Si quieres aplicar estas estrategias a un dataset específico y necesitas la seguridad de un experto a tu lado, también puedes contactarme para una consultoría personalizada sobre este tema.&lt;/p>
 &lt;p>Y recuerda siempre la regla de oro: &lt;strong>¡Si vas a cometer errores que sean nuevos! 😉&lt;/strong>&lt;/p>
