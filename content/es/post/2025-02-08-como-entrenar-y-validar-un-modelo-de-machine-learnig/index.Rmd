@@ -1,10 +1,11 @@
 ---
-title: "Cómo entrenar y validar un modelo de predicción clínica"
+title: "Cómo Entrenar y Validar Modelos de Predicción Clínica: Guía Paso a Paso para Profesionales de la Salud"
 subtitle: "Tutorial para el desarrollo de un modelo de predicción clínica con ejemplos en R" 
 categories: ["Código Práctico en R o Python"]
 summary: "Guía práctica con R para desarrollar modelos predictivos robustos en entornos clínicos"
 authors:
   - "admin"
+  - "Maicel Monzón Pérez"
 date: "2025-10-22" #año mes dia
 show_author_profile: true
 tags: 
@@ -13,8 +14,9 @@ tags:
   - "guía Steyerberg para modelos predictivos médicos"
   - "evitar overfitting en validación de ML"
   - "paso a paso R para machine learning en tesis"
-slug: como-entrenar-y-validar-un-modelo-de-machine-learnig
+slug: como-entrenar-y-validar-un-modelo-de-machine-learning
 featured: true  # Destacar en la página principal
+translationKey: "MPC"
 # languages:
 #   es: "/es/como-entrenar-y-validar-un-modelo-de-machine-learnig"
 #   en: "/en/how-to-train-and-validate-clinical-prediction-model"
@@ -152,6 +154,7 @@ vars_clinicas <- c("glucose", "pressure", "triceps", "insulin", "mass")
 datos <- datos %>%
   mutate(across(all_of(vars_clinicas), ~ ifelse(.x == 0, NA, .x))) %>%
   missRanger()  # Imputa NA con random forests iterativos
+# nota: idealmente, si se usara una división simple, la imputación debería hacerse solo en el conjunto de entrenamiento.
 # Configuración rms: datadist para predicciones automáticas
 dd <- datadist(as.data.frame(datos))
 options(datadist = "dd")
@@ -237,6 +240,13 @@ plot(cal_boot, main = "Calibración: Predichas vs Observadas")
 abline(0, 1, lty = 2, col = "red")  # Línea ideal
 ```
 
+{{< spoiler text="El gráfico muestra que el modelo está bien calibrado (Click para saber por qué)" >}}
+
+La calibración perfecta ocurre cuando las probabilidades predichas coinciden con las frecuencias reales. Por ejemplo, si el modelo predice 30% de riesgo, aproximadamente 30 de cada 100 pacientes similares deberían tener la condición.
+
+{{< /spoiler >}}
+
+
 -   **Discriminación:** Evalúa la capacidad del modelo para distinguir entre pacientes que experimentan el evento y aquellos que no. La métrica más común es el estadístico C (o AUC-ROC), que representa la probabilidad de que un paciente con el evento tenga una puntuación de riesgo más alta que uno sin él.
 
 
@@ -252,6 +262,16 @@ plot(roc_obj,
 ```
 
 
+
+
+
+{{< spoiler text="El gráfico del área bajo la curva ROC (AUC) muestra muy buena discriminación (Click para saber por qué)" >}}
+- La curva ROC evalúa la capacidad del modelo para distinguir entre pacientes con y sin la condición.
+  - AUC = Excelente (>0.8 se considera muy bueno en medicina)
+  - Eje Y: Sensibilidad (capacidad de detectar enfermos)
+  - Eje X: 1 - Especificidad (tasa de falsos positivos)
+
+{{< /spoiler >}}
 
 
 
@@ -282,6 +302,16 @@ plot(nom, main = "Nomograma del Modelo")
 
 ```
 
+{{< spoiler text="Nomograma: calculadora visual del riesgo (Click para aprender a usarlo)" >}}
+
+El **nomograma** es una herramienta visual que permite calcular el riesgo individual de diabetes manualmente, usando las variables clave del modelo. Permite calcular el riesgo específico para cada paciente sin necesidad de software, facilitando su uso en consulta
+
+¿Cómo funciona?
+- Por cada variable clínica (glucosa, IMC, edad, etc.) se asigna un puntaje en la escala "Points"
+- Se suman todos los puntos para obtener el "Total Points"
+- Se proyecta ese total sobre las escalas inferiores para obtener el riesgo predictivo
+
+{{< /spoiler >}}
 
 -   **Aplicaciones web/móviles**: Para integración en flujos de trabajo clínicos
 
@@ -292,32 +322,38 @@ En este enlace te muestro la calculadora web que programé en js, html y css, pa
 [ver CovidCencecAPK]({{< relref "/project/2025-02-28-covidcencecapk" >}})
 
 
-## Recomendaciones y análisis crítico {#hi}
+## Mis recomendaciones y posición {#hi}
 
 
-En el contexto de modelos predictivos clínicos, una práctica común pero problemática es el uso exclusivo de una **partición simple (entranamento/preuba)** para el desarrollo, ajuste y evaluación final. A continuación, detallo los motivos clave con argumentos fundamentados.
+Reconozco que la **partición simple de datos (70/30)** es un estándar frecuente y, a menudo, el punto de partida en la práctica del Machine Learning. No obstante, si nuestro objetivo es fortalecer la credibilidad y la robustez de nuestros hallazgos, especialmente en el ámbito de los **modelos clínicos**, este enfoque merece una pausa y una seria reconsideración.
 
-El enfoque es aceptado por buena parte de la comunidad científica como se pono de manifiesto en el siguiente tweet:
-
-
-<!-- {{< x user="MaartenvSmeden" id="1544599686488723461" >}} -->
+La crítica a esta práctica no es nueva ni aislada. Autores influyentes en el campo como Frank Harrell y Edmund Steyerberg han expresado su clara oposición, y otros expertos se suman a este consenso. Como bien lo resume Smedenen en este *tweet*:
 
 
 
 
-Pero abordemos en detalles algunas de las principales razones para abandonar esa práctica en contextos como los que habitualmente nos enfrentamos. 
+{{< x user="MaartenvSmeden" id="1544599686488723461" >}}
 
 
+Comparto plenamente esta visión: para muestras pequeñas, como suelen ser los conjuntos de datos de investigaciones clínicas, una partición simple —aunque sea aleatoria— introduce más riesgos que beneficios. Esta es una práctica más común en entornos de Machine Learning general, donde los datasets son, típicamente, mucho más extensos.
+
+A continuación, exploremos en detalle las principales razones por las que este enfoque puede no ser la mejor práctica cuando la precisión y la vida de los pacientes están en juego.
 
 ### 1. Ineficiencia en el uso de los datos y pérdida de poder
 
-Los datasets clínicos suelen ser pequeños (por ejemplo, menos de 500 pacientes) debido a limitaciones como costos o eventos raros. Una partición típica (70% entrenamiento / 30% prueba) desperdicia hasta un 30% de los datos en la evaluación, reduciendo el tamaño efectivo para entrenar. Esto baja los eventos por variable predictora (EPV) —una métrica que indica cuántos eventos (como diagnósticos positivos) hay por cada predictor en el modelo— por debajo de 10-20, lo que genera modelos inestables y sesgados. Como resultado, el rendimiento aparente (por ejemplo, AUC alta en train) cae drásticamente en datos nuevos (de 0.85 a 0.65). En contextos clínicos, maximizar todos los datos es clave para capturar patrones reales sin perder poder estadístico.
+Los conjuntos de datos clínicos son, por naturaleza, a menudo pequeños (pensemos en menos de 500 pacientes), limitados por costes o la baja incidencia de eventos raros.
+
+Una partición típica 70/30 desperdicia hasta un 30% de los datos solo en la evaluación, reduciendo drásticamente el tamaño efectivo para el entrenamiento. Esto provoca una caída en la métrica clave de Eventos por Variable Predictora (EPV) —que mide cuántos eventos, como diagnósticos positivos, hay por cada predictor en el modelo—, situándola frecuentemente por debajo del umbral recomendado de 10-20.
+
+El resultado es predecible: modelos inestables y sesgados. El rendimiento aparente (ej., un AUC alto en el split de entrenamiento) puede caer drásticamente en datos nuevos (por ejemplo, de 0.85 a un decepcionante 0.65). En contextos clínicos, donde capturar patrones reales es vital, la recomendación es clara: **maximizar todos los datos y aplicar técnicas de remuestreo para una estimación más honesta.**
 
 ### 2. Evaluaciones de rendimiento con alta variabilidad e inestabilidad
 
-Con una sola partición, las métricas (como AUC para discriminación o Brier score para calibración, que mide el acuerdo entre predicciones y resultados reales) dependen del azar de cómo se dividen los datos. Simulaciones muestran variaciones de ±0.10-0.15 en AUC, similar a ruido aleatorio, y una varianza 2-3 veces mayor en muestras pequeñas (por ejemplo, 200 pacientes con 10% de eventos). Esto puede inflar o subestimar la calibración (evaluada con tests como Hosmer-Lemeshow), llevando a decisiones clínicas erróneas, como subtratar pacientes.
+Cuando dependemos de una sola partición simple, las métricas de rendimiento (como el AUC para la discriminación o el Brier score para la calibración) se vuelven muy sensibles al azar de cómo se dividieron los datos.
 
-Para ilustrarlo en R con un dataset de ejemplo (PimaIndiansDiabetes), simula la variabilidad de AUC en splits repetidos:
+Las simulaciones demuestran que esta "suerte" puede generar variaciones de hasta $\pm 0.10-0.15$ en el AUC, un ruido significativo. Esta varianza se dispara (2-3 veces más) en muestras pequeñas. Un resultado inestable puede inflar o subestimar la calibración (ej. en el test de Hosmer-Lemeshow), lo que podría llevar a tomar decisiones clínicas erróneas y, lo más importante, poner en riesgo a los pacientes (por ejemplo, subtratando a quienes lo necesitan).
+
+Para ilustrar esta inestabilidad, aquí se simula la variabilidad del AUC en splits simples repetidos utilizando el dataset de nuestro ejemplo:
 
 ```{r Simular}
 auc_splits <- replicate(100, {
@@ -337,27 +373,58 @@ hist(auc_splits,
      border = "black")
 ```
 
-En comparación, métodos repetidos como validación cruzada son más estables y confiables.
+
 
 ### 3. Riesgo de sobreajuste y falta de generalización robusta
 
-Una "instantánea" en el test set no corrige sobreajuste: el modelo se ajusta al train (incluyendo ruido), inflando rendimiento aparente (optimismo de 5-20% en R², per Harrell). Sin repetición, no se obtiene un error de generalización realista. Métodos repetidos (ej., validación cruzada de k pliegues ) promedian estimaciones para reducir sesgo, mejorando estabilidad. Esto afecta validez interna (sin corrección de optimismo) y generalización (fallos en cohortes externas por idiosincrasias de la muestra).
+Una simple "instantánea" proporcionada por la partición de prueba no es suficiente para corregir el sobreajuste. El modelo, al ajustarse al conjunto de entrenamiento (incluyendo su ruido), ofrece un rendimiento aparente (un "optimismo") que, según Harrell, puede ser un 5-20% superior al real.
+
+Sin métodos de remuestreo, es imposible obtener un error de generalización realista. Métodos repetidos (como la validación cruzada de k-pliegues) promedian las estimaciones a lo largo de múltiples splits, lo que reduce el sesgo y mejora la estabilidad.
+
+Cuando no se corrige este optimismo, no solo se afecta la validez interna del estudio, sino que se compromete la generalización del modelo, pues fallará al aplicarse a cohortes externas debido a las idiosincrasias (detalles únicos) de la muestra original.
+
+### 💡 Mi Sugerencia
+
+En lugar de depender de particiones simples, mi recomendación es clara: utilizar métodos que aprovechen la totalidad de los datos y ofrezcan estimaciones más estables. Esto incluye:
+
+Validación Cruzada Repetida: Divide los datos en particiones y repite el proceso de división y evaluación múltiples veces para promediar los resultados.
+
+Bootstrapping: Muestrea con reemplazo para estimar la estabilidad y corregir el optimismo inherente.
+
+Estos métodos no solo corrigen el optimismo sino que reducen la variabilidad, alineándose con las buenas prácticas en el desarrollo de modelos de pronóstico clínico. Por esta razón, seleccioné bibliotecas como rms::validate() en R para el ejemplo, ya que se adhieren a esta filosofía.
+
+Para conjuntos de datos pequeños, la robustez es lo primero. Evite las divisiones simples y priorice la estabilidad para generar resultados que sean verdaderamente útiles en la práctica asistencial.
+
+**Un Apunte sobre la Validación Externa**
+
+Coincido en que la validación externa es crucial y debe realizarse con un conjunto de datos independiente en otros contextos, ya sea en diferentes momentos (validación temporal) o en distintos hospitales (validación geográfica), para confirmar la verdadera generalización.
+
+En mi experiencia, las cuestiones operativas y logísticas que implica realizar una validación externa en otro centro o en otro momento a menudo desmotivan al investigador que está desarrollando un modelo con datos de su propia consulta. Sin embargo, creo que este enfoque es el que abre el camino para obtener mejores resultados a partir de la investigación en condiciones reales. Además, es un acto de mérito y un pilar de la ciencia realizar validaciones de modelos de otros en su propia consulta; la ciencia se nutre de la replicación y la colaboración.
 
 
-### Recomendaciones prácticas
+## ¡Tu Turno! Pasa de la Teoría a la Práctica
 
-En su lugar, usa métodos que aprovechen todos los datos, como validación cruzada repetida (divide en particiones, repite múltiples veces para promediar) o bootstrapping (muestrea con reemplazo para estimar estabilidad). Estos corrigen optimismo y reducen variabilidad, alineándose con buenas prácticas para modelos clínicos. En R, prueba rms::validate() para bootstrapping. Para conjunto de datos pequeños, evita divisiones simples: prioriza robustez para resultados útiles en la práctica asistencial.
+Este material es solo la punta del iceberg. Hay muchos temas cruciales que, por síntesis, no abordamos aquí, pero que se construyen sobre esta base: la reproducibilidad, el ajuste del intercepto de la regresión logística en escenarios con prevalencias diferentes, los métodos de recalibración continua, o la construcción de escalas y clasificaciones clínicas.
 
-{{% callout warning %}}
-**Recomendación clave:** En datasets clínicos pequeños, evite particiones simples; opte por bootstrapping en `rms` para validación interna. Esto asegura modelos estables y útiles, alineados con evidencia científica.
-{{% /callout %}}
+Ahora, me encantaría leerte. ¡La experiencia es la que enriquece el conocimiento!
+
+💬 Déjanos tu Comentario
+¿Has aplicado estas técnicas de remuestreo en tus proyectos de modelos predictivos?
+
+¿Qué estrategias usas habitualmente para entrenar y validar tus modelos clínicos?
+
+Tus comentarios, tus dificultades y tus logros nos ayudan a todos a seguir aprendiendo.
+
+🚀 Lleva el Código a tu Proyecto 
+
+Únete a nuestra comunidad de bioestadísticaedu. Al suscribirte, te enviaré inmediatamente una plantilla completa con todo el código comentado (¡incluyendo tablas y estructura!) para aplicar este proceso en tu próxima publicación o tesis.
+
+🤝 ¿Necesitas un Enfoque Personalizado? 
+
+Si quieres aplicar estas estrategias a un dataset específico y necesitas la seguridad de un experto a tu lado, también puedes contactarme para una consultoría personalizada sobre este tema.
 
 
-
-## Llamada a la acción 
-
-¿Has aplicado estas técnicas en tus proyectos de modelos predictivos? ¿Qué estrategias usas para entrenar y validar tus modelos? Déjame tus comentarios 💬: comparte tus experiencias, dificultades o tips contigo. ¡Juntos podemos enriquecer este conocimiento!
-
+Y recuerda siempre la regla de oro: **¡Si vas a cometer errores que sean nuevos! 😉** 
 
 ## Bibliografía
 

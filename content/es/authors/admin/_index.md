@@ -1,7 +1,8 @@
 ---
-title: "Maicel Monzón Pérez"
-name: "admin"
-author: 'admin'
+title: Maicel Monzon
+# name: "admin"
+# author: 'admin'
+translationKey: "admin"
 date: '2025-02-03'
 awards:
 - awarder: CENATAV
@@ -71,8 +72,8 @@ education:
     summary: |
       - Fecha del ejercicio: *22 de marzo de 2025*
       - Tesis sobre _Modelos de predicción clínica para la estimación y clasificación del riesgo de muerte con COVID-19_. Supervisada por [Prof Lisset Sánchez]
-# first_name: Maicel
-highlight_name: yes
+first_name: Maicel
+highlight_name: true
 interests:
   - Bioestadística
   - Metodología de la investigación
@@ -85,8 +86,8 @@ languages:
     percent: 100
   - name: English
     percent: 40
-# last_name: Monzon Perez
-name_pronunciation: Maicel Monzon Perez
+last_name: Monzon
+name_pronunciation: 
 organizations:
   - name: ENSAP & CECMED
     url: https://ensap.sld.cu/
@@ -106,7 +107,7 @@ profiles:
     url: https://scholar.google.com/citations?hl=es&user=eWid-9gAAAAJ
   - icon: academicons/orcid
     url: https://orcid.org/0000-0003-2117-9145
-role: Médico, Bioestadístico, Científico de datos
+role: "Médico, Bioestadístico y Científico de datos"
 skills:
 - name: Habilidades Técnicas Específicas
   items:
@@ -143,7 +144,7 @@ skills:
 
 status:
   icon: ☕️
-superuser: yes
+superuser: true
 work:
 - company_name: "Centro de Cibernética Aplicada a la Medicina (CECAM)"
   date_start: "2003-01-01"

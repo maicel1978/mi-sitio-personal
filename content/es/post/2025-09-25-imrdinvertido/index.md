@@ -4,6 +4,7 @@ subtitle: 'Escribiendo al revés'
 authors: ["admin"]
 date: '2025-10-04'
 slug: imryd-redaccion-inversa
+translationKey: "imryd"
 categories:
   - "Metodología de Investigación"
 tags:

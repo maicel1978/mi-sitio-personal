@@ -33,6 +33,8 @@ blogdown::stop_server()
 blogdown::build_site()
 blogdown::serve_site()
 
+blogdown::build_site(local = FALSE, build_rmd = TRUE)
+
 ### Git (Para Netlify Deploy):
 `git add content/post/nuevo-post.md` # Añade cambios.
 `git commit -m "Mensaje descriptivo"` # Commit.

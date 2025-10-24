@@ -1,7 +1,8 @@
 ---
-title: "Maicel Monzón Pérez"
-name: "admin"
-author: 'admin'
+title: Maicel Monzon
+# name: "admin"
+# author: 'admin'
+translationKey: "admin"
 date: '2025-02-03'
 awards:
 - awarder: CENATAV
@@ -53,8 +54,8 @@ education:
     institution: University of Medical Sciences of Havana
     summary: |
       Thesis on _Clinical prediction models for estimating and classifying the risk of death from COVID-19_.
-# first_name: Maicel Eugenio
-highlight_name: yes
+# first_name: Maicel 
+highlight_name: true
 interests:
   - Biostatistics
   - Research Methodology
@@ -69,8 +70,8 @@ languages:
     percent: 40
   - name: Portuguese
     percent: 25
-# last_name: Monzon Perez
-name_pronunciation: Maicel Monzon Perez
+# last_name: Monzon
+name_pronunciation: 
 organizations:
   - name: ENSAP & CECMED
     url: https://ensap.sld.cu/
@@ -90,7 +91,7 @@ profiles:
     url: https://scholar.google.com/citations?hl=es&user=eWid-9gAAAAJ
   - icon: academicons/orcid
     url: https://orcid.org/0000-0003-2117-9145
-role: Specialist in Biostatistics
+role: "Physician, Biostatistician and Data Scientist"
 skills:
 - name: Specific Technical Skills
   items:
@@ -127,7 +128,7 @@ skills:
 
 status:
   icon: ☕️
-superuser: yes
+superuser: true
 work:
 - company_name: "Center for Cybernetics Applied to Medicine (CECAM)"
   date_start: "2003-01-01"
