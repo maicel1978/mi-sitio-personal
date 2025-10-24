@@ -249,7 +249,8 @@ La calibración perfecta ocurre cuando las probabilidades predichas coinciden co
 ``` r
 val_boot <- validate(modelo, method = "boot", B = 100)
 
-roc_obj <- roc(datos$diabetes, predict(modelo, type = "fitted"))
+roc_obj <- roc(datos$diabetes, 
+               predict(modelo, type = "fitted"))
 plot(roc_obj,
      main = paste("Curva ROC - AUC =", round(auc(roc_obj), 3)),
      col = "blue",
@@ -295,7 +296,9 @@ La presentación efectiva es crucial para la adopción clínica. Un modelo perfe
 
 
 ``` r
-nom <- nomogram(modelo, fun = plogis, funlabel = "Riesgo de Diabetes")
+nom <- nomogram(modelo, 
+                fun = plogis, 
+                funlabel = "Riesgo de Diabetes")
 plot(nom, main = "Nomograma del Modelo")
 ```
 
@@ -350,7 +353,7 @@ El resultado es predecible: modelos inestables y sesgados. El rendimiento aparen
 
 Cuando dependemos de una sola partición simple, las métricas de rendimiento (como el AUC para la discriminación o el Brier score para la calibración) se vuelven muy sensibles al azar de cómo se dividieron los datos.
 
-Las simulaciones demuestran que esta "suerte" puede generar variaciones de hasta `\(\pm 0.10-0.15\)` en el AUC, un ruido significativo. Esta varianza se dispara (2-3 veces más) en muestras pequeñas. Un resultado inestable puede inflar o subestimar la calibración (ej. en el test de Hosmer-Lemeshow), lo que podría llevar a tomar decisiones clínicas erróneas y, lo más importante, poner en riesgo a los pacientes (por ejemplo, subtratando a quienes lo necesitan).
+Las simulaciones demuestran que esta "suerte" puede generar variaciones de hasta de más o menos 0.10-0.15 en el AUC, un ruido significativo. Esta varianza se dispara (2-3 veces más) en muestras pequeñas. Un resultado inestable puede inflar o subestimar la calibración (ej. en el test de Hosmer-Lemeshow), lo que podría llevar a tomar decisiones clínicas erróneas y, lo más importante, poner en riesgo a los pacientes (por ejemplo, subtratando a quienes lo necesitan).
 
 Para ilustrar esta inestabilidad, aquí se simula la variabilidad del AUC en splits simples repetidos utilizando el dataset de nuestro ejemplo:
 
@@ -430,7 +433,7 @@ Al suscribirte, te enviaré inmediatamente una plantilla completa con todo el c�
 Si quieres aplicar estas estrategias a un dataset específico y necesitas la seguridad de un experto a tu lado, también puedes contactarme para una consultoría personalizada sobre este tema.
 
 
-Y recuerda siempre la regla de oro: **¡Si vas a cometer errores que sean nuevos! 😉** 
+Y recuerda siempre la regla de oro: **¡Si vas a cometer errores que sean nuevos! 😉** *m@icel*
 
 ## Bibliografía
 
