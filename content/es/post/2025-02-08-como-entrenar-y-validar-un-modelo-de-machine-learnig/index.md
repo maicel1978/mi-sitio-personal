@@ -389,13 +389,13 @@ Cuando no se corrige este optimismo, no solo se afecta la validez interna del es
 
 En lugar de depender de particiones simples, mi recomendación es clara: utilizar métodos que aprovechen la totalidad de los datos y ofrezcan estimaciones más estables. Esto incluye:
 
-Validación Cruzada Repetida: Divide los datos en particiones y repite el proceso de división y evaluación múltiples veces para promediar los resultados.
+- Validación Cruzada Repetida: Divide los datos en particiones y repite el proceso de división y evaluación múltiples veces para promediar los resultados.
 
-Bootstrapping: Muestrea con reemplazo para estimar la estabilidad y corregir el optimismo inherente.
+- Bootstrapping: Muestrea con reemplazo para estimar la estabilidad y corregir el optimismo inherente.
 
-Estos métodos no solo corrigen el optimismo sino que reducen la variabilidad, alineándose con las buenas prácticas en el desarrollo de modelos de pronóstico clínico. Por esta razón, seleccioné bibliotecas como rms::validate() en R para el ejemplo, ya que se adhieren a esta filosofía.
+- Estos métodos no solo corrigen el optimismo sino que reducen la variabilidad, alineándose con las buenas prácticas en el desarrollo de modelos de pronóstico clínico. Por esta razón, seleccioné bibliotecas como rms::validate() en R para el ejemplo, ya que se adhieren a esta filosofía.
 
-Para conjuntos de datos pequeños, la robustez es lo primero. Evite las divisiones simples y priorice la estabilidad para generar resultados que sean verdaderamente útiles en la práctica asistencial.
+- Para conjuntos de datos pequeños, la robustez es lo primero. Evite las divisiones simples y priorice la estabilidad para generar resultados que sean verdaderamente útiles en la práctica asistencial.
 
 **Un Apunte sobre la Validación Externa**
 
@@ -410,16 +410,20 @@ Este material es solo la punta del iceberg. Hay muchos temas cruciales que, por 
 
 Ahora, me encantaría leerte. ¡La experiencia es la que enriquece el conocimiento!
 
-💬 Déjanos tu Comentario
-¿Has aplicado estas técnicas de remuestreo en tus proyectos de modelos predictivos?
-
-¿Qué estrategias usas habitualmente para entrenar y validar tus modelos clínicos?
-
-Tus comentarios, tus dificultades y tus logros nos ayudan a todos a seguir aprendiendo.
+💬 Déjanos tu comentario en la caja de comentarios:
+- ¿Has aplicado estas técnicas de remuestreo en tus proyectos de modelos predictivos?
+- ¿Qué estrategias usas habitualmente para entrenar y validar tus modelos clínicos?
+- Tus comentarios, tus dificultades y tus logros nos ayudan a todos a seguir aprendiendo.
 
 🚀 Lleva el Código a tu Proyecto 
 
-Únete a nuestra comunidad de bioestadísticaedu. Al suscribirte, te enviaré inmediatamente una plantilla completa con todo el código comentado (¡incluyendo tablas y estructura!) para aplicar este proceso en tu próxima publicación o tesis.
+[Únete a nuestra comunidad de bioestadísticaedu.com]({{< relref "/subscribe/" >}}).
+
+{{% callout note %}}
+Al suscribirte, te enviaré inmediatamente una plantilla completa con todo el código comentado (¡incluyendo tablas y estructura!) para aplicar este proceso en tu próxima publicación o tesis.
+{{% /callout %}}
+
+
 
 🤝 ¿Necesitas un Enfoque Personalizado? 
 
@@ -431,7 +435,6 @@ Y recuerda siempre la regla de oro: **¡Si vas a cometer errores que sean nuevos
 ## Bibliografía
 
 1. Collins GS, Moons KGM, Dhiman P, Riley RD, Beam AL, Van Calster B, et al. TRIPOD+AI statement: updated guidance for reporting clinical prediction models that use regression or machine learning methods. BMJ [Internet]. 16 de abril de 2024 [citado 3 de octubre de 2025];e078378. Disponible en: https://www.bmj.com/lookup/doi/10.1136/bmj-2023-078378
-
 
 2.  Steyerberg EW, Vergouwe Y. Towards better clinical prediction models: seven steps for development and an ABCD for validation. European Heart Journal [Internet]. 1 de agosto de 2014 [citado 9 de mayo de 2021];35(29):1925-31. Disponible en: <https://academic.oup.com/eurheartj/article-lookup/doi/10.1093/eurheartj/ehu207>
 
