@@ -440,6 +440,8 @@ Al suscribirte, te enviaré inmediatamente una **plantilla completa con todo el 
 
 Si quieres aplicar estas estrategias a un dataset específico y necesitas la seguridad de un experto a tu lado, también puedes contactarme para una consultoría personalizada sobre este tema.
 
+[Si quieres aplicar estas estrategias a un dataset específico y necesitas la seguridad de un experto a tu lado, también puedes contactarme para una consultoría personalizada sobre este tema.]({{< relref "/collaborations/" >}}).
+
 
 Y recuerda siempre la regla de oro: **¡Si vas a cometer errores que sean nuevos! 😉** *m@icel*
 
