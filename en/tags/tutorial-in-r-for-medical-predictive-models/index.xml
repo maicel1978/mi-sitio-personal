@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tutorial in R for Medical Predictive Models | Biostatistics edu</title><link>https://maicel.netlify.app/en/tags/tutorial-in-r-for-medical-predictive-models/</link><atom:link href="https://maicel.netlify.app/en/tags/tutorial-in-r-for-medical-predictive-models/index.xml" rel="self" type="application/rss+xml"/><description>Tutorial in R for Medical Predictive Models</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Wed, 22 Oct 2025 00:00:00 +0000</lastBuildDate><image><url>https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png</url><title>Tutorial in R for Medical Predictive Models</title><link>https://maicel.netlify.app/en/tags/tutorial-in-r-for-medical-predictive-models/</link></image><item><title>How to Train and Validate Clinical Prediction Models: Step-by-Step Guide for Healthcare Professionals</title><link>https://maicel.netlify.app/en/post/how-to-train-and-validate-a-machine-learning-model/</link><pubDate>Wed, 22 Oct 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/en/post/how-to-train-and-validate-a-machine-learning-model/</guid><description>&lt;!-- 🎧 **Listen to the podcast of this post** -->
+&lt;!--
+&lt;audio controls >
+&lt;source src="https://ia600607.us.archive.org/24/items/articulo-steyember/_Articulo_Steyember.mp3" type="audio/mpeg">
+&lt;/audio>
+-->
+&lt;p>If you&amp;rsquo;re reading this post, you&amp;rsquo;re likely interested in developing clinical prediction models to diagnose or prognosticate diseases in patients. You&amp;rsquo;re probably a researcher or graduate student—in a master&amp;rsquo;s or PhD program—in biomedical sciences, looking for how to develop and validate those models in a scientific article or thesis.&lt;/p>
+&lt;p>You&amp;rsquo;ve almost certainly reached that phase where the methodology feels like a brick wall: you don&amp;rsquo;t know what steps to follow, what software to use, if what you need can be done in SPSS or if you&amp;rsquo;ll have to deal with those daunting R or Python codes—and on top of that, you have no programming experience. And, worst of all: you&amp;rsquo;re haunted by the doubt of whether your model will be useful for anything beyond filling a thesis repository&amp;hellip; or if it will even be useful for your own sample patients, let alone other clinical contexts.&lt;/p>
+&lt;p>Let&amp;rsquo;s be honest: deep down, we all run from that stinging comment that bursts our predictive bubble in one blow:&lt;/p>
+&lt;blockquote>
+&lt;p>Wow!, a dream area under the curve, with no traces of calibration or external validation&amp;hellip; probably the fruit of a classic recipe: excess predictors, enthusiastic dichotomization, scarcity of events, and a pinch of automatic selection. TRIPOD would call it ‘apparent optimism’; we call it the gourmet overfitting recipe—with a cigar and a wink to finish.&lt;/p>&lt;/blockquote>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
+&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">Overfitting occurs when a model learns the training data so well (including noise or irrelevant details) that its performance on new data is much worse.&lt;/span>
+&lt;/div>
+&lt;p>In other words, the model works spectacularly well&amp;hellip; but only with your sample of patients. The performance metrics on other datasets are a disaster! We&amp;rsquo;ll come back to that idea later.&lt;/p>
+&lt;p>While high-level theses focus on building clinical prediction models with classical statistical techniques or sophisticated machine learning algorithms like random forests, biostatistics courses—even in programs specializing in this field!—barely touch on the subject. The gap is real, and with it comes the anxiety of having to learn everything now.&lt;/p>
+&lt;p>But take a deep breath. This post can harden your predictive bubble with an extra layer of titanium: your unofficial methodological translator, (almost) tear-free and loaded with practical tools. I myself navigated that methodological hell in my doctoral process, so I&amp;rsquo;m not just offering generic advice: I&amp;rsquo;m sharing lessons from someone who already burned their eyelashes for you, so you can move forward with confidence and avoid the same pitfalls.&lt;/p>
+&lt;p>Forget about complex and convoluted code. Here we focus on the essential logic to build a reliable predictive model. We&amp;rsquo;ll break down the process step by step, taking the fear out of data processing with practical R code examples.
+While this post focuses on practical data processing issues, it&amp;rsquo;s important to highlight that the choice of research design is determined by the objective of the prediction study, which according to TRIPOD (Transparent Reporting of a multivariable prediction model for Individual Prognosis Or Diagnosis) is classified into three fundamental categories (1):&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Development of a new model&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Validation of an existing model&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Update of a model&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>Depending on the research objective, one of the following study designs can be chosen:&lt;/p>
+&lt;ul>
+&lt;li>Designs by Objective
+&lt;ul>
+&lt;li>Model Development
+&lt;ul>
+&lt;li>Cohort Studies&lt;/li>
+&lt;li>Randomized Trials&lt;/li>
+&lt;li>Routine Care Data&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Model Validation
+&lt;ul>
+&lt;li>Independent Cohort Studies&lt;/li>
+&lt;li>Meta-analysis&lt;/li>
+&lt;li>Registry Data&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Model Update
+&lt;ul>
+&lt;li>Any previous design with new data&lt;/li>
+&lt;li>Data with Cluster Structur&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>It is recommended to delve into these topics from the proposed bibliography for this post. In this post, we will focus on the sequence of key stages to develop a predictive model. As a base, I&amp;rsquo;ll use the article “Seven steps for development and an ABCD for validation” by Ewout Steyerberg (1), as well as his book Clinical Prediction Models (2). To the recipe, I&amp;rsquo;ll add recommendations from Frank Harrell from his work Regression Modeling Strategies (3), and we&amp;rsquo;ll rely on his rms library to develop this tutorial with practical R code. Finally, I&amp;rsquo;ll give my own view on the controversial issue of partitioning data into training set and test set in a 70:30 ratio and other issues that will surely be interesting.&lt;/p>
+&lt;p>We&amp;rsquo;ll start with the modeling strategy; the tutorial with all the code will come later.&lt;/p>
+&lt;p>&lt;strong>Let&amp;rsquo;s get started!&lt;/strong>&lt;/p>
+&lt;h2 id="modeling-strategy">Modeling Strategy&lt;/h2>
+&lt;p>Following an appropriate modeling strategy is essential for developing and validating prediction models: it not only mitigates bias and overfitting, but also guides us in a process that could otherwise become chaotic.&lt;/p>
+&lt;p>Below is a set of R libraries that will help us implement these ideas, but this process can be done equally in SPSS or Python &lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>.&lt;/p>
+&lt;p>&lt;a href="https://cran.r-project.org/web/packages/rms/index.html" target="_blank" rel="noopener">You can download and install the rms package from its official page on the CRAN repository&lt;/a>
+You&amp;rsquo;ll also need other libraries for data handling, creating tables and graphs for your publication, among other actions.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(conflicted) &lt;span style="color:#75715e"># Detects and resolves function conflicts&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(rms) &lt;span style="color:#75715e"># Restricted logistic modeling (lrm) and splines (rcs)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(pROC) &lt;span style="color:#75715e"># ROC curves and AUC&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(ggplot2) &lt;span style="color:#75715e"># Polished graphics (used internally by rms)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(missRanger) &lt;span style="color:#75715e"># Iterative imputation with random forests&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(mlbench) &lt;span style="color:#75715e"># Example dataset: PimaIndiansDiabetes&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(dplyr) &lt;span style="color:#75715e"># Data manipulation (pipe %&amp;gt;%)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(caret) &lt;span style="color:#75715e"># Data partitions (createDataPartition)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="1-problem-definition-and-data-inspection">1. Problem Definition and Data Inspection&lt;/h3>
+&lt;p>The first step in any modeling project is to clearly define the research problem and select the appropriate outcome variable.&lt;/p>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
+&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">The &lt;strong>outcome variable&lt;/strong> must be defined precisely: specify what event is being predicted, how and when it is measured, and the prediction &lt;strong>time horizon&lt;/strong> (for example, 30-day mortality). It is also key to indicate the event evaluation method and whether blinding was applied regarding the predictors, to ensure internal coherence and model validity.&lt;/span>
+&lt;/div>
+&lt;p>During this phase, we also perform an exploratory data analysis (EDA) to understand the characteristics of the variables and detect possible problems, such as &lt;strong>outliers&lt;/strong> or &lt;strong>missing values&lt;/strong>.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">set.seed&lt;/span>(&lt;span style="color:#ae81ff">123&lt;/span>) &lt;span style="color:#75715e"># Total reproducibility (imputation, splits, bootstrap)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Load native dataset&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">data&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;PimaIndiansDiabetes&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>datos &lt;span style="color:#f92672">&amp;lt;-&lt;/span> PimaIndiansDiabetes
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Clinical variables with impossible 0s (biologically)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>vars_clinicas &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;glucose&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;pressure&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;triceps&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;insulin&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;mass&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Cleaning: 0 → NA, then imputation&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>datos &lt;span style="color:#f92672">&amp;lt;-&lt;/span> datos &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">mutate&lt;/span>(&lt;span style="color:#a6e22e">across&lt;/span>(&lt;span style="color:#a6e22e">all_of&lt;/span>(vars_clinicas), &lt;span style="color:#f92672">~&lt;/span> &lt;span style="color:#a6e22e">ifelse&lt;/span>(.x &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>, &lt;span style="color:#66d9ef">NA&lt;/span>, .x))) &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">missRanger&lt;/span>() &lt;span style="color:#75715e"># Imputes NA with iterative random forests&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># note: ideally, if a simple split were used, imputation should be done only on the training set.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># rms setup: datadist for automatic predictions&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>dd &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">datadist&lt;/span>(&lt;span style="color:#a6e22e">as.data.frame&lt;/span>(datos))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">options&lt;/span>(datadist &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;dd&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="2-encoding-of-predictor-variables">2. Encoding of Predictor Variables&lt;/h3>
+&lt;p>&lt;strong>Proper encoding of predictor variables&lt;/strong> is fundamental to building &lt;strong>robust models&lt;/strong>.&lt;/p>
+&lt;p>You may need to group infrequent categories or create summary predictors to condense redundant or highly correlated information. And if your model is based on logistic regression, don&amp;rsquo;t assume input linearity: often it is necessary to apply restricted cubic splines to relax the linearity assumption between predictors and the outcome.&lt;/p>
+&lt;p>💡 &lt;strong>Tip for publication:&lt;/strong> Report each predictor with its measurement method, registration time, and units (if continuous). If you categorize, justify the cut points. If categorical, show all categories and the reference one. The final model must reflect exactly the encoding used.&lt;/p>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-yellow-100 dark:bg-yellow-900">
+&lt;span class="pr-3 pt-1 text-red-400">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0zM12 15.75h.007v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;strong>Alert:&lt;/strong> Dichotomizing quantitative predictors—for example, converting a continuous variable like age or blood pressure into a binary (“≥65 years = 1”, “&amp;lt;65 = 0”)—is a widely discouraged bad practice. This strategy wastes information, reduces statistical power, introduces arbitrary cut points, and increases the risk of overfitting. Instead of categorizing, model the continuous relationship (for example, with splines) to preserve the real clinical signal.&lt;/span>
+&lt;/div>
+&lt;h3 id="3-specification-of-the-model-type">3. Specification of the Model Type&lt;/h3>
+&lt;p>At this stage, the formal structure of the model is defined, which includes the type of relationship between variables (e.g., linear, non-linear) and, crucially, the selection of the final predictors that will be integrated.&lt;/p>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-yellow-100 dark:bg-yellow-900">
+&lt;span class="pr-3 pt-1 text-red-400">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0zM12 15.75h.007v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;strong>Alert:&lt;/strong> The choice of predictors should not be based on the mechanical application of algorithmic methods like Stepwise Regression (SWR), as they often produce unstable and overfitted models, especially in biomedical and social contexts.&lt;/span>
+&lt;/div>
+&lt;p>Instead of preselecting variables based solely on p-values from bivariate analyses, it is recommended:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Prioritize clinical judgment, systematic literature review, and prior experience.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Opt for a reduced set of clinically relevant predictors defined a priori, or include all candidates in the initial multivariable model without prior statistical filtering.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>There are algorithms with alternative approaches to automatic predictor selection, such as Lasso regression or classification trees. In the guide proposed by Heinze, you can delve into this topic (5)&lt;/p>
+&lt;h3 id="4-model-estimation">4. Model Estimation&lt;/h3>
+&lt;p>Once the model is specified (i.e., predictors and functional structure defined), the next step aims to calculate the coefficients or parameters that best fit the data.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>modelo &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">lrm&lt;/span>(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> diabetes &lt;span style="color:#f92672">~&lt;/span> &lt;span style="color:#a6e22e">rcs&lt;/span>(glucose, &lt;span style="color:#ae81ff">3&lt;/span>) &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#a6e22e">rcs&lt;/span>(mass, &lt;span style="color:#ae81ff">3&lt;/span>) &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#a6e22e">rcs&lt;/span>(age, &lt;span style="color:#ae81ff">3&lt;/span>) &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#a6e22e">rcs&lt;/span>(pedigree, &lt;span style="color:#ae81ff">3&lt;/span>) &lt;span style="color:#f92672">+&lt;/span> pregnant,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> data &lt;span style="color:#f92672">=&lt;/span> datos,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> x &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">TRUE&lt;/span>, &lt;span style="color:#75715e"># Saves design for bootstrap&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> y &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">TRUE&lt;/span> &lt;span style="color:#75715e"># Saves response for bootstrap&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>In regression models, model estimation is performed using methods like maximum likelihood. However, when the number of events is limited or the number of predictors is high, the risk of overfitting is high, leading to extreme and poorly generalizable predictions. To mitigate this, regularization, penalization, or shrinkage techniques are used, which adjust coefficients toward zero to improve stability and calibration in new populations.&lt;/p>
+&lt;p>The ultimate goal is not to maximize apparent performance in the development sample, but to obtain a model with stable, &lt;strong>well-calibrated, and clinically useful predictions&lt;/strong>.&lt;/p>
+&lt;p>💡 &lt;strong>Tip for publication:&lt;/strong> The final model equation must be presented in full—including all coefficients, the intercept, and, if applicable, baseline survival—reporting calibration and discrimination metrics with their confidence intervals.&lt;/p>
+&lt;p>In machine learning, it is common to split data into training and testing. However, in clinical contexts, it is different:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Datasets are usually small or medium (usually less than 1000 rows) → splitting reduces available information for training.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Metrics derived from the test can be highly variable, depending on which observations fall into the partition.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>This generates a less stable model and less reliable, especially in individual probability estimates.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
+&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">The absence of partitions in your study may be a controversial topic, but don&amp;rsquo;t worry!
+&lt;a href="#hi">Later, some arguments for discussion are commented on.&lt;/a>&lt;/span>
+&lt;/div>
+&lt;h3 id="5-evaluation-of-model-performance">5. Evaluation of Model Performance&lt;/h3>
+&lt;p>Once the model is developed, it is essential to quantify its predictive capacity before validation. This evaluation focuses on three key aspects:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Calibration:&lt;/strong> Measures the agreement between predicted and observed probabilities. For example, does a 10% predicted risk correspond to 10% observed events? It is evaluated visually with calibration curves and quantitatively with parameters like the intercept (A, calibration-in-the-large) and calibration slope (B).&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>cal_boot &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">calibrate&lt;/span>(modelo, method &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;boot&amp;#34;&lt;/span>, B &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">100&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot&lt;/span>(cal_boot, main &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Calibración: Predichas vs Observadas&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">## &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">## n=768 Mean absolute error=0.016 Mean squared error=0.00045&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">## 0.9 Quantile of absolute error=0.034&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">abline&lt;/span>(&lt;span style="color:#ae81ff">0&lt;/span>, &lt;span style="color:#ae81ff">1&lt;/span>, lty &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">2&lt;/span>, col &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;red&amp;#34;&lt;/span>) &lt;span style="color:#75715e"># Línea ideal&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;img src="calibracion-1.png" width="80%" style="display: block; margin: auto;" />
+&lt;details class="spoiler " id="spoiler-6">
+&lt;summary class="cursor-pointer">The graph shows that the model is well calibrated (Click to know why)&lt;/summary>
+&lt;div class="rounded-lg bg-neutral-50 dark:bg-neutral-800 p-2">
+Perfect calibration occurs when predicted probabilities match actual frequencies. For example, if the model predicts 30% risk, approximately 30 out of every 100 similar patients should have the condition.
+&lt;/div>
+&lt;/details>
+&lt;ul>
+&lt;li>&lt;strong>Discrimination:&lt;/strong> Evaluates the model&amp;rsquo;s ability to distinguish between patients who experience the event and those who do not. The most common metric is the C statistic (or AUC-ROC), which represents the probability that a patient with the event has a higher risk score than one without it.&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>val_boot &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">validate&lt;/span>(modelo, method &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;boot&amp;#34;&lt;/span>, B &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">100&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>roc_obj &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">roc&lt;/span>(datos&lt;span style="color:#f92672">$&lt;/span>diabetes,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">predict&lt;/span>(modelo, type &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;fitted&amp;#34;&lt;/span>))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot&lt;/span>(roc_obj,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> main &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">paste&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Curva ROC - AUC =&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">round&lt;/span>(&lt;span style="color:#a6e22e">auc&lt;/span>(roc_obj), &lt;span style="color:#ae81ff">3&lt;/span>)),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> col &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;blue&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> legacy.axes &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">TRUE&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;img src="Discriminacion-1.png" width="80%" style="display: block; margin: auto;" />
+&lt;details class="spoiler " id="spoiler-7">
+&lt;summary class="cursor-pointer">The ROC curve area under the curve (AUC) graph shows very good discrimination (Click to know why)&lt;/summary>
+&lt;div class="rounded-lg bg-neutral-50 dark:bg-neutral-800 p-2">
+&lt;ul>
+&lt;li>The ROC curve evaluates the model&amp;rsquo;s ability to distinguish between patients with and without the condition.
+&lt;ul>
+&lt;li>AUC = Excellent (&amp;gt;0.8 is considered very good in medicine)&lt;/li>
+&lt;li>Y-axis: Sensitivity (ability to detect sick individuals)&lt;/li>
+&lt;li>X-axis: 1 - Specificity (false positive rate)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/div>
+&lt;/details>
+&lt;ul>
+&lt;li>&lt;strong>Clinical Utility:&lt;/strong> Determines if the model is useful for decision-making. Decision curve analysis and Net Benefit (NB) allow evaluating if using the model leads to better net clinical outcomes compared to alternative strategies (like treating all or none).&lt;/li>
+&lt;/ul>
+&lt;h3 id="6-evaluation-of-model-validity">6. Evaluation of Model Validity&lt;/h3>
+&lt;p>The &lt;strong>performance evaluation&lt;/strong> on the data is usually optimistic. Therefore, it is crucial to evaluate the model&amp;rsquo;s validity on data not used for its construction, a process divided into:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Internal Validation:&lt;/strong> Evaluates the model&amp;rsquo;s reproducibility, i.e., its performance on multiple samples from the same underlying population. Techniques like bootstrapping or cross-validation are superior to simple sample splitting, as they quantify and correct optimism in performance metrics without reducing the development sample size.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>External Validation:&lt;/strong> It is the definitive test of the model&amp;rsquo;s generalizability or transportability. It consists of applying the model to a completely independent population, which may include:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Temporal Validation:&lt;/strong> Using patients recruited in a later period.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Geographic Validation:&lt;/strong> Applying the model to patients from other centers or hospitals.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="7-model-presentation">7. Model Presentation&lt;/h3>
+&lt;p>Effective presentation is crucial for clinical adoption. A perfect model is useless if doctors can&amp;rsquo;t use it easily. Some options to bring the model to clinical practice are:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Nomograms&lt;/strong>: Ideal for quick use in consultation.&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>nom &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">nomogram&lt;/span>(modelo,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> fun &lt;span style="color:#f92672">=&lt;/span> plogis,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> funlabel &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Riesgo de Diabetes&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot&lt;/span>(nom, main &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Nomograma del Modelo&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;img src="nomograma-1.png" width="80%" style="display: block; margin: auto;" />
+&lt;details class="spoiler " id="spoiler-8">
+&lt;summary class="cursor-pointer">Nomogram: visual risk calculator (Click to learn how to use it)&lt;/summary>
+&lt;div class="rounded-lg bg-neutral-50 dark:bg-neutral-800 p-2">
+&lt;p>The &lt;strong>nomogram&lt;/strong> is a visual tool that allows manually calculating individual diabetes risk, using the model&amp;rsquo;s key variables. It allows calculating the specific risk for each patient without needing software, facilitating its use in consultation&lt;/p>
+&lt;p>How does it work?&lt;/p>
+&lt;ul>
+&lt;li>For each clinical variable (glucose, BMI, age, etc.), a score is assigned on the “Points” scale&lt;/li>
+&lt;li>All points are summed to get the “Total Points”&lt;/li>
+&lt;li>That total is projected onto the lower scales to obtain the predictive risk&lt;/li>
+&lt;/ul>
+&lt;/div>
+&lt;/details>
+&lt;ul>
+&lt;li>&lt;strong>Web/mobile applications&lt;/strong>: For integration into clinical workflows&lt;/li>
+&lt;/ul>
+&lt;p>A functional application to run the model on a web page, mobile phone, or tablet is a very good option to generalize the model.&lt;/p>
+&lt;p>In this link, I show you the web calculator I programmed in js, html, and css, for my thesis model.&lt;/p>
+&lt;p>&lt;a href="https://maicel.netlify.app/en/project/covidcencecapk/">see CovidCencecAPK&lt;/a>&lt;/p>
+&lt;h2 id="hi">My Recommendations and Position&lt;/h2>
+&lt;p>I recognize that &lt;strong>simple data partitioning (70/30)&lt;/strong> is a frequent standard and often the starting point in Machine Learning practice. However, if our goal is to strengthen the credibility and robustness of our findings, especially in the field of clinical models, this approach deserves a pause and serious reconsideration.&lt;/p>
+&lt;p>The criticism of this practice is neither new nor isolated. Influential authors in the field like Frank Harrell and Edmund Steyerberg have expressed their clear opposition, and other experts join this consensus. As Smedenen summarizes well in this &lt;strong>tweet:&lt;/strong>&lt;/p>
+&lt;blockquote class="twitter-tweet">&lt;p lang="en" dir="ltr">Good description of leakage, but very often an even better solution is not to split your data into train-test sets at all. Cross validation and internal-external validation should be the starting point (deviate only when necessary) &lt;a href="https://t.co/l3ZDmv2kzb">https://t.co/l3ZDmv2kzb&lt;/a>&lt;/p>&amp;mdash; Maarten van Smeden (@MaartenvSmeden) &lt;a href="https://twitter.com/MaartenvSmeden/status/1544599686488723461?ref_src=twsrc%5Etfw">July 6, 2022&lt;/a>&lt;/blockquote>
+&lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8">&lt;/script>
+&lt;p>I fully share this view: for small samples, as clinical research datasets often are, a simple partition—even if random—introduces more risks than benefits. This is a practice more common in general Machine Learning environments, where datasets are typically much larger.&lt;/p>
+&lt;p>Below, let&amp;rsquo;s explore in detail the main reasons why this approach may not be the best practice when precision and patients&amp;rsquo; lives are at stake.&lt;/p>
+&lt;h3 id="1-inefficiency-in-data-use-and-loss-of-power">1. Inefficiency in Data Use and Loss of Power&lt;/h3>
+&lt;p>Clinical datasets are, by nature, often small (think less than 500 patients), limited by costs or the low incidence of rare events.&lt;/p>
+&lt;p>A typical 70/30 partition wastes up to 30% of the data just on evaluation, drastically reducing the effective size for training. This causes a drop in the key metric of Events per Predictor Variable (EPV)—which measures how many events, like positive diagnoses, there are per predictor in the model—often placing it below the recommended threshold of 10-20.&lt;/p>
+&lt;p>The result is predictable: unstable and biased models. Apparent performance (e.g., a high AUC in the training split) can drop drastically on new data (for example, from 0.85 to a disappointing 0.65). In clinical contexts, where capturing real patterns is vital, the recommendation is clear: maximize all data and apply resampling techniques for a more honest estimation.&lt;/p>
+&lt;h3 id="2-performance-evaluations-with-high-variability-and-instability">2. Performance Evaluations with High Variability and Instability&lt;/h3>
+&lt;p>When relying on a single simple partition, performance metrics (like AUC for discrimination or Brier score for calibration) become very sensitive to the chance of how the data was split.&lt;/p>
+&lt;p>Simulations show that this “luck” can generate variations of up to ±0.10-0.15 in the AUC, significant noise. This variance skyrockets (2-3 times more) in small samples. An unstable result can inflate or underestimate calibration (e.g., in the Hosmer-Lemeshow test), which could lead to erroneous clinical decisions and, most importantly, put patients at risk (for example, undertreating those who need it).&lt;/p>
+&lt;p>To illustrate this instability, here the AUC variability in repeated simple splits is simulated using our example dataset:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>auc_splits &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">replicate&lt;/span>(&lt;span style="color:#ae81ff">100&lt;/span>, {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> trainIndex &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">createDataPartition&lt;/span>(datos&lt;span style="color:#f92672">$&lt;/span>diabetes, p &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">0.7&lt;/span>, list &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">FALSE&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> train &lt;span style="color:#f92672">&amp;lt;-&lt;/span> datos[trainIndex, ]; test &lt;span style="color:#f92672">&amp;lt;-&lt;/span> datos[&lt;span style="color:#f92672">-&lt;/span>trainIndex, ]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> model_simple &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">glm&lt;/span>(diabetes &lt;span style="color:#f92672">~&lt;/span> glucose &lt;span style="color:#f92672">+&lt;/span> mass &lt;span style="color:#f92672">+&lt;/span> age, family &lt;span style="color:#f92672">=&lt;/span> binomial, data &lt;span style="color:#f92672">=&lt;/span> train)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> pred &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">predict&lt;/span>(model_simple, test, type &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;response&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">roc&lt;/span>(test&lt;span style="color:#f92672">$&lt;/span>diabetes, pred)&lt;span style="color:#f92672">$&lt;/span>auc
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>})
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">hist&lt;/span>(auc_splits,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> main &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Distribution of AUC in 100 Simple Splits&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> xlab &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;AUC&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> col &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;lightgray&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> border &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;black&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;img src="Simular-1.png" width="80%" style="display: block; margin: auto;" />
+&lt;h3 id="3-risk-of-overfitting-and-lack-of-robust-generalization">3. Risk of Overfitting and Lack of Robust Generalization&lt;/h3>
+&lt;p>A simple “snapshot” provided by the test partition is not enough to correct overfitting. The model, by fitting to the training set (including its noise), offers apparent performance (an “optimism”) that, according to Harrell, can be 5-20% higher than the real one.&lt;/p>
+&lt;p>Without resampling methods, it is impossible to obtain a realistic generalization error. Repeated methods (like k-fold cross-validation) average estimates across multiple splits, reducing bias and improving stability.&lt;/p>
+&lt;p>When this optimism is not corrected, not only is the internal validity of the study affected, but the model&amp;rsquo;s generalization is compromised, as it will fail when applied to external cohorts due to the idiosyncrasies (unique details) of the original sample.&lt;/p>
+&lt;h2 id="-my-suggestion">💡 My Suggestion&lt;/h2>
+&lt;p>Instead of relying on simple partitions, my recommendation is clear: use methods that leverage all the data and offer more stable estimates. This includes:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Repeated Cross-Validation: Divide the data into partitions and repeat the splitting and evaluation process multiple times to average the results.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Bootstrapping: Sample with replacement to estimate stability and correct inherent optimism.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>These methods not only correct optimism but also reduce variability, aligning with best practices in clinical prognostic model development. For this reason, I selected libraries like rms::validate() in R for the example, as they adhere to this philosophy.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>For small datasets, robustness comes first. Avoid simple splits and prioritize stability to generate results that are truly useful in clinical practice.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>A Note on External Validation&lt;/strong>&lt;/p>
+&lt;p>I agree that external validation is crucial and should be performed with an independent dataset in other contexts, whether at different times (temporal validation) or in different hospitals (geographic validation), to confirm true generalization.&lt;/p>
+&lt;p>In my experience, the operational and logistical issues involved in performing external validation in another center or at another time often demotivate the researcher developing a model with data from their own practice. However, I believe this approach is what paves the way for better results from research in real conditions. Additionally, it is an act of merit and a pillar of science to perform validations of others&amp;rsquo; models in your own practice; science thrives on replication and collaboration.&lt;/p>
+&lt;h2 id="-whats-next">⏭️ What’s Next?&lt;/h2>
+&lt;p>This guide is a practical and concise introduction to getting started with clinical predictive models. Advanced topics such as detailed sample size calculation, exhaustive handling of missing data (beyond basic imputation), updating existing models, in-depth analyses of decision curves for clinical utility, reproducibility, adjustment of the logistic regression intercept in scenarios with different prevalences, continuous recalibration methods, or the construction of scales and clinical classifications are not addressed in detail to maintain brevity and focus on the essentials. For deeper insight, consult references like Steyerberg or the TRIPOD framework.&lt;/p>
+&lt;h2 id="-your-turn-go-from-theory-to-practice">🚀 Your Turn! Go from Theory to Practice&lt;/h2>
+&lt;p>This material is just the tip of the iceberg. Now apply these concepts with your clinical data and experiment to build more robust models! If you need more resources, explore the mentioned references.&lt;/p>
+&lt;p>Now, I&amp;rsquo;d love to hear from you. Experience is what enriches knowledge!&lt;/p>
+&lt;p>💬 Leave your comment in the comment box:&lt;/p>
+&lt;ul>
+&lt;li>Have you applied these resampling techniques in your predictive model projects?&lt;/li>
+&lt;li>What strategies do you usually use to train and validate your clinical models?&lt;/li>
+&lt;li>Your comments, difficulties, and achievements help us all keep learning.&lt;/li>
+&lt;/ul>
+&lt;p>🚀 Take the Code to Your Project&lt;/p>
+&lt;p>&lt;a href="https://maicel.netlify.app/en/subscribe/">Join our bioestadisticaedu.com community&lt;/a>.&lt;/p>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
+&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">Upon subscribing, I&amp;rsquo;ll immediately send you a complete template with all the commented code (including tables and structure!) to apply this process in your next publication or thesis.&lt;/span>
+&lt;/div>
+&lt;p>🤝 Need a Personalized Approach?&lt;/p>
+&lt;p>If you want to apply these strategies to a specific dataset and need the security of an expert by your side, you can also contact me for personalized consulting on this topic.&lt;/p>
+&lt;p>And always remember the golden rule: &lt;strong>If you&amp;rsquo;re going to make mistakes, let them be new ones! 😉&lt;/strong> &lt;em>m@icel&lt;/em>&lt;/p>
+&lt;h2 id="bibliography">Bibliography&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>Collins GS, Moons KGM, Dhiman P, Riley RD, Beam AL, Van Calster B, et al. TRIPOD+AI statement: updated guidance for reporting clinical prediction models that use regression or machine learning methods. BMJ [Internet]. 16 de abril de 2024 [citado 3 de octubre de 2025];e078378. Disponible en: &lt;a href="https://www.bmj.com/lookup/doi/10.1136/bmj-2023-078378" target="_blank" rel="noopener">https://www.bmj.com/lookup/doi/10.1136/bmj-2023-078378&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Steyerberg EW, Vergouwe Y. Towards better clinical prediction models: seven steps for development and an ABCD for validation. European Heart Journal [Internet]. 1 de agosto de 2014 [citado 9 de mayo de 2021];35(29):1925-31. Disponible en: &lt;a href="https://academic.oup.com/eurheartj/article-lookup/doi/10.1093/eurheartj/ehu207" target="_blank" rel="noopener">https://academic.oup.com/eurheartj/article-lookup/doi/10.1093/eurheartj/ehu207&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Steyerberg E. Clinical Prediction Models. 1th ed. USA: Springer; 2009. (Statistics for Biology and Health).&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Harrell Jr FE. Regression Modeling Strategies. 1era ed. New York: Springer; 2015.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Heinze G, Wallisch C, Dunkler D. Variable selection - A review and recommendations for the practicing statistician. Biom J [Internet]. mayo de 2018 [citado 9 de mayo de 2021];60(3):431-49. Disponible en: &lt;a href="http://doi.wiley.com/10.1002/bimj.201700067" target="_blank" rel="noopener">http://doi.wiley.com/10.1002/bimj.201700067&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;div class="footnotes" role="doc-endnotes">
+&lt;hr>
+&lt;ol>
+&lt;li id="fn:1">
+&lt;p>You can contact me for personalized consulting where I can help you develop a predictive model or teach you the modeling strategy with other tools like SPSS or Python at my personal email.&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/div></description></item></channel></rss>
