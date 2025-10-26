@@ -5,8 +5,6 @@ date: 2025-10-26
 translationKey: "collaborations"
 ---
 
-# Colaboraciones Profesionales
-
 Como profesional con experiencia en bioestadística, machine learning y ensayos clínicos, ofrezco apoyo personalizado en proyectos que promueven el avance científico ético. Estas colaboraciones son estrictamente independientes y no representan ni involucran a instituciones, donde participo en roles contratados. Para evitar cualquier conflicto de interés, todas las interacciones se guían por principios de transparencia, confidencialidad y separación de responsabilidades profesionales. Si eres parte de un entorno regulado, te recomiendo revisar políticas internas antes de explorar opciones.
 
 ## Áreas de Apoyo
