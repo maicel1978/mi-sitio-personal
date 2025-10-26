@@ -67,22 +67,38 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Según el &lt;strong&gt;objetivo de la investigación&lt;/strong&gt; se pueden optar por uno de los siguientes &lt;strong&gt;diseños&lt;/strong&gt; de estudios:&lt;/p&gt;
-&lt;div class=&#34;markmap&#34; style=&#34;height: 200px;&#34;&gt;
+&lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-2&#34;&gt;
+  &lt;summary class=&#34;cursor-pointer&#34;&gt;Desarrollo, Validación o Actualización de Modelos (Click para ver detalles)&lt;/summary&gt;
+  &lt;div class=&#34;rounded-lg bg-neutral-50 dark:bg-neutral-800 p-2&#34;&gt;
+    &lt;ul&gt;
+&lt;li&gt;Diseños según Objetivo
+&lt;ul&gt;
+&lt;li&gt;Desarrollo de Modelos
+&lt;ul&gt;
+&lt;li&gt;Estudios de Cohorte&lt;/li&gt;
+&lt;li&gt;Ensayos Aleatorizados&lt;/li&gt;
+&lt;li&gt;Datos de Atención Rutinaria&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Validación de Modelos
+&lt;ul&gt;
+&lt;li&gt;Estudios de Cohorte Independientes&lt;/li&gt;
+&lt;li&gt;Meta-análisis&lt;/li&gt;
+&lt;li&gt;Datos de Registro&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Actualización de Modelos
+&lt;ul&gt;
+&lt;li&gt;Cualquier diseño anterior con nuevos datos&lt;/li&gt;
+&lt;li&gt;Datos con Estructura de Clúster&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;pre&gt;- Diseños según Objetivo
-  - Desarrollo de Modelos
-    - Estudios de Cohorte
-    - Ensayos Aleatorizados
-    - Datos de Atención Rutinaria
-  - Validación de Modelos
-    - Estudios de Cohorte Independientes
-    - Meta-análisis
-    - Datos de Registro
-  - Actualización de Modelos
-    - Cualquier diseño anterior con nuevos datos
-    - Datos con Estructura de Clúster&lt;/pre&gt;
-&lt;/div&gt;
-
+  &lt;/div&gt;
+&lt;/details&gt;
 &lt;p&gt;Se recomienda profundizar en estos temas a partir de la bibliografía propuesta para esta publicación. En este post nos centraremos en la &lt;strong&gt;secuencia de etapas clave&lt;/strong&gt; para desarrollar un &lt;strong&gt;modelo predictivo&lt;/strong&gt;. Como base usaré el artículo &lt;em&gt;“Siete pasos para el desarrollo y un ABCD para la validación”&lt;/em&gt; de  Ewout Steyerberg (1), así como su libro &lt;em&gt;Clinical Prediction Models&lt;/em&gt; (2). A la receta añadiré las recomendaciones de Frank Harrell desde su obra &lt;em&gt;Regression Modeling Strategies&lt;/em&gt; (3), y nos basaremos en su biblioteca &lt;strong&gt;rms&lt;/strong&gt; para desarrollar este tutorial con &lt;strong&gt;código práctico en R&lt;/strong&gt;. Finalmente daré mi propia visión del polémico asunto de particionar los datos en &lt;strong&gt;conjunto de entrenamiento&lt;/strong&gt; y &lt;strong&gt;conjunto de prueba&lt;/strong&gt; en una &lt;strong&gt;proporción 70:30&lt;/strong&gt; y otras cuestiones que seguramente resultarán interesantes.&lt;/p&gt;
 &lt;p&gt;Empezaremos con la &lt;strong&gt;estrategia de modelado&lt;/strong&gt;; el tutorial con todo el código vendrá después.&lt;br&gt;
 &lt;strong&gt;¡Empecemos!&lt;/strong&gt;&lt;/p&gt;
@@ -194,7 +210,7 @@ Tambien le harán falta otras bibliotecas para el manejo de datos,  confeccionar
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;## 0.9 Quantile of absolute error=0.034&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;abline&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, lty &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, col &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;red&amp;#34;&lt;/span&gt;)  &lt;span style=&#34;color:#75715e&#34;&gt;# Línea ideal&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;img src=&#34;calibracion-1.png&#34; width=&#34;80%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;
-&lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-7&#34;&gt;
+&lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-8&#34;&gt;
   &lt;summary class=&#34;cursor-pointer&#34;&gt;El gráfico muestra que el modelo está bien calibrado (Click para saber por qué)&lt;/summary&gt;
   &lt;div class=&#34;rounded-lg bg-neutral-50 dark:bg-neutral-800 p-2&#34;&gt;
     La calibración perfecta ocurre cuando las probabilidades predichas coinciden con las frecuencias reales. Por ejemplo, si el modelo predice 30% de riesgo, aproximadamente 30 de cada 100 pacientes similares deberían tener la condición.
@@ -205,13 +221,14 @@ Tambien le harán falta otras bibliotecas para el manejo de datos,  confeccionar
 &lt;/ul&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;val_boot &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;validate&lt;/span&gt;(modelo, method &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;boot&amp;#34;&lt;/span&gt;, B &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;)
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;roc_obj &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;roc&lt;/span&gt;(datos&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;diabetes, &lt;span style=&#34;color:#a6e22e&#34;&gt;predict&lt;/span&gt;(modelo, type &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;fitted&amp;#34;&lt;/span&gt;))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;roc_obj &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;roc&lt;/span&gt;(datos&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;diabetes, 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;               &lt;span style=&#34;color:#a6e22e&#34;&gt;predict&lt;/span&gt;(modelo, type &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;fitted&amp;#34;&lt;/span&gt;))
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;plot&lt;/span&gt;(roc_obj,
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     main &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;paste&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Curva ROC - AUC =&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;round&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;auc&lt;/span&gt;(roc_obj), &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;)),
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     col &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;blue&amp;#34;&lt;/span&gt;,
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     legacy.axes &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;)
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;img src=&#34;Discriminacion-1.png&#34; width=&#34;80%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;
-&lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-8&#34;&gt;
+&lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-9&#34;&gt;
   &lt;summary class=&#34;cursor-pointer&#34;&gt;El gráfico del área bajo la curva ROC (AUC) muestra muy buena discriminación (Click para saber por qué)&lt;/summary&gt;
   &lt;div class=&#34;rounded-lg bg-neutral-50 dark:bg-neutral-800 p-2&#34;&gt;
     &lt;ul&gt;
@@ -252,10 +269,12 @@ Tambien le harán falta otras bibliotecas para el manejo de datos,  confeccionar
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Nomogramas&lt;/strong&gt;: Ideales para uso rápido en consulta.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;nom &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;nomogram&lt;/span&gt;(modelo, fun &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; plogis, funlabel &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Riesgo de Diabetes&amp;#34;&lt;/span&gt;)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;nom &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;nomogram&lt;/span&gt;(modelo, 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                fun &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; plogis, 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                funlabel &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Riesgo de Diabetes&amp;#34;&lt;/span&gt;)
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;plot&lt;/span&gt;(nom, main &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Nomograma del Modelo&amp;#34;&lt;/span&gt;)
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;img src=&#34;nomograma-1.png&#34; width=&#34;80%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;
-&lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-9&#34;&gt;
+&lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-10&#34;&gt;
   &lt;summary class=&#34;cursor-pointer&#34;&gt;Nomograma: calculadora visual del riesgo (Click para aprender a usarlo)&lt;/summary&gt;
   &lt;div class=&#34;rounded-lg bg-neutral-50 dark:bg-neutral-800 p-2&#34;&gt;
     &lt;p&gt;El &lt;strong&gt;nomograma&lt;/strong&gt; es una herramienta visual que permite calcular el riesgo individual de diabetes manualmente, usando las variables clave del modelo. Permite calcular el riesgo específico para cada paciente sin necesidad de software, facilitando su uso en consulta&lt;/p&gt;
@@ -289,7 +308,7 @@ Tambien le harán falta otras bibliotecas para el manejo de datos,  confeccionar
 &lt;p&gt;El resultado es predecible: modelos inestables y sesgados. El rendimiento aparente (ej., un AUC alto en el split de entrenamiento) puede caer drásticamente en datos nuevos (por ejemplo, de 0.85 a un decepcionante 0.65). En contextos clínicos, donde capturar patrones reales es vital, la recomendación es clara: &lt;strong&gt;maximizar todos los datos y aplicar técnicas de remuestreo para una estimación más honesta.&lt;/strong&gt;&lt;/p&gt;
 &lt;h3 id=&#34;2-evaluaciones-de-rendimiento-con-alta-variabilidad-e-inestabilidad&#34;&gt;2. Evaluaciones de rendimiento con alta variabilidad e inestabilidad&lt;/h3&gt;
 &lt;p&gt;Cuando dependemos de una sola partición simple, las métricas de rendimiento (como el AUC para la discriminación o el Brier score para la calibración) se vuelven muy sensibles al azar de cómo se dividieron los datos.&lt;/p&gt;
-&lt;p&gt;Las simulaciones demuestran que esta &amp;ldquo;suerte&amp;rdquo; puede generar variaciones de hasta &lt;code&gt;\(\pm 0.10-0.15\)&lt;/code&gt; en el AUC, un ruido significativo. Esta varianza se dispara (2-3 veces más) en muestras pequeñas. Un resultado inestable puede inflar o subestimar la calibración (ej. en el test de Hosmer-Lemeshow), lo que podría llevar a tomar decisiones clínicas erróneas y, lo más importante, poner en riesgo a los pacientes (por ejemplo, subtratando a quienes lo necesitan).&lt;/p&gt;
+&lt;p&gt;Las simulaciones demuestran que esta &amp;ldquo;suerte&amp;rdquo; puede generar variaciones de hasta de más o menos 0.10-0.15 en el AUC, un ruido significativo. Esta varianza se dispara (2-3 veces más) en muestras pequeñas. Un resultado inestable puede inflar o subestimar la calibración (ej. en el test de Hosmer-Lemeshow), lo que podría llevar a tomar decisiones clínicas erróneas y, lo más importante, poner en riesgo a los pacientes (por ejemplo, subtratando a quienes lo necesitan).&lt;/p&gt;
 &lt;p&gt;Para ilustrar esta inestabilidad, aquí se simula la variabilidad del AUC en splits simples repetidos utilizando el dataset de nuestro ejemplo:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;auc_splits &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;replicate&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  trainIndex &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;createDataPartition&lt;/span&gt;(datos&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;diabetes, p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.7&lt;/span&gt;, list &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;FALSE&lt;/span&gt;)
@@ -311,27 +330,48 @@ Tambien le harán falta otras bibliotecas para el manejo de datos,  confeccionar
 &lt;p&gt;Una simple &amp;ldquo;instantánea&amp;rdquo; proporcionada por la partición de prueba no es suficiente para corregir el sobreajuste. El modelo, al ajustarse al conjunto de entrenamiento (incluyendo su ruido), ofrece un rendimiento aparente (un &amp;ldquo;optimismo&amp;rdquo;) que, según Harrell, puede ser un 5-20% superior al real.&lt;/p&gt;
 &lt;p&gt;Sin métodos de remuestreo, es imposible obtener un error de generalización realista. Métodos repetidos (como la validación cruzada de k-pliegues) promedian las estimaciones a lo largo de múltiples splits, lo que reduce el sesgo y mejora la estabilidad.&lt;/p&gt;
 &lt;p&gt;Cuando no se corrige este optimismo, no solo se afecta la validez interna del estudio, sino que se compromete la generalización del modelo, pues fallará al aplicarse a cohortes externas debido a las idiosincrasias (detalles únicos) de la muestra original.&lt;/p&gt;
-&lt;h3 id=&#34;-mi-sugerencia&#34;&gt;💡 Mi Sugerencia&lt;/h3&gt;
+&lt;h2 id=&#34;-mi-sugerencia&#34;&gt;💡 Mi Sugerencia&lt;/h2&gt;
 &lt;p&gt;En lugar de depender de particiones simples, mi recomendación es clara: utilizar métodos que aprovechen la totalidad de los datos y ofrezcan estimaciones más estables. Esto incluye:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
 &lt;p&gt;Validación Cruzada Repetida: Divide los datos en particiones y repite el proceso de división y evaluación múltiples veces para promediar los resultados.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
 &lt;p&gt;Bootstrapping: Muestrea con reemplazo para estimar la estabilidad y corregir el optimismo inherente.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
 &lt;p&gt;Estos métodos no solo corrigen el optimismo sino que reducen la variabilidad, alineándose con las buenas prácticas en el desarrollo de modelos de pronóstico clínico. Por esta razón, seleccioné bibliotecas como rms::validate() en R para el ejemplo, ya que se adhieren a esta filosofía.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
 &lt;p&gt;Para conjuntos de datos pequeños, la robustez es lo primero. Evite las divisiones simples y priorice la estabilidad para generar resultados que sean verdaderamente útiles en la práctica asistencial.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;Un Apunte sobre la Validación Externa&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Coincido en que la validación externa es crucial y debe realizarse con un conjunto de datos independiente en otros contextos, ya sea en diferentes momentos (validación temporal) o en distintos hospitales (validación geográfica), para confirmar la verdadera generalización.&lt;/p&gt;
 &lt;p&gt;En mi experiencia, las cuestiones operativas y logísticas que implica realizar una validación externa en otro centro o en otro momento a menudo desmotivan al investigador que está desarrollando un modelo con datos de su propia consulta. Sin embargo, creo que este enfoque es el que abre el camino para obtener mejores resultados a partir de la investigación en condiciones reales. Además, es un acto de mérito y un pilar de la ciencia realizar validaciones de modelos de otros en su propia consulta; la ciencia se nutre de la replicación y la colaboración.&lt;/p&gt;
-&lt;h2 id=&#34;tu-turno-pasa-de-la-teoría-a-la-práctica&#34;&gt;¡Tu Turno! Pasa de la Teoría a la Práctica&lt;/h2&gt;
-&lt;p&gt;Este material es solo la punta del iceberg. Hay muchos temas cruciales que, por síntesis, no abordamos aquí, pero que se construyen sobre esta base: la reproducibilidad, el ajuste del intercepto de la regresión logística en escenarios con prevalencias diferentes, los métodos de recalibración continua, o la construcción de escalas y clasificaciones clínicas.&lt;/p&gt;
+&lt;h2 id=&#34;-qué-sigue&#34;&gt;⏭️ ¿Qué sigue?&lt;/h2&gt;
+&lt;p&gt;Esta guía es una introducción práctica y concisa para iniciarse en modelos predictivos clínicos. Temas avanzados como el cálculo detallado de tamaño de muestra, el manejo exhaustivo de datos faltantes (más allá de imputación básica), la actualización de modelos existentes, análisis profundos de curvas de decisión para utilidad clínica, la reproducibilidad, el ajuste del intercepto de la regresión logística en escenarios con prevalencias diferentes, los métodos de recalibración continua, o la construcción de escalas y clasificaciones clínicas no se abordan en detalle para mantener la brevedad y enfoque en lo esencial. Para profundizar, consulta referencias como Steyerberg o el marco TRIPOD.&lt;/p&gt;
+&lt;h2 id=&#34;-tu-turno&#34;&gt;🚀 ¡Tu Turno!&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Pasa de la Teoría a la Práctica.&lt;/strong&gt; Este material es solo la punta del iceberg. ¡Ahora aplica estos conceptos con tus datos clínicos y experimenta para construir modelos más robustos! Si necesitas más recursos, explora las referencias mencionadas.&lt;/p&gt;
 &lt;p&gt;Ahora, me encantaría leerte. ¡La experiencia es la que enriquece el conocimiento!&lt;/p&gt;
-&lt;p&gt;💬 Déjanos tu Comentario
-¿Has aplicado estas técnicas de remuestreo en tus proyectos de modelos predictivos?&lt;/p&gt;
-&lt;p&gt;¿Qué estrategias usas habitualmente para entrenar y validar tus modelos clínicos?&lt;/p&gt;
-&lt;p&gt;Tus comentarios, tus dificultades y tus logros nos ayudan a todos a seguir aprendiendo.&lt;/p&gt;
+&lt;p&gt;💬 Déjanos tu &lt;strong&gt;comentario en la caja de comentarios&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;¿Has aplicado estas técnicas de remuestreo en tus proyectos de modelos predictivos?&lt;/li&gt;
+&lt;li&gt;¿Qué estrategias usas habitualmente para entrenar y validar tus modelos clínicos?&lt;/li&gt;
+&lt;li&gt;Tus comentarios, tus dificultades y tus logros nos ayudan a todos a seguir aprendiendo.&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;🚀 Lleva el Código a tu Proyecto&lt;/p&gt;
-&lt;p&gt;Únete a nuestra comunidad de bioestadísticaedu. Al suscribirte, te enviaré inmediatamente una plantilla completa con todo el código comentado (¡incluyendo tablas y estructura!) para aplicar este proceso en tu próxima publicación o tesis.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://maicel.netlify.app/subscribe/&#34;&gt;&lt;strong&gt;Subscribete&lt;/strong&gt; a nuestra comunidad de bioestadísticaedu, recibe artículos directamente en tu bandeja de entrada, sigue nuestro canal RSS o
+sigue mi canal de telegram&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&#34;flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900&#34;&gt;
+&lt;span class=&#34;pr-3 pt-1 text-primary-600 dark:text-primary-300&#34;&gt;
+  &lt;svg height=&#34;24&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 24 24&#34;&gt;&lt;path fill=&#34;none&#34; stroke=&#34;currentColor&#34; stroke-linecap=&#34;round&#34; stroke-linejoin=&#34;round&#34; stroke-width=&#34;1.5&#34; d=&#34;m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z&#34;/&gt;&lt;/svg&gt;
+&lt;/span&gt;
+  &lt;span class=&#34;dark:text-neutral-300&#34;&gt;Al suscribirte, te enviaré inmediatamente una &lt;strong&gt;plantilla completa con todo el código comentado (¡incluyendo tablas y estructura!)&lt;/strong&gt; lista para aplicar este proceso en tu próxima publicación o tesis.&lt;/span&gt;
+&lt;/div&gt;
 &lt;p&gt;🤝 ¿Necesitas un Enfoque Personalizado?&lt;/p&gt;
 &lt;p&gt;Si quieres aplicar estas estrategias a un dataset específico y necesitas la seguridad de un experto a tu lado, también puedes contactarme para una consultoría personalizada sobre este tema.&lt;/p&gt;
-&lt;p&gt;Y recuerda siempre la regla de oro: &lt;strong&gt;¡Si vas a cometer errores que sean nuevos! 😉&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Y recuerda siempre la regla de oro: &lt;strong&gt;¡Si vas a cometer errores que sean nuevos! 😉&lt;/strong&gt; &lt;em&gt;m@icel&lt;/em&gt;&lt;/p&gt;
 &lt;h2 id=&#34;bibliografía&#34;&gt;Bibliografía&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;

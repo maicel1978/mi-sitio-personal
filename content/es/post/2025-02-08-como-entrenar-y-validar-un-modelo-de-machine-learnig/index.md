@@ -5,7 +5,6 @@ categories: ["Código Práctico en R o Python"]
 summary: "Guía práctica con R para desarrollar modelos predictivos robustos en entornos clínicos"
 authors:
   - "admin"
-  - "Maicel Monzón Pérez"
 date: "2025-10-22" #año mes dia
 show_author_profile: true
 tags: 
@@ -17,11 +16,11 @@ tags:
 slug: como-entrenar-y-validar-un-modelo-de-machine-learning
 featured: true  # Destacar en la página principal
 translationKey: "MPC"
-# languages:
-#   es: "/es/como-entrenar-y-validar-un-modelo-de-machine-learnig"
-#   en: "/en/how-to-train-and-validate-clinical-prediction-model"
-related_posts:
-  - "eda"  # Slug de tu post sobre EDA, luego añadir categoria superior para cluster
+languages:
+  es: "/es/como-entrenar-y-validar-un-modelo-de-machine-learnig"
+  en: "/en/how-to-train-and-validate-clinical-prediction-model"
+# related_posts:
+#   - "eda"  # Slug de tu post sobre EDA, luego añadir categoria superior para cluster
 # control
 show_date: true
 reading_time: true
@@ -73,7 +72,8 @@ Si bien este post se centra en las cuestiones prácticas del **procesamiento de 
 
 Según el **objetivo de la investigación** se pueden optar por uno de los siguientes **diseños** de estudios:
 
-```markmap {height="200px"}
+{{< spoiler text="Desarrollo, Validación o Actualización de Modelos (Click para ver detalles)" >}}
+
 - Diseños según Objetivo
   - Desarrollo de Modelos
     - Estudios de Cohorte
@@ -86,7 +86,11 @@ Según el **objetivo de la investigación** se pueden optar por uno de los sigui
   - Actualización de Modelos
     - Cualquier diseño anterior con nuevos datos
     - Datos con Estructura de Clúster
-```
+
+{{< /spoiler >}}
+
+
+
 Se recomienda profundizar en estos temas a partir de la bibliografía propuesta para esta publicación. En este post nos centraremos en la **secuencia de etapas clave** para desarrollar un **modelo predictivo**. Como base usaré el artículo *“Siete pasos para el desarrollo y un ABCD para la validación”* de  Ewout Steyerberg (1), así como su libro *Clinical Prediction Models* (2). A la receta añadiré las recomendaciones de Frank Harrell desde su obra *Regression Modeling Strategies* (3), y nos basaremos en su biblioteca **rms** para desarrollar este tutorial con **código práctico en R**. Finalmente daré mi propia visión del polémico asunto de particionar los datos en **conjunto de entrenamiento** y **conjunto de prueba** en una **proporción 70:30** y otras cuestiones que seguramente resultarán interesantes.
 
 Empezaremos con la **estrategia de modelado**; el tutorial con todo el código vendrá después.  
@@ -388,7 +392,7 @@ Sin métodos de remuestreo, es imposible obtener un error de generalización rea
 
 Cuando no se corrige este optimismo, no solo se afecta la validez interna del estudio, sino que se compromete la generalización del modelo, pues fallará al aplicarse a cohortes externas debido a las idiosincrasias (detalles únicos) de la muestra original.
 
-### 💡 Mi Sugerencia
+## 💡 Mi Sugerencia
 
 En lugar de depender de particiones simples, mi recomendación es clara: utilizar métodos que aprovechen la totalidad de los datos y ofrezcan estimaciones más estables. Esto incluye:
 
@@ -406,27 +410,31 @@ Coincido en que la validación externa es crucial y debe realizarse con un conju
 
 En mi experiencia, las cuestiones operativas y logísticas que implica realizar una validación externa en otro centro o en otro momento a menudo desmotivan al investigador que está desarrollando un modelo con datos de su propia consulta. Sin embargo, creo que este enfoque es el que abre el camino para obtener mejores resultados a partir de la investigación en condiciones reales. Además, es un acto de mérito y un pilar de la ciencia realizar validaciones de modelos de otros en su propia consulta; la ciencia se nutre de la replicación y la colaboración.
 
+## ⏭️ ¿Qué sigue? 
 
-## ¡Tu Turno! Pasa de la Teoría a la Práctica
+Esta guía es una introducción práctica y concisa para iniciarse en modelos predictivos clínicos. Temas avanzados como el cálculo detallado de tamaño de muestra, el manejo exhaustivo de datos faltantes (más allá de imputación básica), la actualización de modelos existentes, análisis profundos de curvas de decisión para utilidad clínica, la reproducibilidad, el ajuste del intercepto de la regresión logística en escenarios con prevalencias diferentes, los métodos de recalibración continua, o la construcción de escalas y clasificaciones clínicas no se abordan en detalle para mantener la brevedad y enfoque en lo esencial. Para profundizar, consulta referencias como Steyerberg o el marco TRIPOD.
 
-Este material es solo la punta del iceberg. Hay muchos temas cruciales que, por síntesis, no abordamos aquí, pero que se construyen sobre esta base: la reproducibilidad, el ajuste del intercepto de la regresión logística en escenarios con prevalencias diferentes, los métodos de recalibración continua, o la construcción de escalas y clasificaciones clínicas.
+
+
+## 🚀 ¡Tu Turno! 
+
+**Pasa de la Teoría a la Práctica.** Este material es solo la punta del iceberg. ¡Ahora aplica estos conceptos con tus datos clínicos y experimenta para construir modelos más robustos! Si necesitas más recursos, explora las referencias mencionadas.
 
 Ahora, me encantaría leerte. ¡La experiencia es la que enriquece el conocimiento!
 
-💬 Déjanos tu comentario en la caja de comentarios:
+💬 Déjanos tu **comentario en la caja de comentarios**:
 - ¿Has aplicado estas técnicas de remuestreo en tus proyectos de modelos predictivos?
 - ¿Qué estrategias usas habitualmente para entrenar y validar tus modelos clínicos?
 - Tus comentarios, tus dificultades y tus logros nos ayudan a todos a seguir aprendiendo.
 
 🚀 Lleva el Código a tu Proyecto 
 
-[Únete a nuestra comunidad de bioestadísticaedu.com]({{< relref "/subscribe/" >}}).
+[**Subscribete** a nuestra comunidad de bioestadísticaedu, recibe artículos directamente en tu bandeja de entrada, sigue nuestro canal RSS o
+sigue mi canal de telegram]({{< relref "/subscribe/" >}}).
 
 {{% callout note %}}
-Al suscribirte, te enviaré inmediatamente una plantilla completa con todo el código comentado (¡incluyendo tablas y estructura!) para aplicar este proceso en tu próxima publicación o tesis.
+Al suscribirte, te enviaré inmediatamente una **plantilla completa con todo el código comentado (¡incluyendo tablas y estructura!)** lista para aplicar este proceso en tu próxima publicación o tesis.
 {{% /callout %}}
-
-
 
 🤝 ¿Necesitas un Enfoque Personalizado? 
 

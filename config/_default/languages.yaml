@@ -65,7 +65,11 @@ en:
         # weight: 50
       - name: "Subscribe"
         url: /subscribe/
-        weight: 90 # Un número alto para que aparezca al final
+        weight: 80 # Un número alto para que aparezca al final
+      - name: "Collaborations"
+        url: /collaborations/
+        weight: 90  # Un número alto para que aparezca al final
+
 
 es:
   languageCode: es-es
@@ -128,8 +132,10 @@ es:
         parent: blog
       - name: "Suscríbete"
         url: /subscribe/
+        weight: 80  # Un número alto para que aparezca al final
+      - name: "Colaboraciones"
+        url: /collaborations/
         weight: 90  # Un número alto para que aparezca al final
-
 
 # # Español (idioma por defecto)
 # es:

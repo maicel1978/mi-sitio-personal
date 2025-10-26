@@ -33,6 +33,13 @@ blogdown::stop_server()
 blogdown::build_site()
 blogdown::serve_site()
 
+Para preparar el sitio para producción (Netlify) de manera local, la secuencia es:
+
+blogdown::stop_server()
+unlink("public", recursive = TRUE)   # Borrar carpeta public
+blogdown::build_site(local = FALSE)
+
+
 blogdown::build_site(local = FALSE, build_rmd = TRUE)
 
 ### Git (Para Netlify Deploy):
