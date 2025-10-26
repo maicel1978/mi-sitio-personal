@@ -102,7 +102,7 @@ Seguir una **estrategia de modelado** adecuada es esencial para **desarrollar y 
 
 A continuación, se muestran un conjunto de **bibliotecas en R** que nos ayudará implementar estas ideas, pero este proceso se puede realizar de igual manera en en SPSS o Python [^1]. 
 
-[^1]: Puede contactarme para una consultoría personalizada donde puedo ayudarle a desarrollar un modelo predictivo o enseñarle a desarrollar la estrategia de modelado  con otras herramientas como **SPSS** o **Python** a mi correo personal maicel.monzon@gmail.com .
+[^1]: [Puede contactarme para una consultoría personalizada donde puedo ayudarle a desarrollar un modelo predictivo o enseñarle a desarrollar la estrategia de modelado  con otras herramientas como **SPSS** o **Python**.]({{< relref "/collaborations/" >}}).
 
 [Puedes  descargar e instalar el paquete **rms** desde su página oficial en el repositorio de CRAN.](https://cran.r-project.org/web/packages/rms/index.html) 
 Tambien le harán falta otras bibliotecas para el manejo de datos,  confeccionar tablas y gráficos para su publicación, entre otras acciones. 
@@ -437,8 +437,6 @@ Al suscribirte, te enviaré inmediatamente una **plantilla completa con todo el 
 {{% /callout %}}
 
 🤝 ¿Necesitas un Enfoque Personalizado? 
-
-Si quieres aplicar estas estrategias a un dataset específico y necesitas la seguridad de un experto a tu lado, también puedes contactarme para una consultoría personalizada sobre este tema.
 
 [Si quieres aplicar estas estrategias a un dataset específico y necesitas la seguridad de un experto a tu lado, también puedes contactarme para una consultoría personalizada sobre este tema.]({{< relref "/collaborations/" >}}).
 
