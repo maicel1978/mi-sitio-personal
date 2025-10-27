@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Paso a Paso R Para Machine Learning en Tesis | Bioestadística edu</title><link>https://maicel.netlify.app/tags/paso-a-paso-r-para-machine-learning-en-tesis/</link><atom:link href="https://maicel.netlify.app/tags/paso-a-paso-r-para-machine-learning-en-tesis/index.xml" rel="self" type="application/rss+xml"/><description>Paso a Paso R Para Machine Learning en Tesis</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Wed, 22 Oct 2025 00:00:00 +0000</lastBuildDate><image><url>https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png</url><title>Paso a Paso R Para Machine Learning en Tesis</title><link>https://maicel.netlify.app/tags/paso-a-paso-r-para-machine-learning-en-tesis/</link></image><item><title>Cómo Entrenar y Validar Modelos de Predicción Clínica: Guía Paso a Paso para Profesionales de la Salud</title><link>https://maicel.netlify.app/post/como-entrenar-y-validar-un-modelo-de-machine-learning/</link><pubDate>Wed, 22 Oct 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/como-entrenar-y-validar-un-modelo-de-machine-learning/</guid><description>&lt;p>🎧 &lt;strong>Escucha el podcast de esta publicación&lt;/strong>&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Paso a Paso R Para Machine Learning en Tesis | Bioestadística edu</title><link>https://bioestadisticaedu.com/tags/paso-a-paso-r-para-machine-learning-en-tesis/</link><atom:link href="https://bioestadisticaedu.com/tags/paso-a-paso-r-para-machine-learning-en-tesis/index.xml" rel="self" type="application/rss+xml"/><description>Paso a Paso R Para Machine Learning en Tesis</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Wed, 22 Oct 2025 00:00:00 +0000</lastBuildDate><image><url>https://bioestadisticaedu.com/media/icon_hu_551fbaee136b383e.png</url><title>Paso a Paso R Para Machine Learning en Tesis</title><link>https://bioestadisticaedu.com/tags/paso-a-paso-r-para-machine-learning-en-tesis/</link></image><item><title>Cómo Entrenar y Validar Modelos de Predicción Clínica: Guía Paso a Paso para Profesionales de la Salud</title><link>https://bioestadisticaedu.com/post/como-entrenar-y-validar-un-modelo-de-machine-learning/</link><pubDate>Wed, 22 Oct 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/como-entrenar-y-validar-un-modelo-de-machine-learning/</guid><description>&lt;p>🎧 &lt;strong>Escucha el podcast de esta publicación&lt;/strong>&lt;/p>
 &lt;audio controls >
 &lt;source src="https://ia600607.us.archive.org/24/items/articulo-steyember/_Articulo_Steyember.mp3" type="audio/mpeg">
 &lt;/audio>
@@ -86,7 +86,7 @@ Tambien le harán falta otras bibliotecas para el manejo de datos, confeccionar 
 &lt;span class="dark:text-neutral-300">La &lt;strong>variable de resultado&lt;/strong> debe definirse con precisión: especifique &lt;strong>qué evento se predice&lt;/strong>, &lt;strong>cómo y cuándo se mide&lt;/strong>, y el &lt;strong>horizonte temporal de predicción&lt;/strong> (por ejemplo, mortalidad a los 30 días). También es clave indicar el método de evaluación del evento y si se aplicó &lt;strong>cegamiento&lt;/strong> respecto a los predictores, para asegurar coherencia interna y validez del modelo.&lt;/span>
 &lt;/div>
 &lt;p>Durante esta fase también realizamos un &lt;em>análisis exploratorio de datos (EDA, por sus siglas en ingles)&lt;/em> para entender las características de las variables y detectar posibles problemas, como &lt;strong>datos atípicos&lt;/strong> o &lt;strong>valores faltantes&lt;/strong>.&lt;/p>
-&lt;p>&lt;a href="https://maicel.netlify.app/post/eda/">Para conocer más detalles, ver mi post sobre EDA&lt;/a>.&lt;/p>
+&lt;p>&lt;a href="https://bioestadisticaedu.com/post/eda/">Para conocer más detalles, ver mi post sobre EDA&lt;/a>.&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">set.seed&lt;/span>(&lt;span style="color:#ae81ff">123&lt;/span>) &lt;span style="color:#75715e"># Reproducibilidad total (imputación, splits, bootstrap)&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Carga del dataset nativo&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">data&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;PimaIndiansDiabetes&amp;#34;&lt;/span>)
@@ -252,7 +252,7 @@ La calibración perfecta ocurre cuando las probabilidades predichas coinciden co
 &lt;/ul>
 &lt;p>Una aplicación funcional para ejecutar el modelo en una pagina web, teléfono movil o tableta es una muy buena opción para generalizar el modelo.&lt;/p>
 &lt;p>En este enlace te muestro la calculadora web que programé en js, html y css, para el modelo de mi tesis.&lt;/p>
-&lt;p>&lt;a href="https://maicel.netlify.app/project/covidcencecapk/">ver CovidCencecAPK&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://bioestadisticaedu.com/project/covidcencecapk/">ver CovidCencecAPK&lt;/a>&lt;/p>
 &lt;h2 id="hi">Mis recomendaciones y posición&lt;/h2>
 &lt;p>Reconozco que la &lt;strong>partición simple de datos (70/30)&lt;/strong> es un estándar frecuente y, a menudo, el punto de partida en la práctica del Machine Learning. No obstante, si nuestro objetivo es fortalecer la credibilidad y la robustez de nuestros hallazgos, especialmente en el ámbito de los &lt;strong>modelos clínicos&lt;/strong>, este enfoque merece una pausa y una seria reconsideración.&lt;/p>
 &lt;p>La crítica a esta práctica no es nueva ni aislada. Autores influyentes en el campo como Frank Harrell y Edmund Steyerberg han expresado su clara oposición, y otros expertos se suman a este consenso. Como bien lo resume Smedenen en este &lt;em>tweet&lt;/em>:&lt;/p>
@@ -319,7 +319,7 @@ La calibración perfecta ocurre cuando las probabilidades predichas coinciden co
 &lt;li>Tus comentarios, tus dificultades y tus logros nos ayudan a todos a seguir aprendiendo.&lt;/li>
 &lt;/ul>
 &lt;p>🚀 Lleva el Código a tu Proyecto&lt;/p>
-&lt;p>&lt;a href="https://maicel.netlify.app/subscribe/">&lt;strong>Subscribete&lt;/strong> a nuestra comunidad de bioestadísticaedu, recibe artículos directamente en tu bandeja de entrada, sigue nuestro canal RSS o
+&lt;p>&lt;a href="https://bioestadisticaedu.com/subscribe/">&lt;strong>Subscribete&lt;/strong> a nuestra comunidad de bioestadísticaedu, recibe artículos directamente en tu bandeja de entrada, sigue nuestro canal RSS o
 sigue mi canal de telegram&lt;/a>.&lt;/p>
 &lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
 &lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
@@ -328,7 +328,7 @@ sigue mi canal de telegram&lt;/a>.&lt;/p>
 &lt;span class="dark:text-neutral-300">Al suscribirte, te enviaré inmediatamente una &lt;strong>plantilla completa con todo el código comentado (¡incluyendo tablas y estructura!)&lt;/strong> lista para aplicar este proceso en tu próxima publicación o tesis.&lt;/span>
 &lt;/div>
 &lt;p>🤝 ¿Necesitas un Enfoque Personalizado?&lt;/p>
-&lt;p>&lt;a href="https://maicel.netlify.app/collaborations/">Si quieres aplicar estas estrategias a un dataset específico y necesitas la seguridad de un experto a tu lado, también puedes contactarme para una consultoría personalizada sobre este tema.&lt;/a>.&lt;/p>
+&lt;p>&lt;a href="https://bioestadisticaedu.com/collaborations/">Si quieres aplicar estas estrategias a un dataset específico y necesitas la seguridad de un experto a tu lado, también puedes contactarme para una consultoría personalizada sobre este tema.&lt;/a>.&lt;/p>
 &lt;p>Y recuerda siempre la regla de oro: &lt;strong>¡Si vas a cometer errores que sean nuevos! 😉&lt;/strong> &lt;em>m@icel&lt;/em>&lt;/p>
 &lt;h2 id="bibliografía">Bibliografía&lt;/h2>
 &lt;ol>
@@ -352,7 +352,7 @@ sigue mi canal de telegram&lt;/a>.&lt;/p>
 &lt;hr>
 &lt;ol>
 &lt;li id="fn:1">
-&lt;p>&lt;a href="https://maicel.netlify.app/collaborations/">Puede contactarme para una consultoría personalizada donde puedo ayudarle a desarrollar un modelo predictivo o enseñarle a desarrollar la estrategia de modelado con otras herramientas como &lt;strong>SPSS&lt;/strong> o &lt;strong>Python&lt;/strong>.&lt;/a>.&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://bioestadisticaedu.com/collaborations/">Puede contactarme para una consultoría personalizada donde puedo ayudarle a desarrollar un modelo predictivo o enseñarle a desarrollar la estrategia de modelado con otras herramientas como &lt;strong>SPSS&lt;/strong> o &lt;strong>Python&lt;/strong>.&lt;/a>.&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
 &lt;/li>
 &lt;/ol>
 &lt;/div></description></item></channel></rss>

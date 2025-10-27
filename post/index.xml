@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog | Bioestadística edu</title><link>https://maicel.netlify.app/post/</link><atom:link href="https://maicel.netlify.app/post/index.xml" rel="self" type="application/rss+xml"/><description>Blog</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Wed, 22 Oct 2025 00:00:00 +0000</lastBuildDate><image><url>https://maicel.netlify.app/media/icon_hu_551fbaee136b383e.png</url><title>Blog</title><link>https://maicel.netlify.app/post/</link></image><item><title>Cómo Entrenar y Validar Modelos de Predicción Clínica: Guía Paso a Paso para Profesionales de la Salud</title><link>https://maicel.netlify.app/post/como-entrenar-y-validar-un-modelo-de-machine-learning/</link><pubDate>Wed, 22 Oct 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/como-entrenar-y-validar-un-modelo-de-machine-learning/</guid><description>&lt;p>🎧 &lt;strong>Escucha el podcast de esta publicación&lt;/strong>&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog | Bioestadística edu</title><link>https://bioestadisticaedu.com/post/</link><atom:link href="https://bioestadisticaedu.com/post/index.xml" rel="self" type="application/rss+xml"/><description>Blog</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Wed, 22 Oct 2025 00:00:00 +0000</lastBuildDate><image><url>https://bioestadisticaedu.com/media/icon_hu_551fbaee136b383e.png</url><title>Blog</title><link>https://bioestadisticaedu.com/post/</link></image><item><title>Cómo Entrenar y Validar Modelos de Predicción Clínica: Guía Paso a Paso para Profesionales de la Salud</title><link>https://bioestadisticaedu.com/post/como-entrenar-y-validar-un-modelo-de-machine-learning/</link><pubDate>Wed, 22 Oct 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/como-entrenar-y-validar-un-modelo-de-machine-learning/</guid><description>&lt;p>🎧 &lt;strong>Escucha el podcast de esta publicación&lt;/strong>&lt;/p>
 &lt;audio controls >
 &lt;source src="https://ia600607.us.archive.org/24/items/articulo-steyember/_Articulo_Steyember.mp3" type="audio/mpeg">
 &lt;/audio>
@@ -86,7 +86,7 @@ Tambien le harán falta otras bibliotecas para el manejo de datos, confeccionar 
 &lt;span class="dark:text-neutral-300">La &lt;strong>variable de resultado&lt;/strong> debe definirse con precisión: especifique &lt;strong>qué evento se predice&lt;/strong>, &lt;strong>cómo y cuándo se mide&lt;/strong>, y el &lt;strong>horizonte temporal de predicción&lt;/strong> (por ejemplo, mortalidad a los 30 días). También es clave indicar el método de evaluación del evento y si se aplicó &lt;strong>cegamiento&lt;/strong> respecto a los predictores, para asegurar coherencia interna y validez del modelo.&lt;/span>
 &lt;/div>
 &lt;p>Durante esta fase también realizamos un &lt;em>análisis exploratorio de datos (EDA, por sus siglas en ingles)&lt;/em> para entender las características de las variables y detectar posibles problemas, como &lt;strong>datos atípicos&lt;/strong> o &lt;strong>valores faltantes&lt;/strong>.&lt;/p>
-&lt;p>&lt;a href="https://maicel.netlify.app/post/eda/">Para conocer más detalles, ver mi post sobre EDA&lt;/a>.&lt;/p>
+&lt;p>&lt;a href="https://bioestadisticaedu.com/post/eda/">Para conocer más detalles, ver mi post sobre EDA&lt;/a>.&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">set.seed&lt;/span>(&lt;span style="color:#ae81ff">123&lt;/span>) &lt;span style="color:#75715e"># Reproducibilidad total (imputación, splits, bootstrap)&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Carga del dataset nativo&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">data&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;PimaIndiansDiabetes&amp;#34;&lt;/span>)
@@ -252,7 +252,7 @@ La calibración perfecta ocurre cuando las probabilidades predichas coinciden co
 &lt;/ul>
 &lt;p>Una aplicación funcional para ejecutar el modelo en una pagina web, teléfono movil o tableta es una muy buena opción para generalizar el modelo.&lt;/p>
 &lt;p>En este enlace te muestro la calculadora web que programé en js, html y css, para el modelo de mi tesis.&lt;/p>
-&lt;p>&lt;a href="https://maicel.netlify.app/project/covidcencecapk/">ver CovidCencecAPK&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://bioestadisticaedu.com/project/covidcencecapk/">ver CovidCencecAPK&lt;/a>&lt;/p>
 &lt;h2 id="hi">Mis recomendaciones y posición&lt;/h2>
 &lt;p>Reconozco que la &lt;strong>partición simple de datos (70/30)&lt;/strong> es un estándar frecuente y, a menudo, el punto de partida en la práctica del Machine Learning. No obstante, si nuestro objetivo es fortalecer la credibilidad y la robustez de nuestros hallazgos, especialmente en el ámbito de los &lt;strong>modelos clínicos&lt;/strong>, este enfoque merece una pausa y una seria reconsideración.&lt;/p>
 &lt;p>La crítica a esta práctica no es nueva ni aislada. Autores influyentes en el campo como Frank Harrell y Edmund Steyerberg han expresado su clara oposición, y otros expertos se suman a este consenso. Como bien lo resume Smedenen en este &lt;em>tweet&lt;/em>:&lt;/p>
@@ -319,7 +319,7 @@ La calibración perfecta ocurre cuando las probabilidades predichas coinciden co
 &lt;li>Tus comentarios, tus dificultades y tus logros nos ayudan a todos a seguir aprendiendo.&lt;/li>
 &lt;/ul>
 &lt;p>🚀 Lleva el Código a tu Proyecto&lt;/p>
-&lt;p>&lt;a href="https://maicel.netlify.app/subscribe/">&lt;strong>Subscribete&lt;/strong> a nuestra comunidad de bioestadísticaedu, recibe artículos directamente en tu bandeja de entrada, sigue nuestro canal RSS o
+&lt;p>&lt;a href="https://bioestadisticaedu.com/subscribe/">&lt;strong>Subscribete&lt;/strong> a nuestra comunidad de bioestadísticaedu, recibe artículos directamente en tu bandeja de entrada, sigue nuestro canal RSS o
 sigue mi canal de telegram&lt;/a>.&lt;/p>
 &lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
 &lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
@@ -328,7 +328,7 @@ sigue mi canal de telegram&lt;/a>.&lt;/p>
 &lt;span class="dark:text-neutral-300">Al suscribirte, te enviaré inmediatamente una &lt;strong>plantilla completa con todo el código comentado (¡incluyendo tablas y estructura!)&lt;/strong> lista para aplicar este proceso en tu próxima publicación o tesis.&lt;/span>
 &lt;/div>
 &lt;p>🤝 ¿Necesitas un Enfoque Personalizado?&lt;/p>
-&lt;p>&lt;a href="https://maicel.netlify.app/collaborations/">Si quieres aplicar estas estrategias a un dataset específico y necesitas la seguridad de un experto a tu lado, también puedes contactarme para una consultoría personalizada sobre este tema.&lt;/a>.&lt;/p>
+&lt;p>&lt;a href="https://bioestadisticaedu.com/collaborations/">Si quieres aplicar estas estrategias a un dataset específico y necesitas la seguridad de un experto a tu lado, también puedes contactarme para una consultoría personalizada sobre este tema.&lt;/a>.&lt;/p>
 &lt;p>Y recuerda siempre la regla de oro: &lt;strong>¡Si vas a cometer errores que sean nuevos! 😉&lt;/strong> &lt;em>m@icel&lt;/em>&lt;/p>
 &lt;h2 id="bibliografía">Bibliografía&lt;/h2>
 &lt;ol>
@@ -352,10 +352,10 @@ sigue mi canal de telegram&lt;/a>.&lt;/p>
 &lt;hr>
 &lt;ol>
 &lt;li id="fn:1">
-&lt;p>&lt;a href="https://maicel.netlify.app/collaborations/">Puede contactarme para una consultoría personalizada donde puedo ayudarle a desarrollar un modelo predictivo o enseñarle a desarrollar la estrategia de modelado con otras herramientas como &lt;strong>SPSS&lt;/strong> o &lt;strong>Python&lt;/strong>.&lt;/a>.&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://bioestadisticaedu.com/collaborations/">Puede contactarme para una consultoría personalizada donde puedo ayudarle a desarrollar un modelo predictivo o enseñarle a desarrollar la estrategia de modelado con otras herramientas como &lt;strong>SPSS&lt;/strong> o &lt;strong>Python&lt;/strong>.&lt;/a>.&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
 &lt;/li>
 &lt;/ol>
-&lt;/div></description></item><item><title>¿Escribir ciencia o reescribir la realidad?</title><link>https://maicel.netlify.app/post/imryd-redaccion-inversa/</link><pubDate>Sat, 04 Oct 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/imryd-redaccion-inversa/</guid><description>&lt;h2 id="introducción">Introducción&lt;/h2>
+&lt;/div></description></item><item><title>¿Escribir ciencia o reescribir la realidad?</title><link>https://bioestadisticaedu.com/post/imryd-redaccion-inversa/</link><pubDate>Sat, 04 Oct 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/imryd-redaccion-inversa/</guid><description>&lt;h2 id="introducción">Introducción&lt;/h2>
 &lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
 &lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
 &lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
@@ -430,7 +430,7 @@ En algunos contextos —sobre todo exploratorios— puede ser la diferencia entr
 &lt;h2 id="recursos-adicionales">Recursos adicionales&lt;/h2>
 &lt;p>🎧 &lt;strong>Escucha el podcast de esta publicación&lt;/strong>
 &lt;audio controls >
-&lt;source src="https://maicel.netlify.app/mp3/Post_IMRyD.mp3" type="audio/mpeg">
+&lt;source src="https://bioestadisticaedu.com/mp3/Post_IMRyD.mp3" type="audio/mpeg">
 &lt;/audio>
 &lt;/p>
 &lt;h2 id="bibliografía">Bibliografía&lt;/h2>
@@ -471,7 +471,7 @@ En algunos contextos —sobre todo exploratorios— puede ser la diferencia entr
 &lt;li>
 &lt;p>McShane BB, Gal D, Gelman A, Robert C, Tackett JL. Abandon statistical significance. The American Statistician. 2019;73(sup1):235-45.&lt;/p>
 &lt;/li>
-&lt;/ol></description></item><item><title>Las trampas de la correlación disfrazada de causalidad</title><link>https://maicel.netlify.app/post/trampas-correlacion/</link><pubDate>Wed, 24 Sep 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/trampas-correlacion/</guid><description>&lt;h2 id="introducción">Introducción&lt;/h2>
+&lt;/ol></description></item><item><title>Las trampas de la correlación disfrazada de causalidad</title><link>https://bioestadisticaedu.com/post/trampas-correlacion/</link><pubDate>Wed, 24 Sep 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/trampas-correlacion/</guid><description>&lt;h2 id="introducción">Introducción&lt;/h2>
 &lt;p>El ojo humano ama los patrones: ver dos líneas que se mueven juntas y concluir que una provoca la otra. La estadística, mal interpretada, a veces alimenta esa ilusión. La correlación es apenas la danza conjunta de dos variables, no una flecha de causa. Y, sin embargo, titulares, políticas y hasta decisiones médicas se sostienen sobre esta trampa.&lt;/p>
 &lt;h2 id="1-correlaciones-curiosas-pero-falsas">1) Correlaciones curiosas (pero falsas)&lt;/h2>
 &lt;ul>
@@ -517,7 +517,7 @@ En algunos contextos —sobre todo exploratorios— puede ser la diferencia entr
 /post/trampas-correlacion/correlacion_hu_c614a73ad03379b6.webp 400w,
 /post/trampas-correlacion/correlacion_hu_e6f9def3a13f9eea.webp 760w,
 /post/trampas-correlacion/correlacion_hu_dedc904516865376.webp 1200w"
-src="https://maicel.netlify.app/post/trampas-correlacion/correlacion_hu_c614a73ad03379b6.webp"
+src="https://bioestadisticaedu.com/post/trampas-correlacion/correlacion_hu_c614a73ad03379b6.webp"
 width="507"
 height="760"
 loading="lazy" data-zoomable />&lt;/div>
@@ -544,7 +544,7 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;p>Pearl, J. (2009). Causality: Models, Reasoning, and Inference (2nd ed.). Cambridge University Press.&lt;/p>
 &lt;p>Hernán, M. A., &amp;amp; Robins, J. M. (2020). Causal Inference: What If. Chapman &amp;amp; Hall/CRC. [Disponible gratis en línea].&lt;/p>
 &lt;p>Hill, A. B. (1965). The environment and disease: association or causation? Proceedings of the Royal Society of Medicine, 58(5), 295–300. (Criterios de Bradford Hill).&lt;/p>
-&lt;p>Freedman, D. A. (2005). Statistical Models: Theory and Practice. Cambridge University Press. (Discusión crítica sobre correlación y causalidad).&lt;/p></description></item><item><title>Una Inmersión Intuitiva en la Arquitectura de los LLMs</title><link>https://maicel.netlify.app/post/ia/</link><pubDate>Sat, 06 Sep 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/ia/</guid><description>&lt;p>Todos conocemos los Modelos de Lenguaje Grandes (LLMs) como &lt;strong>ChatGPT de OpenAI, Claude de Anthropic, Gemini de Google&lt;/strong> y otros modelos similares.&lt;/p>
+&lt;p>Freedman, D. A. (2005). Statistical Models: Theory and Practice. Cambridge University Press. (Discusión crítica sobre correlación y causalidad).&lt;/p></description></item><item><title>Una Inmersión Intuitiva en la Arquitectura de los LLMs</title><link>https://bioestadisticaedu.com/post/ia/</link><pubDate>Sat, 06 Sep 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/ia/</guid><description>&lt;p>Todos conocemos los Modelos de Lenguaje Grandes (LLMs) como &lt;strong>ChatGPT de OpenAI, Claude de Anthropic, Gemini de Google&lt;/strong> y otros modelos similares.&lt;/p>
 &lt;p>Son esos asistentes de IA con los que conversamos, que nos ayudan a escribir correos (Stanford Online 2024)electrónicos, a generar ideas e incluso a codificar.&lt;/p>
 &lt;p>Pero, ¿alguna vez te has preguntado cómo funcionan realmente estas herramientas?
 ¿Están pensando o simplemente están creando una &lt;strong>magnífica ilusión de razonamiento&lt;/strong>?
@@ -579,7 +579,7 @@ Lejos de simular el cerebro humano en un sentido biológico, se basan casi unive
 /post/ia/fig1_hu_18182d8f524833af.webp 400w,
 /post/ia/fig1_hu_f33bba6717280fcf.webp 760w,
 /post/ia/fig1_hu_4ee0477a1071e0cf.webp 1200w"
-src="https://maicel.netlify.app/post/ia/fig1_hu_18182d8f524833af.webp"
+src="https://bioestadisticaedu.com/post/ia/fig1_hu_18182d8f524833af.webp"
 width="760"
 height="410"
 loading="lazy" data-zoomable />&lt;/div>
@@ -741,7 +741,7 @@ Es decir, se le dan ejemplos de preguntas y sus respuestas “correctas” o “
 /post/ia/fig4_hu_b74c97a4d4debd70.webp 400w,
 /post/ia/fig4_hu_f0bdf3ad77c25970.webp 760w,
 /post/ia/fig4_hu_6e63ba7ee8334dc3.webp 1200w"
-src="https://maicel.netlify.app/post/ia/fig4_hu_b74c97a4d4debd70.webp"
+src="https://bioestadisticaedu.com/post/ia/fig4_hu_b74c97a4d4debd70.webp"
 width="507"
 height="760"
 loading="lazy" data-zoomable />&lt;/div>
@@ -801,7 +801,7 @@ Y es, sin duda, una de las maravillas tecnológicas más grandes de nuestro tiem
 &lt;div id="ref-vaswani" class="csl-entry">
 &lt;p>Vaswani, Ashish, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, and Illia Polosukhin. n.d. “Attention Is All You Need.” &lt;a href="https://doi.org/10.48550/ARXIV.1706.03762" target="_blank" rel="noopener">https://doi.org/10.48550/ARXIV.1706.03762&lt;/a>.&lt;/p>
 &lt;/div>
-&lt;/div></description></item><item><title>Del Laboratorio al Mundo Real</title><link>https://maicel.netlify.app/post/generalizacion/</link><pubDate>Mon, 01 Sep 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/generalizacion/</guid><description>&lt;h2 id="introducción">Introducción&lt;/h2>
+&lt;/div></description></item><item><title>Del Laboratorio al Mundo Real</title><link>https://bioestadisticaedu.com/post/generalizacion/</link><pubDate>Mon, 01 Sep 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/generalizacion/</guid><description>&lt;h2 id="introducción">Introducción&lt;/h2>
 &lt;p>¿Alguna vez has leído un titular científico y te has preguntado: &amp;ldquo;¿Esto me aplica a mí?&amp;rdquo; o &amp;ldquo;Esto suena genial, pero ¿es relevante para mi realidad?&amp;rdquo; Si es así, has tocado el nervio de uno de los mayores desafíos de la investigación: cómo saltar del estudio controlado en un laboratorio al mundo real.&lt;/p>
 &lt;p>El vídeo, &amp;ldquo;El Estudio y el Mundo&amp;rdquo;, captura esta idea.&lt;/p>
 &lt;div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
@@ -859,7 +859,7 @@ Y es, sin duda, una de las maravillas tecnológicas más grandes de nuestro tiem
 &lt;h2 id="biblografía">Biblografía&lt;/h2>
 &lt;ol>
 &lt;li>Degtiar I, Rose S. A Review of Generalizability and Transportability. Annual Review of Statistics and Its Application [Internet]. 9 de marzo de 2023 [citado 1 de septiembre de 2025];10(Volume 10, 2023):501-24. Disponible en: &lt;a href="https://www.annualreviews.org/content/journals/10.1146/annurev-statistics-042522-103837" target="_blank" rel="noopener">https://www.annualreviews.org/content/journals/10.1146/annurev-statistics-042522-103837&lt;/a>&lt;/li>
-&lt;/ol></description></item><item><title>Inferencia Causal, Desvelando la Lógica Matemática Detrás de Causa y Efecto</title><link>https://maicel.netlify.app/post/inferencia-causal/</link><pubDate>Mon, 01 Sep 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/inferencia-causal/</guid><description>&lt;h2 id="introducción">Introducción&lt;/h2>
+&lt;/ol></description></item><item><title>Inferencia Causal, Desvelando la Lógica Matemática Detrás de Causa y Efecto</title><link>https://bioestadisticaedu.com/post/inferencia-causal/</link><pubDate>Mon, 01 Sep 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/inferencia-causal/</guid><description>&lt;h2 id="introducción">Introducción&lt;/h2>
 &lt;p>El &lt;strong>marco de resultados potenciales&lt;/strong> se mantiene como la piedra angular del pensamiento causal, proporcionando el andamiaje conceptual para diferenciar la mera correlación de la causalidad. Ante la imposibilidad de llevar a cabo &lt;strong>ensayos controlados aleatorizados (RCT)&lt;/strong>, la investigación se ha nutrido de &lt;strong>métodos robustos&lt;/strong> que permiten extraer inferencias causales creíbles de datos observacionales. En este contexto, herramientas como el &lt;strong>Propensity Score&lt;/strong> y los &lt;strong>estimadores doblemente robustos&lt;/strong> (DR) se utilizan para controlar los sesgos de selección a partir de covariables observables, mientras que los &lt;strong>Efectos de Tratamiento Promedio Condicionales (CATE)&lt;/strong>, apoyados en machine learning, permiten explorar la heterogeneidad del efecto entre subpoblaciones. Asimismo, un conjunto de estrategias cuasi-experimentales ha abierto nuevos horizontes en la investigación, incluyendo el uso de &lt;strong>Variables Instrumentales (IV)&lt;/strong> para corregir la confusión no observada, el &lt;strong>Diferencias-en-Diferencias (DID)&lt;/strong> y el &lt;strong>Control Sintético (SC)&lt;/strong> para comparar trayectorias temporales, y la &lt;strong>Regresión Discontinua (RDD)&lt;/strong> para explotar umbrales de asignación, todas ellas permitiendo identificar efectos causales en contextos donde la aleatorización no es factible.&lt;/p>
 &lt;hr>
 &lt;h2 id="1-el-desafío-central-solo-vemos-un-lado-de-la-moneda">1. El desafío central: solo vemos un lado de la moneda&lt;/h2>
@@ -968,7 +968,7 @@ $$
 &lt;li>Imbens GW, Rubin DB. &lt;em>Causal Inference for Statistics, Social, and Biomedical Sciences&lt;/em>. 2015.&lt;/li>
 &lt;li>Athey S, Imbens GW. &lt;em>Design-based analysis in difference-in-differences settings.&lt;/em> J Econometrics. 2022. &lt;a href="https://pubmed.ncbi.nlm.nih.gov/36212825/" target="_blank" rel="noopener">PubMed PMID: 36212825&lt;/a>&lt;/li>
 &lt;li>Abadie A. &lt;em>Using synthetic controls.&lt;/em> J Econometrics. 2021.&lt;/li>
-&lt;/ul></description></item><item><title>Significación Estadística, ¿Ciencia o Pirotecnia?</title><link>https://maicel.netlify.app/post/2025-08-10-significacion/</link><pubDate>Sun, 10 Aug 2025 15:30:00 +0000</pubDate><guid>https://maicel.netlify.app/post/2025-08-10-significacion/</guid><description>&lt;h2 id="introducción">Introducción&lt;/h2>
+&lt;/ul></description></item><item><title>Significación Estadística, ¿Ciencia o Pirotecnia?</title><link>https://bioestadisticaedu.com/post/2025-08-10-significacion/</link><pubDate>Sun, 10 Aug 2025 15:30:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/2025-08-10-significacion/</guid><description>&lt;h2 id="introducción">Introducción&lt;/h2>
 &lt;p>Ese momento de euforia al ver &lt;code>p &amp;lt; 0.05&lt;/code>… ¿es un descubrimiento genuino o solo un destello engañoso de pirotecnia estadística?&lt;/p>
 &lt;p>En la ciencia, hay un instante que todos los investigadores anhelan. Es la culminación de meses, a veces años, de riguroso trabajo. Corres el análisis y, de repente, ahí está: &lt;code>p &amp;lt; 0.05&lt;/code>. Es una &lt;strong>explosión de alivio&lt;/strong>, un destello de “¡Eureka!” en la oscuridad de la incertidumbre. Sentimos que hemos encontrado algo real, algo digno de ser publicado.&lt;/p>
 &lt;p>Pero, ¿y si ese destello es solo eso? Un estallido momentáneo, deslumbrante y ruidoso, pero que en el fondo significa muy poco. ¿Y si nuestro ritual más sagrado es, en realidad, un simple juego de pirotecnia, diseñado para impresionar más que para iluminar?&lt;/p>
@@ -1065,9 +1065,9 @@ $$
 &lt;div id="ref-wasserstein2016" class="csl-entry">
 &lt;p>Wasserstein, Ronald L., and Nicole A. Lazar. 2016. “The ASA Statement on &lt;em>p&lt;/em> -Values: Context, Process, and Purpose.” &lt;em>The American Statistician&lt;/em> 70 (2): 129–33. &lt;a href="https://doi.org/10.1080/00031305.2016.1154108" target="_blank" rel="noopener">https://doi.org/10.1080/00031305.2016.1154108&lt;/a>.&lt;/p>
 &lt;/div>
-&lt;/div></description></item><item><title>Diseños Alternativos a Ensayos Clínicos Controlados Aleatorizados: Contextos de Aplicación y Riesgos Regulatorios</title><link>https://maicel.netlify.app/post/atajos/</link><pubDate>Thu, 07 Aug 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/atajos/</guid><description>&lt;p>🎧 &lt;strong>Escucha el podcast de esta publicación&lt;/strong>
+&lt;/div></description></item><item><title>Diseños Alternativos a Ensayos Clínicos Controlados Aleatorizados: Contextos de Aplicación y Riesgos Regulatorios</title><link>https://bioestadisticaedu.com/post/atajos/</link><pubDate>Thu, 07 Aug 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/atajos/</guid><description>&lt;p>🎧 &lt;strong>Escucha el podcast de esta publicación&lt;/strong>
 &lt;audio controls >
-&lt;source src="https://maicel.netlify.app/mp3/atajos.mp3" type="audio/mpeg">
+&lt;source src="https://bioestadisticaedu.com/mp3/atajos.mp3" type="audio/mpeg">
 &lt;/audio>
 &lt;/p>
 &lt;h2 id="introducción">Introducción&lt;/h2>
@@ -1240,9 +1240,9 @@ $$
 &lt;li>EMA. &lt;em>Guideline on Adjustment for Baseline Covariates in Clinical Trials&lt;/em>. CHMP/EWP/2863/99.&lt;/li>
 &lt;li>FDA. &lt;em>Real-World Evidence Program Annual Report 2025 (PUB-245)&lt;/em>.&lt;/li>
 &lt;li>Temple R, Ellenberg SS. &lt;em>Placebo-Controlled Trials and Active-Control Trials in the Evaluation of New Treatments&lt;/em>. &lt;em>Ann Intern Med&lt;/em>. 2000;133(6):455–463.&lt;/li>
-&lt;/ol></description></item><item><title>Análisis Exploratorio de Datos: Desentrañando la Verdad de tus Datos</title><link>https://maicel.netlify.app/post/eda/</link><pubDate>Tue, 11 Feb 2025 00:00:00 +0000</pubDate><guid>https://maicel.netlify.app/post/eda/</guid><description>&lt;p>🎧 &lt;strong>Escucha el podcast de esta publicación&lt;/strong>
+&lt;/ol></description></item><item><title>Análisis Exploratorio de Datos: Desentrañando la Verdad de tus Datos</title><link>https://bioestadisticaedu.com/post/eda/</link><pubDate>Tue, 11 Feb 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/eda/</guid><description>&lt;p>🎧 &lt;strong>Escucha el podcast de esta publicación&lt;/strong>
 &lt;audio controls >
-&lt;source src="https://maicel.netlify.app/mp3/eda.mp3" type="audio/mpeg">
+&lt;source src="https://bioestadisticaedu.com/mp3/eda.mp3" type="audio/mpeg">
 &lt;/audio>
 &lt;/p>
 &lt;h2 id="introducción">Introducción&lt;/h2>
@@ -1258,7 +1258,7 @@ $$
 /post/eda/fig01_hu_1d111632709b1b76.webp 400w,
 /post/eda/fig01_hu_b26fdc398618e3dc.webp 760w,
 /post/eda/fig01_hu_540748744cda905c.webp 1200w"
-src="https://maicel.netlify.app/post/eda/fig01_hu_1d111632709b1b76.webp"
+src="https://bioestadisticaedu.com/post/eda/fig01_hu_1d111632709b1b76.webp"
 width="760"
 height="578"
 loading="lazy" data-zoomable />&lt;/div>
