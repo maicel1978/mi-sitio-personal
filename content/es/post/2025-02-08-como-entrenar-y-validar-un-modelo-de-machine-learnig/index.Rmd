@@ -3,10 +3,11 @@ title: "Cómo Entrenar y Validar Modelos de Predicción Clínica: Guía Paso a P
 subtitle: "Tutorial para el desarrollo de un modelo de predicción clínica con ejemplos en R" 
 categories: ["Código Práctico en R o Python"]
 summary: "Guía práctica con R para desarrollar modelos predictivos robustos en entornos clínicos"
+profile: true
 authors:
   - "admin"
 date: "2025-10-22" #año mes dia
-show_author_profile: true
+# show_author_profile: true
 tags: 
   - "entrenar modelo en R para predicciones clínicas"
   - "tutorial en r para modelos predictivos médicos"
@@ -26,7 +27,6 @@ show_date: true
 reading_time: true
 share: true
 feedback: true
-profile: true
 commentable: true
 pager: true
 show_related: true
