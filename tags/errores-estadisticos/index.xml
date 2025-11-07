@@ -131,15 +131,22 @@
 &lt;h4 id="la-confesión-del-pecador">La Confesión del Pecador&lt;/h4>
 &lt;p>La soberbia se materializa en los fallos de diseño más críticos que condenan la credibilidad científica:&lt;/p>
 &lt;ul>
-&lt;li>&lt;strong>Deficiencias en el Cálculo del Tamaño Muestral&lt;/strong> (N): El cálculo incorrecto o injustificado del tamaño de muestra es un error estadístico central, que compromete la potencia estadística de las pruebas de significación utilizadas en el estudio y portanto de los resultados.&lt;/li>
+&lt;li>&lt;strong>Deficiencias en el Cálculo del Tamaño Muestral&lt;/strong> (N): El cálculo incorrecto o injustificado del tamaño de muestra es un error estadístico central, que compromete la validez del estudio en dos sentidos opuestos, afectando la potencia estadística.&lt;/li>
 &lt;/ul>
-&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-yellow-100 dark:bg-yellow-900">
-&lt;span class="pr-3 pt-1 text-red-400">
-&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0zM12 15.75h.007v.008H12z"/>&lt;/svg>
-&lt;/span>
-&lt;span class="dark:text-neutral-300">Incluso con un tamaño muestral correcto, un error metodológico común es usar el valor p de forma aislada para sacar conclusiones. Un valor &amp;ldquo;significativo&amp;rdquo; (p &amp;lt; 0.05) no asegura que el hallazgo sea clínicamente relevante o importante.
-El valor p, por sí solo, no mide el tamaño ni la importancia del efecto. Por esta razón, es crucial que el protocolo exija el reporte obligatorio de intervalos de confianza y medidas del tamaño del efecto (como diferencias de riesgo o NNT). Solo estas métricas permiten evaluar la magnitud real y la precisión del hallazgo, proporcionando una interpretación útil para la toma de decisiones.&lt;/span>
+&lt;details class="spoiler " id="spoiler-4">
+&lt;summary class="cursor-pointer">Las muestras demasiado pequeñas pueden servir para no probar nada (Click para ver detalles)&lt;/summary>
+&lt;div class="rounded-lg bg-neutral-50 dark:bg-neutral-800 p-2">
+&lt;strong>Muestra Insuficiente (Baja Potencia):&lt;/strong> Un tamaño muestral reducido compromete severamente la potencia estadística de la investigación. Esto aumenta el riesgo de cometer el &lt;strong>Error de Tipo II&lt;/strong> (la probabilidad de no detectar un efecto real). Si la muestra es insuficiente, incluso una diferencia clínicamente &lt;strong>muy intensa&lt;/strong> puede no resultar significativa. Formalmente, la lógica interna de las pruebas de hipótesis no permite aceptar que el efecto sea nulo, sino únicamente &lt;strong>abstenerse de sacar conclusión alguna&lt;/strong> sobre el hallazgo. Esta falta de capacidad para rechazar la hipótesis inicial es lo que lleva a la conclusión de que las muestras pequeñas &amp;ldquo;sirven para no probar nada&amp;rdquo;.
 &lt;/div>
+&lt;/details>
+&lt;details class="spoiler " id="spoiler-5">
+&lt;summary class="cursor-pointer">Las muestras demasiado grandes pueden servir para probar cualquier cosa (Click para ver detalles)&lt;/summary>
+&lt;div class="rounded-lg bg-neutral-50 dark:bg-neutral-800 p-2">
+&lt;p>&lt;strong>Muestra Excesiva (Significación Trivial):&lt;/strong> Si el tamaño de muestra es &lt;strong>excesivamente grande&lt;/strong>, la validez de la inferencia se compromete, ya que se convierte en un simple reflejo del tamaño muestral y no del contenido científico del estudio.&lt;/p>
+&lt;p>Un tamaño excesivo garantiza que una asociación o diferencia que es &lt;strong>muy débil&lt;/strong> o &lt;strong>nimia&lt;/strong> desde el punto de vista clínico o biológico resulte &lt;strong>estadísticamente significativa&lt;/strong>.&lt;/p>
+&lt;p>Esto ocurre porque la decisión de rechazar la hipótesis de nulidad (la afirmación de que no hay diferencia) está &amp;ldquo;casi siempre en manos del tamaño muestral&amp;rdquo;. Dado que la hipótesis de nulidad casi nunca es verdadera en la naturaleza, un tamaño muestral lo suficientemente grande simplemente confirma este hecho trivial, desviando la atención de la verdadera &lt;strong>importancia práctica&lt;/strong> del fenómeno investigado.&lt;/p>
+&lt;/div>
+&lt;/details>
 &lt;ul>
 &lt;li>
 &lt;p>&lt;strong>Ambigüedad de Objetivos y Endpoints&lt;/strong>: Falta de claridad en los objetivos primarios y secundarios o carencia de operacionalización clara o validación de los criterios de resultado (endpoints).&lt;/p>
