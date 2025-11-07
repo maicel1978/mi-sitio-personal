@@ -412,7 +412,12 @@ Diseñar un protocolo sólido exige no solo rigor metodológico, sino también a
 
 Ahora que has explorado los siete pecados capitales que condenan tantos protocolos y Planes de Análisis Estadístico (PAE) al rechazo regulatorio, es momento de dejar la confesión atrás y buscar la redención en tu propio trabajo. No basta con identificar los errores ajenos; la verdadera transformación viene al aplicar estas lecciones a tus proyectos. ¡Es tu turno de actuar!
 
-Descarga el Checklist de Redención estadística
+
+
+
+¿Has evitado un rechazo gracias a estas lecciones? ¡Cuéntanos en la caja de comentarios! 
+Suscríbete al blog y te envio directamente a tu correo electrónico el Checklist de Redención estadística.
+
 
 
 ## Bibliografía
