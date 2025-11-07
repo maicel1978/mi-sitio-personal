@@ -113,13 +113,18 @@ Este pecado genera inconsistencias que comprometen la integridad científica y l
 
 La ICH E6(R3), sección 3.16.2(a), establece que el plan de análisis estadístico debe estar..
 
-> descrito con suficiente detalle en el protocolo" o, preferiblemente, como un Plan de Análisis Estadístico (SAP) independiente y consistente, respondiendo a la pregunta crítica de "¿Cómo demostrar que los resultados no fueron 'inventados' tras ver los datos?.
+> descrito con suficiente detalle en el protocolo" o, preferiblemente, como un Plan de Análisis Estadístico independiente y consistente, respondiendo a la pregunta crítica de "¿Cómo demostrar que los resultados no fueron 'inventados' tras ver los datos?.
 
 #### La Confesión del Pecador
 
 La soberbia se materializa en los fallos de diseño más críticos que condenan la credibilidad científica:
 
--   **Cálculo Insuficiente del Tamaño Muestral** ($\text{N}$): El cálculo incorrecto o injustificado del $\text{N}$ es el error estadístico central, comprometiendo gravemente la potencia estadística del estudio.
+-   **Deficiencias en el Cálculo del Tamaño Muestral** (N): El cálculo incorrecto o injustificado del tamaño de muestra es un error estadístico central, que compromete la potencia estadística de las pruebas de significación utilizadas en el estudio y portanto de los resultados.
+
+{{% callout warning %}}
+Incluso con un tamaño muestral correcto, un error metodológico común es usar el valor p de forma aislada para sacar conclusiones. Un valor "significativo" (p < 0.05) no asegura que el hallazgo sea clínicamente relevante o importante.
+El valor p, por sí solo, no mide el tamaño ni la importancia del efecto. Por esta razón, es crucial que el protocolo exija el reporte obligatorio de intervalos de confianza y medidas del tamaño del efecto (como diferencias de riesgo o NNT). Solo estas métricas permiten evaluar la magnitud real y la precisión del hallazgo, proporcionando una interpretación útil para la toma de decisiones.
+{{% /callout %}}
 
 -   **Ambigüedad de Objetivos y Endpoints**: Falta de claridad en los objetivos primarios y secundarios o carencia de operacionalización clara o validación de los criterios de resultado (endpoints).
 
@@ -127,7 +132,8 @@ La soberbia se materializa en los fallos de diseño más críticos que condenan 
 
 -   **Carencia de Justificación Científica**: No se proporciona información no clínica de seguridad suficiente o datos clínicos previos que respalden pilares metodológicos clave (ej., dosis, placebo, duración del ensayo)
 
-{{% callout note %}} Los reguladores rechazan protocolos con objetivos ambiguos o mal definidos, y aquellos que carecen de una justificación estadística robusta. El cálculo muestral inadecuado compromete la potencia estadística, que es la capacidad del estudio para obtener una respuesta fiable. {{% /callout %}}
+{{% callout note %}} Los reguladores exigen objetivos claros y justificación estadística sólida en protocolos de ensayos clínicos. El efecto esperado para el cálculo del tamaño de muestra debe justificarse con evidencia (literatura, fases previas) o criterio experto fundamentado - puede ser subjetivo pero nunca arbitrario.
+{{% /callout %}}
 
 #### La Absolución y Redención:
 
