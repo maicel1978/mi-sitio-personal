@@ -119,12 +119,26 @@ La ICH E6(R3), sección 3.16.2(a), establece que el plan de análisis estadísti
 
 La soberbia se materializa en los fallos de diseño más críticos que condenan la credibilidad científica:
 
--   **Deficiencias en el Cálculo del Tamaño Muestral** (N): El cálculo incorrecto o injustificado del tamaño de muestra es un error estadístico central, que compromete la potencia estadística de las pruebas de significación utilizadas en el estudio y portanto de los resultados.
+-   **Deficiencias en el Cálculo del Tamaño Muestral** (N): El cálculo incorrecto o injustificado del tamaño de muestra es un error estadístico central, que compromete la validez del estudio en dos sentidos opuestos, afectando la potencia estadística.
 
-{{% callout warning %}}
-Incluso con un tamaño muestral correcto, un error metodológico común es usar el valor p de forma aislada para sacar conclusiones. Un valor "significativo" (p < 0.05) no asegura que el hallazgo sea clínicamente relevante o importante.
-El valor p, por sí solo, no mide el tamaño ni la importancia del efecto. Por esta razón, es crucial que el protocolo exija el reporte obligatorio de intervalos de confianza y medidas del tamaño del efecto (como diferencias de riesgo o NNT). Solo estas métricas permiten evaluar la magnitud real y la precisión del hallazgo, proporcionando una interpretación útil para la toma de decisiones.
-{{% /callout %}}
+{{< spoiler text="Las muestras demasiado pequeñas pueden servir para no probar nada (Click para ver detalles)" >}}
+
+**Muestra Insuficiente (Baja Potencia):** Un tamaño muestral reducido compromete severamente la potencia estadística de la investigación. Esto aumenta el riesgo de cometer el **Error de Tipo II** (la probabilidad de no detectar un efecto real). Si la muestra es insuficiente, incluso una diferencia clínicamente **muy intensa** puede no resultar significativa. Formalmente, la lógica interna de las pruebas de hipótesis no permite aceptar que el efecto sea nulo, sino únicamente **abstenerse de sacar conclusión alguna** sobre el hallazgo. Esta falta de capacidad para rechazar la hipótesis inicial es lo que lleva a la conclusión de que las muestras pequeñas "sirven para no probar nada".
+
+{{< /spoiler >}}
+
+
+{{< spoiler text="Las muestras demasiado grandes pueden servir para  probar cualquier cosa (Click para ver detalles)" >}}
+
+**Muestra Excesiva (Significación Trivial):** Si el tamaño de muestra es **excesivamente grande**, la validez de la inferencia se compromete, ya que se convierte en un simple reflejo del tamaño muestral y no del contenido científico del estudio.
+
+Un tamaño excesivo garantiza que una asociación o diferencia que es **muy débil** o **nimia** desde el punto de vista clínico o biológico resulte **estadísticamente significativa**.
+
+Esto ocurre porque la decisión de rechazar la hipótesis de nulidad (la afirmación de que no hay diferencia) está "casi siempre en manos del tamaño muestral". Dado que la hipótesis de nulidad casi nunca es verdadera en la naturaleza, un tamaño muestral lo suficientemente grande simplemente confirma este hecho trivial, desviando la atención de la verdadera **importancia práctica** del fenómeno investigado.
+
+{{< /spoiler >}}
+
+
 
 -   **Ambigüedad de Objetivos y Endpoints**: Falta de claridad en los objetivos primarios y secundarios o carencia de operacionalización clara o validación de los criterios de resultado (endpoints).
 
