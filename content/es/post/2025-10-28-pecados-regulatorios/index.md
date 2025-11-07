@@ -410,6 +410,11 @@ Diseñar un protocolo sólido exige no solo rigor metodológico, sino también a
 
 ## ¡Tu Turno! Pasa de la Teoría a la Práctica
 
+Ahora que has explorado los siete pecados capitales que condenan tantos protocolos y Planes de Análisis Estadístico (PAE) al rechazo regulatorio, es momento de dejar la confesión atrás y buscar la redención en tu propio trabajo. No basta con identificar los errores ajenos; la verdadera transformación viene al aplicar estas lecciones a tus proyectos. ¡Es tu turno de actuar!
+
+Descarga el Checklist de Redención estadística
+
+
 ## Bibliografía
 
 1.  Getz KA, Stergiopoulos S, Short M, Surgeon L, Krauss R, Pretorius S, et al. The Impact of Protocol Amendments on Clinical Trial Performance and Cost. Ther Innov Regul Sci [Internet]. julio de 2016 [citado 30 de octubre de 2025];50(4):436-41. Disponible en: <http://link.springer.com/10.1177/2168479016632271>
