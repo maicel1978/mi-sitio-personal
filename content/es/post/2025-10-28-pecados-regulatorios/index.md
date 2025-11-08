@@ -109,7 +109,9 @@ Este pecado genera inconsistencias que comprometen la integridad científica y l
 
 #### La Confesión del Pecador
 
-La soberbia se materializa en los fallos de diseño más críticos que condenan la credibilidad científica: - **Deficiencias en el cálculo del tamaño muestral** (N): El cálculo incorrecto o injustificado del tamaño de muestra es un error estadístico central, que compromete la validez del estudio en dos sentidos opuestos, afectando la potencia estadística.
+La soberbia se materializa en los fallos de diseño más críticos que condenan la credibilidad científica: 
+
+- **Deficiencias en el cálculo del tamaño muestral** (N): El cálculo incorrecto o injustificado del tamaño de muestra es un error estadístico central, que compromete la validez del estudio en dos sentidos opuestos, afectando la potencia estadística.
 
 {{< spoiler text="Las muestras demasiado pequeñas pueden servir para no probar nada (Haz clic para ver detalles)" >}}
 **Muestra insuficiente (baja potencia):** Un tamaño muestral reducido compromete severamente la potencia estadística de la investigación. Esto aumenta el riesgo de cometer el **error tipo II** (la probabilidad de no detectar un efecto real). Si la muestra es insuficiente, incluso una diferencia clínicamente **muy intensa** puede no resultar significativa. Formalmente, la lógica interna de las pruebas de hipótesis no permite aceptar que el efecto sea nulo, sino únicamente **abstenerse de sacar conclusión alguna** sobre el hallazgo. Esta falta de capacidad para rechazar la hipótesis inicial es lo que lleva a la conclusión de que las muestras pequeñas "sirven para no probar nada".
