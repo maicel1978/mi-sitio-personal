@@ -157,11 +157,11 @@ El exceso de análisis, variables y comparaciones sin justificación ni control 
 
 La gula metodológica se materializa en los siguientes fallos comunes que un regulador identificará de inmediato:
 
--   **Manejo inadecuado de múltiples comparaciones (multiplicidad):** Proponer múltiples variables o análisis de subgrupos sin especificar un procedimiento estadístico para controlar la inflación del error tipo I. El problema se produce porque cada prueba aumenta la probabilidad de un falso positivo.
+- **Manejo inadecuado de múltiples comparaciones (multiplicidad):** Proponer múltiples variables o análisis de subgrupos sin especificar un procedimiento estadístico para controlar la inflación del error tipo I. El problema se produce porque cada prueba aumenta la probabilidad de un falso positivo.
 
--   \*\*Gula de \*endpoints\*\*: Inclusión excesiva de *outcomes* o criterios de resultado sin validación o que no están claramente alineados con los objetivos primarios.
+- **Gula de endpoints**: Inclusión excesiva de *outcomes* o criterios de resultado sin validación o que no están claramente alineados con los objetivos primarios.
 
--   **Complejidad y carga excesiva:** Inclusión de procedimientos innecesariamente complejos o que imponen una carga desproporcionada a participantes e investigadores sin una justificación metodológica clara.
+- **Complejidad y carga excesiva:** Inclusión de procedimientos innecesariamente complejos o que imponen una carga desproporcionada a participantes e investigadores sin una justificación metodológica clara.
 
 {{% callout note %}} El protocolo obeso es aquel que incluye análisis de subgrupos innecesarios, covariables irrelevantes y *endpoints* que sólo confunden al lector, violando el principio de moderación. {{% /callout %}}
 
@@ -172,56 +172,112 @@ En la práctica, la mayoría de los protocolos o PAE muestran deficiencias en el
 La redención llega con la templanza y la moderación. Sé estricto en la selección de hipótesis y variables:
 
 -   **Prioriza:** Define claramente el *endpoint* primario y justifica cada *endpoint* secundario.
+
 -   **Controla la multiplicidad:** Especifica el procedimiento estadístico (p. ej., ajuste de Bonferroni) que usarás para controlar el error tipo I si realizas múltiples comparaciones.
--   **Simplifica:** Elimina procedimientos que no sean esenciales para responder la pregunta principal de investigación. **Virtud opuesta: Templanza y moderación.** "El protocolo virtuoso no se mide por su longitud, sino por su claridad y por la solidez de su principal hallazgo."
+
+-   **Simplifica:** Elimina procedimientos que no sean esenciales para responder la pregunta principal de investigación.
+
+**Virtud opuesta: Templanza y moderación.** "El protocolo virtuoso no se mide por su longitud, sino por su claridad y por la solidez de su principal hallazgo."
 
 ### Pecado 3: La pereza documental (la acedia del detalle y la omisión)
 
 #### La Revelación del Pecado
 
-La pereza, o acedia estadística, es el más silencioso de los pecados: no es un error de cálculo (soberbia) ni de ambición (gula), sino de descuido y falta de diligencia documental. Se manifiesta en la creencia de que los detalles se pueden dejar “para después” o que un cambio no necesita ser registrado. \#### El Mandamiento Violado La pereza atenta contra el principio de trazabilidad y transparencia. La falta de registro y control de versiones puede socavar la confianza en el proceso y, al igual que los pecados anteriores, compromete la validez interna del estudio. \> La ICH E6(R3), sección 3.16.2(f), exige trazabilidad: todo cambio en el plan de análisis estadístico debe estar documentado, fechado y justificado. El protocolo perezoso no falla por ignorancia, sino por omisión.
+La pereza, o acedia estadística, es el más silencioso de los pecados: no es un error de cálculo (soberbia) ni de ambición (gula), sino de descuido y falta de diligencia documental. Se manifiesta en la creencia de que los detalles se pueden dejar “para después” o que un cambio no necesita ser registrado. 
+
+#### El Mandamiento Violado La pereza atenta contra el principio de trazabilidad y transparencia. La falta de registro y control de versiones puede socavar la confianza en el proceso y, al igual que los pecados anteriores, compromete la validez interna del estudio. 
+
+> La ICH E6(R3), sección 3.16.2(f), exige trazabilidad: todo cambio en el plan de análisis estadístico debe estar documentado, fechado y justificado. El protocolo perezoso no falla por ignorancia, sino por omisión.
 
 #### La Confesión del Pecador
 
-La pereza se materializa en fallos que, aunque parecen menores, generan observaciones sustanciales durante la revisión regulatoria: - **Inconsistencia entre protocolo y PAE:** Existe una falta de armonización entre lo descrito en el protocolo metodológico y el plan de análisis estadístico detallado. Esto se produce por una falta de planificación multidisciplinaria y control de calidad documental. En casos extremos, se puede ver desconexión entre los objetivos primarios y secundarios del protocolo y los procedimientos estadísticos descritos en el PAE. - **Omisión del análisis por intención de tratar (ITT):** La falta de especificación del ITT como población de análisis principal para la eficacia, el cual es crucial para preservar el efecto de la aleatorización. Su omisión afecta la validez interna del estudio. - **Deficiencias en el manejo de datos faltantes (*missing data*):** El protocolo no especifica cómo se manejarán los datos perdidos o los abandonos. El fallo no es tener datos faltantes (que es inevitable), sino no prever métodos de análisis apropiados para tenerlos en cuenta. - **Ausencia de transparencia:** Falta de registro o documentación incompleta o ambigua en el protocolo inicial.
+La pereza se materializa en fallos que, aunque parecen menores, generan observaciones sustanciales durante la revisión regulatoria:
+
+- **Inconsistencia entre protocolo y PAE:** Existe una falta de armonización entre lo descrito en el protocolo metodológico y el plan de análisis estadístico detallado. Esto se produce por una falta de planificación multidisciplinaria y control de calidad documental. En casos extremos, se puede ver desconexión entre los objetivos primarios y secundarios del protocolo y los procedimientos estadísticos descritos en el PAE.
+
+- **Omisión del análisis por intención de tratar (ITT):** La falta de especificación del ITT como población de análisis principal para la eficacia, el cual es crucial para preservar el efecto de la aleatorización. Su omisión afecta la validez interna del estudio.
+
+- **Deficiencias en el manejo de datos faltantes (*missing data*):** El protocolo no especifica cómo se manejarán los datos perdidos o los abandonos. El fallo no es tener datos faltantes (que es inevitable), sino no prever métodos de análisis apropiados para tenerlos en cuenta. 
+
+- **Ausencia de transparencia:** Falta de registro o documentación incompleta o ambigua en el protocolo inicial.
 
 {{% callout note %}} El problema de la pereza es que el protocolo debe ser claro y conciso para evitar diferencias de interpretación. El plan de análisis no documentado es la excusa perfecta para la sospecha de *p-hacking* posterior. {{% /callout %}}
 
 #### La Absolución y Redención
 
-La redención llega con la diligencia. Establece un riguroso control de calidad documental y de versiones: - **Armoniza:** Asegura la coherencia entre el protocolo, el PAE y el formulario de recolección de datos (CRF). Verifica que el análisis estadístico apoye los objetivos del estudio. - **Prevé lo inevitable:** Describe con detalle los métodos de análisis para la población ITT y las estrategias de imputación para los datos faltantes. - **Versiona:** Documenta, fecha y justifica cada cambio, incluso los mínimos. **Virtud opuesta: Diligencia.** *"La diligencia no es perfección, es constancia: el arte de documentar y armonizar cada detalle, incluso cuando nadie evalúa."*
+La redención llega con la diligencia. Establece un riguroso control de calidad documental y de versiones: 
+
+- **Armoniza:** Asegura la coherencia entre el protocolo, el PAE y el formulario de recolección de datos (CRF). Verifica que el análisis estadístico apoye los objetivos del estudio. 
+
+- **Prevé lo inevitable:** Describe con detalle los métodos de análisis para la población ITT y las estrategias de imputación para los datos faltantes.
+
+- **Versiona:** Documenta, fecha y justifica cada cambio, incluso los mínimos. **Virtud opuesta: Diligencia.** *"La diligencia no es perfección, es constancia: el arte de documentar y armonizar cada detalle, incluso cuando nadie evalúa."*
 
 ### Pecado 4: La ira del analista (la venganza contra la realidad de los datos)
 
 #### La Revelación del Pecado
 
-La ira aparece cuando los datos desafían nuestras expectativas o, peor, cuando no confirman la hipótesis principal del investigador. Es el momento en que el analista, enfadado con la realidad estadística, decide "reanalizar" el estudio hasta que encuentre algo que confirme su hipótesis o alcance un valor p \< 0.05 o un OR cuyo intervalo de confianza no incluya el 1. Esta furia estadística solo conduce al infierno del *p-hacking*. \#### El Mandamiento Violado La ira viola el principio fundamental de la objetividad científica y el compromiso de seguir el plan preespecificado (PAE/SAP). Modificar el plan después de ver los resultados es una traición metodológica. \> La ICH E9(R1) (A.5) prevé esta tentación: el análisis debe reflejar la verdad de los datos, no el deseo del analista. La furia estadística es el camino más rápido para comprometer la credibilidad.
+La ira aparece cuando los datos desafían nuestras expectativas o, peor, cuando no confirman la hipótesis principal del investigador. Es el momento en que el analista, enfadado con la realidad estadística, decide "reanalizar" el estudio hasta que encuentre algo que confirme su hipótesis o alcance un valor p < 0.05 o un OR cuyo intervalo de confianza no incluya el uno. Esta furia estadística solo conduce al infierno del *p-hacking*. 
+
+#### El Mandamiento Violado La ira viola el principio fundamental de la objetividad científica y el compromiso de seguir el plan preespecificado (PAE/SAP). Modificar el plan después de ver los resultados es una traición metodológica. 
+
+> La ICH E9(R1) (A.5) prevé esta tentación: el análisis debe reflejar la verdad de los datos, no el deseo del analista. La furia estadística es el camino más rápido para comprometer la credibilidad.
 
 #### La Confesión del Pecador
 
-La ira se manifiesta en acciones específicas de manipulación o justificación retrospectiva, a menudo relacionadas con la lujuria (el deseo de un valor p \< 0.05). - **Cambio de *endpoint* retrospectivo:** Decidir que la variable secundaria no significativa debe ser el nuevo *endpoint* primario o cambiar la definición de la variable de resultado después de que la recolección de datos esté avanzada. - **Selección de subgrupos no preespecificados:** Realizar múltiples análisis de subgrupos hasta encontrar uno que arroje significación, sin haberlo especificado y justificado en el protocolo inicial. - **Ajustes de modelo ilegítimos:** Eliminar *outliers* o transformar variables sin una justificación metodológica a priori, solo porque el resultado inicial no fue el deseado. - **Desviación no documentada:** La falta de documentación, fechado y justificación de cualquier cambio en el plan de análisis (lo opuesto a la diligencia), lo que expone la intención de ocultar la manipulación.
+La ira se manifiesta en acciones específicas de manipulación o justificación retrospectiva, a menudo relacionadas con la lujuria (el deseo de un valor p < 0.05). 
+
+- **Cambio de *endpoint* retrospectivo:** Decidir que la variable secundaria no significativa debe ser el nuevo *endpoint* primario o cambiar la definición de la variable de resultado después de que la recolección de datos esté avanzada. 
+
+- **Selección de subgrupos no preespecificados:** Realizar múltiples análisis de subgrupos hasta encontrar uno que arroje significación, sin haberlo especificado y justificado en el protocolo inicial. 
+
+- **Ajustes de modelo ilegítimos:** Eliminar *outliers* o transformar variables sin una justificación metodológica a priori, solo porque el resultado inicial no fue el deseado.
+
+- **Desviación no documentada:** La falta de documentación, fechado y justificación de cualquier cambio en el plan de análisis (lo opuesto a la diligencia), lo que expone la intención de ocultar la manipulación.
 
 {{% callout note %}} El análisis debe reflejar la verdad de los datos, no el deseo del analista. La furia estadística es el camino más rápido para comprometer la credibilidad. {{% /callout %}}
 
 #### La Absolución y Redención
 
-La redención reside en la paciencia metodológica y el compromiso con la transparencia: - **Fidelidad al plan:** Comprométete a seguir el PAE/SAP, incluso si los resultados son decepcionantes. - **Justificación a priori:** Si el análisis requiere un cambio, la necesidad debe ser identificada y justificada antes de mirar los datos, y debe estar documentada como una modificación. - **Escuchar a los datos:** Si los datos no apoyan la hipótesis, la conclusión es que la hipótesis no se sostiene, no que el método debe cambiarse. **Virtud opuesta: Paciencia y objetividad.** "El estadístico paciente escucha a los datos; el colérico los tortura hasta que confiesen lo que no saben."
+La redención reside en la paciencia metodológica y el compromiso con la transparencia: 
+
+- **Fidelidad al plan:** Comprométete a seguir el PAE/SAP, incluso si los resultados son decepcionantes. 
+
+- **Justificación a priori:** Si el análisis requiere un cambio, la necesidad debe ser identificada y justificada antes de mirar los datos, y debe estar documentada como una modificación. 
+
+- **Escuchar a los datos:** Si los datos no apoyan la hipótesis, la conclusión es que la hipótesis no se sostiene, no que el método debe cambiarse. 
+
+**Virtud opuesta: Paciencia y objetividad.** "El estadístico paciente escucha a los datos; el colérico los tortura hasta que confiesen lo que no saben."
 
 ### Pecado 5: La envidia metodológica (la imitación sin fundamento científico)
 
 #### La Revelación del Pecado
 
-La envidia metodológica se disfraza de modernidad y de ambición injustificada: "ellos usaron *machine learning*, nosotros también" o "copiemos el modelo de aquel estudio famoso". Es el deseo de imitar el diseño y los métodos de un tercero sin haber establecido un *estimand* propio o una justificación sólida. \#### El Mandamiento Violado Este pecado viola el principio de que todo elemento del diseño debe estar sólidamente fundamentado en evidencia existente. Copiar métodos sin contexto es tan inútil como citar sin entender. \> La ICH E9(R1) (A.1–A.2) insiste en definir un *estimand* propio, alineado con el objetivo clínico real. La falta de este fundamento compromete la ética al exponer a pacientes sin evidencia de seguridad o eficacia suficiente.
+La envidia metodológica se disfraza de modernidad y de ambición injustificada: "ellos usaron *machine learning*, nosotros también" o "copiemos el modelo de aquel estudio famoso". Es el deseo de imitar el diseño y los métodos de un tercero sin haber establecido un *estimand* propio o una justificación sólida. 
+
+#### El Mandamiento Violado Este pecado viola el principio de que todo elemento del diseño debe estar sólidamente fundamentado en evidencia existente. Copiar métodos sin contexto es tan inútil como citar sin entender. 
+
+> La ICH E9(R1) (A.1–A.2) insiste en definir un *estimand* propio, alineado con el objetivo clínico real. La falta de este fundamento compromete la ética al exponer a pacientes sin evidencia de seguridad o eficacia suficiente.
 
 #### La Confesión del Pecador
 
-La envidia metodológica se manifiesta como una falta de rigor en la etapa de investigación preliminar y planificación: - **Carencia de justificación científica:** El protocolo carece de información preclínica de seguridad suficiente o datos clínicos previos que respalden la intervención, dosis, población o duración del ensayo. - **Diseño metodológico inadecuado:** Se proponen diseños complejos o herramientas sofisticadas que no responden adecuadamente a la pregunta de investigación. - **Falta de fundamento metodológico clave:** No se justifica adecuadamente el uso de pilares metodológicos esenciales como el placebo, el enmascaramiento o la aleatorización.
+La envidia metodológica se manifiesta como una falta de rigor en la etapa de investigación preliminar y planificación: 
+
+- **Carencia de justificación científica:** El protocolo carece de información preclínica de seguridad suficiente o datos clínicos previos que respalden la intervención, dosis, población o duración del ensayo. 
+
+- **Diseño metodológico inadecuado:** Se proponen diseños complejos o herramientas sofisticadas que no responden adecuadamente a la pregunta de investigación. 
+
+- **Falta de fundamento metodológico clave:** No se justifica adecuadamente el uso de pilares metodológicos esenciales como el placebo, el enmascaramiento o la aleatorización.
 
 {{% callout note %}} El protocolo envidioso no se basa en su propia evidencia preclínica, sino en el éxito ajeno. Esto introduce un riesgo regulatorio, ya que el diseño y el análisis no están vinculados a la base de evidencia real del producto bajo investigación. {{% /callout %}}
 
 #### La Absolución y Redención
 
-La redención reside en la caridad científica y la honestidad intelectual: - **Fundamenta:** Asegura que cada aspecto del protocolo esté sólidamente respaldado por evidencia propia o publicada. - **Justifica la complejidad:** Si vas a usar un método "de moda", justifica por qué ese método es el mejor para tu pregunta de investigación y tu *estimand*. - **Adapta, no copies:** Aprende de los diseños exitosos, pero adáptalos a la realidad de tu estudio y a tu población.
+La redención reside en la caridad científica y la honestidad intelectual: - **Fundamenta:** Asegura que cada aspecto del protocolo esté sólidamente respaldado por evidencia propia o publicada. 
+
+- **Justifica la complejidad:** Si vas a usar un método "de moda", justifica por qué ese método es el mejor para tu pregunta de investigación y tu *estimand*. 
+
+- **Adapta, no copies:** Aprende de los diseños exitosos, pero adáptalos a la realidad de tu estudio y a tu población.
 
 **Virtud opuesta: Caridad científica y creatividad propia.** *"El investigador sabio se alegra del éxito ajeno, pero no lo imita: aprende, adapta y crea su propio camino."*
 
@@ -239,11 +295,25 @@ La lujuria viola la fidelidad al plan preespecificado. El regulador exige que la
 
 #### La Confesión del Pecador
 
-Este pecado se materializa en la tentación de cambiar el plan a última hora o de jugar con la presentación de los datos para lograr el efecto deseado: - **Traicionar el plan preespecificado:** Cambiar el modelo de análisis, modificar la definición de las variables o eliminar un análisis "porque no salió significativo", traicionando el plan acordado. - **Presentación selectiva de datos:** Mostrar solo las variables de resultado que alcanzaron significación y minimizar aquellas que no lo hicieron, rompiendo la transparencia de la evaluación. - **Violación de las reglas de parada temprana:** Exceder o ignorar las reglas preestablecidas para un análisis intermedio, motivado por el deseo de alcanzar un resultado positivo antes de lo previsto o de evitar una parada por futilidad. {{% callout note %}} La lujuria estadística convierte la búsqueda de la verdad en la búsqueda de un titular. La ICH E9 insiste en que el análisis debe ser un proceso deductivo, no una búsqueda inductiva de un resultado atractivo. {{% /callout %}}
+Este pecado se materializa en la tentación de cambiar el plan a última hora o de jugar con la presentación de los datos para lograr el efecto deseado: 
+
+- **Traicionar el plan preespecificado:** Cambiar el modelo de análisis, modificar la definición de las variables o eliminar un análisis "porque no salió significativo", traicionando el plan acordado.
+
+- **Presentación selectiva de datos:** Mostrar solo las variables de resultado que alcanzaron significación y minimizar aquellas que no lo hicieron, rompiendo la transparencia de la evaluación.
+
+- **Violación de las reglas de parada temprana:** Exceder o ignorar las reglas preestablecidas para un análisis intermedio, motivado por el deseo de alcanzar un resultado positivo antes de lo previsto o de evitar una parada por futilidad.
+
+{{% callout note %}} La lujuria estadística convierte la búsqueda de la verdad en la búsqueda de un titular. La ICH E9 insiste en que el análisis debe ser un proceso deductivo, no una búsqueda inductiva de un resultado atractivo. {{% /callout %}}
 
 #### La Absolución y Redención
 
-La redención reside en la castidad metodológica y el compromiso inquebrantable con la verdad, incluso si es incómoda: - **Fidelidad absoluta:** Mantente fiel al plan de análisis estadístico (PAE/SAP) acordado con el regulador. Si debe haber una desviación, documéntala como una modificación antes de abrir la base de datos. - **Honestidad brutal:** Reporta todos los resultados, tanto los que confirman la hipótesis como los que la refutan. La fortaleza de un ensayo reside en la honestidad de sus datos. - **Justificación a priori:** Toda modificación de análisis debe ser guiada por la ciencia y la metodología, no por el valor p. **Virtud opuesta: Castidad metodológica.** "La castidad metodológica consiste en mantenerse fiel al plan, incluso cuando la tentación de un valor p \< 0.05 susurra al oído."
+La redención reside en la castidad metodológica y el compromiso inquebrantable con la verdad, incluso si es incómoda: 
+
+- **Fidelidad absoluta:** Mantente fiel al plan de análisis estadístico (PAE/SAP) acordado con el regulador. Si debe haber una desviación, documéntala como una modificación antes de abrir la base de datos.
+
+- **Honestidad brutal:** Reporta todos los resultados, tanto los que confirman la hipótesis como los que la refutan. La fortaleza de un ensayo reside en la honestidad de sus datos. 
+
+- **Justificación a priori:** Toda modificación de análisis debe ser guiada por la ciencia y la metodología, no por el valor p. **Virtud opuesta: Castidad metodológica.** "La castidad metodológica consiste en mantenerse fiel al plan, incluso cuando la tentación de un valor p < 0.05 susurra al oído."
 
 ### Pecado 7: La Codicia Operativa (La Lenta Inclusión y la Sobreestimación)
 
@@ -253,7 +323,9 @@ La codicia operativa es la sobreestimación sistemática y optimista de la capac
 
 #### El Mandamiento Violado
 
-La codicia viola el principio de la viabilidad y factibilidad operativa. Un protocolo no debe solo ser científicamente válido (lo opuesto a la Soberbia), sino también ejecutable en el mundo real. \> Los reguladores requieren una planificación realista: la sobreestimación de la disponibilidad de pacientes es la causa más frecuente de retraso, adición de centros, aumento de costos y, en última instancia, la discontinuación prematura de los ensayos.
+La codicia viola el principio de la viabilidad y factibilidad operativa. Un protocolo no debe solo ser científicamente válido (lo opuesto a la Soberbia), sino también ejecutable en el mundo real. 
+
+Los reguladores requieren una planificación realista: la sobreestimación de la disponibilidad de pacientes es la causa más frecuente de retraso, adición de centros, aumento de costos y, en última instancia, la discontinuación prematura de los ensayos.
 
 #### La Confesión del Pecador
 
