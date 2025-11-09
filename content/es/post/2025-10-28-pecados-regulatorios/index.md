@@ -356,7 +356,7 @@ Ningún ensayo clínico está libre de tentaciones, pero las guías ICH ofrecen 
 
 ## Mis recomendaciones y posición
 
-Un protocolo puede ser metodológicamente sólido y, aun así, dar lugar a conclusiones erróneas si no se previene contra los malos usos de la inferencia estadística. La dependencia exclusiva del valor p para tomar decisiones es una falla crítica. La teoría detrás de las pruebas de significación es objeto de debate por varias razones; puedes profundizar sobre esto en [este post]({{< relref "/post/2025-08-10-significacion" >}}).
+Un protocolo puede ser metodológicamente sólido y, aun así, dar lugar a conclusiones erróneas si no se previene contra los malos usos de la inferencia estadística. La dependencia exclusiva del valor p para tomar decisiones es una falla crítica. La teoría detrás de las pruebas de significación es objeto de debate por varias razones; puedes profundizar sobre esto en [mi post sobre pruebas de significación]({{< relref "/post/2025-08-10-significacion" >}}).
 
 Por este motivo, es fundamental que el protocolo incluya explícitamente que los resultados se presenten con intervalos de confianza y medidas del tamaño del efecto (como *odds ratios*, *hazard ratios* o diferencias de medias estandarizadas), que ofrecen una visión más matizada y útil para la toma de decisiones. Esta práctica permite a los reguladores y clínicos evaluar no solo si un tratamiento funciona, sino cuánto y si esa diferencia merece la pena en la práctica.
 
