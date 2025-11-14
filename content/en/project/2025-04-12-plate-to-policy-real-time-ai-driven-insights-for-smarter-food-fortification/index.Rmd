@@ -1,6 +1,9 @@
 ---
 title: "MacroScope AI: Real-Time Nutrition Insights for Smarter Food Systems"
-author: "admin"
+authors:
+  - "admin"
+type: project # <--- ¡AÑADIR ESTO!
+translationKey: "macroscope"
 date: "2025-04-12"
 categories:
 - Ciencia de Datos

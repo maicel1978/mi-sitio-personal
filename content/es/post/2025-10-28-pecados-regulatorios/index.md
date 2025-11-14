@@ -4,6 +4,8 @@ subtitle: "Por qué los reguladores rechazan protocolos de ensayos clínicos y c
 categories: ["Evaluación Regulatoria"]
 summary: "Identifica siete errores comunes en protocolos de ensayos clínicos inspirados en pecados capitales para evitar rechazos regulatorios y mejorar la calidad científica."
 profile: true
+show_author: true
+show_author_profile: true
 authors:
   - "admin"
 date: "2025-10-28" #año mes dia
@@ -15,7 +17,7 @@ tags:
   - "plan-analisis-estadistico"
 slug: siete-pecados-protocolos-clinicos
 featured: true  # Destacar en la página principal
-translationKey: "pecados"
+# translationKey: "pecados"
 # languages:
 #   es: "/es/siete-pecados-protocolo-plan-estadistico-regulador"
 #   en: "/en/how-to-train-and-validate-clinical-prediction-model"

@@ -1,8 +1,11 @@
 ---
 title: CovidCencecAPK
-author: ["admin"]
+authors:
+  - "admin"
 date: '2025-02-28'
+type: project # <--- ¡AÑADIR ESTO!
 slug: covidcencecapk
+translationKey: "covidcencecapk"
 categories:
   - Ciencia de Datos
 tags:

@@ -18,14 +18,16 @@ hasCJKLanguage: false
 defaultContentLanguageInSubdir: false
 removePathAccents: true
 
-languages:
-  es:
-    languageName: "Español"
-    weight: 1
-    # Opcional: Parámetros específicos del idioma (ej: menú personalizado)
-  en:
-    languageName: "English"
-    weight: 2
+# languages:
+#   es:
+#     languageName: "Español"
+#     weight: 1
+#     # Opcional: Parámetros específicos del idioma (ej: menú personalizado)
+#     contentDir: content/es/ # esto lo ouso yo
+#   en:
+#     languageName: "English"
+#     weight: 2
+#     contentDir: content/en/ # esto lo ouso yo
 
 ############################
 ## ADVANCED

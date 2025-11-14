@@ -3,6 +3,7 @@ title: "Professional Collaborations"
 description: "Ethical and personalized support in biostatistics and data analysis for academic and scientific projects, independent of institutional roles."
 date: 2025-10-26
 translationKey: "collaborations"
+type: page
 ---
 
 # Professional Collaborations

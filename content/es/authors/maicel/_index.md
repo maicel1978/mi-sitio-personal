@@ -1,8 +1,7 @@
 ---
 title: "Maicel Monzon"
-# name: "admin"
-# author: 'admin'
-translationKey: "admin"
+name: "maicel"
+author: 'maicel'
 date: '2025-02-03'
 awards:
 - awarder: CENATAV
@@ -144,7 +143,6 @@ skills:
 
 status:
   icon: ☕️
-superuser: true
 work:
 - company_name: "Centro de Cibernética Aplicada a la Medicina (CECAM)"
   date_start: "2003-01-01"

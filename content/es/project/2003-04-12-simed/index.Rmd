@@ -1,7 +1,9 @@
 ---
 title: "SIMED: Simulación Médica en Línea para el Aprendizaje del Proceso de Atención"
-author: "admin"
+authors:
+  - "admin"
 date: "2025-09-28"
+type: project # <--- ¡AÑADIR ESTO!
 categories:
 - Informática en Salud
 - Educación Médica

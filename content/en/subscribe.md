@@ -3,6 +3,7 @@ title: "Subscribe to Our Content"
 date: 2025-10-07T00:00:00Z
 type: page
 summary: "Get the latest articles delivered directly to your inbox"
+translationKey: "subscribe"
 ---
 
 ## 📧 Email Subscription

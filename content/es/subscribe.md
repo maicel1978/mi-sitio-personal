@@ -3,6 +3,7 @@ title: "Suscríbete a Nuestro Contenido"
 date: 2025-10-07T00:00:00Z
 type: page
 summary: "Mantente al día con recursos en bioestadística, machine learning y ensayos clínicos. Recibe actualizaciones y herramientas gratuitas."
+translationKey: "subscribe"
 ---
 
 Bienvenido a esta sección para conectar con contenido práctico en estadística aplicada, análisis de datos y regulaciones clínicas. Al suscribirte, accede a actualizaciones regulares y recursos exclusivos que complementan tu trabajo o estudios, todo de forma sencilla.
