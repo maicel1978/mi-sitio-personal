@@ -401,7 +401,7 @@ Los reguladores requieren una planificación realista: la sobreestimación de la
 &lt;blockquote>
 &lt;p>“El protocolo virtuoso no teme al juicio del evaluador: sabe que la transparencia es su absolución.”&lt;/p>&lt;/blockquote>
 &lt;h2 id="mis-recomendaciones-y-posición">Mis recomendaciones y posición&lt;/h2>
-&lt;p>Un protocolo puede ser metodológicamente sólido y, aun así, dar lugar a conclusiones erróneas si no se previene contra los malos usos de la inferencia estadística. La dependencia exclusiva del valor p para tomar decisiones es una falla crítica. La teoría detrás de las pruebas de significación es objeto de debate por varias razones; puedes profundizar sobre esto en &lt;a href="https://bioestadisticaedu.com/post/2025-08-10-significacion/">este post&lt;/a>.&lt;/p>
+&lt;p>Un protocolo puede ser metodológicamente sólido y, aun así, dar lugar a conclusiones erróneas si no se previene contra los malos usos de la inferencia estadística. La dependencia exclusiva del valor p para tomar decisiones es una falla crítica. La teoría detrás de las pruebas de significación es objeto de debate por varias razones; puedes profundizar sobre esto en &lt;a href="https://bioestadisticaedu.com/post/2025-08-10-significacion/">mi post sobre pruebas de significación&lt;/a>.&lt;/p>
 &lt;p>Por este motivo, es fundamental que el protocolo incluya explícitamente que los resultados se presenten con intervalos de confianza y medidas del tamaño del efecto (como &lt;em>odds ratios&lt;/em>, &lt;em>hazard ratios&lt;/em> o diferencias de medias estandarizadas), que ofrecen una visión más matizada y útil para la toma de decisiones. Esta práctica permite a los reguladores y clínicos evaluar no solo si un tratamiento funciona, sino cuánto y si esa diferencia merece la pena en la práctica.&lt;/p>
 &lt;h2 id="-mi-sugerencia">💡 Mi sugerencia&lt;/h2>
 &lt;p>Diseñar un protocolo sólido exige no solo rigor metodológico, sino también alinearse con los estándares regulatorios internacionales. El documento ICH E6(R3) ofrece ese marco ético y científico global para ensayos clínicos con participantes humanos, priorizando su protección y la integridad de los datos. Si bien su Apéndice B detalla los contenidos mínimos que debe incluir un protocolo, parte de esa información puede residir en documentos complementarios —como el &lt;strong>Manual del Investigador (Investigator’s Brochure)&lt;/strong>— referenciados por el protocolo. En cualquier caso, un protocolo bien estructurado es esencial tanto para salvaguardar a los participantes como para garantizar resultados fiables.&lt;/p>
@@ -805,7 +805,33 @@ sigue mi canal de telegram&lt;/a>.&lt;/p>
 &lt;p>&lt;a href="https://bioestadisticaedu.com/collaborations/">Puede contactarme para una consultoría personalizada donde puedo ayudarle a desarrollar un modelo predictivo o enseñarle a desarrollar la estrategia de modelado con otras herramientas como &lt;strong>SPSS&lt;/strong> o &lt;strong>Python&lt;/strong>.&lt;/a>.&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
 &lt;/li>
 &lt;/ol>
-&lt;/div></description></item><item><title>¿Escribir ciencia o reescribir la realidad?</title><link>https://bioestadisticaedu.com/post/imryd-redaccion-inversa/</link><pubDate>Sat, 04 Oct 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/imryd-redaccion-inversa/</guid><description>&lt;h2 id="introducción">Introducción&lt;/h2>
+&lt;/div></description></item><item><title>Suscríbete a Nuestro Contenido</title><link>https://bioestadisticaedu.com/subscribe/</link><pubDate>Tue, 07 Oct 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/subscribe/</guid><description>&lt;p>Bienvenido a esta sección para conectar con contenido práctico en estadística aplicada, análisis de datos y regulaciones clínicas. Al suscribirte, accede a actualizaciones regulares y recursos exclusivos que complementan tu trabajo o estudios, todo de forma sencilla.&lt;/p>
+&lt;h2 id="-suscripción-por-correo-electrónico">📧 Suscripción por Correo Electrónico&lt;/h2>
+&lt;p>Recibe nuevos artículos directamente en tu bandeja de entrada, junto con plantillas gratuitas y tips adicionales. Es la manera más cómoda de enriquecer tu práctica profesional.&lt;/p>
+&lt;p>Por ejemplo, al unirte, obtendrás inmediatamente una plantilla en R para análisis estadístico básico – un recurso útil para tesis o proyectos.&lt;/p>
+&lt;script>
+(function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+.push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+(window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+ml('account', '1837025');
+&lt;/script>
+&lt;div class="ml-embedded" data-form="FBRJZM">&lt;/div>
+&lt;hr>
+&lt;h2 id="-suscripción-por-feed-rss-y-telegram">📰 Suscripción por Feed RSS y Telegram&lt;/h2>
+&lt;p>Si prefieres opciones flexibles:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Feed RSS&lt;/strong>: Integra nuestras actualizaciones en tu lector favorito con nuestro &lt;a href="https://bioestadisticaedu.com/post/index.xml">Feed RSS&lt;/a>.&lt;/li>
+&lt;li>&lt;strong>Canal de Telegram&lt;/strong>: Únete a &lt;a href="https://t.me/bioestadisticaedu" target="_blank" rel="noopener">nuestro canal&lt;/a> para notificaciones rápidas y discusiones comunitarias. Es un complemento ideal al email.&lt;/li>
+&lt;/ul>
+&lt;h2 id="por-qué-suscribirte">¿Por Qué Suscribirte?&lt;/h2>
+&lt;ul>
+&lt;li>Mantente informado sobre temas relevantes para investigadores y reguladores.&lt;/li>
+&lt;li>Accede a regalos exclusivos, como guías descargables o scripts en Python/R.&lt;/li>
+&lt;li>Forma parte de una red enfocada en el avance científico ético.&lt;/li>
+&lt;/ul>
+&lt;p>Tu privacidad es importante: Usamos MailerLite para manejar suscripciones de manera segura, cumpliendo con RGPD. Puedes desuscribirte cuando quieras. Consulta nuestra &lt;a href="https://bioestadisticaedu.com/privacy/">política de privacidad&lt;/a> para más detalles.&lt;/p>
+&lt;p>¿Tienes feedback? Deja un comentario en nuestros posts – ¡valoramos tus ideas!&lt;/p></description></item><item><title>¿Escribir ciencia o reescribir la realidad?</title><link>https://bioestadisticaedu.com/post/imryd-redaccion-inversa/</link><pubDate>Sat, 04 Oct 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/imryd-redaccion-inversa/</guid><description>&lt;h2 id="introducción">Introducción&lt;/h2>
 &lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
 &lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
 &lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
