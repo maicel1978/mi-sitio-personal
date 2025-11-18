@@ -1,18 +1,17 @@
 ---
 title: "MacroScope AI: Real-Time Nutrition Insights for Smarter Food Systems"
-authors:
-  - "admin"
-type: project # <--- ¡AÑADIR ESTO!
+author: "admin"
 translationKey: "macroscope"
 date: "2025-04-12"
 categories:
-- Ciencia de Datos
-- IA
+  - Ciencia de Datos
+  - IA
 tags:
-- IA
-- Fortificación
+  - IA
+  - Fortificación
 slug: "plate-to-policy-real-time-ai-driven-insights-for-smarter-food-fortification"
 commentable: true # <-- ¡Asegúrate de que esta línea esté presente y sea 'true'!
+type: project # <--- ¡AÑADIR ESTO!
 ---
 
 

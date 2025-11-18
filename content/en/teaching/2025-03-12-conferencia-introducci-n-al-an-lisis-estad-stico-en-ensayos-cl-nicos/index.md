@@ -1,14 +1,16 @@
 ---
 title: Conferencia Introducción al análisis estadístico en ensayos clínicos
-author: ["admin"]
+author: "admin"
 date: '2025-03-12'
 summary: "Conferecia realizada en el Centro para el Control Estatal de Medicamentos, Equipos y Dispositivos Médicos sobre Análisis Estadístico en Ensayos Clínicos"
 slug: conferencia-introducci-n-al-an-lisis-estad-stico-en-ensayos-cl-nicos
-categories: [ensayos-clínicos]
-tags: [ensayos-clínicos]
+categories: ["Metodología de Investigación"]
+tags: 
+  - ensayos-clínicos
 url_pdf: /pdf/conferencia_cecmed.pdf
 url_slides: https://rpubs.com/maicel/cecmedEC
 url_video: 'https://youtu.be/MoUhKkX6crY'
+type: page
 ---
 
 https://www.youtube.com/watch?v=MoUhKkX6crY

@@ -1,12 +1,11 @@
 ---
 title: "How to Train and Validate Clinical Prediction Models: Step-by-Step Guide for Healthcare Professionals"
-subtitle: "Tutorial for Developing a Clinical Prediction Model with Examples in R" 
-categories: ["Código Práctico en R o Python"]
+subtitle: "Tutorial for Developing a Clinical Prediction Model with Examples in R"
+# categories: ["Código Práctico en R o Python"]
 summary: "Practical Guide with R for Developing Robust Predictive Models in Clinical Settings"
-authors:
-  - "admin"
+author: "admin"
 date: "2025-10-22" #año mes dia
-show_author_profile: true
+# show_author_profile: true
 tags: 
   - "train model in R for clinical predictions"
   - "tutorial in R for medical predictive models"
@@ -19,16 +18,9 @@ translationKey: "MPC"
 languages:
   es: "/es/como-entrenar-y-validar-un-modelo-de-machine-learning"
   en: "/en/how-to-train-and-validate-a-machine-learning-model"
-show_date: true
-reading_time: true
-share: true
-feedback: true
-profile: true
 commentable: true
-pager: true
-show_related: true
-show_breadcrumb: true
 draft: true# True para un borrador
+type: post
 ---
 
 

@@ -57,6 +57,9 @@ locale:
 
 # Site features
 features:
+ # # Agrega esta sección para slides
+ #  slides:
+ #    enable: true
   math:
     enable: false
   privacy_pack:

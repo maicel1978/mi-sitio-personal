@@ -2,29 +2,26 @@
 title: "Significación Estadística, ¿Ciencia o Pirotecnia?"
 subtitle: "De cómo el ritual del p<0.05 distorsiona la ciencia y las alternativas que iluminan el camino real" # Subtítulo atractivo
 summary: "¿El sagrado p<0.05 es ciencia o solo pirotecnia estadística? Crítica demoledora a la 'significación estadística': sus falacias lógicas, su confusión con la importancia real, y por qué los intervalos de compatibilidad y el enfoque bayesiano son la luz que necesitamos para una investigación más honesta y efectiva." # Resumen más contundente y con palabras clave
-authors:
-  - "admin"
-categories:
-  - "Reflexiones Críticas"
+author: "admin"
+categories: ["Reflexiones Críticas"]
 tags:
-  - "interpretar p-valor en tesis de bioestadística"
   - "alternativas a p-valores en artículos académicos"
   - "errores comunes en significancia estadística salud"
-  - "guía intervalos confianza vs. p-valores" 
+  - "bioestadistica" 
   - "evitar abusos p-valores en investigación clínica"
 date: "2025-08-10T15:30:00Z" # Asegúrate de que la fecha y hora sean correctas
-lastmod: "2025-10-16T15:30:00Z" # Puedes actualizar si editas el post
 featured: true # Cambia a true si quieres destacarlo en la página principal
 draft: false # Cambia a true si aún estás trabajando en él
-commentable: yes
+commentable: true
 bibliography: references.bib
+type: post
 ---
 
 ## Introducción
 
-Ese momento de euforia al ver `p < 0.05`… ¿es un descubrimiento genuino o solo un destello engañoso de pirotecnia estadística?
+Ese momento de euforia al ver p \< 0.05… ¿es un descubrimiento genuino o solo un destello engañoso de pirotecnia estadística?
 
-En la ciencia, hay un instante que todos los investigadores anhelan. Es la culminación de meses, a veces años, de riguroso trabajo. Corres el análisis y, de repente, ahí está: `p < 0.05`. Es una **explosión de alivio**, un destello de “¡Eureka!” en la oscuridad de la incertidumbre. Sentimos que hemos encontrado algo real, algo digno de ser publicado.
+En la ciencia, hay un instante que todos los investigadores anhelan. Es la culminación de meses, a veces años, de riguroso trabajo. Corres el análisis y, de repente, ahí está: p \< 0.05. Es una **explosión de alivio**, un destello de “¡Eureka!” en la oscuridad de la incertidumbre. Sentimos que hemos encontrado algo real, algo digno de ser publicado.
 
 Pero, ¿y si ese destello es solo eso? Un estallido momentáneo, deslumbrante y ruidoso, pero que en el fondo significa muy poco. ¿Y si nuestro ritual más sagrado es, en realidad, un simple juego de pirotecnia, diseñado para impresionar más que para iluminar?
 
@@ -110,11 +107,11 @@ La confusión más extendida es la de equiparar “significación estadística�
 
 ## El Caso del Chocolate que Hace Perder Peso
 
-Para ilustrar esta locura, consideremos el tristemente famoso estudio de John Bohannon en 2015, “Chocolate con fines de pérdida de peso” . Con un pequeño presupuesto, Bohannon realizó un ensayo aleatorio, controlado con chocolate, utilizando un número muy reducido de participantes y midiendo 18 variables distintas(Bohannon 2015). Al analizar *todas* las combinaciones posibles, encontró que con una muestra tan pequeña y al realizar múltiples pruebas (un tipo de *p-hacking*), era casi inevitable que alguna variable arrojara un p-valor menor a 0.05 **por pura casualidad**. Con su `p < 0.05` “significativo”, los medios de comunicación sensacionalistas se lanzaron a la noticia: “El chocolate hace perder peso!”. Este caso es un claro ejemplo de cómo un “destello” estadístico puede ser completamente engañoso y carecer de cualquier importancia real, pero aun así generar titulares y confusión(Bohannon 2015).
+Para ilustrar esta locura, consideremos el tristemente famoso estudio de John Bohannon en 2015, “Chocolate con fines de pérdida de peso” . Con un pequeño presupuesto, Bohannon realizó un ensayo aleatorio, controlado con chocolate, utilizando un número muy reducido de participantes y midiendo 18 variables distintas(Bohannon 2015). Al analizar *todas* las combinaciones posibles, encontró que con una muestra tan pequeña y al realizar múltiples pruebas (un tipo de *p-hacking*), era casi inevitable que alguna variable arrojara un p-valor menor a 0.05 **por pura casualidad**. Con su p \< 0.05 “significativo”, los medios de comunicación sensacionalistas se lanzaron a la noticia: “El chocolate hace perder peso!”. Este caso es un claro ejemplo de cómo un “destello” estadístico puede ser completamente engañoso y carecer de cualquier importancia real, pero aun así generar titulares y confusión(Bohannon 2015).
 
 ## El Veredicto: La Falsa Dicotomía del “Ohhh” o el Silencio
 
-Quien observa fuegos artificiales emite un veredicto simple: el “¡Ohhh!” de asombro o el silencio de la indiferencia. Las pruebas de significación nos han impuesto esta misma decisión binaria: o un resultado es significativo (`p < 0.05`), o no lo es. Es un interruptor de encendido/apagado.
+Quien observa fuegos artificiales emite un veredicto simple: el “¡Ohhh!” de asombro o el silencio de la indiferencia. Las pruebas de significación nos han impuesto esta misma decisión binaria: o un resultado es significativo (p \< 0.05), o no lo es. Es un interruptor de encendido/apagado.
 
 Pero la ciencia no funciona así. El conocimiento científico no es una serie de decisiones de “sí/no”. Es un proceso gradual de ajuste de nuestras creencias a la luz de la evidencia acumulada. Es un paisaje de grises, no un contraste de blanco y negro. Al forzarnos a este mecanicismo, a esta “sucesión de ‘decisiones’ automáticas” que el propio Fisher denunció, hemos empobrecido el discurso científico, ignorando matices cruciales como la magnitud del efecto o la precisión de la estimación.
 

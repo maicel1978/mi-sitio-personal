@@ -1,14 +1,13 @@
 ---
 title: 'Diseños Alternativos a Ensayos Clínicos Controlados Aleatorizados: Contextos
   de Aplicación y Riesgos Regulatorios'
-authors: ["admin"]
+author: "admin"
 date: '2025-08-07'
 categories: ["Evaluación Regulatoria"]
 tags:
   - "ensayos clínicos"  
   - "atajos diseños ensayos clínicos y riesgos ICH"
   - "errores que detienen aprobaciones EMA FDA"
-  - "crítica sesgos en ensayos alternativos"
   - "guía validación regulatoria para evaluadores"
 description: 'Análisis técnico y regulatorio del uso de diseños no confirmatorios
   en sustitución de ensayos clínicos aleatorizados: justificaciones, riesgos metodológicos
@@ -18,11 +17,10 @@ languages:
   es: "/es/posts/atajos "
   en: "/en/posts/atajos-en" 
 # Control visual y funcional del post
-commentable: yes
+commentable: true
+type: post
 ---
 
-🎧 **Escucha el podcast de esta publicación**
-{{< audio src="/mp3/atajos.mp3" controls="yes" >}}
 
 ## Introducción
 
@@ -117,6 +115,12 @@ Aunque válidos en contextos excepcionales, el uso frecuente y estratégico de e
 # Conclusión
 
 Los diseños alternativos no deben entenderse como sustitutos genéricos del ECA, sino como herramientas **válidas solo bajo condiciones estrictamente justificadas y validadas**. El regulador tiene la responsabilidad científica y ética de exigir evidencia que no solo sea suficiente, sino también sólida, reproducible y libre de sesgos. La precisión metodológica y la claridad terminológica no son un lujo en este proceso: **son el principio rector que protege la salud pública frente a la ambigüedad científica**.
+
+------------------------------------------------------------------------
+
+
+🎧 **Escucha el podcast de esta publicación**
+{{< audio src="/mp3/atajos.mp3" controls="yes" >}}
 
 ------------------------------------------------------------------------
 

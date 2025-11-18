@@ -3,9 +3,8 @@ title: "Cómo Entrenar y Validar Modelos de Predicción Clínica: Guía Paso a P
 subtitle: "Tutorial para el desarrollo de un modelo de predicción clínica con ejemplos en R" 
 categories: ["Código Práctico en R o Python"]
 summary: "Guía práctica con R para desarrollar modelos predictivos robustos en entornos clínicos"
-profile: true
-authors:
-  - "admin"
+# profile: true
+author: "admin"
 date: "2025-10-22" #año mes dia
 # show_author_profile: true
 tags: 
@@ -13,7 +12,6 @@ tags:
   - "tutorial en r para modelos predictivos médicos"
   - "guía Steyerberg para modelos predictivos médicos"
   - "evitar overfitting en validación de ML"
-  - "paso a paso R para machine learning en tesis"
 slug: como-entrenar-y-validar-un-modelo-de-machine-learning
 featured: true  # Destacar en la página principal
 translationKey: "MPC"
@@ -32,6 +30,7 @@ pager: true
 show_related: true
 show_breadcrumb: true
 draft: false# True para un borrador
+type: post
 ---
 
 

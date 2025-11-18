@@ -1240,6 +1240,14 @@ Médico, Bioestadístico y Científico de Datos&lt;/p&gt;
     </item>
     
     <item>
+      <title>Introducción a los diseños explicativos experimentales</title>
+      <link>https://bioestadisticaedu.com/slides/ec/</link>
+      <pubDate>Sat, 13 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>https://bioestadisticaedu.com/slides/ec/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Una Inmersión Intuitiva en la Arquitectura de los LLMs</title>
       <link>https://bioestadisticaedu.com/post/ia/</link>
       <pubDate>Sat, 06 Sep 2025 00:00:00 +0000</pubDate>
@@ -1731,8 +1739,8 @@ $$
       <pubDate>Sun, 10 Aug 2025 15:30:00 +0000</pubDate>
       <guid>https://bioestadisticaedu.com/post/2025-08-10-significacion/</guid>
       <description>&lt;h2 id=&#34;introducción&#34;&gt;Introducción&lt;/h2&gt;
-&lt;p&gt;Ese momento de euforia al ver &lt;code&gt;p &amp;lt; 0.05&lt;/code&gt;… ¿es un descubrimiento genuino o solo un destello engañoso de pirotecnia estadística?&lt;/p&gt;
-&lt;p&gt;En la ciencia, hay un instante que todos los investigadores anhelan. Es la culminación de meses, a veces años, de riguroso trabajo. Corres el análisis y, de repente, ahí está: &lt;code&gt;p &amp;lt; 0.05&lt;/code&gt;. Es una &lt;strong&gt;explosión de alivio&lt;/strong&gt;, un destello de “¡Eureka!” en la oscuridad de la incertidumbre. Sentimos que hemos encontrado algo real, algo digno de ser publicado.&lt;/p&gt;
+&lt;p&gt;Ese momento de euforia al ver p &amp;lt; 0.05… ¿es un descubrimiento genuino o solo un destello engañoso de pirotecnia estadística?&lt;/p&gt;
+&lt;p&gt;En la ciencia, hay un instante que todos los investigadores anhelan. Es la culminación de meses, a veces años, de riguroso trabajo. Corres el análisis y, de repente, ahí está: p &amp;lt; 0.05. Es una &lt;strong&gt;explosión de alivio&lt;/strong&gt;, un destello de “¡Eureka!” en la oscuridad de la incertidumbre. Sentimos que hemos encontrado algo real, algo digno de ser publicado.&lt;/p&gt;
 &lt;p&gt;Pero, ¿y si ese destello es solo eso? Un estallido momentáneo, deslumbrante y ruidoso, pero que en el fondo significa muy poco. ¿Y si nuestro ritual más sagrado es, en realidad, un simple juego de pirotecnia, diseñado para impresionar más que para iluminar?&lt;/p&gt;
 &lt;p&gt;Durante décadas, hemos aceptado el umbral de significación estadística como el árbitro indiscutible de la verdad científica. Sin embargo, la evidencia acumulada —desde las críticas de su propio creador (Ronald Fisher) hasta las advertencias oficiales de la American Statistical Association (ASA) en 2016 y el clamor de cientos de científicos en la revista &lt;em&gt;Nature&lt;/em&gt; — nos obliga a una conclusión incómoda(Amrhein, Greenland, and McShane 2019; Wasserstein and Lazar 2016) : &lt;strong&gt;el emperador estadístico está desnudo&lt;/strong&gt;. La práctica de las Pruebas de Significación de la Hipótesis Nula (NHST, por sus siglas en inglés) no es un pilar de rigor, sino un ritual plagado de lógica errónea, confusión e inadecuación para la verdadera investigación.&lt;/p&gt;
 &lt;h2 id=&#34;el-cohete-más-grande-no-significa-mejor&#34;&gt;El Cohete: Más Grande no Significa Mejor&lt;/h2&gt;
@@ -1775,9 +1783,9 @@ $$
 &lt;h2 id=&#34;confusión-el-ruido-no-es-la-señal&#34;&gt;Confusión: El Ruido no es la Señal&lt;/h2&gt;
 &lt;p&gt;La confusión más extendida es la de equiparar “significación estadística” con “importancia práctica” o “relevancia científica”. Un estallido muy ruidoso no significa que el descubrimiento sea importante, útil o generalizable. Esta obsesión por el ruido estadístico, esta endémica “significant-itis”, nos ha distraído de lo que realmente importa en la investigación: la magnitud del efecto y la relevancia clínica, social o teórica de nuestros hallazgos.&lt;/p&gt;
 &lt;h2 id=&#34;el-caso-del-chocolate-que-hace-perder-peso&#34;&gt;El Caso del Chocolate que Hace Perder Peso&lt;/h2&gt;
-&lt;p&gt;Para ilustrar esta locura, consideremos el tristemente famoso estudio de John Bohannon en 2015, “Chocolate con fines de pérdida de peso” . Con un pequeño presupuesto, Bohannon realizó un ensayo aleatorio, controlado con chocolate, utilizando un número muy reducido de participantes y midiendo 18 variables distintas(Bohannon 2015). Al analizar &lt;em&gt;todas&lt;/em&gt; las combinaciones posibles, encontró que con una muestra tan pequeña y al realizar múltiples pruebas (un tipo de &lt;em&gt;p-hacking&lt;/em&gt;), era casi inevitable que alguna variable arrojara un p-valor menor a 0.05 &lt;strong&gt;por pura casualidad&lt;/strong&gt;. Con su &lt;code&gt;p &amp;lt; 0.05&lt;/code&gt; “significativo”, los medios de comunicación sensacionalistas se lanzaron a la noticia: “El chocolate hace perder peso!”. Este caso es un claro ejemplo de cómo un “destello” estadístico puede ser completamente engañoso y carecer de cualquier importancia real, pero aun así generar titulares y confusión(Bohannon 2015).&lt;/p&gt;
+&lt;p&gt;Para ilustrar esta locura, consideremos el tristemente famoso estudio de John Bohannon en 2015, “Chocolate con fines de pérdida de peso” . Con un pequeño presupuesto, Bohannon realizó un ensayo aleatorio, controlado con chocolate, utilizando un número muy reducido de participantes y midiendo 18 variables distintas(Bohannon 2015). Al analizar &lt;em&gt;todas&lt;/em&gt; las combinaciones posibles, encontró que con una muestra tan pequeña y al realizar múltiples pruebas (un tipo de &lt;em&gt;p-hacking&lt;/em&gt;), era casi inevitable que alguna variable arrojara un p-valor menor a 0.05 &lt;strong&gt;por pura casualidad&lt;/strong&gt;. Con su p &amp;lt; 0.05 “significativo”, los medios de comunicación sensacionalistas se lanzaron a la noticia: “El chocolate hace perder peso!”. Este caso es un claro ejemplo de cómo un “destello” estadístico puede ser completamente engañoso y carecer de cualquier importancia real, pero aun así generar titulares y confusión(Bohannon 2015).&lt;/p&gt;
 &lt;h2 id=&#34;el-veredicto-la-falsa-dicotomía-del-ohhh-o-el-silencio&#34;&gt;El Veredicto: La Falsa Dicotomía del “Ohhh” o el Silencio&lt;/h2&gt;
-&lt;p&gt;Quien observa fuegos artificiales emite un veredicto simple: el “¡Ohhh!” de asombro o el silencio de la indiferencia. Las pruebas de significación nos han impuesto esta misma decisión binaria: o un resultado es significativo (&lt;code&gt;p &amp;lt; 0.05&lt;/code&gt;), o no lo es. Es un interruptor de encendido/apagado.&lt;/p&gt;
+&lt;p&gt;Quien observa fuegos artificiales emite un veredicto simple: el “¡Ohhh!” de asombro o el silencio de la indiferencia. Las pruebas de significación nos han impuesto esta misma decisión binaria: o un resultado es significativo (p &amp;lt; 0.05), o no lo es. Es un interruptor de encendido/apagado.&lt;/p&gt;
 &lt;p&gt;Pero la ciencia no funciona así. El conocimiento científico no es una serie de decisiones de “sí/no”. Es un proceso gradual de ajuste de nuestras creencias a la luz de la evidencia acumulada. Es un paisaje de grises, no un contraste de blanco y negro. Al forzarnos a este mecanicismo, a esta “sucesión de ‘decisiones’ automáticas” que el propio Fisher denunció, hemos empobrecido el discurso científico, ignorando matices cruciales como la magnitud del efecto o la precisión de la estimación.&lt;/p&gt;
 &lt;h2 id=&#34;después-del-humo-hacia-una-ciencia-iluminada&#34;&gt;Después del Humo: Hacia una Ciencia Iluminada&lt;/h2&gt;
 &lt;p&gt;Cuando el humo de la pirotecnia se disipa, ¿qué nos queda? Nos queda la tarea de encontrar una luz más honesta y duradera para la ciencia. Afortunadamente, esta luz existe y está ganando terreno.&lt;/p&gt;
@@ -1836,29 +1844,7 @@ $$
       <link>https://bioestadisticaedu.com/post/atajos/</link>
       <pubDate>Thu, 07 Aug 2025 00:00:00 +0000</pubDate>
       <guid>https://bioestadisticaedu.com/post/atajos/</guid>
-      <description>&lt;p&gt;🎧 &lt;strong&gt;Escucha el podcast de esta publicación&lt;/strong&gt;
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-&lt;audio controls &gt;
-  &lt;source src=&#34;https://bioestadisticaedu.com/mp3/atajos.mp3&#34; type=&#34;audio/mpeg&#34;&gt;
-&lt;/audio&gt;
-&lt;/p&gt;
-&lt;h2 id=&#34;introducción&#34;&gt;Introducción&lt;/h2&gt;
+      <description>&lt;h2 id=&#34;introducción&#34;&gt;Introducción&lt;/h2&gt;
 &lt;p&gt;Los ensayos clínicos controlados, aleatorizados y enmascarados (ECAs) constituyen el marco metodológico más robusto para evaluar la &lt;strong&gt;eficacia y seguridad&lt;/strong&gt; de nuevas intervenciones terapéuticas. Son considerados el &amp;ldquo;estándar de oro&amp;rdquo; en investigación clínica por agencias como &lt;strong&gt;ICH, EMA y FDA&lt;/strong&gt;, ya que proporcionan el mayor control contra el sesgo y la mayor solidez en inferencia causal.&lt;/p&gt;
 &lt;p&gt;En este marco, los &lt;strong&gt;ensayos confirmatorios&lt;/strong&gt; son aquellos diseñados explícitamente para confirmar hipótesis clínicas relevantes, con base en análisis predefinidos y control adecuado de errores. Cuando estos estudios sustentan una solicitud de comercialización, adquieren la condición de &lt;strong&gt;ensayos pivotal&lt;/strong&gt; (terminología empleada por FDA y EMA).&lt;/p&gt;
 &lt;p&gt;En principio, se recomienda la presentación de &lt;strong&gt;dos ensayos confirmatorios independientes&lt;/strong&gt;. Sin embargo, &lt;strong&gt;tanto EMA como FDA&lt;/strong&gt; contemplan aprobaciones basadas en &lt;strong&gt;un único ensayo pivotal&lt;/strong&gt;, siempre que esté respaldado por &lt;strong&gt;evidencia complementaria rigurosa&lt;/strong&gt;. La &lt;strong&gt;FDA&lt;/strong&gt;, mediante el concepto de &lt;strong&gt;evidencia confirmatoria&lt;/strong&gt; (FDA 2023), formaliza esta vía alternativa. La &lt;strong&gt;EMA&lt;/strong&gt;, aunque no utiliza esa denominación, acepta enfoques equivalentes (meta-análisis, controles históricos validados, análisis de consistencia interna).&lt;/p&gt;
@@ -2016,6 +2002,29 @@ $$
 &lt;hr&gt;
 &lt;h1 id=&#34;conclusión&#34;&gt;Conclusión&lt;/h1&gt;
 &lt;p&gt;Los diseños alternativos no deben entenderse como sustitutos genéricos del ECA, sino como herramientas &lt;strong&gt;válidas solo bajo condiciones estrictamente justificadas y validadas&lt;/strong&gt;. El regulador tiene la responsabilidad científica y ética de exigir evidencia que no solo sea suficiente, sino también sólida, reproducible y libre de sesgos. La precisión metodológica y la claridad terminológica no son un lujo en este proceso: &lt;strong&gt;son el principio rector que protege la salud pública frente a la ambigüedad científica&lt;/strong&gt;.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;🎧 &lt;strong&gt;Escucha el podcast de esta publicación&lt;/strong&gt;
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+&lt;audio controls &gt;
+  &lt;source src=&#34;https://bioestadisticaedu.com/mp3/atajos.mp3&#34; type=&#34;audio/mpeg&#34;&gt;
+&lt;/audio&gt;
+&lt;/p&gt;
 &lt;hr&gt;
 &lt;h1 id=&#34;bibliografía&#34;&gt;Bibliografía&lt;/h1&gt;
 &lt;ol&gt;
@@ -2240,29 +2249,7 @@ La FAO recomienda ajustar el consumo por tamaño del hogar usando &lt;strong&gt;
       <link>https://bioestadisticaedu.com/post/eda/</link>
       <pubDate>Tue, 11 Feb 2025 00:00:00 +0000</pubDate>
       <guid>https://bioestadisticaedu.com/post/eda/</guid>
-      <description>&lt;p&gt;🎧 &lt;strong&gt;Escucha el podcast de esta publicación&lt;/strong&gt;
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-&lt;audio controls &gt;
-  &lt;source src=&#34;https://bioestadisticaedu.com/mp3/eda.mp3&#34; type=&#34;audio/mpeg&#34;&gt;
-&lt;/audio&gt;
-&lt;/p&gt;
-&lt;h2 id=&#34;introducción&#34;&gt;Introducción&lt;/h2&gt;
+      <description>&lt;h2 id=&#34;introducción&#34;&gt;Introducción&lt;/h2&gt;
 &lt;p&gt;El &lt;strong&gt;Análisis Exploratorio de Datos (EDA)&lt;/strong&gt; es una disciplina fundamental en el campo de la ciencia de datos, popularizada por el matemático John Tukey. Más que una simple serie de pasos, el EDA es una filosofía que nos invita a interactuar con nuestros datos, visualizarlos, resumirlos y &amp;ldquo;hablar&amp;rdquo; con ellos antes de saltar a modelados complejos. Implica el análisis de datos centrado en comprender a fondo su estructura, identificar patrones ocultos, detectar anomalías (valores atípicos), gestionar datos ausentes y, en última instancia, proporcionar una base sólida para la formulación de modelos predictivos o inferenciales. Además, es crucial para descubrir cómo se relacionan las variables entre sí.&lt;/p&gt;
 &lt;p&gt;Un concepto popular y vital en el campo de la ciencia de datos es &lt;strong&gt;GIGO&lt;/strong&gt; (Garbage In, Garbage Out, o &amp;ldquo;Basura entra, basura sale&amp;rdquo;). Este concepto subraya que la calidad de los resultados de cualquier análisis o modelo es directamente proporcional a la calidad de los datos de entrada. No importa cuán sofisticado sea tu algoritmo o cuán potente sea tu infraestructura computacional, los datos de mala calidad siempre producirán resultados deficientes, engañosos o inútiles. El EDA es nuestra primera línea de defensa contra el GIGO, asegurando que trabajamos con datos limpios y comprensibles.&lt;/p&gt;
 &lt;h2 id=&#34;un-flujo-de-trabajo-práctico-de-eda&#34;&gt;Un Flujo de Trabajo Práctico de EDA&lt;/h2&gt;
@@ -2492,6 +2479,28 @@ La FAO recomienda ajustar el consumo por tamaño del hogar usando &lt;strong&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;conclusión&#34;&gt;Conclusión&lt;/h2&gt;
 &lt;p&gt;El Análisis Exploratorio de Datos no es solo una fase inicial, sino un proceso continuo de aprendizaje sobre tus datos. Es una inversión de tiempo que rinde grandes dividendos, ya que una comprensión profunda de los datos nos permite tomar decisiones más informadas, construir modelos más robustos y, en última instancia, extraer conocimientos más valiosos. Al dominar el EDA, te equipas con la habilidad de transformar datos brutos en una historia coherente y accionable, evitando la trampa del GIGO y asegurando que tus esfuerzos de ciencia de datos generen un impacto real.&lt;/p&gt;
+&lt;p&gt;🎧 &lt;strong&gt;Escucha el podcast de esta publicación&lt;/strong&gt;
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+&lt;audio controls &gt;
+  &lt;source src=&#34;https://bioestadisticaedu.com/mp3/eda.mp3&#34; type=&#34;audio/mpeg&#34;&gt;
+&lt;/audio&gt;
+&lt;/p&gt;
 </description>
     </item>
     

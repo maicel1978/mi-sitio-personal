@@ -3,18 +3,17 @@ title: "Los siete pecados capitales del protocolo y del Plan de Análisis Estad�
 subtitle: "Por qué los reguladores rechazan protocolos de ensayos clínicos y cómo evitar los errores estadísticos que los condenan"
 categories: ["Evaluación Regulatoria"]
 summary: "Identifica siete errores comunes en protocolos de ensayos clínicos inspirados en pecados capitales para evitar rechazos regulatorios y mejorar la calidad científica."
-profile: true
-show_author: true
-show_author_profile: true
-authors:
-  - "admin"
+# profile: true
+# show_author: true
+# show_author_profile: true
+author: "admin"
 date: "2025-10-28" #año mes dia
 # show_author_profile: true
 tags: 
   - "bioestadistica"
-  - "ensayos-clinicos"
-  - "errores-estadisticos"
-  - "plan-analisis-estadistico"
+  - "ensayos clínicos"  
+  - "errores que detienen aprobaciones EMA FDA"
+  - "guía validación regulatoria para evaluadores"
 slug: siete-pecados-protocolos-clinicos
 featured: true  # Destacar en la página principal
 # translationKey: "pecados"
@@ -33,6 +32,7 @@ pager: true
 show_related: true
 show_breadcrumb: true
 draft: false# True para un borrador
+type: post
 ---
 
 *¿Sabías que más de la mitad de los protocolos de ensayos clínicos requieren modificaciones antes de su aprobación debido a deficiencias metodológicas evitables?*

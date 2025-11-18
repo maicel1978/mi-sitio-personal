@@ -1,15 +1,15 @@
 ---
 title: Inferencia Causal,  Desvelando la Lógica Matemática Detrás de Causa y Efecto
-authors: ["admin"]
+author: "admin"
 date: '2025-09-01'
 slug: inferencia-causal
 summary: 'Este blog explora cómo la inferencia causal permite ir más allá de la correlación, aplicando "principios metodológicos" para analizar datos observacionales en salud pública. A partir del desafío de la ausencia del contrafactual, se presentan herramientas avanzadas como el Propensity Score, Diferencias-en-Diferencias y Variables Instrumentales. El enfoque es riguroso, práctico y dirigido a profesionales que buscan complementar la evidencia de los ensayos clínicos.'
-categories:
-  - "Estadística en Salud"
+categories: ["Estadística en Salud"]
 tags:
-  - diseños alternativos
-  - ensayos clínicos
-  - estadística
+  - diseños-alternativos
+  - ensayos-clínicos
+  - bioestadística
+type: post
 ---
 
 ## Introducción

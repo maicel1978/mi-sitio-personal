@@ -94,41 +94,44 @@ es:
       - name: Experiencia
         url: /experience/
         weight: 20
+      - name: Diapositivas
+        url: /slides/
+        weight: 30
       - name: Proyectos
         url: /projects/
-        weight: 30
+        weight: 40
       - name: Docencia
         url: /teaching/
-        weight: 40
+        weight: 50
       - name: Blog
         url: /post/ # no funciona al hacerl clic sobre el
-        weight: 50
+        weight: 60
         identifier: blog  # Identificador único para el padre
       #   has_children: true  # ¡Agregado! Fuerza el dropdown
       - name: "Ver Todos los Artículos" # ¡NUEVO HIJO!
         url: /post/ # Este enlace SIEMPRE funcionará
-        weight: 51 # Aparece primero en el submenú
+        weight: 61 # Aparece primero en el submenú
         parent: blog
       # Usar un texto claro mejora la UX, guiando al usuario.     
       - name: "Estadística en Salud"
         url: /categories/estadistica-en-salud/
-        weight: 52
+        weight: 62
         parent: blog  # Referencia al identificador del padre
       - name: "Metodología de Investigación"
         url: /categories/metodologia-de-investigacion/
-        weight: 54
+        weight: 64
         parent: blog
       - name: "Evaluación Regulatoria"
         url: /categories/evaluacion-regulatoria/
-        weight: 56
+        weight: 66
         parent: blog
       - name: "Código Práctico en R/Python"
         url: /categories/codigo-practico-en-r-o-python/  # ¡Corregido! Agregado -python
-        weight: 58
+        weight: 68
         parent: blog
       - name: "Reflexiones Críticas"
         url: /categories/reflexiones-criticas/
-        weight: 60  # ¡Corregido! Peso único para orden
+        weight: 70  # ¡Corregido! Peso único para orden
         parent: blog
       - name: "Suscríbete"
         url: /subscribe/

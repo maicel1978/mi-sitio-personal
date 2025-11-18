@@ -1,8 +1,7 @@
 ---
 date: "2025-03-05"
 title: 'Tutorial de Análisis de Fortificación de Alimentos con HCES y R'
-author: 
-  - "admin"
+author: "admin"
 summary: "Aprende en este tutorial a usar R para analizar Encuestas de Consumo y Gasto en Hogares  y Tablas de Composición de Alimentos."
 slug: "tutorial-an-lisis-de-fortificaci-n-de-alimentos-con-hces-y-r"
 tags:

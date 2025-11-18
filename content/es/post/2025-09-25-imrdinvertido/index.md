@@ -1,12 +1,11 @@
 ---
-title: '¿Escribir ciencia o reescribir la realidad?'
-subtitle: 'Escribiendo al revés'
-authors: ["admin"]
+title: "¿Escribir ciencia o reescribir la realidad?"
+subtitle: "Escribiendo al revés"
+author: "admin"
 date: '2025-10-04'
 slug: imryd-redaccion-inversa
 translationKey: "imryd"
-categories:
-  - "Metodología de Investigación"
+categories: ["Metodología de Investigación"]
 tags:
   - "cómo usar redacción inversa en artículos científicos"
   - "evitar HARKing en tesis médicas"
@@ -19,8 +18,9 @@ languages:
   es: "/es/imryd-redaccion-inversa"
   en: "/en/imryd-redaccion-inversa"
 draft: false
-commentable: yes
-url_video: https://youtu.be/0JNt-uWHqDg
+commentable: true
+# url_video: https://youtu.be/0JNt-uWHqDg
+type: post
 ---
 
 

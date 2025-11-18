@@ -1,8 +1,7 @@
 ---
 title: "Análisis Exploratorio de Datos: Desentrañando la Verdad de tus Datos"
 subtitle: "Tutorial sobre Análisis Exploratorio de Datos"
-authors:
-  - "admin"
+author: "admin"
 date: '2025-02-11'
 slug: "eda"
 categories: ["Código Práctico en R o Python"]
@@ -12,12 +11,11 @@ tags:
   - "Limpieza de datos"
 summary: El Análisis Exploratorio de Datos (EDA) es la fase crítica de inspección inicial, limpieza y preparación de datos que sienta las bases para modelos robustos y conocimientos profundos, garantizando que solo los datos de la más alta calidad alimenten nuestros algoritmos.
 featured: false  # Destacar en la página principal
-related_posts: [como-entrenar-y-validar-un-modelo-de-machine-learnig]  # Slug de tu post sobre EDA
+type: post
 ---
 
 
-🎧 **Escucha el podcast de esta publicación**
-{{< audio src="/mp3/eda.mp3" controls="yes" >}}
+
 
 ## Introducción
 
@@ -236,3 +234,6 @@ Para realizar un EDA efectivo, contamos con potentes herramientas en lenguajes c
 ## Conclusión
 
 El Análisis Exploratorio de Datos no es solo una fase inicial, sino un proceso continuo de aprendizaje sobre tus datos. Es una inversión de tiempo que rinde grandes dividendos, ya que una comprensión profunda de los datos nos permite tomar decisiones más informadas, construir modelos más robustos y, en última instancia, extraer conocimientos más valiosos. Al dominar el EDA, te equipas con la habilidad de transformar datos brutos en una historia coherente y accionable, evitando la trampa del GIGO y asegurando que tus esfuerzos de ciencia de datos generen un impacto real.
+
+🎧 **Escucha el podcast de esta publicación**
+{{< audio src="/mp3/eda.mp3" controls="yes" >}}

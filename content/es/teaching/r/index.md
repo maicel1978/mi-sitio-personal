@@ -8,8 +8,7 @@ tags:
   - "conferencia"
   - "curso"
 title: "Curso de Análisis de datos en fortificación de alimentos a gran escala con R. Una Introducción Práctica"
-author: 
-  - "admin"
+author: "admin"
 type: page
 ---
 

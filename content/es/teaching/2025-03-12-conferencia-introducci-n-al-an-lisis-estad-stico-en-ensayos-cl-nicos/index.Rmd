@@ -1,8 +1,7 @@
 ---
 date: "2025-03-12"
 title: "Conferencia de Introducción al análisis estadístico en ensayos clínicos"
-author: 
-  - "admin"
+author: "admin"
 summary: "Conferecia realizada en el Centro para el Control Estatal de Medicamentos, Equipos y Dispositivos Médicos sobre Análisis Estadístico en Ensayos Clínicos"
 slug: conferencia-introducci-n-al-an-lisis-estad-stico-en-ensayos-cl-nicos
 tags: 

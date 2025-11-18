@@ -1,6 +1,6 @@
 ---
 title: "Del Laboratorio al Mundo Real"
-authors: ["admin"]
+author: "admin"
 date: "2025-09-01"
 slug: generalizacion
 categories: ["Metodología de Investigación"]
@@ -8,10 +8,10 @@ tags:
   - "validez externa en ensayos clínicos reales"
   - "superar sesgos de generalizabilidad en estudios"
   - "transportabilidad de resultados laboratorio a práctica"
-  - "ensayos pragmáticos para salud pública"
   - "herramientas estadísticas para validez interna externa"
 summary: La ciencia trasciende el laboratorio cuando sus hallazgos logran cruzar el puente hacia la vida real. Este proceso depende de conceptos clave como validez interna (rigor metodológico) y externa (aplicabilidad), así como de la generalizabilidad y transportabilidad de los resultados. Aunque existen obstáculos como sesgos de selección y variables confusoras, herramientas como ensayos pragmáticos y métodos estadísticos permiten adaptar los conocimientos a contextos diversos. Como consumidores, debemos preguntar "¿en quién se hizo este estudio?" para evaluar su verdadero impacto en nuestras vidas.'
-commentable: yes
+commentable: true
+type: post
 ---
 
 ## Introducción

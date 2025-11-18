@@ -1,6 +1,6 @@
 ---
 title: "Una Inmersión Intuitiva en la Arquitectura de los LLMs"
-authors: ["admin"]
+author: "admin"
 date: '2025-09-06'
 slug: "IA"
 description: "Análisis del funcionamiento de los grandes modelos de lenguaje: arquitectura, entrenamiento, alineación y límites. Comprendiendo la diferencia entre predicción y razonamiento."
@@ -9,6 +9,7 @@ tags:
   - "arquitectura transformers"
   - "modelos predictivos estadísticos"
 bibliography: references.bib
+type: post
 ---
 
 

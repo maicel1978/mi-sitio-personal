@@ -1,7 +1,6 @@
 ---
 title: CovidCencecAPK
-authors:
-  - "admin"
+author: "admin"
 date: '2025-02-28'
 type: project # <--- ¡AÑADIR ESTO!
 slug: covidcencecapk
