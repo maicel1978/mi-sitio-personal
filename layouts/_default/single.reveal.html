@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="{{ site.LanguageCode | default "es" }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ .Title }} | {{ site.Title }}</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+  
+  {{ $theme := .Params.slides.theme | default "white" }}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/{{ $theme }}.min.css" id="theme">
+
+  {{ $highlight := .Params.slides.highlight_style | default "github" }}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/{{ $highlight }}.min.css">
+
+  <style>
+    /* Evita que las imágenes se salgan de la diapositiva */
+    .reveal section img {
+      max-height: 60vh;
+      max-width: 90%;
+      object-fit: contain;
+      margin: 1rem auto;
+    }
+    /* Ajusta el tamaño de las tablas */
+    .reveal table {
+      font-size: 0.6em;
+    }
+    /* Títulos h2 más controlados */
+    .reveal h2 {
+      font-size: 1.8em; 
+      text-transform: none;
+    }
+  </style>
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      
+      <section data-state="header1">
+        <h1 style="font-size: 2.5em;">{{ .Title }}</h1>
+        {{ with .Params.summary }}<p style="opacity: 0.8;">{{ . }}</p>{{ end }}
+        
+        <div style="margin-top: 2rem;">
+            {{ with .Params.authors }}<p><strong>Autor:</strong> {{ delimit . ", " }}</p>{{ end }}
+            <p><small>{{ .Date | time.Format ":date_long" }}</small></p>
+        </div>
+      </section>
+
+      <section>
+         {{ .Content | replaceRE "<hr(?: /)?>" "</section><section>" | safeHTML }}
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/markdown/markdown.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/notes/notes.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/math/math.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/zoom/zoom.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/search/search.min.js"></script>
+
+  <script>
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: 'c/t',
+      mouseWheel: false,
+      transition: 'slide',
+      plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath, RevealZoom, RevealSearch ]
+    });
+  </script>
+</body>
+</html>
+

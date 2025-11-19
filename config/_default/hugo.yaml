@@ -2,37 +2,23 @@
 # Guide: https://docs.hugoblox.com/tutorial/
 # Hugo Documentation: https://gohugo.io/getting-started/configuration/#all-configuration-settings
 # This file is formatted using YAML syntax - learn more at https://learnxinyminutes.com/docs/yaml/
-
+# Configuration of Hugo
 # Website name
 title: Bioestadisticaedu
 # Website URL
 baseURL: 'https://bioestadisticaedu.com/'
 
-
 ############################
 ## LANGUAGE
 ############################
-
 defaultContentLanguage: es
 hasCJKLanguage: false
 defaultContentLanguageInSubdir: false
 removePathAccents: true
 
-# languages:
-#   es:
-#     languageName: "Español"
-#     weight: 1
-#     # Opcional: Parámetros específicos del idioma (ej: menú personalizado)
-#     contentDir: content/es/ # esto lo ouso yo
-#   en:
-#     languageName: "English"
-#     weight: 2
-#     contentDir: content/en/ # esto lo ouso yo
-
 ############################
 ## ADVANCED
 ############################
-
 build:
   writeStats: true
 enableGitInfo: false
@@ -42,46 +28,43 @@ pagination:
 enableEmoji: true
 enableRobotsTXT: true
 footnotereturnlinkcontents: <sup>^</sup>
+
+# Configuración para ignorar archivos fuente de R y Jupyter
 ignoreFiles: [\.ipynb$, .ipynb_checkpoints$, \.Rmd$, \.Rmarkdown$, _cache$]
-# ignoreFiles: [\.ipynb$, .ipynb_checkpoints$, _cache$] # <--- ¡CORREGIDO!
+
 permalinks:
   authors: '/author/:slug/'
 disableAliases: true
+
+# Definición de salidas estándar para Home y Secciones
 outputs:
   home: [HTML, RSS, headers, redirects, backlinks]
   section: [HTML, RSS]
+
 imaging:
   resampleFilter: lanczos
   quality: 80
   anchor: smart
 timeout: 600000
+
 taxonomies:
   _merge: deep
   category: categories
   tag: tags
+
 markup:
   highlight:
     lineNos: false
   goldmark:
     renderer:
       unsafe: true
-# markup:
-#   _merge: deep
-#   highlight:
-#     lineNos: false
-#   goldmark: # <-- Añade esta línea
-#     renderer: # <-- Añade esta línea
-#       unsafe: true # <-- Añade esta línea
+
 security:
   _merge: deep
 sitemap:
   _merge: deep
-  
 
-
-#esto lo agrgue yo 
 cascade:
-  # Configure blog posts
   - _target:
       path: /post/**
     show_author: true
@@ -95,3 +78,17 @@ cascade:
     header:
       navbar:
         enable: false
+
+############################
+## CUSTOM OUTPUTS (SOLUCIÓN AL ERROR)
+############################
+outputFormats:
+  Reveal:
+    baseName: index
+    mediaType: text/html
+    isHTML: true
+    noUgly: true
+    layout: reveal
+
+
+    
