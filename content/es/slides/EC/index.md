@@ -1,8 +1,8 @@
 ---
-title: "Introducción a los diseños explicativos experimentales"
+title: "Diseños explicativos experimentales"
 summary: "Presentación sobre diseños explicativos experimentales para la maestría en APS"
-author: ["admin"]  # Nota: 'authors' suele ser una lista, aunque 'author' a veces funciona, mejor usa corchetes.
-date: "2025-09-13"
+author: "admin"
+date: '2025-09-06'
 type: slides
 outputs: ["Reveal"] 
 math: true
