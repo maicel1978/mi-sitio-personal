@@ -326,7 +326,7 @@ Ensayo Clínico es cualquier forma de experimento planificado que involucra paci
 
 Características esenciales de un Ensayo Clínico
 
--   el investigador introduce una Intervención deliberada intervención (carácter experimental).
+-   El investigador introduce una Intervención deliberada (carácter experimental).
 
 -   La Intervención incluye personas (pacientes)
 
