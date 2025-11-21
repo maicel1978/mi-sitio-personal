@@ -315,7 +315,7 @@ Estudios experimentales (nivel individual)
 
 ---
 
-Defincion 5: Ensayos clinicos
+Ensayos clinicos
 
 Ensayo Clínico es cualquier forma de experimento planificado que involucra pacientes y se diseña con el fin de determinar el tratamiento más apropiado para futuros pacientes con una condición patológica dada.
 
@@ -450,11 +450,11 @@ Pensamiento final
 
 Bibliografía
 
-Campbell MK, Piaggio G, Elbourne DR, Altman DG; for the CONSORT Group. CONSORT 2010 statement: extension to cluster randomised trials. BMJ. 2012. (Guía de reporte; lectura obligada para entender transparencia en cRCTs). BMJ
+<small> Campbell MK, Piaggio G, Elbourne DR, Altman DG; for the CONSORT Group. CONSORT 2010 statement: extension to cluster randomised trials. BMJ. 2012. (Guía de reporte; lectura obligada para entender transparencia en cRCTs). BMJ </small>
 
-Metodología de la investigación. Elementos básicos para la investigación clínica, Rosa Jimenes Peneque, 1ed, ECIMED
+<small> Metodología de la investigación. Elementos básicos para la investigación clínica, Rosa Jimenes Peneque, 1ed, ECIMED </small>
 
-Hemming K., et al. Key considerations for designing, conducting and reporting cluster randomized trials (revisión y guía práctica, 2023). Útil para ICC, poder y análisis. PMC
+<small> Hemming K., et al. Key considerations for designing, conducting and reporting cluster randomized trials (revisión y guía práctica, 2023). Útil para ICC, poder y análisis. PMC </small>
 
 ---
 
