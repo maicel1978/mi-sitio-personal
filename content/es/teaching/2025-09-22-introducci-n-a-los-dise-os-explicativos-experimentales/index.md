@@ -8,8 +8,9 @@ slug: introducci-n-a-los-dise-os-explicativos-experimentales
 tags:
   - "conferencia"
   - "curso"
-url_slides: /pdf/presetacion_experimentosAPS.pdf
-url_video: https://youtu.be/cQ4af2j2jrg
+url_slides: "" 
+url_video: "https://youtu.be/cQ4af2j2jrg"
+url_pdf: ""
 type: page
 ---
 

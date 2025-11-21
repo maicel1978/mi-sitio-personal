@@ -10,7 +10,7 @@ sections:
     filters:
       folders:
       - teaching
-    title: Teaching
+    title: Docencia
   design:
     columns: 2
     view: article-grid
