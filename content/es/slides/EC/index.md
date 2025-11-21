@@ -1,14 +1,14 @@
 ---
 title: "Diseños explicativos experimentales"
-summary: "Presentación sobre diseños explicativos experimentales para la maestría en APS"
-author: "admin"
+summary: "Presentación sobre diseños explicativos experimentales"
+author: admin
 date: '2025-09-06'
 type: slides
 outputs: ["Reveal"] 
 math: true
 slides:
-  theme: white
-  highlight_style: github
+  theme: simple
+  highlight_style: pygments
 ---
 
 
@@ -26,7 +26,7 @@ Sumario
 
 ---
 
-Diálogo infantil (motivación)
+Diálogo infantil (motivación) 
 
 En un pequeño banco, Sofía, con las manos en el móvil, habla a Mateo, que está sentado a su lado (mirando el suyo).
 
@@ -52,7 +52,7 @@ Existe una lógica similar en las investigaciones empíricas?
 
 ---
 
- Sí, existe una lógica operativa similar y fundamental que guía todas las investigaciones empíricas, más allá de sus diferencias específicas.
+<small> Sí, existe una lógica operativa similar y fundamental que guía todas las investigaciones empíricas, más allá de sus diferencias específicas.</small>
 
 <img src="imagenes/pregunta.jpg" style="width:30%; display:block; margin:auto;" alt="Pregunta" />
 
@@ -338,7 +338,7 @@ Características esenciales de un Ensayo Clínico
 
 Comparación
 
-<img src="imagenes/diferecias_comunidad.png" style="width:60%; display:block; margin:auto;" alt="Diferencias en la comunidad científica" />
+<img src="imagenes/diferecias_comunidad.jpg" style="width:60%; display:block; margin:auto;" alt="Diferencias en la comunidad científica" />
 
 
 ---
