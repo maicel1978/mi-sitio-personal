@@ -525,7 +525,7 @@ Mi postura es clara: Defiende tu base teórica a muerte, pero no te cases con he
 3. **Busca la intersección.** Sé el puente entre el médico clínico y el ingeniero informático.
 Ahí es donde está el valor.
 
-## 🚀 ¡Tu turno! Pasa de la teoría a la práctica
+## ¡Tu turno! Pasa de la teoría a la práctica
 
 ¿Te has sentido alguna vez como un impostor tecnológico a pesar de saber toda la teoría estadística?
 No estás solo.
