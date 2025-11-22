@@ -41,7 +41,6 @@ Me siento frente a mi "yo" joven, abro mi laptop (que a él le parece tecnologí
 
 ## Análisis Crítico del Currículo de Bioestadística Cubano Frente a las Tendencias Globales (La Pelea)
 
-¡Es una idea fantástica, Mohsen! Incluir el mapa mental ahí es el movimiento perfecto.
 
 En un blog técnico, una imagen vale más que mil palabras de descripción curricular. En lugar de aburrir al lector listando "Módulo 1, Módulo 2...", le das un golpe visual que grita: "Miren, esto es serio, esto es complejo".
 
@@ -180,7 +179,7 @@ He preparado una **"Hoja de Ruta del Bioestadístico Híbrido 2025"**, donde com
 👇 [**Subscribete** a nuestra comunidad de bioestadísticaedu, recibe artículos directamente en tu bandeja de entrada, sigue nuestro canal RSS o
 sigue mi canal de telegram]({{< relref "/subscribe/" >}}). Al suscribirte, te enviaré inmediatamente el Checklist para seguirte superando de manera autodidacta (¡con plantillas editables y ejemplos adicionales!),
 
-*(Formulario de Suscripción)*
+
 
 Y tú, ¿qué herramienta sientes que le falta a tu formación hoy?
 ¿Te animas a aprender a programar o prefieres quedarte en la zona de confort del "point-and-click"?
