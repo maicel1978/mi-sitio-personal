@@ -18,7 +18,7 @@ commentable: true
 pager: true
 show_related: true
 show_breadcrumb: true
-draft: false # True para un borrador
+draft: true # True para un borrador
 type: post
 ---
 
@@ -26,18 +26,17 @@ type: post
 
 ### El Experimento: Física-Ficción en el Caribe
 
-Recuerdo vívidamente mi primer día en la residencia de Bioestadística.
-Caminaba por los pasillos de la Escuela Nacional de Salud Pública (ENSAP) con una pregunta taladrándome la cabeza; una que nunca me atreví a formular en voz alta, y eso que soy capaz de exponerme a cualquier ridículo a cambio de información valiosa: **«¿Por qué esta especialidad solo existe aquí en Cuba? ¿Esto me servirá realmente para trabajar en otros sitios del mundo?».**
+Recuerdo vívidamente mi primer día en la residencia de Bioestadística en la Escuela Nacional de Salud Pública (ENSAP). Una pregunta me taladraba la cabeza, una que nunca me atreví a formular en voz alta:
 
-Como tú, yo también esperaba —quizás con ingenuidad— que algún profesor, en un susurro de pasillo *off the record*, me respondiera: **«Sí, muchacho, esto te servirá si un día decides hacer el viaje de Colón, pero de regreso a Europa».** Me preguntaba si un egresado de esta especialidad sería capaz de competir por un puesto con titulados de Norteamérica o el Viejo Continente sin que se notaran las costuras.
+>¿Por qué esta especialidad solo existe aquí en Cuba? ¿Esto me servirá realmente para trabajar en otros sitios del mundo?.
 
-Hoy, más de veinte años después (graduado en 2008), me doy cuenta de que esa pregunta no ha desaparecido.
-Solo ha cambiado de dueño.
-Hoy hago un ejercicio de física-ficción personal.
-**¿Y si pudiera viajar al pasado para responderle a ese residente inseguro si realmente vale la pena ser especialista en Bioestadística después de haber estudiado medicina?**
+Como tú, yo también esperaba —quizás con ingenuidad— que algún profesor, en un susurro de pasillo, me respondiera: **«Sí, esto te servirá si un día decides hacer el viaje de Colón, pero de regreso a Europa»**. Me preguntaba si un egresado de esta especialidad podría competir por un puesto con titulados de Norteamérica o el Viejo Continente sin que se notaran las costuras.
 
-Sería mi versión de la paradoja del abuelo: en lugar de eliminar a mi antepasado, buscaría aniquilar su duda existencial.
-Me siento frente a mi "yo" joven, abro mi laptop (que a él le parece tecnología alienígena) y pongo los datos sobre la mesa.
+Hoy, más de veinte años después, me doy cuenta de que esa pregunta no ha desaparecido. Solo ha cambiado de dueño.
+
+Este artículo es mi ejercicio de física-ficción personal. **¿Y si pudiera viajar al pasado para responderle a ese residente inseguro si realmente vale la pena ser especialista en Bioestadística después de haber estudiado medicina?**
+
+Sería mi versión de la paradoja del abuelo: en lugar de eliminar a mi antepasado, buscaría aniquilar su duda existencial. Me siento frente a mi "yo" joven, abro mi laptop y pongo los datos sobre la mesa.
 
 ## Análisis Crítico del Currículo de Bioestadística Cubano Frente a las Tendencias Globales (La Pelea)
 
@@ -178,7 +177,6 @@ He preparado una **"Hoja de Ruta del Bioestadístico Híbrido 2025"**, donde com
 
 👇 [**Subscribete** a nuestra comunidad de bioestadísticaedu, recibe artículos directamente en tu bandeja de entrada, sigue nuestro canal RSS o
 sigue mi canal de telegram]({{< relref "/subscribe/" >}}). Al suscribirte, te enviaré inmediatamente el Checklist para seguirte superando de manera autodidacta (¡con plantillas editables y ejemplos adicionales!),
-
 
 
 Y tú, ¿qué herramienta sientes que le falta a tu formación hoy?
