@@ -169,181 +169,225 @@ Y cuando colocas los planes de estudio lado a lado, el panorama se ve así:
 Y aquí viene el KO técnico.
 
 
-{{< spoiler text="1. Modelos de predicción clínica: terreno casi virgen (clic para ver detalles del jab en cámara lenta)" >}}
-Nuestro currículo sigue enfocado en regresión logística y modelos clásicos.
-Es útil, sí, pero el mundo ya funciona con:
+{{< spoiler text="1. Modelos de predicción clínica: terreno casi virgen (clic para ver el jab en cámara lenta)" >}}
 
-Random Forests
+Nuestro currículo sigue anclado en regresión logística y modelos clásicos.
+Funcionan, sí… pero el mundo real ya pelea en otra categoría:
 
-Árboles y boosting
+- Random Forests
 
-Redes neuronales
+- Árboles y boosting
 
-Validación cruzada
+- Redes neuronales
 
-Modelos calibrados para riesgo y pronóstico
+- Validación cruzada seria
 
-Frameworks como TRIPOD o MLOps clínico
+- Calibración y recalibration curves
 
+- Modelos de riesgo y pronóstico
+
+- Frameworks modernos: TRIPOD, PROBAST, MLOps clínico
+
+Mientras tanto, nosotros seguimos creyendo que cambiar de link function es innovación.
 
 {{< /spoiler >}}
 
 {{% callout warning %}}
-El egresado puede analizar un ensayo clínico, pero no construir un modelo predictivo moderno para mortalidad, readmisión o diagnóstico asistido.
+El egresado puede analizar un ensayo clínico…
+pero no construir un modelo predictivo moderno de mortalidad, readmisión o diagnóstico asistido.
 {{% /callout %}}
 
 
-{{< spoiler text="2. El ecosistema de datos cambió… pero el currículo no (clic para ver detalles del jab en cámara lenta)" >}}
+{{< spoiler text="2. El ecosistema de datos cambió… pero el currículo no (clic para ver el cross a la mandíbula)" >}}
 
 **Mientras afuera los bioestadísticos procesan:**
 
-- textos clínicos (NLP),
+- notas clínicas con NLP,
 
 - imágenes radiológicas e histológicas,
 
-- secuencias de ADN,
+- secuencias genómicas,
 
 - datos de wearables,
 
-- bases administrativas no estructuradas,
+- bases administrativas caóticas,
 
 - señales continuas de sensores,
 
-**nuestro programa sigue centrado en bases limpias y rectangulares, diseñadas idealmente para investigación.**
+**el currículo local sigue trabajando con datos limpios, rectangulares, de libro de texto**
 
-**Esto significa pocas oportunidades para aprender:**
+**Eso implica muy pocas oportunidades de aprender:**
 
 - preprocesamiento moderno,
 
 - feature engineering,
 
-- control de calidad en datos reales,
+- manejo de datos sucios o incompletos,
 
-- integración de fuentes heterogéneas.
+- integración de fuentes heterogéneas,
+
+- control de calidad en datos reales.
+
+En el ring global, eso es pelear con vendas en las manos.
 
 {{< /spoiler >}}
 
 
 {{% callout warning %}}
-El egresado llega listo para un dataset de manual, no para la selva de datos del mundo real.
+El egresado está entrenado para datasets perfectos…
+no para la selva de datos del mundo real.
 {{% /callout %}}
 
 
-{{< spoiler text="3. LLMs e IA biomédica: conocemos la base matemática, pero no el puente (clic para ver detalles )" >}}
+{{< spoiler text="3. LLMs e IA biomédica: tenemos la base matemática… pero no el puente (clic para ver el uppercut)" >}}
 
 
-Aquí está uno de los contrastes más curiosos.
+Aquí está uno de los contrastes más irónicos.
 
-Nuestros estudiantes sí aprenden la matemática que sustenta a los modelos modernos:
+Nuestros estudiantes sí aprenden la matemática que sostiene a los modelos modernos:
 álgebra lineal, regresión, vectores, matrices, probabilidad…
-La base conceptual para entender cómo piensa un modelo como ChatGPT está.
 
-¿El problema?
-Que el currículo nunca enseña cómo esas piezas se conectan para formar un modelo de lenguaje real.
+La base para entender cómo piensa un modelo como ChatGPT está presente.
+
+**¿El problema?**
+
+en ningún momento se enseña cómo esas piezas encajan para formar un modelo de lenguaje real.
 
 El resultado es exacto y casi cómico:
 
-Pueden usar ChatGPT.
+- Pueden usar ChatGPT.
 
-Pueden usar Gemini.
+- Pueden usar Gemini.
 
-Pueden pedirle código, un GLM o un resumen estadístico.
+- Pueden pedirle código, GLM, Poisson, survival…
 
-Pero no pueden explicar cómo funcionan más allá de “usa matrices grandes”.
-Y menos aún:
+- Pero no pueden explicar cómo funciona más allá del mantra “son matrices grandes”.
 
-entrenar uno,
+Y mucho menos:
 
-auditarlo,
+- entrenar un modelo,
 
-evaluar sesgos,
+- auditarlo,
 
-o adaptarlo a salud pública cubana.
+- evaluar sesgos,
 
-{{< /spoiler >}}
-
-{{% callout warning %}}
-
-El egresado puede hablan con la IA… pero no la entienden.
-Son usuarios competentes, no científicos capaces de auditar algoritmos de aprendizaje automático.
-{{% /callout %}}
-
-{{< spoiler text="4. Estadística bayesiana: un ausente  importante (clic para ver detalles )" >}}
-
-No hay prior, no hay MCMC, no hay modelos jerárquicos ni ensayos adaptativos bayesianos.
-Y eso duele, porque hoy el paradigma bayesiano está en el centro de:
-
-decisiones clínicas,
-
-modelos biomédicos,
-
-análisis longitudinal,
-
-diseño de ensayos modernos.
+- o adaptarlo a salud pública cubana.
 
 {{< /spoiler >}}
 
 {{% callout warning %}}
-Mientras el mundo avanza, nosotros seguimos anclados únicamente al enfoque frecuentista clásico.
+
+El egresado puede conversar con la IA…
+pero no **comprender** a la IA.
+Son usuarios competentes, no científicos capaces de auditar algoritmos.
+{{% /callout %}}
+
+{{< spoiler text="4. Estadística bayesiana: el ausente más incómodo (clic para ver el golpe al hígado)" >}}
+
+No hay priors, no hay MCMC, no hay modelos jerárquicos, no hay ensayos adaptativos bayesianos.
+Nada. Cero.
+Ni una mísera clase de Stan, JAGS o PyMC.
+
+Y duele, porque hoy el paradigma bayesiano está en el centro de:
+
+- decisiones clínicas,
+
+- modelos biomédicos,
+
+- análisis longitudinal,
+
+- diseño de ensayos modernos,
+
+- evaluación de incertidumbre en sistemas complejos.
+
+Es como estudiar medicina sin fisiología: puedes avanzar, pero caminas cojo.
+
+{{< /spoiler >}}
+
+{{% callout warning %}}
+Mientras el mundo avanza hacia el razonamiento bayesiano,
+nosotros seguimos anclados únicamente al paradigma frecuentista.
 {{% /callout %}}
 
 
-Resultado del Round 2
+### Resultado del Round 2
 
-Tenemos fundamentos fuertes, sí.
-Pero Harvard, Hopkins y UW tienen fundamentos + ML + big data + bioinformática + computación moderna + IA biomédica.
+Sí, tenemos fundamentos fuertes.
+Pero Harvard, Hopkins y UW no solo tienen fundamentos: tienen fundamentos + **ML + big data + bioinformática + computación moderna + IA biomédica.**
 
-Es como un boxeador que domina el jab, pero el rival también domina el jab… y puede lanzar patadas con giros en el aire.
+Es como un boxeador que domina el jab, pero descubre que el oponente también domina el jab… y **además practica Karate**
 
-Aquí, colega, perdemos por goleada.
+En este asalto, colega, **no perdemos por falta de talento**, sino por falta de *armamento moderno.*
 
+Y esa diferencia es suficiente para que el round se vaya 10–8 en contra.
 
 ### Round 3: La Revancha — El Bioestadístico Híbrido (La Propuesta Frankenstein)
 
-Mi “yo joven” me mira con pánico:
+Mi “yo joven” me mira con los ojos muy abiertos:
 
-—“¿Entonces… me va a reemplazar una IA?”
+*—“¿Entonces… una IA me va a reemplazar?”*
 
-—“No, campeón. Pero sí tenemos que hackear tu educación.”
+*—“No, campeón.*
 
-El punto no es desechar la especialidad —es robusta, seria, necesaria.
+Lo que te va a reemplazar es *quedarte inmóvil* mientras el mundo corre.”
 
-El punto es que el mundo bioestadístico ya no es solo estadístico.
+La conclusión no es destruir la especialidad.
+Esa base —matemática, metodológica, epidemiológica— es seria y valiosa.
 
-Lo que necesitamos es evolución, no reemplazo.
+El problema no es lo que tenemos.
+El problema es lo que falta.
 
-Necesitamos un Bioestadístico Híbrido.
+El mundo bioestadístico dejó de ser exclusivamente estadístico:
+
+- ahora se mueve en bases de datos en streaming,
+
+- entrenando modelos de predicción clínica,
+
+- auditando IA biomédica,
+
+- procesando textos, imágenes y genomas.
+
+Lo que necesitamos no es borrar lo existente:
+necesitamos evolucionar.
+
+Necesitamos un **Bioestadístico Híbrido.**
 
 Un profesional capaz de:
 
-entender al paciente,
+- **entender al paciente** (tu formación médica),
 
-entender la varianza,
+- **entender la incertidumbre** (tu formación estadística),
 
-y entender el código que la IA usa para predecir complicaciones quirúrgicas.
+- **y entender el código que usa la IA para anticipar complicaciones quirúrgicas.**
 
-Lo interesante es que todo lo que nos falta ya existe, solo que disperso:
+La buena noticia es casi humorística:
 
-la especialidad aporta teoría y métodos,
+todo lo que nos falta **ya existe**… solo que desperdigado en distintos planes, diplomados y maestrías.
 
-informática en salud aporta IA y sistemas,
+- La especialidad aporta la teoría, los modelos, la epidemiología.
 
-la práctica real aporta datos complejos.
+- La informática en salud aporta IA, sistemas y computación moderna.
+
+- La práctica real aporta datos complejos (caóticos, sucios, heterogéneos).
 
 La solución no es romper nada.
-La solución es fusionar.
+**La solución es fusionarlo.**
 
-Por ejemplo, la maestría de informática en Salud y que tú pasaste luego, tiene muchos de estos elementos.
+Y, de hecho, tú mismo lo viviste: la **Maestría de Informática en Salud** ya contiene piezas esenciales de la armadura moderna: programación, IA, bases de datos, modelación, señales biomédicas, métodos bayesianos…
 
+Ese es el germen del “Bioestadístico Híbrido”.
+Solo falta integrarlo, sistematizarlo y declararlo como un camino claro.
+
+Aquí está la muestra:
 
 ```markmap {height="500px"}
 - Maestría en Informática en Salud
   - Módulo 1: Introducción a la Informática en Salud
     - Bases para el desarrollo del pensamiento abstracto y el razonamiento lógico
     - Fundamentos generales de la computación y sistemas operativos
-    - Salud y población
     - Redes computarizadas en la salud
     - Información Científico-Técnica
+    - Salud y población
     - Fundamentos de las ciencias básicas biomédicas y métodos de las ciencias médicas
   - Módulo 2: Informática
     - Fundamentos teóricos de la estructura de datos
@@ -366,101 +410,108 @@ Por ejemplo, la maestría de informática en Salud y que tú pasaste luego, tien
       - Muestreo
       - Métodos bayesianos
       - Diseño experimental
-      - Otros temas
-    - Instrumentación biomédica
     - Análisis de señales biomédicas
     - Modelos computacionales no tradicionales
       - Vida artificial
       - Morfogénesis
       - Computadoras biológicas
-      - Otros temas
   - Perfil terminal C: Informática educativa
     - Fundamentos de la educación
     - Fundamentos de la enseñanza asistida por computadoras
-    - Diseño informático
+    - Diseño informático educativo
 ```
 
 
 
 ### El Bioestadístico Híbrido (versión 2025)
 
+La idea no es destruir la especialidad.
+La idea es **evolucionarla.**
 
-La idea no es destruir la especialidad: es evolucionarla.
-Unir lo mejor de tres mundos que hoy viven separados: la estadística clásica, la informática aplicada a salud y las demandas tecnológicas del siglo XXI.
+Tomar lo mejor de tres ecosistemas que hoy viven separados —la estadística clásica, la informática aplicada a la salud y las demandas tecnológicas del siglo XXI— y convertirlos en un solo organismo funcional.
 
-
-1. Lo que aporta la especialidad (su columna vertebral)
-
-Aquí está nuestra identidad histórica:
-
-Inferencia clásica y modelos lineales
-
-Ensayos clínicos y epidemiología cuantitativa
-
-Diseño de estudios y lógica causal básica
-
-Integración real con el sistema de salud
-
-Es una base excelente, pero ya no suficiente.
+Ese organismo no existe hoy… pero podría existir mañana.
 
 
-2. Lo que aporta la Informática en Salud (nuestro “lado ingeniero”)
 
-Redes neuronales y sistemas inteligentes
+**1. Lo que aporta la especialidad (nuestra columna vertebral)**
 
-Ingeniería de software y metodologías reproducibles
+Aquí está nuestra identidad histórica, lo que nos ha sostenido durante décadas:
 
-Gestión moderna de bases de datos (SQL/NoSQL)
+- Inferencia clásica y modelos lineales
 
-Modelación computacional y automatización
+- Ensayos clínicos y epidemiología cuantitativa
 
-Es lo que permite que la estadística salga del papel y viva en sistemas reales.
+- Diseño de estudios y lógica causal básica
 
-3. Lo que exige el mundo moderno (y donde Hoy perdemos por forfeit)
+- Integración real con el sistema de salud
 
-Machine Learning aplicado a problemas clínicos
+Es una base sólida, rigurosa, valiosa.
+Pero en 2025, **ya no basta.**
 
-Bioinformática y análisis de datos ómicos
+**2. Lo que aporta la Informática en Salud (nuestro “lado ingeniero”)**
 
-IA biomédica, NLP clínico y modelos de lenguaje
+Aquí aparecen los músculos que nuestra formación original nunca tuvo:
 
-Big data proveniente de sensores y wearables
+- Redes neuronales y sistemas inteligentes
 
-Computación en la nube y arquitecturas distribuidas
+- Ingeniería de software y metodologías reproducibles
 
-Modelos bayesianos para decisión clínica
+- Bases de datos modernas (SQL/NoSQL)
 
-Esto es lo que hoy Harvard, Hopkins, UW, Michigan y UNC enseñan de forma rutinaria.
+- Modelación computacional y automatización
 
+Este es el ecosistema que permite que la estadística deje de ser un PDF y se convierta en **sistemas reales que funcionan en hospitales reales.**
 
-⭐ ¿Qué obtenemos al combinar estos tres ecosistemas?
+**3. Lo que exige el mundo moderno (el terreno donde hoy perdemos por forfeit)**
 
-Un profesional capaz de:
+Esto es lo que enseñan Harvard, Hopkins, UW, Michigan o UNC sin despeinarse:
 
-Auditar un algoritmo (no solo usarlo).
+- Machine Learning aplicado a problemas clínicos
 
-Detectar y corregir sesgos en datos clínicos.
+- Bioinformática y análisis de datos ómicos
 
-Programar sus propios análisis, no depender de terceros.
+- IA biomédica, NLP clínico y modelos de lenguaje
 
-Diseñar estudios sólidos y entender causalidad.
+- Big data proveniente de sensores y wearables
 
-Trabajar con datos reales, imperfectos, ruidosos y masivos.
+- Computación en la nube y arquitecturas distribuidas
 
-No es “un estadístico más” ni “un programador con bata”.
-Es un profesional con tres identidades simultáneas:
+- Modelos bayesianos para decisión clínica
 
-Un médico (o profesional de salud) que entiende al paciente.
+No es ciencia ficción.
+Es simplemente el estándar profesional actual.
 
-Un estadístico que domina la incertidumbre.
+⭐ ¿Qué obtenemos si fusionamos estos tres ecosistemas?
 
-Un científico de datos que implementa la solución técnica.
+Nace una figura nueva, que probablemente  no existe todavía en el mapa latinoamericano:
 
-Eso, colega… es imparable.
-Y eso es exactamente lo que las mejores universidades ya están formando.
+Un profesional capaz de…
 
+- auditar un algoritmo, no solo usarlo,
 
-Este seria el plan de estudio resultante
+- detectar y corregir sesgos clínicos,
+
+- programar sus propios análisis,
+
+- diseñar estudios con rigor y entender causalidad,
+
+- trabajar con datos reales: incompletos, sucios, masivos y vivos.
+
+No es *“un estadístico más”.*
+No es *“un programador con bata”.*
+No es *“un epidemiólogo con un RStudio abierto”.*
+
+Es un profesional con **tres identidades simultáneas:**
+
+- un médico que entiende al paciente,
+- un estadístico que entiende la incertidumbre,
+- un científico de datos que implementa la solución técnica.
+
+Eso, colega… **es imparable.**
+Y eso es exactamente lo que ya están formando las mejores universidades del mundo.
+
+El Plan de Estudios resultante
 
 ```markmap {height="500px"}
 - Plan de Estudios
@@ -518,120 +569,118 @@ Este seria el plan de estudio resultante
 
 
 
-**El Resultado:** Un médico que entiende al paciente, un estadístico que entiende la varianza y un científico de datos que sabe programar la solución.
-Eso, colega, es imparable.
-
-
 
 ## Conclusión: La Respuesta al Residente (versión racional y sin anestesia)
 
 Cuando el residente me pregunta:
-“Profe… ¿esto me sirve para el mundo real?”,
-podría darle una frase motivacional de afiche universitario.
-Pero prefiero ser honesto.
+**“Profe… ¿esto me sirve para el mundo real?”,**
+claro que podría responderle con una frase motivacional de póster universitario.
+Pero no vine a eso.
 
 La respuesta es sí, rotundo.
+Pero con asteriscos, subrayados y un par de señales rojas parpadeando.
 
-Pero con asteriscos.
-Y subrayados.
-Y quizás un par de advertencias en rojo.
 
-Tienes algo que no se enseña ni en cursos acelerados ni en plataformas de moda:
-el hábito del método, la disciplina del razonamiento y la resiliencia del que aprendió ciencia en condiciones adversas.
-Eso, mi querido viajero del tiempo, es capital cognitivo.
+Tienes algo que no aparece en cursos exprés ni en plataformas de moda:
+el **hábito del método, la disciplina del razonamiento y la resiliencia** de quien aprendió ciencia en condiciones duras.
+Eso, colega, es **capital cognitivo.** Y es raro.
 
-Pero si te detienes ahí —si te quedas solo con lo que viste en el aula—
-los algoritmos te pasarán por encima como un camión de 16 ruedas.
-La historia de la ciencia está llena de gente brillante… que se quedó dormida en sus laureles.
+Pero —y aquí viene el golpe—
 
-Y aquí entra la última lección.
+si te quedas solo con lo que viste en el aula, los algoritmos te pasarán por encima como un camión de 16 ruedas.
+La historia científica está llena de gente brillante… que se oxidó creyendo que ya había llegado.
 
-La vida profesional es una ecuación con dos términos:
-Azar + Trabajo Racional.
+Ahí entra la última lección.
+
+La vida profesional es una ecuación simple:
+**Azar + Trabajo Racional.**
 
 Nacer en el cocodrilo es tu azar inicial.
 Aprender a invertir matrices y luego aprender Python por tu cuenta…
-esa es tu intervención, tu control sobre la variabilidad.
+ese es tu **control**, tu forma de intervenir en la variabilidad.
 
-No puedes controlar dónde naces ni cómo funciona el mundo,
-pero sí puedes controlar qué tipo de bioestadístico decides ser.
-Y cuando la suerte pase cerca —porque siempre pasa, aunque tarde—
-más vale que te encuentre pensando, no repitiendo.
+No decides dónde naces ni cómo funciona el mundo,
+pero sí decides **qué tipo de bioestadístico quieres ser.**
+Y cuando la suerte pase —porque siempre pasa, aunque tarde—,
+más vale que te encuentre **pensando, no repitiendo.**
 
 
 ## Mis recomendaciones 
 
+**1. Defiende tu base teórica a muerte (pero no te aferres a los rituales viejos)**
 
-1. Defiende tu base teórica a muerte (pero no te cases con los viejos rituales)
-
-Tu principal arma no es el PC del laboratorio.
+Tu arma principal no es el PC del laboratorio.
 Es tu capacidad de pensar correctamente.
 
-El álgebra y la lógica son tu frontera contra el dogma y la superficialidad.
+El álgebra, la lógica y la inferencia rigurosa son tu frontera contra el dogma, la superficialidad y el *“lo hice porque así lo dice el paquete”.*
 
-No confundas la comodidad del protocolo con rigor metodológico.
+No confundas la comodidad del protocolo con **rigor metodológico.**
+Los algoritmos no piensan; **tú sí.**  El juicio crítico no se terceriza.
+Cuando la computadora termina, **tu trabajo recién empieza.**
 
-Los algoritmos no piensan; tú sí. El juicio crítico no se delega.
+**2. La tecnología no es moda: es un requisito de la inferencia moderna**
 
-Cuando la computadora termina, tu trabajo apenas comienza.
+El nuevo paradigma exige **programar, simular y reproducir procesos**, no por estética, sino porque es científicamente indispensable.
 
-2. La tecnología no es moda: es condición para una inferencia moderna
+Aprende R y Python como si fueran idiomas maternos.
+Usa software, pero **no te sometas a él.**
 
-La nueva racionalidad exige programar, simular, reproducir procesos.
-No porque sea cool, sino porque es científicamente necesario.
+La computadora ejecuta instrucciones incluso cuando son absurdas.
+Tu deber no es apretar botones, **sino entender por qué** los aprietas y **qué significan realmente** los resultados que devuelve
 
-Aprende R y Python como si fuera un idioma materno.
+**3. Habita la intersección: ahí está tu verdadero valor**
 
-Usa software, pero no te sometas a él.
+*No eres un técnico.*
+*No eres un matemático en bata.*
+*No eres un “corredor de modelos”.*
 
-Recuerda: la computadora ejecuta instrucciones incluso cuando son absurdas.
+Eres el **artífice intelectual** que:
 
-Tu obligación no es apretar botones:
-es entender por qué los aprietas, y qué significan los resultados.
+- formula bien el problema,
 
-3. Habita la intersección: ese es tu verdadero valor
+- define la pregunta sustantiva,
 
-No eres un técnico.
-No eres un matemático en bata blanca.
-No eres un “corredor de modelos”.
+- entiende al clínico,
 
-Eres el artífice intelectual que:
+- entiende al ingeniero,
 
-formula bien el problema,
-
-define la pregunta sustantiva,
-
-entiende al clínico,
-
-entiende al ingeniero,
-
-y piensa críticamente en aquello que ningún software puede decidir.
+- y decide lo que ningún software puede decidir por ti.
 
 La estadística nunca fue neutral ni automática.
-Tu trabajo consiste en hacer explícita la subjetividad racional
-y evitar que la máquina la disfrace como “objetividad numérica”.
 
-Tu meta no es producir resultados; es producir conocimiento.
+Tu rol es **hacer explícita la subjetividad racional**, no permitir que la máquina la maquille como “objetividad numérica”.
 
-
-## ¡Tu turno! Pasa de la teoría a la práctica
-
-¿Te has sentido alguna vez como un impostor tecnológico a pesar de saber toda la teoría estadística?
-No estás solo.
-
-He preparado una **"Hoja de Ruta del Bioestadístico Híbrido 2025"**, donde comparo los recursos gratuitos que puedes usar hoy mismo para rellenar los huecos que Harvard y JHU cubren en sus másteres.
-
-👇 [**Subscribete** a nuestra comunidad de bioestadísticaedu, recibe artículos directamente en tu bandeja de entrada, sigue nuestro canal RSS o sigue mi canal de telegram]({{< relref "/subscribe/" >}}). Al suscribirte, te enviaré inmediatamente el Checklist para seguirte superando de manera autodidacta (¡con plantillas editables y ejemplos adicionales!),
+Tu meta no es producir resultados,
+sino producir **conocimiento** —el que cambia decisiones, políticas y vidas.
 
 
-Y tú, ¿qué herramienta sientes que le falta a tu formación hoy?
-¿Te animas a aprender a programar o prefieres quedarte en la zona de confort del "point-and-click"?
-**¡Te leo en los comentarios!**
+##¡Tu turno! Pasa de la teoría a la práctica
+¿Alguna vez te has sentido como un impostor tecnológico pese a dominar la teoría estadística?
+No te preocupes: nos ha pasado a todos. La transición del “sé derivar la verosimilitud” al “sé automatizar un pipeline” es menos obvia de lo que nos venden.
+
+Para ayudarte en ese salto, preparé la Hoja de Ruta del Bioestadístico Híbrido 2025:
+una selección de recursos gratuitos, estructurados y comparables a lo que enseñan Harvard, JHU y UW en sus másteres.
+Todo pensado para que puedas actualizarte sin depender de instituciones, presupuestos o fronteras.
+
+👇 [Suscríbete a nuestra comunidad de bioestadísticaedu]({{< relref "/subscribe/" >}})
+
+Recibirás artículos directamente en tu bandeja y acceso inmediato al Checklist del Bioest  adístico Híbrido, con plantillas editables, ejemplos guiados y recomendaciones prácticas para avanzar por tu cuenta.
+
+
+Y ahora te pregunto, colega:
+
+**¿Qué pieza sientes que falta en tu formación hoy?**
+¿Te animas a dar el salto hacia la programación y los datos reales,
+o prefieres quedarte en la comodidad del “point-and-click”?
+
+**Te leo en los comentarios.**
 
 ## Bibliografía
 
-1.  Ministerio de Salud Pública (2023). *Programa de la Especialidad de Primer Grado en Bioestadística*. La Habana: Universidad de Ciencias Médicas de La Habana.
-2.  Instituto Superior de Ciencias Médicas de La Habana (2003). *Programa de la Maestría de Informática en Salud*. Centro de Cibernética Aplicada a la Medicina (CECAM).
-3.  Veritasium en español (2020). *El Éxito ¿es Suerte o Trabajo Duro?* [Video]. YouTube.
+1. Ministerio de Salud Pública. (2023). Programa de la Especialidad de Primer Grado en Bioestadística. La Habana: Universidad de Ciencias Médicas de La Habana.
+
+2. Instituto Superior de Ciencias Médicas de La Habana. (2003). Programa de la Maestría de Informática en Salud. La Habana: Centro de Cibernética Aplicada a la Medicina (CECAM).
+
+2. Veritasium (en español). (2020). El éxito: ¿es suerte o trabajo duro? [Video]. YouTube.
 
 
