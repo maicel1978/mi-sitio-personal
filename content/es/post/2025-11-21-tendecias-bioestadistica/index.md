@@ -109,7 +109,7 @@ La siguiente figura presenta el mapa mental de los contenidos de la Especialidad
 
 Con el mapa sobre la mesa, ahora sí podemos compararlo con el territorio global.
 
-### Round 1: La pelea igualada, Los Cimientos de Granito (Lo que sí tenemos)
+### Round 1: La "pelea igualada", Los Cimientos de Granito (Lo que sí tenemos)
 
 Abro el **Programa de Bioestadística (2023).**
 
@@ -256,7 +256,7 @@ El egresado puede conversar con la IA… pero no **comprender** a la IA. Son usu
 
 {{< spoiler text="4. Estadística bayesiana: el ausente más incómodo (clic para ver el golpe al hígado)" >}}
 
-No hay priors, no hay MCMC, no hay modelos jerárquicos, no hay ensayos adaptativos bayesianos. Nada. Cero. Ni una mísera clase de Stan, JAGS o PyMC.
+No hay priors, no hay MCMC, no hay modelos jerárquicos, no hay ensayos adaptativos bayesianos. Nada. Cero. Ni una mísera clase de Intervalo de probabilidad, factor de bayes,  Stan, JAGS o PyMC.
 
 Y duele, porque hoy el paradigma bayesiano está en el centro de:
 
@@ -280,7 +280,7 @@ Es como estudiar medicina sin fisiología: puedes avanzar, pero caminas cojo.
 
 Sí, tenemos fundamentos fuertes. Pero Harvard, Hopkins y UW no solo tienen fundamentos: tienen fundamentos + **ML + big data + bioinformática + computación moderna + IA biomédica.**
 
-Es como un boxeador que domina el jab, pero descubre que el oponente también domina el jab… y **además practica Karate**
+Es como un boxeador que domina el jab, pero descubre que el oponente también domina el jab… y **además practica  puede dar patadas con giros en el aire**
 
 En este asalto, colega, **no perdemos por falta de talento**, sino por falta de *armamento moderno.*
 
@@ -577,7 +577,7 @@ Tu rol es **hacer explícita la subjetividad racional**, no permitir que la máq
 
 Tu meta no es producir resultados, sino producir **conocimiento** —el que cambia decisiones, políticas y vidas.
 
-##¡Tu turno! Pasa de la teoría a la práctica ¿Alguna vez te has sentido como un impostor tecnológico pese a dominar la teoría estadística? No te preocupes: nos ha pasado a todos. La transición del “sé derivar la verosimilitud” al “sé automatizar un pipeline” es menos obvia de lo que nos venden.
+## ¡Tu turno! Pasa de la teoría a la práctica ¿Alguna vez te has sentido como un impostor tecnológico pese a dominar la teoría estadística? No te preocupes: nos ha pasado a todos. La transición del “sé derivar la verosimilitud” al “sé automatizar un pipeline” es menos obvia de lo que nos venden.
 
 Para ayudarte en ese salto, preparé la Hoja de Ruta del Bioestadístico Híbrido 2025: una selección de recursos gratuitos, estructurados y comparables a lo que enseñan Harvard, JHU y UW en sus másteres. Todo pensado para que puedas actualizarte sin depender de instituciones, presupuestos o fronteras.
 
