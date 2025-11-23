@@ -2,7 +2,7 @@
 title: "Un Análisis Crítico del Currículo de Bioestadística Cubano Frente a las Tendencias Globales"
 subtitle: "Evaluando la Residencia Cubana en Bioestadística ante Rankings Globales 2025"
 categories: ["Estadística en Salud"]
-summary: "Análisis crítico del currículo de la Especialidad de Bioestadística (UCMH, 2023). Evaluamos fortalezas en epidemiología y demografía y proponemos integrar herramientas computacionales modernas para alinearlo con tendencias globales 2025."
+summary: "Análisis crítico del currículo de la Especialidad de Bioestadística (UCMH, 2023). Evaluamos fortalezas y debilidades y se propone integrar herramientas computacionales modernas para alinearlo con tendencias globales 2025."
 author: "admin"
 date: "2025-11-21" #año mes dia
 # show_author_profile: true
@@ -516,6 +516,16 @@ El Plan de Estudios resultante
     - Módulo E5. Ética y Desafíos Sociales de la Inteligencia Artificial en Medicina.
     
 ```
+### El pequeño detalle técnico: ¿Quién demonios enseña esto?
+
+Un inciso antes de que se emocionen demasiado:
+
+Sobre el papel, este nuevo currículo "híbrido y moderno" luce espectacular. Brillante. Digno de Harvard. Pero tiene un bug crítico de implementación que ningún código de Python puede arreglar: el Factor Humano.
+
+Para impartir este programa necesitamos un claustro de profesores que entiendan la Inferencia Bayesiana con la misma profundidad con la que manejan Kubernetes. Y, siendo brutalmente sinceros, encontrar a un académico que disfrute por igual de las demostraciones matemáticas rigurosas y de resolver conflictos de merge en Git es más difícil que encontrar un unicornio azul en el Malecón.
+
+La mayoría de nosotros, la **"vieja guardia"**, somos inmigrantes digitales en este nuevo mundo. Así que mi propuesta no es solo un reto para el pobre residente que viene a aprender; es una amenaza directa a nuestra zona de confort como docentes. O nos actualizamos, o tendremos que pedirle a los alumnos que nos expliquen qué rayos hace ese script que acabamos de mandarles a estudiar.
+
 
 ## Conclusión: La Respuesta al Residente (versión racional y sin anestesia)
 
