@@ -587,7 +587,9 @@ Tu rol es **hacer explícita la subjetividad racional**, no permitir que la máq
 
 Tu meta no es producir resultados, sino producir **conocimiento** —el que cambia decisiones, políticas y vidas.
 
-## ¡Tu turno! Pasa de la teoría a la práctica ¿Alguna vez te has sentido como un impostor tecnológico pese a dominar la teoría estadística? No te preocupes: nos ha pasado a todos. La transición del “sé derivar la verosimilitud” al “sé automatizar un pipeline” es menos obvia de lo que nos venden.
+## ¡Tu turno! 
+
+Pasa de la teoría a la práctica ¿Alguna vez te has sentido como un impostor tecnológico pese a dominar la teoría estadística? No te preocupes: nos ha pasado a todos. La transición del “sé derivar la verosimilitud” al “sé automatizar un pipeline” es menos obvia de lo que nos venden.
 
 Para ayudarte en ese salto, preparé la Hoja de Ruta del Bioestadístico Híbrido 2025: una selección de recursos gratuitos, estructurados y comparables a lo que enseñan Harvard, JHU y UW en sus másteres. Todo pensado para que puedas actualizarte sin depender de instituciones, presupuestos o fronteras.
 
