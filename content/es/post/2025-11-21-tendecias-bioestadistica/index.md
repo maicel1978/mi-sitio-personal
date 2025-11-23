@@ -36,7 +36,7 @@ Como tú, yo también esperaba *—quizás con algo de ingenuidad—* que algún
 
 Me inquietaba saber si un egresado de esta especialidad podría aspirar a un puesto en Norteamérica o Europa sin que se notaran las costuras.
 
-Hoy, más de veinte años después, la pregunta sigue viva. Solo cambió de dueño: ahora como profesor en la ENSAP, la escucho en las voces de residentes que enfrentan un mundo bioestadístico mucho más exigente y computacional que el que yo conocí hace casi dos décadas.
+Hoy, más de veinte años después, la pregunta sigue viva. Solo cambió de dueño: ahora como profesor en la ENSAP, la escucho en las voces de residentes que enfrentan un mundo bioestadístico mucho más exigente y computacional que el que yo conocí hace casi dos décadas. También encuentro residentes deseosos de acompañar a Colón en su viaje de regreso a casa pero ese seria otro tema.
 
 Este artículo es, en cierto modo, un experimento de física-ficción personal.
 
@@ -56,7 +56,7 @@ Así que le muestro a mi versión joven el mapa de lo que está a punto de estud
 
 La siguiente figura presenta el mapa mental de los contenidos de la Especialidad de Bioestadística (progrma actualizado del año 2023). Si observas con atención, notarás que el programa no gira solo en torno a recetas estadísticas y de metodología de la investigación. Te obliga a transitar entre cuatro funciones clave: **Servicios, Investigación, Docencia y Dirección**, un equilibrio que no es común en la formación internacional.
 
-``` {.markmap height="500px"}
+```markmap {height="500px"}
 - Plan de Estudios
   - Primer Año
     - Función en Servicios de Salud
