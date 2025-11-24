@@ -476,7 +476,7 @@ Ese organismo no existe hoy… pero podría existir mañana.
 
 Aquí está nuestra identidad histórica, lo que nos ha sostenido durante décadas:
 
-<img src="columna.png" />
+<img src="pilares.png" />
 
 
 
