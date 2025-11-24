@@ -2,10 +2,9 @@
 title: "Un Análisis Crítico del Currículo de Bioestadística Cubano Frente a las Tendencias Globales"
 subtitle: "Evaluando la Residencia Cubana en Bioestadística ante Rankings Globales 2025"
 categories: ["Estadística en Salud"]
-summary: "Análisis crítico del currículo de la Especialidad de Bioestadística (UCMH, 2023). Evaluamos fortalezas y debilidades y se propone integrar herramientas computacionales modernas para alinearlo con tendencias globales 2025."
+summary: "Análisis crítico del currículo de la Especialidad de Bioestadística (UCMH, 2023). Evaluamos fortalezas y debilidades así como se propone integrar herramientas computacionales modernas para alinearlo con tendencias globales 2025."
 author: "admin"
 date: "2025-11-21" #año mes dia
-# show_author_profile: true
 tags: 
   - "bioestadística"
   - "educación en salud"
@@ -24,9 +23,16 @@ type: post
 
 ## Introducción
 
+{{% callout note %}} 
+Comparamos el currículo cubano de bioestadística con tres maestrías top 5 mundiales y mostramos:
+  - Lo que está sólido.
+  - Lo que falta.
+  - Cómo rediseñar un perfil híbrido competitivo globalmente.
+{{% /callout %}}
+
 ### El Experimento: Física-Ficción en el Caribe
 
-Recuerdo con nitidez mi primer día en la residencia de Bioestadística en la [Escuela Nacional de Salud Pública (ENSAP)](https://ensap.sld.cu/). Llevaba una pregunta clavada en la cabeza, una de esas que uno no se atreve a formular en voz alta:
+Recuerdo mi primer día en la residencia de Bioestadística en la [Escuela Nacional de Salud Pública (ENSAP)](https://ensap.sld.cu/). Llevaba una pregunta clavada en la cabeza, una de esas que uno no se atreve a formular en voz alta:
 
 > ¿Realmente esta formación me servirá fuera de Cuba? ¿Podré competir con profesionales formados en otros sistemas?.
 
@@ -36,25 +42,50 @@ Como tú, yo también esperaba *—quizás con algo de ingenuidad—* que algún
 
 Me inquietaba saber si un egresado de esta especialidad podría aspirar a un puesto en Norteamérica o Europa sin que se notaran las costuras.
 
-Hoy, más de veinte años después, la pregunta sigue viva. Solo cambió de dueño: ahora como profesor en la ENSAP, la escucho en las voces de residentes que enfrentan un mundo bioestadístico mucho más exigente y computacional que el que yo conocí hace casi dos décadas. También encuentro residentes deseosos de acompañar a Colón en su viaje de regreso a casa pero ese seria otro tema.
+Hoy, más de veinte años después, la pregunta sigue viva. Solo cambió de dueño: ahora como profesor en la ENSAP, la escucho en las voces de residentes que enfrentan un mundo bioestadístico mucho más exigente y computacional que el que yo conocí. También encuentro residentes deseosos de acompañar a Colón en su viaje de regreso a casa pero ese seria otro tema.
 
 Este artículo es, en cierto modo, un experimento de física-ficción personal.
 
 **¿Qué le diría a mi yo joven si pudiera viajar al pasado? ¿Vale la pena estudiar Bioestadística después de haberte graduado de medicina?**
 
-Sería mi versión doméstica de la **paradoja del abuelo**: en lugar de eliminar al antepasado, buscaría asesinar su duda existencial. Me siento frente a ese residente inseguro, abro mi laptop… y pongo los datos sobre la mesa.
+Sería mi versión doméstica de la **paradoja del abuelo**: en lugar de eliminar al antepasado, buscaría asesinar su duda existencial. Me siento frente a ese residente inseguro, abro mi laptop… y pongo los datos sobre la mesa. 
 
-## Análisis Crítico del Currículo de Bioestadística Cubano Frente a las Tendencias Globales (La Pelea)
+### De que hablaremos
+
+Vamos a poner al currículo cubano de bioestadística en el ring para un **Análisis Crítico del Currículo de Bioestadística Cubano Frente a las Tendencias Globales.** 
+
+En la esquina opuesta, no uno, sino tres oponentes académicos de prestigio internacional *—maestrías con reputación, músculo curricular y pegada brutal—* listos para medirse en un sparring sin artimañas.
+
+
+<img src="oponentes.png" />
+
+
+{{< spoiler text="Perfil de los rivales: maestrías seleccionadas (Clic para ver el pedigree de los oponentes)" >}}
+
+
+| Criterio de selección                                 | Johns Hopkins                                                                 | Harvard                                                                        | Universidad de Washington                                                      |
+|-------------------------------------------------------|-------------------------------------------------------------------------------|--------------------------------------------------------------------------------|--------------------------------------------------------------------------------|
+| Antigüedad del departamento de bioestadística         | Fundado en **1918**. Más de **100 años** de historia.                         | Fundado en **1922**. Más de **100 años** de historia.                          | Creado en **1970**. Más de **50 años** de experiencia.                         |
+| Posición en evaluaciones de expertos en bioestadística| Clasificada como **número 1** por académicos en Estados Unidos.               | Clasificada como **número 1** (empate) por académicos.                         | Clasificada como **número 1** (empate) por académicos.                         |
+| Posición en rankings internacionales por disciplina   | Dentro de las **5 mejores** universidades del mundo en áreas estadísticas vinculadas con salud. | Ubicada como **número 1 mundial** en disciplinas relacionadas con salud pública y bioestadística. | Dentro de las **5 mejores** en bioestadística y salud poblacional en varios listados internacionales. |
+| Reputación global de la universidad                   | Universidad de élite, con múltiples programas entre los **10 mejores** nacionales. | Universidad de alcance mundial, consistentemente en el **top 3** global.        | Universidad pública de investigación de alto prestigio, generalmente en el **top 20** nacional. |
+| Reconocimiento en investigación biomédica             | Gran influencia histórica en estudios clínicos y métodos biomédicos avanzados. | Líder internacional en genética estadística, causalidad y análisis de grandes datos. | Reconocida por su fortaleza en modelos longitudinales y estudios de salud de poblaciones. |
+
+{{< /spoiler >}}
+
+
+## La Pelea
 
 Para ser justos en esta pelea, primero necesitamos saber qué peso traemos al ring. No se puede hablar de competitividad internacional sin comprender antes nuestro propio ADN académico.
 
-Cuando estás dentro del programa, es fácil ver cada asignatura como un obstáculo aislado que hay que aprobar. Pero basta alejarse unos pasos para notar algo que no siempre se aprecia a simple vista: hay una estructura lógica e intencional detrás del currículo, un andamiaje diseñado para sostener la formación de un bioestadístico integral.
+Cuando estás dentro del programa, es fácil ver cada asignatura como un obstáculo aislado que hay que aprobar. Pero basta alejarse unos pasos para notar algo que no siempre se aprecia a simple vista: **hay una estructura lógica e intencional detrás del currículo**, un andamiaje diseñado para sostener la formación de un bioestadístico integral.
 
 Así que le muestro a mi versión joven el mapa de lo que está a punto de estudiar. No es un simple listado de materias: es la arquitectura de su futuro cerebro profesional.
 
-### El Mapa del Territorio
+### Los atributos de la especialidad en bioestadística
 
-La siguiente figura presenta el mapa mental de los contenidos de la Especialidad de Bioestadística (progrma actualizado del año 2023). Si observas con atención, notarás que el programa no gira solo en torno a recetas estadísticas y de metodología de la investigación. Te obliga a transitar entre cuatro funciones clave: **Servicios, Investigación, Docencia y Dirección**, un equilibrio que no es común en la formación internacional.
+La siguiente figura presenta el mapa  de los contenidos de la residecia de Bioestadística. Si observas con atención, notarás que el programa no gira solo en torno a recetas estadísticas y de metodología de la investigación. Te obliga a transitar entre cuatro funciones clave: **Servicios, Investigación, Docencia y Dirección**, un equilibrio que no es común en la formación internacional.
+
 
 ```markmap {height="500px"}
 - Plan de Estudios
@@ -109,11 +140,11 @@ La siguiente figura presenta el mapa mental de los contenidos de la Especialidad
 
 Con el mapa sobre la mesa, ahora sí podemos compararlo con el territorio global.
 
-### Round 1: La "pelea igualada", Los Cimientos de Granito (Lo que sí tenemos)
+### Round 1: Los Cimientos de Granito (Lo que sí tenemos)
 
 Abro el **Programa de Bioestadística (2023).**
 
-Mi “yo” del pasado se pone tenso, esperando descubrir que nuestra formación es de papel maché frente al hormigón armado de los programas del norte.
+Mi “yo” del pasado se pone nervioso, esperando descubrir que nuestra formación es de papel maché frente al hormigón armado de los programas del norte.
 
 —“Tranquilo”, le digo. —“Mira esto”.
 
@@ -129,15 +160,18 @@ Esto significa que nuestro programa no forma “operadores de software” ni “
 
 En este primer round *—el de los fundamentos—* **no tenemos nada que envidiarle a nadie.**
 
-### Round 2: El KO Técnico, El Choque de Realidades (David vs. Goliats)
+<img src="raund01.png" />
 
-Hasta aquí, nuestro currículo cubano se sostiene con dignidad: teoría sólida, estadística clásica robusta y una integración con el sistema de salud que muchos programas del norte envidiarían. Pero basta abrir los sílabos de los gigantes internacionales para que la atmósfera en la habitación del tiempo se vuelva densa.
 
-Es ese instante incómodo en que David levanta la vista y dice:
+### Round 2: El Choque de Realidades (David vs. Goliats)
+
+Hasta aquí, nuestro currículo cubano se sostiene con dignidad: **teoría sólida, estadística clásica robusta y una integración con el sistema de salud** que muchos programas del norte envidiarían. Pero basta abrir los sílabos de los gigantes internacionales para que la atmósfera en la habitación del tiempo se vuelva densa.
+
+Es ese momento incómodo en que David levanta la vista y dice:
 
 > “—Compadre, ¿y este Goliat dónde entrena?”
 
-Para responder, comparé nuestro programa con tres pesos pesados del ecosistema global de la bioestadística:
+Para responder, le hablé de los tres pesos pesados del ecosistema global de la bioestadística seleccionados para la comparación:
 
 1.  [**Máster en Ciencias de Johns Hopkins**](https://publichealth.jhu.edu/academics/scm-dept-of-biostatistics): Los reyes de la Inferencia Causal. Aquí no preguntan “qué pasó”, sino “qué causó qué”, con una precisión casi quirúrgica.
 
@@ -156,135 +190,155 @@ Y cuando colocas los planes de estudio lado a lado, el panorama se ve así:
 
 Y aquí viene el KO técnico.
 
-{{< spoiler text="1. Modelos de predicción clínica: terreno casi virgen (clic para ver el jab en cámara lenta)" >}}
+<img src="raund02.png" />
 
-Nuestro currículo sigue anclado en regresión logística y modelos clásicos. Funcionan, sí… pero el mundo real ya pelea en otra categoría:
+### Limitaciones del Currículo de Bioestadística Cubano
 
--   Random Forests
+El currículo cubano de Bioestadística sigue siendo sólido en matemáticas y estadística clásica, pero no acompaña la evolución global del campo. Esto limita la capacidad del egresado para enfrentar datasets reales, sistemas complejos y métodos modernos. A continuación, un análisis organizado de sus principales brechas.
 
--   Árboles y boosting
+**1. Datos perfectos… pero el mundo no siempre lo es**
 
--   Redes neuronales
+En condiciones ideales, una investigación bien diseñada produce una base rectangular, limpia y estructurada, como la que se construye con un cuestionario ajustado a los objetivos del estudio. Eso está bien, y el currículo lo cubre.
 
--   Validación cruzada
-
--   Curvas de Calibración y recalibración
-
--   Modelos de riesgo y pronóstico
-
--   Frameworks modernos: TRIPOD, PROBAST, MLOps clínico
-
-Mientras tanto, nosotros seguimos creyendo que cambiar de función de enlace (Identidad,Logit, Log para Regresión Lineal, Regresión Logística y Regresión de Poisson) en **Modelos Lineales Generalizados o GLMs** es innovación.
-
-{{< /spoiler >}}
-
-{{% callout warning %}} El egresado puede analizar un ensayo clínico… pero no construir un modelo predictivo moderno de mortalidad, readmisión o diagnóstico asistido. {{% /callout %}}
-
-{{< spoiler text="2. El ecosistema de datos cambió… pero el currículo no (clic para ver el cross a la mandíbula)" >}}
-
-**Mientras afuera los bioestadísticos procesan:**
-
--   notas clínicas con NLP,
-
--   imágenes radiológicas e histológicas,
-
--   secuencias genómicas,
-
--   datos de wearables,
-
--   bases administrativas caóticas,
-
--   señales continuas de sensores,
-
-**el currículo local sigue trabajando con datos limpios, rectangulares, de libro de texto**
-
-**Eso implica muy pocas oportunidades de aprender:**
-
--   preprocesamiento moderno,
-
--   feature engineering,
-
--   manejo de datos sucios o incompletos,
-
--   integración de fuentes heterogéneas,
-
--   control de calidad en datos reales.
-
-En el ring global, eso es pelear con vendas en las manos.
-
-{{< /spoiler >}}
-
-{{% callout warning %}} El egresado está entrenado para datasets perfectos… no para la selva de datos del mundo real. {{% /callout %}}
-
-{{< spoiler text="3. LLMs e IA biomédica: tenemos la base matemática… pero no el puente (clic para ver el uppercut)" >}}
-
-Aquí está uno de los contrastes más irónicos.
-
-Nuestros estudiantes sí aprenden la matemática que sostiene a los modelos modernos: álgebra lineal, regresión, vectores, matrices, probabilidad…
-
-La base para entender cómo piensa un modelo como ChatGPT está presente.
-
-**¿El problema?**
-
-en ningún momento se enseña cómo esas piezas encajan para formar un modelo de lenguaje real.
-
-El resultado es exacto y casi cómico:
-
--   Pueden usar ChatGPT.
-
--   Pueden usar Gemini.
-
--   Pueden pedirle código, GLM, Poisson, survival…
-
--   Pero no pueden explicar cómo funciona más allá del mantra “son matrices grandes”.
-
-Y mucho menos:
-
--   entrenar un modelo,
-
--   auditarlo,
-
--   evaluar sesgos,
-
--   o adaptarlo a salud pública cubana.
-
-{{< /spoiler >}}
+El problema es que esa no es la única realidad que enfrenta un bioestadístico.
 
 {{% callout warning %}}
+El currículo asume datos limpios y rectangulares, pero no prepara al egresado para manejar datos reales, incompletos o no estructurados.
+{{% /callout %}}
 
-El egresado puede conversar con la IA… pero no **comprender** a la IA. Son usuarios competentes, no científicos capaces de auditar algoritmos. {{% /callout %}}
+{{< spoiler text="Cuando los datos no vienen 'de manual' (clic para abrir)" >}}
 
-{{< spoiler text="4. Estadística bayesiana: el ausente más incómodo (clic para ver el golpe al hígado)" >}}
+Fuera del entorno controlado, aparecen datos que:
+- provienen de registros hospitalarios,
+- derivan de dispositivos de la vida diaria (wearables, sensores),
+- contienen texto clínico,
+- incluyen imágenes médicas,
+- vienen de secuencias biológicas,
+- o están incompletos, desordenados y mezclados.
 
-No hay priors, no hay MCMC, no hay modelos jerárquicos, no hay ensayos adaptativos bayesianos. Nada. Cero. Ni una mísera clase de Intervalo de probabilidad, factor de bayes,  Stan, JAGS o PyMC.
+Para trabajar con estas fuentes se necesitan **técnicas de preprocesamiento** que no se enseñan en profundidad en la especialidad:
 
-Y duele, porque hoy el paradigma bayesiano está en el centro de:
+- manejo avanzado de datos faltantes,
+- tratamiento de valores atípicos,
+- integración de múltiples fuentes,
+- trabajo con datos no estructurados,
 
--   decisiones clínicas,
-
--   modelos biomédicos,
-
--   análisis longitudinal,
-
--   diseño de ensayos modernos,
-
--   evaluación de incertidumbre en sistemas complejos.
-
-Es como estudiar medicina sin fisiología: puedes avanzar, pero caminas cojo.
+e incluso operaciones básicas como procesar correctamente un fichero de texto con secuencias de ADN.
 
 {{< /spoiler >}}
 
-{{% callout warning %}} Mientras el mundo avanza hacia el razonamiento bayesiano, nosotros seguimos anclados únicamente al paradigma frecuentista. {{% /callout %}}
+
+
+**2. Estadística bayesiana: el ausente más evidente**
+
+El programa enseña con solidez la inferencia clásica: pruebas de significación, intervalos de confianza, regresión y análisis frecuentista tradicional.
+Incluso se reconocen, en algunos módulos, las limitaciones del p-value y sus interpretaciones incorrectas. **Pero ahí se detiene el avance.**
+
+{{% callout warning %}}
+El programa reconoce los problemas del enfoque clásico… pero no enseña el camino alternativo que hoy domina decisiones clínicas, estadística bayesiana, diseño adaptativo, modelación biomédica, pronósticos y análisis longitudinales.
+{{% /callout %}}
+
+{{< spoiler text="El vacío bayesiano (clic para abrir)" >}}
+
+Lo que no aparece en ningún módulo:
+- Factor de Bayes,
+- priors y posteriors,
+- modelos jerárquicos,
+- MCMC,
+- intervalos de probabilidad,
+- ensayos adaptativos bayesianos,
+- Stan, JAGS o PyMC.
+
+
+
+Es una puerta que se señala, pero que nunca se abre.
+{{< /spoiler >}}
+
+
+
+
+**3. Causalidad y sesgos modernos: se menciona el problema, no la solución**
+
+Los módulos de epidemiología y metodología explican sesgos tradicionales, pero no desarrollan el marco moderno de causalidad ni las herramientas actuales para cuantificar o corregir sesgos.
+
+{{% callout warning %}}
+En otras palabras:
+sabemos que hay sesgos… pero no aprendemos a estimarlos, modelarlos o reducirlos con técnicas estándar del siglo XXI.
+{{% /callout %}}
+
+Ausencias clave:
+
+- marco contrafactual de Rubin,
+- DAGs y teoría de Pearl,
+- IPTW, G-formula, TMLE,
+- aprendizaje causal,
+- análisis de sensibilidad (E-values, confusión no medida),
+- estimación orientada a objetivos.
+
+
+
+**4. Modelos de predicción clínica: un territorio casi intacto**
+
+La residencia no aborda el desarrollo de modelos diagnósticos o pronósticos para pacientes individuales. Además de la regresión lineal y logística no se abordan otros modelos predictivos.
+
+{{% callout warning %}}
+El egresado puede analizar un ensayo clínico… pero no puede construir un modelo predictivo moderno de mortalidad, readmisión o diagnóstico asistido.
+{{% /callout %}}
+
+
+{{< spoiler text="El jab: quedarse en regresión logística ya no alcanza (clic para abrir)" >}}
+
+El currículo se queda en modelos lineales y regresión logística, que siguen siendo útiles, sí…
+pero la predicción clínica moderna usa:
+
+- Random Forests y boosting,
+- redes neuronales,
+- validación cruzada avanzada,
+- curvas de calibración,
+- análisis de riesgo,
+- TRIPOD, PROBAST,
+- MLOps clínico y actualización de modelos.
+
+{{< /spoiler >}}
+
+
+
+
+**5. Tenemos la matemática, pero no el puente hacia la IA**
+
+La formación incluye: álgebra lineal, matrices, vectores, probabilidad,es decir, la base conceptual para entender IA moderna pero solo somos usuarios acríticos de estas.
+
+{{% callout warning %}}
+Los egresados pueden usar ChatGPT o Gemini…
+pero no pueden explicar cómo funcionan ni auditar modelos aplicados a salud.
+{{% /callout %}}
+
+
+{{< spoiler text="El uppercut: IA sin IA (clic para abrir)" >}}
+
+No se muestra cómo esas piezas se ensamblan las herramientas matemática para formar:
+
+- modelos generativos,
+- modelos de lenguaje,
+- arquitecturas neuronales modernas,
+- herramientas de auditoría y evaluación de sesgos en IA.
+
+{{< /spoiler >}}
+
+
+
 
 ### Resultado del Round 2
 
 Sí, tenemos fundamentos fuertes. Pero Harvard, Hopkins y UW no solo tienen fundamentos: tienen fundamentos + **ML + big data + bioinformática + computación moderna + IA biomédica.**
 
-Es como un boxeador que domina el jab, pero descubre que el oponente también domina el jab… y **además practica  puede dar patadas con giros en el aire**
+Es como un boxeador que domina el jab, pero descubre que el oponente también domina el jab… y **además practica puede dar patadas con giros en el aire.**
 
 En este asalto, colega, **no perdemos por falta de talento**, sino por falta de *armamento moderno.*
 
 Y esa diferencia es suficiente para que el round se vaya 10–8 en contra.
+
+
 
 ### Round 3: La Revancha — El Bioestadístico Híbrido (La Propuesta Frankenstein)
 
@@ -303,11 +357,8 @@ El problema no es lo que tenemos. El problema es lo que falta.
 El mundo bioestadístico dejó de ser exclusivamente estadístico:
 
 -   ahora se mueve en bases de datos en streaming,
-
 -   entrenando modelos de predicción clínica,
-
 -   auditando IA biomédica,
-
 -   procesando textos, imágenes y genomas.
 
 Lo que necesitamos no es borrar lo existente: necesitamos evolucionar.
@@ -317,9 +368,7 @@ Necesitamos un **Bioestadístico Híbrido.**
 Un profesional capaz de:
 
 -   **entender al paciente** (tu formación médica),
-
 -   **entender la incertidumbre** (tu formación estadística),
-
 -   **y entender el código que usa la IA para anticipar complicaciones quirúrgicas.**
 
 La buena noticia es casi humorística:
@@ -338,7 +387,9 @@ Y, de hecho, tú mismo lo viviste: la **Maestría de Informática en Salud** ya 
 
 Ese es el germen del “Bioestadístico Híbrido”. Solo falta integrarlo, sistematizarlo y declararlo como un camino claro.
 
-Aquí está la muestra:
+Aquí está un ejemplo:
+
+{{< spoiler text="Plan de estudio de la Maestría de Informática en Salud (clic para abrir)" >}}
 
 ```markmap {height="500px"}
 - Maestría en Informática en Salud
@@ -380,6 +431,11 @@ Aquí está la muestra:
     - Fundamentos de la enseñanza asistida por computadoras
     - Diseño informático educativo
 ```
+{{< /spoiler >}}
+
+
+<img src="raund03.png" />
+
 
 ### El Bioestadístico Híbrido (versión 2025)
 
@@ -461,7 +517,8 @@ Es un profesional con **tres identidades simultáneas:**
 
 Eso, colega… **es imparable.** Y eso es exactamente lo que ya están formando las mejores universidades del mundo.
 
-El Plan de Estudios resultante
+{{< spoiler text="El Plan de Estudios resultante (clic para abrir)" >}}
+
 
 ```markmap {height="500px"}
 - Plan de Estudios
@@ -516,16 +573,18 @@ El Plan de Estudios resultante
     - Módulo E5. Ética y Desafíos Sociales de la Inteligencia Artificial en Medicina.
     
 ```
-### El pequeño detalle técnico: ¿Quién demonios enseña esto?
+{{< /spoiler >}}
+
+
+### El pequeño detalle técnico: ¿Quién demonios enseña esto? y ¿Qué humano graduado de ciencia médicas lo soporta?
 
 Un inciso antes de que se emocionen demasiado:
 
 Sobre el papel, este nuevo currículo "híbrido y moderno" luce espectacular. Brillante. Digno de Harvard. Pero tiene un bug crítico de implementación que ningún código de Python puede arreglar: el Factor Humano.
 
-Para impartir este programa necesitamos un claustro de profesores que entiendan la Inferencia Bayesiana con la misma profundidad con la que manejan Kubernetes. Y, siendo brutalmente sinceros, encontrar a un académico que disfrute por igual de las demostraciones matemáticas rigurosas y de resolver conflictos de merge en Git es más difícil que encontrar un unicornio azul en el Malecón.
+Para impartir este programa necesitamos un claustro de profesores que entiendan la Inferencia Bayesiana con la misma profundidad con la que manejan Kubernetes. Y, siendo brutalmente sinceros, encontrar a un académico que disfrute por igual de las demostraciones matemáticas rigurosas y de resolver conflictos de merge en Git es más difícil que encontrar un unicornio azul en el Malecón. Por otra parte, está el reto de asimilar todo ese contenido en los tres años de la residencia. Pero quien dijo que uno se hace biostadístico el día que te gradúas. La mejor parte viene después en la que tendrás que aprender trabajando duro y estudiando por tu cuenta.  
 
-La mayoría de nosotros, la **"vieja guardia"**, somos inmigrantes digitales en este nuevo mundo. Así que mi propuesta no es solo un reto para el pobre residente que viene a aprender; es una amenaza directa a nuestra zona de confort como docentes. O nos actualizamos, o tendremos que pedirle a los alumnos que nos expliquen qué rayos hace ese script que acabamos de mandarles a estudiar.
-
+La mayoría de nosotros, la **"vieja guardia"**, somos inmigrantes digitales en este nuevo mundo. Así que mi propuesta no es solo un reto para el pobre residente que viene a aprender; es una amenaza directa a nuestra zona de confort como docentes y profesionales. O nos actualizamos, o tendremos que pedirle a los alumnos que nos expliquen qué rayos hace ese script que acabamos de mandarles a estudiar.
 
 ## Conclusión: La Respuesta al Residente (versión racional y sin anestesia)
 
@@ -537,15 +596,15 @@ Tienes algo que no aparece en cursos exprés ni en plataformas de moda: el **há
 
 Pero —y aquí viene el golpe—
 
-si te quedas solo con lo que viste en el aula, los algoritmos te pasarán por encima como un camión de 16 ruedas. La historia científica está llena de gente brillante… que se oxidó creyendo que ya había llegado.
+si te quedas solo con lo que viste en el aula y la residencia, los algoritmos te pasarán por encima como un camión de 16 ruedas. La historia científica está llena de gente brillante… que se oxidó creyendo que ya había llegado.
 
 Ahí entra la última lección.
 
-La vida profesional es una ecuación simple: **Azar + Trabajo Racional.**
+La vida profesional es una ecuación simple: **Azar + Duro Trabajo Racional.**
 
 Nacer en el cocodrilo es tu azar inicial. Aprender a invertir matrices y luego aprender Python por tu cuenta… ese es tu **control**, tu forma de intervenir en la variabilidad.
 
-No decides dónde naces ni cómo funciona el mundo, pero sí decides **qué tipo de bioestadístico quieres ser.** Y cuando la suerte pase —porque siempre pasa, aunque tarde—, más vale que te encuentre **pensando, no repitiendo.**
+No decides dónde naces ni cómo funciona el mundo, pero sí decides **qué tipo de bioestadístico quieres ser.** Y cuando la suerte pase —porque siempre pasa, aunque tarde—, más vale que te encuentre **pensando, no repitiendo recetas.**
 
 ## Mis recomendaciones
 
@@ -563,7 +622,7 @@ El nuevo paradigma exige **programar, simular y reproducir procesos**, no por es
 
 Aprende R y Python como si fueran idiomas maternos. Usa software, pero **no te sometas a él.**
 
-La computadora ejecuta instrucciones incluso cuando son absurdas. Tu deber no es apretar botones, **sino entender por qué** los aprietas y **qué significan realmente** los resultados que devuelve
+La computadora ejecuta instrucciones incluso cuando son absurdas. Tu deber no es apretar botones, **sino entender por qué** los aprietas y **qué significan realmente** los resultados que devuelve.
 
 **3. Habita la intersección: ahí está tu verdadero valor**
 
@@ -572,13 +631,9 @@ La computadora ejecuta instrucciones incluso cuando son absurdas. Tu deber no es
 Eres el **artífice intelectual** que:
 
 -   formula bien el problema,
-
 -   define la pregunta sustantiva,
-
 -   entiende al clínico,
-
 -   entiende al ingeniero,
-
 -   y decide lo que ningún software puede decidir por ti.
 
 La estadística nunca fue neutral ni automática.
@@ -587,7 +642,7 @@ Tu rol es **hacer explícita la subjetividad racional**, no permitir que la máq
 
 Tu meta no es producir resultados, sino producir **conocimiento** —el que cambia decisiones, políticas y vidas.
 
-## ¡Tu turno! 
+## ¡Tu turno!
 
 Pasa de la teoría a la práctica ¿Alguna vez te has sentido como un impostor tecnológico pese a dominar la teoría estadística? No te preocupes: nos ha pasado a todos. La transición del “sé derivar la verosimilitud” al “sé automatizar un pipeline” es menos obvia de lo que nos venden.
 
