@@ -400,11 +400,13 @@ La buena noticia es casi humorística:
 
 todo lo que nos falta **ya existe**… solo que desperdigado en distintos planes, diplomados y maestrías.
 
--   La especialidad aporta la teoría, los modelos, la epidemiología.
+<img src="practica.png" />
 
--   La informática en salud aporta IA, sistemas y computación moderna.
+<!-- -   La especialidad aporta la teoría, los modelos, la epidemiología. -->
 
--   La práctica real aporta datos complejos (caóticos, sucios, heterogéneos).
+<!-- -   La informática en salud aporta IA, sistemas y computación moderna. -->
+
+<!-- -   La práctica real aporta datos complejos (caóticos, sucios, heterogéneos). -->
 
 La solución no es romper nada. **La solución es fusionarlo.**
 
