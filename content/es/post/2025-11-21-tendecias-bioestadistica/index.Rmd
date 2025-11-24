@@ -23,12 +23,7 @@ type: post
 
 ## Introducción
 
-{{% callout note %}} 
-Comparamos el currículo cubano de bioestadística con tres maestrías top 5 mundiales y mostramos:
-  - Lo que está sólido.
-  - Lo que falta.
-  - Cómo rediseñar un perfil híbrido competitivo globalmente.
-{{% /callout %}}
+<img src="sumario.png" />
 
 ### El Experimento: Física-Ficción en el Caribe
 
@@ -80,14 +75,16 @@ Para ser justos en esta pelea, primero necesitamos saber qué peso traemos al ri
 
 Cuando estás dentro del programa, es fácil ver cada asignatura como un obstáculo aislado que hay que aprobar. Pero basta alejarse unos pasos para notar algo que no siempre se aprecia a simple vista: **hay una estructura lógica e intencional detrás del currículo**, un andamiaje diseñado para sostener la formación de un bioestadístico integral.
 
-Así que le muestro a mi versión joven el mapa de lo que está a punto de estudiar. No es un simple listado de materias: es la arquitectura de su futuro cerebro profesional.
+Así que le muestro a mi versión joven el mapa de lo que está a punto de estudiar. No es un simple listado de materias: es la arquitectura de su **futuro cerebro profesional**.
+
+<img src="ingenuidad.png" />
+
 
 ### Los atributos de la especialidad en bioestadística
 
-La siguiente figura presenta el mapa  de los contenidos de la residecia de Bioestadística. Si observas con atención, notarás que el programa no gira solo en torno a recetas estadísticas y de metodología de la investigación. Te obliga a transitar entre cuatro funciones clave: **Servicios, Investigación, Docencia y Dirección**, un equilibrio que no es común en la formación internacional.
+La siguiente figura presenta el mapa  de los **contenidos de la residecia de Bioestadística**. Si observas con atención, notarás que el programa no gira solo en torno a recetas estadísticas y de metodología de la investigación. Te obliga a transitar entre cuatro funciones clave: **Servicios, Investigación, Docencia y Dirección**, un equilibrio que no es común en la formación internacional.
 
-
-```markmap {height="500px"}
+```markmap {height="300px"}
 - Plan de Estudios
   - Primer Año
     - Función en Servicios de Salud
@@ -136,7 +133,8 @@ La siguiente figura presenta el mapa  de los contenidos de la residecia de Bioes
       - Talleres de tesis II y III.
 ```
 
-¿Lo ves? Es un esqueleto robusto. Álgebra y Análisis Matemático sostienen toda la estructura, y sobre esa base pesada se levantan asignaturas como Análisis Multivariado o Ensayos Clínicos. Lo que parece una simple lista de módulos es, en realidad, un sistema bien articulado.
+
+¿Lo ves? Es un **esqueleto robusto**. **Álgebra y Análisis Matemático** sostienen toda la estructura, y sobre esa base pesada se levantan asignaturas como **Análisis Multivariado o Ensayos Clínicos**. Lo que parece una simple lista de módulos es, en realidad, un **sistema** bien articulado.
 
 Con el mapa sobre la mesa, ahora sí podemos compararlo con el territorio global.
 
@@ -148,13 +146,19 @@ Mi “yo” del pasado se pone nervioso, esperando descubrir que nuestra formaci
 
 —“Tranquilo”, le digo. —“Mira esto”.
 
-Los **Módulos 3, 4 y 5 del Primer Año** —Álgebra Lineal, Análisis Matemático y Probabilidades— son reveladores. Y aquí llega la primera sorpresa para cualquiera que mire esto con lupa internacional: **nuestro programa es matemáticamente sólido.**
+Los módulos iniciales de matemáticas revelan una base rigurosa en el programa, sólida desde una perspectiva internacional.
 
-Mientras muchos *Masters of Public Health (MPH)* suavizan la matemática para hacerla “amigable”, el currículo cubano te obliga a pasar por el túnel completo: cálculo, álgebra lineal y fundamentos rigurosos de inferencia. *Una matriz inversa se calcula igual en La Habana que en Seattle, y la función de verosimilitud no entiende de fronteras.*
+<img src="primer.png" />
+
+
+Mientras muchos *Masters of Public Health (MPH)* suavizan la matemática para hacerla “amigable”, el currículo cubano te obliga a pasar por el túnel completo: cálculo, álgebra lineal y fundamentos rigurosos de inferencia. **Una matriz inversa se calcula igual en La Habana que en Seattle, y la función de verosimilitud no entiende de fronteras.**
 
 Y no es lo único.
 
-Tenemos una “joya de la corona” que casi nunca valoramos: el **Módulo 10 (Demografía)** y su articulación natural con la **Epidemiología (Módulo 24)**.
+Y contamos con un elemento distintivo que a veces pasa desapercibido: la sólida articulación entre la Demografía y la Epidemiología. Esta integración, sin ser la única fortaleza del plan de estudios, representa una de nuestras mayores ventajas formativas..
+
+<img src="integracion.png" />
+
 
 Esto significa que nuestro programa no forma “operadores de software” ni “calculadoras humanas”. Forma salubristas con pensamiento poblacional, **capaces de entender dinámicas sociales, sesgos estructurales y problemas operativos del sistema de salud.**
 
@@ -169,9 +173,11 @@ Hasta aquí, nuestro currículo cubano se sostiene con dignidad: **teoría sóli
 
 Es ese momento incómodo en que David levanta la vista y dice:
 
-> “—Compadre, ¿y este Goliat dónde entrena?”
+> —Compadre, ¿y este Goliat dónde entrena?
 
 Para responder, le hablé de los tres pesos pesados del ecosistema global de la bioestadística seleccionados para la comparación:
+
+{{< spoiler text="Maestrias seleccionadas (Clic para ver el pedigree de los oponentes)" >}}
 
 1.  [**Máster en Ciencias de Johns Hopkins**](https://publichealth.jhu.edu/academics/scm-dept-of-biostatistics): Los reyes de la Inferencia Causal. Aquí no preguntan “qué pasó”, sino “qué causó qué”, con una precisión casi quirúrgica.
 
@@ -179,14 +185,22 @@ Para responder, le hablé de los tres pesos pesados del ecosistema global de la 
 
 3.  [**Máster en Ciencias de University of Washington**](https://www.biostat.washington.edu/academics/ms)**:** El dominio del Big Data biomédico. Datos inmensos, computación en la nube, pipelines automáticos… pura artillería pesada.
 
-Y cuando colocas los planes de estudio lado a lado, el panorama se ve así:
+{{< /spoiler >}}
 
-| Categoría | Currículo Cubano | Harvard | Johns Hopkins | UW |
-|---------------|---------------|---------------|---------------|---------------|
-| Fundamentos Stats | Probabilidad, Inferencia, ANOVA, Logística | Inferencia + Biología + ML | Causalidad, Longitudinal, Ensayos | GLM, Big Data, Métodos Computacionales |
-| Computación | Herramientas Básicas | R, Python, Bioinformática, ML | Minería y Gestión de Datos | HPC, Nube, Programación Avanzada |
-| Predicción Clínica | Regresión Logística | Modelos Predictivos + DL | Causal ML | ML y Big Data biomédico |
-| Ecosistema de Datos | Bases rectangulares y encuestas | Datos ómicos, NLP, imágenes médicas | registros complejos, claims, EMR | Wearables, sensores y flujos continuos |
+{{< spoiler text="Y cuando colocas los planes de estudio lado a lado, el panorama se ve así: (Clic para ver detalles)" >}}
+
+| Categoría | Currículo Cubano (UCMH)  | Harvard  | Johns Hopkins  | University of Washington |
+|---|---|---|---|---|
+| **Estadística Fundamental** | Probabilidades; Inferencia; Regresión; Análisis de varianza; Métodos no paramétricos; Series temporales; Análisis multivariado; Análisis de supervivencia; Estadística descriptiva. | Inferencia; Modelos lineales; Modelos generalizados; Métodos cuantitativos para biología; Métodos estadísticos de gran dimensión. | Inferencia; Modelos longitudinales; Ensayos clínicos; Métodos de causalidad; Modelos mixtos; Series temporales en salud. | Modelos lineales; Métodos para datos de gran volumen; Métodos computacionales aplicados; Modelos espaciales; Series temporales. |
+| **Computación y Herramientas Analíticas** | Herramientas informáticas; Organización y procesamiento de información; Gestión de información. | Programación aplicada; Computación científica; Ciencia de datos; Bioinformática; Manejo de información biomédica. | Programación estadística; Minería de datos; Manejo de bases de datos biomédicas complejas. | Programación avanzada; Computación en la nube; Sistemas distribuidos; Infraestructura digital para datos de salud. |
+| **Modelos Predictivos** | Regresión lineal; Regresión logística; Métodos multivariados. | Métodos predictivos; Aprendizaje supervisado; Aprendizaje profundo aplicado a biología y salud. | Métodos predictivos con enfoque causal; Aprendizaje estadístico aplicado a datos de salud. | Métodos predictivos para datos de gran escala; Analítica poblacional; Aprendizaje automático aplicado a datos masivos. |
+| **Métodos de Causalidad** | Epidemiología clásica; Ensayos clínicos; Diseños de investigación en salud. | Métodos de inferencia causal aplicados a biomedicina. | Métodos causales; Enfoque contrafactual; Modelos longitudinales; Métodos basados en supuestos de identificación. | Métodos causales aplicados a registros poblacionales y datos de gran volumen. |
+| **Ciencia de Datos Biomédicos** | No incluye contenidos de genómica, bioinformática ni datos biomédicos especializados. | Genómica; Bioinformática; Datos moleculares; Integración de información biológica. | Datos ómicos; Registros médicos electrónicos; Información biomédica estructurada y no estructurada. | Datos de sensores; Datos continuos; Datos moleculares; Imágenes médicas; Flujos continuos de información de salud. |
+| **Fuentes de Datos en Salud** | Estadísticas de salud; Demografía; Muestreo; Análisis de situación de salud; Sistemas y servicios de salud. | Datos ómicos; Texto biomédico; Imágenes médicas; Cohortes clínicas integradas. | Registros electrónicos de salud; Bases administrativas; Registros longitudinales. | Datos de dispositivos portátiles; Sensores; Plataformas digitales; Registros poblacionales masivos. |
+| **Investigación y Diseño de Estudios** | Metodología de la investigación; Talleres de tesis; Evaluación de pruebas diagnósticas. | Diseño experimental moderno; Integración entre estadística, biología y computación. | Diseño de estudios con enfoque causal; Evaluaciones metodológicas; Análisis crítico. | Diseño de estudios en entornos computacionales; Investigación basada en datos de gran escala. |
+| **Salud Pública y Epidemiología** | Epidemiología; Salud pública; Gestión en salud; Bioética; Filosofía y sociedad; Historia de la salud pública; Riesgos y desastres. | Epidemiología moderna; Modelos de transmisión; Integración biomédica. | Epidemiología con enfoque causal; Análisis longitudinal. | Epidemiología computacional; Vigilancia basada en datos masivos. |
+
+{{< /spoiler >}}
 
 Y aquí viene el KO técnico.
 
@@ -194,7 +208,7 @@ Y aquí viene el KO técnico.
 
 ### Limitaciones del Currículo de Bioestadística Cubano
 
-El currículo cubano de Bioestadística sigue siendo sólido en matemáticas y estadística clásica, pero no acompaña la evolución global del campo. Esto limita la capacidad del egresado para enfrentar datasets reales, sistemas complejos y métodos modernos. A continuación, un análisis organizado de sus principales brechas.
+El currículo cubano de Bioestadística sigue siendo sólido en matemáticas y estadística clásica, pero no acompaña la evolución global del campo. Esto **limita la capacidad del egresado para enfrentar datasets reales, sistemas complejos y métodos modernos**. A continuación, un análisis organizado de sus principales brechas.
 
 **1. Datos perfectos… pero el mundo no siempre lo es**
 
@@ -227,15 +241,15 @@ e incluso operaciones básicas como procesar correctamente un fichero de texto c
 
 {{< /spoiler >}}
 
+[Te invito a conocer mas sobre analisis exploratorio de datos en el siguiente post ]({{< relref "/post/2025-02-11-eda" >}}).
 
+**2. Estadística bayesiana: un ausente importante**
 
-**2. Estadística bayesiana: el ausente más evidente**
-
-El programa enseña con solidez la inferencia clásica: pruebas de significación, intervalos de confianza, regresión y análisis frecuentista tradicional.
+El programa enseña  la inferencia clásica: **pruebas de significación, intervalos de confianza, regresión y análisis frecuentista tradicional**.
 Incluso se reconocen, en algunos módulos, las limitaciones del p-value y sus interpretaciones incorrectas. **Pero ahí se detiene el avance.**
 
 {{% callout warning %}}
-El programa reconoce los problemas del enfoque clásico… pero no enseña el camino alternativo que hoy domina decisiones clínicas, estadística bayesiana, diseño adaptativo, modelación biomédica, pronósticos y análisis longitudinales.
+El programa reconoce los problemas del enfoque clásico… pero no enseña el camino alternativo que hoy domina decisiones clínicas, Estadística bayesiana aplicada, Modelos jerárquicos bayesianos, Modelos longitudinales con enfoque bayesiano, Diseño adaptativo de estudios y Modelación biomédica moderna.
 {{% /callout %}}
 
 {{< spoiler text="El vacío bayesiano (clic para abrir)" >}}
@@ -249,12 +263,10 @@ Lo que no aparece en ningún módulo:
 - ensayos adaptativos bayesianos,
 - Stan, JAGS o PyMC.
 
-
-
 Es una puerta que se señala, pero que nunca se abre.
 {{< /spoiler >}}
 
-
+[Este post profundiza en el tema de las limitaciones de las pruebas de significación ]({{< relref "/post/2025-08-10-significacion" >}}).
 
 
 **3. Causalidad y sesgos modernos: se menciona el problema, no la solución**
@@ -266,7 +278,8 @@ En otras palabras:
 sabemos que hay sesgos… pero no aprendemos a estimarlos, modelarlos o reducirlos con técnicas estándar del siglo XXI.
 {{% /callout %}}
 
-Ausencias clave:
+
+{{< spoiler text="Ausencias clave en Causalidad (Clic para ver detalles)" >}}
 
 - marco contrafactual de Rubin,
 - DAGs y teoría de Pearl,
@@ -275,7 +288,10 @@ Ausencias clave:
 - análisis de sensibilidad (E-values, confusión no medida),
 - estimación orientada a objetivos.
 
+{{< /spoiler >}}
 
+
+[Te invito a conocer mas sobre el enfoque de respuestas potenciales en el siguiente post ]({{< relref "/post/2025-09-01-m-s-all-del-rct-en-salud-p-blica-y-epidemiolog-a" >}}).
 
 **4. Modelos de predicción clínica: un territorio casi intacto**
 
@@ -301,17 +317,18 @@ pero la predicción clínica moderna usa:
 
 {{< /spoiler >}}
 
-
+[Si deseas desarrollar y validar un modelo de predicción clínica, puedes consultar mi post sobre el tema]({{< relref "/post/2025-02-08-como-entrenar-y-validar-un-modelo-de-machine-learnig" >}}).
 
 
 **5. Tenemos la matemática, pero no el puente hacia la IA**
 
-La formación incluye: álgebra lineal, matrices, vectores, probabilidad,es decir, la base conceptual para entender IA moderna pero solo somos usuarios acríticos de estas.
+La formación incluye: álgebra lineal, matrices, vectores, probabilidad,es decir, la base conceptual para entender IA moderna pero solo somos usuarios acríticos de estas. No podemos entender la mayoría de los algoritmos de aprendizaje automático.
 
 {{% callout warning %}}
 Los egresados pueden usar ChatGPT o Gemini…
 pero no pueden explicar cómo funcionan ni auditar modelos aplicados a salud.
 {{% /callout %}}
+
 
 
 {{< spoiler text="El uppercut: IA sin IA (clic para abrir)" >}}
@@ -325,6 +342,7 @@ No se muestra cómo esas piezas se ensamblan las herramientas matemática para f
 
 {{< /spoiler >}}
 
+[Si te interesa el tema, puedes consultar mi post sobre cómo funcionan los grandes modelos de lenguaje ]({{< relref "/post/2025-09-06-ia" >}}).
 
 
 
@@ -449,13 +467,17 @@ Ese organismo no existe hoy… pero podría existir mañana.
 
 Aquí está nuestra identidad histórica, lo que nos ha sostenido durante décadas:
 
--   Inferencia clásica y modelos lineales
+<img src="columna.png" />
 
--   Ensayos clínicos y epidemiología cuantitativa
 
--   Diseño de estudios y lógica causal básica
 
--   Integración real con el sistema de salud
+<!-- -   Inferencia clásica y modelos lineales -->
+
+<!-- -   Ensayos clínicos y epidemiología cuantitativa -->
+
+<!-- -   Diseño de estudios y lógica causal básica -->
+
+<!-- -   Integración real con el sistema de salud -->
 
 Es una base sólida, rigurosa, valiosa. Pero en 2025, **ya no basta.**
 
@@ -463,13 +485,15 @@ Es una base sólida, rigurosa, valiosa. Pero en 2025, **ya no basta.**
 
 Aquí aparecen los músculos que nuestra formación original nunca tuvo:
 
--   Redes neuronales y sistemas inteligentes
+<img src="falta.png" />
 
--   Ingeniería de software y metodologías reproducibles
+<!-- -   Redes neuronales y sistemas inteligentes -->
 
--   Bases de datos modernas (SQL/NoSQL)
+<!-- -   Ingeniería de software y metodologías reproducibles -->
 
--   Modelación computacional y automatización
+<!-- -   Bases de datos modernas (SQL/NoSQL) -->
+
+<!-- -   Modelación computacional y automatización -->
 
 Este es el ecosistema que permite que la estadística deje de ser un PDF y se convierta en **sistemas reales que funcionan en hospitales reales.**
 
@@ -477,17 +501,19 @@ Este es el ecosistema que permite que la estadística deje de ser un PDF y se co
 
 Esto es lo que enseñan Harvard, Hopkins, UW, Michigan o UNC sin despeinarse:
 
--   Machine Learning aplicado a problemas clínicos
+<img src="notiene.png" />
 
--   Bioinformática y análisis de datos ómicos
+<!-- -   Machine Learning aplicado a problemas clínicos -->
 
--   IA biomédica, NLP clínico y modelos de lenguaje
+<!-- -   Bioinformática y análisis de datos ómicos -->
 
--   Big data proveniente de sensores y wearables
+<!-- -   IA biomédica, NLP clínico y modelos de lenguaje -->
 
--   Computación en la nube y arquitecturas distribuidas
+<!-- -   Big data proveniente de sensores y wearables -->
 
--   Modelos bayesianos para decisión clínica
+<!-- -   Computación en la nube y arquitecturas distribuidas -->
+
+<!-- -   Modelos bayesianos para decisión clínica -->
 
 No es ciencia ficción. Es simplemente el estándar profesional actual.
 
@@ -497,23 +523,29 @@ Nace una figura nueva, que probablemente no existe todavía en el mapa latinoame
 
 Un profesional capaz de…
 
--   auditar un algoritmo, no solo usarlo,
+<img src="habilidades.png" />
 
--   detectar y corregir sesgos clínicos,
 
--   programar sus propios análisis,
 
--   diseñar estudios con rigor y entender causalidad,
+<!-- -   auditar un algoritmo, no solo usarlo, -->
 
--   trabajar con datos reales: incompletos, sucios, masivos y vivos.
+<!-- -   detectar y corregir sesgos clínicos, -->
+
+<!-- -   programar sus propios análisis, -->
+
+<!-- -   diseñar estudios con rigor y entender causalidad, -->
+
+<!-- -   trabajar con datos reales: incompletos, sucios, masivos y vivos. -->
 
 No es *“un estadístico más”.* No es *“un programador con bata”.* No es *“un epidemiólogo con un RStudio abierto”.*
 
 Es un profesional con **tres identidades simultáneas:**
 
--   un médico que entiende al paciente,
--   un estadístico que entiende la incertidumbre,
--   un científico de datos que implementa la solución técnica.
+<img src="simultaneas.png" />
+
+<!-- -   un médico que entiende al paciente, -->
+<!-- -   un estadístico que entiende la incertidumbre, -->
+<!-- -   un científico de datos que implementa la solución técnica. -->
 
 Eso, colega… **es imparable.** Y eso es exactamente lo que ya están formando las mejores universidades del mundo.
 
@@ -582,7 +614,7 @@ Un inciso antes de que se emocionen demasiado:
 
 Sobre el papel, este nuevo currículo "híbrido y moderno" luce espectacular. Brillante. Digno de Harvard. Pero tiene un bug crítico de implementación que ningún código de Python puede arreglar: el Factor Humano.
 
-Para impartir este programa necesitamos un claustro de profesores que entiendan la Inferencia Bayesiana con la misma profundidad con la que manejan Kubernetes. Y, siendo brutalmente sinceros, encontrar a un académico que disfrute por igual de las demostraciones matemáticas rigurosas y de resolver conflictos de merge en Git es más difícil que encontrar un unicornio azul en el Malecón. Por otra parte, está el reto de asimilar todo ese contenido en los tres años de la residencia. Pero quien dijo que uno se hace biostadístico el día que te gradúas. La mejor parte viene después en la que tendrás que aprender trabajando duro y estudiando por tu cuenta.  
+Para impartir este programa necesitamos un claustro de profesores que entiendan la Inferencia Bayesiana con la misma profundidad con la que manejan Kubernetes (desplegar, gestionar y escalar aplicaciones modernas). Y, siendo brutalmente sinceros, encontrar a un académico que disfrute por igual de las demostraciones matemáticas rigurosas y de resolver conflictos de merge en Git es más difícil que encontrar un unicornio azul en el Malecón. Por otra parte, está el reto de asimilar todo ese contenido en los tres años de la residencia. Pero quien dijo que uno se hace biostadístico el día que te gradúas. La mejor parte viene después en la que tendrás que aprender trabajando duro y estudiando por tu cuenta.  
 
 La mayoría de nosotros, la **"vieja guardia"**, somos inmigrantes digitales en este nuevo mundo. Así que mi propuesta no es solo un reto para el pobre residente que viene a aprender; es una amenaza directa a nuestra zona de confort como docentes y profesionales. O nos actualizamos, o tendremos que pedirle a los alumnos que nos expliquen qué rayos hace ese script que acabamos de mandarles a estudiar.
 
@@ -630,11 +662,15 @@ La computadora ejecuta instrucciones incluso cuando son absurdas. Tu deber no es
 
 Eres el **artífice intelectual** que:
 
--   formula bien el problema,
--   define la pregunta sustantiva,
--   entiende al clínico,
--   entiende al ingeniero,
--   y decide lo que ningún software puede decidir por ti.
+<img src="identidad.png" />
+
+
+
+<!-- -   formula bien el problema, -->
+<!-- -   define la pregunta sustantiva, -->
+<!-- -   entiende al clínico, -->
+<!-- -   entiende al ingeniero, -->
+<!-- -   y decide lo que ningún software puede decidir por ti. -->
 
 La estadística nunca fue neutral ni automática.
 
