@@ -2,7 +2,7 @@
 title: "Un Análisis Crítico del Currículo de Bioestadística Cubano Frente a las Tendencias Globales"
 subtitle: "Evaluando la Residencia Cubana en Bioestadística ante Rankings Globales 2025"
 categories: ["Estadística en Salud"]
-summary: "Análisis crítico del currículo de la Especialidad de Bioestadística (UCMH, 2023). Evaluamos fortalezas y debilidades así como se propone integrar herramientas computacionales modernas para alinearlo con tendencias globales 2025."
+summary: "¿Puede un bioestadístico formado en Cuba competir con uno de Harvard en 2026? Analizamos los datos, las carencias en IA y la hoja de ruta para cerrar la brecha."
 author: "admin"
 date: "2025-11-21" #año mes dia
 tags: 
@@ -374,10 +374,14 @@ El problema no es lo que tenemos. El problema es lo que falta.
 
 El mundo bioestadístico dejó de ser exclusivamente estadístico:
 
--   ahora se mueve en bases de datos en streaming,
--   entrenando modelos de predicción clínica,
--   auditando IA biomédica,
--   procesando textos, imágenes y genomas.
+<img src="selection.png" />
+
+
+
+<!-- -   ahora se mueve en bases de datos en streaming, -->
+<!-- -   entrenando modelos de predicción clínica, -->
+<!-- -   auditando IA biomédica, -->
+<!-- -   procesando textos, imágenes y genomas. -->
 
 Lo que necesitamos no es borrar lo existente: necesitamos evolucionar.
 
@@ -385,9 +389,12 @@ Necesitamos un **Bioestadístico Híbrido.**
 
 Un profesional capaz de:
 
--   **entender al paciente** (tu formación médica),
--   **entender la incertidumbre** (tu formación estadística),
--   **y entender el código que usa la IA para anticipar complicaciones quirúrgicas.**
+<img src="Necesitamos.png" />
+
+
+<!-- -   **entender al paciente** (tu formación médica), -->
+<!-- -   **entender la incertidumbre** (tu formación estadística), -->
+<!-- -   **y entender el código que usa la IA para anticipar complicaciones quirúrgicas.** -->
 
 La buena noticia es casi humorística:
 
@@ -701,3 +708,14 @@ Y ahora te pregunto, colega:
 2.  Instituto Superior de Ciencias Médicas de La Habana. (2003). Programa de la Maestría de Informática en Salud. La Habana: Centro de Cibernética Aplicada a la Medicina (CECAM).
 
 3.  Veritasium (en español). (2020). El éxito: ¿es suerte o trabajo duro? [Video]. YouTube.
+
+<!-- cometario para linkleling -->
+
+<!-- "Comparé el plan de estudios de mi residencia con el de Harvard y Johns Hopkins. -->
+
+<!-- En matemáticas puras, aguantamos el primer round. 🥊 Pero cuando entra la IA y el Big Data, nos están dando una paliza. -->
+
+<!-- ¿La solución? No es tirar el título. Es evolucionar hacia el 'Bioestadístico Híbrido'. -->
+
+<!-- Aquí mi análisis completo y la hoja de ruta para actualizarse gratis. 👇" -->
+
