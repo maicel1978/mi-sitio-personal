@@ -373,20 +373,18 @@ pero no pueden explicar cómo funcionan ni auditar modelos aplicados a salud.&lt
 &lt;p>La conclusión no es destruir la especialidad. Esa base —matemática, metodológica, epidemiológica— es seria y valiosa.&lt;/p>
 &lt;p>El problema no es lo que tenemos. El problema es lo que falta.&lt;/p>
 &lt;p>El mundo bioestadístico dejó de ser exclusivamente estadístico:&lt;/p>
-&lt;ul>
-&lt;li>ahora se mueve en bases de datos en streaming,&lt;/li>
-&lt;li>entrenando modelos de predicción clínica,&lt;/li>
-&lt;li>auditando IA biomédica,&lt;/li>
-&lt;li>procesando textos, imágenes y genomas.&lt;/li>
-&lt;/ul>
+&lt;img src="selection.png" />
+&lt;!-- - ahora se mueve en bases de datos en streaming, -->
+&lt;!-- - entrenando modelos de predicción clínica, -->
+&lt;!-- - auditando IA biomédica, -->
+&lt;!-- - procesando textos, imágenes y genomas. -->
 &lt;p>Lo que necesitamos no es borrar lo existente: necesitamos evolucionar.&lt;/p>
 &lt;p>Necesitamos un &lt;strong>Bioestadístico Híbrido.&lt;/strong>&lt;/p>
 &lt;p>Un profesional capaz de:&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>entender al paciente&lt;/strong> (tu formación médica),&lt;/li>
-&lt;li>&lt;strong>entender la incertidumbre&lt;/strong> (tu formación estadística),&lt;/li>
-&lt;li>&lt;strong>y entender el código que usa la IA para anticipar complicaciones quirúrgicas.&lt;/strong>&lt;/li>
-&lt;/ul>
+&lt;img src="Necesitamos.png" />
+&lt;!-- - **entender al paciente** (tu formación médica), -->
+&lt;!-- - **entender la incertidumbre** (tu formación estadística), -->
+&lt;!-- - **y entender el código que usa la IA para anticipar complicaciones quirúrgicas.** -->
 &lt;p>La buena noticia es casi humorística:&lt;/p>
 &lt;p>todo lo que nos falta &lt;strong>ya existe&lt;/strong>… solo que desperdigado en distintos planes, diplomados y maestrías.&lt;/p>
 &lt;ul>
@@ -609,7 +607,12 @@ pero no pueden explicar cómo funcionan ni auditar modelos aplicados a salud.&lt
 &lt;li>
 &lt;p>Veritasium (en español). (2020). El éxito: ¿es suerte o trabajo duro? [Video]. YouTube.&lt;/p>
 &lt;/li>
-&lt;/ol></description></item><item><title>Las trampas de la correlación disfrazada de causalidad</title><link>https://bioestadisticaedu.com/post/trampas-correlacion/</link><pubDate>Wed, 24 Sep 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/trampas-correlacion/</guid><description>&lt;h2 id="introducción">Introducción&lt;/h2>
+&lt;/ol>
+&lt;!-- cometario para linkleling -->
+&lt;!-- "Comparé el plan de estudios de mi residencia con el de Harvard y Johns Hopkins. -->
+&lt;!-- En matemáticas puras, aguantamos el primer round. 🥊 Pero cuando entra la IA y el Big Data, nos están dando una paliza. -->
+&lt;!-- ¿La solución? No es tirar el título. Es evolucionar hacia el 'Bioestadístico Híbrido'. -->
+&lt;!-- Aquí mi análisis completo y la hoja de ruta para actualizarse gratis. 👇" --></description></item><item><title>Las trampas de la correlación disfrazada de causalidad</title><link>https://bioestadisticaedu.com/post/trampas-correlacion/</link><pubDate>Wed, 24 Sep 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/trampas-correlacion/</guid><description>&lt;h2 id="introducción">Introducción&lt;/h2>
 &lt;p>El ojo humano ama los patrones: ver dos líneas que se mueven juntas y concluir que una provoca la otra. La estadística, mal interpretada, a veces alimenta esa ilusión. La correlación es apenas la danza conjunta de dos variables, no una flecha de causa. Y, sin embargo, titulares, políticas y hasta decisiones médicas se sostienen sobre esta trampa.&lt;/p>
 &lt;h2 id="1-correlaciones-curiosas-pero-falsas">1) Correlaciones curiosas (pero falsas)&lt;/h2>
 &lt;ul>
