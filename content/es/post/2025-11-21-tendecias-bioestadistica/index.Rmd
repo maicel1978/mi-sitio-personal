@@ -144,9 +144,9 @@ Abro el **Programa de Bioestadística (2023).**
 
 Mi “yo” del pasado se pone nervioso, esperando descubrir que nuestra formación es de papel maché frente al hormigón armado de los programas del norte.
 
-—“Tranquilo”, le digo. —“Mira esto”.
+*—“Tranquilo”, le digo. —“Mira esto”.*
 
-Los módulos iniciales de matemáticas revelan una base rigurosa en el programa, sólida desde una perspectiva internacional.
+Los módulos iniciales de matemáticas revelan una **base rigurosa** en el programa, sólida desde una perspectiva internacional.
 
 <img src="primer.png" />
 
@@ -155,7 +155,7 @@ Mientras muchos *Masters of Public Health (MPH)* suavizan la matemática para ha
 
 Y no es lo único.
 
-Y contamos con un elemento distintivo que a veces pasa desapercibido: la sólida articulación entre la Demografía y la Epidemiología. Esta integración, sin ser la única fortaleza del plan de estudios, representa una de nuestras mayores ventajas formativas..
+Y contamos con un elemento distintivo que a veces pasa desapercibido: la sólida articulación entre la Demografía y la Epidemiología. Esta **integración**, sin ser la única fortaleza del plan de estudios, representa una de nuestras mayores ventajas formativas..
 
 <img src="integracion.png" />
 
@@ -617,7 +617,9 @@ Eso, colega… **es imparable.** Y eso es exactamente lo que ya están formando 
 {{< /spoiler >}}
 
 
-### El pequeño detalle técnico: ¿Quién demonios enseña esto? y ¿Qué humano graduado de ciencia médicas lo soporta?
+### El pequeño detalle técnico
+
+**¿Quién demonios enseña esto? y ¿Qué humano graduado de ciencia médicas lo soporta?**
 
 Un inciso antes de que se emocionen demasiado:
 
