@@ -29,9 +29,28 @@ Durante décadas, hemos aceptado el umbral de significación estadística como e
 
 ## El Cohete: Más Grande no Significa Mejor
 
-En la pirotecnia, un cohete más grande produce una explosión más fuerte. Es simple física. En la estadística, ocurre algo perturbadoramente similar. El “cohete” es nuestro tamaño muestral.
+En la pirotecnia, un cohete más grande produce una explosión más fuerte.
+Es simple física. En la estadística, ocurre algo perturbadoramente similar.
+El “cohete” es nuestro tamaño muestral.
 
-La conclusión de una prueba de significación depende de manera crucial del tamaño de la muestra. Con un cohete lo suficientemente grande (una muestra de miles o decenas de miles de personas), la diferencia más trivial e insignificante para el mundo real se convertirá, casi por arte de magia, en “estadísticamente significativa”. Por el contrario, un efecto importante y real puede pasar desapercibido si nuestro cohete es demasiado pequeño.
+Consideremos un ejemplo concreto: un ensayo clínico comparando dos tratamientos.
+
+- **Tratamiento nuevo:** 51% de pacientes mejoran
+- **Tratamiento estándar:** 49% de pacientes mejoran  
+- **Diferencia absoluta:** Solo **2 puntos porcentuales**
+
+¿Es esta diferencia clínicamente importante? Probablemente no.
+¿Cambiaría la práctica médica? Difícilmente.
+
+**Pero observa qué ocurre cuando aumentamos el tamaño de muestra:**
+
+<img src="{{< blogdown/postref >}}index_files/figure-html/fig-colapso-pvalor-1.png" width="672" />
+
+La conclusión de una prueba de significación depende de manera crucial del
+tamaño de la muestra. Con un cohete lo suficientemente grande (una muestra
+de miles o decenas de miles de personas), la diferencia más trivial e
+insignificante para el mundo real se convertirá, casi por arte de magia,
+en “estadísticamente significativa”.
 
 Esto nos lleva a una **verdad grotesca**: la decisión sobre si un hallazgo es “real” a menudo depende más de los recursos del investigador para recolectar datos masivos que de la naturaleza fundamental del fenómeno estudiado. El estallido nos dice más sobre el tamaño del cohete que sobre la belleza del cielo que intenta iluminar.
 
