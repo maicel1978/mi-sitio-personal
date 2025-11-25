@@ -2563,8 +2563,24 @@ $$
 &lt;p>Pero, ¿y si ese destello es solo eso? Un estallido momentáneo, deslumbrante y ruidoso, pero que en el fondo significa muy poco. ¿Y si nuestro ritual más sagrado es, en realidad, un simple juego de pirotecnia, diseñado para impresionar más que para iluminar?&lt;/p>
 &lt;p>Durante décadas, hemos aceptado el umbral de significación estadística como el árbitro indiscutible de la verdad científica. Sin embargo, la evidencia acumulada —desde las críticas de su propio creador (Ronald Fisher) hasta las advertencias oficiales de la American Statistical Association (ASA) en 2016 y el clamor de cientos de científicos en la revista &lt;em>Nature&lt;/em> — nos obliga a una conclusión incómoda(Amrhein, Greenland, and McShane 2019; Wasserstein and Lazar 2016) : &lt;strong>el emperador estadístico está desnudo&lt;/strong>. La práctica de las Pruebas de Significación de la Hipótesis Nula (NHST, por sus siglas en inglés) no es un pilar de rigor, sino un ritual plagado de lógica errónea, confusión e inadecuación para la verdadera investigación.&lt;/p>
 &lt;h2 id="el-cohete-más-grande-no-significa-mejor">El Cohete: Más Grande no Significa Mejor&lt;/h2>
-&lt;p>En la pirotecnia, un cohete más grande produce una explosión más fuerte. Es simple física. En la estadística, ocurre algo perturbadoramente similar. El “cohete” es nuestro tamaño muestral.&lt;/p>
-&lt;p>La conclusión de una prueba de significación depende de manera crucial del tamaño de la muestra. Con un cohete lo suficientemente grande (una muestra de miles o decenas de miles de personas), la diferencia más trivial e insignificante para el mundo real se convertirá, casi por arte de magia, en “estadísticamente significativa”. Por el contrario, un efecto importante y real puede pasar desapercibido si nuestro cohete es demasiado pequeño.&lt;/p>
+&lt;p>En la pirotecnia, un cohete más grande produce una explosión más fuerte.
+Es simple física. En la estadística, ocurre algo perturbadoramente similar.
+El “cohete” es nuestro tamaño muestral.&lt;/p>
+&lt;p>Consideremos un ejemplo concreto: un ensayo clínico comparando dos tratamientos.&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Tratamiento nuevo:&lt;/strong> 51% de pacientes mejoran&lt;/li>
+&lt;li>&lt;strong>Tratamiento estándar:&lt;/strong> 49% de pacientes mejoran&lt;/li>
+&lt;li>&lt;strong>Diferencia absoluta:&lt;/strong> Solo &lt;strong>2 puntos porcentuales&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;p>¿Es esta diferencia clínicamente importante? Probablemente no.
+¿Cambiaría la práctica médica? Difícilmente.&lt;/p>
+&lt;p>&lt;strong>Pero observa qué ocurre cuando aumentamos el tamaño de muestra:&lt;/strong>&lt;/p>
+&lt;img src="https://bioestadisticaedu.com/post/2025-08-10-significacion/index_files/figure-html/fig-colapso-pvalor-1.png" width="672" />
+&lt;p>La conclusión de una prueba de significación depende de manera crucial del
+tamaño de la muestra. Con un cohete lo suficientemente grande (una muestra
+de miles o decenas de miles de personas), la diferencia más trivial e
+insignificante para el mundo real se convertirá, casi por arte de magia,
+en “estadísticamente significativa”.&lt;/p>
 &lt;p>Esto nos lleva a una &lt;strong>verdad grotesca&lt;/strong>: la decisión sobre si un hallazgo es “real” a menudo depende más de los recursos del investigador para recolectar datos masivos que de la naturaleza fundamental del fenómeno estudiado. El estallido nos dice más sobre el tamaño del cohete que sobre la belleza del cielo que intenta iluminar.&lt;/p>
 &lt;!-- ```{r} -->
 &lt;!-- set.seed(123) -->
