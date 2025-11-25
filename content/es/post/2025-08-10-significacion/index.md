@@ -5,33 +5,60 @@ summary: "¿El sagrado p<0.05 es ciencia o solo pirotecnia estadística? Crític
 author: "admin"
 categories: ["Reflexiones Críticas"]
 tags:
-  - "alternativas a p-valores en artículos académicos"
-  - "errores comunes en significancia estadística salud"
-  - "bioestadistica" 
-  - "evitar abusos p-valores en investigación clínica"
+  - "valor p"
+  - "significación estadística"
+  - "intervalos de confianza"
+  - "estadística bayesiana"
 date: "2025-08-10T15:30:00Z" # Asegúrate de que la fecha y hora sean correctas
 featured: true # Cambia a true si quieres destacarlo en la página principal
 draft: false # Cambia a true si aún estás trabajando en él
 commentable: true
 bibliography: references.bib
 type: post
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 ## Introducción
 
-Ese momento de euforia al ver p \< 0.05… ¿es un descubrimiento genuino o solo un destello engañoso de pirotecnia estadística?
+Ese momento de satisfacción al ver p \< 0.05… ¿representa un descubrimiento
+genuino o es apenas un espejismo estadístico?
 
-En la ciencia, hay un instante que todos los investigadores anhelan. Es la culminación de meses, a veces años, de riguroso trabajo. Corres el análisis y, de repente, ahí está: p \< 0.05. Es una **explosión de alivio**, un destello de “¡Eureka!” en la oscuridad de la incertidumbre. Sentimos que hemos encontrado algo real, algo digno de ser publicado.
+En la investigación científica, hay un instante que muchos anhelamos: después
+de meses de trabajo, ejecutamos el análisis y aparece p \< 0.05. Sentimos
+alivio, validación. Creemos haber encontrado algo real, algo publicable.
 
-Pero, ¿y si ese destello es solo eso? Un estallido momentáneo, deslumbrante y ruidoso, pero que en el fondo significa muy poco. ¿Y si nuestro ritual más sagrado es, en realidad, un simple juego de pirotecnia, diseñado para impresionar más que para iluminar?
+Pero, ¿qué significa realmente ese número? ¿Y qué sucede cuando un ritual
+metodológico se convierte en el árbitro principal de la “verdad” científica?
 
-Durante décadas, hemos aceptado el umbral de significación estadística como el árbitro indiscutible de la verdad científica. Sin embargo, la evidencia acumulada —desde las críticas de su propio creador (Ronald Fisher) hasta las advertencias oficiales de la American Statistical Association (ASA) en 2016 y el clamor de cientos de científicos en la revista *Nature* — nos obliga a una conclusión incómoda(Amrhein, Greenland, and McShane 2019; Wasserstein and Lazar 2016) : **el emperador estadístico está desnudo**. La práctica de las Pruebas de Significación de la Hipótesis Nula (NHST, por sus siglas en inglés) no es un pilar de rigor, sino un ritual plagado de lógica errónea, confusión e inadecuación para la verdadera investigación.
+Durante décadas, el umbral de significación estadística ha ocupado el lugar
+central en la investigación. Sin embargo, la evidencia acumulada y las
+reflexiones críticas —desde las advertencias de la American Statistical
+Association (ASA) en 2016 y 2019(Wasserstein and Lazar 2016; Wasserstein, Schirm, and Lazar 2019), hasta
+el llamado de más de 800 científicos en *Nature*(Amrhein, Greenland, and McShane 2019)— nos obligan
+a una conclusión incómoda: **el problema no es solo cómo usamos el p-valor,
+sino el p-valor mismo**.
 
-## El Cohete: Más Grande no Significa Mejor
+Mi profesor Luis Carlos Silva Ayçaguer, pionero de esta crítica en Iberoamérica, lo
+planteó con claridad hace más de dos décadas: las pruebas de significación
+no necesitan ser reformadas —necesitan ser **reemplazadas**(Silva Ayçaguer 1997).
+No estamos ante un problema pedagógico, sino **epistemológico**.
+
+> **Nota histórica:** El ritual actual del NHST es una mezcla híbrida de
+> dos tradiciones incompatibles: la de Ronald Fisher (quien propuso el
+> valor *p* como medida continua de evidencia contra H₀) y la de Jerzy
+> Neyman y Egon Pearson (quienes desarrollaron un marco de decisión con
+> tasas de error fijas). Irónicamente, ninguno de los creadores aprobaría
+> el uso mecánico que hacemos hoy(Greenland et al. 2016). El resultado es un
+> híbrido conceptualmente incoherente que hemos convertido en dogma.
+
+## El Cohete: Cuando el Tamaño Muestral Fabrica “Verdades”
 
 En la pirotecnia, un cohete más grande produce una explosión más fuerte.
-Es simple física. En la estadística, ocurre algo perturbadoramente similar.
-El “cohete” es nuestro tamaño muestral.
+En estadística, ocurre algo perturbadoramente similar: el tamaño muestral
+actúa como nuestro “cohete”, capaz de fabricar “significación” donde no
+hay importancia.
 
 Consideremos un ejemplo concreto: un ensayo clínico comparando dos tratamientos.
 
@@ -39,156 +66,232 @@ Consideremos un ejemplo concreto: un ensayo clínico comparando dos tratamientos
 - **Tratamiento estándar:** 49% de pacientes mejoran  
 - **Diferencia absoluta:** Solo **2 puntos porcentuales**
 
-¿Es esta diferencia clínicamente importante? Probablemente no.
-¿Cambiaría la práctica médica? Difícilmente.
+¿Es esta diferencia clínicamente relevante? En la mayoría de contextos,
+claramente no. ¿Cambiaría la práctica médica? Difícilmente. ¿Justifica
+los costos y riesgos de cambiar de tratamiento? Casi nunca.
 
-**Pero observa qué ocurre cuando aumentamos el tamaño de muestra:**
+**Pero observemos qué ocurre al aumentar el tamaño de muestra:**
 
 <img src="{{< blogdown/postref >}}index_files/figure-html/fig-colapso-pvalor-1.png" width="672" />
 
-La conclusión de una prueba de significación depende de manera crucial del
-tamaño de la muestra. Con un cohete lo suficientemente grande (una muestra
-de miles o decenas de miles de personas), la diferencia más trivial e
-insignificante para el mundo real se convertirá, casi por arte de magia,
-en “estadísticamente significativa”.
+Este gráfico revela una verdad incómoda: **la significación estadística
+es, en gran medida, una función del presupuesto de investigación**. Con
+recursos suficientes para reclutar participantes, cualquier diferencia
+—por trivial que sea— puede cruzar el umbral mágico del p \< 0.05.
 
-Esto nos lleva a una **verdad grotesca**: la decisión sobre si un hallazgo es “real” a menudo depende más de los recursos del investigador para recolectar datos masivos que de la naturaleza fundamental del fenómeno estudiado. El estallido nos dice más sobre el tamaño del cohete que sobre la belleza del cielo que intenta iluminar.
+La implicación es devastadora para la lógica del NHST: el p-valor no nos
+informa sobre la importancia del efecto, sino sobre la **precisión de
+nuestra estimación** (que depende de N). Estamos usando una herramienta
+que responde una pregunta que no hicimos.
 
-<!-- ```{r} -->
+## La Explosión: Las Falacias del Valor p
 
-<!-- set.seed(123) -->
+### El P-Valor Responde una Pregunta que Nadie Hace
 
-<!-- library(ggplot2) -->
+La lógica del valor *p* es, en el mejor de los casos, contraintuitiva.
+Se calcula asumiendo que la hipótesis nula (H₀) es verdadera, y representa
+la probabilidad de observar datos tan extremos o más que los obtenidos,
+bajo ese supuesto.
 
-<!-- effect <- 0.1 -->
+Pero lo que queremos saber es completamente diferente:
 
-<!-- sd <- 1 -->
+| Lo que el p-valor MIDE            | Lo que QUEREMOS saber            |
+|:----------------------------------|:---------------------------------|
+| P(Datos extremos \| H₀ verdadera) | ¿Cuál es la magnitud del efecto? |
+| Probabilidad de datos dado H₀     | ¿Cuán precisa es la estimación?  |
+| Una probabilidad sobre DATOS      | ¿Es relevante clínicamente?      |
 
-<!-- N <- seq(20, 10000, by=50) -->
+El p-valor responde: “Si no existiera ningún efecto, ¿cuán sorprendentes
+serían estos datos?”. Pero nosotros preguntamos: “¿Cuánto efecto hay y
+cuánto importa?”. Son preguntas radicalmente diferentes(Greenland et al. 2016).
 
-<!-- p_values <- sapply(N, function(n) { -->
+### La Falacia de la Transposición
 
-<!--   t.test(rnorm(n, mean=effect, sd=sd), mu=0)$p.value -->
+El error más extendido es confundir P(Datos\|H₀) con P(H₀\|Datos).
+Confundirlas equivale a pensar que “la probabilidad de tener fiebre
+dado que tienes gripe” es igual a “la probabilidad de tener gripe
+dado que tienes fiebre”. Cualquier clínico sabe que son muy distintas.
 
-<!-- }) -->
+### La Ilusión de la Dicotomía
 
-<!-- data <- data.frame(N, p_values) -->
+Un p = 0.049 y un p = 0.051 reciben tratamientos radicalmente diferentes
+en la literatura científica: uno es “significativo” (publicable, real,
+importante), el otro “no significativo” (descartable, nulo, irrelevante).
+Sin embargo, representan evidencia prácticamente idéntica(McShane et al. 2019).
 
-<!-- ggplot(data, aes(N, p_values)) + -->
+Esta discontinuidad artificial no existe en la naturaleza. La hemos
+inventado nosotros, y distorsiona sistemáticamente el conocimiento
+científico.
 
-<!--   geom_line() + -->
+## El Caso del Chocolate: Anatomía del P-Hacking
 
-<!--   geom_hline(yintercept = 0.05, linetype = "dashed", color="red") + -->
+En 2015, el periodista John Bohannon condujo un experimento
+revelador(Bohannon 2015). Realizó un pequeño ensayo aleatorizado sobre
+chocolate y pérdida de peso, midiendo 18 variables en muy pocos
+participantes.
 
-<!--   labs(x = "Tamaño muestral (N)", y = "Valor p") + -->
+El diseño garantizaba casi matemáticamente que alguna variable alcanzaría
+p \< 0.05 por puro azar. Con 18 variables y α = 0.05, la probabilidad de
+al menos un “hallazgo significativo” por azar es aproximadamente:
 
-<!--   theme_minimal() -->
+**P(al menos un falso positivo) = 1 − (1 − 0.05)^18 ≈ 0.60 (60%)**
 
-<!-- ``` -->
+Es decir, **60% de probabilidad de “descubrir” algo inexistente**.
 
-<!-- Aquí iría tu gráfico explicativo del "Cohete (Tamaño Muestral)": -->
+Bohannon encontró su “resultado significativo” y los medios amplificaron
+la noticia: “¡El chocolate ayuda a perder peso!”. El estudio se publicó,
+se difundió globalmente, y demostró exactamente lo que pretendía: **el
+sistema está roto**.
 
-<!-- Un gráfico mostrando cómo un efecto trivial (ej: diferencia de 0.1 unidades) se vuelve "significativo" (p<0.05) a medida que N aumenta de 100 a 10,000. Puedes usar `ggplot2` en R para esto. -->
+## El Veredicto: ¿Por Qué el NHST Es un Callejón Sin Salida?
 
-<!-- Ejemplo de código R (este no generaría un gráfico, solo un placeholder para tu referencia): -->
+Durante décadas, la defensa estándar del NHST ha sido: “el problema no
+son las pruebas de significación, sino su mal uso”. Esta defensa asume
+que existe un “buen uso” que podríamos alcanzar con mejor educación.
 
-<!-- ```{r cohete_plot, echo=FALSE, fig.cap="Impacto del tamaño muestral en la significación estadística para un efecto constante."} -->
+**La evidencia sugiere lo contrario.**
 
-<!-- # Código para generar el gráfico de N vs p-valor -->
+Sander Greenland y colaboradores documentaron **25 malinterpretaciones
+comunes** del p-valor, y concluyeron que la interpretación correcta es
+“tan contraintuitiva que esperar su uso apropiado generalizado puede ser
+irrealista”(Greenland et al. 2016).
 
-<!-- # plot(your_data$N, your_data$p_value, type="l", main="Cómo N afecta el p-valor", -->
+Gerd Gigerenzer fue más directo: el NHST es un **“sustituto del
+pensamiento”**, un ritual que reemplaza el razonamiento genuino por
+un procedimiento mecánico(Gigerenzer 2004).
 
-<!-- #      xlab="Tamaño Muestral (N)", ylab="Valor p") -->
+John Ioannidis demostró que la mayoría de hallazgos publicados podrían
+ser falsos, en parte debido a la dependencia del sistema en el umbral
+arbitrario del p \< 0.05(Ioannidis 2005).
 
-<!-- # abline(h=0.05, col="red", lty=2) -->
+Y Silva Ayçaguer planteó la cuestión fundamental: si después de décadas
+de educación estadística la comunidad científica sigue malinterpretando
+el p-valor, **quizás el problema no sea la comunidad —quizás sea la
+herramienta**(Silva Ayçaguer 1997).
 
-<!-- ``` -->
+## Después del Humo: Alternativas Reales
 
-## La Explosión: Un Caos de Luz y Malentendidos
+Reconocer que el NHST es un callejón sin salida no significa abandonar
+la inferencia estadística. Significa **transformarla**.
 
-La explosión de un fuego artificial es un evento caótico. Su interpretación es subjetiva. ¿Fue espectacular? ¿Fue un fracaso? Lo mismo ocurre con el valor *p*.
+### De la Decisión a la Estimación
+
+El cambio fundamental es pasar de preguntar “¿Es significativo?” a
+preguntar “¿Cuál es la magnitud del efecto y cuánta incertidumbre tenemos?”.
 
-## Lógica Errónea: Juzgando por lo que no Vimos
+| Enfoque NHST (a abandonar) | Enfoque de Estimación (a adoptar) |
+|:---------------------------|:----------------------------------|
+| “¿Es p \< 0.05?”           | “¿Cuál es el tamaño del efecto?”  |
+| Decisión binaria           | Rango de valores compatibles      |
+| Umbral arbitrario          | Relevancia clínica como criterio  |
+| Ritual mecánico            | Razonamiento contextualizado      |
 
-La lógica detrás del valor *p* es, siendo generosos, peculiar. Se calcula asumiendo que la hipótesis nula (H₀ —la hipótesis de no-efecto, de que no hay diferencia o relación) es cierta, y luego se determina la probabilidad de haber observado nuestros datos *o datos aún más extremos* bajo esa suposición. Piénsalo: nuestra conclusión sobre lo que *sí* ocurrió depende de la probabilidad de cosas que ni siquiera presenciamos. Es un **absurdo subyacente**.
+### Intervalos de Compatibilidad
 
-Además, caemos constantemente en la **falacia de la probabilidad invertida**: el valor *p* nos dice la probabilidad de los datos dada la hipótesis nula (P(Datos\|H₀)), pero nosotros creemos erróneamente que nos dice la probabilidad de que la hipótesis nula sea cierta dados nuestros datos (P(H₀\|Datos)). Son dos cosas radicalmente distintas, y confundirlas es un error fundamental.
+Los mal llamados “intervalos de confianza” —mejor denominados **intervalos
+de compatibilidad**(Amrhein, Greenland, and McShane 2019)— nos muestran el rango de valores del
+parámetro que son razonablemente compatibles con los datos observados.
 
-<!-- <!-- Aquí iría tu diagrama de flujo simple o tabla comparativa para "Confusión P(D|H) vs P(H|D)": -->
+**Interpretación correcta:** Un intervalo del 95% significa que el
+*procedimiento* utilizado para construirlo capturará el verdadero
+parámetro en el 95% de las muestras a largo plazo. No significa que
+haya 95% de probabilidad de que el valor verdadero esté en este
+intervalo específico (eso requeriría un marco bayesiano).
 
-<!-- Puedes usarmermaid para diagramas simples en RMarkdown o una tabla Markdown para la comparación. -->
+**Ventajas sobre el p-valor:**
 
-<!-- Ejemplo de código mermaid (necesitarías `config: {mermaid: {sequence: {diagramMarginX: 10}}}` en el YAML para que funcione): -->
+- Muestran la **magnitud estimada** del efecto
+- Comunican la **incertidumbre** de la estimación
+- Permiten evaluar **relevancia práctica** directamente
+- No imponen dicotomías artificiales
 
-## Confusión: El Ruido no es la Señal
+### El Enfoque Bayesiano
 
-La confusión más extendida es la de equiparar “significación estadística” con “importancia práctica” o “relevancia científica”. Un estallido muy ruidoso no significa que el descubrimiento sea importante, útil o generalizable. Esta obsesión por el ruido estadístico, esta endémica “significant-itis”, nos ha distraído de lo que realmente importa en la investigación: la magnitud del efecto y la relevancia clínica, social o teórica de nuestros hallazgos.
+Los métodos bayesianos permiten responder la pregunta que realmente
+queremos hacer: “Dados estos datos, ¿cuán creíble es mi hipótesis?”.
 
-## El Caso del Chocolate que Hace Perder Peso
+**Ventajas:**
 
-Para ilustrar esta locura, consideremos el tristemente famoso estudio de John Bohannon en 2015, “Chocolate con fines de pérdida de peso” . Con un pequeño presupuesto, Bohannon realizó un ensayo aleatorio, controlado con chocolate, utilizando un número muy reducido de participantes y midiendo 18 variables distintas(Bohannon 2015). Al analizar *todas* las combinaciones posibles, encontró que con una muestra tan pequeña y al realizar múltiples pruebas (un tipo de *p-hacking*), era casi inevitable que alguna variable arrojara un p-valor menor a 0.05 **por pura casualidad**. Con su p \< 0.05 “significativo”, los medios de comunicación sensacionalistas se lanzaron a la noticia: “El chocolate hace perder peso!”. Este caso es un claro ejemplo de cómo un “destello” estadístico puede ser completamente engañoso y carecer de cualquier importancia real, pero aun así generar titulares y confusión(Bohannon 2015).
+- Incorporan explícitamente el **conocimiento previo**
+- Proporcionan **probabilidades directas** sobre hipótesis
+- Se alinean con el razonamiento científico natural
+- Permiten **actualización** continua del conocimiento
 
-## El Veredicto: La Falsa Dicotomía del “Ohhh” o el Silencio
+**Consideraciones:**
 
-Quien observa fuegos artificiales emite un veredicto simple: el “¡Ohhh!” de asombro o el silencio de la indiferencia. Las pruebas de significación nos han impuesto esta misma decisión binaria: o un resultado es significativo (p \< 0.05), o no lo es. Es un interruptor de encendido/apagado.
+- Requieren especificar distribuciones **prior**
+- La elección de priors debe ser transparente y justificada
+- No son una “solución mágica” —tienen sus propias complejidades(McElreath 2020)
+- Con priors poco informativas, suelen coincidir con resultados frecuentistas
 
-Pero la ciencia no funciona así. El conocimiento científico no es una serie de decisiones de “sí/no”. Es un proceso gradual de ajuste de nuestras creencias a la luz de la evidencia acumulada. Es un paisaje de grises, no un contraste de blanco y negro. Al forzarnos a este mecanicismo, a esta “sucesión de ‘decisiones’ automáticas” que el propio Fisher denunció, hemos empobrecido el discurso científico, ignorando matices cruciales como la magnitud del efecto o la precisión de la estimación.
+### Lo Que Realmente Necesitamos
 
-## Después del Humo: Hacia una Ciencia Iluminada
+Más allá de técnicas específicas, necesitamos un cambio cultural:
 
-Cuando el humo de la pirotecnia se disipa, ¿qué nos queda? Nos queda la tarea de encontrar una luz más honesta y duradera para la ciencia. Afortunadamente, esta luz existe y está ganando terreno.
+1.  **Abandonar la dicotomía** significativo/no significativo
+2.  **Reportar estimaciones** con medidas de incertidumbre
+3.  **Contextualizar** dentro del conocimiento previo
+4.  **Evaluar relevancia práctica**, no solo estadística
+5.  **Ser transparentes** sobre decisiones analíticas
+6.  **Pre-registrar** estudios para evitar p-hacking
+7.  **Valorar la replicación** tanto como el “descubrimiento”
 
-La alternativa fundamental es pasar de la **decisión binaria** a la **estimación**. En lugar de preguntar obsesivamente “¿Hay un efecto (sí/no)?”, debemos preguntar “¿Cuál es la magnitud del efecto y cuán seguros estamos de esa estimación?”.
+## Reflexión Final: Es Hora de Salir del Callejón
 
-- **Intervalos de Confianza (o de Compatibilidad):** Son nuestra primera y más accesible herramienta para una inferencia más sensata. Los Intervalos de Confianza no nos dan un simple “sí/no”, sino un **rango de valores plausibles** para el efecto real en la población. Nos muestran tanto la magnitud estimada del efecto como la incertidumbre que lo rodea.
+El debate sobre el valor *p* ha llegado a un punto de inflexión. En 2019,
+la American Statistical Association dio un paso sin precedentes al
+recomendar **abandonar el término “estadísticamente significativo”** por
+completo(Wasserstein, Schirm, and Lazar 2019). Más de 800 científicos respaldaron esta
+posición en *Nature*(Amrhein, Greenland, and McShane 2019).
 
-  Cuando vemos un Intervalo de Confianza del 95% para una diferencia, por ejemplo, esto significa que si repitiéramos el estudio muchas, muchas veces bajo las mismas condiciones, el 95% de esos intervalos contendrían el verdadero valor del efecto que estamos tratando de estimar. Nos invitan a pensar en la variabilidad y la precisión de nuestras estimaciones, no solo en un umbral arbitrario. Son una luz constante que ilumina un paisaje, permitiéndonos ver el terreno completo, no un destello que ciega momentáneamente.
+Pero, ¿es suficiente abandonar el término mientras conservamos la práctica?
 
-<!-- <!-- Aquí iría tu gráfico de "Intervalos de Confianza/Compatibilidad": -->
+La respuesta, desde una perspectiva crítica, es **no**.
 
-<!-- Un gráfico con varios ICs superpuestos (algunos estrechos, otros anchos, algunos cruzando cero, otros no) para ilustrar que muestran magnitud *e* incertidumbre, no solo "sí/no". -->
+El p-valor no es simplemente una herramienta “mal usada”. Es una
+herramienta que:
 
-<!-- ```{r ic_plot, echo=FALSE, fig.cap="Visualización de Intervalos de Confianza: Magnitud y Incertidumbre."} -->
+- **Responde una pregunta que nadie hace** (probabilidad de datos
+  extremos bajo H₀)
+- **Invita sistemáticamente a la malinterpretación** (confusión con
+  P(H₀\|Datos))
+- **Impone dicotomías artificiales** que no existen en la naturaleza
+- **Depende críticamente del tamaño muestral**, no de la importancia
+  del efecto
+- **Ha resistido décadas de esfuerzos educativos** sin mejorar su uso
 
-<!-- # Código para generar el gráfico de ICs -->
+Si después de 70 años de educación estadística la comunidad científica
+sigue malinterpretando el p-valor, el problema no es la comunidad.
+**El problema es la herramienta**.
 
-<!-- # library(ggplot2) -->
+La invitación no es a “usar mejor” los p-valores —esa esperanza ha
+demostrado ser una ilusión—, sino a **liberarnos de ellos**:
 
-<!-- # data.frame( -->
+- **Estimar en lugar de decidir:** Reportar magnitudes con intervalos
+  de compatibilidad
+- **Contextualizar en lugar de automatizar:** Situar los resultados
+  en el conocimiento previo
+- **Razonar en lugar de ritualizar:** Evaluar relevancia práctica,
+  no umbrales arbitrarios
+- **Aceptar la incertidumbre:** Reconocer que ningún número mágico
+  puede dictar la “verdad”
 
-<!-- #   Effect = c(0.5, 1.2, -0.3, 0.8), -->
+La ciencia no avanza mediante rituales que sustituyen el pensamiento.
+Avanza cuando nos atrevemos a razonar, a contextualizar, y a reconocer
+los límites de nuestras herramientas.
 
-<!-- #   Lower = c(0.1, 0.8, -0.7, 0.2), -->
-
-<!-- #   Upper = c(0.9, 1.6, 0.1, 1.4) -->
-
-<!-- # ) %>% -->
-
-<!-- #   ggplot(aes(y = factor(1:4), x = Effect, xmin = Lower, xmax = Upper)) + -->
-
-<!-- #   geom_point() + geom_errorbarh(height = 0.2) + -->
-
-<!-- #   geom_vline(xintercept = 0, linetype = "dashed", color = "grey") + -->
-
-<!-- #   labs(x = "Magnitud del Efecto", y = "Estudio") + -->
-
-<!-- #   theme_minimal() -->
-
-<!-- ``` -->
-
-<!-- -->
-
-- **El Enfoque Bayesiano:** Es el siguiente paso evolutivo en la inferencia estadística, y es la encarnación matemática del razonamiento científico. Los métodos bayesianos nos permiten hacer lo que siempre hemos querido hacer: **combinar la evidencia de nuestro estudio actual con todo el conocimiento previo existente** (estudios anteriores, plausibilidad biológica, experiencia clínica) para llegar a una conclusión actualizada y probabilística sobre nuestras hipótesis.
-
-  A diferencia del valor *p*, el enfoque bayesiano responde directamente a la pregunta que realmente queremos hacer: “**Dados estos nuevos datos, ¿qué tan creíble es mi hipótesis ahora?**”. Nos da una probabilidad posterior de nuestra hipótesis, una medida directa de nuestra creencia actualizada. Aunque puede parecer más complejo al principio, el razonamiento bayesiano se alinea intuitivamente con cómo los científicos y las personas actualizan sus creencias en la vida real.
-
-Dejemos la pirotecnia para las celebraciones. Es hora de que la ciencia deje de buscar destellos efímeros y se dedique a construir una iluminación constante, acumulativa y, sobre todo, **honesta**. Es el momento de una ciencia más transparente, rigurosa y, sí, ¡más divertida de interpretar!
+**Es hora de dejar atrás el callejón sin salida.**
 
 ------------------------------------------------------------------------
 
 ## ¡Tu Turno!
 
-¿Te has encontrado con la “tiranía del p\<0.05” en tu campo? ¿Qué alternativas usas o te gustaría ver más promovidas en la investigación? ¡Comparte tu experiencia y tus pensamientos en los comentarios a continuación!
+¿Has experimentado la presión del “p \< 0.05” en tu campo? ¿Has visto
+cómo distorsiona las decisiones de investigación? ¿Qué alternativas
+has encontrado útiles?
+
+Comparte tu experiencia en los comentarios. La transformación de la
+práctica científica comienza con conversaciones honestas.
 
 ------------------------------------------------------------------------
 
@@ -208,9 +311,51 @@ Bohannon, John. 2015. “I Fooled Millions into Thinking Chocolate Helps Weight 
 
 </div>
 
+<div id="ref-gigerenzer2004" class="csl-entry">
+
+Gigerenzer, Gerd. 2004. “Mindless Statistics.” *The Journal of Socio-Economics* 33 (5): 587–606. <https://doi.org/10.1016/j.socec.2004.09.033>.
+
+</div>
+
+<div id="ref-greenland2016" class="csl-entry">
+
+Greenland, Sander, Stephen J. Senn, Kenneth J. Rothman, John B. Carlin, Charles Poole, Steven N. Goodman, and Douglas G. Altman. 2016. “Statistical Tests, p Values, Confidence Intervals, and Power: A Guide to Misinterpretations.” *European Journal of Epidemiology* 31 (4): 337–50. <https://doi.org/10.1007/s10654-016-0149-3>.
+
+</div>
+
+<div id="ref-ioannidis2005" class="csl-entry">
+
+Ioannidis, John P. A. 2005. “Why Most Published Research Findings Are False.” *PLoS Medicine* 2 (8): e124. <https://doi.org/10.1371/journal.pmed.0020124>.
+
+</div>
+
+<div id="ref-mcelreath2020" class="csl-entry">
+
+McElreath, Richard. 2020. *Statistical Rethinking: A Bayesian Course with Examples in r and Stan*. 2nd ed. Boca Raton: CRC Press.
+
+</div>
+
+<div id="ref-mcshane2019" class="csl-entry">
+
+McShane, Blakeley B., David Gal, Andrew Gelman, Christian Robert, and Jennifer L. Tackett. 2019. “Abandon Statistical Significance.” *The American Statistician* 73 (sup1): 235–45. <https://doi.org/10.1080/00031305.2018.1527253>.
+
+</div>
+
+<div id="ref-silva1997" class="csl-entry">
+
+Silva Ayçaguer, Luis Carlos. 1997. “Las Pruebas de Significación Estadística En Tres Revistas Biomédicas: Una Revisión Crítica.” *Revista Panamericana de Salud Pública* 1 (5): 300–306. <https://doi.org/10.1590/S1020-49891997000500001>.
+
+</div>
+
 <div id="ref-wasserstein2016" class="csl-entry">
 
-Wasserstein, Ronald L., and Nicole A. Lazar. 2016. “The ASA Statement on *p* -Values: Context, Process, and Purpose.” *The American Statistician* 70 (2): 129–33. <https://doi.org/10.1080/00031305.2016.1154108>.
+Wasserstein, Ronald L., and Nicole A. Lazar. 2016. “The ASA Statement on p-Values: Context, Process, and Purpose.” *The American Statistician* 70 (2): 129–33. <https://doi.org/10.1080/00031305.2016.1154108>.
+
+</div>
+
+<div id="ref-wasserstein2019" class="csl-entry">
+
+Wasserstein, Ronald L., Allen L. Schirm, and Nicole A. Lazar. 2019. “Moving to a World Beyond p \< 0.05.” *The American Statistician* 73 (sup1): 1–19. <https://doi.org/10.1080/00031305.2019.1583913>.
 
 </div>
 
