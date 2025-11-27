@@ -1,5 +1,5 @@
 ---
-title: "Del Laboratorio al Mundo Real"
+title: "Generalizabilidad y Transportabilidad: Puente para llevar la ciencia al mundo rea"
 author: "admin"
 date: "2025-09-01"
 slug: generalizacion

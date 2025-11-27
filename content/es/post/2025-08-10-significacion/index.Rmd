@@ -15,9 +15,6 @@ draft: false # Cambia a true si aún estás trabajando en él
 commentable: true
 bibliography: references.bib
 type: post
-editor_options: 
-  markdown: 
-    wrap: 72
 ---
 
 ## Introducción

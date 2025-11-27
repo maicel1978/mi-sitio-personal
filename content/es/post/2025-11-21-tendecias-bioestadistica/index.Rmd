@@ -291,7 +291,7 @@ sabemos que hay sesgos… pero no aprendemos a estimarlos, modelarlos o reducirl
 {{< /spoiler >}}
 
 
-[Te invito a conocer mas sobre el enfoque de respuestas potenciales en el siguiente post ]({{< relref "/post/2025-09-01-m-s-all-del-rct-en-salud-p-blica-y-epidemiolog-a" >}}).
+[Te invito a conocer mas sobre el enfoque de respuestas potenciales en el siguiente post ]({{< relref "/post/2025-09-01-inferencia-causal" >}}).
 
 **4. Modelos de predicción clínica: un territorio casi intacto**
 
@@ -317,7 +317,7 @@ pero la predicción clínica moderna usa:
 
 {{< /spoiler >}}
 
-[Si deseas desarrollar y validar un modelo de predicción clínica, puedes consultar mi post sobre el tema]({{< relref "/post/2025-02-08-como-entrenar-y-validar-un-modelo-de-machine-learnig" >}}).
+[Si deseas desarrollar y validar un modelo de predicción clínica, puedes consultar mi post sobre el tema]({{< relref "/post/2025-02-08-modelo-predictivo" >}}).
 
 
 **5. Tenemos la matemática, pero no el puente hacia la IA**
