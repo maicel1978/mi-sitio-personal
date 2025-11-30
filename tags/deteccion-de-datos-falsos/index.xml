@@ -1,0 +1,997 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Detección De Datos Falsos | Bioestadística edu</title><link>https://bioestadisticaedu.com/tags/deteccion-de-datos-falsos/</link><atom:link href="https://bioestadisticaedu.com/tags/deteccion-de-datos-falsos/index.xml" rel="self" type="application/rss+xml"/><description>Detección De Datos Falsos</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Wed, 15 Oct 2025 00:00:00 +0000</lastBuildDate><image><url>https://bioestadisticaedu.com/media/icon_hu_551fbaee136b383e.png</url><title>Detección De Datos Falsos</title><link>https://bioestadisticaedu.com/tags/deteccion-de-datos-falsos/</link></image><item><title>Gran Concurso: Miéntenle a su Profesor</title><link>https://bioestadisticaedu.com/post/concurso-mientele-profesor/</link><pubDate>Wed, 15 Oct 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/concurso-mientele-profesor/</guid><description>&lt;script src="https://bioestadisticaedu.com/post/concurso-mientele-profesor/index_files/kePrint/kePrint.js">&lt;/script>
+&lt;link href="https://bioestadisticaedu.com/post/concurso-mientele-profesor/index_files/lightable/lightable.css" rel="stylesheet" />
+&lt;script src="https://bioestadisticaedu.com/post/concurso-mientele-profesor/index_files/kePrint/kePrint.js">&lt;/script>
+&lt;link href="https://bioestadisticaedu.com/post/concurso-mientele-profesor/index_files/lightable/lightable.css" rel="stylesheet" />
+&lt;h2 id="el-momento-en-que-supieron-que-habían-perdido">El momento en que supieron que habían perdido&lt;/h2>
+&lt;p>A las 11:07 de la mañana, aula de postgrado de la Universidad de
+Ciencias Médicas de la Habana , &lt;strong>La Confiada&lt;/strong> dejó caer el bolígrafo.&lt;/p>
+&lt;p>En la pantalla del proyector, el histograma de sus datos mostraba un patrón inusual. Sus valores de hemoglobina &lt;em>—42 números cuidadosamente inventados usando su conocimiento de fisiología—&lt;/em> acababan de ser expuestos como &lt;strong>falsos&lt;/strong>.&lt;/p>
+&lt;p>Junto a ella, &lt;strong>La Prudente&lt;/strong> miraba su propio veredicto: una &lt;strong>varianza inexplicable&lt;/strong>.&lt;/p>
+&lt;p>&lt;strong>La Entusiasta&lt;/strong>, que había escrito 47 valores en 60 segundos apostando
+por la cantidad sobre la calidad, tenía la expresión de quien acaba de
+descubrir que su estrategia era la &lt;em>menos mala&lt;/em>.&lt;/p>
+&lt;p>&lt;strong>Todo había comenzado media hora antes con una instrucción simple:&lt;/strong>&lt;/p>
+&lt;blockquote>
+&lt;p>Tienen 60 segundos. Escriban todos los valores de hemoglobina en sangre de
+mujeres adultas que puedan inventar. Sin referencias. Sin calculadora. El
+que engañe mejor a las pruebas estadísticas, gana.&lt;/p>&lt;/blockquote>
+&lt;p>Lo que no sabían es que &lt;strong>los humanos somos terribles inventado datos&lt;/strong>.&lt;/p>
+&lt;p>No porque seamos honestos, sino porque nuestro cerebro tiene bugs predecibles.&lt;/p>
+&lt;p>Y yo tenía exactamente las herramientas para encontrarlos.&lt;/p>
+&lt;hr>
+&lt;h2 id="los-sospechosos">Los sospechosos&lt;/h2>
+&lt;p>Antes de la autopsia, conozcamos a nuestros participantes, médicos
+residentes que cursaban la asignatura de &lt;em>&amp;ldquo;Metodología de la investigación y estadística&amp;rdquo;&lt;/em> en el curso 2022-2023 en la Universidad de Ciencias Médicas de la Habana (UCMH):&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Participante&lt;/th>
+&lt;th>Estrategia Declarada&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;strong>Luidmila&lt;/strong> &lt;em>(La Prudente)&lt;/em>&lt;/td>
+&lt;td>&lt;em>&amp;ldquo;Voy a quedarme en el rango seguro, nada muy extremo.&amp;rdquo;&lt;/em>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Betsy&lt;/strong> &lt;em>(La Entusiasta)&lt;/em>&lt;/td>
+&lt;td>&lt;em>&amp;ldquo;Voy a escribir muchos números para que parezca más real y ganar por cantidad de valores.&amp;rdquo;&lt;/em>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Melissa&lt;/strong> &lt;em>(La Confiada)&lt;/em>&lt;/td>
+&lt;td>&lt;em>&amp;ldquo;Sé fisiología. Esto va a ser fácil.&amp;rdquo;&lt;/em>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-yellow-100 dark:bg-yellow-900">
+&lt;span class="pr-3 pt-1 text-red-400">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0zM12 15.75h.007v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;strong>Spoiler:&lt;/strong> casi ninguna estrategia funcionó.&lt;/span>
+&lt;/div>
+&lt;hr>
+&lt;h2 id="la-escena-del-crimen-mucha-sangre-o-al-menos-uno-de-sus-componentes-la-hemoglobina">La escena del crimen: Mucha sangre o al menos uno de sus componentes, la Hemoglobina&lt;/h2>
+&lt;p>Para que una mentira sea creíble, hay que conocer la verdad:&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parámetro&lt;/th>
+&lt;th>Valor real&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Variable&lt;/td>
+&lt;td>Concentración de hemoglobina en sangre (mujer adulta)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Unidad&lt;/td>
+&lt;td>g/L&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Rango normal&lt;/td>
+&lt;td>121 – 151 g/L&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Media poblacional&lt;/td>
+&lt;td>136 g/L&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Desviación estándar&lt;/td>
+&lt;td>7.5 g/L&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>Armadas con este conocimiento (o su vaga memoria de él), las participantes escribieron furiosamente durante 60 segundos en su fichero de Excel todos las cifras que pudieron.&lt;/p>
+&lt;p>&lt;strong>El resultado:&lt;/strong> &lt;em>127 valores inventados&lt;/em> listos para el &lt;strong>análisis
+forense&lt;/strong>.&lt;/p>
+&lt;hr>
+&lt;h2 id="acto-ii-la-autopsia-estadística">Acto II: La autopsia estadística&lt;/h2>
+&lt;h3 id="primera-prueba-acertaron-el-centro">Primera prueba: ¿Acertaron el centro?&lt;/h3>
+&lt;p>Empecemos por lo fácil. &lt;em>¿La media aritmética del conjunto de datos inventados se parecen al valor real?&lt;/em>&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align: left">Participante&lt;/th>
+&lt;th style="text-align: right">Valores inventados&lt;/th>
+&lt;th style="text-align: right">Media aritmética&lt;/th>
+&lt;th style="text-align: right">Error de estimación&lt;/th>
+&lt;th style="text-align: left">Resultado&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align: left">La Entusiasta&lt;/td>
+&lt;td style="text-align: right">47&lt;/td>
+&lt;td style="text-align: right">133.3&lt;/td>
+&lt;td style="text-align: right">-2.7&lt;/td>
+&lt;td style="text-align: left">Aceptable&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">La Prudente&lt;/td>
+&lt;td style="text-align: right">38&lt;/td>
+&lt;td style="text-align: right">134.8&lt;/td>
+&lt;td style="text-align: right">-1.2&lt;/td>
+&lt;td style="text-align: left">✓ Muy buena&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">La Confiada&lt;/td>
+&lt;td style="text-align: right">42&lt;/td>
+&lt;td style="text-align: right">136.0&lt;/td>
+&lt;td style="text-align: right">0.0&lt;/td>
+&lt;td style="text-align: left">✓ Excelente&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
+&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;strong>Error de estimación&lt;/strong> = Parámetro estimado (Ej. Media de la Hemoglobina en datos inventados ) - Valor real (Ej.136 g/L)&lt;/span>
+&lt;/div>
+&lt;p>&lt;strong>Todas lograron estimaciones clínicamente válidas&lt;/strong> - los errores están dentro del margen aceptable en práctica médica:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Variación biológica normal:&lt;/strong> 2-3 g/L&lt;/li>
+&lt;li>&lt;strong>Error de medición típico:&lt;/strong> 1-2 g/L&lt;/li>
+&lt;li>&lt;strong>Umbral de relevancia clínica:&lt;/strong> &amp;gt;5 g/L&lt;/li>
+&lt;/ul>
+&lt;p>En contexto real, estas diferencias no alterarían decisiones diagnósticas ni terapéuticas.&lt;/p>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-yellow-100 dark:bg-yellow-900">
+&lt;span class="pr-3 pt-1 text-red-400">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0zM12 15.75h.007v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;strong>Resultado:&lt;/strong> Las tres doctoras pasaron esta prueba.&lt;/span>
+&lt;/div>
+&lt;!-- ```{r distribucion} -->
+&lt;!-- library(ggplot2) -->
+&lt;!-- ## EL MEJOR - Combina densidad + datos crudos + referencia -->
+&lt;!-- ggplot(datos, aes(x = valor)) + -->
+&lt;!-- geom_density(aes(fill = "Densidad"), alpha = 0.3, adjust = 0.7) + -->
+&lt;!-- geom_histogram(aes(y = ..density.., fill = "Histograma"), -->
+&lt;!-- alpha = 0.3, bins = 15, color = "gray50") + -->
+&lt;!-- geom_rug(aes(color = participante), sides = "b", alpha = 0.3) + -->
+&lt;!-- geom_vline(xintercept = 136, linetype = "dashed", -->
+&lt;!-- color = "red", size = 1, alpha = 0.3) + -->
+&lt;!-- facet_wrap(~participante, ncol = 2) + -->
+&lt;!-- scale_fill_manual(values = c("Densidad" = "blue", "Histograma" = "gray")) + -->
+&lt;!-- labs(title = "Análisis Forense de Distribuciones") + -->
+&lt;!-- theme_minimal() -->
+&lt;!-- ``` -->
+&lt;!-- **Análisis Forense de las Huellas Digitales:** -->
+&lt;!-- - **La Prudente** delata su estrategia: "quedarse en lo seguro" produce una distribución anormalmente estrecha que nunca se ve en datos reales. -->
+&lt;!-- - **La Entusiasta** revela inconsistencia cognitiva: la bimodalidad sugiere que alternó entre dos "modos" de inventar números. -->
+&lt;!-- - **La Confiada**, a pesar de su nombre, muestra aversión a valores extremos altos, truncando artificialmente la cola derecha. -->
+&lt;!-- **Veredicto:** Las tres distribuciones exhiben patrones antinaturales que delatan origen humano, no natural. -->
+&lt;p>Intuir el centro de una distribución es relativamente fácil. Nuestro cerebro es bueno encontrando promedios.&lt;/p>
+&lt;p>&lt;em>Pero aquí viene el problema&amp;hellip;&lt;/em>&lt;/p>
+&lt;hr>
+&lt;h3 id="segunda-prueba-simularon-bien-la-variabilidad">Segunda prueba: ¿Simularon bien la variabilidad?&lt;/h3>
+&lt;p>Como médicos, nuestros participantes tienen experiencia clínica que les permitió estimar bien la tendencia central de los datos.
+Pero un desafío mayor aparece al intentar reproducir la dispersión. La variabilidad resulta mucho más difícil de intuir que el promedio. Veamos qué sucedió:&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align: left">Participante&lt;/th>
+&lt;th style="text-align: right">Desviación Estándar&lt;/th>
+&lt;th style="text-align: right">Minimo&lt;/th>
+&lt;th style="text-align: right">Maximo&lt;/th>
+&lt;th style="text-align: right">Error Absoluto&lt;/th>
+&lt;th style="text-align: right">Error Relativo (%)&lt;/th>
+&lt;th style="text-align: left">Resultado&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align: left">La Confiada&lt;/td>
+&lt;td style="text-align: right">8.5&lt;/td>
+&lt;td style="text-align: right">119&lt;/td>
+&lt;td style="text-align: right">148&lt;/td>
+&lt;td style="text-align: right">1.0&lt;/td>
+&lt;td style="text-align: right">13.3&lt;/td>
+&lt;td style="text-align: left">Adecuada&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">La Entusiasta&lt;/td>
+&lt;td style="text-align: right">15.1&lt;/td>
+&lt;td style="text-align: right">108&lt;/td>
+&lt;td style="text-align: right">156&lt;/td>
+&lt;td style="text-align: right">7.6&lt;/td>
+&lt;td style="text-align: right">101.3&lt;/td>
+&lt;td style="text-align: left">Muy alta&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">La Prudente&lt;/td>
+&lt;td style="text-align: right">4.1&lt;/td>
+&lt;td style="text-align: right">127&lt;/td>
+&lt;td style="text-align: right">141&lt;/td>
+&lt;td style="text-align: right">3.4&lt;/td>
+&lt;td style="text-align: right">45.3&lt;/td>
+&lt;td style="text-align: left">Muy alta&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
+&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;p>&lt;strong>Error absoluto&lt;/strong>: Cuánto nos equivocamos con respeto al parámetro poblacional (&lt;em>Ejemplo: |8.5 - 7.5| = 1.0 g/L&lt;/em>).&lt;/p>
+&lt;p>&lt;strong>Error relativo&lt;/strong>: Qué porcentaje del valor real representa nuestro error (&lt;em>Ejemplo: |(8.5 - 7.5)/7.5| × 100% = 13.3%&lt;/em>).&lt;/p>
+&lt;/span>
+&lt;/div>
+&lt;p>&lt;strong>Hallazgo 1:&lt;/strong> Nadie acertó la variabilidad.&lt;/p>
+&lt;ul>
+&lt;li>La Prudente fue demasiado conservadora (rango 127-141)&lt;/li>
+&lt;li>La Entusiasta fue demasiado caótica (rango 108-156)&lt;/li>
+&lt;li>La Confiada se acercó bastante.&lt;/li>
+&lt;/ul>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-yellow-100 dark:bg-yellow-900">
+&lt;span class="pr-3 pt-1 text-red-400">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0zM12 15.75h.007v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;strong>Primera ley del fraude de datos:&lt;/strong>
+Los humanos intuyen bien la media, pero fracasan simulando la variabilidad.&lt;/span>
+&lt;/div>
+&lt;p>¿Por qué? Porque la variabilidad real es incómoda. Incluye valores que
+&amp;ldquo;no se ven bien&amp;rdquo;: una hemoglobina de 119 o de 153 parece &amp;ldquo;rara&amp;rdquo;, aunque
+sea perfectamente posible.&lt;/p>
+&lt;p>El cerebro humano evita lo incómodo. La naturaleza no.&lt;/p>
+&lt;hr>
+&lt;h3 id="tercera-prueba-el-último-dígito">Tercera prueba: El último dígito&lt;/h3>
+&lt;p>Esta es mi prueba favorita. Simple, brutal, casi imposible de engañar.&lt;/p>
+&lt;p>&lt;strong>La lógica:&lt;/strong> Imaginen una bolsa opaca con 10 fichas numeradas del 0 al 9. Si meten la mano y sacan una ficha al azar (y luego la devuelven), cada número tiene exactamente la misma probabilidad de salir: un 10%.&lt;/p>
+&lt;p>En datos clínicos reales, el último dígito de una medición precisa se comporta igual que esas fichas: es puro ruido aleatorio.&lt;/p>
+&lt;p>Pero el cerebro humano no funciona como el azar; funciona buscando comodidades.&lt;/p>
+&lt;p>Veamos qué hicieron nuestras residentes. En la siguiente tabla, he resaltado en negrita los valores que se desvían sospechosamente de ese 10% esperado:&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align: left">Dígito&lt;/th>
+&lt;th style="text-align: left">La Confiada&lt;/th>
+&lt;th style="text-align: left">La Entusiasta&lt;/th>
+&lt;th style="text-align: left">La Prudente&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align: left">0&lt;/td>
+&lt;td style="text-align: left">&lt;strong>23.8%&lt;/strong>&lt;/td>
+&lt;td style="text-align: left">&lt;strong>23.4%&lt;/strong>&lt;/td>
+&lt;td style="text-align: left">&lt;strong>28.9%&lt;/strong>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">1&lt;/td>
+&lt;td style="text-align: left">&lt;strong>4.8%&lt;/strong>&lt;/td>
+&lt;td style="text-align: left">8.5%&lt;/td>
+&lt;td style="text-align: left">7.9%&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">2&lt;/td>
+&lt;td style="text-align: left">&lt;strong>4.8%&lt;/strong>&lt;/td>
+&lt;td style="text-align: left">&lt;strong>4.3%&lt;/strong>&lt;/td>
+&lt;td style="text-align: left">&lt;strong>2.6%&lt;/strong>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">3&lt;/td>
+&lt;td style="text-align: left">&lt;strong>4.8%&lt;/strong>&lt;/td>
+&lt;td style="text-align: left">8.5%&lt;/td>
+&lt;td style="text-align: left">&lt;strong>2.6%&lt;/strong>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">4&lt;/td>
+&lt;td style="text-align: left">14.3%&lt;/td>
+&lt;td style="text-align: left">&lt;strong>4.3%&lt;/strong>&lt;/td>
+&lt;td style="text-align: left">5.3%&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">5&lt;/td>
+&lt;td style="text-align: left">14.3%&lt;/td>
+&lt;td style="text-align: left">&lt;strong>21.3%&lt;/strong>&lt;/td>
+&lt;td style="text-align: left">&lt;strong>15.8%&lt;/strong>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">6&lt;/td>
+&lt;td style="text-align: left">7.1%&lt;/td>
+&lt;td style="text-align: left">&lt;strong>4.3%&lt;/strong>&lt;/td>
+&lt;td style="text-align: left">10.5%&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">7&lt;/td>
+&lt;td style="text-align: left">11.9%&lt;/td>
+&lt;td style="text-align: left">10.6%&lt;/td>
+&lt;td style="text-align: left">5.3%&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">8&lt;/td>
+&lt;td style="text-align: left">&lt;strong>4.8%&lt;/strong>&lt;/td>
+&lt;td style="text-align: left">6.4%&lt;/td>
+&lt;td style="text-align: left">7.9%&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">9&lt;/td>
+&lt;td style="text-align: left">9.5%&lt;/td>
+&lt;td style="text-align: left">8.5%&lt;/td>
+&lt;td style="text-align: left">13.2%&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>¿Lo notan? Es difícil ver el patrón solo con números. Hagámoslo visible.&lt;/p>
+&lt;p>En este gráfico, he pintado de rojo cualquier barra que supere la línea del azar (10%). Observen dónde se concentran las alertas:&lt;/p>
+&lt;img src="https://bioestadisticaedu.com/post/concurso-mientele-profesor/index_files/figure-html/last-1.png" width="3000" style="display: block; margin: auto;" />
+&lt;p>&lt;strong>El patrón del mentiroso emerge:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>🚨 El &lt;strong>0&lt;/strong> y el &lt;strong>5&lt;/strong> dominan (números &amp;ldquo;redondos&amp;rdquo;)&lt;/li>
+&lt;li>🚨 El &lt;strong>3&lt;/strong>, &lt;strong>7&lt;/strong> y &lt;strong>9&lt;/strong> casi desaparecen (números &amp;ldquo;incómodos&amp;rdquo;)&lt;/li>
+&lt;/ul>
+&lt;p>Para ser justos, el azar nunca es perfecto. ¿Cómo distinguimos el ruido natural del fraude?&lt;/p>
+&lt;p>En lugar de usar pruebas de significación complejas, usaremos una métrica descriptiva más honesta: la Desviación Promedio.&lt;/p>
+&lt;p>La pregunta es simple: &amp;ldquo;En promedio, ¿cuántos puntos porcentuales se equivocó la alumna en cada dígito respecto al 10% ideal?&amp;rdquo;&lt;/p>
+&lt;ul>
+&lt;li>&lt;em>0% - 2%: Ruido natural (Aleatorio)&lt;/em>.&lt;/li>
+&lt;li>2% - 4%: Zona gris (Sospechoso).&lt;/li>
+&lt;li>4%: Sesgo sistemático (Artificial).&lt;/li>
+&lt;/ul>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align: left">Participante&lt;/th>
+&lt;th style="text-align: left">Desviación Promedio&lt;/th>
+&lt;th style="text-align: left">Peor Error&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align: left">La Prudente&lt;/td>
+&lt;td style="text-align: left">5.7 %&lt;/td>
+&lt;td style="text-align: left">18.9 %&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">La Entusiasta&lt;/td>
+&lt;td style="text-align: left">5.1 %&lt;/td>
+&lt;td style="text-align: left">13.4 %&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">La Confiada&lt;/td>
+&lt;td style="text-align: left">4.9 %&lt;/td>
+&lt;td style="text-align: left">13.8 %&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>La Prudente se desvió, en promedio, un 4.4% en cada dígito. Su &amp;ldquo;peor error&amp;rdquo; fue poner casi un 24% de ceros (un exceso de 14 puntos). Eso no es mala suerte; es un sesgo cognitivo masivo.&lt;/p>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
+&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;p>¿Por qué funciona esto?&lt;/p>
+&lt;p>Tu cerebro es una máquina de ahorrar energía. En 60 segundos, calcular &amp;ldquo;137&amp;rdquo; o &amp;ldquo;129&amp;rdquo; cuesta milisegundos valiosos. Escribir &amp;ldquo;130&amp;rdquo; o &amp;ldquo;135&amp;rdquo; es casi automático.&lt;/p>
+&lt;p>Bajo presión, la comodidad cognitiva vence a la creatividad estadística.&lt;/p>
+&lt;/span>
+&lt;/div>
+&lt;details class="spoiler " id="spoiler-11">
+&lt;summary class="cursor-pointer">Profe, ¿por qué el último dígito es Uniforme (10% cada uno) y no sigue la Ley de Benford? (clic para ver la respuesta)&lt;/summary>
+&lt;div class="rounded-lg bg-neutral-50 dark:bg-neutral-800 p-2">
+&lt;p>Porque los primeros números obedecen a la &lt;strong>Homeostasis&lt;/strong>, pero el último obedece al &lt;strong>caos&lt;/strong>.&lt;/p>
+&lt;p>Piensen en una Hemoglobina de &lt;strong>136 g/L&lt;/strong>:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Los primeros dígitos (13-):&lt;/strong> Son obra de la &lt;strong>Médula Ósea&lt;/strong>. Dependen de la eritropoyetina, el hierro y semanas de maduración celular. Son estructuras biológicas rígidas y lentas (Siguen leyes como Benford).&lt;/li>
+&lt;li>&lt;strong>El último dígito (-6):&lt;/strong> Es obra de un &lt;strong>Vaso de Agua&lt;/strong> o otro factor. Depende de si el paciente sudó, si tomó café o si la máquina del laboratorio vibró. Es puro ruido transitorio.&lt;/li>
+&lt;/ul>
+&lt;p>La biología define el 130; el azar decide si es 136, 135 o 137.&lt;/p>
+&lt;/div>
+&lt;/details>
+&lt;hr>
+&lt;h3 id="cuarta-prueba-la-aversión-a-la-repetición">Cuarta prueba: La aversión a la repetición&lt;/h3>
+&lt;p>Otro bug del cerebro humano: odiamos repetirnos.&lt;/p>
+&lt;p>Si escribes &amp;ldquo;134&amp;rdquo; y luego tienes que escribir otro número, tu cerebro
+grita: &lt;em>&amp;quot;¡No pongas 134 otra vez! ¡Se verá falso!&amp;quot;&lt;/em>&lt;/p>
+&lt;p>Pero en datos reales, las repeticiones son normales.&lt;/p>
+&lt;p>Imaginen el modo &amp;ldquo;Aleatorio&amp;rdquo; (Shuffle) de Spotify. Originalmente era puro azar, pero los usuarios se quejaban si salían dos canciones seguidas del mismo artista. Spotify tuvo que trucar el algoritmo para hacerlo menos aleatorio (evitando repeticiones) y que así pareciera más aleatorio a los humanos.&lt;/p>
+&lt;p>En medicina, un corazón sano tiene variabilidad (caos). Un corazón que late como un metrónomo (arriba, abajo, arriba, abajo) es patológico. Al inventar datos, el humano suele actuar como ese metrónomo, alternando valores altos y bajos para &amp;ldquo;equilibrar&amp;rdquo; la media.&lt;/p>
+&lt;p>Veamos si nuestras residentes cayeron en la trampa:&lt;/p>
+&lt;table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center;"> Participante &lt;/th>
+&lt;th style="text-align:center;"> Índice Z &lt;/th>
+&lt;th style="text-align:center;"> Diagnóstico &lt;/th>
+&lt;th style="text-align:center;"> Veredicto &lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center;"> La Confiada &lt;/td>
+&lt;td style="text-align:center;"> 0.00 &lt;/td>
+&lt;td style="text-align:center;"> Aleatoriedad perfecta &lt;/td>
+&lt;td style="text-align:center;"> Aleatoriedad normal ✓ &lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center;"> La Entusiasta &lt;/td>
+&lt;td style="text-align:center;"> -0.44 &lt;/td>
+&lt;td style="text-align:center;"> Agrupamiento excesivo &lt;/td>
+&lt;td style="text-align:center;"> Aleatoriedad normal ✓ &lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center;"> La Prudente &lt;/td>
+&lt;td style="text-align:center;"> -0.60 &lt;/td>
+&lt;td style="text-align:center;"> Agrupamiento excesivo &lt;/td>
+&lt;td style="text-align:center;"> Aleatoriedad normal ✓ &lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>¡Sorpresa! Aquí la intuición nos falló.&lt;/p>
+&lt;p>Contra todo pronóstico, las tres residentes pasaron esta prueba.&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>La Confiada obtuvo un Z de 0.00. Una aleatoriedad matemática perfecta (casi demasiado perfecta, irónicamente).&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>La Prudente y La Entusiasta mostraron un ligero agrupamiento, pero totalmente dentro del rango de lo posible.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
+&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;p>Lección Forense Vital:
+Este resultado demuestra por qué nunca debes confiar en una sola prueba estadística.&lt;/p>
+&lt;p>Si solo hubiéramos usado el Test de Rachas, habríamos concluido que los datos eran reales. Pero como vimos en la Prueba del Último Dígito, sabemos que son falsos.&lt;/p>
+&lt;p>El mentiroso puede tener suerte con la secuencia (arriba/abajo), pero es mucho más difícil que controle la micro-estructura de los números (dígitos finales). Por eso necesitamos una batería de pruebas, no una sola bala de plata.&lt;/p>
+&lt;/span>
+&lt;/div>
+&lt;hr>
+&lt;h3 id="quinta-prueba-el-fantasma-de-benford">Quinta prueba: El fantasma de Benford&lt;/h3>
+&lt;p>La Ley de Benford es el detector de mentiras favorito de auditores y
+estadísticos forenses.&lt;/p>
+&lt;p>Normalmente, el primer dígito sigue una curva logarítmica (el 1 aparece el 30% de las veces). Pero la hemoglobina de una mujer adulta sana casi siempre empieza por 1 (Rango 120-150). Aquí Benford parece inútil&amp;hellip; a menos que miremos bajo el capó.&lt;/p>
+&lt;p>&lt;strong>El Truco:&lt;/strong> La Ley de Benford generalizada nos dice que el patrón logarítmico se mantiene en el Segundo Dígito, aunque es más sutil.&lt;/p>
+&lt;ul>
+&lt;li>El 1 (ej. 110, 115) debe ser más frecuente que el 2 (120, 125).&lt;/li>
+&lt;li>El 2 más que el 3, y así sucesivamente.&lt;/li>
+&lt;/ul>
+&lt;p>Veamos si las residentes respetaron esta geometría natural o impusieron su propia voluntad:&lt;/p>
+&lt;table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+&lt;caption>&lt;span id="tab:Benford">&lt;/span>Table 1: (\#tab:Benford)Análisis de Benford (2do Dígito)&lt;/caption>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center;"> Participante &lt;/th>
+&lt;th style="text-align:center;"> Conformidad &lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center;"> La Confiada &lt;/td>
+&lt;td style="text-align:center;"> No conforme con Benford 🚨 | &lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center;"> La Entusiasta &lt;/td>
+&lt;td style="text-align:center;"> Desviación moderada ⚠️ &lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center;"> La Prudente &lt;/td>
+&lt;td style="text-align:center;"> No conforme con Benford 🚨 | &lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;!-- | Segundo dígito | Esperado (Benford) | Observado | Diferencia | -->
+&lt;!-- |----------------|--------------------|-----------|-------------| -->
+&lt;!-- | 0 | 12.0% | 3.1% | ⬇️ -8.9% 🚨 | -->
+&lt;!-- | 1 | 11.4% | 5.5% | ⬇️ -5.9% | -->
+&lt;!-- | 2 | 10.9% | 14.2% | ⬆️ +3.3% | -->
+&lt;!-- | 3 | 10.4% | 18.9% | ⬆️ +8.5% 🚨 | -->
+&lt;!-- | 4 | 10.0% | 16.5% | ⬆️ +6.5% 🚨 | -->
+&lt;!-- | 5 | 9.7% | 15.0% | ⬆️ +5.3% | -->
+&lt;!-- | 6 | 9.3% | 9.4% | ✓ | -->
+&lt;!-- | 7 | 9.0% | 7.1% | ≈ | -->
+&lt;!-- | 8 | 8.8% | 6.3% | ⬇️ | -->
+&lt;!-- | 9 | 8.5% | 3.9% | ⬇️ -4.6% | -->
+&lt;!-- **El patrón:** Las participantes evitaron los extremos y se concentraron -->
+&lt;!-- en el "centro seguro" (132-145). -->
+&lt;p>El Patrón del Fracaso:
+¿Por qué fallaron estrepitosamente?&lt;/p>
+&lt;p>Para cumplir la Ley de Benford en el segundo dígito, tendrían que haber generado muchos valores bajos (120-129) y menos valores altos (140-149).&lt;/p>
+&lt;p>Pero recordemos la Estrategia de La Prudente: &amp;ldquo;Quedarse en el rango seguro&amp;rdquo;.
+Al tener miedo a los extremos (120 o 150), concentraron casi todos sus datos en el &amp;ldquo;centro cómodo&amp;rdquo; (130-139).&lt;/p>
+&lt;p>Esto infló artificialmente el segundo dígito 3.
+Y mató los dígitos 2 y 4.&lt;/p>
+&lt;!-- La naturaleza no es tan prudente. -->
+&lt;hr>
+&lt;h2 id="interludio-la-caja-de-herramientas-del-detective-estadístico">Interludio: La Caja de Herramientas del Detective Estadístico&lt;/h2>
+&lt;p>Las técnicas que usamos en este &amp;ldquo;concurso&amp;rdquo; no son un juego. Son las
+mismas que utilizan auditores, comités de integridad científica y
+estadísticos forenses para detectar datos fabricados.&lt;/p>
+&lt;p>Aquí presento &lt;strong>siete herramientas&lt;/strong> para analizar una sola variable
+numérica en busca de anomalías.&lt;/p>
+&lt;hr>
+&lt;h3 id="herramienta-1-análisis-del-último-dígito">Herramienta 1: Análisis del Último Dígito&lt;/h3>
+&lt;p>&lt;strong>Principio:&lt;/strong>
+En datos naturales, el último dígito (0-9) debería distribuirse de forma
+aproximadamente uniforme (~10% cada uno).&lt;/p>
+&lt;p>&lt;strong>Qué detecta:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Preferencia por números &amp;ldquo;redondos&amp;rdquo; (0, 5) - Aversión a dígitos
+&amp;ldquo;incómodos&amp;rdquo; (3, 7, 9) - Redondeo excesivo&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Test estadístico:&lt;/strong>
+Chi-cuadrado de bondad de ajuste contra distribución uniforme.&lt;/p>
+&lt;p>&lt;strong>Interpretación:&lt;/strong>&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>p-valor&lt;/th>
+&lt;th>Interpretación&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&amp;gt; 0.10&lt;/td>
+&lt;td>Compatible con datos reales&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>0.05 - 0.10&lt;/td>
+&lt;td>Zona gris, investigar más&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&amp;lt; 0.05&lt;/td>
+&lt;td>Evidencia de no uniformidad&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&amp;lt; 0.01&lt;/td>
+&lt;td>Fuerte evidencia de anomalía&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>&lt;strong>Limitaciones:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Algunas variables tienen último dígito no uniforme por naturaleza\&lt;/li>
+&lt;li>Instrumentos de medición pueden introducir sesgos legítimos&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Referencia:&lt;/strong>
+Mosimann, J. E., et al. (1995). &amp;ldquo;Terminal digits and the examination of
+questioned data.&amp;rdquo; &lt;em>Chance&lt;/em>, 8(2), 23-27.&lt;/p>
+&lt;hr>
+&lt;h3 id="herramienta-2-ley-de-benford">Herramienta 2: Ley de Benford&lt;/h3>
+&lt;p>&lt;strong>Principio:&lt;/strong>
+En muchos datasets naturales, el primer dígito significativo NO es
+uniforme. El 1 aparece ~30% de las veces, decreciendo logarítmicamente.&lt;/p>
+&lt;p>&lt;strong>Fórmula:&lt;/strong>
+&lt;code>\(P(d) = \log_{10}\left(1 + \frac{1}{d}\right)\)&lt;/code>&lt;/p>
+&lt;p>&lt;strong>Distribución esperada:&lt;/strong>&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Dígito&lt;/th>
+&lt;th>1&lt;/th>
+&lt;th>2&lt;/th>
+&lt;th>3&lt;/th>
+&lt;th>4&lt;/th>
+&lt;th>5&lt;/th>
+&lt;th>6&lt;/th>
+&lt;th>7&lt;/th>
+&lt;th>8&lt;/th>
+&lt;th>9&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>%&lt;/td>
+&lt;td>30.1%&lt;/td>
+&lt;td>17.6%&lt;/td>
+&lt;td>12.5%&lt;/td>
+&lt;td>9.7%&lt;/td>
+&lt;td>7.9%&lt;/td>
+&lt;td>6.7%&lt;/td>
+&lt;td>5.8%&lt;/td>
+&lt;td>5.1%&lt;/td>
+&lt;td>4.6%&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>&lt;strong>Qué detecta:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Datos inventados (los humanos asumen uniformidad)&lt;/li>
+&lt;li>Manipulación de cifras&lt;/li>
+&lt;li>Duplicación de registros&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Cuándo NO aplicar:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Datos con rango restringido (usar segundo dígito)&lt;/li>
+&lt;li>Números asignados (DNI, códigos)&lt;/li>
+&lt;li>Datos truncados por diseño&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Referencia:&lt;/strong>
+Benford, F. (1938). &amp;ldquo;The Law of Anomalous Numbers.&amp;rdquo; &lt;em>Proceedings of the
+American Philosophical Society&lt;/em>, 78(4), 551-572.&lt;/p>
+&lt;hr>
+&lt;h3 id="herramienta-3-test-de-rachas-runs-test">Herramienta 3: Test de Rachas (Runs Test)&lt;/h3>
+&lt;p>&lt;strong>Principio:&lt;/strong>
+En una secuencia aleatoria, los valores por encima y por debajo de la
+mediana deberían alternarse de forma impredecible.&lt;/p>
+&lt;p>&lt;strong>Qué detecta:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Alternancia excesiva (el humano evita repetir)&lt;/li>
+&lt;li>Agrupamiento excesivo (copiar-pegar)&lt;/li>
+&lt;li>Patrones cíclicos ocultos&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Interpretación:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Demasiadas rachas → alternancia artificial&lt;/li>
+&lt;li>Muy pocas rachas → agrupamiento sospechoso&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="herramienta-4-análisis-de-duplicados">Herramienta 4: Análisis de Duplicados&lt;/h3>
+&lt;p>&lt;strong>Principio:&lt;/strong>
+En datos reales, cierto nivel de repetición es esperado y depende del
+tamaño muestral y la precisión del instrumento.&lt;/p>
+&lt;p>&lt;strong>Qué detecta:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Ausencia sospechosa de repeticiones&lt;/li>
+&lt;li>Exceso de valores idénticos&lt;/li>
+&lt;li>Patrones de repetición no aleatorios&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Ejemplo:&lt;/strong>
+En 50 valores de hemoglobina (rango ~30 valores posibles), esperaríamos
+20-40% de repeticiones. Si hay 0%, es sospechoso.&lt;/p>
+&lt;p>&lt;strong>Referencia:&lt;/strong>
+Carlisle, J. B. (2017). &amp;ldquo;Data fabrication and other reasons for
+non-random sampling in 5087 randomised, controlled trials.&amp;rdquo;
+&lt;em>Anaesthesia&lt;/em>, 72(8), 944-952.&lt;/p>
+&lt;hr>
+&lt;h3 id="herramienta-5-grim-test">Herramienta 5: GRIM Test&lt;/h3>
+&lt;p>&lt;strong>Principio:&lt;/strong>
+Dados un tamaño muestral (n) y una escala de medición, solo ciertas
+medias son matemáticamente posibles.&lt;/p>
+&lt;p>&lt;strong>Ejemplo:&lt;/strong>
+Si tienes n=20 valores enteros, la media debe ser un múltiplo de 0.05.
+Una media reportada de 7.32 es imposible.&lt;/p>
+&lt;p>&lt;strong>Qué detecta:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Medias fabricadas sin datos de respaldo\&lt;/li>
+&lt;li>Errores de transcripción\&lt;/li>
+&lt;li>Inconsistencias entre estadísticos reportados&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Referencia:&lt;/strong>
+Brown, N. J. L., &amp;amp; Heathers, J. A. J. (2017). &amp;ldquo;The GRIM Test.&amp;rdquo; &lt;em>Social
+Psychological and Personality Science&lt;/em>, 8(4), 363-369.&lt;/p>
+&lt;hr>
+&lt;h3 id="herramienta-6-sprite">Herramienta 6: SPRITE&lt;/h3>
+&lt;p>&lt;strong>Principio:&lt;/strong>
+Dado un conjunto de estadísticos reportados (media, DS, n, rango),
+reconstruir todos los datasets posibles. Si ninguno tiene sentido, los
+estadísticos son sospechosos.&lt;/p>
+&lt;p>&lt;strong>Qué detecta:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Combinaciones imposibles de estadísticos\&lt;/li>
+&lt;li>Datos que &amp;ldquo;no pueden existir&amp;rdquo;&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Referencia:&lt;/strong>
+Heathers, J. A. J., &amp;amp; Brown, N. J. L. (2019). &amp;ldquo;SPRITE: A simple
+procedure for retrieving and installing true experimental data.&amp;rdquo;
+&lt;em>PsyArXiv&lt;/em>.&lt;/p>
+&lt;hr>
+&lt;h3 id="herramienta-7-análisis-de-distribución">Herramienta 7: Análisis de Distribución&lt;/h3>
+&lt;p>&lt;strong>Principio:&lt;/strong>
+Los datos inventados tienden a ser &amp;ldquo;demasiado normales&amp;rdquo; o &amp;ldquo;demasiado
+uniformes&amp;rdquo;. La realidad es más desordenada.&lt;/p>
+&lt;p>&lt;strong>Métricas clave:&lt;/strong>&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Medida&lt;/th>
+&lt;th>Qué mide&lt;/th>
+&lt;th>Valor típico&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Asimetría&lt;/td>
+&lt;td>Desbalance izq/der&lt;/td>
+&lt;td>0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Curtosis&lt;/td>
+&lt;td>Peso de las colas&lt;/td>
+&lt;td>3&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;details class="spoiler " id="spoiler-13">
+&lt;summary class="cursor-pointer">Análisis de Distribución: (Clic para ver las pruebas)&lt;/summary>
+&lt;div class="rounded-lg bg-neutral-50 dark:bg-neutral-800 p-2">
+&lt;img src="distribucion.png"/>
+&lt;/div>
+&lt;/details>
+&lt;p>&lt;strong>Referencia:&lt;/strong>&lt;br>
+Simonsohn, U. (2013). &amp;ldquo;Just Post It.&amp;rdquo; &lt;em>Psychological Science&lt;/em>, 24(10),
+1875-1888.&lt;/p>
+&lt;hr>
+&lt;h3 id="resumen-matriz-de-herramientas">Resumen: Matriz de Herramientas&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Herramienta&lt;/th>
+&lt;th>Pregunta clave&lt;/th>
+&lt;th>Dificultad&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Último dígito&lt;/td>
+&lt;td>¿Dígitos finales uniformes?&lt;/td>
+&lt;td>⭐&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Benford&lt;/td>
+&lt;td>¿Primeros dígitos naturales?&lt;/td>
+&lt;td>⭐&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Runs test&lt;/td>
+&lt;td>¿Secuencia aleatoria?&lt;/td>
+&lt;td>⭐⭐&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Duplicados&lt;/td>
+&lt;td>¿Repetición plausible?&lt;/td>
+&lt;td>⭐&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>GRIM&lt;/td>
+&lt;td>¿Media posible?&lt;/td>
+&lt;td>⭐⭐&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>SPRITE&lt;/td>
+&lt;td>¿Dataset posible?&lt;/td>
+&lt;td>⭐⭐⭐&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Distribución&lt;/td>
+&lt;td>¿Forma natural?&lt;/td>
+&lt;td>⭐⭐&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;div class="mermaid">flowchart TD
+A[Datos sospechosos] --> B{Tienes valores crudos?}
+B -->|Si| C[Ultimo digito + Benford + Runs test]
+B -->|No| D{Tienes estadisticos?}
+D -->|Si| E{Conoces n y escala?}
+D -->|No| F[Solicitar datos]
+E -->|Si| G[GRIM + SPRITE]
+E -->|No| H[Comparar con literatura]
+C --> I[Integrar hallazgos]
+G --> I
+I --> J{Anomalias?}
+J -->|Multiples| K[Alta sospecha]
+J -->|Una| L[Investigar mas]
+J -->|Ninguna| M[Compatible con datos reales]
+&lt;/div>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-yellow-100 dark:bg-yellow-900">
+&lt;span class="pr-3 pt-1 text-red-400">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0zM12 15.75h.007v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;p>&lt;strong>Advertencia ética&lt;/strong>
+Estas herramientas detectan anomalías, no prueban fraude.
+Una señal de alarma puede tener explicaciones legítimas:&lt;/p>
+&lt;ul>
+&lt;li>Error de transcripción&lt;/li>
+&lt;li>Características del instrumento&lt;/li>
+&lt;li>Población inusual&lt;/li>
+&lt;li>Redondeo por protocolo&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Antes de acusar:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>Contactar a los autores&lt;/li>
+&lt;li>Buscar explicaciones metodológicas&lt;/li>
+&lt;li>Replicar el análisis&lt;/li>
+&lt;li>Consultar expertos&lt;/li>
+&lt;/ol>
+&lt;/span>
+&lt;/div>
+&lt;hr>
+&lt;h2 id="acto-iii-el-veredicto">Acto III: El veredicto&lt;/h2>
+&lt;p>Después de cinco pruebas forenses, el panorama es claro:&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Prueba&lt;/th>
+&lt;th>La Prudente&lt;/th>
+&lt;th>La Entusiasta&lt;/th>
+&lt;th>La Confiada&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Media&lt;/td>
+&lt;td>✓&lt;/td>
+&lt;td>✓&lt;/td>
+&lt;td>✓&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Variabilidad&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Último dígito&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>⚠️&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Runs test&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Benford&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>⚠️&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>TOTAL&lt;/strong>&lt;/td>
+&lt;td>&lt;strong>1/5&lt;/strong>&lt;/td>
+&lt;td>&lt;strong>1/5&lt;/strong>&lt;/td>
+&lt;td>&lt;strong>1/5&lt;/strong>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="ceremonia-los-premios-pinocho-2025">Ceremonia: Los Premios Pinocho 2025&lt;/h3>
+&lt;p>🥇 &lt;strong>Pinocho de Oro — Mejor mentirosa&lt;/strong>&lt;br>
+Ganadora: La Entusiasta&lt;br>
+Su estrategia de escribir muchos números tuvo un efecto inesperado: al
+tener más valores, su distribución fue ligeramente menos sesgada.&lt;br>
+&lt;em>&amp;ldquo;Ganaste no por mentir bien, sino por mentir tanto que algunos errores
+se cancelaron.&amp;rdquo;&lt;/em>&lt;/p>
+&lt;p>🥈 &lt;strong>Pinocho de Plata — Creatividad en el error&lt;/strong>&lt;br>
+Ganadora: La Confiada&lt;br>
+Su conocimiento de fisiología le permitió acertar la media casi
+perfectamente. Pero ese mismo conocimiento la traicionó: estaba TAN
+segura del rango &amp;ldquo;normal&amp;rdquo; que evitó los extremos con fervor religioso.&lt;br>
+&lt;em>&amp;ldquo;Sabías demasiado para mentir bien.&amp;rdquo;&lt;/em>&lt;/p>
+&lt;p>🥉 &lt;strong>Pinocho de Bronce — Consistencia en el fracaso&lt;/strong>&lt;br>
+Ganadora: La Prudente&lt;br>
+Falló en cada prueba de manera predecible. Su aversión al riesgo produjo
+el rango más estrecho, la menor variabilidad, y la mayor concentración
+de 0s y 5s.&lt;br>
+&lt;em>&amp;ldquo;Tu prudencia te delató. En estadística, lo seguro es sospechoso.&amp;rdquo;&lt;/em>&lt;/p>
+&lt;hr>
+&lt;h2 id="por-qué-esto-importa">Por qué esto importa&lt;/h2>
+&lt;p>Este juego usa las mismas técnicas que detectan fraude real:&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Campo&lt;/th>
+&lt;th>Aplicación&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Auditoría contable&lt;/td>
+&lt;td>Facturas inventadas&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Integridad científica&lt;/td>
+&lt;td>Datos fabricados en papers&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Ensayos clínicos&lt;/td>
+&lt;td>Resultados manipulados&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Elecciones&lt;/td>
+&lt;td>Anomalías en conteos&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Declaraciones fiscales&lt;/td>
+&lt;td>Ingresos inventados&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>En 2012, el psicólogo Diederik Stapel fue descubierto por anomalías
+estadísticas. En 2011, Marc Hauser de Harvard cayó por patrones
+imposibles.&lt;/p>
+&lt;p>&lt;strong>La estadística no olvida. Y no perdona.&lt;/strong>&lt;/p>
+&lt;hr>
+&lt;h2 id="epílogo-las-tres-leyes-del-mentiroso-numérico">Epílogo: Las Tres Leyes del Mentiroso Numérico&lt;/h2>
+&lt;p>Después de este experimento, tres verdades quedaron claras:&lt;/p>
+&lt;p>&lt;strong>🥇 Primera Ley: El centro es fácil, los extremos son difíciles&lt;/strong>&lt;/p>
+&lt;p>Cualquiera puede adivinar que la hemoglobina promedio está &amp;ldquo;alrededor de
+135&amp;rdquo;. Pero incluir un 118 o un 153 —valores raros pero reales— requiere
+valentía estadística que el cerebro fraudulento no tiene.&lt;/p>
+&lt;p>&lt;strong>🥈 Segunda Ley: La aleatoriedad es incómoda&lt;/strong>&lt;/p>
+&lt;p>Cuando intentas parecer aleatorio, produces patrones más ordenados que
+la realidad. Evitas repetir números. Alternas obsesivamente entre altos
+y bajos. La naturaleza no tiene esas ansiedades.&lt;/p>
+&lt;p>&lt;strong>🥉 Tercera Ley: Los números redondos son una trampa&lt;/strong>&lt;/p>
+&lt;p>Tu cerebro ama el 0 y el 5. En 60 segundos de presión, son tus mejores
+amigos. Pero en la distribución real, son solo 2 de 10 opciones. Tu
+preferencia te delata.&lt;/p>
+&lt;hr>
+&lt;p>La próxima vez que revises un paper y los datos te parezcan &amp;ldquo;demasiado
+limpios&amp;rdquo;, recuerda:&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Los datos reales son incómodos, impredecibles, y a veces feos.&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>Si todo se ve perfecto, probablemente alguien lo perfeccionó.&lt;/strong>&lt;/p>&lt;/blockquote>
+&lt;p>Y si alguna vez te tienta fabricar datos, recuerda a La Prudente, La
+Entusiasta y La Confiada.&lt;/p>
+&lt;p>Ellas también creyeron que podían ganar.&lt;/p>
+&lt;p>&lt;strong>La estadística siempre gana.&lt;/strong>&lt;/p>
+&lt;hr>
+&lt;h2 id="recursos-adicionales">Recursos adicionales&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="experimento.csv">Datos&lt;/a>.&lt;/li>
+&lt;li>&lt;a href="analisis.R">Código&lt;/a>.&lt;/li>
+&lt;/ul>
+&lt;!-- - [Código R](/csv/nutricion.csv). -->
+&lt;p>&lt;strong>Herramientas online:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://www.grimtest.com/" target="_blank" rel="noopener">GRIM Test Calculator&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://benfordonline.net/" target="_blank" rel="noopener">Benford Online Calculator&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://statcheck.io/" target="_blank" rel="noopener">StatCheck&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="conviértete-en-detective-de-datos">¡Conviértete en Detective de Datos!&lt;/h2>
+&lt;p>&lt;strong>No te quedes solo con la teoría.&lt;/strong> Estas técnicas forenses pueden salvarte de basar tus investigaciones en datos fraudulentos. ¡Ahora es tu turno de aplicarlas!&lt;/p>
+&lt;p>💬 &lt;strong>Tu Experiencia Como Detective&lt;/strong>&lt;br>
+La comunidad crece cuando compartimos casos reales. ¡Me encantaría leerte en los comentarios!&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>¿Has detectado alguna vez datos sospechosos en tus investigaciones o en papers que hayas revisado?&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>¿Qué técnica forense te resultó más útil para validar la autenticidad de los datos?&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>Comparte tu caso más intrigante&lt;/strong> - cómo sospechaste y qué técnica te dio la prueba definitiva.&lt;/li>
+&lt;/ul>
+&lt;p>🕵️ &lt;strong>Lleva la Estadística Forense a Tu Próxima Investigación&lt;/strong>&lt;/p>
+&lt;p>&lt;a href="https://bioestadisticaedu.com/subscribe/">&lt;strong>Suscríbete a bioestadísticaedu&lt;/strong>&lt;/a> y recibe directamente en tu bandebanda de entrada:&lt;/p>
+&lt;ul>
+&lt;li>Casos reales de detección de fraude estadístico&lt;/li>
+&lt;li>Plantillas de código para las 7 pruebas forenses&lt;/li>
+&lt;li>Alertas sobre nuevas técnicas de auditoría de datos&lt;/li>
+&lt;/ul>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
+&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;strong>¡Regalo inmediato al suscribirte!&lt;/strong> Te enviaré automáticamente el &lt;strong>kit completo del detective de datos&lt;/strong>: código R para replicar las 7 pruebas forenses + plantilla de informe de auditoría + base de datos del experimento para que practiques.&lt;/span>
+&lt;/div>
+&lt;p>🔎 &lt;strong>¿Necesitas un Ojo Experto?&lt;/strong>&lt;/p>
+&lt;p>Si enfrentas:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Datos sospechosos&lt;/strong> en tu investigación que necesitan auditoría forense&lt;/li>
+&lt;li>&lt;strong>Revisión por pares&lt;/strong> de un artículo con posibles anomalías estadísticas&lt;/li>
+&lt;li>&lt;strong>Curso de estadística básica con enfoque forense&lt;/strong> para tu equipo de investigación&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://bioestadisticaedu.com/collaborations/">&lt;strong>Agenda una consultoría personalizada&lt;/strong>&lt;/a>. Juntos podemos auditar tus datos, entrenar tu equipo en detección de fraudes o desarrollar protocolos de control de calidad para tus investigaciones.&lt;/p>
+&lt;hr>
+&lt;h2 id="referencias">Referencias&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>Benford, F. (1938). The Law of Anomalous Numbers. Proceedings of the American Philosophical Society, &lt;em>78&lt;/em>(4), 551–572.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Brown, N. J. L., &amp;amp; Heathers, J. A. J. (2017). The GRIM Test: A Simple Technique Detects Numerous Anomalies in the Reporting of Results in Psychology. Social Psychological and Personality Science, &lt;em>8&lt;/em>(4), 363–369. &lt;a href="https://doi.org/10.1177/1948550616673876" target="_blank" rel="noopener">https://doi.org/10.1177/1948550616673876&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Carlisle, J. B. (2017). Data fabrication and other reasons for non-random sampling in 5087 randomised, controlled trials in anaesthetic and general medical journals. Anaesthesia, &lt;em>72&lt;/em>(8), 944–952. &lt;a href="https://doi.org/10.1111/anae.13938" target="_blank" rel="noopener">https://doi.org/10.1111/anae.13938&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Heathers, J. A. J., &amp;amp; Brown, N. J. L. (2019). SPRITE. PsyArXiv. &lt;a href="https://psyarxiv.com/9qfr5/" target="_blank" rel="noopener">https://psyarxiv.com/9qfr5/&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Jameson, J. L., Fauci, A. S., Kasper, D. L., Hauser, S. L., Longo, D. L., &amp;amp; Loscalzo, J. (Eds.). (2018). Harrison&amp;rsquo;s Principles of Internal Medicine (20th ed.). McGraw-Hill Education.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Mosimann, J. E., Wiseman, C. V., &amp;amp; Edelman, R. E. (1995). Data fabrication: Can people generate random digits? Accountability in Research, &lt;em>4&lt;/em>(1), 31–55. &lt;a href="https://doi.org/10.1080/08989629508573866" target="_blank" rel="noopener">https://doi.org/10.1080/08989629508573866&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Nigrini, M. J. (2012). Benford&amp;rsquo;s Law: Applications for Forensic Accounting, Auditing, and Fraud Detection. John Wiley &amp;amp; Sons.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Simonsohn, U. (2013). Just Post It: The Lesson from Two Cases of Fabricated Data Detected by Statistics Alone. Psychological Science, &lt;em>24&lt;/em>(10), 1875–1888. &lt;a href="https://doi.org/10.1177/0956797613480366" target="_blank" rel="noopener">https://doi.org/10.1177/0956797613480366&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Wald, A., &amp;amp; Wolfowitz, J. (1940). On a test whether two samples are from the same population. The Annals of Mathematical Statistics, &lt;em>11&lt;/em>(2), 147–162.&lt;/p>
+&lt;/li>
+&lt;/ul></description></item></channel></rss>
