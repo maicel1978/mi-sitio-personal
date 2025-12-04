@@ -51,7 +51,7 @@ Y yo tenía exactamente las herramientas para encontrarlos.
 ## Los sospechosos
 
 Antes de la autopsia, conozcamos a nuestros participantes, médicos
-residentes que cursaban la asignatura de *"Metodología de la investigación y estadística"* en el curso 2022-2023 en la Universidad de Ciencias Médicas de la Habana (UCMH):
+residentes que cursaban la asignatura de *"Metodología de la investigación y estadística"* en el curso 2022-2023 en la *Universidad de Ciencias Médicas de la Habana (UCMH)*:
 
 
 | Participante | Estrategia Declarada |
@@ -96,11 +96,11 @@ Empecemos por lo fácil. *¿La media aritmética del conjunto de datos inventado
 
 
 
-|Participante  | Valores inventados| Media aritmética| Error de estimación|Resultado   |
-|:-------------|------------------:|----------------:|-------------------:|:-----------|
-|La Entusiasta |                 47|            133.3|                -2.7|Aceptable   |
-|La Prudente   |                 38|            134.8|                -1.2|✓ Muy buena |
-|La Confiada   |                 42|            136.0|                 0.0|✓ Excelente |
+|Participante  | Valores inventados| Media aritmética| Error de estimación|Resultado |
+|:-------------|------------------:|----------------:|-------------------:|:---------|
+|La Confiada   |                 18|            119.4|               -16.6|Aceptable |
+|La Prudente   |                 42|            125.3|               -10.7|Aceptable |
+|La Entusiasta |                 50|            125.9|               -10.1|Aceptable |
 
 {{% callout note %}}
 **Error de estimación** = Parámetro estimado (Ej. Media de la Hemoglobina en datos inventados ) - Valor real (Ej.136 g/L)
@@ -166,9 +166,9 @@ Pero un desafío mayor aparece al intentar reproducir la dispersión.  La variab
 
 |Participante  | Desviación Estándar| Minimo| Maximo| Error Absoluto| Error Relativo (%)|Resultado |
 |:-------------|-------------------:|------:|------:|--------------:|------------------:|:---------|
-|La Confiada   |                 8.5|    119|    148|            1.0|               13.3|Adecuada  |
-|La Entusiasta |                15.1|    108|    156|            7.6|              101.3|Muy alta  |
-|La Prudente   |                 4.1|    127|    141|            3.4|               45.3|Muy alta  |
+|La Confiada   |                10.0|    102|    134|            2.5|               33.3|Alta      |
+|La Entusiasta |                13.4|    102|    152|            5.9|               78.7|Muy alta  |
+|La Prudente   |                 9.7|    103|    141|            2.2|               29.3|Aceptable |
 
 {{% callout note %}}
 **Error absoluto**: Cuánto nos equivocamos con respeto al parámetro poblacional (*Ejemplo: |8.5 - 7.5| = 1.0 g/L*).  
@@ -212,16 +212,16 @@ Veamos qué hicieron nuestras residentes. En la siguiente tabla, he resaltado en
 
 |Dígito |La Confiada |La Entusiasta |La Prudente |
 |:------|:-----------|:-------------|:-----------|
-|0      |**23.8%**   |**23.4%**     |**28.9%**   |
-|1      |**4.8%**    |8.5%          |7.9%        |
-|2      |**4.8%**    |**4.3%**      |**2.6%**    |
-|3      |**4.8%**    |8.5%          |**2.6%**    |
-|4      |14.3%       |**4.3%**      |5.3%        |
-|5      |14.3%       |**21.3%**     |**15.8%**   |
-|6      |7.1%        |**4.3%**      |10.5%       |
-|7      |11.9%       |10.6%         |5.3%        |
-|8      |**4.8%**    |6.4%          |7.9%        |
-|9      |9.5%        |8.5%          |13.2%       |
+|0      |11.1%       |8.0%          |**16.7%**   |
+|1      |5.6%        |**4.0%**      |9.5%        |
+|2      |**16.7%**   |**22.0%**     |**16.7%**   |
+|3      |11.1%       |6.0%          |11.9%       |
+|4      |**16.7%**   |**2.0%**      |**4.8%**    |
+|5      |**0.0%**    |14.0%         |9.5%        |
+|6      |11.1%       |12.0%         |**0.0%**    |
+|7      |5.6%        |12.0%         |11.9%       |
+|8      |5.6%        |12.0%         |9.5%        |
+|9      |**16.7%**   |8.0%          |9.5%        |
 
 ¿Lo notan? Es difícil ver el patrón solo con números. Hagámoslo visible.
 
@@ -248,9 +248,9 @@ La pregunta es simple: "En promedio, ¿cuántos puntos porcentuales se equivocó
 
 |Participante  |Desviación Promedio |Peor Error |
 |:-------------|:-------------------|:----------|
-|La Prudente   |5.7 %               |18.9 %     |
-|La Entusiasta |5.1 %               |13.4 %     |
-|La Confiada   |4.9 %               |13.8 %     |
+|La Confiada   |4.7 %               |10.0 %     |
+|La Entusiasta |4.4 %               |12.0 %     |
+|La Prudente   |3.4 %               |10.0 %     |
 
 La Prudente se desvió, en promedio, un 4.4% en cada dígito. Su "peor error" fue poner casi un 24% de ceros (un exceso de 14 puntos). Eso no es mala suerte; es un sesgo cognitivo masivo.
 
@@ -314,13 +314,13 @@ Veamos si nuestras residentes cayeron en la trampa:
   </tr>
   <tr>
    <td style="text-align:center;"> La Entusiasta </td>
-   <td style="text-align:center;"> -0.44 </td>
+   <td style="text-align:center;"> -1.71 </td>
    <td style="text-align:center;"> Agrupamiento excesivo </td>
    <td style="text-align:center;"> Aleatoriedad normal ✓ </td>
   </tr>
   <tr>
    <td style="text-align:center;"> La Prudente </td>
-   <td style="text-align:center;"> -0.60 </td>
+   <td style="text-align:center;"> -0.57 </td>
    <td style="text-align:center;"> Agrupamiento excesivo </td>
    <td style="text-align:center;"> Aleatoriedad normal ✓ </td>
   </tr>
@@ -371,7 +371,7 @@ Veamos si las residentes respetaron esta geometría natural o impusieron su prop
 <tbody>
   <tr>
    <td style="text-align:center;"> La Confiada </td>
-   <td style="text-align:center;"> No conforme con Benford 🚨 | </td>
+   <td style="text-align:center;"> Desviación moderada ⚠️ </td>
   </tr>
   <tr>
    <td style="text-align:center;"> La Entusiasta </td>
@@ -379,7 +379,7 @@ Veamos si las residentes respetaron esta geometría natural o impusieron su prop
   </tr>
   <tr>
    <td style="text-align:center;"> La Prudente </td>
-   <td style="text-align:center;"> No conforme con Benford 🚨 | </td>
+   <td style="text-align:center;"> Desviación moderada ⚠️ </td>
   </tr>
 </tbody>
 </table>
@@ -756,10 +756,11 @@ Ellas también creyeron que podían ganar.
 
 ## Recursos adicionales
 
+**Descarga la Plantillas de código en R para replicar las pruebas forenses y datos del experimento**
+
 - [Datos](experimento.csv).
 - [Código](analisis.R).
 
-<!-- - [Código R](/csv/nutricion.csv). -->
 
 **Herramientas online:**
 - [GRIM Test Calculator](https://www.grimtest.com/) 
@@ -770,24 +771,24 @@ Ellas también creyeron que podían ganar.
 
 ## ¡Conviértete en Detective de Datos!
 
-**No te quedes solo con la teoría.** Estas técnicas forenses pueden salvarte de basar tus investigaciones en datos fraudulentos. ¡Ahora es tu turno de aplicarlas!
+**No te quedes solo con la teoría.** Estas técnicas forenses pueden salvarte de basar tus investigaciones en datos fraudulentos. *¡Ahora es tu turno de aplicarlas!*
 
 💬 **Tu Experiencia Como Detective**  
-La comunidad crece cuando compartimos casos reales. ¡Me encantaría leerte en los comentarios!
+La comunidad crece cuando compartimos casos reales. **¡Me encantaría leerte en los comentarios!**
 
-- **¿Has detectado alguna vez datos sospechosos en tus investigaciones o en papers que hayas revisado?**
+- **¿Has detectado alguna vez datos sospechosos en tesis o en papers que hayas revisado?**
 - **¿Qué técnica forense te resultó más útil para validar la autenticidad de los datos?**
 - **Comparte tu caso más intrigante** - cómo sospechaste y qué técnica te dio la prueba definitiva.
 
 🕵️ **Lleva la Estadística Forense a Tu Próxima Investigación** 
 
-[**Suscríbete a bioestadísticaedu**]({{< relref "/subscribe/" >}}) y recibe directamente en tu bandebanda de entrada:
-- Casos reales de detección de fraude estadístico
-- Plantillas de código para las 7 pruebas forenses
-- Alertas sobre nuevas técnicas de auditoría de datos
+[**Suscríbete a bioestadísticaedu**]({{< relref "/subscribe/" >}}) y recibe directamente en tu bandeja de entrada:
+
+- Plantillas de código para datos cualitativos
+
 
 {{% callout note %}}
-**¡Regalo inmediato al suscribirte!** Te enviaré automáticamente el **kit completo del detective de datos**: código R para replicar las 7 pruebas forenses + plantilla de informe de auditoría + base de datos del experimento para que practiques.
+**¡Regalo inmediato al suscribirte!** Te enviaré automáticamente el **kit completo del detective de datos datos cuantitativos y cualitativos**: código R para replicar las  pruebas forenses  + base de datos del experimento para que practiques.
 {{% /callout %}}
 
 🔎 **¿Necesitas un Ojo Experto?**

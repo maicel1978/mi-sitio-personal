@@ -1,5 +1,5 @@
 ---
-title: "Gran Concurso: Miéntenle a su Profesor"
+title: "Experimento en el aula: ¿Pueden los estudiantes engañar a un bioestadístico? Un concurso de análisis forense de datos"
 subtitle: "Donde tres residentes intentaron engañar a la estadística (y perdieron espectacularmente)"
 author: "admin"
 date: 2025-10-15
@@ -12,29 +12,30 @@ tags:
 slug: concurso-mientele-profesor
 summary: "Un experimento real en aula: pedí a mis residentes que inventaran datos de hemoglobina. Usé siete técnicas forenses para atraparlos. La estadística ganó."
 featured: true
-draft: false
+draft: true# True para un borrador
 ---
 
 ```{r setup, echo = FALSE,message=FALSE,warning=FALSE}
-# bibliotecas (usa suppressMessages para silenciar mensajes de carga)
-suppressMessages(library(tidyverse,verbose = F))
+source("analisis.R")
+conflicts_prefer(dplyr::filter)
 suppressMessages(library(knitr,verbose = F))
-suppressMessages(library(kableExtra,verbose = F))  # Cárgalo aquí o en setup
-
 
 knitr::opts_chunk$set(
-	echo = FALSE,
-	fig.align = "center",
-	fig.height = 6,
-	fig.retina = 2,
-	fig.width = 10,
-	message = FALSE,
-	warning = FALSE,
-	cache = FALSE,
-	comment = "#>",
-	dpi = 300
+  echo = FALSE,
+  fig.align = "center",
+  fig.height = 6,
+  fig.retina = 2,
+  fig.width = 10,
+  message = FALSE,
+  warning = FALSE,
+  cache = FALSE,
+  comment = "#>",
+  dpi = 300
 )
-source("analisis.R")
+
+
+suppressMessages(library(kableExtra,verbose = F))  # Cárgalo aquí o en setup
+
 ```
 
 ## El momento en que supieron que habían perdido
@@ -67,7 +68,7 @@ Y yo tenía exactamente las herramientas para encontrarlos.
 ## Los sospechosos
 
 Antes de la autopsia, conozcamos a nuestros participantes, médicos
-residentes que cursaban la asignatura de *"Metodología de la investigación y estadística"* en el curso 2022-2023 en la Universidad de Ciencias Médicas de la Habana (UCMH):
+residentes que cursaban la asignatura de *"Metodología de la investigación y estadística"* en el curso 2022-2023 en la *Universidad de Ciencias Médicas de la Habana (UCMH):
 
 
 | Participante | Estrategia Declarada |
@@ -113,25 +114,30 @@ Empecemos por lo fácil. *¿La media aritmética del conjunto de datos inventado
 
 ```{r media}
 tabla_media %>% 
-  kable(col.names = c("Participante","Valores inventados","Media aritmética", "Error de estimación", "Resultado"))
+  select(-SD) %>% 
+  kable(digits = 1,col.names = c("Participante", "Valores inventados", "Media aritmética (Hb g/l)","Parámetro poblacional  (Hb g/l)", "Error de estimación"
+)) %>% 
+  kable_styling(bootstrap_options = "striped", full_width = T)
 ```
 
 {{% callout note %}}
-**Error de estimación** = Parámetro estimado (Ej. Media de la Hemoglobina en datos inventados ) - Valor real (Ej.136 g/L)
+**Error de estimación** = Parámetro estimado (Ej. Media de la Hemoglobina en datos inventados ) - Parámetro poblacional  (Ej.136 g/L)
 {{% /callout %}}
 
-**Todas lograron estimaciones clínicamente válidas** - los errores están dentro del margen aceptable en práctica médica:
+<!-- Análisis Rápido: -->
 
-- **Variación biológica normal:** 2-3 g/L
-- **Error de medición típico:** 1-2 g/L  
-- **Umbral de relevancia clínica:** >5 g/L
+<!-- **Todas lograron estimaciones clínicamente válidas** - los errores están dentro del margen aceptable en práctica médica: -->
 
-En contexto real, estas diferencias no alterarían decisiones diagnósticas ni terapéuticas.
+<!-- - **Variación biológica normal:** 2-3 g/L -->
+<!-- - **Error de medición típico:** 1-2 g/L   -->
+<!-- - **Umbral de relevancia clínica:** >5 g/L -->
+
+<!-- En contexto real, estas diferencias no alterarían decisiones diagnósticas ni terapéuticas. -->
 
 
-{{% callout warning %}}
-**Resultado:** Las tres doctoras pasaron esta prueba.
-{{% /callout %}}
+<!-- {{% callout warning %}} -->
+<!-- **Resultado:** Las tres doctoras pasaron esta prueba. -->
+<!-- {{% /callout %}} -->
 
 
 
@@ -179,10 +185,7 @@ Pero un desafío mayor aparece al intentar reproducir la dispersión.  La variab
 
 ```{r desviacion}
 tabla_variabilidad %>% 
-   select(-"n",-"Media_grupo",-"Desviación Estándar Poblacional (g/L)",-"Impacto_Clinico",-"Interpretacion" ) %>% 
-  kable(col.names = c("Participante", "Desviación Estándar", "Minimo", 
-"Maximo", "Error Absoluto", "Error Relativo (%)", "Resultado"
-))
+  kable()
 ```
 
 {{% callout note %}}
@@ -226,17 +229,17 @@ Veamos qué hicieron nuestras residentes. En la siguiente tabla, he resaltado en
 
 ```{r ultimo_digito}
 analisis_ultimo_digito %>%
-  mutate(
-    valor = sprintf("%.1f%%", proporcion_observada * 100),
-    # Marcamos si se desvía más de 5 puntos porcentuales (muy alto o muy bajo)
-    valor = case_when(
-      proporcion_observada > 0.15 | proporcion_observada < 0.05 ~ paste0("**", valor, "**"),
-      TRUE ~ valor
-    )
-  ) %>%
-  select(Dígito = ultimo_digito, participante, valor) %>%
-  pivot_wider(names_from = participante, values_from = valor) %>%
-  # mutate(Esperado = "10.0%", .after = Dígito) %>%
+  # mutate(
+  #   valor = sprintf("%.1f%%", proporcion_observada * 100),
+  #   # Marcamos si se desvía más de 5 puntos porcentuales (muy alto o muy bajo)
+  #   valor = case_when(
+  #     proporcion_observada > 0.15 | proporcion_observada < 0.05 ~ paste0("**", valor, "**"),
+  #     TRUE ~ valor
+  #   )
+  # ) %>%
+  # select(Dígito = ultimo_digito, participante, valor) %>%
+  # pivot_wider(names_from = participante, values_from = valor) %>%
+  # # mutate(Esperado = "10.0%", .after = Dígito) %>%
   kable()
 ```
 
@@ -266,7 +269,7 @@ La pregunta es simple: "En promedio, ¿cuántos puntos porcentuales se equivocó
 
 ```{r uniformidad}
 tabla_desviacion %>%
-  select(Participante = participante, `Desviación Promedio`, `Peor Error`) %>%
+  # select(Participante = participante, `Desviación Promedio`, `Peor Error`) %>%
   kable() 
 ```
 
@@ -316,17 +319,7 @@ Veamos si nuestras residentes cayeron en la trampa:
 
 ```{r rachas}
 analisis_rachas %>%
-  mutate(
-    `Índice Z` = sprintf("%.2f", estadistico_z),
-    # Decoración condicional
-    `Índice Z` = case_when(
-      estadistico_z > 1.96 ~ paste0("**", `Índice Z`, "** ⬆️"),
-      TRUE ~ `Índice Z`
-    )
-  ) %>%
-  select(Participante = participante, `Índice Z`, `Diagnóstico` = interpretacion, Veredicto = evaluacion_rachas) %>%
-  kable(align = "c") %>%
-  kable_styling(bootstrap_options = "striped", full_width = F)
+  kable() 
 ```
 
 ¡Sorpresa! Aquí la intuición nos falló.
@@ -760,10 +753,11 @@ Ellas también creyeron que podían ganar.
 
 ## Recursos adicionales
 
+**Descarga la Plantillas de código en R para replicar las pruebas forenses y datos del experimento**
+
 - [Datos](experimento.csv).
 - [Código](analisis.R).
 
-<!-- - [Código R](/csv/nutricion.csv). -->
 
 **Herramientas online:**
 - [GRIM Test Calculator](https://www.grimtest.com/) 
@@ -774,24 +768,24 @@ Ellas también creyeron que podían ganar.
 
 ## ¡Conviértete en Detective de Datos!
 
-**No te quedes solo con la teoría.** Estas técnicas forenses pueden salvarte de basar tus investigaciones en datos fraudulentos. ¡Ahora es tu turno de aplicarlas!
+**No te quedes solo con la teoría.** Estas técnicas forenses pueden salvarte de basar tus investigaciones en datos fraudulentos. *¡Ahora es tu turno de aplicarlas!*
 
 💬 **Tu Experiencia Como Detective**  
-La comunidad crece cuando compartimos casos reales. ¡Me encantaría leerte en los comentarios!
+La comunidad crece cuando compartimos casos reales. **¡Me encantaría leerte en los comentarios!**
 
-- **¿Has detectado alguna vez datos sospechosos en tus investigaciones o en papers que hayas revisado?**
+- **¿Has detectado alguna vez datos sospechosos en tesis o en papers que hayas revisado?**
 - **¿Qué técnica forense te resultó más útil para validar la autenticidad de los datos?**
 - **Comparte tu caso más intrigante** - cómo sospechaste y qué técnica te dio la prueba definitiva.
 
 🕵️ **Lleva la Estadística Forense a Tu Próxima Investigación** 
 
-[**Suscríbete a bioestadísticaedu**]({{< relref "/subscribe/" >}}) y recibe directamente en tu bandebanda de entrada:
-- Casos reales de detección de fraude estadístico
-- Plantillas de código para las 7 pruebas forenses
-- Alertas sobre nuevas técnicas de auditoría de datos
+[**Suscríbete a bioestadísticaedu**]({{< relref "/subscribe/" >}}) y recibe directamente en tu bandeja de entrada:
+
+- Plantillas de código para datos cualitativos
+
 
 {{% callout note %}}
-**¡Regalo inmediato al suscribirte!** Te enviaré automáticamente el **kit completo del detective de datos**: código R para replicar las 7 pruebas forenses + plantilla de informe de auditoría + base de datos del experimento para que practiques.
+**¡Regalo inmediato al suscribirte!** Te enviaré automáticamente el **kit completo del detective de datos datos cuantitativos y cualitativos**: código R para replicar las  pruebas forenses  + base de datos del experimento para que practiques.
 {{% /callout %}}
 
 🔎 **¿Necesitas un Ojo Experto?**

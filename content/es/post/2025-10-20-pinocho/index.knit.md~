@@ -1,0 +1,366 @@
+---
+title: "Experimento en el aula: ¿Pueden los estudiantes engañar a un bioestadístico? Un concurso de análisis forense de datos"
+subtitle: "Donde tres residentes intentaron engañar a la estadística (y perdieron espectacularmente)"
+author: "admin"
+date: 2025-10-15
+categories: ["Metodología de Investigación"]
+tags: 
+  - "fraude científico"
+  - "estadística forence"
+  - "detección de datos falsos"
+  - "educación médica"
+slug: concurso-mientele-profesor
+summary: "Un experimento real en aula: pedí a mis residentes que inventaran datos de hemoglobina. Usé siete técnicas forenses para atraparlos. La estadística ganó."
+featured: true
+draft: true# True para un borrador
+---
+
+
+
+## El momento en que supieron que habían perdido
+
+A las 11:07 de la mañana, aula de postgrado de la Universidad de
+Ciencias Médicas de la Habana , **La Confiada** dejó caer el bolígrafo.
+
+En la pantalla del proyector, el histograma de sus datos mostraba un patrón inusual. Sus valores de hemoglobina *—42 números cuidadosamente inventados usando su conocimiento de fisiología—* acababan de ser expuestos como **falsos**.
+
+Junto a ella, **La Prudente** miraba su propio veredicto: una **varianza inexplicable**.
+
+**La Entusiasta**, que había escrito 47 valores en 60 segundos apostando
+por la cantidad sobre la calidad, tenía la expresión de quien acaba de
+descubrir que su estrategia era la *menos mala*.
+
+**Todo había comenzado media hora antes con una instrucción simple:**
+
+> Tienen 60 segundos. Escriban todos los valores de hemoglobina en sangre de 
+> mujeres adultas que puedan inventar. Sin referencias. Sin calculadora. El
+> que engañe mejor a las pruebas estadísticas, gana.
+
+Lo que no sabían es que **los humanos somos terribles inventado datos**.
+
+No porque seamos honestos, sino porque nuestro cerebro tiene bugs predecibles.
+
+Y yo tenía exactamente las herramientas para encontrarlos.
+
+------------------------------------------------------------------------
+
+## Los sospechosos
+
+Antes de la autopsia, conozcamos a nuestros participantes, médicos
+residentes que cursaban la asignatura de *"Metodología de la investigación y estadística"* en el curso 2022-2023 en la *Universidad de Ciencias Médicas de la Habana (UCMH):
+
+
+| Participante | Estrategia Declarada |
+|------------|---------------------|
+| **Luidmila** *(La Prudente)* | *"Voy a quedarme en el rango seguro, nada muy extremo."* |
+| **Betsy** *(La Entusiasta)* | *"Voy a escribir muchos números para que parezca más real y ganar por cantidad de valores."* |
+| **Melissa** *(La Confiada)* | *"Sé fisiología. Esto va a ser fácil."* |
+
+
+
+{{% callout warning %}}
+**Spoiler:** casi ninguna estrategia funcionó.
+{{% /callout %}}
+
+------------------------------------------------------------------------
+
+## La escena del crimen: Mucha sangre o al menos uno de sus componentes, la Hemoglobina
+
+Para que una mentira sea creíble, hay que conocer la verdad:
+
+| Parámetro           | Valor real                  |
+|---------------------|-----------------------------|
+| Variable            | Concentración de hemoglobina en sangre (mujer adulta) |
+| Unidad              | g/L                         |
+| Rango normal        | 121 – 151 g/L               |
+| Media poblacional   | 136 g/L                     |
+| Desviación estándar | 7.5 g/L                     |
+
+Armadas con este conocimiento (o su vaga memoria de él), las participantes escribieron furiosamente durante 60 segundos en su fichero de Excel todos las cifras que pudieron.
+
+**El resultado:** *127 valores inventados* listos para el **análisis
+forense**.
+
+------------------------------------------------------------------------
+
+## Acto II: La autopsia estadística
+
+
+### Primera prueba: ¿Acertaron el centro?
+
+Empecemos por lo fácil. *¿La media aritmética del conjunto de datos inventados se parecen al valor real?*
+
+
+
+|participante  |  n|    Media| Ref_Media| Diferencia|Evaluacion     |
+|:-------------|--:|--------:|---------:|----------:|:--------------|
+|La Confiada   | 18| 119.3889|       136|  -16.61111|Sesgo Muy Alto |
+|La Entusiasta | 50| 125.8800|       136|  -10.12000|Sesgo Muy Alto |
+|La Prudente   | 42| 125.3333|       136|  -10.66667|Sesgo Muy Alto |
+
+{{% callout note %}}
+**Error de estimación** = Parámetro estimado (Ej. Media de la Hemoglobina en datos inventados ) - Valor real (Ej.136 g/L)
+{{% /callout %}}
+
+**Todas lograron estimaciones clínicamente válidas** - los errores están dentro del margen aceptable en práctica médica:
+
+- **Variación biológica normal:** 2-3 g/L
+- **Error de medición típico:** 1-2 g/L  
+- **Umbral de relevancia clínica:** >5 g/L
+
+En contexto real, estas diferencias no alterarían decisiones diagnósticas ni terapéuticas.
+
+
+{{% callout warning %}}
+**Resultado:** Las tres doctoras pasaron esta prueba.
+{{% /callout %}}
+
+
+
+
+<!-- ```{r distribucion} -->
+<!-- library(ggplot2) -->
+
+<!-- ## EL MEJOR - Combina densidad + datos crudos + referencia -->
+<!-- ggplot(datos, aes(x = valor)) + -->
+<!--   geom_density(aes(fill = "Densidad"), alpha = 0.3, adjust = 0.7) + -->
+<!--   geom_histogram(aes(y = ..density.., fill = "Histograma"),  -->
+<!--                  alpha = 0.3, bins = 15, color = "gray50") + -->
+<!--   geom_rug(aes(color = participante), sides = "b", alpha = 0.3) + -->
+<!--   geom_vline(xintercept = 136, linetype = "dashed",  -->
+<!--              color = "red", size = 1, alpha = 0.3) + -->
+<!--   facet_wrap(~participante, ncol = 2) + -->
+<!--   scale_fill_manual(values = c("Densidad" = "blue", "Histograma" = "gray")) + -->
+<!--   labs(title = "Análisis Forense de Distribuciones") + -->
+<!--   theme_minimal() -->
+
+<!-- ``` -->
+
+<!-- **Análisis Forense de las Huellas Digitales:** -->
+
+<!-- - **La Prudente** delata su estrategia: "quedarse en lo seguro" produce una distribución anormalmente estrecha que nunca se ve en datos reales. -->
+
+<!-- - **La Entusiasta** revela inconsistencia cognitiva: la bimodalidad sugiere que alternó entre dos "modos" de inventar números. -->
+
+<!-- - **La Confiada**, a pesar de su nombre, muestra aversión a valores extremos altos, truncando artificialmente la cola derecha. -->
+
+<!-- **Veredicto:** Las tres distribuciones exhiben patrones antinaturales que delatan origen humano, no natural. -->
+
+
+
+Intuir el centro de una distribución es relativamente fácil. Nuestro cerebro es bueno encontrando promedios.
+
+*Pero aquí viene el problema...*
+
+------------------------------------------------------------------------
+
+### Segunda prueba: ¿Simularon bien la variabilidad?
+
+Como médicos, nuestros participantes tienen experiencia clínica que les permitió estimar bien la tendencia central de los datos.
+Pero un desafío mayor aparece al intentar reproducir la dispersión.  La variabilidad resulta mucho más difícil de intuir que el promedio. Veamos qué sucedió:
+
+
+|participante  |        SD| Ref_SD|   Dif_SD|Evaluacion |
+|:-------------|---------:|------:|--------:|:----------|
+|La Confiada   | 10.000817|    7.5| 2.500817|Aceptable  |
+|La Entusiasta | 13.380827|    7.5| 5.880827|Deficiente |
+|La Prudente   |  9.727173|    7.5| 2.227173|Excelente  |
+
+{{% callout note %}}
+**Error absoluto**: Cuánto nos equivocamos con respeto al parámetro poblacional (*Ejemplo: |8.5 - 7.5| = 1.0 g/L*).  
+
+**Error relativo**: Qué porcentaje del valor real representa nuestro error (*Ejemplo: |(8.5 - 7.5)/7.5| × 100% = 13.3%*).  
+
+{{% /callout %}}
+
+
+
+**Hallazgo 1:** Nadie acertó la variabilidad.
+
+-   La Prudente fue demasiado conservadora (rango 127-141)
+-   La Entusiasta fue demasiado caótica (rango 108-156)
+-   La Confiada se acercó bastante. 
+
+{{% callout warning %}} **Primera ley del fraude de datos:**
+Los humanos intuyen bien la media, pero fracasan simulando la variabilidad. 
+{{% /callout %}}
+
+¿Por qué? Porque la variabilidad real es incómoda. Incluye valores que
+"no se ven bien": una hemoglobina de 119 o de 153 parece "rara", aunque
+sea perfectamente posible.
+
+El cerebro humano evita lo incómodo. La naturaleza no.
+
+------------------------------------------------------------------------
+
+### Tercera prueba: El último dígito
+
+Esta es mi prueba favorita. Simple, brutal, casi imposible de engañar.
+
+**La lógica:** Imaginen una bolsa opaca con 10 fichas numeradas del 0 al 9. Si meten la mano y sacan una ficha al azar (y luego la devuelven), cada número tiene exactamente la misma probabilidad de salir: un 10%.
+
+En datos clínicos reales, el último dígito de una medición precisa se comporta igual que esas fichas: es puro ruido aleatorio.
+
+Pero el cerebro humano no funciona como el azar; funciona buscando comodidades.
+
+Veamos qué hicieron nuestras residentes. En la siguiente tabla, he resaltado en negrita los valores que se desvían sospechosamente de ese 10% esperado:
+
+
+|participante  |ultimo_digito |  n|      prop|es_alto |
+|:-------------|:-------------|--:|---------:|:-------|
+|La Confiada   |0             |  2| 0.1111111|FALSE   |
+|La Confiada   |1             |  1| 0.0555556|FALSE   |
+|La Confiada   |2             |  3| 0.1666667|TRUE    |
+|La Confiada   |3             |  2| 0.1111111|FALSE   |
+|La Confiada   |4             |  3| 0.1666667|TRUE    |
+|La Confiada   |5             |  0| 0.0000000|TRUE    |
+|La Confiada   |6             |  2| 0.1111111|FALSE   |
+|La Confiada   |7             |  1| 0.0555556|FALSE   |
+|La Confiada   |8             |  1| 0.0555556|FALSE   |
+|La Confiada   |9             |  3| 0.1666667|TRUE    |
+|La Entusiasta |0             |  4| 0.0800000|FALSE   |
+|La Entusiasta |1             |  2| 0.0400000|TRUE    |
+|La Entusiasta |2             | 11| 0.2200000|TRUE    |
+|La Entusiasta |3             |  3| 0.0600000|FALSE   |
+|La Entusiasta |4             |  1| 0.0200000|TRUE    |
+|La Entusiasta |5             |  7| 0.1400000|FALSE   |
+|La Entusiasta |6             |  6| 0.1200000|FALSE   |
+|La Entusiasta |7             |  6| 0.1200000|FALSE   |
+|La Entusiasta |8             |  6| 0.1200000|FALSE   |
+|La Entusiasta |9             |  4| 0.0800000|FALSE   |
+|La Prudente   |0             |  7| 0.1666667|TRUE    |
+|La Prudente   |1             |  4| 0.0952381|FALSE   |
+|La Prudente   |2             |  7| 0.1666667|TRUE    |
+|La Prudente   |3             |  5| 0.1190476|FALSE   |
+|La Prudente   |4             |  2| 0.0476190|FALSE   |
+|La Prudente   |5             |  4| 0.0952381|FALSE   |
+|La Prudente   |6             |  0| 0.0000000|TRUE    |
+|La Prudente   |7             |  5| 0.1190476|FALSE   |
+|La Prudente   |8             |  4| 0.0952381|FALSE   |
+|La Prudente   |9             |  4| 0.0952381|FALSE   |
+
+¿Lo notan? Es difícil ver el patrón solo con números. Hagámoslo visible.
+
+En este gráfico, he pintado de rojo cualquier barra que supere la línea del azar (10%). Observen dónde se concentran las alertas:
+
+<img src="index_files/figure-html/last-1.png" width="3000" style="display: block; margin: auto;" />
+
+
+**El patrón del mentiroso emerge:**
+
+-   🚨 El **0** y el **5** dominan (números "redondos")
+-   🚨 El **3**, **7** y **9** casi desaparecen (números "incómodos")
+
+Para ser justos, el azar nunca es perfecto. ¿Cómo distinguimos el ruido natural del fraude?
+
+En lugar de usar pruebas de significación complejas, usaremos una métrica descriptiva más honesta: la Desviación Promedio.
+
+La pregunta es simple: "En promedio, ¿cuántos puntos porcentuales se equivocó la alumna en cada dígito respecto al 10% ideal?"
+
+- *0% - 2%: Ruido natural (Aleatorio)*.
+- 2% - 4%: Zona gris (Sospechoso).
+- 4%: Sesgo sistemático (Artificial).
+
+
+|participante  |Desv_Promedio |Exceso_0_5 |Evaluacion        |
+|:-------------|:-------------|:----------|:-----------------|
+|La Confiada   |4.7%          |11.1%      |Patrón Artificial |
+|La Entusiasta |4.4%          |22.0%      |Patrón Artificial |
+|La Prudente   |3.4%          |26.2%      |Patrón Natural    |
+
+La Prudente se desvió, en promedio, un 4.4% en cada dígito. Su "peor error" fue poner casi un 24% de ceros (un exceso de 14 puntos). Eso no es mala suerte; es un sesgo cognitivo masivo.
+
+
+{{% callout note %}}
+¿Por qué funciona esto?
+
+Tu cerebro es una máquina de ahorrar energía. En 60 segundos, calcular "137" o "129" cuesta milisegundos valiosos. Escribir "130" o "135" es casi automático.
+
+Bajo presión, la comodidad cognitiva vence a la creatividad estadística.
+{{% /callout %}}
+
+
+{{< spoiler text="Profe, ¿por qué el último dígito es Uniforme (10% cada uno) y no sigue la Ley de Benford? (clic para ver la respuesta)" >}}
+
+Porque los primeros números obedecen a la **Homeostasis**, pero el último obedece al **caos**.
+
+Piensen en una Hemoglobina de **136 g/L**:
+
+*   **Los primeros dígitos (13-):** Son obra de la **Médula Ósea**. Dependen de la eritropoyetina, el hierro y semanas de maduración celular. Son estructuras biológicas rígidas y lentas (Siguen leyes como Benford).
+*   **El último dígito (-6):** Es obra de un **Vaso de Agua** o otro factor. Depende de si el paciente sudó, si tomó café o si la máquina del laboratorio vibró. Es puro ruido transitorio. 
+    
+La biología define el 130; el azar decide si es 136, 135 o 137.
+{{< /spoiler >}}
+
+
+
+
+------------------------------------------------------------------------
+
+### Cuarta prueba: La aversión a la repetición
+
+Otro bug del cerebro humano: odiamos repetirnos.
+
+Si escribes "134" y luego tienes que escribir otro número, tu cerebro
+grita: *"¡No pongas 134 otra vez! ¡Se verá falso!"*
+
+Pero en datos reales, las repeticiones son normales.
+
+Imaginen el modo "Aleatorio" (Shuffle) de Spotify. Originalmente era puro azar, pero los usuarios se quejaban si salían dos canciones seguidas del mismo artista. Spotify tuvo que trucar el algoritmo para hacerlo menos aleatorio (evitando repeticiones) y que así pareciera más aleatorio a los humanos.
+
+En medicina, un corazón sano tiene variabilidad (caos). Un corazón que late como un metrónomo (arriba, abajo, arriba, abajo) es patológico. Al inventar datos, el humano suele actuar como ese metrónomo, alternando valores altos y bajos para "equilibrar" la media.
+
+Veamos si nuestras residentes cayeron en la trampa:
+
+
+|participante  |    Z_Score|Evaluacion |
+|:-------------|----------:|:----------|
+|La Confiada   |  0.0000000|Aleatorio  |
+|La Entusiasta | -1.7146428|Aleatorio  |
+|La Prudente   | -0.8077726|Aleatorio  |
+
+¡Sorpresa! Aquí la intuición nos falló.
+
+Contra todo pronóstico, las tres residentes pasaron esta prueba.
+
+- La Confiada obtuvo un Z de 0.00. Una aleatoriedad matemática perfecta (casi demasiado perfecta, irónicamente).
+
+- La Prudente y La Entusiasta mostraron un ligero agrupamiento, pero totalmente dentro del rango de lo posible.
+
+{{% callout note %}}
+Lección Forense Vital:
+Este resultado demuestra por qué nunca debes confiar en una sola prueba estadística.
+
+Si solo hubiéramos usado el Test de Rachas, habríamos concluido que los datos eran reales. Pero como vimos en la Prueba del Último Dígito, sabemos que son falsos.
+
+El mentiroso puede tener suerte con la secuencia (arriba/abajo), pero es mucho más difícil que controle la micro-estructura de los números (dígitos finales). Por eso necesitamos una batería de pruebas, no una sola bala de plata.
+{{% /callout %}}
+
+------------------------------------------------------------------------
+
+### Quinta prueba: El fantasma de Benford
+
+La Ley de Benford es el detector de mentiras favorito de auditores y
+estadísticos forenses.
+
+Normalmente, el primer dígito sigue una curva logarítmica (el 1 aparece el 30% de las veces). Pero la hemoglobina de una mujer adulta sana casi siempre empieza por 1 (Rango 120-150). Aquí Benford parece inútil... a menos que miremos bajo el capó.
+
+**El Truco:** La Ley de Benford generalizada nos dice que el patrón logarítmico se mantiene en el Segundo Dígito, aunque es más sutil.
+
+- El 1 (ej. 110, 115) debe ser más frecuente que el 2 (120, 125).
+- El 2 más que el 3, y así sucesivamente.
+
+Veamos si las residentes respetaron esta geometría natural o impusieron su propia voluntad:
+
+
+
+
+
+
+
+
+
+
+
+
+
