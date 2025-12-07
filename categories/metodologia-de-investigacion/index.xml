@@ -145,8 +145,13 @@ El grupo corrigió la Media casi a la perfección cuando la referencia fue mostr
 &lt;hr>
 &lt;h3 id="segunda-prueba-simularon-bien-la-variabilidad">Segunda prueba: ¿Simularon bien la variabilidad?&lt;/h3>
 &lt;p>Llama la atención que las estudiantes &lt;strong>fallaron al simular la desviación estándar (sd)&lt;/strong>, incluso cuando el valor real estuvo frente a ellas en la segunda parte del experimento.&lt;/p>
-&lt;p>&lt;strong>La media es fácil de corregir; la desviación estándar no.&lt;/strong>&lt;/p>
-&lt;p>Examinemos con detalle lo ocurrido. En lo adelante, todos los datos presentados corresponden a la fase del experimento en la que se proporcionó información previa.&lt;/p>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
+&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;strong>nota:&lt;/strong> En lo adelante, todos los datos presentados corresponden a la fase del experimento en la que se proporcionó información previa.&lt;/span>
+&lt;/div>
+&lt;p>&lt;strong>La media es fácil de corregir; la desviación estándar no.&lt;/strong> Examinemos con detalle lo ocurrido.&lt;/p>
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -194,10 +199,11 @@ El grupo corrigió la Media casi a la perfección cuando la referencia fue mostr
 &lt;p>La Entusiasta generó un caos considerable (SD 13.4 g/L), estirando los datos desde 102 g/L hasta 152 g/L.&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>La Confiada y La Prudente se alejaron del objetivo inflando la desviación, pero con un patrón revelador: La asimetría del miedo.&lt;/p>
+&lt;p>La Confiada y La Prudente se alejaron del objetivo inflando la desviación, pero con un patrón revelador: &lt;em>La asimetría del miedo&lt;/em>.&lt;/p>
 &lt;/li>
 &lt;/ul>
-&lt;p>Observen sus rangos: no tuvieron miedo de bajar hasta 102 g/L o 103 g/L (muy lejos del piso normal de 121 g/L), pero apenas se atrevieron a subir hasta 134 g/L o 141 g/L (lejos del techo de 151 g/L).&lt;/p>
+&lt;p>Observen sus rangos: no tuvieron miedo de bajar hasta 102 g/L o 103 g/L (muy lejos del piso normal de 121 g/L), pero apenas se atrevieron a subir hasta 134 g/L o 141 g/L (lejos del límite superior de 151 g/L).&lt;/p>
+&lt;img src="https://bioestadisticaedu.com/post/concurso-mientele-profesor/index_files/figure-html/grafico_rangos-1.svg" width="3000" style="display: block; margin: auto;" />
 &lt;p>Al estirar la distribución hacia abajo (inventando anemias severas) pero cortarla por arriba (evitando valores altos), crearon una dispersión desequilibrada y con anomalías como se muestra a continuación.&lt;/p>
 &lt;img src="https://bioestadisticaedu.com/post/concurso-mientele-profesor/index_files/figure-html/grafico-1.svg" width="3000" style="display: block; margin: auto;" />
 &lt;h3 id="por-qué-ocurre-esto-1">¿Por qué ocurre esto?&lt;/h3>
@@ -369,7 +375,7 @@ Los humanos &lt;strong>intuyen bien la media&lt;/strong>, pero &lt;strong>fracas
 &lt;p>Bajo presión, la comodidad cognitiva vence a la creatividad estadística.&lt;/p>
 &lt;/span>
 &lt;/div>
-&lt;details class="spoiler " id="spoiler-14">
+&lt;details class="spoiler " id="spoiler-16">
 &lt;summary class="cursor-pointer">Profe, ¿por qué el último dígito es Uniforme (10% cada uno) y no sigue la Ley de Benford? (clic para ver la respuesta)&lt;/summary>
 &lt;div class="rounded-lg bg-neutral-50 dark:bg-neutral-800 p-2">
 &lt;p>Porque los primeros números obedecen a la &lt;strong>Homeostasis&lt;/strong>, pero el último obedece al &lt;strong>caos&lt;/strong>.&lt;/p>
@@ -675,7 +681,7 @@ uniformes&amp;rdquo;. La realidad es más desordenada.&lt;/p>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;details class="spoiler " id="spoiler-16">
+&lt;details class="spoiler " id="spoiler-18">
 &lt;summary class="cursor-pointer">Análisis de Distribución: (Clic para ver las pruebas)&lt;/summary>
 &lt;div class="rounded-lg bg-neutral-50 dark:bg-neutral-800 p-2">
 &lt;img src="distribucion.png"/>
