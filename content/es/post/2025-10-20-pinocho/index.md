@@ -1,5 +1,5 @@
 ---
-title: "Gran Concurso: Miéntenle a su Profesor"
+title: "Experimento en el aula: ¿Pueden los estudiantes engañar a un bioestadístico? Un concurso de análisis forense de datos"
 subtitle: "Donde tres residentes intentaron engañar a la estadística (y perdieron espectacularmente)"
 author: "admin"
 date: 2025-10-15
@@ -12,10 +12,8 @@ tags:
 slug: concurso-mientele-profesor
 summary: "Un experimento real en aula: pedí a mis residentes que inventaran datos de hemoglobina. Usé siete técnicas forenses para atraparlos. La estadística ganó."
 featured: true
-draft: false
+draft: true# True para un borrador
 ---
-<script src="{{< blogdown/postref >}}index_files/kePrint/kePrint.js"></script>
-<link href="{{< blogdown/postref >}}index_files/lightable/lightable.css" rel="stylesheet" />
 <script src="{{< blogdown/postref >}}index_files/kePrint/kePrint.js"></script>
 <link href="{{< blogdown/postref >}}index_files/lightable/lightable.css" rel="stylesheet" />
 
@@ -23,26 +21,27 @@ draft: false
 
 ## El momento en que supieron que habían perdido
 
-A las 11:07 de la mañana, aula de postgrado de la Universidad de
-Ciencias Médicas de la Habana , **La Confiada** dejó caer el bolígrafo.
+A las 11:07 de la mañana, aula de postgrado de la [Universidad de Ciencias Médicas de la Habana  (UCMH)](https://ucmh.sld.cu/), **La Confiada** dejó caer el bolígrafo.
 
-En la pantalla del proyector, el histograma de sus datos mostraba un patrón inusual. Sus valores de hemoglobina *—42 números cuidadosamente inventados usando su conocimiento de fisiología—* acababan de ser expuestos como **falsos**.
+En la pantalla del retroproyector, el histograma de sus datos mostraba un patrón inusual. Sus valores de hemoglobina *—42 números cuidadosamente inventados usando su conocimiento de fisiología humana—* acababan de ser expuestos como **falsos**.
 
 Junto a ella, **La Prudente** miraba su propio veredicto: una **varianza inexplicable**.
 
-**La Entusiasta**, que había escrito 47 valores en 60 segundos apostando
+**La Entusiasta**, que había escrito 50 valores en 60 segundos apostando
 por la cantidad sobre la calidad, tenía la expresión de quien acaba de
 descubrir que su estrategia era la *menos mala*.
 
 **Todo había comenzado media hora antes con una instrucción simple:**
 
-> Tienen 60 segundos. Escriban todos los valores de hemoglobina en sangre de 
-> mujeres adultas que puedan inventar. Sin referencias. Sin calculadora. El
-> que engañe mejor a las pruebas estadísticas, gana.
+{{% callout warning %}} 
+
+Tienen 60 segundos. Escriban todos los valores de hemoglobina en sangre de  mujeres adultas que puedan inventar. Sin referencias. Sin calculadora. El  que engañe mejor a las pruebas estadísticas, gana.
+
+{{% /callout %}}
 
 Lo que no sabían es que **los humanos somos terribles inventado datos**.
 
-No porque seamos honestos, sino porque nuestro cerebro tiene bugs predecibles.
+No porque seamos honestos, sino porque nuestro cerebro produce errores predecibles al generar datos aparentemente aleatorios.
 
 Y yo tenía exactamente las herramientas para encontrarlos.
 
@@ -51,7 +50,7 @@ Y yo tenía exactamente las herramientas para encontrarlos.
 ## Los sospechosos
 
 Antes de la autopsia, conozcamos a nuestros participantes, médicos
-residentes que cursaban la asignatura de *"Metodología de la investigación y estadística"* en el curso 2022-2023 en la *Universidad de Ciencias Médicas de la Habana (UCMH)*:
+residentes de áreas básicas (fisiología, embriología, farmacología, etc.) que cursaban la asignatura de *"Metodología de la investigación y estadística"* en el curso 2022-2023:
 
 
 | Participante | Estrategia Declarada |
@@ -70,20 +69,27 @@ residentes que cursaban la asignatura de *"Metodología de la investigación y e
 
 ## La escena del crimen: Mucha sangre o al menos uno de sus componentes, la Hemoglobina
 
-Para que una mentira sea creíble, hay que conocer la verdad:
+Para que una mentira sea creíble, primero hay que conocer la verdad:
 
-| Parámetro           | Valor real                  |
+{{% callout note %}} 
+
+### Valores de referencia de la concentración de hemoglobina en sangre (mujer adulta) en g/L
+
+| Parámetro           | Valor poblacional           |
 |---------------------|-----------------------------|
-| Variable            | Concentración de hemoglobina en sangre (mujer adulta) |
-| Unidad              | g/L                         |
-| Rango normal        | 121 – 151 g/L               |
+| Rango normal (min- max) | 121 – 151 g/L           |
 | Media poblacional   | 136 g/L                     |
 | Desviación estándar | 7.5 g/L                     |
 
+{{% /callout %}}
+
 Armadas con este conocimiento (o su vaga memoria de él), las participantes escribieron furiosamente durante 60 segundos en su fichero de Excel todos las cifras que pudieron.
 
-**El resultado:** *127 valores inventados* listos para el **análisis
-forense**.
+{{% callout note %}}
+**El resultado:** *127 valores inventados* listos para el **análisis forense**.
+{{% /callout %}}
+
+
 
 ------------------------------------------------------------------------
 
@@ -92,108 +98,113 @@ forense**.
 
 ### Primera prueba: ¿Acertaron el centro?
 
-Empecemos por lo fácil. *¿La media aritmética del conjunto de datos inventados se parecen al valor real?*
+Empecemos por lo fácil. **¿La media aritmética del conjunto de datos inventados se parecen al valor real?**
 
 
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;border-bottom: 0;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Participante </th>
+   <th style="text-align:right;"> Valores </th>
+   <th style="text-align:right;"> Media aritmética </th>
+   <th style="text-align:right;"> Error de estimación </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> La Confiada </td>
+   <td style="text-align:right;"> 18 </td>
+   <td style="text-align:right;"> 119.4 </td>
+   <td style="text-align:right;"> -16.6 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> La Entusiasta </td>
+   <td style="text-align:right;"> 50 </td>
+   <td style="text-align:right;"> 125.9 </td>
+   <td style="text-align:right;"> -10.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> La Prudente </td>
+   <td style="text-align:right;"> 42 </td>
+   <td style="text-align:right;"> 125.3 </td>
+   <td style="text-align:right;"> -10.7 </td>
+  </tr>
+</tbody>
+<tfoot><tr><td style="padding: 0; " colspan="100%">
+<span style="font-style: italic;">nota:</span> <sup></sup> Error de estimación= Parámetro estimado (Media aritmética (Hb g/l)) - Parámetro poblacional (Hb: 136 g/l)</td></tr></tfoot>
+</table>
 
-|Participante  | Valores inventados| Media aritmética| Error de estimación|Resultado |
-|:-------------|------------------:|----------------:|-------------------:|:---------|
-|La Confiada   |                 18|            119.4|               -16.6|Aceptable |
-|La Prudente   |                 42|            125.3|               -10.7|Aceptable |
-|La Entusiasta |                 50|            125.9|               -10.1|Aceptable |
+### Resultado
 
 {{% callout note %}}
-**Error de estimación** = Parámetro estimado (Ej. Media de la Hemoglobina en datos inventados ) - Valor real (Ej.136 g/L)
+**Resultado — Fase I (Sin Información Previa):**
+Una ligera tendencia a subestimar la media —una suerte de 'anemia estadística'— se manifestó bajo presión temporal, con todas las participantes sesgando sus estimaciones hacia valores inferiores.
 {{% /callout %}}
 
-**Todas lograron estimaciones clínicamente válidas** - los errores están dentro del margen aceptable en práctica médica:
-
-- **Variación biológica normal:** 2-3 g/L
-- **Error de medición típico:** 1-2 g/L  
-- **Umbral de relevancia clínica:** >5 g/L
-
-En contexto real, estas diferencias no alterarían decisiones diagnósticas ni terapéuticas.
-
-
-{{% callout warning %}}
-**Resultado:** Las tres doctoras pasaron esta prueba.
+{{% callout note %}}
+**Resultado — Fase II (Con Información Previa):**
+El grupo corrigió la Media casi a la perfección cuando la referencia fue mostrada explícitamente.
 {{% /callout %}}
 
+### ¿Por qué ocurre esto?
 
+Sin una referencia numérica, el clínico no estima valores a partir de una distribución estadística, sino que recurre a categorías diagnósticas aprendidas (“anemia leve”, “normal”). Bajo presión temporal, este mecanismo cognitivo favorece un juicio conservador: ante la duda, resulta más prudente subestimar la hemoglobina —atribuyéndola a una anemia leve— que sobreestimarla y sugerir una condición menos frecuente, como la policitemia.
 
+Sin embargo, cuando se muestra la media poblacional (136 g/L), la estimación se ajusta casi de inmediato. La media actúa entonces como un punto de referencia claro y fácil de imitar, que permite calibrar el juicio con mayor precisión.
 
-<!-- ```{r distribucion} -->
-<!-- library(ggplot2) -->
-
-<!-- ## EL MEJOR - Combina densidad + datos crudos + referencia -->
-<!-- ggplot(datos, aes(x = valor)) + -->
-<!--   geom_density(aes(fill = "Densidad"), alpha = 0.3, adjust = 0.7) + -->
-<!--   geom_histogram(aes(y = ..density.., fill = "Histograma"),  -->
-<!--                  alpha = 0.3, bins = 15, color = "gray50") + -->
-<!--   geom_rug(aes(color = participante), sides = "b", alpha = 0.3) + -->
-<!--   geom_vline(xintercept = 136, linetype = "dashed",  -->
-<!--              color = "red", size = 1, alpha = 0.3) + -->
-<!--   facet_wrap(~participante, ncol = 2) + -->
-<!--   scale_fill_manual(values = c("Densidad" = "blue", "Histograma" = "gray")) + -->
-<!--   labs(title = "Análisis Forense de Distribuciones") + -->
-<!--   theme_minimal() -->
-
-<!-- ``` -->
-
-<!-- **Análisis Forense de las Huellas Digitales:** -->
-
-<!-- - **La Prudente** delata su estrategia: "quedarse en lo seguro" produce una distribución anormalmente estrecha que nunca se ve en datos reales. -->
-
-<!-- - **La Entusiasta** revela inconsistencia cognitiva: la bimodalidad sugiere que alternó entre dos "modos" de inventar números. -->
-
-<!-- - **La Confiada**, a pesar de su nombre, muestra aversión a valores extremos altos, truncando artificialmente la cola derecha. -->
-
-<!-- **Veredicto:** Las tres distribuciones exhiben patrones antinaturales que delatan origen humano, no natural. -->
-
-
-
-Intuir el centro de una distribución es relativamente fácil. Nuestro cerebro es bueno encontrando promedios.
-
-*Pero aquí viene el problema...*
 
 ------------------------------------------------------------------------
 
 ### Segunda prueba: ¿Simularon bien la variabilidad?
 
-Como médicos, nuestros participantes tienen experiencia clínica que les permitió estimar bien la tendencia central de los datos.
-Pero un desafío mayor aparece al intentar reproducir la dispersión.  La variabilidad resulta mucho más difícil de intuir que el promedio. Veamos qué sucedió:
+Llama la atención que las estudiantes **fallaron al simular la desviación estándar (sd)**, incluso cuando el valor real estuvo frente a ellas en la segunda parte del experimento. 
+
+**La media es fácil de corregir; la desviación estándar no.**
+
+Examinemos con detalle lo ocurrido. En lo adelante, todos los datos presentados corresponden a la fase del experimento en la que se proporcionó información previa.
 
 
-|Participante  | Desviación Estándar| Minimo| Maximo| Error Absoluto| Error Relativo (%)|Resultado |
-|:-------------|-------------------:|------:|------:|--------------:|------------------:|:---------|
-|La Confiada   |                10.0|    102|    134|            2.5|               33.3|Alta      |
-|La Entusiasta |                13.4|    102|    152|            5.9|               78.7|Muy alta  |
-|La Prudente   |                 9.7|    103|    141|            2.2|               29.3|Aceptable |
+
+|Participante  |   sd| min| max| Error de estimación|
+|:-------------|----:|---:|---:|-------------------:|
+|La Confiada   | 10.0| 102| 134|                 2.5|
+|La Entusiasta | 13.4| 102| 152|                 5.9|
+|La Prudente   |  9.7| 103| 141|                 2.2|
+
+### Resultado
 
 {{% callout note %}}
-**Error absoluto**: Cuánto nos equivocamos con respeto al parámetro poblacional (*Ejemplo: |8.5 - 7.5| = 1.0 g/L*).  
+**Resultado:** Nadie logró la precisión requerida.
+{{% /callout %}} 
+  
+Curiosamente, a diferencia de la media (donde se quedaron cortas), aquí todas exageraron la variabilidad.
+  
+- La Entusiasta generó un caos considerable (SD 13.4 g/L), estirando los datos desde 102 g/L hasta 152 g/L.
 
-**Error relativo**: Qué porcentaje del valor real representa nuestro error (*Ejemplo: |(8.5 - 7.5)/7.5| × 100% = 13.3%*).  
+- La Confiada y La Prudente se alejaron del objetivo inflando la desviación, pero con un patrón revelador: La asimetría del miedo.
 
-{{% /callout %}}
+Observen sus rangos: no tuvieron miedo de bajar hasta 102 g/L o 103 g/L (muy lejos del piso normal de 121 g/L), pero apenas se atrevieron a subir hasta 134 g/L o 141 g/L (lejos del techo de 151 g/L).
 
+Al estirar la distribución hacia abajo (inventando anemias severas) pero cortarla por arriba (evitando valores altos), crearon una dispersión desequilibrada y con anomalías como se muestra a continuación.
 
+<img src="{{< blogdown/postref >}}index_files/figure-html/grafico-1.svg" width="3000" style="display: block; margin: auto;" />
 
-**Hallazgo 1:** Nadie acertó la variabilidad.
+### ¿Por qué ocurre esto?
 
--   La Prudente fue demasiado conservadora (rango 127-141)
--   La Entusiasta fue demasiado caótica (rango 108-156)
--   La Confiada se acercó bastante. 
+La figura muestra que las curvas coloreadas son más anchas y torcidas que la distribución normal teórica en negro (SD = 7.5 g/L), con colas largas hacia anemias graves (102-103 g/L) pero cortas en valores altos (hasta 134-141 g/L). Esta "asimetría del miedo" infla la SD, mostrando cómo las participantes priorizaron sesgos clínicos sobre las leyes del azar (Ley de los grandes número).
+La desviación estándar no es un número fijo, sino una "textura" evasiva: aunque veas "7.5", el cerebro lucha por evocar sus colas, dispersión y amplitud.
+Fallaron al imponer la percepción médica —"anemia común (hasta 102 g/L), policitemia  rara (freno en 134 g/L)"— válida en clínicas, pero letal para fingir una curva normal equilibrada y simétrica.
+
 
 {{% callout warning %}} **Primera ley del fraude de datos:**
-Los humanos intuyen bien la media, pero fracasan simulando la variabilidad. 
+Los humanos **intuyen bien la media**, pero **fracasan simulando la variabilidad**.
 {{% /callout %}}
 
-¿Por qué? Porque la variabilidad real es incómoda. Incluye valores que
-"no se ven bien": una hemoglobina de 119 o de 153 parece "rara", aunque
-sea perfectamente posible.
+**Nota de justicia para las participantes:**
 
-El cerebro humano evita lo incómodo. La naturaleza no.
+Siendo justos, con la excepción del caos generado por La Entusiasta, las demás lograron estimaciones clínicamente tolerables. Sus errores (2-3 g/L) caen dentro de la variación biológica normal o el error típico de medición. En un hospital, estos datos no matarían a nadie; pero en una auditoría forense de sus tesis, son huellas dactilares imborrables. 
+ 
+
 
 ------------------------------------------------------------------------
 
@@ -201,56 +212,70 @@ El cerebro humano evita lo incómodo. La naturaleza no.
 
 Esta es mi prueba favorita. Simple, brutal, casi imposible de engañar.
 
-**La lógica:** Imaginen una bolsa opaca con 10 fichas numeradas del 0 al 9. Si meten la mano y sacan una ficha al azar (y luego la devuelven), cada número tiene exactamente la misma probabilidad de salir: un 10%.
+La lógica: Imaginen una bolsa opaca con 10 fichas numeradas del 0 al 9. Si meten la mano y sacan una ficha al azar (y luego la devuelven), cada número tiene exactamente la misma probabilidad de salir: un 10%.
 
 En datos clínicos reales, el último dígito de una medición precisa se comporta igual que esas fichas: es puro ruido aleatorio.
 
-Pero el cerebro humano no funciona como el azar; funciona buscando comodidades.
+Pero el cerebro humano no funciona como el azar; funciona buscando comodidades o patrones inconscientes.
 
-Veamos qué hicieron nuestras residentes. En la siguiente tabla, he resaltado en negrita los valores que se desvían sospechosamente de ese 10% esperado:
+Veamos qué hicieron nuestras residentes. En la siguiente tabla se muestra la frecuencia de aparición de cada dígito, he resaltado en negrita los valores que se desvían gravemente (más de un 7% de diferencia) de lo esperado:
 
 
 |Dígito |La Confiada |La Entusiasta |La Prudente |
 |:------|:-----------|:-------------|:-----------|
-|0      |11.1%       |8.0%          |**16.7%**   |
-|1      |5.6%        |**4.0%**      |9.5%        |
-|2      |**16.7%**   |**22.0%**     |**16.7%**   |
+|0      |11.1%       |8.0%          |16.7%       |
+|1      |5.6%        |4.0%          |9.5%        |
+|2      |16.7%       |**22.0%**     |16.7%       |
 |3      |11.1%       |6.0%          |11.9%       |
-|4      |**16.7%**   |**2.0%**      |**4.8%**    |
+|4      |16.7%       |**2.0%**      |4.8%        |
 |5      |**0.0%**    |14.0%         |9.5%        |
 |6      |11.1%       |12.0%         |**0.0%**    |
 |7      |5.6%        |12.0%         |11.9%       |
 |8      |5.6%        |12.0%         |9.5%        |
-|9      |**16.7%**   |8.0%          |9.5%        |
+|9      |16.7%       |8.0%          |9.5%        |
 
-¿Lo notan? Es difícil ver el patrón solo con números. Hagámoslo visible.
+¿Lo notan? Es más fácil de ver el patrón en un gráfico. Hagámoslo visible.
 
-En este gráfico, he pintado de rojo cualquier barra que supere la línea del azar (10%). Observen dónde se concentran las alertas:
+En este gráfico, he pintado de rojo cualquier barra que rompa la uniformidad esperada. Observen **"La Entusiasta"**:
 
-<img src="{{< blogdown/postref >}}index_files/figure-html/last-1.png" width="3000" style="display: block; margin: auto;" />
+<img src="{{< blogdown/postref >}}index_files/figure-html/last-1.svg" width="3000" style="display: block; margin: auto;" />
+
+### Resultado
+
+{{% callout note %}} **Resultado:** El patrón del mentiroso emerge.
+{{% /callout %}}
+
+Aquí vemos algo fascinante sobre la psicología del fraude. La teoría dice que la gente abusa del 0 y el 5 (redondeo). Sin embargo, "La Entusiasta" tiene un "tic" diferente:
+
+-  **Obsesión con el 2:** Miren esa barra roja gigante. Por alguna razón, su cerebro eligió repetidamente números terminados en 2 (132, 122, etc.).
+
+-  **Ausencias imposibles:** El dígito 4 casi no existe en sus datos. El azar nunca discrimina, pero la mente humana sí.
+
+- **El contraste con REALIDAD:** Miren los datos reales. Aunque hay picos y valles (el azar es "grumoso"), no hay columnas gigantescas que anulen a las demás.
 
 
-**El patrón del mentiroso emerge:**
+Para concluir, ¿cómo distinguimos el ruido natural del fraude con un solo número?
 
--   🚨 El **0** y el **5** dominan (números "redondos")
--   🚨 El **3**, **7** y **9** casi desaparecen (números "incómodos")
+Usaremos la Desviación Promedio. La pregunta es simple: "En promedio, ¿cuántos puntos porcentuales se equivocó la alumna en cada dígito respecto al 10% ideal?"
 
-Para ser justos, el azar nunca es perfecto. ¿Cómo distinguimos el ruido natural del fraude?
+He ajustado los criterios para el tamaño de nuestra muestra:
 
-En lugar de usar pruebas de significación complejas, usaremos una métrica descriptiva más honesta: la Desviación Promedio.
+- 0% - 3.0%: Ruido natural (Aleatorio).
+
+- 3.0% - 5.5%: Zona gris (Sospechoso o muestra muy pequeña).
+
+- /> 5.5%: Patrón artificial (Alerta Roja).
 
 La pregunta es simple: "En promedio, ¿cuántos puntos porcentuales se equivocó la alumna en cada dígito respecto al 10% ideal?"
 
-- *0% - 2%: Ruido natural (Aleatorio)*.
-- 2% - 4%: Zona gris (Sospechoso).
-- 4%: Sesgo sistemático (Artificial).
 
 
-|Participante  |Desviación Promedio |Peor Error |
-|:-------------|:-------------------|:----------|
-|La Confiada   |4.7 %               |10.0 %     |
-|La Entusiasta |4.4 %               |12.0 %     |
-|La Prudente   |3.4 %               |10.0 %     |
+
+|Participante  | Desv. Media | Exceso 0/5 |        Evaluacion|
+|:-------------|:-----------:|:----------:|-----------------:|
+|La Confiada   |    4.7%     |   11.1%    | Patrón Artificial|
+|La Entusiasta |    4.4%     |   22.0%    | Patrón Artificial|
+|La Prudente   |    3.4%     |   26.2%    |    Patrón Natural|
 
 La Prudente se desvió, en promedio, un 4.4% en cada dígito. Su "peor error" fue poner casi un 24% de ceros (un exceso de 14 puntos). Eso no es mala suerte; es un sesgo cognitivo masivo.
 
@@ -296,36 +321,12 @@ En medicina, un corazón sano tiene variabilidad (caos). Un corazón que late co
 
 Veamos si nuestras residentes cayeron en la trampa:
 
-<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
- <thead>
-  <tr>
-   <th style="text-align:center;"> Participante </th>
-   <th style="text-align:center;"> Índice Z </th>
-   <th style="text-align:center;"> Diagnóstico </th>
-   <th style="text-align:center;"> Veredicto </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:center;"> La Confiada </td>
-   <td style="text-align:center;"> 0.00 </td>
-   <td style="text-align:center;"> Aleatoriedad perfecta </td>
-   <td style="text-align:center;"> Aleatoriedad normal ✓ </td>
-  </tr>
-  <tr>
-   <td style="text-align:center;"> La Entusiasta </td>
-   <td style="text-align:center;"> -1.71 </td>
-   <td style="text-align:center;"> Agrupamiento excesivo </td>
-   <td style="text-align:center;"> Aleatoriedad normal ✓ </td>
-  </tr>
-  <tr>
-   <td style="text-align:center;"> La Prudente </td>
-   <td style="text-align:center;"> -0.57 </td>
-   <td style="text-align:center;"> Agrupamiento excesivo </td>
-   <td style="text-align:center;"> Aleatoriedad normal ✓ </td>
-  </tr>
-</tbody>
-</table>
+
+|participante  |    Z_Score|Evaluacion |
+|:-------------|----------:|:----------|
+|La Confiada   |  0.0000000|Aleatorio  |
+|La Entusiasta | -1.7146428|Aleatorio  |
+|La Prudente   | -0.8077726|Aleatorio  |
 
 ¡Sorpresa! Aquí la intuición nos falló.
 
@@ -360,29 +361,13 @@ Normalmente, el primer dígito sigue una curva logarítmica (el 1 aparece el 30%
 
 Veamos si las residentes respetaron esta geometría natural o impusieron su propia voluntad:
 
-<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<caption><span id="tab:Benford"></span>Table 1: (\#tab:Benford)Análisis de Benford (2do Dígito)</caption>
- <thead>
-  <tr>
-   <th style="text-align:center;"> Participante </th>
-   <th style="text-align:center;"> Conformidad </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:center;"> La Confiada </td>
-   <td style="text-align:center;"> Desviación moderada ⚠️ </td>
-  </tr>
-  <tr>
-   <td style="text-align:center;"> La Entusiasta </td>
-   <td style="text-align:center;"> Desviación moderada ⚠️ </td>
-  </tr>
-  <tr>
-   <td style="text-align:center;"> La Prudente </td>
-   <td style="text-align:center;"> Desviación moderada ⚠️ </td>
-  </tr>
-</tbody>
-</table>
+
+<!-- ```{r Benford} -->
+<!-- analisis_benford %>% -->
+<!--   select(Participante = participante, `Conformidad` = evaluacion_benford) %>% -->
+<!--   kable(align = "c", caption = "Análisis de Benford (2do Dígito)") %>% -->
+<!--   kable_styling(bootstrap_options = "striped", full_width = F) -->
+<!-- ``` -->
 
 
 <!-- | Segundo dígito | Esperado (Benford) | Observado | Diferencia  | -->
@@ -804,6 +789,8 @@ Si enfrentas:
 
 ## Referencias
 
+- Jameson, J. L., Fauci, A. S., Kasper, D. L., Hauser, S. L., Longo, D. L., & Loscalzo, J. (Eds.). (2018). Harrison's Principles of Internal Medicine (20th ed.). McGraw-Hill Education.
+
 - Benford, F. (1938). The Law of Anomalous Numbers. Proceedings of the American Philosophical Society, *78*(4), 551–572.
 
 - Brown, N. J. L., & Heathers, J. A. J. (2017). The GRIM Test: A Simple Technique Detects Numerous Anomalies in the Reporting of Results in Psychology. Social Psychological and Personality Science, *8*(4), 363–369. https://doi.org/10.1177/1948550616673876
@@ -812,7 +799,6 @@ Si enfrentas:
 
 - Heathers, J. A. J., & Brown, N. J. L. (2019). SPRITE. PsyArXiv. https://psyarxiv.com/9qfr5/
 
-- Jameson, J. L., Fauci, A. S., Kasper, D. L., Hauser, S. L., Longo, D. L., & Loscalzo, J. (Eds.). (2018). Harrison's Principles of Internal Medicine (20th ed.). McGraw-Hill Education.
 
 - Mosimann, J. E., Wiseman, C. V., & Edelman, R. E. (1995). Data fabrication: Can people generate random digits? Accountability in Research, *4*(1), 31–55. https://doi.org/10.1080/08989629508573866
 
