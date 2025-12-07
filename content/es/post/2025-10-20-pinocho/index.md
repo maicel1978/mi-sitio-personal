@@ -159,10 +159,12 @@ Sin embargo, cuando se muestra la media poblacional (136 g/L), la estimación se
 
 Llama la atención que las estudiantes **fallaron al simular la desviación estándar (sd)**, incluso cuando el valor real estuvo frente a ellas en la segunda parte del experimento. 
 
-**La media es fácil de corregir; la desviación estándar no.**
+{{% callout note %}}
+**nota:** En lo adelante, todos los datos presentados corresponden a la fase del experimento en la que se proporcionó información previa.
+{{% /callout %}}
 
-Examinemos con detalle lo ocurrido. En lo adelante, todos los datos presentados corresponden a la fase del experimento en la que se proporcionó información previa.
 
+**La media es fácil de corregir; la desviación estándar no.** Examinemos con detalle lo ocurrido. 
 
 
 |Participante  |   sd| min| max| Error de estimación|
@@ -181,9 +183,11 @@ Curiosamente, a diferencia de la media (donde se quedaron cortas), aquí todas e
   
 - La Entusiasta generó un caos considerable (SD 13.4 g/L), estirando los datos desde 102 g/L hasta 152 g/L.
 
-- La Confiada y La Prudente se alejaron del objetivo inflando la desviación, pero con un patrón revelador: La asimetría del miedo.
+- La Confiada y La Prudente se alejaron del objetivo inflando la desviación, pero con un patrón revelador: *La asimetría del miedo*.
 
-Observen sus rangos: no tuvieron miedo de bajar hasta 102 g/L o 103 g/L (muy lejos del piso normal de 121 g/L), pero apenas se atrevieron a subir hasta 134 g/L o 141 g/L (lejos del techo de 151 g/L).
+Observen sus rangos: no tuvieron miedo de bajar hasta 102 g/L o 103 g/L (muy lejos del piso normal de 121 g/L), pero apenas se atrevieron a subir hasta 134 g/L o 141 g/L (lejos del límite superior de 151 g/L).
+
+<img src="{{< blogdown/postref >}}index_files/figure-html/grafico_rangos-1.svg" width="3000" style="display: block; margin: auto;" />
 
 Al estirar la distribución hacia abajo (inventando anemias severas) pero cortarla por arriba (evitando valores altos), crearon una dispersión desequilibrada y con anomalías como se muestra a continuación.
 
