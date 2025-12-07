@@ -1455,30 +1455,29 @@ sigue mi canal de telegram&lt;/a>.&lt;/p>
 &lt;p>&lt;a href="https://bioestadisticaedu.com/collaborations/">Puede contactarme para una consultoría personalizada donde puedo ayudarle a desarrollar un modelo predictivo o enseñarle a desarrollar la estrategia de modelado con otras herramientas como &lt;strong>SPSS&lt;/strong> o &lt;strong>Python&lt;/strong>.&lt;/a>.&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
 &lt;/li>
 &lt;/ol>
-&lt;/div></description></item><item><title>Gran Concurso: Miéntenle a su Profesor</title><link>https://bioestadisticaedu.com/post/concurso-mientele-profesor/</link><pubDate>Wed, 15 Oct 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/concurso-mientele-profesor/</guid><description>&lt;script src="https://bioestadisticaedu.com/post/concurso-mientele-profesor/index_files/kePrint/kePrint.js">&lt;/script>
-&lt;link href="https://bioestadisticaedu.com/post/concurso-mientele-profesor/index_files/lightable/lightable.css" rel="stylesheet" />
-&lt;script src="https://bioestadisticaedu.com/post/concurso-mientele-profesor/index_files/kePrint/kePrint.js">&lt;/script>
+&lt;/div></description></item><item><title>Experimento en el aula: ¿Pueden los estudiantes engañar a un bioestadístico? Un concurso de análisis forense de datos</title><link>https://bioestadisticaedu.com/post/concurso-mientele-profesor/</link><pubDate>Wed, 15 Oct 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/concurso-mientele-profesor/</guid><description>&lt;script src="https://bioestadisticaedu.com/post/concurso-mientele-profesor/index_files/kePrint/kePrint.js">&lt;/script>
 &lt;link href="https://bioestadisticaedu.com/post/concurso-mientele-profesor/index_files/lightable/lightable.css" rel="stylesheet" />
 &lt;h2 id="el-momento-en-que-supieron-que-habían-perdido">El momento en que supieron que habían perdido&lt;/h2>
-&lt;p>A las 11:07 de la mañana, aula de postgrado de la Universidad de
-Ciencias Médicas de la Habana , &lt;strong>La Confiada&lt;/strong> dejó caer el bolígrafo.&lt;/p>
-&lt;p>En la pantalla del proyector, el histograma de sus datos mostraba un patrón inusual. Sus valores de hemoglobina &lt;em>—42 números cuidadosamente inventados usando su conocimiento de fisiología—&lt;/em> acababan de ser expuestos como &lt;strong>falsos&lt;/strong>.&lt;/p>
+&lt;p>A las 11:07 de la mañana, aula de postgrado de la &lt;a href="https://ucmh.sld.cu/" target="_blank" rel="noopener">Universidad de Ciencias Médicas de la Habana (UCMH)&lt;/a>, &lt;strong>La Confiada&lt;/strong> dejó caer el bolígrafo.&lt;/p>
+&lt;p>En la pantalla del retroproyector, el histograma de sus datos mostraba un patrón inusual. Sus valores de hemoglobina &lt;em>—42 números cuidadosamente inventados usando su conocimiento de fisiología humana—&lt;/em> acababan de ser expuestos como &lt;strong>falsos&lt;/strong>.&lt;/p>
 &lt;p>Junto a ella, &lt;strong>La Prudente&lt;/strong> miraba su propio veredicto: una &lt;strong>varianza inexplicable&lt;/strong>.&lt;/p>
-&lt;p>&lt;strong>La Entusiasta&lt;/strong>, que había escrito 47 valores en 60 segundos apostando
+&lt;p>&lt;strong>La Entusiasta&lt;/strong>, que había escrito 50 valores en 60 segundos apostando
 por la cantidad sobre la calidad, tenía la expresión de quien acaba de
 descubrir que su estrategia era la &lt;em>menos mala&lt;/em>.&lt;/p>
 &lt;p>&lt;strong>Todo había comenzado media hora antes con una instrucción simple:&lt;/strong>&lt;/p>
-&lt;blockquote>
-&lt;p>Tienen 60 segundos. Escriban todos los valores de hemoglobina en sangre de
-mujeres adultas que puedan inventar. Sin referencias. Sin calculadora. El
-que engañe mejor a las pruebas estadísticas, gana.&lt;/p>&lt;/blockquote>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-yellow-100 dark:bg-yellow-900">
+&lt;span class="pr-3 pt-1 text-red-400">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0zM12 15.75h.007v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">Tienen 60 segundos. Escriban todos los valores de hemoglobina en sangre de mujeres adultas que puedan inventar. Sin referencias. Sin calculadora. El que engañe mejor a las pruebas estadísticas, gana.&lt;/span>
+&lt;/div>
 &lt;p>Lo que no sabían es que &lt;strong>los humanos somos terribles inventado datos&lt;/strong>.&lt;/p>
-&lt;p>No porque seamos honestos, sino porque nuestro cerebro tiene bugs predecibles.&lt;/p>
+&lt;p>No porque seamos honestos, sino porque nuestro cerebro produce errores predecibles al generar datos aparentemente aleatorios.&lt;/p>
 &lt;p>Y yo tenía exactamente las herramientas para encontrarlos.&lt;/p>
 &lt;hr>
 &lt;h2 id="los-sospechosos">Los sospechosos&lt;/h2>
 &lt;p>Antes de la autopsia, conozcamos a nuestros participantes, médicos
-residentes que cursaban la asignatura de &lt;em>&amp;ldquo;Metodología de la investigación y estadística&amp;rdquo;&lt;/em> en el curso 2022-2023 en la &lt;em>Universidad de Ciencias Médicas de la Habana (UCMH)&lt;/em>:&lt;/p>
+residentes de áreas básicas (fisiología, embriología, farmacología, etc.) que cursaban la asignatura de &lt;em>&amp;ldquo;Metodología de la investigación y estadística&amp;rdquo;&lt;/em> en el curso 2022-2023:&lt;/p>
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -1509,25 +1508,22 @@ residentes que cursaban la asignatura de &lt;em>&amp;ldquo;Metodología de la in
 &lt;/div>
 &lt;hr>
 &lt;h2 id="la-escena-del-crimen-mucha-sangre-o-al-menos-uno-de-sus-componentes-la-hemoglobina">La escena del crimen: Mucha sangre o al menos uno de sus componentes, la Hemoglobina&lt;/h2>
-&lt;p>Para que una mentira sea creíble, hay que conocer la verdad:&lt;/p>
+&lt;p>Para que una mentira sea creíble, primero hay que conocer la verdad:&lt;/p>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
+&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;h3 id="valores-de-referencia-de-la-concentración-de-hemoglobina-en-sangre-mujer-adulta-en-gl">Valores de referencia de la concentración de hemoglobina en sangre (mujer adulta) en g/L&lt;/h3>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>Parámetro&lt;/th>
-&lt;th>Valor real&lt;/th>
+&lt;th>Valor poblacional&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
-&lt;td>Variable&lt;/td>
-&lt;td>Concentración de hemoglobina en sangre (mujer adulta)&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>Unidad&lt;/td>
-&lt;td>g/L&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>Rango normal&lt;/td>
+&lt;td>Rango normal (min- max)&lt;/td>
 &lt;td>121 – 151 g/L&lt;/td>
 &lt;/tr>
 &lt;tr>
@@ -1540,102 +1536,82 @@ residentes que cursaban la asignatura de &lt;em>&amp;ldquo;Metodología de la in
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
+&lt;/span>
+&lt;/div>
 &lt;p>Armadas con este conocimiento (o su vaga memoria de él), las participantes escribieron furiosamente durante 60 segundos en su fichero de Excel todos las cifras que pudieron.&lt;/p>
-&lt;p>&lt;strong>El resultado:&lt;/strong> &lt;em>127 valores inventados&lt;/em> listos para el &lt;strong>análisis
-forense&lt;/strong>.&lt;/p>
-&lt;hr>
-&lt;h2 id="acto-ii-la-autopsia-estadística">Acto II: La autopsia estadística&lt;/h2>
-&lt;h3 id="primera-prueba-acertaron-el-centro">Primera prueba: ¿Acertaron el centro?&lt;/h3>
-&lt;p>Empecemos por lo fácil. &lt;em>¿La media aritmética del conjunto de datos inventados se parecen al valor real?&lt;/em>&lt;/p>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th style="text-align: left">Participante&lt;/th>
-&lt;th style="text-align: right">Valores inventados&lt;/th>
-&lt;th style="text-align: right">Media aritmética&lt;/th>
-&lt;th style="text-align: right">Error de estimación&lt;/th>
-&lt;th style="text-align: left">Resultado&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td style="text-align: left">La Confiada&lt;/td>
-&lt;td style="text-align: right">18&lt;/td>
-&lt;td style="text-align: right">119.4&lt;/td>
-&lt;td style="text-align: right">-16.6&lt;/td>
-&lt;td style="text-align: left">Aceptable&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align: left">La Prudente&lt;/td>
-&lt;td style="text-align: right">42&lt;/td>
-&lt;td style="text-align: right">125.3&lt;/td>
-&lt;td style="text-align: right">-10.7&lt;/td>
-&lt;td style="text-align: left">Aceptable&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align: left">La Entusiasta&lt;/td>
-&lt;td style="text-align: right">50&lt;/td>
-&lt;td style="text-align: right">125.9&lt;/td>
-&lt;td style="text-align: right">-10.1&lt;/td>
-&lt;td style="text-align: left">Aceptable&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
 &lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
 &lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
 &lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
 &lt;/span>
-&lt;span class="dark:text-neutral-300">&lt;strong>Error de estimación&lt;/strong> = Parámetro estimado (Ej. Media de la Hemoglobina en datos inventados ) - Valor real (Ej.136 g/L)&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;strong>El resultado:&lt;/strong> &lt;em>127 valores inventados&lt;/em> listos para el &lt;strong>análisis forense&lt;/strong>.&lt;/span>
 &lt;/div>
-&lt;p>&lt;strong>Todas lograron estimaciones clínicamente válidas&lt;/strong> - los errores están dentro del margen aceptable en práctica médica:&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>Variación biológica normal:&lt;/strong> 2-3 g/L&lt;/li>
-&lt;li>&lt;strong>Error de medición típico:&lt;/strong> 1-2 g/L&lt;/li>
-&lt;li>&lt;strong>Umbral de relevancia clínica:&lt;/strong> &amp;gt;5 g/L&lt;/li>
-&lt;/ul>
-&lt;p>En contexto real, estas diferencias no alterarían decisiones diagnósticas ni terapéuticas.&lt;/p>
-&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-yellow-100 dark:bg-yellow-900">
-&lt;span class="pr-3 pt-1 text-red-400">
-&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0zM12 15.75h.007v.008H12z"/>&lt;/svg>
+&lt;hr>
+&lt;h2 id="acto-ii-la-autopsia-estadística">Acto II: La autopsia estadística&lt;/h2>
+&lt;h3 id="primera-prueba-acertaron-el-centro">Primera prueba: ¿Acertaron el centro?&lt;/h3>
+&lt;p>Empecemos por lo fácil. &lt;strong>¿La media aritmética del conjunto de datos inventados se parecen al valor real?&lt;/strong>&lt;/p>
+&lt;table class="table table-striped" style="margin-left: auto; margin-right: auto;border-bottom: 0;">
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:left;"> Participante &lt;/th>
+&lt;th style="text-align:right;"> Valores &lt;/th>
+&lt;th style="text-align:right;"> Media aritmética &lt;/th>
+&lt;th style="text-align:right;"> Error de estimación &lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:left;"> La Confiada &lt;/td>
+&lt;td style="text-align:right;"> 18 &lt;/td>
+&lt;td style="text-align:right;"> 119.4 &lt;/td>
+&lt;td style="text-align:right;"> -16.6 &lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;"> La Entusiasta &lt;/td>
+&lt;td style="text-align:right;"> 50 &lt;/td>
+&lt;td style="text-align:right;"> 125.9 &lt;/td>
+&lt;td style="text-align:right;"> -10.1 &lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;"> La Prudente &lt;/td>
+&lt;td style="text-align:right;"> 42 &lt;/td>
+&lt;td style="text-align:right;"> 125.3 &lt;/td>
+&lt;td style="text-align:right;"> -10.7 &lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;tfoot>&lt;tr>&lt;td style="padding: 0; " colspan="100%">
+&lt;span style="font-style: italic;">nota:&lt;/span> &lt;sup>&lt;/sup> Error de estimación= Parámetro estimado (Media aritmética (Hb g/l)) - Parámetro poblacional (Hb: 136 g/l)&lt;/td>&lt;/tr>&lt;/tfoot>
+&lt;/table>
+&lt;h3 id="resultado">Resultado&lt;/h3>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
+&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
 &lt;/span>
-&lt;span class="dark:text-neutral-300">&lt;strong>Resultado:&lt;/strong> Las tres doctoras pasaron esta prueba.&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;strong>Resultado — Fase I (Sin Información Previa):&lt;/strong>
+Una ligera tendencia a subestimar la media —una suerte de &amp;lsquo;anemia estadística&amp;rsquo;— se manifestó bajo presión temporal, con todas las participantes sesgando sus estimaciones hacia valores inferiores.&lt;/span>
 &lt;/div>
-&lt;!-- ```{r distribucion} -->
-&lt;!-- library(ggplot2) -->
-&lt;!-- ## EL MEJOR - Combina densidad + datos crudos + referencia -->
-&lt;!-- ggplot(datos, aes(x = valor)) + -->
-&lt;!-- geom_density(aes(fill = "Densidad"), alpha = 0.3, adjust = 0.7) + -->
-&lt;!-- geom_histogram(aes(y = ..density.., fill = "Histograma"), -->
-&lt;!-- alpha = 0.3, bins = 15, color = "gray50") + -->
-&lt;!-- geom_rug(aes(color = participante), sides = "b", alpha = 0.3) + -->
-&lt;!-- geom_vline(xintercept = 136, linetype = "dashed", -->
-&lt;!-- color = "red", size = 1, alpha = 0.3) + -->
-&lt;!-- facet_wrap(~participante, ncol = 2) + -->
-&lt;!-- scale_fill_manual(values = c("Densidad" = "blue", "Histograma" = "gray")) + -->
-&lt;!-- labs(title = "Análisis Forense de Distribuciones") + -->
-&lt;!-- theme_minimal() -->
-&lt;!-- ``` -->
-&lt;!-- **Análisis Forense de las Huellas Digitales:** -->
-&lt;!-- - **La Prudente** delata su estrategia: "quedarse en lo seguro" produce una distribución anormalmente estrecha que nunca se ve en datos reales. -->
-&lt;!-- - **La Entusiasta** revela inconsistencia cognitiva: la bimodalidad sugiere que alternó entre dos "modos" de inventar números. -->
-&lt;!-- - **La Confiada**, a pesar de su nombre, muestra aversión a valores extremos altos, truncando artificialmente la cola derecha. -->
-&lt;!-- **Veredicto:** Las tres distribuciones exhiben patrones antinaturales que delatan origen humano, no natural. -->
-&lt;p>Intuir el centro de una distribución es relativamente fácil. Nuestro cerebro es bueno encontrando promedios.&lt;/p>
-&lt;p>&lt;em>Pero aquí viene el problema&amp;hellip;&lt;/em>&lt;/p>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
+&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;strong>Resultado — Fase II (Con Información Previa):&lt;/strong>
+El grupo corrigió la Media casi a la perfección cuando la referencia fue mostrada explícitamente.&lt;/span>
+&lt;/div>
+&lt;h3 id="por-qué-ocurre-esto">¿Por qué ocurre esto?&lt;/h3>
+&lt;p>Sin una referencia numérica, el clínico no estima valores a partir de una distribución estadística, sino que recurre a categorías diagnósticas aprendidas (“anemia leve”, “normal”). Bajo presión temporal, este mecanismo cognitivo favorece un juicio conservador: ante la duda, resulta más prudente subestimar la hemoglobina —atribuyéndola a una anemia leve— que sobreestimarla y sugerir una condición menos frecuente, como la policitemia.&lt;/p>
+&lt;p>Sin embargo, cuando se muestra la media poblacional (136 g/L), la estimación se ajusta casi de inmediato. La media actúa entonces como un punto de referencia claro y fácil de imitar, que permite calibrar el juicio con mayor precisión.&lt;/p>
 &lt;hr>
 &lt;h3 id="segunda-prueba-simularon-bien-la-variabilidad">Segunda prueba: ¿Simularon bien la variabilidad?&lt;/h3>
-&lt;p>Como médicos, nuestros participantes tienen experiencia clínica que les permitió estimar bien la tendencia central de los datos.
-Pero un desafío mayor aparece al intentar reproducir la dispersión. La variabilidad resulta mucho más difícil de intuir que el promedio. Veamos qué sucedió:&lt;/p>
+&lt;p>Llama la atención que las estudiantes &lt;strong>fallaron al simular la desviación estándar (sd)&lt;/strong>, incluso cuando el valor real estuvo frente a ellas en la segunda parte del experimento.&lt;/p>
+&lt;p>&lt;strong>La media es fácil de corregir; la desviación estándar no.&lt;/strong>&lt;/p>
+&lt;p>Examinemos con detalle lo ocurrido. En lo adelante, todos los datos presentados corresponden a la fase del experimento en la que se proporcionó información previa.&lt;/p>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th style="text-align: left">Participante&lt;/th>
-&lt;th style="text-align: right">Desviación Estándar&lt;/th>
-&lt;th style="text-align: right">Minimo&lt;/th>
-&lt;th style="text-align: right">Maximo&lt;/th>
-&lt;th style="text-align: right">Error Absoluto&lt;/th>
-&lt;th style="text-align: right">Error Relativo (%)&lt;/th>
-&lt;th style="text-align: left">Resultado&lt;/th>
+&lt;th style="text-align: right">sd&lt;/th>
+&lt;th style="text-align: right">min&lt;/th>
+&lt;th style="text-align: right">max&lt;/th>
+&lt;th style="text-align: right">Error de estimación&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1645,8 +1621,6 @@ Pero un desafío mayor aparece al intentar reproducir la dispersión. La variabi
 &lt;td style="text-align: right">102&lt;/td>
 &lt;td style="text-align: right">134&lt;/td>
 &lt;td style="text-align: right">2.5&lt;/td>
-&lt;td style="text-align: right">33.3&lt;/td>
-&lt;td style="text-align: left">Alta&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td style="text-align: left">La Entusiasta&lt;/td>
@@ -1654,8 +1628,6 @@ Pero un desafío mayor aparece al intentar reproducir la dispersión. La variabi
 &lt;td style="text-align: right">102&lt;/td>
 &lt;td style="text-align: right">152&lt;/td>
 &lt;td style="text-align: right">5.9&lt;/td>
-&lt;td style="text-align: right">78.7&lt;/td>
-&lt;td style="text-align: left">Muy alta&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td style="text-align: left">La Prudente&lt;/td>
@@ -1663,43 +1635,48 @@ Pero un desafío mayor aparece al intentar reproducir la dispersión. La variabi
 &lt;td style="text-align: right">103&lt;/td>
 &lt;td style="text-align: right">141&lt;/td>
 &lt;td style="text-align: right">2.2&lt;/td>
-&lt;td style="text-align: right">29.3&lt;/td>
-&lt;td style="text-align: left">Aceptable&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
+&lt;h3 id="resultado-1">Resultado&lt;/h3>
 &lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
 &lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
 &lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
 &lt;/span>
-&lt;span class="dark:text-neutral-300">&lt;p>&lt;strong>Error absoluto&lt;/strong>: Cuánto nos equivocamos con respeto al parámetro poblacional (&lt;em>Ejemplo: |8.5 - 7.5| = 1.0 g/L&lt;/em>).&lt;/p>
-&lt;p>&lt;strong>Error relativo&lt;/strong>: Qué porcentaje del valor real representa nuestro error (&lt;em>Ejemplo: |(8.5 - 7.5)/7.5| × 100% = 13.3%&lt;/em>).&lt;/p>
-&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;strong>Resultado:&lt;/strong> Nadie logró la precisión requerida.&lt;/span>
 &lt;/div>
-&lt;p>&lt;strong>Hallazgo 1:&lt;/strong> Nadie acertó la variabilidad.&lt;/p>
+&lt;p>Curiosamente, a diferencia de la media (donde se quedaron cortas), aquí todas exageraron la variabilidad.&lt;/p>
 &lt;ul>
-&lt;li>La Prudente fue demasiado conservadora (rango 127-141)&lt;/li>
-&lt;li>La Entusiasta fue demasiado caótica (rango 108-156)&lt;/li>
-&lt;li>La Confiada se acercó bastante.&lt;/li>
+&lt;li>
+&lt;p>La Entusiasta generó un caos considerable (SD 13.4 g/L), estirando los datos desde 102 g/L hasta 152 g/L.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>La Confiada y La Prudente se alejaron del objetivo inflando la desviación, pero con un patrón revelador: La asimetría del miedo.&lt;/p>
+&lt;/li>
 &lt;/ul>
+&lt;p>Observen sus rangos: no tuvieron miedo de bajar hasta 102 g/L o 103 g/L (muy lejos del piso normal de 121 g/L), pero apenas se atrevieron a subir hasta 134 g/L o 141 g/L (lejos del techo de 151 g/L).&lt;/p>
+&lt;p>Al estirar la distribución hacia abajo (inventando anemias severas) pero cortarla por arriba (evitando valores altos), crearon una dispersión desequilibrada y con anomalías como se muestra a continuación.&lt;/p>
+&lt;img src="https://bioestadisticaedu.com/post/concurso-mientele-profesor/index_files/figure-html/grafico-1.svg" width="3000" style="display: block; margin: auto;" />
+&lt;h3 id="por-qué-ocurre-esto-1">¿Por qué ocurre esto?&lt;/h3>
+&lt;p>La figura muestra que las curvas coloreadas son más anchas y torcidas que la distribución normal teórica en negro (SD = 7.5 g/L), con colas largas hacia anemias graves (102-103 g/L) pero cortas en valores altos (hasta 134-141 g/L). Esta &amp;ldquo;asimetría del miedo&amp;rdquo; infla la SD, mostrando cómo las participantes priorizaron sesgos clínicos sobre las leyes del azar (Ley de los grandes número).
+La desviación estándar no es un número fijo, sino una &amp;ldquo;textura&amp;rdquo; evasiva: aunque veas &amp;ldquo;7.5&amp;rdquo;, el cerebro lucha por evocar sus colas, dispersión y amplitud.
+Fallaron al imponer la percepción médica —&amp;ldquo;anemia común (hasta 102 g/L), policitemia rara (freno en 134 g/L)&amp;quot;— válida en clínicas, pero letal para fingir una curva normal equilibrada y simétrica.&lt;/p>
 &lt;div class="flex px-4 py-3 mb-6 rounded-md bg-yellow-100 dark:bg-yellow-900">
 &lt;span class="pr-3 pt-1 text-red-400">
 &lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0zM12 15.75h.007v.008H12z"/>&lt;/svg>
 &lt;/span>
 &lt;span class="dark:text-neutral-300">&lt;strong>Primera ley del fraude de datos:&lt;/strong>
-Los humanos intuyen bien la media, pero fracasan simulando la variabilidad.&lt;/span>
+Los humanos &lt;strong>intuyen bien la media&lt;/strong>, pero &lt;strong>fracasan simulando la variabilidad&lt;/strong>.&lt;/span>
 &lt;/div>
-&lt;p>¿Por qué? Porque la variabilidad real es incómoda. Incluye valores que
-&amp;ldquo;no se ven bien&amp;rdquo;: una hemoglobina de 119 o de 153 parece &amp;ldquo;rara&amp;rdquo;, aunque
-sea perfectamente posible.&lt;/p>
-&lt;p>El cerebro humano evita lo incómodo. La naturaleza no.&lt;/p>
+&lt;p>&lt;strong>Nota de justicia para las participantes:&lt;/strong>&lt;/p>
+&lt;p>Siendo justos, con la excepción del caos generado por La Entusiasta, las demás lograron estimaciones clínicamente tolerables. Sus errores (2-3 g/L) caen dentro de la variación biológica normal o el error típico de medición. En un hospital, estos datos no matarían a nadie; pero en una auditoría forense de sus tesis, son huellas dactilares imborrables.&lt;/p>
 &lt;hr>
 &lt;h3 id="tercera-prueba-el-último-dígito">Tercera prueba: El último dígito&lt;/h3>
 &lt;p>Esta es mi prueba favorita. Simple, brutal, casi imposible de engañar.&lt;/p>
-&lt;p>&lt;strong>La lógica:&lt;/strong> Imaginen una bolsa opaca con 10 fichas numeradas del 0 al 9. Si meten la mano y sacan una ficha al azar (y luego la devuelven), cada número tiene exactamente la misma probabilidad de salir: un 10%.&lt;/p>
+&lt;p>La lógica: Imaginen una bolsa opaca con 10 fichas numeradas del 0 al 9. Si meten la mano y sacan una ficha al azar (y luego la devuelven), cada número tiene exactamente la misma probabilidad de salir: un 10%.&lt;/p>
 &lt;p>En datos clínicos reales, el último dígito de una medición precisa se comporta igual que esas fichas: es puro ruido aleatorio.&lt;/p>
-&lt;p>Pero el cerebro humano no funciona como el azar; funciona buscando comodidades.&lt;/p>
-&lt;p>Veamos qué hicieron nuestras residentes. En la siguiente tabla, he resaltado en negrita los valores que se desvían sospechosamente de ese 10% esperado:&lt;/p>
+&lt;p>Pero el cerebro humano no funciona como el azar; funciona buscando comodidades o patrones inconscientes.&lt;/p>
+&lt;p>Veamos qué hicieron nuestras residentes. En la siguiente tabla se muestra la frecuencia de aparición de cada dígito, he resaltado en negrita los valores que se desvían gravemente (más de un 7% de diferencia) de lo esperado:&lt;/p>
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -1714,19 +1691,19 @@ sea perfectamente posible.&lt;/p>
 &lt;td style="text-align: left">0&lt;/td>
 &lt;td style="text-align: left">11.1%&lt;/td>
 &lt;td style="text-align: left">8.0%&lt;/td>
-&lt;td style="text-align: left">&lt;strong>16.7%&lt;/strong>&lt;/td>
+&lt;td style="text-align: left">16.7%&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td style="text-align: left">1&lt;/td>
 &lt;td style="text-align: left">5.6%&lt;/td>
-&lt;td style="text-align: left">&lt;strong>4.0%&lt;/strong>&lt;/td>
+&lt;td style="text-align: left">4.0%&lt;/td>
 &lt;td style="text-align: left">9.5%&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td style="text-align: left">2&lt;/td>
-&lt;td style="text-align: left">&lt;strong>16.7%&lt;/strong>&lt;/td>
+&lt;td style="text-align: left">16.7%&lt;/td>
 &lt;td style="text-align: left">&lt;strong>22.0%&lt;/strong>&lt;/td>
-&lt;td style="text-align: left">&lt;strong>16.7%&lt;/strong>&lt;/td>
+&lt;td style="text-align: left">16.7%&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td style="text-align: left">3&lt;/td>
@@ -1736,9 +1713,9 @@ sea perfectamente posible.&lt;/p>
 &lt;/tr>
 &lt;tr>
 &lt;td style="text-align: left">4&lt;/td>
-&lt;td style="text-align: left">&lt;strong>16.7%&lt;/strong>&lt;/td>
+&lt;td style="text-align: left">16.7%&lt;/td>
 &lt;td style="text-align: left">&lt;strong>2.0%&lt;/strong>&lt;/td>
-&lt;td style="text-align: left">&lt;strong>4.8%&lt;/strong>&lt;/td>
+&lt;td style="text-align: left">4.8%&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td style="text-align: left">5&lt;/td>
@@ -1766,51 +1743,76 @@ sea perfectamente posible.&lt;/p>
 &lt;/tr>
 &lt;tr>
 &lt;td style="text-align: left">9&lt;/td>
-&lt;td style="text-align: left">&lt;strong>16.7%&lt;/strong>&lt;/td>
+&lt;td style="text-align: left">16.7%&lt;/td>
 &lt;td style="text-align: left">8.0%&lt;/td>
 &lt;td style="text-align: left">9.5%&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;p>¿Lo notan? Es difícil ver el patrón solo con números. Hagámoslo visible.&lt;/p>
-&lt;p>En este gráfico, he pintado de rojo cualquier barra que supere la línea del azar (10%). Observen dónde se concentran las alertas:&lt;/p>
-&lt;img src="https://bioestadisticaedu.com/post/concurso-mientele-profesor/index_files/figure-html/last-1.png" width="3000" style="display: block; margin: auto;" />
-&lt;p>&lt;strong>El patrón del mentiroso emerge:&lt;/strong>&lt;/p>
+&lt;p>¿Lo notan? Es más fácil de ver el patrón en un gráfico. Hagámoslo visible.&lt;/p>
+&lt;p>En este gráfico, he pintado de rojo cualquier barra que rompa la uniformidad esperada. Observen &lt;strong>&amp;ldquo;La Entusiasta&amp;rdquo;&lt;/strong>:&lt;/p>
+&lt;img src="https://bioestadisticaedu.com/post/concurso-mientele-profesor/index_files/figure-html/last-1.svg" width="3000" style="display: block; margin: auto;" />
+&lt;h3 id="resultado-2">Resultado&lt;/h3>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
+&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;strong>Resultado:&lt;/strong> El patrón del mentiroso emerge.&lt;/span>
+&lt;/div>
+&lt;p>Aquí vemos algo fascinante sobre la psicología del fraude. La teoría dice que la gente abusa del 0 y el 5 (redondeo). Sin embargo, &amp;ldquo;La Entusiasta&amp;rdquo; tiene un &amp;ldquo;tic&amp;rdquo; diferente:&lt;/p>
 &lt;ul>
-&lt;li>🚨 El &lt;strong>0&lt;/strong> y el &lt;strong>5&lt;/strong> dominan (números &amp;ldquo;redondos&amp;rdquo;)&lt;/li>
-&lt;li>🚨 El &lt;strong>3&lt;/strong>, &lt;strong>7&lt;/strong> y &lt;strong>9&lt;/strong> casi desaparecen (números &amp;ldquo;incómodos&amp;rdquo;)&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Obsesión con el 2:&lt;/strong> Miren esa barra roja gigante. Por alguna razón, su cerebro eligió repetidamente números terminados en 2 (132, 122, etc.).&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Ausencias imposibles:&lt;/strong> El dígito 4 casi no existe en sus datos. El azar nunca discrimina, pero la mente humana sí.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>El contraste con REALIDAD:&lt;/strong> Miren los datos reales. Aunque hay picos y valles (el azar es &amp;ldquo;grumoso&amp;rdquo;), no hay columnas gigantescas que anulen a las demás.&lt;/p>
+&lt;/li>
 &lt;/ul>
-&lt;p>Para ser justos, el azar nunca es perfecto. ¿Cómo distinguimos el ruido natural del fraude?&lt;/p>
-&lt;p>En lugar de usar pruebas de significación complejas, usaremos una métrica descriptiva más honesta: la Desviación Promedio.&lt;/p>
+&lt;p>Para concluir, ¿cómo distinguimos el ruido natural del fraude con un solo número?&lt;/p>
+&lt;p>Usaremos la Desviación Promedio. La pregunta es simple: &amp;ldquo;En promedio, ¿cuántos puntos porcentuales se equivocó la alumna en cada dígito respecto al 10% ideal?&amp;rdquo;&lt;/p>
+&lt;p>He ajustado los criterios para el tamaño de nuestra muestra:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>0% - 3.0%: Ruido natural (Aleatorio).&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>3.0% - 5.5%: Zona gris (Sospechoso o muestra muy pequeña).&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>/&amp;gt; 5.5%: Patrón artificial (Alerta Roja).&lt;/p>
+&lt;/li>
+&lt;/ul>
 &lt;p>La pregunta es simple: &amp;ldquo;En promedio, ¿cuántos puntos porcentuales se equivocó la alumna en cada dígito respecto al 10% ideal?&amp;rdquo;&lt;/p>
-&lt;ul>
-&lt;li>&lt;em>0% - 2%: Ruido natural (Aleatorio)&lt;/em>.&lt;/li>
-&lt;li>2% - 4%: Zona gris (Sospechoso).&lt;/li>
-&lt;li>4%: Sesgo sistemático (Artificial).&lt;/li>
-&lt;/ul>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th style="text-align: left">Participante&lt;/th>
-&lt;th style="text-align: left">Desviación Promedio&lt;/th>
-&lt;th style="text-align: left">Peor Error&lt;/th>
+&lt;th style="text-align: center">Desv. Media&lt;/th>
+&lt;th style="text-align: center">Exceso 0/5&lt;/th>
+&lt;th style="text-align: right">Evaluacion&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td style="text-align: left">La Confiada&lt;/td>
-&lt;td style="text-align: left">4.7 %&lt;/td>
-&lt;td style="text-align: left">10.0 %&lt;/td>
+&lt;td style="text-align: center">4.7%&lt;/td>
+&lt;td style="text-align: center">11.1%&lt;/td>
+&lt;td style="text-align: right">Patrón Artificial&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td style="text-align: left">La Entusiasta&lt;/td>
-&lt;td style="text-align: left">4.4 %&lt;/td>
-&lt;td style="text-align: left">12.0 %&lt;/td>
+&lt;td style="text-align: center">4.4%&lt;/td>
+&lt;td style="text-align: center">22.0%&lt;/td>
+&lt;td style="text-align: right">Patrón Artificial&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td style="text-align: left">La Prudente&lt;/td>
-&lt;td style="text-align: left">3.4 %&lt;/td>
-&lt;td style="text-align: left">10.0 %&lt;/td>
+&lt;td style="text-align: center">3.4%&lt;/td>
+&lt;td style="text-align: center">26.2%&lt;/td>
+&lt;td style="text-align: right">Patrón Natural&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
@@ -1824,7 +1826,7 @@ sea perfectamente posible.&lt;/p>
 &lt;p>Bajo presión, la comodidad cognitiva vence a la creatividad estadística.&lt;/p>
 &lt;/span>
 &lt;/div>
-&lt;details class="spoiler " id="spoiler-11">
+&lt;details class="spoiler " id="spoiler-14">
 &lt;summary class="cursor-pointer">Profe, ¿por qué el último dígito es Uniforme (10% cada uno) y no sigue la Ley de Benford? (clic para ver la respuesta)&lt;/summary>
 &lt;div class="rounded-lg bg-neutral-50 dark:bg-neutral-800 p-2">
 &lt;p>Porque los primeros números obedecen a la &lt;strong>Homeostasis&lt;/strong>, pero el último obedece al &lt;strong>caos&lt;/strong>.&lt;/p>
@@ -1840,38 +1842,34 @@ sea perfectamente posible.&lt;/p>
 &lt;h3 id="cuarta-prueba-la-aversión-a-la-repetición">Cuarta prueba: La aversión a la repetición&lt;/h3>
 &lt;p>Otro bug del cerebro humano: odiamos repetirnos.&lt;/p>
 &lt;p>Si escribes &amp;ldquo;134&amp;rdquo; y luego tienes que escribir otro número, tu cerebro
-grita: &lt;em>&amp;quot;¡No pongas 134 otra vez! ¡Se verá falso!&amp;quot;&lt;/em>&lt;/p>
+grita: &lt;em>&amp;quot;¡No pongas 134 otra vez! ¡Se verá falso!&amp;rdquo;&lt;/em>&lt;/p>
 &lt;p>Pero en datos reales, las repeticiones son normales.&lt;/p>
 &lt;p>Imaginen el modo &amp;ldquo;Aleatorio&amp;rdquo; (Shuffle) de Spotify. Originalmente era puro azar, pero los usuarios se quejaban si salían dos canciones seguidas del mismo artista. Spotify tuvo que trucar el algoritmo para hacerlo menos aleatorio (evitando repeticiones) y que así pareciera más aleatorio a los humanos.&lt;/p>
 &lt;p>En medicina, un corazón sano tiene variabilidad (caos). Un corazón que late como un metrónomo (arriba, abajo, arriba, abajo) es patológico. Al inventar datos, el humano suele actuar como ese metrónomo, alternando valores altos y bajos para &amp;ldquo;equilibrar&amp;rdquo; la media.&lt;/p>
 &lt;p>Veamos si nuestras residentes cayeron en la trampa:&lt;/p>
-&lt;table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+&lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th style="text-align:center;"> Participante &lt;/th>
-&lt;th style="text-align:center;"> Índice Z &lt;/th>
-&lt;th style="text-align:center;"> Diagnóstico &lt;/th>
-&lt;th style="text-align:center;"> Veredicto &lt;/th>
+&lt;th style="text-align: left">participante&lt;/th>
+&lt;th style="text-align: right">Z_Score&lt;/th>
+&lt;th style="text-align: left">Evaluacion&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
-&lt;td style="text-align:center;"> La Confiada &lt;/td>
-&lt;td style="text-align:center;"> 0.00 &lt;/td>
-&lt;td style="text-align:center;"> Aleatoriedad perfecta &lt;/td>
-&lt;td style="text-align:center;"> Aleatoriedad normal ✓ &lt;/td>
+&lt;td style="text-align: left">La Confiada&lt;/td>
+&lt;td style="text-align: right">0.0000000&lt;/td>
+&lt;td style="text-align: left">Aleatorio&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align:center;"> La Entusiasta &lt;/td>
-&lt;td style="text-align:center;"> -1.71 &lt;/td>
-&lt;td style="text-align:center;"> Agrupamiento excesivo &lt;/td>
-&lt;td style="text-align:center;"> Aleatoriedad normal ✓ &lt;/td>
+&lt;td style="text-align: left">La Entusiasta&lt;/td>
+&lt;td style="text-align: right">-1.7146428&lt;/td>
+&lt;td style="text-align: left">Aleatorio&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align:center;"> La Prudente &lt;/td>
-&lt;td style="text-align:center;"> -0.57 &lt;/td>
-&lt;td style="text-align:center;"> Agrupamiento excesivo &lt;/td>
-&lt;td style="text-align:center;"> Aleatoriedad normal ✓ &lt;/td>
+&lt;td style="text-align: left">La Prudente&lt;/td>
+&lt;td style="text-align: right">-0.8077726&lt;/td>
+&lt;td style="text-align: left">Aleatorio&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
@@ -1906,29 +1904,12 @@ estadísticos forenses.&lt;/p>
 &lt;li>El 2 más que el 3, y así sucesivamente.&lt;/li>
 &lt;/ul>
 &lt;p>Veamos si las residentes respetaron esta geometría natural o impusieron su propia voluntad:&lt;/p>
-&lt;table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
-&lt;caption>&lt;span id="tab:Benford">&lt;/span>Table 1: (\#tab:Benford)Análisis de Benford (2do Dígito)&lt;/caption>
-&lt;thead>
-&lt;tr>
-&lt;th style="text-align:center;"> Participante &lt;/th>
-&lt;th style="text-align:center;"> Conformidad &lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td style="text-align:center;"> La Confiada &lt;/td>
-&lt;td style="text-align:center;"> Desviación moderada ⚠️ &lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:center;"> La Entusiasta &lt;/td>
-&lt;td style="text-align:center;"> Desviación moderada ⚠️ &lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:center;"> La Prudente &lt;/td>
-&lt;td style="text-align:center;"> Desviación moderada ⚠️ &lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
+&lt;!-- ```{r Benford} -->
+&lt;!-- analisis_benford %>% -->
+&lt;!-- select(Participante = participante, `Conformidad` = evaluacion_benford) %>% -->
+&lt;!-- kable(align = "c", caption = "Análisis de Benford (2do Dígito)") %>% -->
+&lt;!-- kable_styling(bootstrap_options = "striped", full_width = F) -->
+&lt;!-- ``` -->
 &lt;!-- | Segundo dígito | Esperado (Benford) | Observado | Diferencia | -->
 &lt;!-- |----------------|--------------------|-----------|-------------| -->
 &lt;!-- | 0 | 12.0% | 3.1% | ⬇️ -8.9% 🚨 | -->
@@ -2151,7 +2132,7 @@ uniformes&amp;rdquo;. La realidad es más desordenada.&lt;/p>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;details class="spoiler " id="spoiler-13">
+&lt;details class="spoiler " id="spoiler-16">
 &lt;summary class="cursor-pointer">Análisis de Distribución: (Clic para ver las pruebas)&lt;/summary>
 &lt;div class="rounded-lg bg-neutral-50 dark:bg-neutral-800 p-2">
 &lt;img src="distribucion.png"/>
@@ -2423,6 +2404,9 @@ La comunidad crece cuando compartimos casos reales. &lt;strong>¡Me encantaría 
 &lt;h2 id="referencias">Referencias&lt;/h2>
 &lt;ul>
 &lt;li>
+&lt;p>Jameson, J. L., Fauci, A. S., Kasper, D. L., Hauser, S. L., Longo, D. L., &amp;amp; Loscalzo, J. (Eds.). (2018). Harrison&amp;rsquo;s Principles of Internal Medicine (20th ed.). McGraw-Hill Education.&lt;/p>
+&lt;/li>
+&lt;li>
 &lt;p>Benford, F. (1938). The Law of Anomalous Numbers. Proceedings of the American Philosophical Society, &lt;em>78&lt;/em>(4), 551–572.&lt;/p>
 &lt;/li>
 &lt;li>
@@ -2433,9 +2417,6 @@ La comunidad crece cuando compartimos casos reales. &lt;strong>¡Me encantaría 
 &lt;/li>
 &lt;li>
 &lt;p>Heathers, J. A. J., &amp;amp; Brown, N. J. L. (2019). SPRITE. PsyArXiv. &lt;a href="https://psyarxiv.com/9qfr5/" target="_blank" rel="noopener">https://psyarxiv.com/9qfr5/&lt;/a>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Jameson, J. L., Fauci, A. S., Kasper, D. L., Hauser, S. L., Longo, D. L., &amp;amp; Loscalzo, J. (Eds.). (2018). Harrison&amp;rsquo;s Principles of Internal Medicine (20th ed.). McGraw-Hill Education.&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>Mosimann, J. E., Wiseman, C. V., &amp;amp; Edelman, R. E. (1995). Data fabrication: Can people generate random digits? Accountability in Research, &lt;em>4&lt;/em>(1), 31–55. &lt;a href="https://doi.org/10.1080/08989629508573866" target="_blank" rel="noopener">https://doi.org/10.1080/08989629508573866&lt;/a>&lt;/p>
