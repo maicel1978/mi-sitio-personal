@@ -16,6 +16,8 @@ draft: true# True para un borrador
 ---
 <script src="{{< blogdown/postref >}}index_files/kePrint/kePrint.js"></script>
 <link href="{{< blogdown/postref >}}index_files/lightable/lightable.css" rel="stylesheet" />
+<script src="{{< blogdown/postref >}}index_files/kePrint/kePrint.js"></script>
+<link href="{{< blogdown/postref >}}index_files/lightable/lightable.css" rel="stylesheet" />
 
 
 
@@ -58,7 +60,6 @@ residentes de áreas básicas (fisiología, embriología, farmacología, etc.) q
 | **Luidmila** *(La Prudente)* | *"Voy a quedarme en el rango seguro, nada muy extremo."* |
 | **Betsy** *(La Entusiasta)* | *"Voy a escribir muchos números para que parezca más real y ganar por cantidad de valores."* |
 | **Melissa** *(La Confiada)* | *"Sé fisiología. Esto va a ser fácil."* |
-
 
 
 {{% callout warning %}}
@@ -134,19 +135,19 @@ Empecemos por lo fácil. **¿La media aritmética del conjunto de datos inventad
 <span style="font-style: italic;">nota:</span> <sup></sup> Error de estimación= Parámetro estimado (Media aritmética (Hb g/l)) - Parámetro poblacional (Hb: 136 g/l)</td></tr></tfoot>
 </table>
 
-### Resultado
+#### Resultado
 
 {{% callout note %}}
-**Resultado — Fase I (Sin Información Previa):**
+**Resultado | Fase I (Sin Información Previa):**
 Una ligera tendencia a subestimar la media —una suerte de 'anemia estadística'— se manifestó bajo presión temporal, con todas las participantes sesgando sus estimaciones hacia valores inferiores.
 {{% /callout %}}
 
 {{% callout note %}}
-**Resultado — Fase II (Con Información Previa):**
+**Resultado | Fase II (Con Información Previa):**
 El grupo corrigió la Media casi a la perfección cuando la referencia fue mostrada explícitamente.
 {{% /callout %}}
 
-### ¿Por qué ocurre esto?
+#### ¿Por qué ocurre esto?
 
 Sin una referencia numérica, el clínico no estima valores a partir de una distribución estadística, sino que recurre a categorías diagnósticas aprendidas (“anemia leve”, “normal”). Bajo presión temporal, este mecanismo cognitivo favorece un juicio conservador: ante la duda, resulta más prudente subestimar la hemoglobina —atribuyéndola a una anemia leve— que sobreestimarla y sugerir una condición menos frecuente, como la policitemia.
 
@@ -173,7 +174,7 @@ Llama la atención que las estudiantes **fallaron al simular la desviación est�
 |La Entusiasta | 13.4| 102| 152|                 5.9|
 |La Prudente   |  9.7| 103| 141|                 2.2|
 
-### Resultado
+#### Resultado
 
 {{% callout note %}}
 **Resultado:** Nadie logró la precisión requerida.
@@ -193,7 +194,7 @@ Al estirar la distribución hacia abajo (inventando anemias severas) pero cortar
 
 <img src="{{< blogdown/postref >}}index_files/figure-html/grafico-1.svg" width="3000" style="display: block; margin: auto;" />
 
-### ¿Por qué ocurre esto?
+#### ¿Por qué ocurre esto?
 
 La figura muestra que las curvas coloreadas son más anchas y torcidas que la distribución normal teórica en negro (SD = 7.5 g/L), con colas largas hacia anemias graves (102-103 g/L) pero cortas en valores altos (hasta 134-141 g/L). Esta "asimetría del miedo" infla la SD, mostrando cómo las participantes priorizaron sesgos clínicos sobre las leyes del azar (Ley de los grandes número).
 La desviación estándar no es un número fijo, sino una "textura" evasiva: aunque veas "7.5", el cerebro lucha por evocar sus colas, dispersión y amplitud.
@@ -212,109 +213,120 @@ Siendo justos, con la excepción del caos generado por La Entusiasta, las demás
 
 ------------------------------------------------------------------------
 
-### Tercera prueba: El último dígito
+### Tercera prueba: El último dígito (El rastro del caos)
 
-Esta es mi prueba favorita. Simple, brutal, casi imposible de engañar.
+Esta es mi prueba favorita. Para entenderla, pensemos en una hemoglobina de 136 g/L. Ese número tiene dos mitades:
 
-La lógica: Imaginen una bolsa opaca con 10 fichas numeradas del 0 al 9. Si meten la mano y sacan una ficha al azar (y luego la devuelven), cada número tiene exactamente la misma probabilidad de salir: un 10%.
+**1. El principio (13.)**: obedece a la biología — la médula ósea, el metabolismo, el hierro. Hay orden.
 
-En datos clínicos reales, el último dígito de una medición precisa se comporta igual que esas fichas: es puro ruido aleatorio.
+**2. El final (..6):** pertenece al azar — un vaso de agua, un respiro, una vibración. Hay caos.
 
-Pero el cerebro humano no funciona como el azar; funciona buscando comodidades o patrones inconscientes.
-
-Veamos qué hicieron nuestras residentes. En la siguiente tabla se muestra la frecuencia de aparición de cada dígito, he resaltado en negrita los valores que se desvían gravemente (más de un 7% de diferencia) de lo esperado:
-
-
-|Dígito |La Confiada |La Entusiasta |La Prudente |
-|:------|:-----------|:-------------|:-----------|
-|0      |11.1%       |8.0%          |16.7%       |
-|1      |5.6%        |4.0%          |9.5%        |
-|2      |16.7%       |**22.0%**     |16.7%       |
-|3      |11.1%       |6.0%          |11.9%       |
-|4      |16.7%       |**2.0%**      |4.8%        |
-|5      |**0.0%**    |14.0%         |9.5%        |
-|6      |11.1%       |12.0%         |**0.0%**    |
-|7      |5.6%        |12.0%         |11.9%       |
-|8      |5.6%        |12.0%         |9.5%        |
-|9      |16.7%       |8.0%          |9.5%        |
-
-¿Lo notan? Es más fácil de ver el patrón en un gráfico. Hagámoslo visible.
-
-En este gráfico, he pintado de rojo cualquier barra que rompa la uniformidad esperada. Observen **"La Entusiasta"**:
-
-<img src="{{< blogdown/postref >}}index_files/figure-html/last-1.svg" width="3000" style="display: block; margin: auto;" />
-
-### Resultado
-
-{{% callout note %}} **Resultado:** El patrón del mentiroso emerge.
-{{% /callout %}}
-
-Aquí vemos algo fascinante sobre la psicología del fraude. La teoría dice que la gente abusa del 0 y el 5 (redondeo). Sin embargo, "La Entusiasta" tiene un "tic" diferente:
-
--  **Obsesión con el 2:** Miren esa barra roja gigante. Por alguna razón, su cerebro eligió repetidamente números terminados en 2 (132, 122, etc.).
-
--  **Ausencias imposibles:** El dígito 4 casi no existe en sus datos. El azar nunca discrimina, pero la mente humana sí.
-
-- **El contraste con REALIDAD:** Miren los datos reales. Aunque hay picos y valles (el azar es "grumoso"), no hay columnas gigantescas que anulen a las demás.
+En ese caos, todos los dígitos del 0 al 9 deberían tener la **misma probabilidad: un 10% cada uno.**
+Cualquier desviación sostenida de ese 10% deja una huella: *el rastro del sesgo humano.*
 
 
-Para concluir, ¿cómo distinguimos el ruido natural del fraude con un solo número?
+|ultimo_digito |La Confiada                                                            |La Entusiasta                                                           |La Prudente                                                            |
+|:-------------|:----------------------------------------------------------------------|:-----------------------------------------------------------------------|:----------------------------------------------------------------------|
+|0             |11.1%                                                                  |8%                                                                      |16.7%                                                                  |
+|1             |5.6%                                                                   |4%                                                                      |9.5%                                                                   |
+|2             |16.7%                                                                  |<span style=" font-weight: bold;    color: red !important;" >22%</span> |16.7%                                                                  |
+|3             |11.1%                                                                  |6%                                                                      |11.9%                                                                  |
+|4             |16.7%                                                                  |<span style=" font-weight: bold;    color: red !important;" >2%</span>  |4.8%                                                                   |
+|5             |<span style=" font-weight: bold;    color: red !important;" >0%</span> |14%                                                                     |9.5%                                                                   |
+|6             |11.1%                                                                  |12%                                                                     |<span style=" font-weight: bold;    color: red !important;" >0%</span> |
+|7             |5.6%                                                                   |12%                                                                     |11.9%                                                                  |
+|8             |5.6%                                                                   |12%                                                                     |9.5%                                                                   |
+|9             |16.7%                                                                  |8%                                                                      |9.5%                                                                   |
 
-Usaremos la Desviación Promedio. La pregunta es simple: "En promedio, ¿cuántos puntos porcentuales se equivocó la alumna en cada dígito respecto al 10% ideal?"
+Lo vemos mejor en rojo. Las barras que se disparan son las *"huellas del crimen"*:
 
-He ajustado los criterios para el tamaño de nuestra muestra:
+<img src="{{< blogdown/postref >}}index_files/figure-html/g_utimodig-1.svg" width="3000" style="display: block; margin: auto;" />
 
-- 0% - 3.0%: Ruido natural (Aleatorio).
-
-- 3.0% - 5.5%: Zona gris (Sospechoso o muestra muy pequeña).
-
-- /> 5.5%: Patrón artificial (Alerta Roja).
-
-La pregunta es simple: "En promedio, ¿cuántos puntos porcentuales se equivocó la alumna en cada dígito respecto al 10% ideal?"
-
-
-
-
-|Participante  | Desv. Media | Exceso 0/5 |        Evaluacion|
-|:-------------|:-----------:|:----------:|-----------------:|
-|La Confiada   |    4.7%     |   11.1%    | Patrón Artificial|
-|La Entusiasta |    4.4%     |   22.0%    | Patrón Artificial|
-|La Prudente   |    3.4%     |   26.2%    |    Patrón Natural|
-
-La Prudente se desvió, en promedio, un 4.4% en cada dígito. Su "peor error" fue poner casi un 24% de ceros (un exceso de 14 puntos). Eso no es mala suerte; es un sesgo cognitivo masivo.
-
+#### Resultado
 
 {{% callout note %}}
-¿Por qué funciona esto?
-
-Tu cerebro es una máquina de ahorrar energía. En 60 segundos, calcular "137" o "129" cuesta milisegundos valiosos. Escribir "130" o "135" es casi automático.
-
-Bajo presión, la comodidad cognitiva vence a la creatividad estadística.
+**Resultado:** Se detectaron patrones artificiales claros en dos de las tres participantes.
 {{% /callout %}}
 
+Usando la Desviación Absoluta Media (es decir, el error promedio respecto al 10% que tendría cada dígito en un patrón aleatorio):
 
-{{< spoiler text="Profe, ¿por qué el último dígito es Uniforme (10% cada uno) y no sigue la Ley de Benford? (clic para ver la respuesta)" >}}
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Participante </th>
+   <th style="text-align:center;"> Desv. Media </th>
+   <th style="text-align:center;"> Frecuencia 0 y 5 </th>
+   <th style="text-align:right;"> Evaluacion </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> La Confiada </td>
+   <td style="text-align:center;"> 4.7% </td>
+   <td style="text-align:center;"> 11.1% </td>
+   <td style="text-align:right;"> Zona Gris / Sospechoso </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> La Entusiasta </td>
+   <td style="text-align:center;"> 4.4% </td>
+   <td style="text-align:center;"> 22.0% </td>
+   <td style="text-align:right;"> Zona Gris / Sospechoso </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> La Prudente </td>
+   <td style="text-align:center;"> 3.4% </td>
+   <td style="text-align:center;"> 26.2% </td>
+   <td style="text-align:right;"> Zona Gris / Sospechoso </td>
+  </tr>
+</tbody>
+</table>
 
-Porque los primeros números obedecen a la **Homeostasis**, pero el último obedece al **caos**.
+- **La Entusiasta:** Obsesión con el dígito 2 (22% de frecuencia) y casi ausencia del 4.
+- **La Prudente:** Exceso de redondeo. Sus dígitos 0 y 5 suman un 26% (lo natural es 20%).
+- **La Confiada:** Se mantuvo en una zona gris, pero con ruido sospechoso.
 
-Piensen en una Hemoglobina de **136 g/L**:
+#### ¿Por qué ocurre esto?
 
-*   **Los primeros dígitos (13-):** Son obra de la **Médula Ósea**. Dependen de la eritropoyetina, el hierro y semanas de maduración celular. Son estructuras biológicas rígidas y lentas (Siguen leyes como Benford).
-*   **El último dígito (-6):** Es obra de un **Vaso de Agua** o otro factor. Depende de si el paciente sudó, si tomó café o si la máquina del laboratorio vibró. Es puro ruido transitorio. 
-    
-La biología define el 130; el azar decide si es 136, 135 o 137.
-{{< /spoiler >}}
+El cerebro humano busca comodidad cognitiva. Inventar aleatoriedad pura consume mucha energía.
 
+- Caso Prudente: Ante la duda, el cerebro prefiere números "redondos" (0 y 5) porque son fáciles de procesar.
 
-
+- Caso Entusiasta: Al intentar evitar activamente el redondeo para parecer "real", su cerebro buscó otro refugio y se ancló inconscientemente en el número 2. Sustituyó un patrón obvio por uno oculto.
 
 ------------------------------------------------------------------------
 
-### Cuarta prueba: La aversión a la repetición
+### Cuarta prueba: El fantasma de Benford (El orden de los principios)
+
+Si el último dígito es el caos, los primeros son el orden. La Ley de Benford dice que en la naturaleza los números pequeños (1, 2) son mucho más frecuentes que los grandes (8, 9).
+
+Como la hemoglobina casi siempre empieza por 1 (rango 120-150), aplicamos esta ley al segundo dígito. En una distribución natural, deberíamos ver muchos 120s y 130s, y menos 140s y 150s.
+
+#### Resultado
+
+{{% callout note %}}
+Resultado: Fracaso masivo debido al "Efecto Centro".
+{{% /callout %}}
+
+Las participantes violaron la ley natural de los números. En lugar de una curva descendente, crearon una "montaña" artificial en el medio.
+
+Infalron los valores en 130-139.
+Eliminaron casi por completo los valores en 120-129 y 140-149.
+
+#### ¿Por qué ocurre esto?
+
+Por la Aversión a los Extremos.
+
+La estrategia de "La Prudente" contagió a todas: "Quédate en el rango seguro". El cerebro interpreta que la media (136) es "lo correcto" y que alejarse de ella (122 o 148) es "arriesgado".
+La naturaleza no tiene miedo al riesgo; produce diversidad. El cerebro humano, bajo presión, busca seguridad en el centro.
+
+
+
+### Quinta prueba: La aversión a la repetición
 
 Otro bug del cerebro humano: odiamos repetirnos.
 
 Si escribes "134" y luego tienes que escribir otro número, tu cerebro
+
 grita: *"¡No pongas 134 otra vez! ¡Se verá falso!"*
 
 Pero en datos reales, las repeticiones son normales.
@@ -351,19 +363,19 @@ El mentiroso puede tener suerte con la secuencia (arriba/abajo), pero es mucho m
 
 ------------------------------------------------------------------------
 
-### Quinta prueba: El fantasma de Benford
+<!-- ### Quinta prueba: El fantasma de Benford -->
 
-La Ley de Benford es el detector de mentiras favorito de auditores y
-estadísticos forenses.
+<!-- La Ley de Benford es el detector de mentiras favorito de auditores y -->
+<!-- estadísticos forenses. -->
 
-Normalmente, el primer dígito sigue una curva logarítmica (el 1 aparece el 30% de las veces). Pero la hemoglobina de una mujer adulta sana casi siempre empieza por 1 (Rango 120-150). Aquí Benford parece inútil... a menos que miremos bajo el capó.
+<!-- Normalmente, el primer dígito sigue una curva logarítmica (el 1 aparece el 30% de las veces). Pero la hemoglobina de una mujer adulta sana casi siempre empieza por 1 (Rango 120-150). Aquí Benford parece inútil... a menos que miremos bajo el capó. -->
 
-**El Truco:** La Ley de Benford generalizada nos dice que el patrón logarítmico se mantiene en el Segundo Dígito, aunque es más sutil.
+<!-- **El Truco:** La Ley de Benford generalizada nos dice que el patrón logarítmico se mantiene en el Segundo Dígito, aunque es más sutil. -->
 
-- El 1 (ej. 110, 115) debe ser más frecuente que el 2 (120, 125).
-- El 2 más que el 3, y así sucesivamente.
+<!-- - El 1 (ej. 110, 115) debe ser más frecuente que el 2 (120, 125). -->
+<!-- - El 2 más que el 3, y así sucesivamente. -->
 
-Veamos si las residentes respetaron esta geometría natural o impusieron su propia voluntad:
+<!-- Veamos si las residentes respetaron esta geometría natural o impusieron su propia voluntad: -->
 
 
 <!-- ```{r Benford} -->

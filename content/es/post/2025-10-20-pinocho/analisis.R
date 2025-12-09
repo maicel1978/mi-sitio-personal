@@ -193,52 +193,140 @@ g_rangos <- ggplot(resumen_rangos_final, aes(y = participante)) +
 
 
 # 6. ANÁLISIS DEL ÚLTIMO DÍGITO (BENFORD-LIKE) ---------------------------------
-
-analisis_ultimo_digito <- datos %>%
-  mutate(ultimo_digito = factor(valor %% 10, levels = 0:9)) %>%
-  count(participante, ultimo_digito, .drop = FALSE) %>%
-  group_by(participante) %>%
-  mutate(
-    prop = n / sum(n),
-    # Umbral: > 7% de desviación sobre el 10% esperado se marca en rojo
-    es_alto = abs(prop - 0.10) > 0.07 
-  )
-
-g_utimodig <- ggplot(analisis_ultimo_digito, aes(x = ultimo_digito, y = prop)) +
-  geom_hline(yintercept = 0.10, linetype = "solid", color = "black", alpha = 0.5) +
-  geom_col(aes(fill = es_alto), width = 0.7, color = "white") +
-  facet_wrap(~ participante) +
-  scale_fill_manual(values = c("FALSE" = "gray60", "TRUE" = "firebrick"),
-                    labels = c("Esperado", "Desviación Alta")) +
-  scale_y_continuous(labels = percent_format(accuracy = 1)) +
-  labs(title = "Detección de Datos Inventados: Análisis del Último Dígito",
-       subtitle = "Comparación: Datos Reales vs. Inventiva Humana",
-       fill = "Estado", 
-       x = "Último Dígito", 
-       y = "Frecuencia Relativa") +
-  theme_academico()
-
-
+# 
+# analisis_ultimo_digito <- datos %>%
+#   mutate(ultimo_digito = factor(valor %% 10, levels = 0:9)) %>%
+#   count(participante, ultimo_digito, .drop = FALSE) %>%
+#   group_by(participante) %>%
+#   mutate(
+#     prop = n / sum(n),
+#     # Umbral: > 7% de desviación sobre el 10% esperado se marca en rojo
+#     es_alto = abs(prop - 0.10) > 0.07 
+#   )
+# 
+# g_utimodig <- ggplot(analisis_ultimo_digito, aes(x = ultimo_digito, y = prop)) +
+#   geom_hline(yintercept = 0.10, linetype = "solid", color = "black", alpha = 0.5) +
+#   geom_col(aes(fill = es_alto), width = 0.7, color = "white") +
+#   facet_wrap(~ participante) +
+#   scale_fill_manual(values = c("FALSE" = "gray60", "TRUE" = "firebrick"),
+#                     labels = c("Esperado", "Desviación Alta")) +
+#   scale_y_continuous(labels = percent_format(accuracy = 1)) +
+#   labs(title = "Detección de Datos Inventados: Análisis del Último Dígito",
+#        subtitle = "Comparación: Datos Reales vs. Inventiva Humana",
+#        fill = "Estado", 
+#        x = "Último Dígito", 
+#        y = "Frecuencia Relativa") +
+#   theme_academico()
+# 
+# 
 # Tabla Resumen Dígitos
-tabla_desviacion <- analisis_ultimo_digito %>%
-  group_by(participante) %>%
-  summarise(
-    Desv_Promedio = mean(abs(prop - 0.10)) * 100,
-    Exceso_0_5 = sum(prop[ultimo_digito %in% c(0,5)]) * 100
-  ) %>%
-  mutate(
-    Evaluacion = if_else(Desv_Promedio > 3.5, "Patrón Artificial", "Patrón Natural"),
-    Desv_Promedio = sprintf("%.1f%%", Desv_Promedio),
-    Exceso_0_5 = sprintf("%.1f%%", Exceso_0_5)
-  )
-
-tabla_digitos_display <- tabla_desviacion %>%
-  select(Participante = participante,
-         `Desv. Media` = Desv_Promedio,
-         `Exceso 0 y 5` = Exceso_0_5,
-         `Evaluación` = Evaluacion)
-
-
+# tabla_desviacion <- analisis_ultimo_digito %>%
+#   group_by(participante) %>%
+#   summarise(
+#     Desv_Promedio = mean(abs(prop - 0.10)) * 100,
+#     Exceso_0_5 = sum(prop[ultimo_digito %in% c(0,5)]) * 100
+#   ) %>%
+#   mutate(
+#     Evaluacion = if_else(Desv_Promedio > 3.5, "Patrón Artificial", "Patrón Natural"),
+#     Desv_Promedio = sprintf("%.1f%%", Desv_Promedio),
+#     Exceso_0_5 = sprintf("%.1f%%", Exceso_0_5)
+#   )
+# # 
+# tabla_digitos_display <- tabla_desviacion %>%
+#   select(Participante = participante,
+#          `Desv. Media` = Desv_Promedio,
+#          `Exceso 0 y 5` = Exceso_0_5,
+#          `Evaluación` = Evaluacion)
+# 
+  analisis_ultimo_digito <- datos %>%
+    mutate(ultimo_digito = factor(valor %% 10, levels = 0:9)) %>%
+    count(participante, ultimo_digito, .drop = FALSE) %>%
+    group_by(participante) %>%
+    mutate(
+      prop = n / sum(n),
+      # Umbral: > 7% de desviación sobre el 10% esperado se marca en rojo
+      es_alto = abs(prop - 0.10) > 0.07 
+    )
+  
+  # Creamos tabla para impresión, independiente de la original
+  tabla_ultimo_digito <- analisis_ultimo_digito %>%
+    mutate(
+      prop_html = ifelse(
+        es_alto,
+        cell_spec(paste0(round(prop*100,1), "%"), bold = TRUE, color = "red"),
+        paste0(round(prop*100,1), "%")
+      )
+    ) %>%
+    select(ultimo_digito, participante, prop_html) %>%
+    pivot_wider(
+      names_from = participante,
+      values_from = prop_html
+    ) %>%
+    arrange(as.numeric(as.character(ultimo_digito)))
+  
+  
+  g_utimodig <- ggplot(analisis_ultimo_digito, aes(x = ultimo_digito, y = prop)) +
+    geom_hline(yintercept = 0.10, linetype = "solid", color = "black", alpha = 0.5) +
+    geom_col(aes(fill = es_alto), width = 0.7, color = "white") +
+    facet_wrap(~ participante) +
+    scale_fill_manual(values = c("FALSE" = "gray60", "TRUE" = "firebrick"),
+                      labels = c("Esperado", "Desviación Alta")) +
+    scale_y_continuous(labels = percent_format(accuracy = 1)) +
+    labs(title = "Detección de Datos Inventados: Análisis del Último Dígito",
+         subtitle = "Comparación: Datos Reales vs. Inventiva Humana",
+         fill = "Estado", 
+         x = "Último Dígito", 
+         y = "Frecuencia Relativa") +
+    theme_academico()
+  
+  
+  # Tabla Resumen Dígitos
+  # CORRECCIÓN: Calculamos la SUMA de 0 y 5, no el exceso, para evitar confusiones.
+  # Lo ideal es 20% (10% + 10%).
+  # tabla_desviacion <- analisis_ultimo_digito %>%
+  #   group_by(participante) %>%
+  #   summarise(
+  #     Desv_Promedio = mean(abs(prop - 0.10)) * 100,
+  #     Suma_0_5 = sum(prop[ultimo_digito %in% c(0,5)]) * 100 # <--- ESTE ES EL NUEVO NOMBRE
+  #   ) %>%
+  #   mutate(
+  #     Evaluacion = if_else(Desv_Promedio > 5.5, "Patrón Artificial", 
+  #                          if_else(Desv_Promedio > 3.0, "Zona Gris", "Patrón Natural")),
+  #     Desv_Promedio = sprintf("%.1f%%", Desv_Promedio),
+  #     Suma_0_5 = sprintf("%.1f%%", Suma_0_5)
+  #   )
+  # 
+  # tabla_digitos_display <- tabla_desviacion %>%
+  #   select(Participante = participante,
+  #          `Desv. Media` = Desv_Promedio,
+  #          `Frecuencia 0 y 5` = Suma_0_5, # Nombre más claro
+  #          `Evaluación` = Evaluacion)
+  
+  
+  tabla_desviacion <- analisis_ultimo_digito %>%
+    group_by(participante) %>%
+    summarise(
+      Desv_Promedio = mean(abs(prop - 0.10)) * 100,
+      Suma_0_5 = sum(prop[ultimo_digito %in% c(0,5)]) * 100 # <--- CAMBIO IMPORTANTE
+    ) %>%
+    mutate(
+      # Ajustamos criterios para ser más justos con muestras pequeñas
+      Evaluacion = case_when(
+        Desv_Promedio > 5.5 ~ "Patrón Artificial",
+        Desv_Promedio > 3.0 ~ "Zona Gris / Sospechoso",
+        TRUE ~ "Patrón Natural"
+      ),
+      Desv_Promedio = sprintf("%.1f%%", Desv_Promedio),
+      Suma_0_5 = sprintf("%.1f%%", Suma_0_5)
+    )
+  
+  # Preparamos la tabla lista para imprimir (para simplificar el Rmd)
+  tabla_digitos_display <- tabla_desviacion %>%
+    select(Participante = participante,
+           `Desv. Media` = Desv_Promedio,
+           `Frecuencia 0 y 5` = Suma_0_5,
+           `Evaluación` = Evaluacion) 
+  
 # 7. TEST DE RACHAS (INDEPENDENCIA) --------------------------------------------
 
 analisis_rachas <- datos %>%
