@@ -4,12 +4,13 @@
 # Fecha: 02/12/2025
 # ==============================================================================
 
-# 1. CARGA DE LIBRERÍAS Y CONFIGURACIÓN ----------------------------------------
+# CARGA DE LIBRERÍAS Y CONFIGURACIÓN ----------------------------------------
 suppressMessages(library(tidyverse, verbose = F))
 library(conflicted)
 conflicts_prefer(stats::filter)
 library(scales)
 library(readr)
+suppressMessages(library(kableExtra))
 # Librerías específicas forenses (opcionales si solo graficas, pero las mantengo)
 library(digitTests)
 library(benford.analysis)
@@ -20,7 +21,7 @@ library(dlookr)
 library(gtsummary)
 library(labelled)
 
-# 2. DEFINICIÓN DE TEMA Y ESTÉTICA ---------------------------------------------
+# DEFINICIÓN DE TEMA Y ESTÉTICA ---------------------------------------------
 
 # Tema Académico Sobrio (Optimizado)
 theme_academico <- function() {
@@ -51,7 +52,7 @@ colores_fijos <- c(
   "REALIDAD"      = "black"    # Negro (Referencia absoluta)
 )
 
-# 3. CARGA Y PREPARACIÓN DE DATOS ----------------------------------------------
+# CARGA Y PREPARACIÓN DE DATOS ----------------------------------------------
 
 # Cargar datos (Asegúrate de que el archivo existe en el wd)
 datos_completos <- readr::read_delim(file = "experimento.csv", delim = ",", show_col_types = FALSE)
@@ -64,7 +65,7 @@ media_real <- 136.0  # g/L
 sd_real    <- 7.5    # g/L
 
 
-# 4. TABLAS DE RESUMEN (MEDIA Y VARIABILIDAD) ----------------------------------
+# 4. Primera prueba: ¿Acertaron el centro?----------------------------------
 
 # Tabla de Media
 tabla_media <- datos %>%
@@ -79,6 +80,9 @@ tabla_media <- datos %>%
     Ref_Media = media_real, 
     Diferencia = Media - media_real 
   ) 
+
+# 5. Segunda prueba: ¿Simularon bien la variabilidad?----------------------------------
+
 
 # Tabla de Variabilidad
 tabla_variabilidad <- datos %>%
@@ -107,9 +111,6 @@ tabla_variabilidad_display <- tabla_variabilidad %>%
 
 
 # 5. GRÁFICOS DE VARIABILIDAD (EL NÚCLEO DEL ANÁLISIS) -------------------------
-
-# --- A. GRÁFICO DE RANGOS MINIMALISTA (Asimetría del Miedo) ---
-# Usamos datos_completos para incluir la línea negra de "REALIDAD"
 
 resumen_rangos_final <- datos_completos %>%
   group_by(participante) %>%
@@ -192,79 +193,42 @@ g_rangos <- ggplot(resumen_rangos_final, aes(y = participante)) +
   theme(legend.position = "bottom") # Asegura que la leyenda no robe espacio lateral
 
 
-# 6. ANÁLISIS DEL ÚLTIMO DÍGITO (BENFORD-LIKE) ---------------------------------
-# 
-# analisis_ultimo_digito <- datos %>%
-#   mutate(ultimo_digito = factor(valor %% 10, levels = 0:9)) %>%
-#   count(participante, ultimo_digito, .drop = FALSE) %>%
-#   group_by(participante) %>%
-#   mutate(
-#     prop = n / sum(n),
-#     # Umbral: > 7% de desviación sobre el 10% esperado se marca en rojo
-#     es_alto = abs(prop - 0.10) > 0.07 
-#   )
-# 
-# g_utimodig <- ggplot(analisis_ultimo_digito, aes(x = ultimo_digito, y = prop)) +
-#   geom_hline(yintercept = 0.10, linetype = "solid", color = "black", alpha = 0.5) +
-#   geom_col(aes(fill = es_alto), width = 0.7, color = "white") +
-#   facet_wrap(~ participante) +
-#   scale_fill_manual(values = c("FALSE" = "gray60", "TRUE" = "firebrick"),
-#                     labels = c("Esperado", "Desviación Alta")) +
-#   scale_y_continuous(labels = percent_format(accuracy = 1)) +
-#   labs(title = "Detección de Datos Inventados: Análisis del Último Dígito",
-#        subtitle = "Comparación: Datos Reales vs. Inventiva Humana",
-#        fill = "Estado", 
-#        x = "Último Dígito", 
-#        y = "Frecuencia Relativa") +
-#   theme_academico()
-# 
-# 
-# Tabla Resumen Dígitos
-# tabla_desviacion <- analisis_ultimo_digito %>%
-#   group_by(participante) %>%
-#   summarise(
-#     Desv_Promedio = mean(abs(prop - 0.10)) * 100,
-#     Exceso_0_5 = sum(prop[ultimo_digito %in% c(0,5)]) * 100
-#   ) %>%
-#   mutate(
-#     Evaluacion = if_else(Desv_Promedio > 3.5, "Patrón Artificial", "Patrón Natural"),
-#     Desv_Promedio = sprintf("%.1f%%", Desv_Promedio),
-#     Exceso_0_5 = sprintf("%.1f%%", Exceso_0_5)
-#   )
-# # 
-# tabla_digitos_display <- tabla_desviacion %>%
-#   select(Participante = participante,
-#          `Desv. Media` = Desv_Promedio,
-#          `Exceso 0 y 5` = Exceso_0_5,
-#          `Evaluación` = Evaluacion)
-# 
+# 6. Tercera prueba: El último dígito (El rastro del caos) ---------------------------------
+
+  
+
+  library(tidyverse)
+  library(kableExtra)
+  library(scales)
+  
+  # A. Cálculo Base (Proporciones y Detección de Anomalías) ----------------------
   analisis_ultimo_digito <- datos %>%
+    # Aseguramos niveles 0-9 para que siempre aparezcan todos los dígitos
     mutate(ultimo_digito = factor(valor %% 10, levels = 0:9)) %>%
     count(participante, ultimo_digito, .drop = FALSE) %>%
     group_by(participante) %>%
     mutate(
       prop = n / sum(n),
-      # Umbral: > 7% de desviación sobre el 10% esperado se marca en rojo
-      es_alto = abs(prop - 0.10) > 0.07 
+      # Umbral: Si se desvía más del 6% del ideal (10%), es anómalo
+      es_alto = abs(prop - 0.10) > 0.06 
     )
   
-  # Creamos tabla para impresión, independiente de la original
+  # B. Tabla Visual (Pre-formateada con colores para HTML) -----------------------
   tabla_ultimo_digito <- analisis_ultimo_digito %>%
     mutate(
+      prop_formato = paste0(round(prop * 100, 1), "%"),
+      # AQUI ESTA LA CLAVE: 'cell_spec' genera el código HTML del color
       prop_html = ifelse(
         es_alto,
-        cell_spec(paste0(round(prop*100,1), "%"), bold = TRUE, color = "red"),
-        paste0(round(prop*100,1), "%")
+        cell_spec(prop_formato, "html", bold = TRUE, color = "red"),
+        prop_formato
       )
     ) %>%
     select(ultimo_digito, participante, prop_html) %>%
-    pivot_wider(
-      names_from = participante,
-      values_from = prop_html
-    ) %>%
+    pivot_wider(names_from = participante, values_from = prop_html) %>%
     arrange(as.numeric(as.character(ultimo_digito)))
   
-  
+  # C. Gráfico (Visualización de barras) -----------------------------------------
   g_utimodig <- ggplot(analisis_ultimo_digito, aes(x = ultimo_digito, y = prop)) +
     geom_hline(yintercept = 0.10, linetype = "solid", color = "black", alpha = 0.5) +
     geom_col(aes(fill = es_alto), width = 0.7, color = "white") +
@@ -272,60 +236,299 @@ g_rangos <- ggplot(resumen_rangos_final, aes(y = participante)) +
     scale_fill_manual(values = c("FALSE" = "gray60", "TRUE" = "firebrick"),
                       labels = c("Esperado", "Desviación Alta")) +
     scale_y_continuous(labels = percent_format(accuracy = 1)) +
-    labs(title = "Detección de Datos Inventados: Análisis del Último Dígito",
-         subtitle = "Comparación: Datos Reales vs. Inventiva Humana",
+    labs(title = "Detección de Datos Inventados: Último Dígito",
+         subtitle = "Comparación: Datos Reales vs. Sesgos Cognitivos",
          fill = "Estado", 
          x = "Último Dígito", 
          y = "Frecuencia Relativa") +
     theme_academico()
   
+  # D. Tabla de Diagnóstico (Lógica Forense) -------------------------------------
+  tabla_digitos_display <- analisis_ultimo_digito %>%
+    group_by(participante) %>%
+    summarise(
+      Desv_Promedio = mean(abs(prop - 0.10)) * 100,
+      Suma_0_5      = sum(prop[ultimo_digito %in% c(0,5)]) * 100 
+    ) %>%
+    mutate(
+      Evaluacion = case_when(
+        Suma_0_5 > 25 ~ "Sospechoso: Exceso de Redondeo",   # Detecta a La Prudente
+        Suma_0_5 < 15 ~ "Sospechoso: Evitación Artificial", # Detecta a La Confiada
+        Desv_Promedio > 4.0 ~ "Sospechoso: Patrón Irregular", # Detecta a La Entusiasta
+        TRUE ~ "Patrón Natural"
+      ),
+      Desv_Promedio    = sprintf("%.1f%%", Desv_Promedio),
+      Suma_0_5         = sprintf("%.1f%%", Suma_0_5)
+    ) %>%
+    select(Participante = participante,
+           `Desv. Media` = Desv_Promedio,
+           `Frecuencia 0 y 5` = Suma_0_5,
+           `Evaluación` = Evaluacion)  
   
-  # Tabla Resumen Dígitos
-  # CORRECCIÓN: Calculamos la SUMA de 0 y 5, no el exceso, para evitar confusiones.
-  # Lo ideal es 20% (10% + 10%).
+  
+  
+  
+  
+  # # A. Preparación de datos ------------------------------------------------------
+  # analisis_ultimo_digito <- datos %>%
+  #   # Aseguramos que el factor tenga niveles 0-9 para que no desaparezcan columnas
+  #   mutate(ultimo_digito = factor(valor %% 10, levels = 0:9)) %>%
+  #   count(participante, ultimo_digito, .drop = FALSE) %>%
+  #   group_by(participante) %>%
+  #   mutate(
+  #     prop = n / sum(n),
+  #     # Umbral visual para el gráfico: 
+  #     # Si un dígito se desvía más del 6% (es decir, >16% o <4%), se marca rojo.
+  #     es_alto = abs(prop - 0.10) > 0.06 
+  #   )
+  # 
+  # # B. Tabla para visualización HTML (Opcional, para tu post) --------------------
+  # tabla_ultimo_digito <- analisis_ultimo_digito %>%
+  #   mutate(
+  #     prop_html = ifelse(
+  #       es_alto,
+  #       cell_spec(paste0(round(prop*100,1), "%"), bold = TRUE, color = "red"),
+  #       paste0(round(prop*100,1), "%")
+  #     )
+  #   ) %>%
+  #   select(ultimo_digito, participante, prop_html) %>%
+  #   pivot_wider(names_from = participante, values_from = prop_html) %>%
+  #   arrange(as.numeric(as.character(ultimo_digito)))
+  # 
+  # # C. Gráfico (Mantenemos tu estética) ------------------------------------------
+  # g_utimodig <- ggplot(analisis_ultimo_digito, aes(x = ultimo_digito, y = prop)) +
+  #   geom_hline(yintercept = 0.10, linetype = "solid", color = "black", alpha = 0.5) +
+  #   geom_col(aes(fill = es_alto), width = 0.7, color = "white") +
+  #   facet_wrap(~ participante) +
+  #   scale_fill_manual(values = c("FALSE" = "gray60", "TRUE" = "firebrick"),
+  #                     labels = c("Esperado", "Desviación Alta")) +
+  #   scale_y_continuous(labels = percent_format(accuracy = 1)) +
+  #   labs(title = "Detección de Datos Inventados: Último Dígito",
+  #        subtitle = "Comparación: Datos Reales vs. Sesgos Cognitivos",
+  #        fill = "Estado", 
+  #        x = "Último Dígito", 
+  #        y = "Frecuencia Relativa") +
+  #   theme_academico()
+  # 
+  # # D. Tabla de Diagnóstico (AQUÍ ESTÁ LA MEJORA CLAVE) --------------------------
   # tabla_desviacion <- analisis_ultimo_digito %>%
   #   group_by(participante) %>%
   #   summarise(
+  #     # Desviación Media (MAD): Mide el "Caos/Ruido" general
   #     Desv_Promedio = mean(abs(prop - 0.10)) * 100,
-  #     Suma_0_5 = sum(prop[ultimo_digito %in% c(0,5)]) * 100 # <--- ESTE ES EL NUEVO NOMBRE
+  #     # Suma 0 y 5: Mide la "Pereza" (Redondeo)
+  #     Suma_0_5 = sum(prop[ultimo_digito %in% c(0,5)]) * 100 
   #   ) %>%
   #   mutate(
-  #     Evaluacion = if_else(Desv_Promedio > 5.5, "Patrón Artificial", 
-  #                          if_else(Desv_Promedio > 3.0, "Zona Gris", "Patrón Natural")),
+  #     # Lógica Multinivel: Priorizamos detectar el TIPO de sesgo antes que el promedio
+  #     Evaluacion = case_when(
+  #       # 1. Detectar al "Cerebro Perezoso" (Exceso de redondeo > 25%)
+  #       Suma_0_5 > 25 ~ "Sospechoso: Exceso de Redondeo",
+  #       
+  #       # 2. Detectar al "Cerebro Ansioso" (Evitación activa < 15%)
+  #       Suma_0_5 < 15 ~ "Sospechoso: Evitación Artificial",
+  #       
+  #       # 3. Detectar "Anclaje" o ruido excesivo (Si 0/5 son normales, pero el error es alto)
+  #       Desv_Promedio > 4.0 ~ "Sospechoso: Patrón Irregular",
+  #       
+  #       # 4. Zona Gris (Desviación moderada sin vicios evidentes)
+  #       Desv_Promedio > 3.0 ~ "Zona Gris / Incertidumbre",
+  #       
+  #       TRUE ~ "Patrón Natural"
+  #     ),
+  #     # Formateo final
   #     Desv_Promedio = sprintf("%.1f%%", Desv_Promedio),
   #     Suma_0_5 = sprintf("%.1f%%", Suma_0_5)
   #   )
   # 
+  # # Preparamos la tabla final para imprimir
   # tabla_digitos_display <- tabla_desviacion %>%
   #   select(Participante = participante,
   #          `Desv. Media` = Desv_Promedio,
-  #          `Frecuencia 0 y 5` = Suma_0_5, # Nombre más claro
+  #          `Frecuencia 0 y 5` = Suma_0_5,
   #          `Evaluación` = Evaluacion)
+  # 
+  # 
   
+  # analisis_ultimo_digito <- datos %>%
+  #   mutate(ultimo_digito = factor(valor %% 10, levels = 0:9)) %>%
+  #   count(participante, ultimo_digito, .drop = FALSE) %>%
+  #   group_by(participante) %>%
+  #   mutate(
+  #     prop = n / sum(n),
+  #     # Umbral: > 7% de desviación sobre el 10% esperado se marca en rojo
+  #     es_alto = abs(prop - 0.10) > 0.07 
+  #   )
+  # 
+  # # Creamos tabla para impresión, independiente de la original
+  # tabla_ultimo_digito <- analisis_ultimo_digito %>%
+  #   mutate(
+  #     prop_html = ifelse(
+  #       es_alto,
+  #       cell_spec(paste0(round(prop*100,1), "%"), bold = TRUE, color = "red"),
+  #       paste0(round(prop*100,1), "%")
+  #     )
+  #   ) %>%
+  #   select(ultimo_digito, participante, prop_html) %>%
+  #   pivot_wider(
+  #     names_from = participante,
+  #     values_from = prop_html
+  #   ) %>%
+  #   arrange(as.numeric(as.character(ultimo_digito)))
+  # 
+  # 
+  # g_utimodig <- ggplot(analisis_ultimo_digito, aes(x = ultimo_digito, y = prop)) +
+  #   geom_hline(yintercept = 0.10, linetype = "solid", color = "black", alpha = 0.5) +
+  #   geom_col(aes(fill = es_alto), width = 0.7, color = "white") +
+  #   facet_wrap(~ participante) +
+  #   scale_fill_manual(values = c("FALSE" = "gray60", "TRUE" = "firebrick"),
+  #                     labels = c("Esperado", "Desviación Alta")) +
+  #   scale_y_continuous(labels = percent_format(accuracy = 1)) +
+  #   labs(title = "Detección de Datos Inventados: Análisis del Último Dígito",
+  #        subtitle = "Comparación: Datos Reales vs. Inventiva Humana",
+  #        fill = "Estado", 
+  #        x = "Último Dígito", 
+  #        y = "Frecuencia Relativa") +
+  #   theme_academico()
+  # 
+  # 
+  # 
+  # tabla_desviacion <- analisis_ultimo_digito %>%
+  #   group_by(participante) %>%
+  #   summarise(
+  #     Desv_Promedio = mean(abs(prop - 0.10)) * 100,
+  #     Suma_0_5 = sum(prop[ultimo_digito %in% c(0,5)]) * 100 # <--- CAMBIO IMPORTANTE
+  #   ) %>%
+  #   mutate(
+  #     # Ajustamos criterios para ser más justos con muestras pequeñas
+  #     Evaluacion = case_when(
+  #       Desv_Promedio > 5.5 ~ "Patrón Artificial",
+  #       Desv_Promedio > 3.0 ~ "Zona Gris / Sospechoso",
+  #       TRUE ~ "Patrón Natural"
+  #     ),
+  #     Desv_Promedio = sprintf("%.1f%%", Desv_Promedio),
+  #     Suma_0_5 = sprintf("%.1f%%", Suma_0_5)
+  #   )
+  # 
+  # # Preparamos la tabla lista para imprimir (para simplificar el Rmd)
+  # tabla_digitos_display <- tabla_desviacion %>%
+  #   select(Participante = participante,
+  #          `Desv. Media` = Desv_Promedio,
+  #          `Frecuencia 0 y 5` = Suma_0_5,
+  #          `Evaluación` = Evaluacion) 
+  # 
+
   
-  tabla_desviacion <- analisis_ultimo_digito %>%
+  # 7. Cuarta prueba: Ley de Benford (El Segundo Dígito) -------------------------
+  
+  # 7. Cuarta prueba: Ley de Benford (El Segundo Dígito) -------------------------
+  
+  # Usamos la librería especializada para el cálculo robusto
+  library(benford.analysis)
+  
+  # A. Análisis Benford por Participante (Segundo Dígito)
+  # Creamos una función simple para extraer los datos listos para graficar
+  calcular_benford_simple <- function(data_vector) {
+    # benford() hace todo el trabajo matemático duro
+    bf <- benford(data_vector, number.of.digits = 2, sign = "positive", discrete = TRUE)
+    # Extraemos solo lo que necesitamos: Dígitos y Frecuencias
+    df <- bf$bfd %>% 
+      select(digits, data.dist.freq, benford.dist.freq) %>%
+      # Filtramos para quedarnos con el segundo dígito (la librería devuelve los primeros 2 dígitos combinados, ej: 10, 11, 12...)
+      # TRUCO DIDÁCTICO: Para hemoglobina (120-160), el "segundo dígito" es el que varía más (2,3,4,5).
+      # Sin embargo, para simplicidad visual y dado el rango estrecho, 
+      # es mejor graficar la DISTRIBUCIÓN DE VALORES vs NORMALIDAD o 
+      # simplemente graficar la frecuencia del dígito en la posición 2 (decenas).
+      mutate(segundo_digito = as.numeric(substr(as.character(digits), 2, 2))) %>%
+      group_by(segundo_digito) %>%
+      summarise(
+        Frecuencia_Real = sum(data.dist.freq),
+        Frecuencia_Benford = sum(benford.dist.freq)
+      )
+    return(df)
+  }
+  
+  # B. Aplicamos a cada participante (Iteración manual para control total)
+  # Nota: Dado que el rango de Hemoglobina es estrecho (100-180), Benford puro a veces falla por rango.
+  # PERO, para efectos didácticos de "Aversión a los extremos", calculamos la frecuencia simple de las decenas.
+  
+  analisis_decenas <- datos %>%
+    mutate(decena = floor((valor %% 100) / 10)) %>% # Extrae el 3 de 136
+    count(participante, decena) %>%
     group_by(participante) %>%
-    summarise(
-      Desv_Promedio = mean(abs(prop - 0.10)) * 100,
-      Suma_0_5 = sum(prop[ultimo_digito %in% c(0,5)]) * 100 # <--- CAMBIO IMPORTANTE
-    ) %>%
-    mutate(
-      # Ajustamos criterios para ser más justos con muestras pequeñas
-      Evaluacion = case_when(
-        Desv_Promedio > 5.5 ~ "Patrón Artificial",
-        Desv_Promedio > 3.0 ~ "Zona Gris / Sospechoso",
-        TRUE ~ "Patrón Natural"
-      ),
-      Desv_Promedio = sprintf("%.1f%%", Desv_Promedio),
-      Suma_0_5 = sprintf("%.1f%%", Suma_0_5)
-    )
+    mutate(prop = n / sum(n))
   
-  # Preparamos la tabla lista para imprimir (para simplificar el Rmd)
-  tabla_digitos_display <- tabla_desviacion %>%
-    select(Participante = participante,
-           `Desv. Media` = Desv_Promedio,
-           `Frecuencia 0 y 5` = Suma_0_5,
-           `Evaluación` = Evaluacion) 
+  # Definimos la expectativa "Ideal" (Simplificación Didáctica)
+  # En un rango amplio, Benford dice que el 1 es mas comun que el 9.
+  # En hemoglobina normal, esperamos una curva suave centrada pero dispersa.
+  # Aquí comparamos contra lo que hicieron: una montaña.
+  
+  g_benford <- ggplot(analisis_decenas, aes(x = factor(decena), y = prop)) +
+    geom_col(aes(fill = participante), color = "white", show.legend = FALSE) +
+    # Agregamos una línea suave para mostrar la tendencia
+    geom_smooth(aes(group=1), method = "loess", se = FALSE, color="black", linetype="dashed") +
+    facet_wrap(~ participante, scales = "free_x") +
+    scale_fill_viridis_d(option = "D", begin = 0.3, end = 0.8) +
+    scale_y_continuous(labels = percent_format(accuracy = 1)) +
+    labs(title = "El Fantasma de Benford: Análisis de las Decenas",
+         subtitle = "La 'Montaña' artificial (Aversión a los Extremos) vs. Dispersión Natural",
+         x = "Segundo Dígito (Decena: 1[3]6)",
+         y = "Frecuencia") +
+    theme_academico()  
+  
+  # # Usamos la librería especializada para el cálculo robusto
+  # library(benford.analysis)
+  # 
+  # # A. Análisis Benford por Participante (Segundo Dígito)
+  # # Creamos una función simple para extraer los datos listos para graficar
+  # calcular_benford_simple <- function(data_vector) {
+  #   # benford() hace todo el trabajo matemático duro
+  #   bf <- benford(data_vector, number.of.digits = 2, sign = "positive", discrete = TRUE)
+  #   # Extraemos solo lo que necesitamos: Dígitos y Frecuencias
+  #   df <- bf$bfd %>% 
+  #     select(digits, data.dist.freq, benford.dist.freq) %>%
+  #     # Filtramos para quedarnos con el segundo dígito (la librería devuelve los primeros 2 dígitos combinados, ej: 10, 11, 12...)
+  #     # TRUCO DIDÁCTICO: Para hemoglobina (120-160), el "segundo dígito" es el que varía más (2,3,4,5).
+  #     # Sin embargo, para simplicidad visual y dado el rango estrecho, 
+  #     # es mejor graficar la DISTRIBUCIÓN DE VALORES vs NORMALIDAD o 
+  #     # simplemente graficar la frecuencia del dígito en la posición 2 (decenas).
+  #     mutate(segundo_digito = as.numeric(substr(as.character(digits), 2, 2))) %>%
+  #     group_by(segundo_digito) %>%
+  #     summarise(
+  #       Frecuencia_Real = sum(data.dist.freq),
+  #       Frecuencia_Benford = sum(benford.dist.freq)
+  #     )
+  #   return(df)
+  # }
+  # 
+  # # B. Aplicamos a cada participante (Iteración manual para control total)
+  # # Nota: Dado que el rango de Hemoglobina es estrecho (100-180), Benford puro a veces falla por rango.
+  # # PERO, para efectos didácticos de "Aversión a los extremos", calculamos la frecuencia simple de las decenas.
+  # 
+  # analisis_decenas <- datos %>%
+  #   mutate(decena = floor((valor %% 100) / 10)) %>% # Extrae el 3 de 136
+  #   count(participante, decena) %>%
+  #   group_by(participante) %>%
+  #   mutate(prop = n / sum(n))
+  # 
+  # # Definimos la expectativa "Ideal" (Simplificación Didáctica)
+  # # En un rango amplio, Benford dice que el 1 es mas comun que el 9.
+  # # En hemoglobina normal, esperamos una curva suave centrada pero dispersa.
+  # # Aquí comparamos contra lo que hicieron: una montaña.
+  # 
+  # g_benford <- ggplot(analisis_decenas, aes(x = factor(decena), y = prop)) +
+  #   geom_col(aes(fill = participante), color = "white", show.legend = FALSE) +
+  #   # Agregamos una línea suave para mostrar la tendencia
+  #   geom_smooth(aes(group=1), method = "loess", se = FALSE, color="black", linetype="dashed") +
+  #   facet_wrap(~ participante, scales = "free_x") +
+  #   scale_fill_viridis_d(option = "D", begin = 0.3, end = 0.8) +
+  #   scale_y_continuous(labels = percent_format(accuracy = 1)) +
+  #   labs(title = "El Fantasma de Benford: Análisis de las Decenas",
+  #        subtitle = "La 'Montaña' artificial (Aversión a los Extremos) vs. Dispersión Natural",
+  #        x = "Segundo Dígito (Decena: 1[3]6)",
+  #        y = "Frecuencia") +
+  #   theme_academico()  
+  #   
   
 # 7. TEST DE RACHAS (INDEPENDENCIA) --------------------------------------------
 
@@ -356,6 +559,53 @@ tabla_rachas_display <- analisis_rachas %>%
          `Evaluación` = Evaluacion) %>%
   mutate(`Z-Score` = round(`Z-Score`, 2))
 
+
+## 8. Quinta prueba: El Detector de Miedo (Densidad y Curtosis) -----------------
+
+# 8. Quinta prueba: Análisis de Distribución (Forma y Sesgo) -------------------
+
+library(moments) # Necesario para skewness y kurtosis
+
+# A. Aseguramos el orden de los factores para la leyenda y colores
+datos_plot <- datos %>%
+  mutate(participante = factor(participante, 
+                               levels = c("REALIDAD", "La Confiada", "La Entusiasta", "La Prudente")))
+
+# B. Tabla de Métricas de Forma (El veredicto matemático)
+tabla_forma <- datos_plot %>%
+  group_by(participante) %>%
+  summarise(
+    Media = mean(valor),
+    SD = sd(valor),
+    Asimetria = skewness(valor),  # 0 es simétrico. Negativo es cola a la izquierda.
+    Curtosis = kurtosis(valor)    # ~3 es normal (Mesocúrtica). >3 es picuda (Leptocúrtica).
+  ) 
+
+# C. Gráfico de Densidad Ajustado
+conflicts_prefer(moments::skewness)
+
+g_curtosis <- ggplot(datos_plot, aes(x = valor, fill = participante)) +
+  # Usamos alpha bajo para ver superposiciones
+  geom_density(alpha = 0.5, color = "white", size = 0.3) +
+  
+  # Línea vertical en la media real (136) para referencia visual
+  geom_vline(xintercept = 136, linetype = "dotted", color = "black", alpha = 0.6) +
+  
+  # Escala de colores corporativa
+  scale_fill_manual(
+    values = colores_fijos,
+    labels = c("REALIDAD" = "Biología Real (Referencia)", 
+               "La Confiada" = "La Confiada (Sesgada)", 
+               "La Entusiasta" = "La Entusiasta", 
+               "La Prudente" = "La Prudente (Picuda)")
+  ) +
+  
+  labs(title = "El Detector de Forma: Asimetría y Curtosis",
+       subtitle = "Comparación de la huella dactilar de la distribución",
+       x = "Valor de Hemoglobina (g/L)",
+       y = "Densidad") +
+  theme_academico() +
+  theme(legend.position = "bottom")
 # ==============================================================================
 # FIN DEL SCRIPT
 # Para ver los gráficos, ejecuta:
