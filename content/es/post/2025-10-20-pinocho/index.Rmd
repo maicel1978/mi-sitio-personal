@@ -386,19 +386,19 @@ Las cinco pruebas anteriores fueron el interrogatorio. Nos dieron sospechas fuer
 
 Aquí es donde interviene la Prueba de Rachas.
 
-Este test es un detective implacable. No le interesa el valor específico del dato (si es $135$ o $145$), solo le importa la secuencia.
+Este test es un detective implacable. No le interesa el valor específico del dato (si es 135 o 145), solo le importa la secuencia.
 
 ¿Cómo funciona?
 
-1. Corte por Mediana: El test ignora los valores y mira solo si cada dato está por encima ($\text{+}$) o por debajo ($\text{-}$) de la mediana (el valor central)
+1. Corte por Mediana: El test ignora los valores y mira solo si cada dato está por encima (+) o por debajo (-) de la mediana (el valor central)
 
-2.Rachas: Cuenta cuántas veces hay un cambio de signo (ej. $\text{+ + - - - +}$ tiene tres rachas: $\text{++}$, $\text{---}$, $\text{+}$).
+2.Rachas: Cuenta cuántas veces hay un cambio de signo (ej. + + - - - + tiene tres rachas: ++, ---, +).
 
-- Pocas Rachas (Agrupamiento): Indica una tendencia a que los valores se agrupen (ej. $\text{+ + + - - -}$), lo que sugiere pereza o un patrón lento.
+- Pocas Rachas (Agrupamiento): Indica una tendencia a que los valores se agrupen (ej. + + + - - -), lo que sugiere pereza o un patrón lento.
 
-- Muchas Rachas (Alternancia): Indica que los valores suben y bajan demasiado rápido (ej. $\text{+ - + - + -}$), lo que sugiere que la persona está forzando la aleatoriedad.
+- Muchas Rachas (Alternancia): Indica que los valores suben y bajan demasiado rápido (ej. + - + - + -), lo que sugiere que la persona está forzando la aleatoriedad.
 
-Veredicto Z-Score: El $Z$-Score nos dice si el número de rachas observado se desvía de lo que esperaríamos por puro azar.
+Veredicto Z-Score: El Z-Score nos dice si el número de rachas observado se desvía de lo que esperaríamos por puro azar.
 
 ```{r Rachas}
 tabla_rachas_display %>% 
