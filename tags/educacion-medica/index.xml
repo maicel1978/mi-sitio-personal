@@ -21,7 +21,7 @@ descubrir que su estrategia era la &lt;em>menos mala&lt;/em>.&lt;/p>
 &lt;/div>
 &lt;p>Lo que no sabían es que &lt;strong>los humanos somos terribles inventado datos&lt;/strong>. No porque seamos honestos, sino porque nuestro cerebro produce errores predecibles al generar datos aparentemente aleatorios.&lt;/p>
 &lt;p>Y yo tenía exactamente las herramientas para encontrarlos.&lt;/p>
-&lt;h3 id="los-sospechosos">Los sospechosos&lt;/h3>
+&lt;h3 id="los-sospechosos-y-su-coartada">Los Sospechosos y su Coartada&lt;/h3>
 &lt;p>Antes de la autopsia, conozcamos a nuestros participantes, médicos residentes de áreas básicas (fisiología, embriología, farmacología, etc.) que cursaban la asignatura de &lt;em>&amp;ldquo;Metodología de la investigación y estadística&amp;rdquo;&lt;/em> en el curso 2022-2023:&lt;/p>
 &lt;table>
 &lt;thead>
@@ -417,6 +417,66 @@ Los humanos &lt;strong>intuyen bien la media&lt;/strong>, pero &lt;strong>fracas
 &lt;p>O somos demasiado precisos (La Prudente comprime los datos).
 O somos demasiado prejuiciosos (La Confiada sesga los datos hacia lo patológico).
 La naturaleza es simétrica y dispersa. El humano es sesgado y temeroso.&lt;/p>
+&lt;h2 id="sexta-prueba-prueba-de-rachas">Sexta prueba: Prueba de Rachas&lt;/h2>
+&lt;p>Las cinco pruebas anteriores fueron el interrogatorio. Nos dieron sospechas fuertes (la SD, el redondeo), pero necesitábamos la prueba forense de ADN que confirmara la intervención humana.&lt;/p>
+&lt;p>Aquí es donde interviene la Prueba de Rachas.&lt;/p>
+&lt;p>Este test es un detective implacable. No le interesa el valor específico del dato (si es &lt;code>\(135\)&lt;/code> o &lt;code>\(145\)&lt;/code>), solo le importa la secuencia.&lt;/p>
+&lt;p>¿Cómo funciona?&lt;/p>
+&lt;ol>
+&lt;li>Corte por Mediana: El test ignora los valores y mira solo si cada dato está por encima (&lt;code>\(\text{+}\)&lt;/code>) o por debajo (&lt;code>\(\text{-}\)&lt;/code>) de la mediana (el valor central)&lt;/li>
+&lt;/ol>
+&lt;p>2.Rachas: Cuenta cuántas veces hay un cambio de signo (ej. &lt;code>\(\text{+ + - - - +}\)&lt;/code> tiene tres rachas: &lt;code>\(\text{++}\)&lt;/code>, &lt;code>\(\text{---}\)&lt;/code>, &lt;code>\(\text{+}\)&lt;/code>).&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Pocas Rachas (Agrupamiento): Indica una tendencia a que los valores se agrupen (ej. &lt;code>\(\text{+ + + - - -}\)&lt;/code>), lo que sugiere pereza o un patrón lento.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Muchas Rachas (Alternancia): Indica que los valores suben y bajan demasiado rápido (ej. &lt;code>\(\text{+ - + - + -}\)&lt;/code>), lo que sugiere que la persona está forzando la aleatoriedad.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>Veredicto Z-Score: El &lt;code>\(Z\)&lt;/code>-Score nos dice si el número de rachas observado se desvía de lo que esperaríamos por puro azar.&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align: left">Participante&lt;/th>
+&lt;th style="text-align: right">Z-Score&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align: left">La Confiada&lt;/td>
+&lt;td style="text-align: right">0.00&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">La Entusiasta&lt;/td>
+&lt;td style="text-align: right">-1.71&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">La Prudente&lt;/td>
+&lt;td style="text-align: right">-0.81&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="resultado-5">Resultado&lt;/h3>
+&lt;p>El umbral para declarar un dato &amp;ldquo;No Aleatorio&amp;rdquo; es &lt;code>\(|Z| &amp;gt; 1.96\)&lt;/code>. Aunque solo La Entusiasta estuvo cerca del umbral (-1.71, debido a un agrupamiento), el resultado más revelador fue el de La Confiada:&lt;/p>
+&lt;p>La Confiada (Z-Score = 0.00): La estadística no la declaró &amp;ldquo;No Aleatoria&amp;rdquo;; la declaró &amp;ldquo;Demasiado Perfecta&amp;rdquo;.Un &lt;code>\(Z\)&lt;/code>-Score de cero significa que el número de rachas observadas fue exactamente igual al número de rachas que la teoría predice para la aleatoriedad. En datos reales, esto es casi imposible. Es la prueba definitiva de que conscientemente intentó alternar sus valores por encima y por debajo de la mediana para parecer aleatoria.&lt;/p>
+&lt;p>La Entusiasta (Z-Score = -1.71): Su &lt;code>\(Z\)&lt;/code>-Score negativo sugiere demasiadas pocas rachas (tendencia a agrupar valores). Su cerebro, al escribir rápido, cayó en el patrón común de la pereza cognitiva.&lt;/p>
+&lt;h3 id="por-qué-ocurre-esto-5">¿Por qué ocurre esto?&lt;/h3>
+&lt;p>El porqué es simple y aterrador:&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>El Sesgo de Alternancia Negativa: Cuando se nos pide crear una secuencia aleatoria (como tirar una moneda 100 veces), evitamos instintivamente las rachas largas. El cerebro piensa: &amp;ldquo;no puede salir &amp;lsquo;Cara&amp;rsquo; seis veces seguidas, eso no parece aleatorio&amp;rdquo;. Entonces, forzamos un cambio (de &amp;lsquo;Cara&amp;rsquo; a &amp;lsquo;Cruz&amp;rsquo;).&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>El Resultado: Al forzar el cambio, creamos demasiadas alternancias (o demasiadas rachas) de lo que la probabilidad permite, o, en el caso de La Confiada, un número de rachas tan perfecto que delata la sobrecorrección consciente.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-yellow-100 dark:bg-yellow-900">
+&lt;span class="pr-3 pt-1 text-red-400">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0zM12 15.75h.007v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;strong>Veredicto:&lt;/strong> El ser humano es incapaz de replicar un proceso estocástico. El azar no tiene memoria, pero nosotros sí. Nuestro intento de imitar el azar es tan predecible que deja una huella dactilar estadística.&lt;/span>
+&lt;/div>
 &lt;h2 id="acto-iii-el-veredicto">Acto III: El Veredicto&lt;/h2>
 &lt;p>Después de este analisis, procedemos a la entrega de premios.&lt;/p>
 &lt;p>🏆 Los Premios Pinocho 2023&lt;/p>
