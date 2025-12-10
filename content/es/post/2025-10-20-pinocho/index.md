@@ -23,7 +23,7 @@ draft: true# True para un borrador
 
 
 
-## Acto I: 
+## Acto I: El Experimento
 
 ### El momento en que supieron que habían perdido
 
@@ -41,21 +41,18 @@ descubrir que su estrategia era la *menos mala*.
 
 {{% callout warning %}} 
 
-Tienen 60 segundos. Escriban todos los valores de hemoglobina en sangre de  mujeres adultas que puedan inventar. Sin referencias. Sin calculadora. El  que engañe mejor a las pruebas estadísticas, gana.
+Tienen 60 segundos. Escriban todos los valores de **concentración de hemoglobina en sangre de  mujeres adultas (15-49 años)** que puedan inventar. Sin referencias. Sin calculadora. El  que engañe mejor a las pruebas estadísticas, gana.
 
 {{% /callout %}}
 
-Lo que no sabían es que **los humanos somos terribles inventado datos**.
-
-No porque seamos honestos, sino porque nuestro cerebro produce errores predecibles al generar datos aparentemente aleatorios.
+Lo que no sabían es que **los humanos somos terribles inventado datos**. No porque seamos honestos, sino porque nuestro cerebro produce errores predecibles al generar datos aparentemente aleatorios.
 
 Y yo tenía exactamente las herramientas para encontrarlos.
 
 
 ### Los sospechosos
 
-Antes de la autopsia, conozcamos a nuestros participantes, médicos
-residentes de áreas básicas (fisiología, embriología, farmacología, etc.) que cursaban la asignatura de *"Metodología de la investigación y estadística"* en el curso 2022-2023:
+Antes de la autopsia, conozcamos a nuestros participantes, médicos residentes de áreas básicas (fisiología, embriología, farmacología, etc.) que cursaban la asignatura de *"Metodología de la investigación y estadística"* en el curso 2022-2023:
 
 
 | Participante | Estrategia Declarada |
@@ -75,7 +72,9 @@ residentes de áreas básicas (fisiología, embriología, farmacología, etc.) q
 
 En la escena había mucha sangre... o al menos uno de sus componentes: la Hemoglobina.
 
-Es la proteína que nos mantiene vivos, pero aquí no nos interesa su biología, sino sus números. Porque para que una mentira sea creíble, primero hay que conocer la verdad:
+Es una proteína vital en la respiración celular, pero aquí no nos interesa su biología, sino su comportamiento estadístico.
+
+Porque para que una mentira sea creíble, primero hay que conocer la verdad:
 
 {{% callout note %}} 
 
@@ -89,7 +88,7 @@ Es la proteína que nos mantiene vivos, pero aquí no nos interesa su biología,
 
 {{% /callout %}}
 
-Armadas con este conocimiento (o su vaga memoria de él), las participantes escribieron furiosamente durante 60 segundos en su fichero de Excel todos las cifras que pudieron.
+Armadas con este conocimiento —o su vaga memoria de él—, las participantes escribieron furiosamente durante 60 segundos en sus archivos de Excel todas las cifras que pudieron.
 
 {{% callout note %}}
 **El resultado:** *127 valores inventados* listos para el **análisis forense**.
@@ -101,8 +100,7 @@ Armadas con este conocimiento (o su vaga memoria de él), las participantes escr
 
 ## Acto II: La autopsia estadística (Las 5 Pruebas)
 
-
-### Prueba 1: El Anclaje (La Media)
+### Primera prueba: El Anclaje (La Media)
 
 Empecemos por lo fácil. **¿La media aritmética del conjunto de datos inventados se parecen al valor real?**
 
@@ -143,31 +141,28 @@ Empecemos por lo fácil. **¿La media aritmética del conjunto de datos inventad
 #### Resultado
 
 {{% callout note %}}
-**Veredicto:** Sí.
-Al principio subestimaron (anemia psicológica), pero en cuanto se les dio el valor de referencia (136 g/L), todas clavaron el promedio.
+**Resultado | Fase I (Sin Información Previa):**
+Una ligera tendencia a subestimar la media —una suerte de 'anemia estadística'— se manifestó bajo presión temporal, con todas las participantes sesgando sus estimaciones hacia valores inferiores.
 {{% /callout %}}
 
-Lección: Copiar una media es fácil. Cualquiera puede fingir el "centro". Lo difícil viene ahora.
+{{% callout note %}}
+**Resultado | Fase II (Con Información Previa):**
+El grupo corrigió la Media casi a la perfección cuando la referencia fue mostrada explícitamente.
+{{% /callout %}}
 
+#### ¿Por qué ocurre esto?
 
+Sin una referencia numérica, el clínico no estima valores a partir de una distribución estadística, sino que recurre a categorías diagnósticas aprendidas (“anemia leve”, “normal”). Bajo presión temporal, este mecanismo cognitivo favorece un juicio conservador: ante la duda, resulta más prudente subestimar la hemoglobina —atribuyéndola a una anemia leve— que sobreestimarla y sugerir una condición menos frecuente, como la policitemia.
 
-<!-- #### ¿Por qué ocurre esto? -->
+Sin embargo, cuando se muestra la media poblacional (136 g/L), la estimación se ajusta casi de inmediato. La media actúa entonces como un punto de referencia claro y fácil de imitar, que permite calibrar el juicio con mayor precisión.
 
-<!-- Sin una referencia numérica, el clínico no estima valores a partir de una distribución estadística, sino que recurre a categorías diagnósticas aprendidas (“anemia leve”, “normal”). Bajo presión temporal, este mecanismo cognitivo favorece un juicio conservador: ante la duda, resulta más prudente subestimar la hemoglobina —atribuyéndola a una anemia leve— que sobreestimarla y sugerir una condición menos frecuente, como la policitemia. -->
-
-<!-- Sin embargo, cuando se muestra la media poblacional (136 g/L), la estimación se ajusta casi de inmediato. La media actúa entonces como un punto de referencia claro y fácil de imitar, que permite calibrar el juicio con mayor precisión. -->
 
 
 ------------------------------------------------------------------------
 
-### Prueba 2: La Textura (La Variabilidad)
+### Segunda prueba: La Textura (La Variabilidad)
 
-Llama la atención que las estudiantes **fallaron al simular la desviación estándar (sd)**, incluso cuando el valor real estuvo frente a ellas en la segunda parte del experimento. 
-
-{{% callout note %}}
-**nota:** En lo adelante, todos los datos presentados corresponden a la fase del experimento en la que se proporcionó información previa.
-{{% /callout %}}
-
+Aquí llegamos al primer hallazgo crucial: fallaron en simular la desviación estándar (SD), incluso cuando el valor real (7.5 g/L) estuvo frente a ellas.
 
 **La media es fácil de corregir; la desviación estándar no.** Examinemos con detalle lo ocurrido. 
 
@@ -181,7 +176,7 @@ Llama la atención que las estudiantes **fallaron al simular la desviación est�
 #### Resultado
 
 {{% callout note %}}
-**Resultado:** Nadie logró la precisión requerida.
+**Veredicto:** Todas exageraron la variabilidad. Nadie se acercó al 7.5 g/L.
 {{% /callout %}} 
   
 Curiosamente, a diferencia de la media (donde se quedaron cortas), aquí todas exageraron la variabilidad.
@@ -194,9 +189,8 @@ Observen sus rangos: no tuvieron miedo de bajar hasta 102 g/L o 103 g/L (muy lej
 
 <img src="{{< blogdown/postref >}}index_files/figure-html/grafico_rangos-1.svg" width="960" style="display: block; margin: auto;" />
 
-Al estirar la distribución hacia abajo (inventando anemias severas) pero cortarla por arriba (evitando valores altos), crearon una dispersión desequilibrada y con anomalías como se muestra a continuación.
+Al estirar la distribución hacia la izquierda (inventando anemias severas) pero acortarla a la derecha (evitando valores altos), crearon una dispersión antinatural.
 
-<img src="{{< blogdown/postref >}}index_files/figure-html/grafico-1.svg" width="960" style="display: block; margin: auto;" />
 
 #### ¿Por qué ocurre esto?
 
@@ -309,7 +303,7 @@ Lo vemos mejor en rojo. Las barras que se disparan son las **"huellas del crimen
 #### Resultado
 
 {{% callout note %}}
-**Diagnóstico:** El análisis revela dos tipos de manipulación: el exceso de orden (pereza) y el exceso de desorden (sobreactuación).
+**veredicto:** El análisis revela dos tipos de manipulación: el exceso de orden (pereza) y el exceso de desorden (sobreactuación).
 {{% /callout %}}
 
 Para evaluar esto, usamos dos detectores: la Desviación Media (cuánto se equivocan en general) y la Frecuencia de 0 y 5 (cuánto redondearon por comodidad).
@@ -375,7 +369,7 @@ En un grupo de personas reales, veríamos hemoglobinas variadas: desde 118 (anem
 #### Resultado
 
 {{% callout warning %}}
-Veredicto: Fracaso por "Aversión al Riesgo".
+**Veredicto:** Fracaso por *"Aversión al Riesgo"*.
 {{% /callout %}}
 
 Las participantes crearon una montaña artificial en las decenas del 3 y el 4 (valores de 130 a 149).
@@ -398,156 +392,83 @@ El cerebro de La Prudente (y las demás) interpreta que la media (136) es "lo co
 
 Inventar un dato como "121" o "168" les pareció peligroso, así que todas se copiaron la estrategia: "Pon algo por el medio, un 130 y pico, y no te pasará nada". Al hacerlo todas a la vez, el patrón artificial se volvió evidente.
 
-Quinta Prueba: Análisis de Distribución
+### Quinta prueba:  La Forma de la Mentira – Curtosis y Asimetría
 
-Para cerrar, visualicemos el miedo.
-He comparado las curvas de las participantes (colores cálidos) contra una Curva Biológica Real simulada (verde).
-
-La diferencia entre una distribución real y una inventada es la Curtosis (qué tan picuda es la curva).
-
-<img src="{{< blogdown/postref >}}index_files/figure-html/g_curtosis-1.svg" width="960" style="display: block; margin: auto;" />
-
-Resultado:
-
-- La Curva Verde (gris): Es una colina suave y relajada. Acepta la diversidad.
-
-- Las Curvas de colores (Ficción): Son agujas. Están tensas y apretadas alrededor del promedio.
-
-Esto es Leptocurtosis: la huella dactilar de quien intenta controlar demasiado los datos.
+La mirada final es a la "silueta" completa de los datos. Dos parámetros nos delatan:
 
 
+**Curtosis (Apuntamiento):** ¿Qué tan picuda es la curva? (Indica miedo a desviarse del centro).
+
+**Asimetría (Sesgo):** ¿Hacia qué lado se inclina la curva? (Indica prejuicios clínicos, como "es mejor poner anemias que policitemias").
+
+He superpuesto las curvas de las tres residentes sobre la Biología Real (Sombra Gris). Las diferencias son delatoras.
+
+<img src="{{< blogdown/postref >}}index_files/figure-html/g_distribucion-1.svg" width="960" style="display: block; margin: auto;" />
+
+### Resultado:
+
+{{% callout warning %}}
+**Veredicto:** Cada participante dejó una "huella de forma" distinta.
+{{% /callout %}}
+
+En la figura: 
+
+- **La Referencia (Línea negra continua):** Es la curva normal teórica, una colina suave y centrada en 136 g/L. Se extiende naturalmente entre los límites clínicos (121-151 g/L, líneas punteadas), aceptando la variabilidad biológica real.
+
+- **La Confiada (Línea azul):** ¡Es una aguja! Presenta **Leptocurtosis extrema**. Su curva es la más alta y estrecha de todas, concentrando casi todos sus valores en un rango mínimo alrededor de 130-140 g/L. Al confiar en su conocimiento teórico, se quedó "paralizada" en el centro. Es la gráfica del perfeccionismo contraproducente.
+
+- **La Prudente (Línea verde):** Es un camello deforme. Su curva muestra **Asimetría Negativa**, derritiéndose claramente hacia la izquierda (valores de 100-120 g/L). Su estrategia de "quedarse en el rango seguro" la llevó a inventar demasiadas anemias moderadas, creando un sesgo patológico evidente.
+
+- **La Entusiasta (Línea roja):** La imitadora. Es la única cuya curva sigue razonablemente bien la forma de la campana normal, aunque algo más estrecha. Su estrategia de "fuerza bruta" (escribir rápido sin sobreanalizar) resultó ser la más efectiva para emular la aleatoriedad natural.
 
 
-<!-- ### Resumen: Matriz de Herramientas -->
+### ¿Por qué ocurre esto?
 
-<!-- | Herramienta   | Pregunta clave               | Dificultad | -->
-<!-- |---------------|------------------------------|------------| -->
-<!-- | Último dígito | ¿Dígitos finales uniformes?  | ⭐         | -->
-<!-- | Benford       | ¿Primeros dígitos naturales? | ⭐         | -->
-<!-- | Runs test     | ¿Secuencia aleatoria?        | ⭐⭐       | -->
-<!-- | Duplicados    | ¿Repetición plausible?       | ⭐         | -->
-<!-- | GRIM          | ¿Media posible?              | ⭐⭐       | -->
-<!-- | SPRITE        | ¿Dataset posible?            | ⭐⭐⭐     | -->
-<!-- | Distribución  | ¿Forma natural?              | ⭐⭐       | -->
+Porque simular la Normalidad es anormal para el cerebro.
+
+O somos demasiado precisos (La Prudente comprime los datos).
+O somos demasiado prejuiciosos (La Confiada sesga los datos hacia lo patológico).
+La naturaleza es simétrica y dispersa. El humano es sesgado y temeroso.
 
 
-<!-- ``` mermaid -->
-<!-- flowchart TD -->
-<!--     A[Datos sospechosos] --> B{Tienes valores crudos?} -->
-<!--     B -->|Si| C[Ultimo digito + Benford + Runs test] -->
-<!--     B -->|No| D{Tienes estadisticos?} -->
-<!--     D -->|Si| E{Conoces n y escala?} -->
-<!--     D -->|No| F[Solicitar datos] -->
-<!--     E -->|Si| G[GRIM + SPRITE] -->
-<!--     E -->|No| H[Comparar con literatura] -->
-<!--     C --> I[Integrar hallazgos] -->
-<!--     G --> I -->
-<!--     I --> J{Anomalias?} -->
-<!--     J -->|Multiples| K[Alta sospecha] -->
-<!--     J -->|Una| L[Investigar mas] -->
-<!--     J -->|Ninguna| M[Compatible con datos reales] -->
-<!-- ``` -->
 
-<!-- {{% callout warning %}} **Advertencia ética** -->
-<!-- Estas herramientas detectan anomalías, no prueban fraude. -->
-<!-- Una señal de alarma puede tener explicaciones legítimas: -->
-<!-- - Error de transcripción -->
-<!-- - Características del instrumento -->
-<!-- - Población inusual -->
-<!-- - Redondeo por protocolo -->
+## Acto III: El Veredicto
 
-<!-- **Antes de acusar:** -->
-<!-- 1. Contactar a los autores -->
-<!-- 2. Buscar explicaciones metodológicas -->
-<!-- 3. Replicar el análisis -->
-<!-- 4. Consultar expertos -->
-<!-- {{% /callout %}} -->
+Después de este analisis, procedemos a la entrega de premios.
 
-<!-- ------------------------------------------------------------------------ -->
+🏆 Los Premios Pinocho 2023
 
-## Acto III: El veredicto
+🥇 Pinocho de Oro: La Entusiasta
 
-Después de cinco pruebas forenses, el panorama es claro:
+Por: Mentir por volumen.
+Veredicto: Su estrategia de escribir rápido creó tanto caos que, irónicamente, disimuló algunos patrones. Ganó por fuerza bruta, 
+no por habilidad.
 
-| Prueba        | La Prudente | La Entusiasta | La Confiada |
-|---------------|-------------|---------------|-------------|
-| Media         | ✓           | ✓             | ✓           |
-| Variabilidad  | ❌          | ❌            | ❌          |
-| Último dígito | ❌          | ⚠️            | ❌          |
-| Runs test     | ❌          | ❌            | ❌          |
-| Benford       | ❌          | ⚠️            | ❌          |
-| **TOTAL**     | **1/5**     | **1/5**       | **1/5**     |
+🥈 Pinocho de Plata: La Confiada
 
-### Ceremonia: Los Premios Pinocho 2025
+Por: Sobreactuación.
+Veredicto: Sabía demasiada fisiología. Al intentar evitar conscientemente los ceros y cincos, creó una aleatoriedad tan perfecta que resultaba imposible.
 
-🥇 **Pinocho de Oro — Mejor mentirosa**\
-Ganadora: La Entusiasta\
-Su estrategia de escribir muchos números tuvo un efecto inesperado: al
-tener más valores, su distribución fue ligeramente menos sesgada.\
-*"Ganaste no por mentir bien, sino por mentir tanto que algunos errores
-se cancelaron."*
+🥉 Pinocho de Bronce: La Prudente
 
-🥈 **Pinocho de Plata — Creatividad en el error**\
-Ganadora: La Confiada\
-Su conocimiento de fisiología le permitió acertar la media casi
-perfectamente. Pero ese mismo conocimiento la traicionó: estaba TAN
-segura del rango "normal" que evitó los extremos con fervor religioso.\
-*"Sabías demasiado para mentir bien."*
+Por: Pereza cognitiva.
+Veredicto: Redondeó todo y se quedó en el centro. Es el fraude más fácil de detectar.
 
-🥉 **Pinocho de Bronce — Consistencia en el fracaso**\
-Ganadora: La Prudente\
-Falló en cada prueba de manera predecible. Su aversión al riesgo produjo
-el rango más estrecho, la menor variabilidad, y la mayor concentración
-de 0s y 5s.\
-*"Tu prudencia te delató. En estadística, lo seguro es sospechoso."*
-
-------------------------------------------------------------------------
-
-## Por qué esto importa
-
-Este juego usa las mismas técnicas que detectan fraude real:
-
-| Campo                  | Aplicación                 |
-|------------------------|----------------------------|
-| Auditoría contable     | Facturas inventadas        |
-| Integridad científica  | Datos fabricados en papers |
-| Ensayos clínicos       | Resultados manipulados     |
-| Elecciones             | Anomalías en conteos       |
-| Declaraciones fiscales | Ingresos inventados        |
-
-En 2012, el psicólogo Diederik Stapel fue descubierto por anomalías
-estadísticas. En 2011, Marc Hauser de Harvard cayó por patrones
-imposibles.
-
-**La estadística no olvida. Y no perdona.**
 
 ------------------------------------------------------------------------
 
 ## Epílogo: Las Tres Leyes del Mentiroso Numérico
 
-Después de este experimento, tres verdades quedaron claras:
+El centro es fácil, los extremos dan miedo: Cualquiera inventa un promedio; nadie se atreve a inventar los valores marginales (outliers).
 
+La aleatoriedad es incómoda: El cerebro evita repetir números y patrones, pero el verdadero azar ama las repeticiones (clústeres).
 
-**🥇 Primera Ley: El centro es fácil, los extremos son difíciles**
-
-Cualquiera puede adivinar que la hemoglobina promedio está "alrededor de
-135". Pero incluir un 118 o un 153 —valores raros pero reales— requiere
-valentía estadística que el cerebro fraudulento no tiene.
-
-**🥈 Segunda Ley: La aleatoriedad es incómoda**
-
-Cuando intentas parecer aleatorio, produces patrones más ordenados que
-la realidad. Evitas repetir números. Alternas obsesivamente entre altos
-y bajos. La naturaleza no tiene esas ansiedades.
-
-**🥉 Tercera Ley: Los números redondos son una trampa**
-
-Tu cerebro ama el 0 y el 5. En 60 segundos de presión, son tus mejores
-amigos. Pero en la distribución real, son solo 2 de 10 opciones. Tu
-preferencia te delata.
+Los números redondos son una trampa: En situaciones de estrés, el 0 y el 5 son imanes irresistibles.
 
 
 ------------------------------------------------------------------------
+
+
 
 La próxima vez que revises un paper y los datos te parezcan "demasiado
 limpios", recuerda:

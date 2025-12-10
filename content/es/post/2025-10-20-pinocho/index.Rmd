@@ -68,21 +68,18 @@ descubrir que su estrategia era la *menos mala*.
 
 {{% callout warning %}} 
 
-Tienen 60 segundos. Escriban todos los valores de hemoglobina en sangre de  mujeres adultas que puedan inventar. Sin referencias. Sin calculadora. El  que engañe mejor a las pruebas estadísticas, gana.
+Tienen 60 segundos. Escriban todos los valores de **concentración de hemoglobina en sangre de  mujeres adultas (15-49 años)** que puedan inventar. Sin referencias. Sin calculadora. El  que engañe mejor a las pruebas estadísticas, gana.
 
 {{% /callout %}}
 
-Lo que no sabían es que **los humanos somos terribles inventado datos**.
-
-No porque seamos honestos, sino porque nuestro cerebro produce errores predecibles al generar datos aparentemente aleatorios.
+Lo que no sabían es que **los humanos somos terribles inventado datos**. No porque seamos honestos, sino porque nuestro cerebro produce errores predecibles al generar datos aparentemente aleatorios.
 
 Y yo tenía exactamente las herramientas para encontrarlos.
 
 
 ### Los sospechosos
 
-Antes de la autopsia, conozcamos a nuestros participantes, médicos
-residentes de áreas básicas (fisiología, embriología, farmacología, etc.) que cursaban la asignatura de *"Metodología de la investigación y estadística"* en el curso 2022-2023:
+Antes de la autopsia, conozcamos a nuestros participantes, médicos residentes de áreas básicas (fisiología, embriología, farmacología, etc.) que cursaban la asignatura de *"Metodología de la investigación y estadística"* en el curso 2022-2023:
 
 
 | Participante | Estrategia Declarada |
@@ -102,7 +99,9 @@ residentes de áreas básicas (fisiología, embriología, farmacología, etc.) q
 
 En la escena había mucha sangre... o al menos uno de sus componentes: la Hemoglobina.
 
-Es la proteína que nos mantiene vivos, pero aquí no nos interesa su biología, sino sus números. Porque para que una mentira sea creíble, primero hay que conocer la verdad:
+Es una proteína vital en la respiración celular, pero aquí no nos interesa su biología, sino su comportamiento estadístico.
+
+Porque para que una mentira sea creíble, primero hay que conocer la verdad:
 
 {{% callout note %}} 
 
@@ -116,7 +115,7 @@ Es la proteína que nos mantiene vivos, pero aquí no nos interesa su biología,
 
 {{% /callout %}}
 
-Armadas con este conocimiento (o su vaga memoria de él), las participantes escribieron furiosamente durante 60 segundos en su fichero de Excel todos las cifras que pudieron.
+Armadas con este conocimiento —o su vaga memoria de él—, las participantes escribieron furiosamente durante 60 segundos en sus archivos de Excel todas las cifras que pudieron.
 
 {{% callout note %}}
 **El resultado:** *127 valores inventados* listos para el **análisis forense**.
@@ -128,8 +127,7 @@ Armadas con este conocimiento (o su vaga memoria de él), las participantes escr
 
 ## Acto II: La autopsia estadística (Las 5 Pruebas)
 
-
-### Prueba 1: El Anclaje (La Media)
+### Primera prueba: El Anclaje (La Media)
 
 Empecemos por lo fácil. **¿La media aritmética del conjunto de datos inventados se parecen al valor real?**
 
@@ -180,14 +178,9 @@ Sin embargo, cuando se muestra la media poblacional (136 g/L), la estimación se
 
 ------------------------------------------------------------------------
 
-### Prueba 2: La Textura (La Variabilidad)
+### Segunda prueba: La Textura (La Variabilidad)
 
-Llama la atención que las estudiantes **fallaron al simular la desviación estándar (sd)**, incluso cuando el valor real estuvo frente a ellas en la segunda parte del experimento. 
-
-{{% callout note %}}
-**nota:** En lo adelante, todos los datos presentados corresponden a la fase del experimento en la que se proporcionó información previa.
-{{% /callout %}}
-
+Aquí llegamos al primer hallazgo crucial: fallaron en simular la desviación estándar (SD), incluso cuando el valor real (7.5 g/L) estuvo frente a ellas.
 
 **La media es fácil de corregir; la desviación estándar no.** Examinemos con detalle lo ocurrido. 
 
@@ -207,7 +200,7 @@ tabla_variabilidad %>%
 #### Resultado
 
 {{% callout note %}}
-**Resultado:** Nadie logró la precisión requerida.
+**Veredicto:** Todas exageraron la variabilidad. Nadie se acercó al 7.5 g/L.
 {{% /callout %}} 
   
 Curiosamente, a diferencia de la media (donde se quedaron cortas), aquí todas exageraron la variabilidad.
@@ -222,11 +215,8 @@ Observen sus rangos: no tuvieron miedo de bajar hasta 102 g/L o 103 g/L (muy lej
  g_rangos
 ```
 
-Al estirar la distribución hacia abajo (inventando anemias severas) pero cortarla por arriba (evitando valores altos), crearon una dispersión desequilibrada y con anomalías como se muestra a continuación.
+Al estirar la distribución hacia la izquierda (inventando anemias severas) pero acortarla a la derecha (evitando valores altos), crearon una dispersión antinatural.
 
-```{r grafico}
-g_distribucion
-```
 
 #### ¿Por qué ocurre esto?
 
@@ -282,7 +272,7 @@ g_utimodig
 #### Resultado
 
 {{% callout note %}}
-**Diagnóstico:** El análisis revela dos tipos de manipulación: el exceso de orden (pereza) y el exceso de desorden (sobreactuación).
+**veredicto:** El análisis revela dos tipos de manipulación: el exceso de orden (pereza) y el exceso de desorden (sobreactuación).
 {{% /callout %}}
 
 Para evaluar esto, usamos dos detectores: la Desviación Media (cuánto se equivocan en general) y la Frecuencia de 0 y 5 (cuánto redondearon por comodidad).
@@ -327,7 +317,7 @@ g_benford
 #### Resultado
 
 {{% callout warning %}}
-Veredicto: Fracaso por "Aversión al Riesgo".
+**Veredicto:** Fracaso por *"Aversión al Riesgo"*.
 {{% /callout %}}
 
 Las participantes crearon una montaña artificial en las decenas del 3 y el 4 (valores de 130 a 149).
@@ -350,11 +340,9 @@ El cerebro de La Prudente (y las demás) interpreta que la media (136) es "lo co
 
 Inventar un dato como "121" o "168" les pareció peligroso, así que todas se copiaron la estrategia: "Pon algo por el medio, un 130 y pico, y no te pasará nada". Al hacerlo todas a la vez, el patrón artificial se volvió evidente.
 
-## Quinta prueba: Análisis de Distribución (La forma de la mentira)
+### Quinta prueba:  La Forma de la Mentira – Curtosis y Asimetría
 
-Hasta ahora hemos mirado números aislados. Ahora miremos la "silueta" completa de los datos.
-
-En estadística, la forma de la curva nos cuenta la actitud del autor:
+La mirada final es a la "silueta" completa de los datos. Dos parámetros nos delatan:
 
 
 **Curtosis (Apuntamiento):** ¿Qué tan picuda es la curva? (Indica miedo a desviarse del centro).
@@ -363,34 +351,25 @@ En estadística, la forma de la curva nos cuenta la actitud del autor:
 
 He superpuesto las curvas de las tres residentes sobre la Biología Real (Sombra Gris). Las diferencias son delatoras.
 
-```{r g_curtosis}
-# --- CÓDIGO NUEVO DEL GRÁFICO DE DENSIDAD ---
-# (Pega aquí el código que te di en la respuesta anterior para generar g_curtosis)
-# Si ya lo tienes en analisis.R, solo llámalo:
-g_curtosis
+```{r g_distribucion}
+g_distribucion
 ```
 
 ### Resultado:
 
 {{% callout warning %}}
-Diagnóstico: Cada participante dejó una "huella de forma" distinta.
+**Veredicto:** Cada participante dejó una "huella de forma" distinta.
 {{% /callout %}}
 
 En la figura: 
 
-La Realidad (Gris): Es una colina suave y centrada en 136. Acepta valores bajos y altos con naturalidad.
+- **La Referencia (Línea negra continua):** Es la curva normal teórica, una colina suave y centrada en 136 g/L. Se extiende naturalmente entre los límites clínicos (121-151 g/L, líneas punteadas), aceptando la variabilidad biológica real.
 
-La Prudente (Verde): ¡Es una aguja!
+- **La Confiada (Línea azul):** ¡Es una aguja! Presenta **Leptocurtosis extrema**. Su curva es la más alta y estrecha de todas, concentrando casi todos sus valores en un rango mínimo alrededor de 130-140 g/L. Al confiar en su conocimiento teórico, se quedó "paralizada" en el centro. Es la gráfica del perfeccionismo contraproducente.
 
-Tiene lo que llamamos Leptocurtosis extrema.
-Su curva es altísima y estrecha. Al intentar "no fallar", se quedó paralizada en el centro. Es la gráfica del miedo al riesgo.
-La Confiada (Azul): Es un camello deforme.
+- **La Prudente (Línea verde):** Es un camello deforme. Su curva muestra **Asimetría Negativa**, derritiéndose claramente hacia la izquierda (valores de 100-120 g/L). Su estrategia de "quedarse en el rango seguro" la llevó a inventar demasiadas anemias moderadas, creando un sesgo patológico evidente.
 
-Observen cómo su curva se derrite hacia la izquierda (valores bajos, 100-110).
-Esto es Asimetría Negativa. Su conocimiento médico la traicionó: como sabe que la anemia es común, inventó demasiados valores bajos, deformando la curva lejos de la normalidad.
-La Entusiasta (Rojo): La imitadora.
-
-Es la única que logró una forma similar a la campana real, aunque un poco más estrecha. Su estrategia de "fuerza bruta" (escribir rápido sin pensar) fue la que mejor replicó la naturaleza.
+- **La Entusiasta (Línea roja):** La imitadora. Es la única cuya curva sigue razonablemente bien la forma de la campana normal, aunque algo más estrecha. Su estrategia de "fuerza bruta" (escribir rápido sin sobreanalizar) resultó ser la más efectiva para emular la aleatoriedad natural.
 
 
 ### ¿Por qué ocurre esto?
