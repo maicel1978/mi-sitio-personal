@@ -1877,21 +1877,21 @@ La naturaleza es simétrica y dispersa. El humano es sesgado y temeroso.&lt;/p>
 &lt;h2 id="sexta-prueba-prueba-de-rachas">Sexta prueba: Prueba de Rachas&lt;/h2>
 &lt;p>Las cinco pruebas anteriores fueron el interrogatorio. Nos dieron sospechas fuertes (la SD, el redondeo), pero necesitábamos la prueba forense de ADN que confirmara la intervención humana.&lt;/p>
 &lt;p>Aquí es donde interviene la Prueba de Rachas.&lt;/p>
-&lt;p>Este test es un detective implacable. No le interesa el valor específico del dato (si es &lt;code>\(135\)&lt;/code> o &lt;code>\(145\)&lt;/code>), solo le importa la secuencia.&lt;/p>
+&lt;p>Este test es un detective implacable. No le interesa el valor específico del dato (si es 135 o 145), solo le importa la secuencia.&lt;/p>
 &lt;p>¿Cómo funciona?&lt;/p>
 &lt;ol>
-&lt;li>Corte por Mediana: El test ignora los valores y mira solo si cada dato está por encima (&lt;code>\(\text{+}\)&lt;/code>) o por debajo (&lt;code>\(\text{-}\)&lt;/code>) de la mediana (el valor central)&lt;/li>
+&lt;li>Corte por Mediana: El test ignora los valores y mira solo si cada dato está por encima (+) o por debajo (-) de la mediana (el valor central)&lt;/li>
 &lt;/ol>
-&lt;p>2.Rachas: Cuenta cuántas veces hay un cambio de signo (ej. &lt;code>\(\text{+ + - - - +}\)&lt;/code> tiene tres rachas: &lt;code>\(\text{++}\)&lt;/code>, &lt;code>\(\text{---}\)&lt;/code>, &lt;code>\(\text{+}\)&lt;/code>).&lt;/p>
+&lt;p>2.Rachas: Cuenta cuántas veces hay un cambio de signo (ej. + + - - - + tiene tres rachas: ++, &amp;mdash;, +).&lt;/p>
 &lt;ul>
 &lt;li>
-&lt;p>Pocas Rachas (Agrupamiento): Indica una tendencia a que los valores se agrupen (ej. &lt;code>\(\text{+ + + - - -}\)&lt;/code>), lo que sugiere pereza o un patrón lento.&lt;/p>
+&lt;p>Pocas Rachas (Agrupamiento): Indica una tendencia a que los valores se agrupen (ej. + + + - - -), lo que sugiere pereza o un patrón lento.&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>Muchas Rachas (Alternancia): Indica que los valores suben y bajan demasiado rápido (ej. &lt;code>\(\text{+ - + - + -}\)&lt;/code>), lo que sugiere que la persona está forzando la aleatoriedad.&lt;/p>
+&lt;p>Muchas Rachas (Alternancia): Indica que los valores suben y bajan demasiado rápido (ej. + - + - + -), lo que sugiere que la persona está forzando la aleatoriedad.&lt;/p>
 &lt;/li>
 &lt;/ul>
-&lt;p>Veredicto Z-Score: El &lt;code>\(Z\)&lt;/code>-Score nos dice si el número de rachas observado se desvía de lo que esperaríamos por puro azar.&lt;/p>
+&lt;p>Veredicto Z-Score: El Z-Score nos dice si el número de rachas observado se desvía de lo que esperaríamos por puro azar.&lt;/p>
 &lt;table>
 &lt;thead>
 &lt;tr>
