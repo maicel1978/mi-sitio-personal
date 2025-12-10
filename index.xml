@@ -1915,9 +1915,15 @@ La naturaleza es simétrica y dispersa. El humano es sesgado y temeroso.&lt;/p>
 &lt;/tbody>
 &lt;/table>
 &lt;h3 id="resultado-5">Resultado&lt;/h3>
-&lt;p>El umbral para declarar un dato &amp;ldquo;No Aleatorio&amp;rdquo; es &lt;code>\(|Z| &amp;gt; 1.96\)&lt;/code>. Aunque solo La Entusiasta estuvo cerca del umbral (-1.71, debido a un agrupamiento), el resultado más revelador fue el de La Confiada:&lt;/p>
-&lt;p>La Confiada (Z-Score = 0.00): La estadística no la declaró &amp;ldquo;No Aleatoria&amp;rdquo;; la declaró &amp;ldquo;Demasiado Perfecta&amp;rdquo;.Un &lt;code>\(Z\)&lt;/code>-Score de cero significa que el número de rachas observadas fue exactamente igual al número de rachas que la teoría predice para la aleatoriedad. En datos reales, esto es casi imposible. Es la prueba definitiva de que conscientemente intentó alternar sus valores por encima y por debajo de la mediana para parecer aleatoria.&lt;/p>
-&lt;p>La Entusiasta (Z-Score = -1.71): Su &lt;code>\(Z\)&lt;/code>-Score negativo sugiere demasiadas pocas rachas (tendencia a agrupar valores). Su cerebro, al escribir rápido, cayó en el patrón común de la pereza cognitiva.&lt;/p>
+&lt;p>El umbral para declarar un dato &amp;ldquo;No Aleatorio&amp;rdquo; es |Z| &amp;gt; 1.96. Aunque solo La Entusiasta estuvo cerca del umbral (-1.71, debido a un agrupamiento), el resultado más revelador fue el de La Confiada:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>La Confiada (Z-Score = 0.00): La estadística no la declaró &amp;ldquo;No Aleatoria&amp;rdquo;; la declaró &amp;ldquo;Demasiado Perfecta&amp;rdquo;.Un Z-Score de cero significa que el número de rachas observadas fue exactamente igual al número de rachas que la teoría predice para la aleatoriedad. En datos reales, esto es casi imposible. Es la prueba definitiva de que conscientemente intentó alternar sus valores por encima y por debajo de la mediana para parecer aleatoria.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>La Entusiasta (Z-Score = -1.71): Su Z-Score negativo sugiere demasiadas pocas rachas (tendencia a agrupar valores). Su cerebro, al escribir rápido, cayó en el patrón común de la pereza cognitiva.&lt;/p>
+&lt;/li>
+&lt;/ul>
 &lt;h3 id="por-qué-ocurre-esto-5">¿Por qué ocurre esto?&lt;/h3>
 &lt;p>El porqué es simple y aterrador:&lt;/p>
 &lt;ol>
@@ -1932,21 +1938,20 @@ La naturaleza es simétrica y dispersa. El humano es sesgado y temeroso.&lt;/p>
 &lt;span class="pr-3 pt-1 text-red-400">
 &lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0zM12 15.75h.007v.008H12z"/>&lt;/svg>
 &lt;/span>
-&lt;span class="dark:text-neutral-300">&lt;strong>Veredicto:&lt;/strong> El ser humano es incapaz de replicar un proceso estocástico. El azar no tiene memoria, pero nosotros sí. Nuestro intento de imitar el azar es tan predecible que deja una huella dactilar estadística.&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;strong>Veredicto:&lt;/strong> El ser humano es generalmente incapaz de replicar un proceso estocástico sin estudiarlo. El azar no tiene memoria, pero nosotros sí. Nuestro intento de imitar el azar es tan predecible que deja una huella dactilar estadística.&lt;/span>
 &lt;/div>
 &lt;h2 id="acto-iii-el-veredicto">Acto III: El Veredicto&lt;/h2>
 &lt;p>Después de este analisis, procedemos a la entrega de premios.&lt;/p>
-&lt;p>🏆 Los Premios Pinocho 2023&lt;/p>
+&lt;p>🏆 &lt;strong>Los Premios Pinocho 2023&lt;/strong>&lt;/p>
 &lt;p>🥇 Pinocho de Oro: La Entusiasta&lt;/p>
-&lt;p>Por: Mentir por volumen.
-Veredicto: Su estrategia de escribir rápido creó tanto caos que, irónicamente, disimuló algunos patrones. Ganó por fuerza bruta,
-no por habilidad.&lt;/p>
+&lt;p>&lt;strong>Por:&lt;/strong> Mentir por volumen.&lt;/p>
+&lt;p>&lt;strong>Veredicto:&lt;/strong> Su estrategia de escribir rápido creó tanto caos que, irónicamente, disimuló algunos patrones. Ganó por fuerza bruta, no por habilidad.&lt;/p>
 &lt;p>🥈 Pinocho de Plata: La Confiada&lt;/p>
-&lt;p>Por: Sobreactuación.
-Veredicto: Sabía demasiada fisiología. Al intentar evitar conscientemente los ceros y cincos, creó una aleatoriedad tan perfecta que resultaba imposible.&lt;/p>
+&lt;p>&lt;strong>Por:&lt;/strong> Sobreactuación.&lt;/p>
+&lt;p>&lt;strong>Veredicto:&lt;/strong> Sabía demasiada fisiología. Al intentar evitar conscientemente los ceros y cincos, creó una aleatoriedad tan perfecta que resultaba imposible.&lt;/p>
 &lt;p>🥉 Pinocho de Bronce: La Prudente&lt;/p>
-&lt;p>Por: Pereza cognitiva.
-Veredicto: Redondeó todo y se quedó en el centro. Es el fraude más fácil de detectar.&lt;/p>
+&lt;p>&lt;strong>Por:&lt;/strong> Pereza cognitiva.&lt;/p>
+&lt;p>&lt;strong>Veredicto:&lt;/strong> Redondeó todo y se quedó en el centro. Es el fraude más fácil de detectar.&lt;/p>
 &lt;hr>
 &lt;h2 id="epílogo-las-tres-leyes-del-mentiroso-numérico">Epílogo: Las Tres Leyes del Mentiroso Numérico&lt;/h2>
 &lt;p>El centro es fácil, los extremos dan miedo: Cualquiera inventa un promedio; nadie se atreve a inventar los valores marginales (outliers).&lt;/p>
@@ -1981,9 +1986,15 @@ Entusiasta y La Confiada.&lt;/p>
 &lt;p>💬 &lt;strong>Tu Experiencia Como Detective&lt;/strong>&lt;br>
 La comunidad crece cuando compartimos casos reales. &lt;strong>¡Me encantaría leerte en los comentarios!&lt;/strong>&lt;/p>
 &lt;ul>
-&lt;li>&lt;strong>¿Has detectado alguna vez datos sospechosos en tesis o en papers que hayas revisado?&lt;/strong>&lt;/li>
-&lt;li>&lt;strong>¿Qué técnica forense te resultó más útil para validar la autenticidad de los datos?&lt;/strong>&lt;/li>
-&lt;li>&lt;strong>Comparte tu caso más intrigante&lt;/strong> - cómo sospechaste y qué técnica te dio la prueba definitiva.&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>¿Has detectado alguna vez datos sospechosos en tesis o en papers que hayas revisado?&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>¿Qué técnica forense te resultó más útil para validar la autenticidad de los datos?&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Comparte tu caso más intrigante&lt;/strong> - cómo sospechaste y qué técnica te dio la prueba definitiva.&lt;/p>
+&lt;/li>
 &lt;/ul>
 &lt;p>🕵️ &lt;strong>Lleva la Estadística Forense a Tu Próxima Investigación&lt;/strong>&lt;/p>
 &lt;p>&lt;a href="https://bioestadisticaedu.com/subscribe/">&lt;strong>Suscríbete a bioestadísticaedu&lt;/strong>&lt;/a> y recibe directamente en tu bandeja de entrada:&lt;/p>
