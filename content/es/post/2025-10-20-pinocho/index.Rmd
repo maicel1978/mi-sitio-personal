@@ -10,7 +10,7 @@ tags:
   - "detección de datos falsos"
   - "educación médica"
 slug: concurso-mientele-profesor
-summary: "Pedí a mis residentes que inventaran datos de hemoglobina en 60 segundos. Usé cinco técnicas forenses para atraparlos. Spoiler: La estadística siempre gana."
+summary: "Pedí a mis residentes que inventaran datos de hemoglobina en 60 segundos. Usé seis técnicas forenses para atraparlos. Spoiler: La estadística siempre gana."
 featured: true
 draft: true# True para un borrador
 ---
@@ -77,7 +77,7 @@ Lo que no sabían es que **los humanos somos terribles inventado datos**. No por
 Y yo tenía exactamente las herramientas para encontrarlos.
 
 
-### Los sospechosos
+### Los Sospechosos y su Coartada
 
 Antes de la autopsia, conozcamos a nuestros participantes, médicos residentes de áreas básicas (fisiología, embriología, farmacología, etc.) que cursaban la asignatura de *"Metodología de la investigación y estadística"* en el curso 2022-2023:
 
@@ -380,6 +380,55 @@ O somos demasiado precisos (La Prudente comprime los datos).
 O somos demasiado prejuiciosos (La Confiada sesga los datos hacia lo patológico).
 La naturaleza es simétrica y dispersa. El humano es sesgado y temeroso.
 
+
+
+## Sexta prueba: Prueba de Rachas 
+
+Las cinco pruebas anteriores fueron el interrogatorio. Nos dieron sospechas fuertes (la SD, el redondeo), pero necesitábamos la prueba forense de ADN que confirmara la intervención humana.
+
+Aquí es donde interviene la Prueba de Rachas.
+
+Este test es un detective implacable. No le interesa el valor específico del dato (si es $135$ o $145$), solo le importa la secuencia.
+
+¿Cómo funciona?
+
+1. Corte por Mediana: El test ignora los valores y mira solo si cada dato está por encima ($\text{+}$) o por debajo ($\text{-}$) de la mediana (el valor central)
+
+2.Rachas: Cuenta cuántas veces hay un cambio de signo (ej. $\text{+ + - - - +}$ tiene tres rachas: $\text{++}$, $\text{---}$, $\text{+}$).
+
+- Pocas Rachas (Agrupamiento): Indica una tendencia a que los valores se agrupen (ej. $\text{+ + + - - -}$), lo que sugiere pereza o un patrón lento.
+
+- Muchas Rachas (Alternancia): Indica que los valores suben y bajan demasiado rápido (ej. $\text{+ - + - + -}$), lo que sugiere que la persona está forzando la aleatoriedad.
+
+Veredicto Z-Score: El $Z$-Score nos dice si el número de rachas observado se desvía de lo que esperaríamos por puro azar.
+
+```{r Rachas}
+tabla_rachas_display %>% 
+  select(- "Evaluación" ) %>% 
+  kable()
+```
+
+
+### Resultado 
+
+
+El umbral para declarar un dato "No Aleatorio" es $|Z| > 1.96$. Aunque solo La Entusiasta estuvo cerca del umbral (-1.71, debido a un agrupamiento), el resultado más revelador fue el de La Confiada:
+
+La Confiada (Z-Score = 0.00): La estadística no la declaró "No Aleatoria"; la declaró "Demasiado Perfecta".Un $Z$-Score de cero significa que el número de rachas observadas fue exactamente igual al número de rachas que la teoría predice para la aleatoriedad. En datos reales, esto es casi imposible. Es la prueba definitiva de que conscientemente intentó alternar sus valores por encima y por debajo de la mediana para parecer aleatoria.
+
+La Entusiasta (Z-Score = -1.71): Su $Z$-Score negativo sugiere demasiadas pocas rachas (tendencia a agrupar valores). Su cerebro, al escribir rápido, cayó en el patrón común de la pereza cognitiva.
+
+### ¿Por qué ocurre esto?
+
+El porqué es simple y aterrador:
+
+1. El Sesgo de Alternancia Negativa: Cuando se nos pide crear una secuencia aleatoria (como tirar una moneda 100 veces), evitamos instintivamente las rachas largas. El cerebro piensa: "no puede salir 'Cara' seis veces seguidas, eso no parece aleatorio". Entonces, forzamos un cambio (de 'Cara' a 'Cruz').
+
+2. El Resultado: Al forzar el cambio, creamos demasiadas alternancias (o demasiadas rachas) de lo que la probabilidad permite, o, en el caso de La Confiada, un número de rachas tan perfecto que delata la sobrecorrección consciente.
+
+{{% callout warning %}}
+**Veredicto:** El ser humano es incapaz de replicar un proceso estocástico. El azar no tiene memoria, pero nosotros sí. Nuestro intento de imitar el azar es tan predecible que deja una huella dactilar estadística.
+{{% /callout %}}
 
 
 ## Acto III: El Veredicto
