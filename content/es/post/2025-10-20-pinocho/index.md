@@ -461,11 +461,11 @@ Veredicto Z-Score: El Z-Score nos dice si el número de rachas observado se desv
 ### Resultado 
 
 
-El umbral para declarar un dato "No Aleatorio" es `\(|Z| > 1.96\)`. Aunque solo La Entusiasta estuvo cerca del umbral (-1.71, debido a un agrupamiento), el resultado más revelador fue el de La Confiada:
+El umbral para declarar un dato "No Aleatorio" es |Z| > 1.96. Aunque solo La Entusiasta estuvo cerca del umbral (-1.71, debido a un agrupamiento), el resultado más revelador fue el de La Confiada:
 
-La Confiada (Z-Score = 0.00): La estadística no la declaró "No Aleatoria"; la declaró "Demasiado Perfecta".Un `\(Z\)`-Score de cero significa que el número de rachas observadas fue exactamente igual al número de rachas que la teoría predice para la aleatoriedad. En datos reales, esto es casi imposible. Es la prueba definitiva de que conscientemente intentó alternar sus valores por encima y por debajo de la mediana para parecer aleatoria.
+- La Confiada (Z-Score = 0.00): La estadística no la declaró "No Aleatoria"; la declaró "Demasiado Perfecta".Un Z-Score de cero significa que el número de rachas observadas fue exactamente igual al número de rachas que la teoría predice para la aleatoriedad. En datos reales, esto es casi imposible. Es la prueba definitiva de que conscientemente intentó alternar sus valores por encima y por debajo de la mediana para parecer aleatoria.
 
-La Entusiasta (Z-Score = -1.71): Su `\(Z\)`-Score negativo sugiere demasiadas pocas rachas (tendencia a agrupar valores). Su cerebro, al escribir rápido, cayó en el patrón común de la pereza cognitiva.
+- La Entusiasta (Z-Score = -1.71): Su Z-Score negativo sugiere demasiadas pocas rachas (tendencia a agrupar valores). Su cerebro, al escribir rápido, cayó en el patrón común de la pereza cognitiva.
 
 ### ¿Por qué ocurre esto?
 
@@ -476,7 +476,7 @@ El porqué es simple y aterrador:
 2. El Resultado: Al forzar el cambio, creamos demasiadas alternancias (o demasiadas rachas) de lo que la probabilidad permite, o, en el caso de La Confiada, un número de rachas tan perfecto que delata la sobrecorrección consciente.
 
 {{% callout warning %}}
-**Veredicto:** El ser humano es incapaz de replicar un proceso estocástico. El azar no tiene memoria, pero nosotros sí. Nuestro intento de imitar el azar es tan predecible que deja una huella dactilar estadística.
+**Veredicto:** El ser humano es generalmente incapaz de replicar un proceso estocástico sin estudiarlo. El azar no tiene memoria, pero nosotros sí. Nuestro intento de imitar el azar es tan predecible que deja una huella dactilar estadística.
 {{% /callout %}}
 
 
@@ -484,23 +484,25 @@ El porqué es simple y aterrador:
 
 Después de este analisis, procedemos a la entrega de premios.
 
-🏆 Los Premios Pinocho 2023
+🏆 **Los Premios Pinocho 2023**
 
 🥇 Pinocho de Oro: La Entusiasta
 
-Por: Mentir por volumen.
-Veredicto: Su estrategia de escribir rápido creó tanto caos que, irónicamente, disimuló algunos patrones. Ganó por fuerza bruta, 
-no por habilidad.
+**Por:** Mentir por volumen.
+
+**Veredicto:** Su estrategia de escribir rápido creó tanto caos que, irónicamente, disimuló algunos patrones. Ganó por fuerza bruta, no por habilidad.
 
 🥈 Pinocho de Plata: La Confiada
 
-Por: Sobreactuación.
-Veredicto: Sabía demasiada fisiología. Al intentar evitar conscientemente los ceros y cincos, creó una aleatoriedad tan perfecta que resultaba imposible.
+**Por:** Sobreactuación.
+
+**Veredicto:** Sabía demasiada fisiología. Al intentar evitar conscientemente los ceros y cincos, creó una aleatoriedad tan perfecta que resultaba imposible.
 
 🥉 Pinocho de Bronce: La Prudente
 
-Por: Pereza cognitiva.
-Veredicto: Redondeó todo y se quedó en el centro. Es el fraude más fácil de detectar.
+**Por:** Pereza cognitiva.
+
+**Veredicto:** Redondeó todo y se quedó en el centro. Es el fraude más fácil de detectar.
 
 
 ------------------------------------------------------------------------
@@ -515,8 +517,6 @@ Los números redondos son una trampa: En situaciones de estrés, el 0 y el 5 son
 
 
 ------------------------------------------------------------------------
-
-
 
 La próxima vez que revises un paper y los datos te parezcan "demasiado
 limpios", recuerda:
@@ -541,7 +541,6 @@ Ellas también creyeron que podían ganar.
 - [Datos](experimento.csv).
 - [Código](analisis.R).
 
-
 **Herramientas online:**
 - [GRIM Test Calculator](https://www.grimtest.com/) 
 - [Benford Online Calculator](https://benfordonline.net/) 
@@ -557,7 +556,9 @@ Ellas también creyeron que podían ganar.
 La comunidad crece cuando compartimos casos reales. **¡Me encantaría leerte en los comentarios!**
 
 - **¿Has detectado alguna vez datos sospechosos en tesis o en papers que hayas revisado?**
+
 - **¿Qué técnica forense te resultó más útil para validar la autenticidad de los datos?**
+
 - **Comparte tu caso más intrigante** - cómo sospechaste y qué técnica te dio la prueba definitiva.
 
 🕵️ **Lleva la Estadística Forense a Tu Próxima Investigación** 
