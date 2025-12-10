@@ -94,8 +94,6 @@ Armadas con este conocimiento —o su vaga memoria de él—, las participantes 
 **El resultado:** *127 valores inventados* listos para el **análisis forense**.
 {{% /callout %}}
 
-
-
 ------------------------------------------------------------------------
 
 ## Acto II: La autopsia estadística (Las 5 Pruebas)
