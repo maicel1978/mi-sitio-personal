@@ -2,7 +2,7 @@
 title: "Experimento en el aula: ¿Pueden los estudiantes engañar a un bioestadístico? Un concurso de análisis forense de datos"
 subtitle: "Donde tres residentes intentaron engañar a la estadística (y perdieron espectacularmente)"
 author: "admin"
-date: 2025-10-15
+date: 2025-12-10
 categories: ["Metodología de Investigación"]
 tags: 
   - "fraude científico"
@@ -101,7 +101,6 @@ Armadas con este conocimiento —o su vaga memoria de él—, las participantes 
 ### Primera prueba: El Anclaje (La Media)
 
 Empecemos por lo fácil. **¿La media aritmética del conjunto de datos inventados se parecen al valor real?**
-
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;border-bottom: 0;">
  <thead>
@@ -432,7 +431,7 @@ La naturaleza es simétrica y dispersa. El humano es sesgado y temeroso.
 
 ## Sexta prueba: Prueba de Rachas 
 
-Las cinco pruebas anteriores fueron el interrogatorio. Nos dieron sospechas fuertes (la SD, el redondeo), pero necesitábamos la prueba forense de ADN que confirmara la intervención humana.
+Las seis pruebas anteriores fueron el interrogatorio. Nos dieron sospechas fuertes (la SD, el redondeo), pero necesitábamos la prueba forense de ADN que confirmara la intervención humana.
 
 Aquí es donde interviene la Prueba de Rachas.
 
@@ -537,27 +536,16 @@ limpios", recuerda:
 >
 > **Si todo se ve perfecto, probablemente alguien lo perfeccionó.**
 
-Y si alguna vez te tienta fabricar datos, recuerda a La Prudente, La
-Entusiasta y La Confiada.
-
-Ellas también creyeron que podían ganar.
-
-**La estadística siempre gana.**
 
 ------------------------------------------------------------------------
 
 ## Recursos adicionales
 
-**Descarga la Plantillas de código en R para replicar las pruebas forenses y datos del experimento**
+Aquí tienes los materiales para reproducir el análisis forense en RStudio:
 
-- [Datos](experimento.csv).
-- [Código](analisis.R).
+*   💾 **Datos Crudos:** [Descargar experimento.csv](experimento.csv)
+*   💻 **Script de Auditoría:** [Descargar analisis.R](analisis.R)
 
-
-**Herramientas online:**
-- [GRIM Test Calculator](https://www.grimtest.com/) 
-- [Benford Online Calculator](https://benfordonline.net/) 
-- [StatCheck](https://statcheck.io/)
 
 ------------------------------------------------------------------------
 

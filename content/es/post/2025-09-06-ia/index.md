@@ -1,7 +1,7 @@
 ---
 title: "Una Inmersión Intuitiva en la Arquitectura de los LLMs"
 author: "admin"
-date: '2025-09-06'
+date: '2025-04-06'
 slug: "IA"
 description: "Análisis del funcionamiento de los grandes modelos de lenguaje: arquitectura, entrenamiento, alineación y límites. Comprendiendo la diferencia entre predicción y razonamiento."
 categories: ["Reflexiones Críticas"]

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detector Forense de Hemoglobina</title>
+    
+    <!-- Cargamos las librerías de Observable y D3 directamente -->
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6"></script>
+    
+    <style>
+        :root { --primary: #3498db; --danger: #e74c3c; --success: #27ae60; --bg: #f8f9fa; }
+        body { font-family: -apple-system, system-ui, sans-serif; padding: 20px; max-width: 1000px; margin: 0 auto; background: white; color: #333; }
+        
+        .header { margin-bottom: 2rem; border-bottom: 1px solid #ddd; padding-bottom: 1rem; }
+        .input-section { background: var(--bg); padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        textarea { width: 100%; height: 80px; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-family: monospace; }
+        
+        .btn-group { margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap; }
+        button { padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; color: white; transition: 0.2s; }
+        .btn-calc { background: var(--primary); }
+        .btn-fake { background: var(--danger); }
+        .btn-real { background: var(--success); }
+        
+        /* Grid para las 6 técnicas */
+        .dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 30px; }
+        .card { border: 1px solid #eee; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .card h3 { margin-top: 0; font-size: 1rem; color: #555; border-bottom: 2px solid var(--primary); padding-bottom: 5px; margin-bottom: 10px; }
+        .verdict { margin-top: 20px; padding: 15px; border-radius: 6px; font-weight: bold; text-align: center; }
+        .alert-red { background: #fadbd8; color: #78281f; border: 1px solid #f1948a; }
+        .alert-green { background: #d4efdf; color: #186a3b; border: 1px solid #82e0aa; }
+        
+        /* Estilo específico para los gráficos de Observable */
+        figure { margin: 0; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h2>🕵️ Laboratorio Forense: "Miéntele al Profesor"</h2>
+    <p>Aplica 6 técnicas estadísticas para detectar invención de datos en Hemoglobina (g/L).</p>
+</div>
+
+<div class="input-section">
+    <label><strong>1. Entrada de Datos:</strong></label>
+    <textarea id="dataInput" placeholder="Pega aquí tus valores (ej: 120, 134, 156...)"></textarea>
+    <div class="btn-group">
+        <button class="btn-calc" onclick="updateDashboard()">🔍 Analizar Ahora</button>
+        <button class="btn-real" onclick="generate(true)">Generar Reales (Normal)</button>
+        <button class="btn-fake" onclick="generate(false)">Generar Falsos (Sesgo Humano)</button>
+    </div>
+</div>
+
+<div id="verdictBox" style="display:none;"></div>
+
+<!-- Contenedor de las 6 Técnicas -->
+<div class="dashboard">
+    <!-- Técnica 1 -->
+    <div class="card">
+        <h3>1. Distribución (Histograma)</h3>
+        <p style="font-size:0.8em; color:#666">¿Tiene forma de campana (biológico) o es plana (uniforme/inventado)?</p>
+        <div id="plotDist"></div>
+    </div>
+
+    <!-- Técnica 2 -->
+    <div class="card">
+        <h3>2. Dígito Terminal (0-9)</h3>
+        <p style="font-size:0.8em; color:#666">La prueba reina. ¿Hay exceso de 0 y 5? (Ideal: ~10% cada uno)</p>
+        <div id="plotDigit"></div>
+    </div>
+
+    <!-- Técnica 3 -->
+    <div class="card">
+        <h3>3. Secuencia Temporal</h3>
+        <p style="font-size:0.8em; color:#666">Busca patrones de "fatiga" o cambios bruscos en la invención.</p>
+        <div id="plotSeq"></div>
+    </div>
+
+    <!-- Técnica 4 -->
+    <div class="card">
+        <h3>4. Análisis de Pares (Scatter)</h3>
+        <p style="font-size:0.8em; color:#666">Relación entre el valor actual y el siguiente. ¿Se ven "nubes" artificiales?</p>
+        <div id="plotPairs"></div>
+    </div>
+
+    <!-- Técnica 5 -->
+    <div class="card">
+        <h3>5. Frecuencia de Duplicados</h3>
+        <p style="font-size:0.8em; color:#666">¿Se repite demasiado un número específico? (Sesgo de anclaje)</p>
+        <div id="plotDups"></div>
+    </div>
+
+    <!-- Técnica 6 -->
+    <div class="card">
+        <h3>6. Métricas Resumen</h3>
+        <div id="statsTable" style="font-size: 0.9em; line-height: 1.8;"></div>
+    </div>
+</div>
+
+<script>
+    // --- Lógica de Generación y Procesamiento ---
+
+    function generate(isReal) {
+        let data = [];
+        const n = 120; // Tamaño de muestra suficiente para ver patrones
+        
+        if(isReal) {
+            // Generar Normal (Box-Muller)
+            for(let i=0; i<n; i++) {
+                let u = 0, v = 0;
+                while(u === 0) u = Math.random();
+                while(v === 0) v = Math.random();
+                let num = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+                let val = 140 + num * 12; // Media 140, SD 12
+                data.push(Math.round(val));
+            }
+        } else {
+            // Generar Falso (Humanos inventando)
+            let current = 140;
+            for(let i=0; i<n; i++) {
+                let rand = Math.random();
+                let val;
+                // 1. Preferencia por 0 y 5 (35% prob)
+                if(rand < 0.35) {
+                    val = Math.floor(Math.random() * (170 - 110) + 110);
+                    val = Math.round(val/5)*5;
+                } 
+                // 2. Evitar repeticiones inmediatas (los humanos creen que el azar no repite)
+                else {
+                    val = Math.floor(Math.random() * (170 - 110) + 110);
+                    if (data.length > 0 && val === data[data.length-1]) val += 1; 
+                }
+                data.push(val);
+            }
+        }
+        document.getElementById('dataInput').value = data.join(', ');
+        updateDashboard();
+    }
+
+    function updateDashboard() {
+        const raw = document.getElementById('dataInput').value;
+        const data = raw.split(/[\s,]+/).map(d => parseFloat(d)).filter(d => !isNaN(d));
+
+        if (data.length < 5) return;
+
+        // Limpiar contenedores
+        ['plotDist','plotDigit','plotSeq','plotPairs','plotDups','statsTable'].forEach(id => {
+            document.getElementById(id).innerHTML = '';
+        });
+
+        // ---------------------------------------------
+        // USO DE OBSERVABLE PLOT (La librería moderna)
+        // ---------------------------------------------
+
+        // 1. Histograma
+        const p1 = Plot.plot({
+            height: 200,
+            marks: [
+                Plot.rectY(data, Plot.binX({y: "count"}, {x: d => d, fill: "#3498db"})),
+                Plot.ruleY([0])
+            ],
+            x: { label: "Hb (g/L)" },
+            y: { grid: true }
+        });
+        document.getElementById('plotDist').append(p1);
+
+        // 2. Dígitos Terminales (Color condicional)
+        const digits = data.map(d => Math.round(d) % 10);
+        const p2 = Plot.plot({
+            height: 200,
+            x: { domain: [0,1,2,3,4,5,6,7,8,9], label: "Último Dígito" },
+            marks: [
+                Plot.barY(digits, Plot.groupX({y: "count", fill: (D) => {
+                    const count = D.length;
+                    const freq = count / data.length;
+                    return freq > 0.18 ? "#e74c3c" : "#27ae60"; // Rojo si > 18%
+                }}, {x: d => d})),
+                Plot.ruleY([data.length * 0.1], {stroke: "black", strokeDasharray: "4,4", title: "Esperado (10%)"})
+            ]
+        });
+        document.getElementById('plotDigit').append(p2);
+
+        // 3. Secuencia (Index chart)
+        const p3 = Plot.plot({
+            height: 200,
+            marks: [
+                Plot.lineY(data, {x: (d, i) => i, y: d => d, strokeOpacity: 0.5}),
+                Plot.dot(data, {x: (d, i) => i, y: d => d, fill: "#8e44ad", r: 2})
+            ],
+            x: { label: "Orden de entrada" },
+            y: { label: "Valor" }
+        });
+        document.getElementById('plotSeq').append(p3);
+
+        // 4. Pares (Lag plot: Valor i vs Valor i+1)
+        const pairs = [];
+        for(let i=0; i<data.length-1; i++) {
+            pairs.push({x: data[i], y: data[i+1]});
+        }
+        const p4 = Plot.plot({
+            height: 200,
+            marks: [
+                Plot.dot(pairs, {x: "x", y: "y", fill: "#e67e22", title: d => `${d.x} -> ${d.y}`})
+            ],
+            x: { label: "Valor Actual", grid: true },
+            y: { label: "Valor Siguiente", grid: true }
+        });
+        document.getElementById('plotPairs').append(p4);
+
+        // 5. Duplicados (Top values)
+        const p5 = Plot.plot({
+            height: 200,
+            y: { label: "Valor Hb", type: "band" },
+            x: { label: "Repeticiones" },
+            marks: [
+                Plot.barX(data, Plot.groupY({x: "count"}, {y: d => d, sort: {y: "x", reverse: true, limit: 10}, fill: "#34495e"}))
+            ]
+        });
+        document.getElementById('plotDups').append(p5);
+
+        // 6. Métricas y Veredicto
+        // Cálculo de desviación de dígitos
+        const counts = new Array(10).fill(0);
+        digits.forEach(d => counts[d]++);
+        const chiSq = counts.reduce((acc, val) => acc + Math.pow(val - data.length/10, 2) / (data.length/10), 0);
+        
+        // Un Chi-cuadrado > 16.9 (9 df, p<0.05) indica desviación significativa
+        const isSuspicious = chiSq > 16.9;
+        
+        // Tabla HTML
+        const statsHTML = `
+            <ul style="list-style:none; padding:0;">
+                <li><strong>Media:</strong> ${(data.reduce((a,b)=>a+b,0)/data.length).toFixed(1)} g/L</li>
+                <li><strong>N:</strong> ${data.length} registros</li>
+                <li><strong>Mín/Máx:</strong> ${Math.min(...data)} - ${Math.max(...data)}</li>
+                <li style="margin-top:10px; border-top:1px solid #eee; padding-top:5px;">
+                    <strong>Chi-Cuadrado (Dígitos):</strong> ${chiSq.toFixed(1)} <br>
+                    <small>(Umbral crítico ~16.9)</small>
+                </li>
+            </ul>
+        `;
+        document.getElementById('statsTable').innerHTML = statsHTML;
+
+        // Caja de veredicto
+        const vBox = document.getElementById('verdictBox');
+        vBox.style.display = 'block';
+        if(isSuspicious) {
+            vBox.className = 'verdict alert-red';
+            vBox.innerHTML = `⚠️ ALERTA DE FRAUDE: Los dígitos terminales no son uniformes (Chi² = ${chiSq.toFixed(1)}). Probable manipulación humana.`;
+        } else {
+            vBox.className = 'verdict alert-green';
+            vBox.innerHTML = `✅ DATOS PLAUSIBLES: La distribución de dígitos es consistente con el azar biológico.`;
+        }
+    }
+
+    // Inicializar
+    window.onload = () => generate(true); // Empezar con datos reales
+</script>
+
+</body>
+</html>

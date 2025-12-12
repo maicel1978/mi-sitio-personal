@@ -7,7 +7,7 @@ summary: "Identifica siete errores comunes en protocolos de ensayos clínicos in
 # show_author: true
 # show_author_profile: true
 author: "admin"
-date: "2025-10-28" #año mes dia
+date: "2025-12-07" #año mes dia
 # show_author_profile: true
 tags: 
   - "bioestadistica"

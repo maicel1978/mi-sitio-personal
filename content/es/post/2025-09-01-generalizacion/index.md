@@ -1,7 +1,7 @@
 ---
-title: "Generalizabilidad y Transportabilidad: Puente para llevar la ciencia al mundo rea"
+title: "Generalizabilidad y Transportabilidad: Puente para llevar la ciencia al mundo real"
 author: "admin"
-date: "2025-09-01"
+date: "2025-01-29"
 slug: generalizacion
 categories: ["Metodología de Investigación"]
 tags:

@@ -2,7 +2,7 @@
 title: "Las trampas de la correlación disfrazada de causalidad"
 subtitle: "cuando los números cuentan historias falsas"
 author: "admin"
-date: '2025-09-24'
+date: '2025-02-24'
 categories: ["Estadística en Salud"]
 tags:
   - "detectar trampas correlación vs. causalidad en investigación"

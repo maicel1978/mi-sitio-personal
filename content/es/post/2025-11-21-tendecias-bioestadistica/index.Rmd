@@ -4,7 +4,7 @@ subtitle: "Evaluando la Residencia Cubana en Bioestadística ante Rankings Globa
 categories: ["Estadística en Salud"]
 summary: "¿Puede un bioestadístico formado en Cuba competir con uno de Harvard en 2026? Analizamos los datos, las carencias en IA y la hoja de ruta para cerrar la brecha."
 author: "admin"
-date: "2025-11-21" #año mes dia
+date: "2025-12-12" #año mes dia
 tags: 
   - "bioestadística"
   - "educación en salud"
