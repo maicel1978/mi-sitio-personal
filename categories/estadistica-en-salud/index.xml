@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Estadística en Salud | Bioestadística edu</title><link>https://bioestadisticaedu.com/categories/estadistica-en-salud/</link><atom:link href="https://bioestadisticaedu.com/categories/estadistica-en-salud/index.xml" rel="self" type="application/rss+xml"/><description>Estadística en Salud</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Fri, 21 Nov 2025 00:00:00 +0000</lastBuildDate><image><url>https://bioestadisticaedu.com/media/icon_hu_551fbaee136b383e.png</url><title>Estadística en Salud</title><link>https://bioestadisticaedu.com/categories/estadistica-en-salud/</link></image><item><title>Un Análisis Crítico del Currículo de Bioestadística Cubano Frente a las Tendencias Globales</title><link>https://bioestadisticaedu.com/post/tendencias-bioestadistica/</link><pubDate>Fri, 21 Nov 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/tendencias-bioestadistica/</guid><description>&lt;h2 id="introducción">Introducción&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Estadística en Salud | Bioestadística edu</title><link>https://bioestadisticaedu.com/categories/estadistica-en-salud/</link><atom:link href="https://bioestadisticaedu.com/categories/estadistica-en-salud/index.xml" rel="self" type="application/rss+xml"/><description>Estadística en Salud</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Fri, 12 Dec 2025 00:00:00 +0000</lastBuildDate><image><url>https://bioestadisticaedu.com/media/icon_hu_551fbaee136b383e.png</url><title>Estadística en Salud</title><link>https://bioestadisticaedu.com/categories/estadistica-en-salud/</link></image><item><title>Un Análisis Crítico del Currículo de Bioestadística Cubano Frente a las Tendencias Globales</title><link>https://bioestadisticaedu.com/post/tendencias-bioestadistica/</link><pubDate>Fri, 12 Dec 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/tendencias-bioestadistica/</guid><description>&lt;h2 id="introducción">Introducción&lt;/h2>
 &lt;img src="sumario.png" />
 &lt;h3 id="el-experimento-física-ficción-en-el-caribe">El Experimento: Física-Ficción en el Caribe&lt;/h3>
 &lt;p>Recuerdo mi primer día en la residencia de Bioestadística en la &lt;a href="https://ensap.sld.cu/" target="_blank" rel="noopener">Escuela Nacional de Salud Pública (ENSAP)&lt;/a>. Llevaba una pregunta clavada en la cabeza, una de esas que uno no se atreve a formular en voz alta:&lt;/p>
@@ -606,7 +606,116 @@ pero no pueden explicar cómo funcionan ni auditar modelos aplicados a salud.&lt
 &lt;!-- "Comparé el plan de estudios de mi residencia con el de Harvard y Johns Hopkins. -->
 &lt;!-- En matemáticas puras, aguantamos el primer round. 🥊 Pero cuando entra la IA y el Big Data, nos están dando una paliza. -->
 &lt;!-- ¿La solución? No es tirar el título. Es evolucionar hacia el 'Bioestadístico Híbrido'. -->
-&lt;!-- Aquí mi análisis completo y la hoja de ruta para actualizarse gratis. 👇" --></description></item><item><title>Las trampas de la correlación disfrazada de causalidad</title><link>https://bioestadisticaedu.com/post/trampas-correlacion/</link><pubDate>Wed, 24 Sep 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/trampas-correlacion/</guid><description>&lt;h2 id="introducción">Introducción&lt;/h2>
+&lt;!-- Aquí mi análisis completo y la hoja de ruta para actualizarse gratis. 👇" --></description></item><item><title>Inferencia Causal, Desvelando la Lógica Matemática Detrás de Causa y Efecto</title><link>https://bioestadisticaedu.com/post/inferencia-causal/</link><pubDate>Mon, 01 Sep 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/inferencia-causal/</guid><description>&lt;h2 id="introducción">Introducción&lt;/h2>
+&lt;p>El &lt;strong>marco de resultados potenciales&lt;/strong> se mantiene como la piedra angular del pensamiento causal, proporcionando el andamiaje conceptual para diferenciar la mera correlación de la causalidad. Ante la imposibilidad de llevar a cabo &lt;strong>ensayos controlados aleatorizados (RCT)&lt;/strong>, la investigación se ha nutrido de &lt;strong>métodos robustos&lt;/strong> que permiten extraer inferencias causales creíbles de datos observacionales. En este contexto, herramientas como el &lt;strong>Propensity Score&lt;/strong> y los &lt;strong>estimadores doblemente robustos&lt;/strong> (DR) se utilizan para controlar los sesgos de selección a partir de covariables observables, mientras que los &lt;strong>Efectos de Tratamiento Promedio Condicionales (CATE)&lt;/strong>, apoyados en machine learning, permiten explorar la heterogeneidad del efecto entre subpoblaciones. Asimismo, un conjunto de estrategias cuasi-experimentales ha abierto nuevos horizontes en la investigación, incluyendo el uso de &lt;strong>Variables Instrumentales (IV)&lt;/strong> para corregir la confusión no observada, el &lt;strong>Diferencias-en-Diferencias (DID)&lt;/strong> y el &lt;strong>Control Sintético (SC)&lt;/strong> para comparar trayectorias temporales, y la &lt;strong>Regresión Discontinua (RDD)&lt;/strong> para explotar umbrales de asignación, todas ellas permitiendo identificar efectos causales en contextos donde la aleatorización no es factible.&lt;/p>
+&lt;hr>
+&lt;h2 id="1-el-desafío-central-solo-vemos-un-lado-de-la-moneda">1. El desafío central: solo vemos un lado de la moneda&lt;/h2>
+&lt;p>Imagina que quieres evaluar el impacto de una nueva política de vacunación. Para cada persona, podríamos definir dos mundos posibles: uno donde recibe la vacuna y otro donde no. Pero en la práctica solo observamos un mundo: el que ocurrió. Ese es el &lt;strong>“problema fundamental de la inferencia causal”&lt;/strong>.&lt;/p>
+&lt;p>El &lt;strong>marco de resultados potenciales&lt;/strong> formaliza esta idea:&lt;/p>
+$$
+\tau_{\text{sample}} = \frac{1}{N} \sum_{i=1}^{N} (Y_i(1) - Y_i(0))
+$$
+&lt;p>En un ensayo controlado aleatorizado (RCT), la aleatorización nos permite estimar este efecto promedio simplemente comparando medias. Pero ¿qué pasa cuando los RCT no son factibles por razones éticas, logísticas o económicas?&lt;/p>
+&lt;hr>
+&lt;h2 id="2-estudios-observacionales-cuando-no-hay-azar-pero-sí-ingenio">2. Estudios observacionales: cuando no hay azar, pero sí ingenio&lt;/h2>
+&lt;p>En contextos reales —salud pública, economía, políticas sociales— dependemos de datos observacionales. Allí, la clave es suponer que, condicional en ciertas variables previas ($X_i$), la asignación al tratamiento es “tan buena como aleatoria”.&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Propensity Score (Rosenbaum &amp;amp; Rubin, 1983):&lt;/strong> condensa múltiples covariables en una única probabilidad de recibir tratamiento, facilitando el emparejamiento y la ponderación.&lt;/li>
+&lt;li>&lt;strong>Estimadores doblemente robustos:&lt;/strong> combinan modelos de resultado y de asignación al tratamiento; basta con que uno esté bien especificado para obtener estimaciones consistentes.&lt;/li>
+&lt;li>&lt;strong>CATE (Conditional Average Treatment Effect):&lt;/strong> con machine learning, hoy podemos explorar cómo los efectos varían entre subpoblaciones (ej. políticas de empleo más efectivas en jóvenes que en adultos mayores).&lt;/li>
+&lt;/ul>
+&lt;p>⚠️ Cuando sospechamos de confusión no observada, entran en juego &lt;strong>análisis de sensibilidad&lt;/strong> (Manski bounds, métodos de Rosenbaum).&lt;/p>
+&lt;hr>
+&lt;h2 id="3-estrategias-avanzadas-cuando-la-confusión-no-puede-ignorarse">3. Estrategias avanzadas cuando la confusión no puede ignorarse&lt;/h2>
+&lt;h3 id="a-variables-instrumentales-iv">a) Variables Instrumentales (IV)&lt;/h3>
+&lt;p>Si un confusor no observado afecta tanto al tratamiento como al resultado, un &lt;strong>instrumento válido&lt;/strong> ($Z$) puede rescatar el análisis. Ejemplo clásico: la distancia a una universidad como instrumento para estudiar el impacto de la educación en ingresos.&lt;/p>
+&lt;p>Bajo ciertos supuestos, identificamos el &lt;strong>LATE (Local Average Treatment Effect)&lt;/strong> para quienes cambian su estado de tratamiento debido al instrumento.&lt;/p>
+&lt;hr>
+&lt;h3 id="b-diferencias-en-diferencias-did-y-control-sintético-sc">b) Diferencias-en-Diferencias (DID) y Control Sintético (SC)&lt;/h3>
+&lt;ul>
+&lt;li>&lt;strong>DID&lt;/strong>: compara tendencias pre y post en grupos tratados y no tratados. Ejemplo: medir el impacto de un aumento del salario mínimo sobre el empleo.&lt;/li>
+&lt;li>&lt;strong>SC&lt;/strong>: construye un “gemelo sintético” de la unidad tratada combinando unidades no tratadas. Ejemplo: evaluar el impacto de una ley antitabaco en California comparando con un control sintético formado por otros estados.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="c-regresión-discontinua-rdd">c) Regresión Discontinua (RDD)&lt;/h3>
+&lt;p>Aprovecha umbrales de asignación. Ejemplo: un programa de becas asignado a estudiantes con notas ≥ 8.0. Comparar resultados justo por encima y por debajo del corte estima el efecto del programa en los “marginales”.&lt;/p>
+&lt;hr>
+&lt;h2 id="4-horizontes-emergentes-combinar-evidencia">4. Horizontes emergentes: combinar evidencia&lt;/h2>
+&lt;p>Dos líneas prometedoras:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Surrogacy:&lt;/strong> usar resultados a corto plazo como sustitutos de resultados de largo plazo.&lt;/li>
+&lt;li>&lt;strong>Integración de experimentos y observacionales:&lt;/strong> Athey et al. (2020) proponen usar experimentos para identificar y corregir confusores en estudios observacionales.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;p>Tabla comparativa de métodos de inferencia causal&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Método&lt;/th>
+&lt;th>Supuesto clave&lt;/th>
+&lt;th>Ventajas&lt;/th>
+&lt;th>Limitaciones&lt;/th>
+&lt;th>Ejemplo típico&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;strong>RCT&lt;/strong>&lt;/td>
+&lt;td>Asignación aleatoria&lt;/td>
+&lt;td>Estimador insesgado, alta validez interna&lt;/td>
+&lt;td>Costoso, a veces poco ético, baja validez externa&lt;/td>
+&lt;td>Ensayo clínico de un fármaco&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Propensity Score / DR&lt;/strong>&lt;/td>
+&lt;td>Confusión controlada por covariables observadas&lt;/td>
+&lt;td>Flexibilidad, usa datos observacionales grandes&lt;/td>
+&lt;td>Vulnerable a confusión no observada&lt;/td>
+&lt;td>Impacto de programas sociales&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>IV&lt;/strong>&lt;/td>
+&lt;td>Relevancia + exclusión + exogeneidad&lt;/td>
+&lt;td>Corrige confusión no observada&lt;/td>
+&lt;td>Difícil encontrar instrumentos válidos&lt;/td>
+&lt;td>Educación → ingresos&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>DID&lt;/strong>&lt;/td>
+&lt;td>Tendencias paralelas&lt;/td>
+&lt;td>Simple, interpretable&lt;/td>
+&lt;td>Frágil si tendencias difieren&lt;/td>
+&lt;td>Políticas laborales&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>SC&lt;/strong>&lt;/td>
+&lt;td>Unidades control combinan bien la pre-tendencia&lt;/td>
+&lt;td>Más creíble que DID en casos individuales&lt;/td>
+&lt;td>Requiere datos ricos pre-tratamiento&lt;/td>
+&lt;td>Leyes de salud pública&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>RDD&lt;/strong>&lt;/td>
+&lt;td>Continuidad de potenciales en el umbral&lt;/td>
+&lt;td>Interpretación clara, diseño cuasi-experimental&lt;/td>
+&lt;td>Válido solo cerca del umbral&lt;/td>
+&lt;td>Programas de becas&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h2 id="5-conclusión-práctica">5. Conclusión práctica&lt;/h2>
+&lt;p>La inferencia causal no es una caja negra: es un conjunto de &lt;strong>herramientas matemáticas y conceptuales&lt;/strong> que, bien aplicadas, permiten a responsables de políticas, clínicos y científicos sociales responder la pregunta clave: &lt;em>¿qué pasaría si?&lt;/em>&lt;/p>
+&lt;p>La frontera actual está en combinar evidencia, explotar machine learning para heterogeneidad y desarrollar métodos más robustos frente a confusión no observada.&lt;/p>
+&lt;hr>
+&lt;h2 id="-referencias">📚 Referencias&lt;/h2>
+&lt;ul>
+&lt;li>Rosenbaum PR, Rubin DB. &lt;em>The central role of the propensity score…&lt;/em> Biometrika. 1983. &lt;a href="https://pubmed.ncbi.nlm.nih.gov/12009849/" target="_blank" rel="noopener">PubMed PMID: 12009849&lt;/a>&lt;/li>
+&lt;li>Hernán MA, Robins JM. &lt;em>Causal Inference: What If&lt;/em>. 2020. &lt;a href="https://pubmed.ncbi.nlm.nih.gov/33290294/" target="_blank" rel="noopener">PubMed PMID: 33290294&lt;/a>&lt;/li>
+&lt;li>Imbens GW, Rubin DB. &lt;em>Causal Inference for Statistics, Social, and Biomedical Sciences&lt;/em>. 2015.&lt;/li>
+&lt;li>Athey S, Imbens GW. &lt;em>Design-based analysis in difference-in-differences settings.&lt;/em> J Econometrics. 2022. &lt;a href="https://pubmed.ncbi.nlm.nih.gov/36212825/" target="_blank" rel="noopener">PubMed PMID: 36212825&lt;/a>&lt;/li>
+&lt;li>Abadie A. &lt;em>Using synthetic controls.&lt;/em> J Econometrics. 2021.&lt;/li>
+&lt;/ul></description></item><item><title>Las trampas de la correlación disfrazada de causalidad</title><link>https://bioestadisticaedu.com/post/trampas-correlacion/</link><pubDate>Mon, 24 Feb 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/trampas-correlacion/</guid><description>&lt;h2 id="introducción">Introducción&lt;/h2>
 &lt;p>El ojo humano ama los patrones: ver dos líneas que se mueven juntas y concluir que una provoca la otra. La estadística, mal interpretada, a veces alimenta esa ilusión. La correlación es apenas la danza conjunta de dos variables, no una flecha de causa. Y, sin embargo, titulares, políticas y hasta decisiones médicas se sostienen sobre esta trampa.&lt;/p>
 &lt;hr>
 &lt;h2 id="1-correlaciones-curiosas-pero-falsas">1) Correlaciones curiosas (pero falsas)&lt;/h2>
@@ -867,113 +976,4 @@ style L3 fill:#2ecc71,color:#fff
 &lt;p>Pearl, J. (2009). &lt;em>Causality: Models, Reasoning, and Inference&lt;/em> (2nd ed.). Cambridge University Press.&lt;/p>
 &lt;p>Silva Aycaguer, L. C. (1998). &lt;em>Cultura estadística e investigación científica en el campo de la salud: una mirada crítica&lt;/em>. Madrid: Díaz de Santos.&lt;/p>
 &lt;p>Freedman, D. A. (2005). &lt;em>Statistical Models: Theory and Practice&lt;/em>. Cambridge University Press.&lt;/p>
-&lt;p>Vigen, T. (2015). &lt;em>Spurious Correlations&lt;/em>. Hachette Books. Sitio web: &lt;a href="https://tylervigen.com/spurious-correlations" target="_blank" rel="noopener">tylervigen.com/spurious-correlations&lt;/a>&lt;/p></description></item><item><title>Inferencia Causal, Desvelando la Lógica Matemática Detrás de Causa y Efecto</title><link>https://bioestadisticaedu.com/post/inferencia-causal/</link><pubDate>Mon, 01 Sep 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/inferencia-causal/</guid><description>&lt;h2 id="introducción">Introducción&lt;/h2>
-&lt;p>El &lt;strong>marco de resultados potenciales&lt;/strong> se mantiene como la piedra angular del pensamiento causal, proporcionando el andamiaje conceptual para diferenciar la mera correlación de la causalidad. Ante la imposibilidad de llevar a cabo &lt;strong>ensayos controlados aleatorizados (RCT)&lt;/strong>, la investigación se ha nutrido de &lt;strong>métodos robustos&lt;/strong> que permiten extraer inferencias causales creíbles de datos observacionales. En este contexto, herramientas como el &lt;strong>Propensity Score&lt;/strong> y los &lt;strong>estimadores doblemente robustos&lt;/strong> (DR) se utilizan para controlar los sesgos de selección a partir de covariables observables, mientras que los &lt;strong>Efectos de Tratamiento Promedio Condicionales (CATE)&lt;/strong>, apoyados en machine learning, permiten explorar la heterogeneidad del efecto entre subpoblaciones. Asimismo, un conjunto de estrategias cuasi-experimentales ha abierto nuevos horizontes en la investigación, incluyendo el uso de &lt;strong>Variables Instrumentales (IV)&lt;/strong> para corregir la confusión no observada, el &lt;strong>Diferencias-en-Diferencias (DID)&lt;/strong> y el &lt;strong>Control Sintético (SC)&lt;/strong> para comparar trayectorias temporales, y la &lt;strong>Regresión Discontinua (RDD)&lt;/strong> para explotar umbrales de asignación, todas ellas permitiendo identificar efectos causales en contextos donde la aleatorización no es factible.&lt;/p>
-&lt;hr>
-&lt;h2 id="1-el-desafío-central-solo-vemos-un-lado-de-la-moneda">1. El desafío central: solo vemos un lado de la moneda&lt;/h2>
-&lt;p>Imagina que quieres evaluar el impacto de una nueva política de vacunación. Para cada persona, podríamos definir dos mundos posibles: uno donde recibe la vacuna y otro donde no. Pero en la práctica solo observamos un mundo: el que ocurrió. Ese es el &lt;strong>“problema fundamental de la inferencia causal”&lt;/strong>.&lt;/p>
-&lt;p>El &lt;strong>marco de resultados potenciales&lt;/strong> formaliza esta idea:&lt;/p>
-$$
-\tau_{\text{sample}} = \frac{1}{N} \sum_{i=1}^{N} (Y_i(1) - Y_i(0))
-$$
-&lt;p>En un ensayo controlado aleatorizado (RCT), la aleatorización nos permite estimar este efecto promedio simplemente comparando medias. Pero ¿qué pasa cuando los RCT no son factibles por razones éticas, logísticas o económicas?&lt;/p>
-&lt;hr>
-&lt;h2 id="2-estudios-observacionales-cuando-no-hay-azar-pero-sí-ingenio">2. Estudios observacionales: cuando no hay azar, pero sí ingenio&lt;/h2>
-&lt;p>En contextos reales —salud pública, economía, políticas sociales— dependemos de datos observacionales. Allí, la clave es suponer que, condicional en ciertas variables previas ($X_i$), la asignación al tratamiento es “tan buena como aleatoria”.&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>Propensity Score (Rosenbaum &amp;amp; Rubin, 1983):&lt;/strong> condensa múltiples covariables en una única probabilidad de recibir tratamiento, facilitando el emparejamiento y la ponderación.&lt;/li>
-&lt;li>&lt;strong>Estimadores doblemente robustos:&lt;/strong> combinan modelos de resultado y de asignación al tratamiento; basta con que uno esté bien especificado para obtener estimaciones consistentes.&lt;/li>
-&lt;li>&lt;strong>CATE (Conditional Average Treatment Effect):&lt;/strong> con machine learning, hoy podemos explorar cómo los efectos varían entre subpoblaciones (ej. políticas de empleo más efectivas en jóvenes que en adultos mayores).&lt;/li>
-&lt;/ul>
-&lt;p>⚠️ Cuando sospechamos de confusión no observada, entran en juego &lt;strong>análisis de sensibilidad&lt;/strong> (Manski bounds, métodos de Rosenbaum).&lt;/p>
-&lt;hr>
-&lt;h2 id="3-estrategias-avanzadas-cuando-la-confusión-no-puede-ignorarse">3. Estrategias avanzadas cuando la confusión no puede ignorarse&lt;/h2>
-&lt;h3 id="a-variables-instrumentales-iv">a) Variables Instrumentales (IV)&lt;/h3>
-&lt;p>Si un confusor no observado afecta tanto al tratamiento como al resultado, un &lt;strong>instrumento válido&lt;/strong> ($Z$) puede rescatar el análisis. Ejemplo clásico: la distancia a una universidad como instrumento para estudiar el impacto de la educación en ingresos.&lt;/p>
-&lt;p>Bajo ciertos supuestos, identificamos el &lt;strong>LATE (Local Average Treatment Effect)&lt;/strong> para quienes cambian su estado de tratamiento debido al instrumento.&lt;/p>
-&lt;hr>
-&lt;h3 id="b-diferencias-en-diferencias-did-y-control-sintético-sc">b) Diferencias-en-Diferencias (DID) y Control Sintético (SC)&lt;/h3>
-&lt;ul>
-&lt;li>&lt;strong>DID&lt;/strong>: compara tendencias pre y post en grupos tratados y no tratados. Ejemplo: medir el impacto de un aumento del salario mínimo sobre el empleo.&lt;/li>
-&lt;li>&lt;strong>SC&lt;/strong>: construye un “gemelo sintético” de la unidad tratada combinando unidades no tratadas. Ejemplo: evaluar el impacto de una ley antitabaco en California comparando con un control sintético formado por otros estados.&lt;/li>
-&lt;/ul>
-&lt;hr>
-&lt;h3 id="c-regresión-discontinua-rdd">c) Regresión Discontinua (RDD)&lt;/h3>
-&lt;p>Aprovecha umbrales de asignación. Ejemplo: un programa de becas asignado a estudiantes con notas ≥ 8.0. Comparar resultados justo por encima y por debajo del corte estima el efecto del programa en los “marginales”.&lt;/p>
-&lt;hr>
-&lt;h2 id="4-horizontes-emergentes-combinar-evidencia">4. Horizontes emergentes: combinar evidencia&lt;/h2>
-&lt;p>Dos líneas prometedoras:&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>Surrogacy:&lt;/strong> usar resultados a corto plazo como sustitutos de resultados de largo plazo.&lt;/li>
-&lt;li>&lt;strong>Integración de experimentos y observacionales:&lt;/strong> Athey et al. (2020) proponen usar experimentos para identificar y corregir confusores en estudios observacionales.&lt;/li>
-&lt;/ul>
-&lt;hr>
-&lt;p>Tabla comparativa de métodos de inferencia causal&lt;/p>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>Método&lt;/th>
-&lt;th>Supuesto clave&lt;/th>
-&lt;th>Ventajas&lt;/th>
-&lt;th>Limitaciones&lt;/th>
-&lt;th>Ejemplo típico&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>&lt;strong>RCT&lt;/strong>&lt;/td>
-&lt;td>Asignación aleatoria&lt;/td>
-&lt;td>Estimador insesgado, alta validez interna&lt;/td>
-&lt;td>Costoso, a veces poco ético, baja validez externa&lt;/td>
-&lt;td>Ensayo clínico de un fármaco&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;strong>Propensity Score / DR&lt;/strong>&lt;/td>
-&lt;td>Confusión controlada por covariables observadas&lt;/td>
-&lt;td>Flexibilidad, usa datos observacionales grandes&lt;/td>
-&lt;td>Vulnerable a confusión no observada&lt;/td>
-&lt;td>Impacto de programas sociales&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;strong>IV&lt;/strong>&lt;/td>
-&lt;td>Relevancia + exclusión + exogeneidad&lt;/td>
-&lt;td>Corrige confusión no observada&lt;/td>
-&lt;td>Difícil encontrar instrumentos válidos&lt;/td>
-&lt;td>Educación → ingresos&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;strong>DID&lt;/strong>&lt;/td>
-&lt;td>Tendencias paralelas&lt;/td>
-&lt;td>Simple, interpretable&lt;/td>
-&lt;td>Frágil si tendencias difieren&lt;/td>
-&lt;td>Políticas laborales&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;strong>SC&lt;/strong>&lt;/td>
-&lt;td>Unidades control combinan bien la pre-tendencia&lt;/td>
-&lt;td>Más creíble que DID en casos individuales&lt;/td>
-&lt;td>Requiere datos ricos pre-tratamiento&lt;/td>
-&lt;td>Leyes de salud pública&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;strong>RDD&lt;/strong>&lt;/td>
-&lt;td>Continuidad de potenciales en el umbral&lt;/td>
-&lt;td>Interpretación clara, diseño cuasi-experimental&lt;/td>
-&lt;td>Válido solo cerca del umbral&lt;/td>
-&lt;td>Programas de becas&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;hr>
-&lt;h2 id="5-conclusión-práctica">5. Conclusión práctica&lt;/h2>
-&lt;p>La inferencia causal no es una caja negra: es un conjunto de &lt;strong>herramientas matemáticas y conceptuales&lt;/strong> que, bien aplicadas, permiten a responsables de políticas, clínicos y científicos sociales responder la pregunta clave: &lt;em>¿qué pasaría si?&lt;/em>&lt;/p>
-&lt;p>La frontera actual está en combinar evidencia, explotar machine learning para heterogeneidad y desarrollar métodos más robustos frente a confusión no observada.&lt;/p>
-&lt;hr>
-&lt;h2 id="-referencias">📚 Referencias&lt;/h2>
-&lt;ul>
-&lt;li>Rosenbaum PR, Rubin DB. &lt;em>The central role of the propensity score…&lt;/em> Biometrika. 1983. &lt;a href="https://pubmed.ncbi.nlm.nih.gov/12009849/" target="_blank" rel="noopener">PubMed PMID: 12009849&lt;/a>&lt;/li>
-&lt;li>Hernán MA, Robins JM. &lt;em>Causal Inference: What If&lt;/em>. 2020. &lt;a href="https://pubmed.ncbi.nlm.nih.gov/33290294/" target="_blank" rel="noopener">PubMed PMID: 33290294&lt;/a>&lt;/li>
-&lt;li>Imbens GW, Rubin DB. &lt;em>Causal Inference for Statistics, Social, and Biomedical Sciences&lt;/em>. 2015.&lt;/li>
-&lt;li>Athey S, Imbens GW. &lt;em>Design-based analysis in difference-in-differences settings.&lt;/em> J Econometrics. 2022. &lt;a href="https://pubmed.ncbi.nlm.nih.gov/36212825/" target="_blank" rel="noopener">PubMed PMID: 36212825&lt;/a>&lt;/li>
-&lt;li>Abadie A. &lt;em>Using synthetic controls.&lt;/em> J Econometrics. 2021.&lt;/li>
-&lt;/ul></description></item></channel></rss>
+&lt;p>Vigen, T. (2015). &lt;em>Spurious Correlations&lt;/em>. Hachette Books. Sitio web: &lt;a href="https://tylervigen.com/spurious-correlations" target="_blank" rel="noopener">tylervigen.com/spurious-correlations&lt;/a>&lt;/p></description></item></channel></rss>

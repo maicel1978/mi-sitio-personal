@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Educación Médica | Bioestadística edu</title><link>https://bioestadisticaedu.com/tags/educacion-medica/</link><atom:link href="https://bioestadisticaedu.com/tags/educacion-medica/index.xml" rel="self" type="application/rss+xml"/><description>Educación Médica</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Wed, 15 Oct 2025 00:00:00 +0000</lastBuildDate><image><url>https://bioestadisticaedu.com/media/icon_hu_551fbaee136b383e.png</url><title>Educación Médica</title><link>https://bioestadisticaedu.com/tags/educacion-medica/</link></image><item><title>Experimento en el aula: ¿Pueden los estudiantes engañar a un bioestadístico? Un concurso de análisis forense de datos</title><link>https://bioestadisticaedu.com/post/concurso-mientele-profesor/</link><pubDate>Wed, 15 Oct 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/concurso-mientele-profesor/</guid><description>&lt;script src="https://bioestadisticaedu.com/post/concurso-mientele-profesor/index_files/kePrint/kePrint.js">&lt;/script>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Educación Médica | Bioestadística edu</title><link>https://bioestadisticaedu.com/tags/educacion-medica/</link><atom:link href="https://bioestadisticaedu.com/tags/educacion-medica/index.xml" rel="self" type="application/rss+xml"/><description>Educación Médica</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Wed, 10 Dec 2025 00:00:00 +0000</lastBuildDate><image><url>https://bioestadisticaedu.com/media/icon_hu_551fbaee136b383e.png</url><title>Educación Médica</title><link>https://bioestadisticaedu.com/tags/educacion-medica/</link></image><item><title>Experimento en el aula: ¿Pueden los estudiantes engañar a un bioestadístico? Un concurso de análisis forense de datos</title><link>https://bioestadisticaedu.com/post/concurso-mientele-profesor/</link><pubDate>Wed, 10 Dec 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/concurso-mientele-profesor/</guid><description>&lt;script src="https://bioestadisticaedu.com/post/concurso-mientele-profesor/index_files/kePrint/kePrint.js">&lt;/script>
 &lt;link href="https://bioestadisticaedu.com/post/concurso-mientele-profesor/index_files/lightable/lightable.css" rel="stylesheet" />
 &lt;script src="https://bioestadisticaedu.com/post/concurso-mientele-profesor/index_files/kePrint/kePrint.js">&lt;/script>
 &lt;link href="https://bioestadisticaedu.com/post/concurso-mientele-profesor/index_files/lightable/lightable.css" rel="stylesheet" />
@@ -418,7 +418,7 @@ Los humanos &lt;strong>intuyen bien la media&lt;/strong>, pero &lt;strong>fracas
 O somos demasiado prejuiciosos (La Confiada sesga los datos hacia lo patológico).
 La naturaleza es simétrica y dispersa. El humano es sesgado y temeroso.&lt;/p>
 &lt;h2 id="sexta-prueba-prueba-de-rachas">Sexta prueba: Prueba de Rachas&lt;/h2>
-&lt;p>Las cinco pruebas anteriores fueron el interrogatorio. Nos dieron sospechas fuertes (la SD, el redondeo), pero necesitábamos la prueba forense de ADN que confirmara la intervención humana.&lt;/p>
+&lt;p>Las seis pruebas anteriores fueron el interrogatorio. Nos dieron sospechas fuertes (la SD, el redondeo), pero necesitábamos la prueba forense de ADN que confirmara la intervención humana.&lt;/p>
 &lt;p>Aquí es donde interviene la Prueba de Rachas.&lt;/p>
 &lt;p>Este test es un detective implacable. No le interesa el valor específico del dato (si es 135 o 145), solo le importa la secuencia.&lt;/p>
 &lt;p>¿Cómo funciona?&lt;/p>
@@ -512,22 +512,12 @@ limpios&amp;rdquo;, recuerda:&lt;/p>
 &lt;blockquote>
 &lt;p>&lt;strong>Los datos reales son incómodos, impredecibles, y a veces feos.&lt;/strong>&lt;/p>
 &lt;p>&lt;strong>Si todo se ve perfecto, probablemente alguien lo perfeccionó.&lt;/strong>&lt;/p>&lt;/blockquote>
-&lt;p>Y si alguna vez te tienta fabricar datos, recuerda a La Prudente, La
-Entusiasta y La Confiada.&lt;/p>
-&lt;p>Ellas también creyeron que podían ganar.&lt;/p>
-&lt;p>&lt;strong>La estadística siempre gana.&lt;/strong>&lt;/p>
 &lt;hr>
 &lt;h2 id="recursos-adicionales">Recursos adicionales&lt;/h2>
-&lt;p>&lt;strong>Descarga la Plantillas de código en R para replicar las pruebas forenses y datos del experimento&lt;/strong>&lt;/p>
+&lt;p>Aquí tienes los materiales para reproducir el análisis forense en RStudio:&lt;/p>
 &lt;ul>
-&lt;li>&lt;a href="experimento.csv">Datos&lt;/a>.&lt;/li>
-&lt;li>&lt;a href="analisis.R">Código&lt;/a>.&lt;/li>
-&lt;/ul>
-&lt;p>&lt;strong>Herramientas online:&lt;/strong>&lt;/p>
-&lt;ul>
-&lt;li>&lt;a href="https://www.grimtest.com/" target="_blank" rel="noopener">GRIM Test Calculator&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://benfordonline.net/" target="_blank" rel="noopener">Benford Online Calculator&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://statcheck.io/" target="_blank" rel="noopener">StatCheck&lt;/a>&lt;/li>
+&lt;li>💾 &lt;strong>Datos Crudos:&lt;/strong> &lt;a href="experimento.csv">Descargar experimento.csv&lt;/a>&lt;/li>
+&lt;li>💻 &lt;strong>Script de Auditoría:&lt;/strong> &lt;a href="analisis.R">Descargar analisis.R&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;hr>
 &lt;h2 id="conviértete-en-detective-de-datos">¡Conviértete en Detective de Datos!&lt;/h2>
