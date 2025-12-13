@@ -5,7 +5,7 @@ categories: ["Código Práctico en R o Python"]
 summary: "Guía práctica con R para desarrollar modelos predictivos robustos en entornos clínicos"
 # profile: true
 author: "admin"
-date: "2025-10-22" #año mes dia
+date: "2025-11-12" #año mes dia
 # show_author_profile: true
 tags: 
   - "entrenar modelo en R para predicciones clínicas"

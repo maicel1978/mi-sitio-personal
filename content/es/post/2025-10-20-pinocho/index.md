@@ -562,12 +562,11 @@ La comunidad crece cuando compartimos casos reales. **¡Me encantaría leerte en
 
 - **Comparte tu caso más intrigante** - cómo sospechaste y qué técnica te dio la prueba definitiva.
 
-🕵️ **Lleva la Estadística Forense a Tu Próxima Investigación** 
+**Lleva la Estadística Forense a Tu Próxima Revisión Científica**
 
 [**Suscríbete a bioestadísticaedu**]({{< relref "/subscribe/" >}}) y recibe directamente en tu bandeja de entrada:
 
-- Plantillas de código para datos cualitativos
-
+- Software para entrenamiento de datos fabricados
 
 {{% callout note %}}
 **¡Regalo inmediato al suscribirte!** Te enviaré automáticamente el **kit completo del detective de datos datos cuantitativos y cualitativos**: código R para replicar las  pruebas forenses  + base de datos del experimento para que practiques.

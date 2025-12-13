@@ -5,23 +5,15 @@ tags:
 - Herramientas
 - Estadística Forense
 date: "2025-10-20"
-external_link: ""
+external_link: "/apps/detector-avanzado.html"
 image:
   caption: ""
   focal_point: Smart
 ---
 
-Esta es la herramienta oficial del experimento [ Miéntele al Profesor]({{< relref "/post/2025-10-20-pinocho" >}}) .  Utilízala para auditar tus propios datos o para practicar tus habilidades de detección de fraude.
+Esta es la herramienta oficial del experimento [ Miéntele al Profesor]({{< relref "/post/2025-10-20-pinocho" >}}) .  Utilízala para auditar tus propios datos o para practicar tus habilidades de detección de fraude.
 
 ### Instrucciones
 1. Pega tus datos de la variable concentración de hemoglobina en sangre (mujer adulta) en g/L en el recuadro.
 2. Pulsa "Analizar".
 3. Observa si el "Dígito Terminal" se pone rojo (señal de intervención humana).
-
-<!-- Herramienta Embebida -->
-<div style="position: relative; padding-bottom: 120%; height: 0; overflow: hidden; max-width: 100%;">
-    <iframe src="/apps/detector-avanzado.html" 
-            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
-            allowfullscreen>
-    </iframe>
-</div>
