@@ -7,9 +7,9 @@ type: project # <--- ¡AÑADIR ESTO!
 translationKey: "macroscope"
 categories:
 - Ciencia de Datos
-- IA
+- Proyecto
 tags:
-- IA
+- Herramientas
 - Fortificación
 slug: "plate-to-policy-real-time-ai-driven-insights-for-smarter-food-fortification"
 commentable: true # <-- ¡Asegúrate de que esta línea esté presente y sea 'true'!
