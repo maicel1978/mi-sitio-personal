@@ -6,6 +6,7 @@ slug: "IA"
 description: "Análisis del funcionamiento de los grandes modelos de lenguaje: arquitectura, entrenamiento, alineación y límites. Comprendiendo la diferencia entre predicción y razonamiento."
 categories: ["Reflexiones Críticas"]
 tags:
+  - "IA"
   - "arquitectura transformers"
   - "modelos predictivos estadísticos"
 bibliography: references.bib

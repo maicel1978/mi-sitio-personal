@@ -1,18 +1,22 @@
 ---
-title: "Experimento en el aula: ¿Pueden los estudiantes engañar a un bioestadístico? Un concurso de análisis forense de datos"
-subtitle: "Donde tres residentes intentaron engañar a la estadística (y perdieron espectacularmente)"
+title: "Experimento en el aula: ¿Pueden los estudiantes engañar a un bioestadístico? Un concurso de fabricación de datos"
+subtitle: "Donde tres residentes intentaron engañar a la estadística forence (y perdieron espectacularmente)"
 author: "admin"
 date: 2025-12-10
 categories: ["Metodología de Investigación"]
 tags: 
-  - "fraude científico"
+  - "experimento en el aula"
   - "estadística forence"
   - "detección de datos falsos"
   - "educación médica"
-slug: concurso-mientele-profesor
+slug: experimento-aula-estudiantes
 summary: "Pedí a mis residentes que inventaran datos de hemoglobina en 60 segundos. Usé seis técnicas forenses para atraparlos. Spoiler: La estadística siempre gana."
 featured: true
-draft: true# True para un borrador
+commentable: true  # Solo si tienes Disqus o similar configurado
+draft: false# True para un borrador
+show_related: true
+show_breadcrumb: true
+type: post
 ---
 <script src="{{< blogdown/postref >}}index_files/kePrint/kePrint.js"></script>
 <link href="{{< blogdown/postref >}}index_files/lightable/lightable.css" rel="stylesheet" />
@@ -483,11 +487,11 @@ El porqué es simple y aterrador:
 
 ### Un paréntesis necesario: Cuando la presión rompe la ética
 
-Antes de coronar a los ganadores, debemos ponernos serios un momento. El experimento de hoy —forzarlos a inventar datos en 60 segundos— no fue accidental. Fue una simulación de la realidad.
+Antes de coronar a los ganadores, debemos ponernos serios un momento. El experimento de hoy —forzarlos a fabricar datos en 60 segundos— no fue accidental. Fue una simulación de la realidad.
 
 En mi investigación publicada en la *Revista Habanera de Ciencias Médicas*, **["Causas de investigación científica cuestionable..."](http://scielo.sld.cu/scielo.php?script=sci_arttext&pid=S1729-519X2023000500005)**, documenté que la **presión** (por publicar o aprobar) es uno de los factores determinantes que empujan a los investigadores hacia la mala conducta, junto con el desconocimiento.
 
-Hoy hemos jugado a la "fabricación de datos" como herramienta pedagógica de ingeniería inversa. Pero que nadie se confunda: fuera de este ejercicio controlado, fabricar o falsificar resultados es una falta grave a la integridad científica. Como concluí en mi estudio, la fabricación de datos es una sombra presente que debemos combatir con educación y honestidad.
+Hoy hemos jugado a la **"fabricación de datos"** como herramienta pedagógica de ingeniería inversa. Pero que nadie se confunda: fuera de este ejercicio controlado, fabricar o falsificar resultados es una falta grave a la integridad científica. Como concluí en mi estudio, la **fabricación de datos** es una sombra presente que debemos combatir con educación y honestidad.
 
 Entender cómo se miente es el primer paso para defender la verdad.
 
