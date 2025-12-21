@@ -343,6 +343,13 @@ Su habilidad para generar texto coherente, relevante y a menudo sorprendentement
 Es una **ilusión de razonamiento** tan convincente que a menudo nos hace cuestionar la naturaleza de la inteligencia misma.
 Y es, sin duda, una de las maravillas tecnológicas más grandes de nuestro tiempo.
 
+Este post se articula con otros textos de las serie **IA, estadística y pensamiento crítico**:
+
+["Experimento en el aula: El día que el silicio me dio el Nobel"]({{< relref "/post/2025-10-25-ia-2" >}}).
+
+
+
+
 ## Bibliografía
 
 <div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
