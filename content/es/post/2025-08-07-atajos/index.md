@@ -5,9 +5,9 @@ author: "admin"
 date: '2025-08-07'
 categories: ["Evaluación Regulatoria"]
 tags:
+  - "evaluación regulatoria"
   - "ensayos clínicos"  
   - "atajos diseños ensayos clínicos y riesgos ICH"
-  - "errores que detienen aprobaciones EMA FDA"
   - "guía validación regulatoria para evaluadores"
 description: 'Análisis técnico y regulatorio del uso de diseños no confirmatorios
   en sustitución de ensayos clínicos aleatorizados: justificaciones, riesgos metodológicos

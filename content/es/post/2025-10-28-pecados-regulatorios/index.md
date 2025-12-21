@@ -10,7 +10,7 @@ author: "admin"
 date: "2025-12-09" #año mes dia
 # show_author_profile: true
 tags: 
-  - "bioestadistica"
+  - "evaluación regulatoria"
   - "ensayos clínicos"  
   - "errores que detienen aprobaciones EMA FDA"
   - "guía validación regulatoria para evaluadores"
