@@ -540,6 +540,12 @@ limpios", recuerda:
 >
 > **Si todo se ve perfecto, probablemente alguien lo perfeccionó.**
 
+------------------------------------------------------------------------
+
+Este post se articula con otros textos de las series **Experimentos en el aula** :
+
+["Experimento en el aula: El día que el silicio me dio el Nobel
+"]({{< relref "/post/2025-10-25-ia-2" >}}).
 
 ------------------------------------------------------------------------
 
@@ -586,6 +592,8 @@ Si enfrentas:
 [**Agenda una consultoría personalizada**]({{< relref "/collaborations/" >}}). Juntos podemos auditar tus datos, entrenar tu equipo en detección de fraudes o desarrollar protocolos de control de calidad para tus investigaciones.
 
 ---
+
+
 
 ## Referencias
 
