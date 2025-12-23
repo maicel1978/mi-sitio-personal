@@ -348,28 +348,15 @@ Este post se articula con otros textos de las serie **IA, estadística y pensami
 ["Experimento en el aula: El día que el silicio me dio el Nobel"]({{< relref "/post/2025-10-25-ia-2" >}}).
 
 
-
-
 ## Bibliografía
 
-<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+Haykin, S. (2009). Neural Networks and Learning Machines (3rd ed.). Pearson Education.
+Disponible en: http://dni.dali.dartmouth.edu/9umv9yghhaoq/13-dayana-hermann-1/read-0131471392-neural-networks-and-learning-machines.pdf
 
-<div id="ref-haykin" class="csl-entry">
+Stanford Online. (2024, August). *Stanford CS229: Machine Learning - Building Large Language Models (LLMs)* [Video]. YouTube.
+Disponible en: https://www.youtube.com/watch?v=9vM4p9NN0Ts
 
-Haykin, Simon. n.d. “Neural Networks and Learning Machines.” <http://dni.dali.dartmouth.edu/9umv9yghhaoq/13-dayana-hermann-1/read-0131471392-neural-networks-and-learning-machines.pdf>.
+Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, L., & Polosukhin, I. (2017). Attention Is All You Need. In Advances in Neural Information Processing Systems 30 (NeurIPS 2017).
+Disponible en: https://doi.org/10.48550/ARXIV.1706.03762
 
-</div>
 
-<div id="ref-stanfordonline2024" class="csl-entry">
-
-Stanford Online. 2024. “Stanford CS229 i Machine Learning i Building Large Language Models (LLMs),” August. <https://www.youtube.com/watch?v=9vM4p9NN0Ts>.
-
-</div>
-
-<div id="ref-vaswani" class="csl-entry">
-
-Vaswani, Ashish, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, and Illia Polosukhin. n.d. “Attention Is All You Need.” <https://doi.org/10.48550/ARXIV.1706.03762>.
-
-</div>
-
-</div>

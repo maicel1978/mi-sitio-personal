@@ -5,8 +5,8 @@ summary: "¿El sagrado p<0.05 es ciencia o solo pirotecnia estadística? Crític
 author: "admin"
 categories: ["Reflexiones Críticas"]
 tags:
+  - "significación-estadística"
   - "valor p"
-  - "significación estadística"
   - "intervalos de confianza"
   - "estadística bayesiana"
 date: "2025-08-10T15:30:00Z" # Asegúrate de que la fecha y hora sean correctas

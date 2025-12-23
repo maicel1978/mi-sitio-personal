@@ -5,7 +5,7 @@ date: "2025-01-29"
 slug: generalizacion
 categories: ["Metodología de Investigación"]
 tags:
-  - "validez externa en ensayos clínicos reales"
+  - "validez"
   - "superar sesgos de generalizabilidad en estudios"
   - "transportabilidad de resultados laboratorio a práctica"
   - "herramientas estadísticas para validez interna externa"

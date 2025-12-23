@@ -5,7 +5,7 @@ author: "admin"
 date: '2025-08-07'
 categories: ["Evaluación Regulatoria"]
 tags:
-  - "evaluación regulatoria"
+  - "evaluación-regulatoria"
   - "ensayos clínicos"  
   - "atajos diseños ensayos clínicos y riesgos ICH"
   - "guía validación regulatoria para evaluadores"
@@ -119,8 +119,8 @@ Los diseños alternativos no deben entenderse como sustitutos genéricos del ECA
 ------------------------------------------------------------------------
 
 
-🎧 **Escucha el podcast de esta publicación**
-{{< audio src="/mp3/atajos.mp3" controls="yes" >}}
+<!-- 🎧 **Escucha el podcast de esta publicación** -->
+<!-- {{< audio src="/mp3/atajos.mp3" controls="yes" >}} -->
 
 ------------------------------------------------------------------------
 

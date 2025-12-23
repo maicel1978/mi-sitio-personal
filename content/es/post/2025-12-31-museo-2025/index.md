@@ -1,13 +1,13 @@
 ---
-title: "El Museo de los Horrores Metodológicos 2025: La Era de la Alucinación Artificial"
+title: "El Museo de los Horrores Metodológicos Año 2025: La Era de la Alucinación Artificial"
 subtitle: "Una curaduría anual de errores en investigación"
 author: "admin"
 date: 2025-12-05
-categories: ["Metodología de Investigación"]
+categories: ["Reflexiones Críticas"]
 tags:
-  - "Museo de los Horrores"
-  - "Errores Metodológicos"
-  - "Sesgos en IA"
+  - "Museo-Horrores"
+  - "RigorMetodológico"
+  - "IA"
 slug: museo-2025
 summary: "Crítica humorística a publicaciones científicas de 2025, con referencias reales y lecciones para investigadores."
 featured: true

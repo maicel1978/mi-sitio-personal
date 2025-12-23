@@ -6,16 +6,14 @@ date: '2025-02-11'
 slug: "eda"
 categories: ["Código Práctico en R o Python"]
 tags:
-  - "tutorial en r"  
-  - "tutorial en r para Análisis Exploratorio de Datos"
-  - "Limpieza de datos"
-summary: El Análisis Exploratorio de Datos (EDA) es la fase crítica de inspección inicial, limpieza y preparación de datos que sienta las bases para modelos robustos y conocimientos profundos, garantizando que solo los datos de la más alta calidad alimenten nuestros algoritmos.
+  - "Calidad-Dato"  
+  - "R"
+  - "EDA"
+  - "GIGO"
+summary: "El EDA es la fase crítica de inspección y limpieza que garantiza que solo datos de alta calidad alimenten tus algoritmos. Sin un buen EDA, cualquier modelo es propenso al fracaso."
 featured: false  # Destacar en la página principal
 type: post
 ---
-
-
-
 
 ## Introducción
 

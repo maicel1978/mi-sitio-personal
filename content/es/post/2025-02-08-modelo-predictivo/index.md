@@ -8,10 +8,10 @@ author: "admin"
 date: "2025-11-12" #año mes dia
 # show_author_profile: true
 tags: 
-  - "entrenar modelo en R para predicciones clínicas"
-  - "tutorial en r para modelos predictivos médicos"
+  - "Modelización-Clínica"
+  - "R"
   - "guía Steyerberg para modelos predictivos médicos"
-  - "evitar overfitting en validación de ML"
+  - "Validación"
 slug: como-entrenar-y-validar-un-modelo-de-machine-learning
 featured: true  # Destacar en la página principal
 translationKey: "MPC"
