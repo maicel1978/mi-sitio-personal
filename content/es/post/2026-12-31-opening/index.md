@@ -13,11 +13,11 @@ tags:
 slug: manifiesto-es
 summary: "Reflexiones y herramientas para mirar más allá de los números y la apariencia de certeza"
 featured: true
-draft: true
+draft: false
 show_date: true
 reading_time: true
 share: true
-commentable: true  # Solo si tienes Disqus o similar configurado
+commentable: false  # Solo si tienes Disqus o similar configurado
 show_related: true
 show_breadcrumb: true
 type: post
