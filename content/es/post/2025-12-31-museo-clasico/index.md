@@ -33,6 +33,8 @@ Cualquier dogma que intente entrar disfrazado será tratado en consecuencia.
 Estamos cerrando 2025 y, si algo dejó claro este año, es que los horrores metodológicos **no nacieron con la inteligencia artificial**.
 Han existido siempre. La IA solo los acelera, los embellece y los envuelve en notación elegante, volviéndolos más difíciles de detectar —y más fáciles de justificar.
 
+[Ver el post "El Museo de los Horrores Metodológicos Año 2025: La Era de la Alucinación Artificial"]({{< relref "/post/2025-12-31-museo-2025" >}}).
+
 Como evaluador que ha olfateado desastres en datos crudos mucho antes de que los algoritmos los barnizaran, puedo asegurarlo:
 **los clásicos siguen siendo la raíz de todo**.
 
@@ -90,7 +92,7 @@ Bienvenidos a la **Sala de Arte Clásico** del Museo.
 
 **(Bajo poder estadístico)**
 
-![](pintura03.png)
+![](pintura04.png)
 
 **Figura espectral:** Un guardián invisible que deja pasar amenazas sin alertar.
 
@@ -103,6 +105,8 @@ Bienvenidos a la **Sala de Arte Clásico** del Museo.
 ## Obra 5: El Montón de Desechos Coronado
 
 **(Ignorar la calidad de los datos)**
+
+![](pintura05.png)
 
 **Clásico pompeyano:** Residuos arqueológicos confundidos con tesoros.
 
