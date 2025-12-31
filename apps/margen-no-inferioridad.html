@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Margen Delta - BioestadisticaEdu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background: transparent; padding: 10px; }
+        .card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 25px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); max-width: 550px; margin: auto; }
+        h2 { color: #2d3748; font-size: 1.3rem; margin-bottom: 5px; text-align: center; }
+        p.subtitle { text-align: center; color: #718096; font-size: 0.85rem; margin-bottom: 20px; }
+        .input-group { margin-bottom: 15px; }
+        label { display: block; font-size: 0.85rem; color: #4a5568; font-weight: 600; margin-bottom: 5px; }
+        input { width: 100%; padding: 10px; border: 1px solid #cbd5e0; border-radius: 6px; box-sizing: border-box; }
+        .config-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        button { width: 100%; background: #2c5282; color: white; border: none; padding: 14px; border-radius: 6px; font-weight: 600; cursor: pointer; margin-top: 10px; }
+        #results { margin-top: 25px; padding: 20px; border-radius: 8px; display: none; border: 1px dashed #cbd5e0; }
+        .delta-box { text-align: center; margin: 15px 0; }
+        .delta-val { font-size: 2rem; font-weight: bold; color: #2b6cb0; }
+        .warning { font-size: 0.85rem; color: #744210; background: #fffff0; padding: 10px; border-radius: 5px; margin-top: 10px; border-left: 4px solid #ecc94b; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>📐 Margen de No-Inferioridad ($\delta$)</h2>
+    <p class="subtitle">Justificación técnica basada en evidencia histórica</p>
+    
+    <div class="input-group">
+        <label>Efecto Histórico del Estándar vs Placebo (OR/RR)</label>
+        <input type="number" id="hist_effect" value="1.50" step="0.01" placeholder="Ej: 1.50">
+        <small style="color: #a0aec0;">El límite inferior del IC95% del estudio de referencia.</small>
+    </div>
+
+    <div class="config-row">
+        <div class="input-group">
+            <label>% de Efecto a Preservar</label>
+            <input type="number" id="preserve" value="50" min="1" max="99">
+        </div>
+        <div class="input-group">
+            <label>Escala del Endpoint</label>
+            <select id="scale" style="width:100%; padding:10px; border-radius:6px; border:1px solid #cbd5e0;">
+                <option value="diff">Diferencia Riesgos</option>
+                <option value="ratio">Ratio (RR/OR)</option>
+            </select>
+        </div>
+    </div>
+
+    <button onclick="calculateDelta()">Calcular Margen Aceptable</button>
+
+    <div id="results">
+        <div class="delta-box">
+            <span style="font-size: 0.9rem; color: #4a5568;">Margen $\delta$ sugerido:</span><br>
+            <span class="delta-val" id="delta-display">0.00</span>
+        </div>
+        <div id="interpretation" style="font-size: 0.9rem; color: #2d3748; line-height: 1.4;"></div>
+        <div class="warning">
+            <strong>Nota Regulatoria:</strong> Este margen asegura que el nuevo tratamiento retiene al menos una fracción del beneficio del comparador activo.
+        </div>
+        <p style="font-size: 0.7rem; color: #a0aec0; margin-top: 15px; text-align: center;">
+            BioestadisticaEdu © 2025 - Maicel Monzon
+        </p>
+    </div>
+</div>
+
+<script>
+function calculateDelta() {
+    const m1 = parseFloat(document.getElementById('hist_effect').value);
+    const preserve = parseFloat(document.getElementById('preserve').value) / 100;
+    const scale = document.getElementById('scale').value;
+    
+    let delta;
+    let text;
+
+    if (scale === 'ratio') {
+        // Para Ratios, el margen se calcula a menudo logarítmicamente o como fracción del efecto
+        // Delta = 1 + (M1 - 1) * (1 - preserve)
+        delta = 1 + (m1 - 1) * (1 - preserve);
+        text = `Para no ser inferior, el límite superior del IC95% de su estudio no debe superar un RR/OR de <strong>${delta.toFixed(3)}</strong>.`;
+    } else {
+        // Para diferencias absolutas
+        delta = m1 * (1 - preserve);
+        text = `El margen de no-inferioridad clínico aceptable es una diferencia de <strong>${delta.toFixed(3)}</strong>.`;
+    }
+
+    document.getElementById('results').style.display = 'block';
+    document.getElementById('delta-display').innerText = delta.toFixed(3);
+    document.getElementById('interpretation').innerHTML = text;
+}
+</script>
+</body>
+</html>

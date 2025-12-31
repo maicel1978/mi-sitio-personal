@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Muestral - BioestadísticaEdu</title>
+    <style>
+        :root {
+            --primary: #1a365d;
+            --accent: #2b6cb0;
+            --success: #2f855a;
+            --bg: #f7fafc;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--bg);
+            padding: 30px;
+            color: #2d3748;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            border-top: 6px solid var(--primary);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 { margin: 0; color: var(--primary); font-size: 1.8rem; }
+        .header p { color: var(--accent); font-weight: 600; margin: 5px 0; }
+
+        .config-panel {
+            background: #edf2f7;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .input-group { margin-bottom: 15px; }
+        label { display: block; font-weight: 700; font-size: 0.85rem; margin-bottom: 5px; color: #4a5568; }
+        input, select { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 5px; font-size: 1rem; }
+
+        .btn-calc {
+            background: var(--primary);
+            color: white;
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-calc:hover { background: var(--accent); transform: translateY(-1px); }
+
+        #result-section { display: none; margin-top: 35px; }
+
+        .summary-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+
+        .card-final { background: #f0fff4; border-color: #c6f6d5; }
+        .card-final strong { font-size: 2.2rem; color: var(--success); }
+
+        .protocol-output {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            padding: 25px;
+            border-left: 5px solid var(--primary);
+            font-family: 'Georgia', serif;
+            line-height: 1.8;
+            color: #1a202c;
+        }
+
+        .copy-btn {
+            background: #ebf4ff;
+            color: #2b6cb0;
+            border: 1px solid #bee3f8;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Calculadora de Tamaño de Muestra</h1>
+        <p>Metodología BioestadísticaEdu - Maicel Monzón</p>
+    </div>
+
+    <div class="config-panel">
+        <div class="input-group">
+            <label>Tipo de Variable</label>
+            <select id="mode" onchange="updateUI()">
+                <option value="prop">Diferencia de Proporciones (%)</option>
+                <option value="mean">Diferencia de Medias (Promedios)</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label>Tipo de Contraste</label>
+            <select id="tails">
+                <option value="1">Unilateral (Superioridad)</option>
+                <option value="2" selected>Bilateral (Diferencia)</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="prop-fields" class="grid-inputs">
+        <div class="config-panel" style="background:none; padding:0; margin:0;">
+            <div class="input-group">
+                <label>Proporción Grupo Control (p1 %)</label>
+                <input type="number" id="p1" value="20">
+            </div>
+            <div class="input-group">
+                <label>Proporción Grupo Estudio (p2 %)</label>
+                <input type="number" id="p2" value="40">
+            </div>
+        </div>
+    </div>
+
+    <div id="mean-fields" class="grid-inputs" style="display:none;">
+        <div class="config-panel" style="background:none; padding:0; margin:0;">
+            <div class="input-group">
+                <label>Media Grupo 1</label>
+                <input type="number" id="m1" value="100">
+            </div>
+            <div class="input-group">
+                <label>Media Grupo 2</label>
+                <input type="number" id="m2" value="90">
+            </div>
+            <div class="input-group" style="grid-column: span 2;">
+                <label>Desviación Estándar (SD)</label>
+                <input type="number" id="sd" value="15">
+            </div>
+        </div>
+    </div>
+
+    <div class="config-panel" style="background:none; border-top: 1px solid #e2e8f0; padding-top:20px;">
+        <div class="input-group">
+            <label>Confianza (1-α)</label>
+            <select id="alpha">
+                <option value="1.645">90%</option>
+                <option value="1.96" selected>95%</option>
+                <option value="2.576">99%</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label>Potencia (1-β)</label>
+            <select id="beta">
+                <option value="0.842" selected>80%</option>
+                <option value="1.282">90%</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label>% Pérdida Esperada</label>
+            <input type="number" id="loss" value="10">
+        </div>
+    </div>
+
+    <button class="btn-calc" onclick="calculate()">GENERAR CÁLCULO Y PROTOCOLO</button>
+
+    <div id="result-section">
+        <div class="summary-cards">
+            <div class="card">
+                <span>Total Teórico (n)</span><br>
+                <strong id="n-raw" style="font-size: 1.5rem;">0</strong>
+            </div>
+            <div class="card card-final">
+                <span>Total a Reclutar (N)</span><br>
+                <strong id="n-final">0</strong>
+            </div>
+        </div>
+
+        <div class="protocol-output">
+            <h3 style="margin-top:0; font-size: 0.9rem; color: var(--accent);">TEXTO PARA PROTOCOLO DE INVESTIGACIÓN:</h3>
+            <div id="protocol-text"></div>
+            <button class="copy-btn" onclick="copyText()">Copiar para Word</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function updateUI() {
+        const mode = document.getElementById('mode').value;
+        document.getElementById('prop-fields').style.display = mode === 'prop' ? 'block' : 'none';
+        document.getElementById('mean-fields').style.display = mode === 'mean' ? 'block' : 'none';
+    }
+
+    function calculate() {
+        const mode = document.getElementById('mode').value;
+        const za = parseFloat(document.getElementById('alpha').value);
+        const zb = parseFloat(document.getElementById('beta').value);
+        const tails = parseInt(document.getElementById('tails').value);
+        const lossPerc = parseFloat(document.getElementById('loss').value) / 100;
+        
+        let n_teorico = 0;
+        let formulaTxt = "";
+        let valoresTxt = "";
+
+        if (mode === 'prop') {
+            const p1 = parseFloat(document.getElementById('p1').value) / 100;
+            const p2 = parseFloat(document.getElementById('p2').value) / 100;
+            const p_media = (p1 + p2) / 2;
+            
+            // Fórmula Maicel Monzón Proporciones
+            const num = Math.pow(za * Math.sqrt(2 * p_media * (1 - p_media)) + zb * Math.sqrt(p1 * (1 - p1) + p2 * (1 - p2)), 2);
+            const den = Math.pow(p1 - p2, 2);
+            n_teorico = num / den;
+
+            formulaTxt = "n = [Zα√2P(1-P) + Zβ√p1(1-p1) + p2(1-p2)]² / (p1-p2)²";
+            valoresTxt = `n = [${za}√2(${p_media.toFixed(2)})(1-${p_media.toFixed(2)}) + ${zb}√${p1}(1-${p1}) + ${p2}(1-${p2})]² / (${p1}-${p2})²`;
+        } else {
+            const m1 = parseFloat(document.getElementById('m1').value);
+            const m2 = parseFloat(document.getElementById('m2').value);
+            const sd = parseFloat(document.getElementById('sd').value);
+            
+            // Fórmula Maicel Monzón Medias
+            n_teorico = (2 * Math.pow(za + zb, 2) * Math.pow(sd, 2)) / Math.pow(m1 - m2, 2);
+            
+            formulaTxt = "n = 2 * (Zα + Zβ)² * SD² / (μ1 - μ2)²";
+            valoresTxt = `n = 2 * (${za} + ${zb})² * ${sd}² / (${m1} - ${m2})²`;
+        }
+
+        const n_final_grupo = Math.ceil(n_teorico / (1 - lossPerc));
+        const total_n = n_final_grupo * 2;
+
+        document.getElementById('n-raw').innerText = Math.ceil(n_teorico * 2);
+        document.getElementById('n-final').innerText = total_n;
+
+        // Generación del texto
+        const texto = `Para determinar el tamaño de la muestra, se utilizó el procedimiento descrito por Maicel Monzón en BioestadísticaEdu para la comparación de dos grupos independientes.
+
+Las hipótesis establecidas son:
+H₀: |θ₁ - θ₂| ≤ Δ (La intervención no presenta superioridad clínica relevante)
+H₁: |θ₁ - θ₂| > Δ (La intervención presenta una diferencia estadísticamente significativa)
+
+El cálculo se realizó empleando la siguiente expresión matemática:
+${formulaStr(formulaTxt)}
+
+Sustituyendo los parámetros del estudio:
+${formulaStr(valoresTxt)}
+
+Bajo estas premisas, se requiere un tamaño muestral de ${Math.ceil(n_teorico)} sujetos por brazo. Considerando una tasa de pérdida de seguimiento estimada del ${(lossPerc * 100)}%, se aplicó el ajuste n_adj = n / (1-R), resultando en ${n_final_grupo} sujetos por grupo, para un total de ${total_n} participantes en el estudio. El análisis se ha configurado con un nivel de confianza del ${getConf(za)}% y una potencia estadística del ${getPower(zb)}% para un contraste ${tails === 1 ? 'unilateral' : 'bilateral'}.`;
+
+        document.getElementById('protocol-text').innerText = texto;
+        document.getElementById('result-section').style.display = 'block';
+    }
+
+    function formulaStr(txt) { return "    " + txt; }
+    function getConf(z) { return z === 1.96 ? "95" : (z === 2.576 ? "99" : "90"); }
+    function getPower(z) { return z === 0.842 ? "80" : "90"; }
+    function copyText() {
+        const t = document.getElementById('protocol-text').innerText;
+        navigator.clipboard.writeText(t).then(() => alert("Texto copiado para BioestadísticaEdu"));
+    }
+</script>
+
+</body>
+</html>
