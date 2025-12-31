@@ -10,8 +10,8 @@ author: "admin"
 date: "2025-11-09" #año mes dia
 # show_author_profile: true
 tags: 
-  - "evaluación regulatoria"
-  - "ensayos clínicos"  
+  - "evaluacion-regulatoria"
+  - "ensayos-clínicos"
   - "errores que detienen aprobaciones EMA FDA"
   - "guía validación regulatoria para evaluadores"
 slug: siete-pecados-protocolos-clinicos

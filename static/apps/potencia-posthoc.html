@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Potencia Post-hoc - BioestadisticaEdu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background: transparent; padding: 10px; }
+        .card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 25px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); max-width: 550px; margin: auto; }
+        h2 { color: #2d3748; font-size: 1.4rem; margin-bottom: 5px; text-align: center; }
+        p.subtitle { text-align: center; color: #718096; font-size: 0.85rem; margin-bottom: 20px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        label { display: block; font-size: 0.8rem; color: #4a5568; font-weight: 600; margin-bottom: 5px; }
+        input { width: 100%; padding: 10px; border: 1px solid #cbd5e0; border-radius: 6px; box-sizing: border-box; }
+        button { width: 100%; background: #3182ce; color: white; border: none; padding: 14px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 1rem; }
+        button:hover { background: #2b6cb0; }
+        #results { margin-top: 25px; padding: 20px; border-radius: 8px; display: none; }
+        .potencia-valor { font-size: 2.5rem; font-weight: bold; text-align: center; margin: 10px 0; }
+        .badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 10px; }
+        .low { background: #fff5f5; color: #c53030; }
+        .mid { background: #fffaf0; color: #9c4221; }
+        .high { background: #f0fff4; color: #2f855a; }
+        .interpretation { font-size: 0.9rem; line-height: 1.5; color: #4a5568; border-top: 1px solid #edf2f7; pt: 15px; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>⚡ Potencia Post-hoc</h2>
+    <p class="subtitle">Análisis de viabilidad para hallazgos no significativos</p>
+    
+    <div class="grid">
+        <div>
+            <label>N (Grupo Control)</label>
+            <input type="number" id="n1" value="100">
+        </div>
+        <div>
+            <label>N (Grupo Tratamiento)</label>
+            <input type="number" id="n2" value="100">
+        </div>
+        <div>
+            <label>% Éxito Control (Obs.)</label>
+            <input type="number" id="p1" value="40" step="0.1">
+        </div>
+        <div>
+            <label>% Éxito Trata. (Obs.)</label>
+            <input type="number" id="p2" value="55" step="0.1">
+        </div>
+    </div>
+
+    <button onclick="calculatePower()">Analizar Potencia Observada</button>
+
+    <div id="results">
+        <center><div id="status-badge" class="badge"></div></center>
+        <div class="potencia-valor" id="power-display">0%</div>
+        <div class="interpretation" id="text-interp"></div>
+        <p style="font-size: 0.7rem; color: #a0aec0; margin-top: 15px; text-align: center;">
+            Cálculo basado en aproximación normal (Z-test) para proporciones. <br>
+            BioestadisticaEdu © 2025 - Mohsen Ebrahimi
+        </p>
+    </div>
+</div>
+
+<script>
+function cdfNormal(x) {
+    return (1 + Math.erf(x / Math.sqrt(2))) / 2;
+}
+
+function calculatePower() {
+    const n1 = parseInt(document.getElementById('n1').value);
+    const n2 = parseInt(document.getElementById('n2').value);
+    const p1 = parseFloat(document.getElementById('p1').value) / 100;
+    const p2 = parseFloat(document.getElementById('p2').value) / 100;
+    const alpha = 0.05;
+
+    if (p1 === p2) {
+        alert("La diferencia es cero. La potencia técnica será igual al nivel alfa (5%).");
+    }
+
+    const diff = Math.abs(p2 - p1);
+    const p_avg = (n1 * p1 + n2 * p2) / (n1 + n2);
+    const se = Math.sqrt(p_avg * (1 - p_avg) * (1/n1 + 1/n2));
+    
+    const z_alpha = 1.96; 
+    const z_beta = (diff / se) - z_alpha;
+    
+    const power = cdfNormal(z_beta);
+    const powerPercent = (power * 100).toFixed(1);
+
+    // Interfaz
+    const resDiv = document.getElementById('results');
+    const display = document.getElementById('power-display');
+    const badge = document.getElementById('status-badge');
+    const interp = document.getElementById('text-interp');
+
+    resDiv.style.display = 'block';
+    display.innerText = powerPercent + "%";
+
+    if (power < 0.5) {
+        resDiv.style.background = "#fff5f5";
+        badge.innerText = "POTENCIA INSUFICIENTE";
+        badge.className = "badge low";
+        interp.innerHTML = "<strong>Interpretación:</strong> El estudio tiene un alto riesgo de falso negativo (Error Tipo II). No encontrar diferencias significativas aquí no significa que el fármaco no funcione, sino que el diseño fue demasiado 'débil' para detectar el efecto observado.";
+    } else if (power < 0.8) {
+        resDiv.style.background = "#fffaf0";
+        badge.innerText = "POTENCIA SUBÓPTIMA";
+        badge.className = "badge mid";
+        interp.innerHTML = "<strong>Interpretación:</strong> La potencia está por debajo del estándar académico (80%). Los resultados son inconcluyentes y requieren precaución.";
+    } else {
+        resDiv.style.background = "#f0fff4";
+        badge.innerText = "POTENCIA ADECUADA";
+        badge.className = "badge high";
+        interp.innerHTML = "<strong>Interpretación:</strong> Si el resultado fue no significativo (p > 0.05) con esta potencia, podemos tener mayor confianza en que la diferencia real es probablemente inexistente o clínicamente irrelevante.";
+    }
+}
+</script>
+</body>
+</html>

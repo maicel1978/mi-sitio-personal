@@ -1,20 +1,18 @@
 ---
-title: 'Diseños Alternativos a Ensayos Clínicos Controlados Aleatorizados: Contextos
-  de Aplicación y Riesgos Regulatorios'
+title: "Diseños Alternativos a Ensayos Clínicos Controlados Aleatorizados: Contextos de Aplicación y Riesgos Regulatorios"
 author: "admin"
 date: '2025-08-07'
 categories: ["Evaluación Regulatoria"]
 tags:
   - "evaluación-regulatoria"
-  - "ensayos clínicos"  
+  - "ensayos-clínicos"
   - "atajos diseños ensayos clínicos y riesgos ICH"
   - "guía validación regulatoria para evaluadores"
-description: 'Análisis técnico y regulatorio del uso de diseños no confirmatorios
-  en sustitución de ensayos clínicos aleatorizados: justificaciones, riesgos metodológicos
-  y salvaguardas requeridas por ICH, EMA y FDA.'
-slug: atajos
+description: "Análisis técnico y regulatorio del uso de diseños no confirmatorios
+  en sustitución de ensayos clínicos aleatorizados: justificaciones, riesgos metodológicos  y salvaguardas requeridas por ICH, EMA y FDA."
+slug: "atajos"
 languages:
-  es: "/es/posts/atajos "
+  es: "/es/posts/atajos"
   en: "/en/posts/atajos-en" 
 # Control visual y funcional del post
 commentable: true
