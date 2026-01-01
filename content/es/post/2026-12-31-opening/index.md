@@ -92,3 +92,5 @@ Este es un proyecto a largo plazo.
 Si te quedas, será para pensar despacio.
 
 **“Si quieres aprender a mirar más allá de los números, este es tu lugar.”**
+
+[**Suscríbete a bioestadísticaedu**]({{< relref "/subscribe/" >}}) 
