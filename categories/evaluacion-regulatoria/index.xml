@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Evaluación Regulatoria | Bioestadística edu</title><link>https://bioestadisticaedu.com/categories/evaluacion-regulatoria/</link><atom:link href="https://bioestadisticaedu.com/categories/evaluacion-regulatoria/index.xml" rel="self" type="application/rss+xml"/><description>Evaluación Regulatoria</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Fri, 12 Dec 2025 00:00:00 +0000</lastBuildDate><image><url>https://bioestadisticaedu.com/media/icon_hu_551fbaee136b383e.png</url><title>Evaluación Regulatoria</title><link>https://bioestadisticaedu.com/categories/evaluacion-regulatoria/</link></image><item><title>El Frankenstein Metodológico: La Bestia Silenciosa en los Ensayos Clínicos</title><link>https://bioestadisticaedu.com/post/er-01/</link><pubDate>Fri, 12 Dec 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/er-01/</guid><description>&lt;h2 id="introducción">Introducción&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Evaluación Regulatoria | Bioestadística edu</title><link>https://bioestadisticaedu.com/categories/evaluacion-regulatoria/</link><atom:link href="https://bioestadisticaedu.com/categories/evaluacion-regulatoria/index.xml" rel="self" type="application/rss+xml"/><description>Evaluación Regulatoria</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Wed, 31 Dec 2025 00:00:00 +0000</lastBuildDate><image><url>https://bioestadisticaedu.com/media/icon_hu_551fbaee136b383e.png</url><title>Evaluación Regulatoria</title><link>https://bioestadisticaedu.com/categories/evaluacion-regulatoria/</link></image><item><title>El Frankenstein Metodológico: La Bestia Silenciosa en los Ensayos Clínicos</title><link>https://bioestadisticaedu.com/post/er-01/</link><pubDate>Wed, 31 Dec 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/er-01/</guid><description>&lt;h2 id="introducción">Introducción&lt;/h2>
 &lt;p>Abres un informe de estudio clínico (CSR) o un artículo en &lt;em>The Lancet&lt;/em> y todo brilla: estructura impecable, tablas claras, variables bien definidas y un plan de análisis estadístico (SAP) que parece inquebrantable.&lt;/p>
 &lt;p>Pero, debajo de esa fachada, a veces acecha el &lt;strong>Frankenstein metodológico&lt;/strong>: piezas técnicamente correctas que, al ensamblarse, terminan respondiendo una pregunta que nadie formuló de manera explícita.&lt;/p>
 &lt;p>No es un error de principiante. Es un problema sistémico: la fricción entre la intención clínica y la realidad operativa del estudio.&lt;/p>
@@ -50,9 +50,9 @@
 &lt;thead>
 &lt;tr>
 &lt;th style="text-align: left">estrategia&lt;/th>
-&lt;th style="text-align: right">p_control&lt;/th>
-&lt;th style="text-align: right">p_trat&lt;/th>
-&lt;th style="text-align: right">diff&lt;/th>
+&lt;th style="text-align: right">controles&lt;/th>
+&lt;th style="text-align: right">tratados&lt;/th>
+&lt;th style="text-align: right">diferecia&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -101,58 +101,63 @@
 &lt;li>un cambio de enfoque: de “estadística como fin” a “estadística como herramienta para decidir”.&lt;/li>
 &lt;/ul>
 &lt;p>Leer ICH E9(R1), hacer pilotos internos y entrenar a los equipos en trazabilidad inferencial ayuda a que el ensayo responda, de verdad, la pregunta que importa.&lt;/p>
-&lt;h2 id="tu-estudio-resiste-esta-auditoría-si-no-mejor-detectarlo-hoy-que-defenderlo-mañana">¿Tu estudio resiste esta auditoría? Si no, mejor detectarlo hoy que defenderlo mañana.&lt;/h2>
+&lt;p>¿Tu estudio resiste esta auditoría? Si no, mejor detectarlo hoy que defenderlo mañana.&lt;/p>
+&lt;hr>
 &lt;h2 id="cuéntame-tu-caso-sin-datos-sensibles">Cuéntame tu caso (sin datos sensibles)&lt;/h2>
-&lt;p>Si trabajas con protocolos, SAP o CSR, me interesa un ejemplo real (anónimo) para futuros posts.&lt;/p>
-&lt;p>Copia y pega esto en la caja de comentarios y completa lo que puedas:&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>Tipo de estudio / área terapéutica:&lt;/strong> ___&lt;/li>
-&lt;li>&lt;strong>Variable principal:&lt;/strong> ___&lt;/li>
-&lt;li>&lt;strong>Pregunta clínica (1 frase):&lt;/strong> ___&lt;/li>
-&lt;li>&lt;strong>Estimando que se está usando (o el que debería usarse):&lt;/strong> ___&lt;/li>
-&lt;li>&lt;strong>Suceso intercurrente que más te preocupa&lt;/strong> (abandono, rescate, cambio de tratamiento, etc.): ___&lt;/li>
-&lt;li>&lt;strong>% de datos faltantes&lt;/strong> (observado o esperado): ___&lt;/li>
-&lt;li>&lt;strong>Dónde “nace el Frankenstein” en tu caso:&lt;/strong> (diseño / ejecución / análisis / reporte) ___&lt;/li>
-&lt;li>&lt;strong>Qué sensibilidad te gustaría ver sí o sí:&lt;/strong> ___&lt;/li>
-&lt;/ul>
-&lt;p>Responderé con una sugerencia concreta de sensibilidad o de redacción del estimando (sin asesoría clínica individual, solo enfoque metodológico).&lt;/p>
+&lt;p>&lt;strong>Una sola pregunta (y por qué importa)&lt;/strong>&lt;/p>
+&lt;p>Si este post te resultó incómodo, probablemente ya viste un Frankenstein metodológico en la práctica.&lt;/p>
+&lt;p>La pregunta clave es esta:&lt;/p>
+&lt;blockquote>
+&lt;p>¿En qué punto de tu estudio la pregunta clínica dejó de coincidir con lo que realmente se estaba estimando?&lt;/p>&lt;/blockquote>
+&lt;p>No hace falta que respondas todo. Con un solo punto mal alineado basta para que el monstruo aparezca.&lt;/p>
+&lt;p>&lt;strong>Si quieres concretar (opcional)&lt;/strong>&lt;/p>
+&lt;p>Si te resulta más fácil, puedes responder usando uno o dos de estos ítems.
+No es un cuestionario: es una guía para pensar con claridad.&lt;/p>
+&lt;p>Área terapéutica o tipo de estudio:&lt;/p>
+&lt;p>Qué se prometía responder en el protocolo (1 frase):&lt;/p>
+&lt;p>Qué terminó estimándose en la práctica:&lt;/p>
+&lt;p>El suceso intercurrente que más distorsionó la inferencia
+(abandono, rescate, cambio de tratamiento, faltantes, otro):&lt;/p>
+&lt;p>Dónde nació el problema: diseño / ejecución / análisis / reporte&lt;/p>
+&lt;p>No incluyas datos sensibles ni identificables.&lt;/p>
+&lt;p>&lt;strong>¿Qué haré con estos comentarios?&lt;/strong>&lt;/p>
+&lt;p>Los usaré (anonimizados) para detectar patrones reales, no ejemplos de manual.&lt;/p>
+&lt;p>Algunos casos se transformarán en:&lt;/p>
+&lt;p>nuevos posts técnicos,&lt;/p>
+&lt;p>ejemplos comparativos,&lt;/p>
+&lt;p>o capítulos del libro (si el patrón lo justifica).&lt;/p>
+&lt;p>No responderé con “opiniones generales”, sino con una observación metodológica concreta cuando sea pertinente.&lt;/p>
+&lt;p>&lt;strong>Nota práctica&lt;/strong>&lt;/p>
+&lt;p>Si comentar en el blog te resulta incómodo, puedes dejar tu respuesta en LinkedIn.
+Yo me encargo de traer la discusión de vuelta al sistema.&lt;/p>
+&lt;hr>
 &lt;h2 id="suscripción">Suscripción:&lt;/h2>
 &lt;p>&lt;a href="https://bioestadisticaedu.com/subscribe/">&lt;strong>Suscríbete a bioestadísticaedu&lt;/strong>&lt;/a> y recibe directamente en tu bandeja de entrada:&lt;/p>
 &lt;ul>
 &lt;li>Caja de Herramientas Anti‑Frankenstein&lt;/li>
 &lt;/ul>
-&lt;!-- Protocolos impecables. Análisis correctos. Conclusiones equivocadas. -->
-&lt;!-- En ensayos clínicos, el problema no siempre está en los números. -->
-&lt;!-- A veces está en la pregunta que realmente se terminó respondiendo. -->
-&lt;!-- Es posible tener: -->
-&lt;!-- – un protocolo bien escrito, -->
-&lt;!-- – un SAP formalmente correcto, -->
-&lt;!-- – valores de p convincentes, -->
-&lt;!-- y aun así generar evidencia frágil para la toma de decisiones. -->
-&lt;!-- A este fenómeno lo llamo el Frankenstein metodológico: -->
-&lt;!-- piezas técnicamente válidas que, al ensamblarse, estiman un efecto distinto del que la pregunta clínica sugería. -->
-&lt;!-- No es fraude. -->
-&lt;!-- No suele ser mala fe. -->
-&lt;!-- Es una desalineación inferencial entre intención clínica, estimando y análisis. -->
-&lt;!-- En el blog muestro: -->
-&lt;!-- – por qué ocurre (incluso en equipos experimentados), -->
-&lt;!-- – cómo las etiquetas clásicas (“ITT”, “análisis principal”) pueden ocultar supuestos críticos, -->
-&lt;!-- – y un ejemplo en R donde el mismo conjunto de datos cuenta tres historias distintas según cómo se manejen los faltantes. -->
-&lt;!-- 📌 Si tu conclusión depende más de decisiones analíticas implícitas que de la pregunta clínica original, el problema no es de reporte: es de diseño inferencial. -->
-&lt;!-- 👉 El análisis completo está aquí: -->
-&lt;!-- [https://bioestadisticaedu.com/post/er-01/] -->
-&lt;!-- ¿Tu estudio resistiría una auditoría de coherencia entre pregunta, estimando y análisis? -->
-&lt;!-- International Council for Harmonisation of Technical Requirements for Pharmaceuticals for Human Use (ICH). ICH E9 (R1) addendum on estimands and sensitivity analysis in clinical trials to the guideline on statistical principles for clinical trials. Geneva: ICH; 2019. Available from: https://database.ich.org/sites/default/files/E9-R1_Step4_Guideline_2019_1203.pdf -->
-&lt;!-- Kahan BC, Morris TP, White IR, Carpenter J. The estimands framework: a primer on the ICH E9(R1) addendum. BMJ. 2024;384:e076316. doi:10.1136/bmj-2023-076316. Available from: https://www.bmj.com/content/384/bmj-2023-076316 -->
-&lt;!-- International Council for Harmonisation of Technical Requirements for Pharmaceuticals for Human Use (ICH). ICH E9(R1) Estimands and Sensitivity Analysis in Clinical Trials Training Material. Geneva: ICH; 2019. Available from: https://database.ich.org/sites/default/files/E9%2528R1%2529%2520Training%2520Material%2520-%2520PDF_0.pdf -->
-&lt;!-- Cro S, Morris TP, Kenward MG, Carpenter JR. Choosing Estimands in Clinical Trials: Putting the ICH E9(R1) Into Practice. Ther Innov Regul Sci. 2020;54(2):324-341. doi:10.1007/s43441-019-00061-x. Available from: https://pubmed.ncbi.nlm.nih.gov/32072573/ -->
-&lt;!-- Ioannidis JPA, Greenland S, Hlatky MA, et al. Methodology over metrics: current scientific standards are a disservice to patients and society. J Clin Epidemiol. 2021;138:219-226. doi:10.1016/j.jclinepi.2021.05.018. Available from: https://pubmed.ncbi.nlm.nih.gov/34077797/ -->
-&lt;!-- Sessler DI, Imrey PB. Clinical Research Methodology 1: Study Designs and Methodologic Sources of Error in Clinical Research. Anesthesiology. 2015;123(4):937-945. doi:10.1097/ALN.0000000000000815. Available from: https://pubmed.ncbi.nlm.nih.gov/26378703/ -->
-&lt;!-- Delgado-Rodríguez M, Llorca J. Frequent methodological errors in clinical research. Med Intensiva (Engl Ed). 2018;42(9):541-546. doi:10.1016/j.medin.2017.12.012. Available from: https://pubmed.ncbi.nlm.nih.gov/29525238/ -->
-&lt;!-- International Council for Harmonisation of Technical Requirements for Pharmaceuticals for Human Use (ICH). ICH E8(R1) General Considerations for Clinical Studies. Geneva: ICH; 2021. Available from: https://database.ich.org/sites/default/files/E8-R1_Guideline_Step4_2022_0204%2520%25281%2529.pdf -->
-&lt;!-- International Council for Harmonisation of Technical Requirements for Pharmaceuticals for Human Use (ICH). ICH E6(R3) Guideline for Good Clinical Practice. Geneva: ICH; 2025. Available from: https://database.ich.org/sites/default/files/ICH_E6%2528R3%2529_Step4_FinalGuideline_2025_0106.pdf -->
-&lt;!-- Topol EJ. Failing the public health--rofecoxib, Merck, and the FDA. N Engl J Med. 2004;351(17):1707-1709. doi:10.1056/NEJMp048286. Available from: https://www.nejm.org/doi/full/10.1056/NEJMp048286 -->
-&lt;!-- Krumholz HM, Ross JS, Presler AH, Egilman DS. What have we learnt from Vioxx? BMJ. 2007;334(7585):120-123. doi:10.1136/bmj.39024.487720.68. Available from: https://pubmed.ncbi.nlm.nih.gov/17235089/ --></description></item><item><title>Los siete pecados capitales del protocolo y del Plan de Análisis Estadístico: confesiones de un regulador</title><link>https://bioestadisticaedu.com/post/siete-pecados-protocolos-clinicos/</link><pubDate>Sun, 09 Nov 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/siete-pecados-protocolos-clinicos/</guid><description>&lt;p>&lt;em>¿Sabías que más de la mitad de los protocolos de ensayos clínicos requieren modificaciones antes de su aprobación debido a deficiencias metodológicas evitables?&lt;/em>&lt;/p>
+&lt;hr>
+&lt;h2 id="bibliografía">Bibliografía&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>International Council for Harmonisation of Technical Requirements for Pharmaceuticals for Human Use (ICH). ICH E9 (R1) addendum on estimands and sensitivity analysis in clinical trials to the guideline on statistical principles for clinical trials. Geneva: ICH; 2019. Available from: &lt;a href="https://database.ich.org/sites/default/files/E9-R1_Step4_Guideline_2019_1203.pdf" target="_blank" rel="noopener">https://database.ich.org/sites/default/files/E9-R1_Step4_Guideline_2019_1203.pdf&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Kahan BC, Morris TP, White IR, Carpenter J. The estimands framework: a primer on the ICH E9(R1) addendum. BMJ. 2024;384:e076316. doi:10.1136/bmj-2023-076316. Available from: &lt;a href="https://www.bmj.com/content/384/bmj-2023-076316" target="_blank" rel="noopener">https://www.bmj.com/content/384/bmj-2023-076316&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Cro S, Morris TP, Kenward MG, Carpenter JR. Choosing Estimands in Clinical Trials: Putting the ICH E9(R1) Into Practice. Ther Innov Regul Sci. 2020;54(2):324-341. doi:10.1007/s43441-019-00061-x. Available from: &lt;a href="https://pubmed.ncbi.nlm.nih.gov/32072573/" target="_blank" rel="noopener">https://pubmed.ncbi.nlm.nih.gov/32072573/&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Ioannidis JPA, Greenland S, Hlatky MA, et al. Methodology over metrics: current scientific standards are a disservice to patients and society. J Clin Epidemiol. 2021;138:219-226. doi:10.1016/j.jclinepi.2021.05.018. Available from: &lt;a href="https://pubmed.ncbi.nlm.nih.gov/34077797/" target="_blank" rel="noopener">https://pubmed.ncbi.nlm.nih.gov/34077797/&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Topol EJ. Failing the public health&amp;ndash;rofecoxib, Merck, and the FDA. N Engl J Med. 2004;351(17):1707-1709. doi:10.1056/NEJMp048286. Available from: &lt;a href="https://www.nejm.org/doi/full/10.1056/NEJMp048286" target="_blank" rel="noopener">https://www.nejm.org/doi/full/10.1056/NEJMp048286&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Krumholz HM, Ross JS, Presler AH, Egilman DS. What have we learnt from Vioxx? BMJ. 2007;334(7585):120-123. doi:10.1136/bmj.39024.487720.68. Available from: &lt;a href="https://pubmed.ncbi.nlm.nih.gov/17235089/" target="_blank" rel="noopener">https://pubmed.ncbi.nlm.nih.gov/17235089/&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul></description></item><item><title>Los siete pecados capitales del protocolo y del Plan de Análisis Estadístico: confesiones de un regulador</title><link>https://bioestadisticaedu.com/post/siete-pecados-protocolos-clinicos/</link><pubDate>Sun, 09 Nov 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/siete-pecados-protocolos-clinicos/</guid><description>&lt;p>&lt;em>¿Sabías que más de la mitad de los protocolos de ensayos clínicos requieren modificaciones antes de su aprobación debido a deficiencias metodológicas evitables?&lt;/em>&lt;/p>
 &lt;p>Imagine la escena: tras &lt;strong>meses de trabajo meticuloso&lt;/strong>, el &lt;strong>protocolo&lt;/strong> de su &lt;strong>ensayo clínico regresa&lt;/strong> con una &lt;strong>solicitud de información adicional&lt;/strong> por parte de la autoridad reguladora, por lo que tendrás que hacer &lt;strong>modificaciones&lt;/strong> para someterlo a una nueva evaluación.&lt;/p>
 &lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
 &lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
