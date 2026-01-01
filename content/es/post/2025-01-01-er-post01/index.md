@@ -96,7 +96,7 @@ Además, cuando hay una proporción importante de datos faltantes (sobre todo si
 
 ---
 
-## Caso práctico en R: faltantes que revelan el monstruo
+## Caso práctico en R: Datos faltantes que revelan el monstruo
 
 Simulamos un ensayo con desenlace binario (éxito/fracaso):
 
@@ -155,11 +155,11 @@ Leer ICH E9(R1), hacer pilotos internos y entrenar a los equipos en trazabilidad
 ¿Tu estudio resiste esta auditoría? Si no, mejor detectarlo hoy que defenderlo mañana.
 ---
 
-## Cierre: cuéntame tu caso (sin datos sensibles)
+## Cuéntame tu caso (sin datos sensibles)
 
 Si trabajas con protocolos, SAP o CSR, me interesa un ejemplo real (anónimo) para futuros posts.
 
-Copia y pega esto en comentarios y completa lo que puedas:
+Copia y pega esto en la caja de comentarios y completa lo que puedas:
 
 - **Tipo de estudio / área terapéutica:** ___  
 - **Variable principal:** ___  
@@ -210,3 +210,15 @@ Responderé con una sugerencia concreta de sensibilidad o de redacción del esti
 <!-- [https://bioestadisticaedu.com/post/er-01/] -->
 
 <!-- ¿Tu estudio resistiría una auditoría de coherencia entre pregunta, estimando y análisis? -->
+
+<!-- International Council for Harmonisation of Technical Requirements for Pharmaceuticals for Human Use (ICH). ICH E9 (R1) addendum on estimands and sensitivity analysis in clinical trials to the guideline on statistical principles for clinical trials. Geneva: ICH; 2019. Available from: https://database.ich.org/sites/default/files/E9-R1_Step4_Guideline_2019_1203.pdf -->
+<!-- Kahan BC, Morris TP, White IR, Carpenter J. The estimands framework: a primer on the ICH E9(R1) addendum. BMJ. 2024;384:e076316. doi:10.1136/bmj-2023-076316. Available from: https://www.bmj.com/content/384/bmj-2023-076316 -->
+<!-- International Council for Harmonisation of Technical Requirements for Pharmaceuticals for Human Use (ICH). ICH E9(R1) Estimands and Sensitivity Analysis in Clinical Trials Training Material. Geneva: ICH; 2019. Available from: https://database.ich.org/sites/default/files/E9%2528R1%2529%2520Training%2520Material%2520-%2520PDF_0.pdf -->
+<!-- Cro S, Morris TP, Kenward MG, Carpenter JR. Choosing Estimands in Clinical Trials: Putting the ICH E9(R1) Into Practice. Ther Innov Regul Sci. 2020;54(2):324-341. doi:10.1007/s43441-019-00061-x. Available from: https://pubmed.ncbi.nlm.nih.gov/32072573/ -->
+<!-- Ioannidis JPA, Greenland S, Hlatky MA, et al. Methodology over metrics: current scientific standards are a disservice to patients and society. J Clin Epidemiol. 2021;138:219-226. doi:10.1016/j.jclinepi.2021.05.018. Available from: https://pubmed.ncbi.nlm.nih.gov/34077797/ -->
+<!-- Sessler DI, Imrey PB. Clinical Research Methodology 1: Study Designs and Methodologic Sources of Error in Clinical Research. Anesthesiology. 2015;123(4):937-945. doi:10.1097/ALN.0000000000000815. Available from: https://pubmed.ncbi.nlm.nih.gov/26378703/ -->
+<!-- Delgado-Rodríguez M, Llorca J. Frequent methodological errors in clinical research. Med Intensiva (Engl Ed). 2018;42(9):541-546. doi:10.1016/j.medin.2017.12.012. Available from: https://pubmed.ncbi.nlm.nih.gov/29525238/ -->
+<!-- International Council for Harmonisation of Technical Requirements for Pharmaceuticals for Human Use (ICH). ICH E8(R1) General Considerations for Clinical Studies. Geneva: ICH; 2021. Available from: https://database.ich.org/sites/default/files/E8-R1_Guideline_Step4_2022_0204%2520%25281%2529.pdf -->
+<!-- International Council for Harmonisation of Technical Requirements for Pharmaceuticals for Human Use (ICH). ICH E6(R3) Guideline for Good Clinical Practice. Geneva: ICH; 2025. Available from: https://database.ich.org/sites/default/files/ICH_E6%2528R3%2529_Step4_FinalGuideline_2025_0106.pdf -->
+<!-- Topol EJ. Failing the public health--rofecoxib, Merck, and the FDA. N Engl J Med. 2004;351(17):1707-1709. doi:10.1056/NEJMp048286. Available from: https://www.nejm.org/doi/full/10.1056/NEJMp048286 -->
+<!-- Krumholz HM, Ross JS, Presler AH, Egilman DS. What have we learnt from Vioxx? BMJ. 2007;334(7585):120-123. doi:10.1136/bmj.39024.487720.68. Available from: https://pubmed.ncbi.nlm.nih.gov/17235089/ -->
