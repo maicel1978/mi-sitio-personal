@@ -3,7 +3,7 @@ title: "El Frankenstein Metodológico: La Bestia Silenciosa en los Ensayos Clín
 subtitle: "Cómo Protocolos Impecables Generan Evidencia Frágil y Decisiones Erróneas"
 summary: "En los ensayos clínicos, un análisis correcto puede ocultar evidencia falsa si la pregunta clínica no se alinea con los estimandos reales. Exploramos este monstruo con un caso simulado en R."
 author: "admin"
-date: "2025-12-12"
+date: "2025-12-31"
 categories: ["Evaluación Regulatoria"]
 tags:
   - "evaluacion-regulatoria"
@@ -107,11 +107,11 @@ Introducimos **datos faltantes no al azar**: en el grupo de tratamiento, quienes
 
 
 
-|estrategia           | p_control| p_trat|  diff|
-|:--------------------|---------:|------:|-----:|
-|Solo casos completos |      0.63|   0.75|  0.12|
-|Imputación simplista |      0.67|   0.80|  0.13|
-|Escenario pesimista  |      0.67|   0.60| -0.07|
+|estrategia           | controles| tratados| diferecia|
+|:--------------------|---------:|--------:|---------:|
+|Solo casos completos |      0.63|     0.75|      0.12|
+|Imputación simplista |      0.67|     0.80|      0.13|
+|Escenario pesimista  |      0.67|     0.60|     -0.07|
 
 ---
 
@@ -153,25 +153,59 @@ Un buen antídoto combina:
 Leer ICH E9(R1), hacer pilotos internos y entrenar a los equipos en trazabilidad inferencial ayuda a que el ensayo responda, de verdad, la pregunta que importa.
 
 ¿Tu estudio resiste esta auditoría? Si no, mejor detectarlo hoy que defenderlo mañana.
+
 ---
 
 ## Cuéntame tu caso (sin datos sensibles)
 
-Si trabajas con protocolos, SAP o CSR, me interesa un ejemplo real (anónimo) para futuros posts.
+**Una sola pregunta (y por qué importa)**
 
-Copia y pega esto en la caja de comentarios y completa lo que puedas:
+Si este post te resultó incómodo, probablemente ya viste un Frankenstein metodológico en la práctica.
 
-- **Tipo de estudio / área terapéutica:** ___  
-- **Variable principal:** ___  
-- **Pregunta clínica (1 frase):** ___  
-- **Estimando que se está usando (o el que debería usarse):** ___  
-- **Suceso intercurrente que más te preocupa** (abandono, rescate, cambio de tratamiento, etc.): ___  
-- **% de datos faltantes** (observado o esperado): ___  
-- **Dónde “nace el Frankenstein” en tu caso:** (diseño / ejecución / análisis / reporte) ___  
-- **Qué sensibilidad te gustaría ver sí o sí:** ___  
+La pregunta clave es esta:
 
-Responderé con una sugerencia concreta de sensibilidad o de redacción del estimando (sin asesoría clínica individual, solo enfoque metodológico).
+>¿En qué punto de tu estudio la pregunta clínica dejó de coincidir con lo que realmente se estaba estimando?
 
+No hace falta que respondas todo. Con un solo punto mal alineado basta para que el monstruo aparezca.
+
+**Si quieres concretar (opcional)**
+
+Si te resulta más fácil, puedes responder usando uno o dos de estos ítems.
+No es un cuestionario: es una guía para pensar con claridad.
+
+Área terapéutica o tipo de estudio:
+
+Qué se prometía responder en el protocolo (1 frase):
+
+Qué terminó estimándose en la práctica:
+
+El suceso intercurrente que más distorsionó la inferencia
+(abandono, rescate, cambio de tratamiento, faltantes, otro):
+
+Dónde nació el problema: diseño / ejecución / análisis / reporte
+
+No incluyas datos sensibles ni identificables.
+
+**¿Qué haré con estos comentarios?**
+
+Los usaré (anonimizados) para detectar patrones reales, no ejemplos de manual.
+
+Algunos casos se transformarán en:
+
+nuevos posts técnicos,
+
+ejemplos comparativos,
+
+o capítulos del libro (si el patrón lo justifica).
+
+No responderé con “opiniones generales”, sino con una observación metodológica concreta cuando sea pertinente.
+
+**Nota práctica**
+
+Si comentar en el blog te resulta incómodo, puedes dejar tu respuesta en LinkedIn.
+Yo me encargo de traer la discusión de vuelta al sistema.
+
+---
 
 ## Suscripción: 
 
@@ -179,46 +213,19 @@ Responderé con una sugerencia concreta de sensibilidad o de redacción del esti
 
 - Caja de Herramientas Anti‑Frankenstein
 
+---
 
-<!-- Protocolos impecables. Análisis correctos. Conclusiones equivocadas. -->
+## Bibliografía
 
-<!-- En ensayos clínicos, el problema no siempre está en los números. -->
-<!-- A veces está en la pregunta que realmente se terminó respondiendo. -->
+- International Council for Harmonisation of Technical Requirements for Pharmaceuticals for Human Use (ICH). ICH E9 (R1) addendum on estimands and sensitivity analysis in clinical trials to the guideline on statistical principles for clinical trials. Geneva: ICH; 2019. Available from: https://database.ich.org/sites/default/files/E9-R1_Step4_Guideline_2019_1203.pdf
 
-<!-- Es posible tener: -->
-<!-- – un protocolo bien escrito, -->
-<!-- – un SAP formalmente correcto, -->
-<!-- – valores de p convincentes, -->
+- Kahan BC, Morris TP, White IR, Carpenter J. The estimands framework: a primer on the ICH E9(R1) addendum. BMJ. 2024;384:e076316. doi:10.1136/bmj-2023-076316. Available from: https://www.bmj.com/content/384/bmj-2023-076316
 
-<!-- y aun así generar evidencia frágil para la toma de decisiones. -->
+- Cro S, Morris TP, Kenward MG, Carpenter JR. Choosing Estimands in Clinical Trials: Putting the ICH E9(R1) Into Practice. Ther Innov Regul Sci. 2020;54(2):324-341. doi:10.1007/s43441-019-00061-x. Available from: https://pubmed.ncbi.nlm.nih.gov/32072573/
 
-<!-- A este fenómeno lo llamo el Frankenstein metodológico: -->
-<!-- piezas técnicamente válidas que, al ensamblarse, estiman un efecto distinto del que la pregunta clínica sugería. -->
+- Ioannidis JPA, Greenland S, Hlatky MA, et al. Methodology over metrics: current scientific standards are a disservice to patients and society. J Clin Epidemiol. 2021;138:219-226. doi:10.1016/j.jclinepi.2021.05.018. Available from: https://pubmed.ncbi.nlm.nih.gov/34077797/
 
-<!-- No es fraude. -->
-<!-- No suele ser mala fe. -->
-<!-- Es una desalineación inferencial entre intención clínica, estimando y análisis. -->
 
-<!-- En el blog muestro: -->
-<!-- – por qué ocurre (incluso en equipos experimentados), -->
-<!-- – cómo las etiquetas clásicas (“ITT”, “análisis principal”) pueden ocultar supuestos críticos, -->
-<!-- – y un ejemplo en R donde el mismo conjunto de datos cuenta tres historias distintas según cómo se manejen los faltantes. -->
+- Topol EJ. Failing the public health--rofecoxib, Merck, and the FDA. N Engl J Med. 2004;351(17):1707-1709. doi:10.1056/NEJMp048286. Available from: https://www.nejm.org/doi/full/10.1056/NEJMp048286
 
-<!-- 📌 Si tu conclusión depende más de decisiones analíticas implícitas que de la pregunta clínica original, el problema no es de reporte: es de diseño inferencial. -->
-
-<!-- 👉 El análisis completo está aquí: -->
-<!-- [https://bioestadisticaedu.com/post/er-01/] -->
-
-<!-- ¿Tu estudio resistiría una auditoría de coherencia entre pregunta, estimando y análisis? -->
-
-<!-- International Council for Harmonisation of Technical Requirements for Pharmaceuticals for Human Use (ICH). ICH E9 (R1) addendum on estimands and sensitivity analysis in clinical trials to the guideline on statistical principles for clinical trials. Geneva: ICH; 2019. Available from: https://database.ich.org/sites/default/files/E9-R1_Step4_Guideline_2019_1203.pdf -->
-<!-- Kahan BC, Morris TP, White IR, Carpenter J. The estimands framework: a primer on the ICH E9(R1) addendum. BMJ. 2024;384:e076316. doi:10.1136/bmj-2023-076316. Available from: https://www.bmj.com/content/384/bmj-2023-076316 -->
-<!-- International Council for Harmonisation of Technical Requirements for Pharmaceuticals for Human Use (ICH). ICH E9(R1) Estimands and Sensitivity Analysis in Clinical Trials Training Material. Geneva: ICH; 2019. Available from: https://database.ich.org/sites/default/files/E9%2528R1%2529%2520Training%2520Material%2520-%2520PDF_0.pdf -->
-<!-- Cro S, Morris TP, Kenward MG, Carpenter JR. Choosing Estimands in Clinical Trials: Putting the ICH E9(R1) Into Practice. Ther Innov Regul Sci. 2020;54(2):324-341. doi:10.1007/s43441-019-00061-x. Available from: https://pubmed.ncbi.nlm.nih.gov/32072573/ -->
-<!-- Ioannidis JPA, Greenland S, Hlatky MA, et al. Methodology over metrics: current scientific standards are a disservice to patients and society. J Clin Epidemiol. 2021;138:219-226. doi:10.1016/j.jclinepi.2021.05.018. Available from: https://pubmed.ncbi.nlm.nih.gov/34077797/ -->
-<!-- Sessler DI, Imrey PB. Clinical Research Methodology 1: Study Designs and Methodologic Sources of Error in Clinical Research. Anesthesiology. 2015;123(4):937-945. doi:10.1097/ALN.0000000000000815. Available from: https://pubmed.ncbi.nlm.nih.gov/26378703/ -->
-<!-- Delgado-Rodríguez M, Llorca J. Frequent methodological errors in clinical research. Med Intensiva (Engl Ed). 2018;42(9):541-546. doi:10.1016/j.medin.2017.12.012. Available from: https://pubmed.ncbi.nlm.nih.gov/29525238/ -->
-<!-- International Council for Harmonisation of Technical Requirements for Pharmaceuticals for Human Use (ICH). ICH E8(R1) General Considerations for Clinical Studies. Geneva: ICH; 2021. Available from: https://database.ich.org/sites/default/files/E8-R1_Guideline_Step4_2022_0204%2520%25281%2529.pdf -->
-<!-- International Council for Harmonisation of Technical Requirements for Pharmaceuticals for Human Use (ICH). ICH E6(R3) Guideline for Good Clinical Practice. Geneva: ICH; 2025. Available from: https://database.ich.org/sites/default/files/ICH_E6%2528R3%2529_Step4_FinalGuideline_2025_0106.pdf -->
-<!-- Topol EJ. Failing the public health--rofecoxib, Merck, and the FDA. N Engl J Med. 2004;351(17):1707-1709. doi:10.1056/NEJMp048286. Available from: https://www.nejm.org/doi/full/10.1056/NEJMp048286 -->
-<!-- Krumholz HM, Ross JS, Presler AH, Egilman DS. What have we learnt from Vioxx? BMJ. 2007;334(7585):120-123. doi:10.1136/bmj.39024.487720.68. Available from: https://pubmed.ncbi.nlm.nih.gov/17235089/ -->
+- Krumholz HM, Ross JS, Presler AH, Egilman DS. What have we learnt from Vioxx? BMJ. 2007;334(7585):120-123. doi:10.1136/bmj.39024.487720.68. Available from: https://pubmed.ncbi.nlm.nih.gov/17235089/
