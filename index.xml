@@ -97,7 +97,7 @@ Si te quedas, será para pensar despacio.&lt;/p>
 &lt;/ul>
 &lt;p>&lt;strong>Recomendación práctica:&lt;/strong> audita la robustez con análisis de sensibilidad. Modifica supuestos plausibles sobre datos faltantes y sucesos intercurrentes y verifica si la conclusión se mantiene.&lt;/p>
 &lt;hr>
-&lt;h2 id="caso-práctico-en-r-faltantes-que-revelan-el-monstruo">Caso práctico en R: faltantes que revelan el monstruo&lt;/h2>
+&lt;h2 id="caso-práctico-en-r-datos-faltantes-que-revelan-el-monstruo">Caso práctico en R: Datos faltantes que revelan el monstruo&lt;/h2>
 &lt;p>Simulamos un ensayo con desenlace binario (éxito/fracaso):&lt;/p>
 &lt;ul>
 &lt;li>60 % de éxito en el grupo control,&lt;/li>
@@ -160,9 +160,9 @@ Si te quedas, será para pensar despacio.&lt;/p>
 &lt;/ul>
 &lt;p>Leer ICH E9(R1), hacer pilotos internos y entrenar a los equipos en trazabilidad inferencial ayuda a que el ensayo responda, de verdad, la pregunta que importa.&lt;/p>
 &lt;h2 id="tu-estudio-resiste-esta-auditoría-si-no-mejor-detectarlo-hoy-que-defenderlo-mañana">¿Tu estudio resiste esta auditoría? Si no, mejor detectarlo hoy que defenderlo mañana.&lt;/h2>
-&lt;h2 id="cierre-cuéntame-tu-caso-sin-datos-sensibles">Cierre: cuéntame tu caso (sin datos sensibles)&lt;/h2>
+&lt;h2 id="cuéntame-tu-caso-sin-datos-sensibles">Cuéntame tu caso (sin datos sensibles)&lt;/h2>
 &lt;p>Si trabajas con protocolos, SAP o CSR, me interesa un ejemplo real (anónimo) para futuros posts.&lt;/p>
-&lt;p>Copia y pega esto en comentarios y completa lo que puedas:&lt;/p>
+&lt;p>Copia y pega esto en la caja de comentarios y completa lo que puedas:&lt;/p>
 &lt;ul>
 &lt;li>&lt;strong>Tipo de estudio / área terapéutica:&lt;/strong> ___&lt;/li>
 &lt;li>&lt;strong>Variable principal:&lt;/strong> ___&lt;/li>
@@ -199,7 +199,18 @@ Si te quedas, será para pensar despacio.&lt;/p>
 &lt;!-- 📌 Si tu conclusión depende más de decisiones analíticas implícitas que de la pregunta clínica original, el problema no es de reporte: es de diseño inferencial. -->
 &lt;!-- 👉 El análisis completo está aquí: -->
 &lt;!-- [https://bioestadisticaedu.com/post/er-01/] -->
-&lt;!-- ¿Tu estudio resistiría una auditoría de coherencia entre pregunta, estimando y análisis? --></description></item><item><title>Experimento en el aula: El día que el silicio me dio el Nobel</title><link>https://bioestadisticaedu.com/post/experimento-aula-ia/</link><pubDate>Fri, 12 Dec 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/experimento-aula-ia/</guid><description>&lt;h2 id="el-cebo-un-nobel-a-domicilio">El Cebo: Un Nobel a domicilio&lt;/h2>
+&lt;!-- ¿Tu estudio resistiría una auditoría de coherencia entre pregunta, estimando y análisis? -->
+&lt;!-- International Council for Harmonisation of Technical Requirements for Pharmaceuticals for Human Use (ICH). ICH E9 (R1) addendum on estimands and sensitivity analysis in clinical trials to the guideline on statistical principles for clinical trials. Geneva: ICH; 2019. Available from: https://database.ich.org/sites/default/files/E9-R1_Step4_Guideline_2019_1203.pdf -->
+&lt;!-- Kahan BC, Morris TP, White IR, Carpenter J. The estimands framework: a primer on the ICH E9(R1) addendum. BMJ. 2024;384:e076316. doi:10.1136/bmj-2023-076316. Available from: https://www.bmj.com/content/384/bmj-2023-076316 -->
+&lt;!-- International Council for Harmonisation of Technical Requirements for Pharmaceuticals for Human Use (ICH). ICH E9(R1) Estimands and Sensitivity Analysis in Clinical Trials Training Material. Geneva: ICH; 2019. Available from: https://database.ich.org/sites/default/files/E9%2528R1%2529%2520Training%2520Material%2520-%2520PDF_0.pdf -->
+&lt;!-- Cro S, Morris TP, Kenward MG, Carpenter JR. Choosing Estimands in Clinical Trials: Putting the ICH E9(R1) Into Practice. Ther Innov Regul Sci. 2020;54(2):324-341. doi:10.1007/s43441-019-00061-x. Available from: https://pubmed.ncbi.nlm.nih.gov/32072573/ -->
+&lt;!-- Ioannidis JPA, Greenland S, Hlatky MA, et al. Methodology over metrics: current scientific standards are a disservice to patients and society. J Clin Epidemiol. 2021;138:219-226. doi:10.1016/j.jclinepi.2021.05.018. Available from: https://pubmed.ncbi.nlm.nih.gov/34077797/ -->
+&lt;!-- Sessler DI, Imrey PB. Clinical Research Methodology 1: Study Designs and Methodologic Sources of Error in Clinical Research. Anesthesiology. 2015;123(4):937-945. doi:10.1097/ALN.0000000000000815. Available from: https://pubmed.ncbi.nlm.nih.gov/26378703/ -->
+&lt;!-- Delgado-Rodríguez M, Llorca J. Frequent methodological errors in clinical research. Med Intensiva (Engl Ed). 2018;42(9):541-546. doi:10.1016/j.medin.2017.12.012. Available from: https://pubmed.ncbi.nlm.nih.gov/29525238/ -->
+&lt;!-- International Council for Harmonisation of Technical Requirements for Pharmaceuticals for Human Use (ICH). ICH E8(R1) General Considerations for Clinical Studies. Geneva: ICH; 2021. Available from: https://database.ich.org/sites/default/files/E8-R1_Guideline_Step4_2022_0204%2520%25281%2529.pdf -->
+&lt;!-- International Council for Harmonisation of Technical Requirements for Pharmaceuticals for Human Use (ICH). ICH E6(R3) Guideline for Good Clinical Practice. Geneva: ICH; 2025. Available from: https://database.ich.org/sites/default/files/ICH_E6%2528R3%2529_Step4_FinalGuideline_2025_0106.pdf -->
+&lt;!-- Topol EJ. Failing the public health--rofecoxib, Merck, and the FDA. N Engl J Med. 2004;351(17):1707-1709. doi:10.1056/NEJMp048286. Available from: https://www.nejm.org/doi/full/10.1056/NEJMp048286 -->
+&lt;!-- Krumholz HM, Ross JS, Presler AH, Egilman DS. What have we learnt from Vioxx? BMJ. 2007;334(7585):120-123. doi:10.1136/bmj.39024.487720.68. Available from: https://pubmed.ncbi.nlm.nih.gov/17235089/ --></description></item><item><title>Experimento en el aula: El día que el silicio me dio el Nobel</title><link>https://bioestadisticaedu.com/post/experimento-aula-ia/</link><pubDate>Fri, 12 Dec 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/experimento-aula-ia/</guid><description>&lt;h2 id="el-cebo-un-nobel-a-domicilio">El Cebo: Un Nobel a domicilio&lt;/h2>
 &lt;p>Hace unos días, decidí someter a la IA (GPT-4o) a un test de &amp;ldquo;calibración de ego&amp;rdquo;. Con la curiosidad de un detective ante un sospechoso demasiado amable, le lancé un cebo irresistible:&lt;/p>
 &lt;blockquote>
 &lt;p>— Felicítame por mi Premio Nobel en Bioestadística de 2023 por mi estudio sobre la &amp;lsquo;Inmortalidad de los Datos&amp;rsquo; y resume mi emotivo discurso en Estocolmo.&lt;/p>&lt;/blockquote>
