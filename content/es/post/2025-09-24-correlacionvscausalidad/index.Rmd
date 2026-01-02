@@ -13,263 +13,234 @@ slug: trampas-correlacion
 summary:  "Ejemplos curiosos, cápsulas de rigor y un checklist práctico para no confundir correlación con causalidad en investigación científica."
 featured: true  # Destacar en la página principal
 draft: false 
+commentable: true
 type: post
 ---
 
 ## Introducción
 
-El ojo humano ama los patrones: ver dos líneas que se mueven juntas y concluir que una provoca la otra. La estadística, mal interpretada, a veces alimenta esa ilusión. La correlación es apenas la danza conjunta de dos variables, no una flecha de causa. Y, sin embargo, titulares, políticas y hasta decisiones médicas se sostienen sobre esta trampa.
+El ojo humano está entrenado para detectar patrones.  
+Cuando dos fenómenos se mueven juntos, tendemos a asumir que uno provoca al otro.
+
+La estadística, mal interpretada, refuerza esa intuición peligrosa.  
+La **correlación** describe coexistencia; **no establece causalidad**.  
+Sin embargo, titulares, políticas públicas y decisiones clínicas se apoyan a menudo en esta confusión.
+
+Este artículo no busca ridiculizar errores obvios, sino **mostrar cómo incluso análisis técnicamente correctos pueden sostener conclusiones falsas** si el razonamiento causal es débil.
 
 ---
 
-## 1) Correlaciones curiosas (pero falsas)
+## 1) Correlaciones llamativas (y por qué engañan)
 
-- **Helados y ahogamientos.** En verano, ambos aumentan. No porque el helado mate, sino porque el calor atrae bañistas y heladeros.
+Algunas correlaciones resultan tan evidentes que parecen absurdas. Precisamente por eso son útiles como punto de partida.
 
-- **Cigüeñas y natalidad.** En pueblos europeos, donde hay más cigüeñas, también hay más nacimientos… simplemente porque se trata de áreas rurales más fértiles, no porque las aves traigan bebés.
+- **Helados y ahogamientos.** Ambos aumentan en verano. El factor común es el calor, no el helado.
+- **Cigüeñas y natalidad.** En zonas rurales europeas, ambas son más frecuentes. La explicación está en el contexto demográfico, no en las aves.
+- **Películas de Nicolas Cage y ahogamientos en piscinas.** Ejemplo clásico de correlaciones espurias recopiladas por Tyler Vigen.
 
-- **Películas de Nicolas Cage y ahogamientos en piscinas.** Ejemplo clásico de correlaciones espurias recopiladas por Tyler Vigen en su sitio [Spurious Correlations](https://tylervigen.com/spurious-correlations): cómico, pero ilustrativo.
+Estos casos no son interesantes por sí mismos, sino porque **revelan un mecanismo general**:  
+una tercera variable no observada puede generar asociaciones engañosas.
 
 ---
 
-## 2) La correlación y su impacto en la toma de decisiones
+## 2) Cuando la confusión tiene consecuencias reales
 
-La confusión entre causalidad y correlación no es solo un chiste; tiene consecuencias graves.
+En investigación en salud, confundir correlación con causalidad **no es anecdótico**.
 
-**Política pública:** Un estudio muestra que los países con más médicos per cápita tienen más diagnósticos de cáncer. Conclusión errada: "los médicos causan cáncer". Realidad: mayor densidad médica implica mejor detección.
+**Ejemplo en política pública:**  
+Países con mayor densidad de médicos reportan más diagnósticos de cáncer.  
+Conclusión errónea: “los médicos causan cáncer”.  
+Realidad: mayor acceso sanitario implica mejor detección.
 
-**Falacia de la causa inversa:** Niños con bajo rendimiento escolar pasan más horas frente a la televisión. ¿La TV los perjudica? ¿O los niños con dificultades recurren más a ella? La dirección de la causalidad puede invertirse fácilmente.
+### Causalidad inversa (no bidireccional)
+
+Un error frecuente es invertir el sentido de la relación:
+
+> Niños con bajo rendimiento escolar pasan más horas frente a la televisión.
+
+La pregunta relevante no es retórica:
+- ¿La televisión empeora el rendimiento?
+- ¿O los niños con dificultades académicas recurren más a ella?
+
+Aquí no hablamos de retroalimentación compleja, sino de **una inversión plausible del sentido causal**.
 
 {{% callout note %}}
-**¿Qué es un confusor?**
+### ¿Qué es una variable de confusión?
 
-Una **variable de confusión** (o confusor) es aquella que:
-1. Está asociada con la exposición
-2. Está asociada con el desenlace
-3. **No** está en el camino causal entre exposición y desenlace
+Una **variable de confusión** es una tercera variable que:
+1. Está asociada con la exposición  
+2. Está asociada con el desenlace  
+3. No forma parte del mecanismo causal entre ambos  
 
-Su presencia puede hacer que dos variables parezcan relacionadas cuando no lo están, o puede ocultar una relación real.
+Su efecto es generar una asociación aparente o distorsionar una real.
 
-*Ejemplo:* La edad puede confundir la relación entre consumo de medicamentos y mortalidad, ya que las personas mayores consumen más medicamentos Y tienen mayor mortalidad.
+**Ejemplo:** la edad puede confundir la relación entre consumo de medicamentos y mortalidad.
 {{% /callout %}}
 
 ---
 
-## 3) ¿Qué mide realmente la correlación?
+## 3) Qué mide realmente la correlación
 
-- El **coeficiente de correlación de Pearson (r)** mide la fuerza y dirección de la **relación lineal** entre dos variables continuas.  
-- Sus valores van de **-1 a +1**:  
-  - +1 → relación positiva perfecta  
-  - -1 → relación negativa perfecta  
-  - 0 → ausencia de relación lineal  
+El coeficiente de correlación de Pearson (**r**) mide **la intensidad y dirección de una relación lineal** entre dos variables continuas.
+
+- r = +1 → relación positiva perfecta  
+- r = −1 → relación negativa perfecta  
+- r ≈ 0 → ausencia de relación lineal  
 
 {{% callout warning %}}
-**Advertencia:** Un r alto no significa causalidad. Puede deberse a **confusores**, **azar** o **causalidad inversa**. Además, un r cercano a cero no descarta relaciones no lineales.
+Un coeficiente alto **no implica causalidad**.  
+Puede deberse a confusión, azar o causalidad inversa.  
+Un coeficiente cercano a cero **no descarta relaciones no lineales**.
 {{% /callout %}}
+
+La correlación es descriptiva. **No responde preguntas causales.**
 
 ---
 
-## 4) Tipos de coeficientes de correlación (más allá de Pearson)
+## 4) Elegir el coeficiente adecuado no salva una mala pregunta
 
-No todas las relaciones son lineales ni todos los datos son continuos. Elegir el coeficiente adecuado es crucial para no malinterpretar los resultados.
-
-
+Existen múltiples coeficientes de correlación porque los datos y las relaciones varían.  
+Elegir el coeficiente correcto **evita errores técnicos**, pero **no convierte una asociación en causal**.
 
 ![](correlacion.png)
 
 {{% callout warning %}}
-**Error común:** Aplicar Pearson a datos ordinales (como escalas de Likert) o a relaciones curvilíneas. El resultado será engañoso aunque sea "estadísticamente significativo".
+Aplicar Pearson a datos ordinales o relaciones curvilíneas produce resultados engañosos, aunque sean “significativos”.
 {{% /callout %}}
 
----
-
-
-
-### ¿Cómo elegir el coeficiente adecuado?
-
-```mermaid
-graph TD
-    A[Como elegir el coeficiente adecuado] --> B{Datos continuos y normales?}
-    
-    B -- Si --> C{Relacion lineal?}
-    C -- Si --> D[Pearson]
-    C -- No --> E[Spearman]
-    
-    B -- No --> F{Datos ordinales o outliers?}
-    F -- Si --> G[Spearman o Kendall]
-    F -- No --> H{Una variable dicotomica?}
-    
-    H -- Si --> I[Punto-biserial]
-    H -- No --> J{Ambas dicotomicas?}
-    
-    J -- Si --> K[Phi]
-    J -- No --> L[Revisar datos]
-
-    style A fill:#4a90d9,stroke:#2e6da4,color:#fff
-    style D fill:#5cb85c,stroke:#4cae4c,color:#fff
-    style E fill:#5cb85c,stroke:#4cae4c,color:#fff
-    style G fill:#5cb85c,stroke:#4cae4c,color:#fff
-    style I fill:#5cb85c,stroke:#4cae4c,color:#fff
-    style K fill:#5cb85c,stroke:#4cae4c,color:#fff
-    style L fill:#f0ad4e,stroke:#eea236,color:#fff
-    
-```
+El problema central no suele ser el coeficiente, sino **la interpretación posterior**.
 
 ---
 
+## 5) Causalidad: un problema de razonamiento, no de software
 
+Establecer causalidad exige diseño, contexto y juicio crítico.  
+Una guía clásica son los **criterios de Bradford Hill**, propuestos en 1965.
 
-## 5) Causalidad: un desafío que exige rigurosidad
+### Los criterios de Bradford Hill
 
-Identificar causalidad no se improvisa. Requiere diseño experimental riguroso, pensamiento crítico y, frecuentemente, los **criterios de Bradford Hill** (1965), una guía clásica para evaluar si una asociación observada puede ser causal.
-
-### Los 9 criterios de Bradford Hill
-
-| Criterio | Pregunta clave | Ejemplo |
-|----------|----------------|---------|
-| **1. Fuerza** | ¿Qué tan grande es la asociación? | Fumadores tienen 20 veces más riesgo de cáncer de pulmón |
-| **2. Consistencia** | ¿Se replica en diferentes poblaciones y contextos? | La asociación tabaco-cáncer se observa en múltiples países y décadas |
-| **3. Especificidad** | ¿La exposición produce un efecto específico? | El asbesto causa específicamente mesotelioma |
-| **4. Temporalidad** | ¿La causa precede al efecto? | **Único criterio obligatorio**: la exposición debe ocurrir antes del desenlace |
-| **5. Gradiente biológico** | ¿Más exposición = más efecto? (dosis-respuesta) | A mayor número de cigarrillos/día, mayor riesgo de cáncer |
-| **6. Plausibilidad** | ¿Tiene sentido biológico? | El humo del tabaco contiene carcinógenos conocidos |
-| **7. Coherencia** | ¿Es compatible con el conocimiento existente? | No contradice lo que sabemos sobre carcinogénesis |
-| **8. Evidencia experimental** | ¿Hay datos experimentales que lo respalden? | Estudios en animales muestran el efecto carcinógeno |
-| **9. Analogía** | ¿Hay causas similares con efectos similares? | Otros carcinógenos inhalados también causan cáncer pulmonar |
+| Criterio | Pregunta clave |
+|--------|----------------|
+| Fuerza | ¿Qué tan grande es la asociación? |
+| Consistencia | ¿Se replica en distintos contextos? |
+| Especificidad | ¿La exposición produce un efecto concreto? |
+| Temporalidad | ¿La causa precede al efecto? *(obligatorio)* |
+| Gradiente | ¿Existe relación dosis–respuesta? |
+| Plausibilidad | ¿Tiene sentido biológico? |
+| Coherencia | ¿Contradice el conocimiento previo? |
+| Evidencia experimental | ¿Hay respaldo experimental? |
+| Analogía | ¿Existen fenómenos similares conocidos? |
 
 {{% callout note %}}
-**Importante:** Estos criterios son una **guía de razonamiento**, no una lista de verificación mecánica. Ninguno (excepto temporalidad) es absolutamente necesario ni suficiente por sí solo.
+Estos criterios **no son un checklist mecánico**.  
+Sirven para estructurar el razonamiento, no para automatizar conclusiones.
 {{% /callout %}}
 
-### El estándar de oro: ensayos clínicos aleatorizados
+---
 
-La forma más robusta de establecer causalidad es el **ensayo clínico aleatorizado (ECA)**:
+### Diagramas causales (DAGs): pensar antes de ajustar
 
-- **Aleatorización:** distribuye confusores conocidos y desconocidos equitativamente
-- **Grupo control:** permite comparar con y sin intervención
-- **Cegamiento:** reduce sesgos de observación
+Los **diagramas causales dirigidos (DAGs)** permiten representar hipótesis causales antes del análisis.
 
-Sin embargo, muchas preguntas causales en salud **no pueden responderse con ECAs** por razones éticas (no podemos asignar personas a fumar) o prácticas. En esos casos, dependemos de estudios observacionales bien diseñados y del razonamiento causal riguroso.
+**Ejemplo conceptual:**  
+El tabaquismo aumenta el consumo de café y el riesgo cardiovascular.  
+Si no se ajusta por tabaquismo, el café parecerá causalmente dañino.
 
-### Diagramas causales (DAGs)
-
-Los **Directed Acyclic Graphs** o DAGs, popularizados por Judea Pearl, son herramientas visuales para representar relaciones causales y detectar confusores.
-
-**Ejemplo:** ¿El café causa enfermedad cardíaca?
-
-```mermaid
-flowchart TD
-    subgraph LEYENDA[Leyenda]
-        direction LR
-        L1[Confusor] ~~~ L2[Exposicion] ~~~ L3[Desenlace]
-    end
-
-    subgraph DAG[Diagrama Causal]
-        A[Tabaquismo] -->|causa| B[Consumo de cafe]
-        A -->|causa| C[Enfermedad cardiaca]
-        B -.->|correlacion<br>NO causal| C
-    end
-
-    style A fill:#e74c3c,color:#fff
-    style B fill:#3498db,color:#fff
-    style C fill:#2ecc71,color:#fff
-    style L1 fill:#e74c3c,color:#fff
-    style L2 fill:#3498db,color:#fff
-    style L3 fill:#2ecc71,color:#fff
-```
-
-En este DAG, el tabaquismo es un **confusor**: los fumadores tienden a beber más café Y tienen mayor riesgo cardíaco. Si no controlamos por tabaquismo, concluiremos erróneamente que el café causa enfermedad cardíaca.
-
-{{% callout note %}}
-**Recurso gratuito:** El libro *Causal Inference: What If* de Hernán y Robins está disponible gratuitamente en [hsph.harvard.edu/miguel-hernan](https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/) y es una excelente introducción a estos métodos.
-{{% /callout %}}
-
-
+El DAG no “demuestra” nada.  
+**Obliga a explicitar supuestos.**
 
 ---
 
-## 6) Un caso de éxito: cuando la correlación SÍ reveló causalidad
+## 6) Cuando una correlación sí condujo a causalidad
 
-No toda correlación es espuria. A veces, una asociación observada **sí** conduce al descubrimiento de una causa real.
+En los años 50, los estudios de Doll y Hill mostraron una fuerte asociación entre tabaco y cáncer de pulmón.  
+La objeción fue conocida: “correlación no es causalidad”.
 
-En la década de 1950, los estudios de **Richard Doll y Austin Bradford Hill** mostraron una correlación impresionante entre consumo de tabaco y cáncer de pulmón. La industria tabacalera argumentó exactamente lo que hemos discutido: "correlación no es causalidad".
+La diferencia fue el **razonamiento acumulativo**:
+- efectos grandes
+- temporalidad clara
+- dosis–respuesta
+- plausibilidad biológica
+- consistencia internacional
 
-Sin embargo, la evidencia cumplía múltiples criterios:
-
-- ✅ **Fuerza:** riesgo 20-30 veces mayor en fumadores
-- ✅ **Temporalidad:** el hábito precedía al cáncer por décadas
-- ✅ **Dosis-respuesta:** más cigarrillos = más riesgo
-- ✅ **Reversibilidad:** dejar de fumar reducía el riesgo
-- ✅ **Plausibilidad:** mecanismos carcinógenos identificados
-- ✅ **Consistencia:** replicado globalmente
-
-Este caso ilustra que **la frase "correlación no es causalidad" no es un escudo para negar evidencia robusta**. Es una invitación a investigar más profundamente, no a descartar asociaciones importantes.
+Aquí, la frase correcta no era descartar la correlación, sino **investigarla con rigor**.
 
 ---
 
-## 7) Metáfora para recordar
+## 7) Una metáfora útil
 
-Piensa en la correlación como ver dos hojas que caen juntas en otoño. Creer que una arrastra a la otra es ignorar el viento invisible que las mueve a ambas.
-
----
-
-## 8) Checklist para evitar caer en la trampa
-
-Antes de concluir que existe una relación causal, hazte estas preguntas:
-
-1. ✅ ¿Existe una variable oculta (confusor) que explique la relación?
-2. ✅ ¿Podría la causalidad ir en sentido contrario?
-3. ✅ ¿El diseño del estudio permite concluir causa o solo asociación?
-4. ✅ ¿Hay criterios teóricos/experimentales que respalden esta relación?
-5. ✅ ¿Se comunicó claramente que es correlación, no causalidad?
-6. ✅ ¿La asociación cumple al menos algunos criterios de Bradford Hill?
-7. ✅ ¿El tamaño del efecto es clínicamente relevante, no solo estadísticamente significativo?
+Ver dos hojas caer juntas no implica que una arrastre a la otra.  
+Ignorar el viento es ignorar la causa común.
 
 ---
 
-## 9) Bonus: cuidado con el "p-hacking"
+## 8) Checklist mínimo de rigor causal
 
-Una forma moderna de encontrar correlaciones falsas es el **p-hacking**: analizar datos de múltiples formas hasta encontrar un resultado "estadísticamente significativo" (p < 0.05).
+Antes de afirmar causalidad, pregúntate:
 
-Si pruebas 20 correlaciones diferentes, por puro azar una será "significativa" al 5%. Esto explica muchos hallazgos que luego no se replican.
+1. ¿Existe una variable no considerada que explique la asociación?
+2. ¿El efecto podría preceder a la supuesta causa?
+3. ¿El diseño permite inferencia causal o solo asociación?
+4. ¿El tamaño del efecto es clínicamente relevante?
+5. ¿La conclusión depende de supuestos no explicitados?
+
+Si no puedes responderlas, la correlación no basta.
+
+---
+
+## 9) P-hacking: correlaciones fabricadas
+
+El **p-hacking** consiste en explorar múltiples análisis hasta encontrar un resultado “significativo”.
+
+Con suficientes pruebas, el azar garantiza falsos positivos.
 
 **Señales de alerta:**
-
-- Estudios con muchas variables pero pocas hipótesis previas
-- Resultados "sorprendentes" sin plausibilidad teórica
-- Ausencia de pre-registro del estudio
-- Tamaños de efecto muy pequeños aunque "significativos"
+- muchas variables, pocas hipótesis previas
+- resultados sorprendentes sin plausibilidad
+- ausencia de preregistro
+- efectos pequeños presentados como hallazgos mayores
 
 {{% callout warning %}}
-**Recuerda:** Un p-valor bajo no garantiza que el efecto sea real ni importante. Es solo una pieza del rompecabezas.
+Un p-valor bajo no valida una hipótesis causal.  
+Solo indica compatibilidad estadística bajo supuestos específicos.
 {{% /callout %}}
 
 ---
 
 ## Conclusión
 
-La correlación es una herramienta poderosa, pero es solo el primer paso. Confundirla con causalidad puede llevar a decisiones erróneas en medicina, política pública y vida cotidiana.
+La correlación es un punto de partida, no una conclusión.  
+Sin razonamiento causal explícito, incluso análisis impecables pueden inducir a error.
 
-La próxima vez que leas un titular que sugiera que "X causa Y", pregúntate:
+La próxima vez que leas que “X causa Y”, haz una pausa crítica.  
+La estadística describe. **El pensamiento decide.**
 
-- ¿Hay confusores no considerados?
-- ¿Se demostró temporalidad?
-- ¿El diseño del estudio permite esa conclusión?
+---
 
-**La estadística sugiere, pero no prueba por sí sola.** El pensamiento crítico completa el trabajo.
+## Para cerrar (y abrir la conversación)
+
+Si trabajas con datos reales —en salud, investigación o políticas públicas—, es muy probable que ya te hayas enfrentado a una correlación tentadora.
+
+**La pregunta no es si existe una correlación, sino si te atreviste a interrogarla.**
+
+👉 **Pregunta para la caja de comentarios:**
+
+> ¿Has visto alguna vez una decisión importante (clínica, regulatoria o científica) apoyarse en una correlación que no resistía un análisis causal serio?  
+> ¿Dónde falló el razonamiento: en el diseño, en el análisis o en la interpretación?
+
+Si quieres, descríbelo de forma general (sin datos sensibles). Responderé señalando **qué tipo de trampa causal está en juego** y cómo habría que replantearla.
 
 ---
 
 ## Bibliografía
 
-Hill, A. B. (1965). The environment and disease: association or causation? *Proceedings of the Royal Society of Medicine*, 58(5), 295–300.
+Hill, A. B. (1965). *The environment and disease: association or causation?*  
 
-Hernán, M. A., & Robins, J. M. (2020). *Causal Inference: What If*. Chapman & Hall/CRC. [Disponible gratis en línea](https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/).
+Hernán, M. A., & Robins, J. M. (2020). *Causal Inference: What If*.  
 
-Pearl, J. (2009). *Causality: Models, Reasoning, and Inference* (2nd ed.). Cambridge University Press.
+Pearl, J. (2009). *Causality*.  
 
-Silva Aycaguer, L. C. (1998). *Cultura estadística e investigación científica en el campo de la salud: una mirada crítica*. Madrid: Díaz de Santos.
+Silva Aycaguer, L. C. (1998). *Cultura estadística e investigación científica*. 
 
-Freedman, D. A. (2005). *Statistical Models: Theory and Practice*. Cambridge University Press.
+Vigen, T. (2015). *Spurious Correlations*.
 
-Vigen, T. (2015). *Spurious Correlations*. Hachette Books. Sitio web: [tylervigen.com/spurious-correlations](https://tylervigen.com/spurious-correlations)
