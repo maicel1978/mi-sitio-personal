@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Calidad-Dato | Bioestadística edu</title><link>https://bioestadisticaedu.com/tags/calidad-dato/</link><atom:link href="https://bioestadisticaedu.com/tags/calidad-dato/index.xml" rel="self" type="application/rss+xml"/><description>Calidad-Dato</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Tue, 11 Feb 2025 00:00:00 +0000</lastBuildDate><image><url>https://bioestadisticaedu.com/media/icon_hu_551fbaee136b383e.png</url><title>Calidad-Dato</title><link>https://bioestadisticaedu.com/tags/calidad-dato/</link></image><item><title>Análisis Exploratorio de Datos: Desentrañando la Verdad de tus Datos</title><link>https://bioestadisticaedu.com/post/eda/</link><pubDate>Tue, 11 Feb 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/eda/</guid><description>&lt;h2 id="introducción">Introducción&lt;/h2>
-&lt;p>El &lt;strong>Análisis Exploratorio de Datos (EDA)&lt;/strong> es una disciplina fundamental en el campo de la ciencia de datos, popularizada por el matemático John Tukey. Más que una simple serie de pasos, el EDA es una filosofía que nos invita a interactuar con nuestros datos, visualizarlos, resumirlos y &amp;ldquo;hablar&amp;rdquo; con ellos antes de saltar a modelados complejos. Implica el análisis de datos centrado en comprender a fondo su estructura, identificar patrones ocultos, detectar anomalías (valores atípicos), gestionar datos ausentes y, en última instancia, proporcionar una base sólida para la formulación de modelos predictivos o inferenciales. Además, es crucial para descubrir cómo se relacionan las variables entre sí.&lt;/p>
-&lt;p>Un concepto popular y vital en el campo de la ciencia de datos es &lt;strong>GIGO&lt;/strong> (Garbage In, Garbage Out, o &amp;ldquo;Basura entra, basura sale&amp;rdquo;). Este concepto subraya que la calidad de los resultados de cualquier análisis o modelo es directamente proporcional a la calidad de los datos de entrada. No importa cuán sofisticado sea tu algoritmo o cuán potente sea tu infraestructura computacional, los datos de mala calidad siempre producirán resultados deficientes, engañosos o inútiles. El EDA es nuestra primera línea de defensa contra el GIGO, asegurando que trabajamos con datos limpios y comprensibles.&lt;/p>
+&lt;p>El &lt;strong>Análisis Exploratorio de Datos (EDA)&lt;/strong>, introducido y formalizado por John Tukey, no es un conjunto de gráficos decorativos ni un trámite previo al modelado. Es una &lt;strong>fase de razonamiento empírico&lt;/strong> cuyo objetivo principal es comprender qué tipo de datos tenemos realmente entre manos antes de imponerles una estructura estadística o algorítmica.&lt;/p>
+&lt;p>Hablar de EDA como una “filosofía” no implica vaguedad, sino todo lo contrario: implica aceptar que los datos deben &lt;strong>examinarse, interrogarse y ponerse a prueba&lt;/strong> antes de asumir supuestos. En la práctica, el EDA permite:&lt;/p>
+&lt;ul>
+&lt;li>entender la estructura del conjunto de datos,&lt;/li>
+&lt;li>detectar problemas de calidad,&lt;/li>
+&lt;li>identificar patrones plausibles,&lt;/li>
+&lt;li>y reconocer anomalías que requieren explicación, no ocultamiento.&lt;/li>
+&lt;/ul>
+&lt;p>Un principio recurrente en ciencia de datos es &lt;strong>GIGO (Garbage In, Garbage Out)&lt;/strong>. Aunque suele formularse de manera tajante, conviene interpretarlo con cuidado: no toda imperfección invalida un análisis, pero &lt;strong>los problemas no detectados sí lo hacen&lt;/strong>. El EDA no garantiza datos “perfectos”, pero sí datos &lt;strong>conocidos&lt;/strong>, y esa diferencia es crítica.&lt;/p>
+&lt;hr>
 &lt;h2 id="un-flujo-de-trabajo-práctico-de-eda">Un Flujo de Trabajo Práctico de EDA&lt;/h2>
-&lt;p>Aunque el EDA es un proceso iterativo y no una &amp;ldquo;camisa de fuerza&amp;rdquo; rígida, es útil seguir un flujo de trabajo estructurado para garantizar que cubrimos los aspectos más importantes. El orden de las etapas y el énfasis en cada una dependerán en gran medida del problema específico, el tipo de datos y los objetivos del análisis.&lt;/p>
+&lt;p>El EDA no es lineal ni rígido. Sin embargo, trabajar con un &lt;strong>esqueleto metodológico explícito&lt;/strong> reduce omisiones y decisiones implícitas. El flujo que se presenta a continuación no es obligatorio, pero sí razonable en la mayoría de contextos aplicados.&lt;/p>
 &lt;p>Este proceso general incluye:&lt;/p>
 &lt;p>
 &lt;figure >
@@ -17,189 +25,167 @@ height="578"
 loading="lazy" data-zoomable />&lt;/div>
 &lt;/div>&lt;/figure>
 &lt;/p>
-&lt;p>A continuación, profundicemos en cada una de estas etapas, utilizando ejemplos prácticos con el paquete &lt;code>dlookr&lt;/code> en R.&lt;/p>
+&lt;p>A continuación, se desarrolla cada etapa con ejemplos prácticos utilizando el paquete &lt;code>dlookr&lt;/code> en R.&lt;/p>
 &lt;h3 id="1-comprensión-general-de-los-datos-y-evaluación-de-su-calidad">1. Comprensión General de los Datos y Evaluación de su Calidad&lt;/h3>
-&lt;p>Antes de sumergirnos en análisis profundos, es fundamental tener una visión panorámica de nuestro conjunto de datos. Esta etapa implica:&lt;/p>
+&lt;p>El primer objetivo del EDA no es analizar, sino orientarse. Antes de cualquier inferencia, conviene responder preguntas básicas:&lt;/p>
 &lt;ul>
 &lt;li>
-&lt;p>&lt;strong>Dimensiones del dataset:&lt;/strong> ¿Cuántas filas (observaciones) y columnas (variables) tenemos?&lt;/p>
+&lt;p>¿Qué tamaño tiene el dataset?&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>&lt;strong>Tipos de datos:&lt;/strong> ¿Las variables son numéricas (enteros, flotantes), categóricas (factores, caracteres), lógicas o de fecha/hora? Es crucial que los tipos de datos sean correctos para las operaciones que deseamos realizar.&lt;/p>
+&lt;p>¿Qué representa cada variable?&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>&lt;strong>Inspección inicial:&lt;/strong> Revisar las primeras y últimas filas del dataset para obtener una idea general del formato y contenido.&lt;/p>
+&lt;p>¿Los tipos de datos son coherentes con su significado?&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>&lt;strong>Estadísticas descriptivas básicas:&lt;/strong> Para variables numéricas: media, mediana, desviación estándar, mínimo, máximo, cuartiles. Para variables categóricas: conteo de ocurrencias, proporciones. Esto nos da una primera impresión de la dispersión y centralidad de los datos.&lt;/p>
+&lt;p>¿Existen señales evidentes de problemas estructurales?&lt;/p>
 &lt;/li>
 &lt;/ul>
-&lt;p>Con &lt;code>dlookr&lt;/code>, la función &lt;code>diagnose()&lt;/code> es ideal para una revisión rápida de la calidad de los datos, mostrando el tipo de variable, el número de valores únicos, valores faltantes, valores cero y valores negativos.&lt;/p>
+&lt;p>En esta etapa se revisan:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>dimensiones del dataset,&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>tipos de variables,&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>valores ausentes,&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>rangos imposibles o sospechosos,&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>estadísticas descriptivas elementales.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>La función &lt;em>diagnose()&lt;/em> de &lt;strong>dlookr&lt;/strong> permite una inspección sistemática inicial:&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Para obtener un resumen rápido de las características de los datos&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">diagnose&lt;/span>(mtcars_na)
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Esta fase nos ayuda a formar una primera hipótesis sobre la calidad y estructura de los datos, identificando posibles problemas desde el principio.&lt;/p>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>El objetivo aquí no es corregir nada todavía, sino formular hipótesis informadas sobre la calidad de los datos.&lt;/p>
 &lt;h3 id="2-identificación-y-tratamiento-de-valores-faltantes-y-atípicos">2. Identificación y Tratamiento de Valores Faltantes y Atípicos&lt;/h3>
-&lt;p>Los valores faltantes (NA, NaN, null) y los valores atípicos (outliers) son dos de los desafíos más comunes en cualquier conjunto de datos y pueden distorsionar significativamente los resultados de nuestros análisis y modelos.&lt;/p>
-&lt;p>&lt;strong>Valores Faltantes:&lt;/strong>&lt;/p>
-&lt;ul>
-&lt;li>
-&lt;p>&lt;strong>Identificación:&lt;/strong> Cuantificar la cantidad y proporción de valores faltantes por variable. Visualizar patrones de ausencia (¿los valores faltantes ocurren aleatoriamente o hay un patrón?).&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Tratamiento:&lt;/strong>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Eliminación:&lt;/strong> Si la cantidad de valores faltantes es pequeña o si una variable tiene un porcentaje muy alto de NAs, se pueden eliminar filas o columnas.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Imputación:&lt;/strong> Rellenar los valores faltantes. Métodos comunes incluyen la media, mediana o moda (para datos numéricos y categóricos, respectivamente), o métodos más avanzados basados en modelos (regresión, k-NN, etc.). La elección depende de la naturaleza de los datos y el problema.&lt;/p>
-&lt;/li>
-&lt;/ul>
-&lt;p>&lt;strong>Valores Atípicos:&lt;/strong>&lt;/p>
-&lt;ul>
-&lt;li>
-&lt;p>&lt;strong>Identificación:&lt;/strong> Observaciones que se desvían significativamente del resto de los datos. Se pueden detectar mediante gráficos de caja (boxplots), diagramas de dispersión, puntuaciones Z, el método IQR (rango intercuartílico) o algoritmos más sofisticados.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Tratamiento:&lt;/strong>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Eliminación:&lt;/strong> Si se confirma que son errores de entrada de datos.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Transformación:&lt;/strong> Aplicar transformaciones logarítmicas o de raíz cuadrada para reducir su impacto.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Capping/Flooring:&lt;/strong> Limitar los valores atípicos a un percentil superior o inferior (por ejemplo, el 99% o el 1%).&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Mantener:&lt;/strong> A veces, los valores atípicos son observaciones genuinas e importantes que no deben eliminarse.&lt;/p>
-&lt;/li>
-&lt;/ul>
-&lt;p>&lt;code>dlookr&lt;/code> ofrece funciones visuales y programáticas para abordar estos problemas:&lt;/p>
+&lt;p>Los valores faltantes y los valores atípicos no son errores por definición. Son señales que requieren interpretación.&lt;/p>
+&lt;h4 id="valores-faltantes">Valores faltantes&lt;/h4>
+&lt;p>Antes de imputar o eliminar, es esencial preguntarse:&lt;/p>
+&lt;p>¿Cuántos faltantes hay?&lt;/p>
+&lt;p>¿Dónde se concentran?&lt;/p>
+&lt;p>¿Son plausiblemente aleatorios?&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Visualizar la distribución de valores faltantes&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_na&lt;/span>(mtcars_na)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Identificar valores atípicos para una variable específica (ej. &amp;#34;hp&amp;#34;)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># plot_outlier() es excelente para visualizar.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_outlier&lt;/span>(mtcars_df, &lt;span style="color:#e6db74">&amp;#34;hp&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="3-análisis-de-la-distribución-de-las-variables">3. Análisis de la Distribución de las Variables&lt;/h3>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># # Identificar valores atípicos para una variable específica (ej. &amp;#34;hp&amp;#34;)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># # plot_outlier() es excelente para visualizar.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># plot_outlier(mtcars_df, &amp;#34;hp&amp;#34;)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>El tratamiento puede incluir:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>eliminación (cuando el impacto es marginal o la variable es inviable),&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>imputación simple,&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>o métodos basados en modelos.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>La elección no es técnica solamente, sino contextual.&lt;/p>
+&lt;h4 id="valores-atípicos">Valores atípicos&lt;/h4>
+&lt;p>Un valor extremo puede ser:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>un error,&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>una observación rara pero válida,&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>o una señal de un subproceso distinto.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>Las opciones clásicas (eliminar, transformar, limitar o conservar) no son intercambiables y dependen del objetivo analítico.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_outlier&lt;/span>(mtcars_df, &lt;span style="color:#e6db74">&amp;#34;hp&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Eliminar un outlier sin justificarlo es tan problemático como conservarlo sin examinarlo.&lt;/p>
+&lt;h3 id="3-análisis-de-la-distribución-de-las-variables">3. Análisis de la Distribución de las Variables&lt;/h3>
 &lt;p>Comprender la distribución de cada variable individualmente es clave para seleccionar los métodos estadísticos y de modelado adecuados.&lt;/p>
 &lt;p>&lt;strong>Variables Numéricas:&lt;/strong>&lt;/p>
+&lt;p>El análisis univariado permite evaluar qué supuestos son razonables y cuáles no.&lt;/p>
+&lt;p>Para variables numéricas:&lt;/p>
 &lt;ul>
-&lt;li>&lt;strong>Histogramas y gráficos de densidad:&lt;/strong> Permiten visualizar la forma de la distribución, identificar asimetrías (skewness), curtosis, y la presencia de múltiples modos.&lt;/li>
-&lt;li>&lt;strong>Medidas de asimetría y curtosis:&lt;/strong> Cuantifican la forma de la distribución.&lt;/li>
-&lt;li>&lt;strong>Pruebas de normalidad:&lt;/strong> Aunque muchas veces no son estrictamente necesarias, pueden complementar el análisis visual.&lt;/li>
+&lt;li>
+&lt;p>histogramas y densidades ofrecen información visual,&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>medidas de asimetría y curtosis cuantifican la forma,&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>las pruebas de normalidad pueden complementar, pero no reemplazan el juicio analítico, especialmente en muestras grandes.&lt;/p>
+&lt;/li>
 &lt;/ul>
-&lt;p>&lt;strong>Variables Categóricas:&lt;/strong> - &lt;strong>Gráficos de barras:&lt;/strong> Muestran la frecuencia o proporción de cada categoría. - &lt;strong>Tablas de frecuencia:&lt;/strong> Resumen el conteo y porcentaje de cada nivel.&lt;/p>
-&lt;p>&lt;code>dlookr&lt;/code> simplifica la visualización de distribuciones:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Visualizar la distribución de una variable numérica (ej. &amp;#34;mpg&amp;#34;)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_hist&lt;/span>(mtcars_df, &lt;span style="color:#e6db74">&amp;#34;mpg&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># O ver la distribución y normalidad&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_normality&lt;/span>(mtcars_df, &lt;span style="color:#e6db74">&amp;#34;mpg&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Para variables categóricas (como &amp;#39;cyl&amp;#39; en mtcars que es numérica discreta)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Podemos convertirla a factor para un análisis categórico.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>mtcars_factor_cyl &lt;span style="color:#f92672">&amp;lt;-&lt;/span> mtcars_df &lt;span style="color:#f92672">%&amp;gt;%&lt;/span> &lt;span style="color:#a6e22e">mutate&lt;/span>(cyl &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">as.factor&lt;/span>(cyl))
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_bar&lt;/span>(mtcars_factor_cyl, &lt;span style="color:#e6db74">&amp;#34;cyl&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Este análisis nos ayuda a entender el comportamiento de cada característica y a identificar la necesidad de transformaciones futuras.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_hist&lt;/span>(mtcars_df, &lt;span style="color:#e6db74">&amp;#34;mpg&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_normality&lt;/span>(mtcars_df, &lt;span style="color:#e6db74">&amp;#34;mpg&amp;#34;&lt;/span>))
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Para variables categóricas, las frecuencias y proporciones revelan desequilibrios que pueden condicionar análisis posteriores.&lt;/p>
 &lt;h3 id="4-análisis-de-las-relaciones-entre-las-variables">4. Análisis de las Relaciones entre las Variables&lt;/h3>
-&lt;p>Esta etapa se centra en descubrir cómo las variables interactúan entre sí. Es fundamental para la selección de características, la identificación de multicolinealidad y la comprensión de la causalidad (o correlación).&lt;/p>
+&lt;p>Explorar relaciones no implica afirmar causalidad. Implica detectar dependencias que merecen explicación.&lt;/p>
+&lt;p>Numérica vs numérica:&lt;/p>
 &lt;ul>
 &lt;li>
-&lt;p>&lt;strong>Dos variables numéricas:&lt;/strong>&lt;/p>
+&lt;p>gráficos de dispersión,&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>&lt;strong>Diagramas de dispersión (scatter plots):&lt;/strong> Visualizan la dirección y fuerza de la relación (positiva, negativa, nula, no lineal).&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Coeficientes de correlación (Pearson, Spearman):&lt;/strong> Cuantifican la fuerza y dirección de la relación lineal (Pearson) o monótona (Spearman).&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Una variable numérica y una categórica:&lt;/strong>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Gráficos de caja (boxplots) o gráficos de violín:&lt;/strong> Comparan la distribución de la variable numérica entre las diferentes categorías.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Pruebas t de Student o ANOVA:&lt;/strong> Para determinar si hay diferencias estadísticamente significativas en las medias.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Dos variables categóricas:&lt;/strong>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Tablas de contingencia y gráficos de barras apiladas/agrupadas:&lt;/strong> Muestran la distribución conjunta.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Pruebas de significación:&lt;/strong> Para evaluar la independencia entre las variables.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Matrices de correlación:&lt;/strong> Visualizan las correlaciones entre múltiples variables numéricas simultáneamente, a menudo con mapas de calor (heatmaps).&lt;/p>
+&lt;p>correlaciones (interpretadas con cautela).&lt;/p>
 &lt;/li>
 &lt;/ul>
-&lt;p>&lt;code>dlookr&lt;/code> facilita la exploración de relaciones:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Visualizar la matriz de correlación entre todas las variables numéricas&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_cor&lt;/span>(mtcars_df)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Analizar la relación entre una variable objetivo (&amp;#39;mpg&amp;#39;) y otra característica (&amp;#39;wt&amp;#39;)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># plot_eda() permite explorar diversas relaciones bivariadas.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_eda&lt;/span>(mtcars_df, target &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;mpg&amp;#34;&lt;/span>, feature &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;wt&amp;#34;&lt;/span>) &lt;span style="color:#75715e"># Numérica vs Numérica (scatterplot)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Relación entre &amp;#39;mpg&amp;#39; (numérica) y &amp;#39;cyl&amp;#39; (considerada categórica aquí)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_eda&lt;/span>(mtcars_df, target &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;mpg&amp;#34;&lt;/span>, feature &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;cyl&amp;#34;&lt;/span>) &lt;span style="color:#75715e"># Numérica vs Categórica (boxplot)&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="5-transformación-de-los-datos">5. Transformación de los Datos&lt;/h3>
-&lt;p>Una vez que hemos comprendido nuestros datos, es posible que necesitemos transformarlos para que sean más adecuados para los algoritmos de machine learning o para mejorar el rendimiento del modelo.&lt;/p>
+&lt;p>Numérica vs categórica:&lt;/p>
 &lt;ul>
 &lt;li>
-&lt;p>&lt;strong>Manejo de asimetría:&lt;/strong>&lt;/p>
+&lt;p>boxplots,&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>&lt;strong>Transformaciones logarítmicas, de raíz cuadrada o de Box-Cox:&lt;/strong> Pueden normalizar distribuciones sesgadas, reduciendo la influencia de valores extremos.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Escalado de características:&lt;/strong>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Normalización (Min-Max Scaling):&lt;/strong> Escala los datos a un rango fijo (por ejemplo, [0, 1]). Útil para algoritmos sensibles a la escala como SVM o redes neuronales.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Estandarización (Z-score Scaling):&lt;/strong> Transforma los datos para que tengan una media de 0 y una desviación estándar de 1. Es común en algoritmos basados en distancia (k-NN, K-Means, PCA).&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Codificación de variables categóricas:&lt;/strong>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>One-Hot Encoding:&lt;/strong> Convierte variables categóricas en múltiples columnas binarias, una por cada categoría. Esencial para algoritmos que solo trabajan con entradas numéricas.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Label Encoding:&lt;/strong> Asigna un número entero a cada categoría. Útil si hay un orden inherente en las categorías.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>Ingeniería de Características (Feature Engineering):&lt;/strong> Crear nuevas variables a partir de las existentes. Esto puede ser tan simple como combinar dos columnas o tan complejo como extraer información de texto o imágenes. Esta etapa es a menudo la que más impacto tiene en el rendimiento del modelo.&lt;/p>
+&lt;p>comparaciones de distribuciones.&lt;/p>
 &lt;/li>
 &lt;/ul>
-&lt;p>&lt;code>dlookr&lt;/code> ofrece funciones útiles para la transformación de datos:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Transformación logarítmica para reducir la asimetría de una variable&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>mtcars_transformed_log &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">transform_df&lt;/span>(mtcars_df, mpg &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">log&lt;/span>(mpg))
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Compara la distribución de mpg original vs. transformada&lt;/span>
+&lt;p>Categórica vs categórica:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>tablas de contingencia,&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>pruebas de independencia.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_cor&lt;/span>(mtcars_df)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_eda&lt;/span>(mtcars_df, target &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;mpg&amp;#34;&lt;/span>, feature &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;wt&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_eda&lt;/span>(mtcars_df, target &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;mpg&amp;#34;&lt;/span>, feature &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;cyl&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Una correlación alta es una invitación a pensar, no una conclusión.&lt;/p>
+&lt;h3 id="5-transformación-de-los-datos">5. Transformación de los Datos&lt;/h3>
+&lt;p>Transformar datos no es “mejorarlos”, sino adaptarlos a un propósito específico.&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Transformaciones para asimetría.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Escalado para algoritmos sensibles a magnitud.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Codificación para variables categóricas.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Ingeniería de características como acto creativo y peligroso.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>mtcars_transformed_log &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">transform_df&lt;/span>(mtcars_df, mpg &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">log&lt;/span>(mpg))
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_normality&lt;/span>(mtcars_df, &lt;span style="color:#e6db74">&amp;#34;mpg&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot_normality&lt;/span>(mtcars_transformed_log, &lt;span style="color:#e6db74">&amp;#34;mpg&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Binarización o discretización de una variable continua (ej. &amp;#39;hp&amp;#39; en 3 bins)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>mtcars_binned &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">binning&lt;/span>(mtcars_df, &lt;span style="color:#e6db74">&amp;#34;hp&amp;#34;&lt;/span>, n &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">3&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">head&lt;/span>(mtcars_binned &lt;span style="color:#f92672">%&amp;gt;%&lt;/span> &lt;span style="color:#a6e22e">select&lt;/span>(hp, hp_Binned))
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Estandarización de variables numéricas (Z-score)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>mtcars_scaled &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">normalize&lt;/span>(mtcars_df, method &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;scale&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">head&lt;/span>(mtcars_scaled) &lt;span style="color:#75715e"># Observa cómo los valores de todas las columnas han cambiado&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="herramientas-populares-para-eda">Herramientas Populares para EDA&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>La ingeniería de características suele tener gran impacto, pero también introduce &lt;strong>riesgos de sobreajuste y fuga de información&lt;/strong>, que deben evaluarse explícitamente.&lt;/p>
+&lt;h2 id="herramientas-populares-para-eda">Herramientas Populares para EDA&lt;/h2>
 &lt;p>Para realizar un EDA efectivo, contamos con potentes herramientas en lenguajes como R y Python:&lt;/p>
 &lt;ul>
 &lt;li>&lt;strong>En R:&lt;/strong>
 &lt;ul>
 &lt;li>El ecosistema &lt;code>tidyverse&lt;/code> (&lt;code>dplyr&lt;/code> para manipulación, &lt;code>ggplot2&lt;/code> para visualización) es indispensable.&lt;/li>
-&lt;li>Paquetes específicos para EDA como &lt;strong>&lt;code>dlookr&lt;/code>&lt;/strong>, es excelente por su enfoque estructurado en el diagnóstico de calidad, exploración y transformación de datos, ofreciendo funciones y reportes automatizados que agilizan el proceso. Otros paquetes útiles incluyen &lt;code>DataExplorer&lt;/code>, &lt;code>skimr&lt;/code>, y &lt;code>visdat&lt;/code>.&lt;/li>
+&lt;li>Paquetes específicos para EDA como &lt;strong>&lt;code>dlookr&lt;/code>&lt;/strong>, es excelente por su enfoque estructurado en el diagnóstico de calidad, exploración y transformación de datos, ofreciendo funciones y reportes automatizados que agilizan el proceso.&lt;/li>
+&lt;li>Otros paquetes útiles incluyen &lt;code>DataExplorer&lt;/code>, &lt;code>skimr&lt;/code>, y &lt;code>visdat&lt;/code>.&lt;/li>
 &lt;/ul>
 &lt;/li>
 &lt;li>&lt;strong>En Python:&lt;/strong>
@@ -212,9 +198,21 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;/li>
 &lt;/ul>
 &lt;h2 id="conclusión">Conclusión&lt;/h2>
-&lt;p>El Análisis Exploratorio de Datos no es solo una fase inicial, sino un proceso continuo de aprendizaje sobre tus datos. Es una inversión de tiempo que rinde grandes dividendos, ya que una comprensión profunda de los datos nos permite tomar decisiones más informadas, construir modelos más robustos y, en última instancia, extraer conocimientos más valiosos. Al dominar el EDA, te equipas con la habilidad de transformar datos brutos en una historia coherente y accionable, evitando la trampa del GIGO y asegurando que tus esfuerzos de ciencia de datos generen un impacto real.&lt;/p>
-&lt;p>🎧 &lt;strong>Escucha el podcast de esta publicación&lt;/strong>
-&lt;audio controls >
-&lt;source src="https://bioestadisticaedu.com/mp3/eda.mp3" type="audio/mpeg">
-&lt;/audio>
-&lt;/p></description></item></channel></rss>
+&lt;p>El EDA no garantiza conclusiones correctas, pero reduce drásticamente las conclusiones ingenuas. Es el espacio donde el analista deja de ejecutar recetas y empieza a razonar con datos reales.&lt;/p>
+&lt;p>Dominar el EDA no consiste en memorizar gráficos, sino en aprender a formular mejores preguntas antes de modelar. Esa habilidad es la que separa el análisis técnico del análisis científico.&lt;/p>
+&lt;h2 id="pregunta-para-el-lector">Pregunta para el lector&lt;/h2>
+&lt;p>¿En qué momento de tu trabajo analítico has descubierto que el problema no estaba en el modelo, sino en lo que asumiste sobre los datos antes de modelar?&lt;/p>
+&lt;p>Comparte el ejemplo o la duda. El EDA no se perfecciona en silencio, sino confrontando decisiones reales.&lt;/p>
+&lt;!-- LinkedIn -->
+&lt;!-- Muchos errores en ciencia de datos no nacen en el modelo. -->
+&lt;!-- Nacen antes, cuando damos por sentadas cosas que nunca miramos con atención. -->
+&lt;!-- El Análisis Exploratorio de Datos (EDA) no es un trámite previo ni una galería de gráficos. -->
+&lt;!-- Es el momento donde se decide qué tipo de evidencia será posible… y cuál no. -->
+&lt;!-- He visto modelos sofisticados construidos sobre supuestos frágiles que nadie explicitó. -->
+&lt;!-- Y resultados “robustos” que solo eran insensibles al razonamiento. -->
+&lt;!-- En este artículo desarrollo el EDA como lo que realmente es: -->
+&lt;!-- un ejercicio de pensamiento empírico, no de cumplimiento técnico. -->
+&lt;!-- Artículo completo en el primer comentario. -->
+&lt;!-- https://bioestadisticaedu.com/post/eda/ -->
+&lt;!-- Este texto no pretende enseñar “qué gráfico usar”, sino cuándo pensar y por qué antes de modelar. -->
+&lt;!-- Si trabajas con datos reales, esto te va a incomodar (en el buen sentido). --></description></item></channel></rss>
