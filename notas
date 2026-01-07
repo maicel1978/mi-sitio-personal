@@ -1,18 +1,11 @@
 # Notebook  de Trabajo Optimizadas
 Actualización: 02/01/2025 
-
 💡Tip: actualiza fechas y to-dos regularmente para mantener el éxito del proyecto.
-# Bibliografía y Recursos
-- Guía Hugo Blox: https://docs.hugoblox.com/tutorial/
-- Documentación: https://docs.hugoblox.com/
-- YAML Syntax: https://learnxinyminutes.com/docs/yaml/
-- Markdown Reference: https://docs.hugoblox.com/reference/markdown/
 
 ---
 
-# Comandos Esenciales para Flujo Diario (Blogdown + Git)
+# 💻 Comandos Esenciales para Flujo Diario (Blogdown + Git)
 
-💡Tip: Prueba builds locales con `blogdown:::build_site()` antes de push.
 
 ## Detener y recontruir
 blogdown:::stop_server()                              # Detiene el servidor.
@@ -22,6 +15,7 @@ blogdown:::check_site()  # Verifica errores.
 -----------------------------------------------------------------------------
 blogdown:::serve_site()                               # preview.
 
+
 ## Git (Para Netlify Deploy):
 `git add content/post/nuevo-post.md` # Añade cambios.
 `git commit -m "Mensaje descriptivo"` # Commit.
@@ -29,7 +23,7 @@ blogdown:::serve_site()                               # preview.
 
 ---
 
-## Front Matter Esencial (template base para consistencia)
+## ⚙️ Front Matter Esencial (template base para consistencia)
 
 ---
 title: "Título Optimizado con Keyword"
@@ -134,7 +128,7 @@ type: docs
 
 
 
-# Short codes
+💻 # Short codes
 
 ## spoiler
 
@@ -183,6 +177,8 @@ Ejemplo 3
 
 ## imagen 
 
+<img src="sumario.png" />
+
 {{< figure src="modelos_elecion.png" caption="A caption" numbered="true" >}}
 
 ----------------------------------------
@@ -218,7 +214,7 @@ Lista de verificación
 ----------------------------------------
 
 
-## Línea Editorial (70/20/10) 
+⚠️ ## Línea Editorial (70/20/10) 
 Alineada con Calidad (Distribución para enfocarte en utilidad y reputación):
 
 - 70% Útil: Guías estadísticas aplicadas a salud/regulación (e.g., intervalos de confianza en ensayos clínicos).
@@ -226,34 +222,40 @@ Alineada con Calidad (Distribución para enfocarte en utilidad y reputación):
 - 10% Experimental: Casos reales con datos (R/Python) + anécdotas profesionales.
 
 
-# Plan editorial 2026 
+📅 # Plan editorial 2026 (Programacion) 
 
 herramienta: 
 
+buffer
 https://app.viraly.io/
 linkeling
 
-publicaciones (enero):
-  - slug: er-01
+🎯 publicaciones (enero):
+
+  - 🚀 slug: er-01
     titulo: "Frankenstein metodológico"
-    fecha: 2026-01-01
+    fecha es: 2026-01-01
+    fecha en: 2026-01-07
     semana: 0
     rol_editorial: gancho
     funcion: impacto inicial / promesa intelectual
+    
 
-  - slug: manifiesto-es
-    titulo: "Este es el tipo de autor que soy"
-    fecha: 2026-01-06
-    semana: 1
-    rol_editorial: contrato_editorial
-    funcion: marco, límites, expectativas
-
-  - slug: tendencias-bioestadistica
+  - 🚀 slug: tendencias-bioestadistica
     titulo: "Tendencias en bioestadística"
     fecha: 2026-01-06
     semana: 1
     rol_editorial: posicionamiento_autor
     funcion: el personaje eres tú (autor explícito)
+
+-> (publicado hasta aquí) 👆
+
+  - slug: manifiesto-es
+    titulo: "Sobre este blog: estadística, salud y pensamiento incómodo"
+    fecha: 2026-01-09
+    semana: 1
+    rol_editorial: contrato_editorial
+    funcion: marco, límites, expectativas
 
   - slug: trampas-correlacion
     titulo: "Trampas de la correlación"
@@ -271,5 +273,22 @@ publicaciones (enero):
 
 # libro (revisa nota libro)
 
+# hashtags
 
+X (Twitter)
+
+#Biostatistics, #ClinicalTrials #BioPharma #RStats
+
+Mastodon
+
+#Bioestadistica, #Biopharma, #Ciencia, #RStats
+
+
+# 📚 Bibliografía y Recursos
+- Guía Hugo Blox: https://docs.hugoblox.com/tutorial/
+- Documentación: https://docs.hugoblox.com/
+- YAML Syntax: https://learnxinyminutes.com/docs/yaml/
+- Markdown Reference: https://docs.hugoblox.com/reference/markdown/
+
+---
 

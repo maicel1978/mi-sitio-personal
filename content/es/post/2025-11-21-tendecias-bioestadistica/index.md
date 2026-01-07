@@ -23,8 +23,6 @@ type: post
 
 ## Introducción
 
-<img src="sumario.png" />
-
 ### El Experimento: Física-Ficción en el Caribe
 
 Recuerdo mi primer día en la residencia de Bioestadística en la [Escuela Nacional de Salud Pública (ENSAP)](https://ensap.sld.cu/). Llevaba una pregunta clavada en la cabeza, una de esas que uno no se atreve a formular en voz alta:
@@ -713,13 +711,5 @@ Y ahora te pregunto, colega:
 
 3.  Veritasium (en español). (2020). El éxito: ¿es suerte o trabajo duro? [Video]. YouTube.
 
-<!-- cometario para linkleling -->
 
-<!-- "Comparé el plan de estudios de mi residencia con el de Harvard y Johns Hopkins. -->
-
-<!-- En matemáticas puras, aguantamos el primer round. 🥊 Pero cuando entra la IA y el Big Data, nos están dando una paliza. -->
-
-<!-- ¿La solución? No es tirar el título. Es evolucionar hacia el 'Bioestadístico Híbrido'. -->
-
-<!-- Aquí mi análisis completo y la hoja de ruta para actualizarse gratis. 👇" -->
 
