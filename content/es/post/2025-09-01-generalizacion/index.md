@@ -14,6 +14,8 @@ commentable: true
 type: post
 ---
 
+*Por Maicel Monzon*
+
 ## Introducción
 
 ¿Alguna vez has leído un titular científico y te has preguntado: "¿Esto me aplica a mí?" o "Esto suena genial, pero ¿es relevante para mi realidad?" Si es así, has tocado el nervio de uno de los mayores desafíos de la investigación: cómo saltar del estudio controlado en un laboratorio al mundo real.

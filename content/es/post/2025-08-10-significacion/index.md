@@ -17,6 +17,8 @@ bibliography: references.bib
 type: post
 ---
 
+*Por Maicel Monzon*
+
 ## Introducción
 
 Ese momento de satisfacción al ver p \< 0.05… ¿representa un descubrimiento

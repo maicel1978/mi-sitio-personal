@@ -10,6 +10,9 @@ tags:
   - "detección de datos falsos"
   - "educación médica"
 slug: experimento-aula-estudiantes
+languages:
+  es: "/es/experimento-aula-estudiantes"
+  en: "/en/experimento-aula-estudiantes-en"
 summary: "Pedí a mis residentes que inventaran datos de hemoglobina en 60 segundos. Usé seis técnicas forenses para atraparlos. Spoiler: La estadística siempre gana."
 featured: true
 commentable: true  # Solo si tienes Disqus o similar configurado
@@ -18,6 +21,8 @@ show_related: true
 show_breadcrumb: true
 type: post
 ---
+
+
 
 ```{r setup, echo = FALSE,message=FALSE,warning=FALSE}
 # 1. CARGA DE LIBRERÍAS (Modo Silencioso)
@@ -53,6 +58,8 @@ theme_academico <- function() {
     )
 }
 ```
+
+*Por Maicel Monzon*
 
 ## Acto I: El Experimento
 

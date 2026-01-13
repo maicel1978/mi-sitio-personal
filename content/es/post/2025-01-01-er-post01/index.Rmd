@@ -3,7 +3,7 @@ title: "El Frankenstein Metodológico: La Bestia Silenciosa en los Ensayos Clín
 subtitle: "Cómo Protocolos Impecables Generan Evidencia Frágil y Decisiones Erróneas"
 summary: "En los ensayos clínicos, un análisis correcto puede ocultar evidencia falsa si la pregunta clínica no se alinea con los estimandos reales. Exploramos este monstruo con un caso simulado en R."
 author: "admin"
-date: "2025-12-31"
+date: "2026-01-01"
 categories: ["Evaluación Regulatoria"]
 tags:
   - "evaluacion-regulatoria"
@@ -19,6 +19,8 @@ show_related: true
 show_breadcrumb: true
 type: post
 ---
+
+*Por Maicel Monzon*
 
 ## Introducción
 

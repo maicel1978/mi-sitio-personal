@@ -5,7 +5,7 @@ categories: ["Código Práctico en R o Python"]
 summary: "Guía práctica con R para desarrollar modelos predictivos robustos en entornos clínicos"
 # profile: true
 author: "admin"
-date: "2025-11-12" #año mes dia
+date: "2025-01-19" #año mes dia
 # show_author_profile: true
 tags: 
   - "Modelización-Clínica"
@@ -34,11 +34,6 @@ type: post
 ---
 
 
-🎧 **Escucha el podcast de esta publicación**
-
-{{< audio src="https://ia600607.us.archive.org/24/items/articulo-steyember/_Articulo_Steyember.mp3" controls="yes" >}}
-
-
 
 ```{r setup, echo=FALSE, results='hide'}
 knitr::opts_chunk$set(
@@ -56,6 +51,8 @@ knitr::opts_chunk$set(
 	fig.path = ''
 )
 ```
+
+*Por Maicel Monzon*
 
 
 Si está leyendo esta publicación, es probable que le interese desarrollar **modelos de predicción clínica** para **diagnosticar** o **pronosticar** enfermedades en pacientes. Seguramente sea investigador o estudiante de posgrado —en maestría o doctorado— en ciencias biomédicas, y busque cómo **desarrollar** y **validar** esos modelos en un **artículo científico** o **tesis**.

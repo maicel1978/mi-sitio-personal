@@ -2,7 +2,7 @@
 title: "Análisis Exploratorio de Datos: Desentrañando la Verdad de tus Datos"
 subtitle: "Tutorial sobre Análisis Exploratorio de Datos"
 author: "admin"
-date: '2025-02-11'
+date: "2025-01-20"
 slug: "eda"
 categories: ["Código Práctico en R o Python"]
 tags:
@@ -15,6 +15,8 @@ featured: false  # Destacar en la página principal
 commentable: true
 type: post
 ---
+
+*Por Maicel Monzon*
 
 ## Introducción
 

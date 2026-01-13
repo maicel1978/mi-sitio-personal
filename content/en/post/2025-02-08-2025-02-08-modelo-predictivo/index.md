@@ -24,13 +24,10 @@ type: post
 ---
 
 
-<!-- 🎧 **Listen to the podcast of this post** -->
-
-<!-- {{< audio src="https://ia600607.us.archive.org/24/items/articulo-steyember/_Articulo_Steyember.mp3" controls="yes" >}} -->
 
 
 
-
+*By Maicel Monzon*
 
 
 If you're reading this post, you're likely interested in developing clinical prediction models to diagnose or prognosticate diseases in patients. You're probably a researcher or graduate student—in a master's or PhD program—in biomedical sciences, looking for how to develop and validate those models in a scientific article or thesis.

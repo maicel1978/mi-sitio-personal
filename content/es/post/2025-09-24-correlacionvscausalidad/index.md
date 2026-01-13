@@ -2,7 +2,7 @@
 title: "Las trampas de la correlación disfrazada de causalidad"
 subtitle: "cuando los números cuentan historias falsas"
 author: "admin"
-date: '2025-02-24'
+date: '2025-01-13'
 categories: ["Estadística en Salud"]
 tags:
   - "detectar trampas correlación vs. causalidad en investigación"
@@ -10,12 +10,17 @@ tags:
   - "ejemplos prácticos de falacias causales en salud"
   - "herramientas para validar causalidad real"
 slug: trampas-correlacion
+languages:
+  es: "/es/trampas-correlacion"
+  en: "/en/trampas-correlacion-en"
 summary:  "Ejemplos curiosos, cápsulas de rigor y un checklist práctico para no confundir correlación con causalidad en investigación científica."
 featured: true  # Destacar en la página principal
 draft: false 
 commentable: true
 type: post
 ---
+
+*Por Maicel Monzon*
 
 ## Introducción
 

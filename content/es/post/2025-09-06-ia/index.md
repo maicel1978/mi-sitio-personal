@@ -13,6 +13,7 @@ bibliography: references.bib
 type: post
 ---
 
+*Por Maicel Monzon*
 
 Todos conocemos los Modelos de Lenguaje Grandes (LLMs) como **ChatGPT de OpenAI, Claude de Anthropic, Gemini de Google** y otros modelos similares.
 

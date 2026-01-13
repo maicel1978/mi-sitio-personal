@@ -12,6 +12,8 @@ tags:
 type: post
 ---
 
+*Por Maicel Monzon*
+
 ## Introducción
 
 El **marco de resultados potenciales** se mantiene como la piedra angular del pensamiento causal, proporcionando el andamiaje conceptual para diferenciar la mera correlación de la causalidad. Ante la imposibilidad de llevar a cabo **ensayos controlados aleatorizados (RCT)**, la investigación se ha nutrido de **métodos robustos** que permiten extraer inferencias causales creíbles de datos observacionales. En este contexto, herramientas como el **Propensity Score** y los **estimadores doblemente robustos** (DR) se utilizan para controlar los sesgos de selección a partir de covariables observables, mientras que los **Efectos de Tratamiento Promedio Condicionales (CATE)**, apoyados en machine learning, permiten explorar la heterogeneidad del efecto entre subpoblaciones. Asimismo, un conjunto de estrategias cuasi-experimentales ha abierto nuevos horizontes en la investigación, incluyendo el uso de **Variables Instrumentales (IV)** para corregir la confusión no observada, el **Diferencias-en-Diferencias (DID)** y el **Control Sintético (SC)** para comparar trayectorias temporales, y la **Regresión Discontinua (RDD)** para explotar umbrales de asignación, todas ellas permitiendo identificar efectos causales en contextos donde la aleatorización no es factible.

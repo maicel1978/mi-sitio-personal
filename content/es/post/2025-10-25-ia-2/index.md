@@ -10,6 +10,9 @@ tags:
   - "IA"
   - "horror vacui algorítmico"
 slug: experimento-aula-ia
+languages:
+  es: "/es/experimento-aula-ia"
+  en: "/en/experimento-aula-ia-en"
 summary: "Secuela del experimento 'Miéntele al Profesor'. Puse a prueba a los colosos de silicio ante correlaciones absurdas. Ninguna detectó el sinsentido, revelando un 'horror vacui' algorítmico que amenaza la integridad científica."
 featured: true
 draft: false # True para un borrador
@@ -23,6 +26,7 @@ type: post
 
 
 
+*Por Maicel Monzon*
 
 ## El Cebo: Un Nobel a domicilio
 

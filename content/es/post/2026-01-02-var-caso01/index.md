@@ -19,6 +19,8 @@ show_breadcrumb: true
 type: post
 ---
 
+*Por Maicel Monzon*
+
 En el fútbol, si el balón sale por la banda, no puedes mover la portería para que entre.
 En la literatura médica, a veces, los postes tienen ruedas.
 Bienvenidos al VAR Científico. Aquí revisamos el partido completo: comparamos lo que prometieron en el protocolo con lo que celebraron en el paper. Si hubo mano, fuera de juego o portería relocalizada, el monitor no miente.

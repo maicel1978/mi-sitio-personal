@@ -21,6 +21,8 @@ draft: false # True para un borrador
 type: post
 ---
 
+*Por Maicel Monzon*
+
 ## Introducción
 
 ### El Experimento: Física-Ficción en el Caribe

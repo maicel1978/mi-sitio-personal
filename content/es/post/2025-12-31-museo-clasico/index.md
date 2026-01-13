@@ -18,9 +18,11 @@ show_breadcrumb: true
 type: post
 ---
 
-# El Museo de los Horrores Metodológicos
+*Por Maicel Monzon*
 
-## Sala de Arte Clásico – Catálogo Permanente de los Clásicos Inmortales
+## El Museo de los Horrores Metodológicos
+
+### Sala de Arte Clásico – Catálogo Permanente de los Clásicos Inmortales
 
 Pasen, por favor.
 
@@ -45,7 +47,7 @@ Bienvenidos a la **Sala de Arte Clásico** del Museo.
 
 ---
 
-## Obra 1: La Cama de Procusto
+#### Obra 1: La Cama de Procusto
 
 **(Sobreajuste / Overfitting)**
 
@@ -60,7 +62,7 @@ Bienvenidos a la **Sala de Arte Clásico** del Museo.
 
 ---
 
-## Obra 2: La Red del Pescador Astuto
+#### Obra 2: La Red del Pescador Astuto
 
 **(p-Hacking)**
 
@@ -74,7 +76,7 @@ Bienvenidos a la **Sala de Arte Clásico** del Museo.
 
 ---
 
-## Obra 3: El Reloj Roto
+#### Obra 3: El Reloj Roto
 
 **(Mal uso del valor p)**
 
@@ -88,7 +90,7 @@ Bienvenidos a la **Sala de Arte Clásico** del Museo.
 
 ---
 
-## Obra 4: El Fantasma Inadvertido
+#### Obra 4: El Fantasma Inadvertido
 
 **(Bajo poder estadístico)**
 
@@ -102,7 +104,7 @@ Bienvenidos a la **Sala de Arte Clásico** del Museo.
 
 ---
 
-## Obra 5: El Montón de Desechos Coronado
+#### Obra 5: El Montón de Desechos Coronado
 
 **(Ignorar la calidad de los datos)**
 
@@ -131,7 +133,7 @@ Son **recordatorios antiguos**.
 
 ---
 
-### Nota curatorial
+## Nota curatorial
 
 Esta sala permanece abierta eternamente porque estos errores no desaparecen:
 **se reciclan**.
@@ -143,7 +145,6 @@ Y, sobre todo, **no confundan técnica con juicio**.
 
 ---
 
-## Cierre editorial 
 
 Este Museo existe porque, una y otra vez, se delega la responsabilidad del juicio en procedimientos que **no pueden pensar**.
 

@@ -35,7 +35,9 @@ draft: false# True para un borrador
 type: post
 ---
 
-*¿Sabías que más de la mitad de los protocolos de ensayos clínicos requieren modificaciones antes de su aprobación debido a deficiencias metodológicas evitables?*
+*Por Maicel Monzon*
+
+**¿Sabías que más de la mitad de los protocolos de ensayos clínicos requieren modificaciones antes de su aprobación debido a deficiencias metodológicas evitables?**
 
 Imagine la escena: tras **meses de trabajo meticuloso**, el **protocolo** de su **ensayo clínico regresa** con una **solicitud de información adicional** por parte de la autoridad reguladora, por lo que tendrás que hacer **modificaciones** para someterlo a una nueva evaluación.
 

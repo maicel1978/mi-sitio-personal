@@ -1,8 +1,8 @@
 ---
-title: "Sobre este blog: estadística, salud y pensamiento incómodo"
+title: "Sobre este blog: estadística, salud y pensamiento crítico"
 subtitle: "Estadística, investigación clínica y pensamiento crítico sin concesiones"
 author: "admin"
-date: 2025-12-26
+date: "2026-01-12"
 categories: ["Metodología de Investigación"]
 tags:
   - "bioestadística"
@@ -14,7 +14,7 @@ slug: manifiesto-es
 summary: "Reflexiones y herramientas para mirar más allá de los números y la apariencia de certeza"
 featured: true
 draft: false 
-show_date: true
+show_date: false
 reading_time: true
 share: true
 commentable: false  # Solo si tienes Disqus o similar configurado
@@ -23,7 +23,9 @@ show_breadcrumb: true
 type: post
 ---
 
-## Sobre este blog: estadística, salud y pensamiento incómodo
+*Por Maicel Monzon*
+
+## Sobre este blog: estadística, salud y pensamiento crítico
 
 Este blog no nació para explicar “estadística fácil”.
 Nació de una incomodidad persistente.

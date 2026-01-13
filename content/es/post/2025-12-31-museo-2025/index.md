@@ -19,6 +19,9 @@ show_breadcrumb: true
 type: post
 ---
 
+*Por Maicel Monzon*
+
+
 Pasen, por favor. No necesitan dejar sus abrigos, pero depositen su credulidad en el paragüero —esta vez, con alarma biométrica.
 
 Estamos cerrando 2025 y, si algo nos enseñó, es que la IA no solo acelera descubrimientos: **también acelera errores, pero con una elegancia matemática que los vuelve difíciles de detectar.**
