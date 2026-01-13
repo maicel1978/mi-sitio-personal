@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Detectar Trampas Correlación vs. Causalidad en Investigación | Biostatistics edu</title><link>https://bioestadisticaedu.com/en/tags/detectar-trampas-correlacion-vs.-causalidad-en-investigacion/</link><atom:link href="https://bioestadisticaedu.com/en/tags/detectar-trampas-correlacion-vs.-causalidad-en-investigacion/index.xml" rel="self" type="application/rss+xml"/><description>Detectar Trampas Correlación vs. Causalidad en Investigación</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Mon, 24 Feb 2025 00:00:00 +0000</lastBuildDate><image><url>https://bioestadisticaedu.com/media/icon_hu_551fbaee136b383e.png</url><title>Detectar Trampas Correlación vs. Causalidad en Investigación</title><link>https://bioestadisticaedu.com/en/tags/detectar-trampas-correlacion-vs.-causalidad-en-investigacion/</link></image><item><title>The Pitfalls of Correlation Disguised as Causation</title><link>https://bioestadisticaedu.com/en/post/trampas-correlacion-en/</link><pubDate>Mon, 24 Feb 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/en/post/trampas-correlacion-en/</guid><description>&lt;p>&lt;em>By Maicel Monzon&lt;/em>&lt;/p>
+&lt;h2 id="introduction">Introduction&lt;/h2>
+&lt;p>The human eye is trained to detect patterns.&lt;br>
+When two phenomena move together, we tend to assume that one causes the other.&lt;/p>
+&lt;p>Statistics, when misinterpreted, reinforces that dangerous intuition.&lt;br>
+&lt;strong>Correlation&lt;/strong> describes coexistence; it &lt;strong>does not establish causality&lt;/strong>.&lt;br>
+Yet headlines, public policies, and clinical decisions are often built on this confusion.&lt;/p>
+&lt;p>This article does not aim to mock obvious errors, but rather to &lt;strong>show how even technically correct analyses can support false conclusions&lt;/strong> when the causal reasoning is weak.&lt;/p>
+&lt;hr>
+&lt;h2 id="1-striking-correlations-and-why-they-mislead">1) Striking correlations (and why they mislead)&lt;/h2>
+&lt;p>Some correlations are so obvious that they border on the absurd. Precisely for that reason, they are useful as a starting point.&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Ice cream and drownings.&lt;/strong> Both increase in summer. The common factor is heat, not ice cream.&lt;/li>
+&lt;li>&lt;strong>Storks and birth rates.&lt;/strong> In some rural European areas, both are more frequent. The explanation lies in the demographic context, not in the birds.&lt;/li>
+&lt;li>&lt;strong>Nicolas Cage films and pool drownings.&lt;/strong> A classic example of spurious correlations compiled by Tyler Vigen.&lt;/li>
+&lt;/ul>
+&lt;p>These cases are not interesting in themselves, but because they &lt;strong>reveal a general mechanism&lt;/strong>:&lt;br>
+an unobserved third variable can generate misleading associations.&lt;/p>
+&lt;hr>
+&lt;h2 id="2-when-confusion-has-real-world-consequences">2) When confusion has real-world consequences&lt;/h2>
+&lt;p>In health research, confusing correlation with causation is &lt;strong>far from anecdotal&lt;/strong>.&lt;/p>
+&lt;p>&lt;strong>Example in public policy:&lt;/strong>&lt;br>
+Countries with a higher density of physicians report more cancer diagnoses.&lt;br>
+Erroneous conclusion: “physicians cause cancer.”&lt;br>
+Reality: greater access to healthcare implies better detection.&lt;/p>
+&lt;h3 id="reverse-causation-not-bidirectionality">Reverse causation (not bidirectionality)&lt;/h3>
+&lt;p>A common mistake is to invert the direction of the relationship:&lt;/p>
+&lt;blockquote>
+&lt;p>Children with poor school performance spend more hours watching television.&lt;/p>&lt;/blockquote>
+&lt;p>The relevant question is not rhetorical:&lt;/p>
+&lt;ul>
+&lt;li>Does television worsen academic performance?&lt;/li>
+&lt;li>Or do children with academic difficulties turn more to television?&lt;/li>
+&lt;/ul>
+&lt;p>Here we are not talking about complex feedback loops, but about a &lt;strong>plausible inversion of the causal direction&lt;/strong>.&lt;/p>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
+&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;h3 id="what-is-a-confounding-variable">What is a confounding variable?&lt;/h3>
+&lt;p>A &lt;strong>confounder (confounding variable)&lt;/strong> is a third variable that:&lt;/p>
+&lt;ol>
+&lt;li>Is associated with the exposure&lt;/li>
+&lt;li>Is associated with the outcome&lt;/li>
+&lt;li>Is not part of the causal pathway between them&lt;/li>
+&lt;/ol>
+&lt;p>Its effect is to generate a spurious association or to distort a real one.&lt;/p>
+&lt;p>&lt;strong>Example:&lt;/strong> age can confound the relationship between medication use and mortality.&lt;/p>
+&lt;/span>
+&lt;/div>
+&lt;hr>
+&lt;h2 id="3-what-correlation-actually-measures">3) What correlation actually measures&lt;/h2>
+&lt;p>Pearson’s correlation coefficient (&lt;strong>r&lt;/strong>) measures &lt;strong>the strength and direction of a linear relationship&lt;/strong> between two continuous variables.&lt;/p>
+&lt;ul>
+&lt;li>r = +1 → perfect positive relationship&lt;/li>
+&lt;li>r = −1 → perfect negative relationship&lt;/li>
+&lt;li>r ≈ 0 → absence of a linear relationship&lt;/li>
+&lt;/ul>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-yellow-100 dark:bg-yellow-900">
+&lt;span class="pr-3 pt-1 text-red-400">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0zM12 15.75h.007v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">A high coefficient &lt;strong>does not imply causality&lt;/strong>.&lt;br>
+It may be due to confounding, chance, or reverse causation.&lt;br>
+A coefficient close to zero &lt;strong>does not rule out non-linear relationships&lt;/strong>.&lt;/span>
+&lt;/div>
+&lt;p>Correlation is descriptive. It &lt;strong>does not answer causal questions&lt;/strong>.&lt;/p>
+&lt;hr>
+&lt;h2 id="4-choosing-the-right-coefficient-will-not-rescue-a-bad-question">4) Choosing the right coefficient will not rescue a bad question&lt;/h2>
+&lt;p>There are multiple correlation coefficients because data structures and relationships vary.&lt;br>
+Choosing the appropriate coefficient &lt;strong>prevents technical errors&lt;/strong>, but it &lt;strong>does not turn an association into a causal link&lt;/strong>.&lt;/p>
+&lt;p>
+&lt;figure >
+&lt;div class="flex justify-center ">
+&lt;div class="w-100" >&lt;img alt="" srcset="
+/en/post/trampas-correlacion-en/correlacion_hu_6bb8e222eea24b57.webp 400w,
+/en/post/trampas-correlacion-en/correlacion_hu_a2e373f1a265339c.webp 760w,
+/en/post/trampas-correlacion-en/correlacion_hu_7619501e5757c53d.webp 1200w"
+src="https://bioestadisticaedu.com/en/post/trampas-correlacion-en/correlacion_hu_6bb8e222eea24b57.webp"
+width="507"
+height="760"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;/figure>
+&lt;/p>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-yellow-100 dark:bg-yellow-900">
+&lt;span class="pr-3 pt-1 text-red-400">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0zM12 15.75h.007v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">Applying Pearson’s correlation to ordinal data or intrinsically curvilinear relationships yields misleading results, even if they are “statistically significant.”&lt;/span>
+&lt;/div>
+&lt;p>The central problem is usually not the coefficient itself, but &lt;strong>the subsequent interpretation&lt;/strong>.&lt;/p>
+&lt;hr>
+&lt;h2 id="5-causality-a-problem-of-reasoning-not-software">5) Causality: a problem of reasoning, not software&lt;/h2>
+&lt;p>Establishing causality requires study design, context, and critical judgment.&lt;br>
+A classic guide is &lt;strong>Bradford Hill’s criteria&lt;/strong>, proposed in 1965.&lt;/p>
+&lt;h3 id="bradford-hills-criteria">Bradford Hill’s criteria&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Criterion&lt;/th>
+&lt;th>Key question&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Strength&lt;/td>
+&lt;td>How large is the association?&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Consistency&lt;/td>
+&lt;td>Is it replicated in different settings and populations?&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Specificity&lt;/td>
+&lt;td>Does the exposure lead to a specific effect?&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Temporality&lt;/td>
+&lt;td>Does the cause precede the effect? &lt;em>(mandatory)&lt;/em>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Biological gradient&lt;/td>
+&lt;td>Is there a dose–response relationship?&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Plausibility&lt;/td>
+&lt;td>Is there a biologically plausible mechanism?&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Coherence&lt;/td>
+&lt;td>Does it conflict with existing knowledge?&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Experimental evidence&lt;/td>
+&lt;td>Is there supporting experimental evidence?&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Analogy&lt;/td>
+&lt;td>Are there similar, well-established causal relationships?&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
+&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">These criteria &lt;strong>are not a mechanical checklist&lt;/strong>.&lt;br>
+They help structure reasoning; they do not automate conclusions.&lt;/span>
+&lt;/div>
+&lt;hr>
+&lt;h3 id="causal-diagrams-dags-think-before-you-adjust">Causal diagrams (DAGs): think before you adjust&lt;/h3>
+&lt;p>&lt;strong>Directed acyclic graphs (DAGs)&lt;/strong> allow us to represent causal hypotheses prior to analysis.&lt;/p>
+&lt;p>&lt;strong>Conceptual example:&lt;/strong>&lt;br>
+Smoking increases coffee consumption and cardiovascular risk.&lt;br>
+If we do not adjust for smoking, coffee will appear to be causally harmful.&lt;/p>
+&lt;p>The DAG does not “prove” anything.&lt;br>
+It &lt;strong>forces us to make our assumptions explicit&lt;/strong>.&lt;/p>
+&lt;hr>
+&lt;h2 id="6-when-a-correlation-did-lead-to-causality">6) When a correlation did lead to causality&lt;/h2>
+&lt;p>In the 1950s, the studies by Doll and Hill showed a strong association between tobacco use and lung cancer.&lt;br>
+The standard objection was: “correlation does not equal causation.”&lt;/p>
+&lt;p>The difference lay in the &lt;strong>cumulative reasoning&lt;/strong>:&lt;/p>
+&lt;ul>
+&lt;li>large effects&lt;/li>
+&lt;li>clear temporality&lt;/li>
+&lt;li>dose–response relationship&lt;/li>
+&lt;li>biological plausibility&lt;/li>
+&lt;li>international consistency&lt;/li>
+&lt;/ul>
+&lt;p>Here, the appropriate response was not to dismiss the correlation, but to &lt;strong>investigate it rigorously&lt;/strong>.&lt;/p>
+&lt;hr>
+&lt;h2 id="7-a-useful-metaphor">7) A useful metaphor&lt;/h2>
+&lt;p>Seeing two leaves fall together does not imply that one pulls the other down.&lt;br>
+Ignoring the wind is ignoring a common cause.&lt;/p>
+&lt;hr>
+&lt;h2 id="8-minimal-causal-rigor-checklist">8) Minimal causal rigor checklist&lt;/h2>
+&lt;p>Before asserting causality, ask yourself:&lt;/p>
+&lt;ol>
+&lt;li>Is there any unmeasured or unconsidered variable that could explain the association?&lt;/li>
+&lt;li>Could the outcome plausibly precede the supposed cause?&lt;/li>
+&lt;li>Does the study design allow for causal inference, or only for detecting associations?&lt;/li>
+&lt;li>Is the effect size clinically or practically meaningful?&lt;/li>
+&lt;li>Does the conclusion depend on unspoken or unjustified assumptions?&lt;/li>
+&lt;/ol>
+&lt;p>If you cannot answer these, correlation is not enough.&lt;/p>
+&lt;hr>
+&lt;h2 id="9-p-hacking-manufactured-correlations">9) P-hacking: manufactured correlations&lt;/h2>
+&lt;p>&lt;strong>P-hacking&lt;/strong> consists of exploring multiple analyses until a “statistically significant” result appears.&lt;/p>
+&lt;p>With enough tests, chance alone guarantees false positives.&lt;/p>
+&lt;p>&lt;strong>Warning signs:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>many variables and few pre-specified hypotheses&lt;/li>
+&lt;li>surprising results without plausible mechanisms&lt;/li>
+&lt;li>lack of preregistration&lt;/li>
+&lt;li>small effects presented as major findings&lt;/li>
+&lt;/ul>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-yellow-100 dark:bg-yellow-900">
+&lt;span class="pr-3 pt-1 text-red-400">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0zM12 15.75h.007v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">A low p-value does not validate a causal hypothesis.&lt;br>
+It only indicates statistical compatibility under specific assumptions.&lt;/span>
+&lt;/div>
+&lt;hr>
+&lt;h2 id="conclusion">Conclusion&lt;/h2>
+&lt;p>Correlation is a starting point, not a conclusion.&lt;br>
+Without explicit causal reasoning, even flawless analyses can mislead.&lt;/p>
+&lt;p>The next time you read that “X causes Y,” pause and think critically.&lt;br>
+Statistics describe. &lt;strong>Reasoning decides.&lt;/strong>&lt;/p>
+&lt;hr>
+&lt;h2 id="to-close-and-to-open-the-conversation">To close (and to open the conversation)&lt;/h2>
+&lt;p>If you work with real-world data—in health, research, or public policy—you have almost certainly faced a tempting correlation.&lt;/p>
+&lt;p>&lt;strong>The key question is not whether a correlation exists, but whether you dared to interrogate it.&lt;/strong>&lt;/p>
+&lt;p>👉 &lt;strong>Question for the comments section:&lt;/strong>&lt;/p>
+&lt;blockquote>
+&lt;p>Have you ever seen an important decision (clinical, regulatory, or scientific) rest on a correlation that would not withstand serious causal scrutiny?&lt;br>
+Where did the reasoning fail: in the design, the analysis, or the interpretation?&lt;/p>&lt;/blockquote>
+&lt;p>If you wish, describe it in general terms (no sensitive data). I will respond by identifying &lt;strong>which type of causal trap is at play&lt;/strong> and how the question should be reframed.&lt;/p>
+&lt;hr>
+&lt;h2 id="references">References&lt;/h2>
+&lt;p>Hill, A. B. (1965). &lt;em>The environment and disease: association or causation?&lt;/em>&lt;/p>
+&lt;p>Hernán, M. A., &amp;amp; Robins, J. M. (2020). &lt;em>Causal Inference: What If&lt;/em>.&lt;/p>
+&lt;p>Pearl, J. (2009). &lt;em>Causality&lt;/em>.&lt;/p>
+&lt;p>Silva Aycaguer, L. C. (1998). &lt;em>Cultura estadística e investigación científica&lt;/em>.&lt;/p>
+&lt;p>Vigen, T. (2015). &lt;em>Spurious Correlations&lt;/em>.&lt;/p></description></item></channel></rss>

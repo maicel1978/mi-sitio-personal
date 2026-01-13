@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Arquitectura Transformers | Biostatistics edu</title><link>https://bioestadisticaedu.com/en/tags/arquitectura-transformers/</link><atom:link href="https://bioestadisticaedu.com/en/tags/arquitectura-transformers/index.xml" rel="self" type="application/rss+xml"/><description>Arquitectura Transformers</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sun, 06 Apr 2025 00:00:00 +0000</lastBuildDate><image><url>https://bioestadisticaedu.com/media/icon_hu_551fbaee136b383e.png</url><title>Arquitectura Transformers</title><link>https://bioestadisticaedu.com/en/tags/arquitectura-transformers/</link></image><item><title>An Intuitive Dive into LLM Architecture</title><link>https://bioestadisticaedu.com/en/post/ia-en/</link><pubDate>Sun, 06 Apr 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/en/post/ia-en/</guid><description>&lt;p>&lt;em>By Maicel Monzon&lt;/em>&lt;/p>
+&lt;p>Are LLMs actually thinking, or are they simply creating a magnificent illusion of reasoning?&lt;/p>
+&lt;p>From &lt;strong>ChatGPT&lt;/strong> to &lt;strong>Gemini&lt;/strong>, these tools often seem human, but their &amp;ldquo;intelligence&amp;rdquo; is born from an ocean of data and a massive statistical architecture.&lt;/p>
+&lt;p>Below, we break down how these models are built, trained, and operated.&lt;/p>
+&lt;img src="fig0.png" style="width:30.0%" />
+&lt;h2 id="i-the-anatomy-neural-networks-and-transformers">I. The Anatomy: Neural Networks and Transformers&lt;/h2>
+&lt;p>At their core, LLMs are neural networks based almost universally on the Transformer architecture (Vaswani et al., 2017).&lt;/p>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
+&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">Key Fact: Transformers allow for parallel text processing and the ability to capture long-distance relationships between words—something previous technologies could not achieve with the same efficiency.&lt;/span>
+&lt;/div>
+&lt;p>This architecture relies on four critical pillars: high-quality data, rigorous evaluation, efficient systems, and the architecture itself.&lt;/p>
+&lt;p>
+&lt;figure >
+&lt;div class="flex justify-center ">
+&lt;div class="w-100" >&lt;img alt="" srcset="
+/en/post/ia-en/fig1_hu_3004621c78f2ebc3.webp 400w,
+/en/post/ia-en/fig1_hu_a81ffabfcb6778cd.webp 760w,
+/en/post/ia-en/fig1_hu_b5c8eb0412afc063.webp 1200w"
+src="https://bioestadisticaedu.com/en/post/ia-en/fig1_hu_3004621c78f2ebc3.webp"
+width="507"
+height="760"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;/figure>
+&lt;/p>
+&lt;!-- A menudo, la academia se centra mucho en la arquitectura, pero en la práctica, lo que realmente importa es la **calidad de los datos, la evaluación y los sistemas**, ya que las pequeñas diferencias arquitectónicas son a menudo secundarias frente a la escala. -->
+&lt;h2 id="ii-pre-training-modeling-the-internet">II. Pre-training: Modeling the &amp;ldquo;Internet&amp;rdquo;&lt;/h2>
+&lt;p>The journey begins with pre-training, where the model learns a probability distribution over sequences of tokens.&lt;/p>
+&lt;p>Imagine the phrase: “The mouse ate the cheese.”&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Syntactic Probability:&lt;/strong> The model knows that &amp;ldquo;The the mouse cheese&amp;rdquo; is grammatically incorrect and, therefore, highly improbable.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Semantic Probability:&lt;/strong> It knows that &amp;ldquo;The cheese ate the mouse&amp;rdquo; is improbable in the real world.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>The Critical Nuance:&lt;/strong> The model does not &amp;ldquo;understand&amp;rdquo; what a mouse is or what hunger feels like. It has simply learned that, statistically, certain words follow others across trillions of lines of text. It is a predictive skill, not a conceptual understanding.&lt;/p>
+&lt;h2 id="iii-the-autoregressive-process-word-by-word">III. The Autoregressive Process: Word by Word&lt;/h2>
+&lt;p>Modern models are autoregressive: they predict the next word based on the entire preceding context.&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>Tokenization:&lt;/strong> Words are converted into numbers (tokens). A token isn&amp;rsquo;t always a full word; it usually represents 3 or 4 letters (using Byte Pair Encoding).&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Prediction:&lt;/strong> The model assigns a probability to every word in its vocabulary (e.g., &amp;ldquo;cheese&amp;rdquo; 85%, &amp;ldquo;bread&amp;rdquo; 10%).&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Learning:&lt;/strong> During training, if the model predicts &amp;ldquo;bread&amp;rdquo; but the actual word was &amp;ldquo;cheese,&amp;rdquo; it receives a &amp;ldquo;penalty&amp;rdquo; via a cross-entropy loss function, adjusting its internal weights to improve the next time.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="iv-post-training-from-oracle-to-assistant">IV. Post-training: From Oracle to Assistant&lt;/h2>
+&lt;p>A pre-trained model knows how to speak, but it doesn&amp;rsquo;t know how to obey. To turn it into an assistant, it undergoes two alignment phases:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Supervised Fine-Tuning (SFT)&lt;/strong>: The model is trained on ideal &amp;ldquo;question-answer&amp;rdquo; examples written by humans. Here, the model learns the format of an assistant rather than new knowledge.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Reinforcement Learning (RLHF)&lt;/strong>: Humans rate which responses are better among several options. This teaches the model to be helpful and avoid toxic content, shaping its behavior according to our preferences.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Note on Hallucinations:&lt;/strong> Hallucinations are the ultimate proof that LLMs lack a sense of reality; they simply generate sequences of tokens that &amp;ldquo;sound&amp;rdquo; convincing based on patterns.&lt;/p>
+&lt;h2 id="v-scaling-laws-and-systems">V. Scaling Laws and Systems&lt;/h2>
+&lt;p>Research has shown that more is better. By increasing data and parameters, performance improves predictably without hitting the usual &amp;ldquo;overfitting&amp;rdquo; seen in other AI models.&lt;/p>
+&lt;p>However, this requires massive systems engineering:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Low Precision: Using 16-bit numbers instead of 32-bit to save memory and speed up processing.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Operator Fusion: Combining mathematical operations so the GPU can work more efficiently.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="conclusion-the-beauty-of-statistics">Conclusion: The Beauty of Statistics&lt;/h2>
+&lt;p>Behind every chatbot response, there isn&amp;rsquo;t a mind, but trillions of tokens and a staggering computational infrastructure. What we perceive as intelligence is an emergent property of massive-scale prediction.&lt;/p>
+&lt;p>They do not think, but their ability to identify and reproduce patterns is, without a doubt, one of the greatest technological feats in history.&lt;/p>
+&lt;h2 id="bibliography">Bibliography&lt;/h2>
+&lt;p>Haykin, S. (2009). Neural Networks and Learning Machines (3rd ed.). Pearson Education.
+Disponible en: &lt;a href="http://dni.dali.dartmouth.edu/9umv9yghhaoq/13-dayana-hermann-1/read-0131471392-neural-networks-and-learning-machines.pdf" target="_blank" rel="noopener">http://dni.dali.dartmouth.edu/9umv9yghhaoq/13-dayana-hermann-1/read-0131471392-neural-networks-and-learning-machines.pdf&lt;/a>&lt;/p>
+&lt;p>Stanford Online. (2024, August). &lt;em>Stanford CS229: Machine Learning - Building Large Language Models (LLMs)&lt;/em> [Video]. YouTube.
+Disponible en: &lt;a href="https://www.youtube.com/watch?v=9vM4p9NN0Ts" target="_blank" rel="noopener">https://www.youtube.com/watch?v=9vM4p9NN0Ts&lt;/a>&lt;/p>
+&lt;p>Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, L., &amp;amp; Polosukhin, I. (2017). Attention Is All You Need. In Advances in Neural Information Processing Systems 30 (NeurIPS 2017).
+Disponible en: &lt;a href="https://doi.org/10.48550/ARXIV.1706.03762" target="_blank" rel="noopener">https://doi.org/10.48550/ARXIV.1706.03762&lt;/a>&lt;/p></description></item></channel></rss>
