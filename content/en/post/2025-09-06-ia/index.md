@@ -12,7 +12,7 @@ tags:
   - "IA"
   - "arquitectura transformers"
   - "modelos predictivos estadísticos"
-draft: true 
+draft: false 
 type: post
 ---
 

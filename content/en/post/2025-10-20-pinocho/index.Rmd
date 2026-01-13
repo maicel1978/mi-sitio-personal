@@ -16,7 +16,7 @@ languages:
 summary: "I asked my residents to invent hemoglobin data in 60 seconds. I used six forensic techniques to catch them. Spoiler: Statistics always wins."
 featured: true
 commentable: true  # Solo si tienes Disqus o similar configurado
-draft: true # True para un borrador
+draft: false  # True para un borrador
 show_related: true
 show_breadcrumb: true
 type: post

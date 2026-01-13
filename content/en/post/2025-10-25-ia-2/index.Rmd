@@ -15,7 +15,7 @@ languages:
   en: "/en/experimento-aula-ia-en"
 summary: "Sequel to the 'Lie to the Professor' experiment. I challenged the silicon colossi with absurd correlations. Not one spotted the nonsense—revealing an algorithmic 'horror vacui' that poses a threat to scientific integrity."
 featured: true
-draft: true # True para un borrador
+draft: false  # True para un borrador
 share: true
 commentable: true  # Solo si tienes Disqus o similar configurado
 show_related: true

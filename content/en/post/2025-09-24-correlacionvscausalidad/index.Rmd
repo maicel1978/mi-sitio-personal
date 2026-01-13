@@ -15,7 +15,7 @@ languages:
   en: "/en/trampas-correlacion-en"
 summary:  "Curious examples, short rigor notes, and a practical checklist to avoid confusing correlation with causation in scientific research."
 featured: true  # Destacar en la página principal
-draft: true 
+draft: false 
 commentable: true
 type: post
 ---
