@@ -1,7 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Guía Steyerberg Para Modelos Predictivos Médicos | Bioestadística edu</title><link>https://bioestadisticaedu.com/tags/guia-steyerberg-para-modelos-predictivos-medicos/</link><atom:link href="https://bioestadisticaedu.com/tags/guia-steyerberg-para-modelos-predictivos-medicos/index.xml" rel="self" type="application/rss+xml"/><description>Guía Steyerberg Para Modelos Predictivos Médicos</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Wed, 12 Nov 2025 00:00:00 +0000</lastBuildDate><image><url>https://bioestadisticaedu.com/media/icon_hu_551fbaee136b383e.png</url><title>Guía Steyerberg Para Modelos Predictivos Médicos</title><link>https://bioestadisticaedu.com/tags/guia-steyerberg-para-modelos-predictivos-medicos/</link></image><item><title>Cómo Entrenar y Validar Modelos de Predicción Clínica: Guía Paso a Paso para Profesionales de la Salud</title><link>https://bioestadisticaedu.com/post/como-entrenar-y-validar-un-modelo-de-machine-learning/</link><pubDate>Wed, 12 Nov 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/como-entrenar-y-validar-un-modelo-de-machine-learning/</guid><description>&lt;p>🎧 &lt;strong>Escucha el podcast de esta publicación&lt;/strong>&lt;/p>
-&lt;audio controls >
-&lt;source src="https://ia600607.us.archive.org/24/items/articulo-steyember/_Articulo_Steyember.mp3" type="audio/mpeg">
-&lt;/audio>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Guía Steyerberg Para Modelos Predictivos Médicos | Bioestadística edu</title><link>https://bioestadisticaedu.com/tags/guia-steyerberg-para-modelos-predictivos-medicos/</link><atom:link href="https://bioestadisticaedu.com/tags/guia-steyerberg-para-modelos-predictivos-medicos/index.xml" rel="self" type="application/rss+xml"/><description>Guía Steyerberg Para Modelos Predictivos Médicos</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Sun, 19 Jan 2025 00:00:00 +0000</lastBuildDate><image><url>https://bioestadisticaedu.com/media/icon_hu_551fbaee136b383e.png</url><title>Guía Steyerberg Para Modelos Predictivos Médicos</title><link>https://bioestadisticaedu.com/tags/guia-steyerberg-para-modelos-predictivos-medicos/</link></image><item><title>Cómo Entrenar y Validar Modelos de Predicción Clínica: Guía Paso a Paso para Profesionales de la Salud</title><link>https://bioestadisticaedu.com/post/como-entrenar-y-validar-un-modelo-de-machine-learning/</link><pubDate>Sun, 19 Jan 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/como-entrenar-y-validar-un-modelo-de-machine-learning/</guid><description>&lt;p>&lt;em>Por Maicel Monzon&lt;/em>&lt;/p>
 &lt;p>Si está leyendo esta publicación, es probable que le interese desarrollar &lt;strong>modelos de predicción clínica&lt;/strong> para &lt;strong>diagnosticar&lt;/strong> o &lt;strong>pronosticar&lt;/strong> enfermedades en pacientes. Seguramente sea investigador o estudiante de posgrado —en maestría o doctorado— en ciencias biomédicas, y busque cómo &lt;strong>desarrollar&lt;/strong> y &lt;strong>validar&lt;/strong> esos modelos en un &lt;strong>artículo científico&lt;/strong> o &lt;strong>tesis&lt;/strong>.&lt;/p>
 &lt;p>Casi seguro ha llegado a esa fase en la que la metodología se siente como un muro de ladrillos: no sabe &lt;strong>qué pasos seguir&lt;/strong>, &lt;strong>qué software usar&lt;/strong>, si lo que necesita se puede hacer en &lt;strong>SPSS&lt;/strong> o si tendrá que meterse con esos &lt;strong>códigos&lt;/strong> inquietantes de &lt;strong>R o Python&lt;/strong> —y encima no tiene experiencia en programación. Y, lo peor de todo: le asalta la duda de si su modelo servirá para algo más allá de llenar un repositorio de tesis… o si siquiera &lt;strong>será útil&lt;/strong> para los propios pacientes de su &lt;strong>muestra&lt;/strong>, sin hablar de otros &lt;strong>contextos clínicos&lt;/strong>.&lt;/p>
 &lt;p>Seamos francos: en el fondo, todos le huimos a ese comentario punzante que nos estalla la burbuja predictiva de un solo golpe:&lt;/p>
@@ -30,7 +27,7 @@
 &lt;/li>
 &lt;/ul>
 &lt;p>Según el &lt;strong>objetivo de la investigación&lt;/strong> se pueden optar por uno de los siguientes &lt;strong>diseños&lt;/strong> de estudios:&lt;/p>
-&lt;details class="spoiler " id="spoiler-2">
+&lt;details class="spoiler " id="spoiler-1">
 &lt;summary class="cursor-pointer">Desarrollo, Validación o Actualización de Modelos (Click para ver detalles)&lt;/summary>
 &lt;div class="rounded-lg bg-neutral-50 dark:bg-neutral-800 p-2">
 &lt;ul>
@@ -172,7 +169,7 @@ Tambien le harán falta otras bibliotecas para el manejo de datos, confeccionar 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">## 0.9 Quantile of absolute error=0.034&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">abline&lt;/span>(&lt;span style="color:#ae81ff">0&lt;/span>, &lt;span style="color:#ae81ff">1&lt;/span>, lty &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">2&lt;/span>, col &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;red&amp;#34;&lt;/span>) &lt;span style="color:#75715e"># Línea ideal&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;img src="calibracion-1.png" width="80%" style="display: block; margin: auto;" />
-&lt;details class="spoiler " id="spoiler-9">
+&lt;details class="spoiler " id="spoiler-8">
 &lt;summary class="cursor-pointer">El gráfico muestra que el modelo está bien calibrado (Click para saber por qué)&lt;/summary>
 &lt;div class="rounded-lg bg-neutral-50 dark:bg-neutral-800 p-2">
 La calibración perfecta ocurre cuando las probabilidades predichas coinciden con las frecuencias reales. Por ejemplo, si el modelo predice 30% de riesgo, aproximadamente 30 de cada 100 pacientes similares deberían tener la condición.
@@ -190,7 +187,7 @@ La calibración perfecta ocurre cuando las probabilidades predichas coinciden co
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> col &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;blue&amp;#34;&lt;/span>,
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> legacy.axes &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">TRUE&lt;/span>)
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;img src="Discriminacion-1.png" width="80%" style="display: block; margin: auto;" />
-&lt;details class="spoiler " id="spoiler-10">
+&lt;details class="spoiler " id="spoiler-9">
 &lt;summary class="cursor-pointer">El gráfico del área bajo la curva ROC (AUC) muestra muy buena discriminación (Click para saber por qué)&lt;/summary>
 &lt;div class="rounded-lg bg-neutral-50 dark:bg-neutral-800 p-2">
 &lt;ul>
@@ -235,7 +232,7 @@ La calibración perfecta ocurre cuando las probabilidades predichas coinciden co
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> funlabel &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Riesgo de Diabetes&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plot&lt;/span>(nom, main &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Nomograma del Modelo&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;img src="nomograma-1.png" width="80%" style="display: block; margin: auto;" />
-&lt;details class="spoiler " id="spoiler-11">
+&lt;details class="spoiler " id="spoiler-10">
 &lt;summary class="cursor-pointer">Nomograma: calculadora visual del riesgo (Click para aprender a usarlo)&lt;/summary>
 &lt;div class="rounded-lg bg-neutral-50 dark:bg-neutral-800 p-2">
 &lt;p>El &lt;strong>nomograma&lt;/strong> es una herramienta visual que permite calcular el riesgo individual de diabetes manualmente, usando las variables clave del modelo. Permite calcular el riesgo específico para cada paciente sin necesidad de software, facilitando su uso en consulta&lt;/p>
