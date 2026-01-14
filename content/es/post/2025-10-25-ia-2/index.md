@@ -165,6 +165,14 @@ Este post se articula con otros textos de las series **Experimentos en el aula**
 [Una Inmersión Intuitiva en la Arquitectura de los LLMs]({{< relref "/post/2025-09-06-ia" >}})
 
 
+<div style="background-color: #f3f6f8; padding: 20px; border-radius: 10px; text-align: center; margin-top: 30px; border: 1px solid #e0e0e0;">
+    <p style="color: #000; font-weight: bold; margin-bottom: 15px;">¿Te interesa pensar más allá de los números?</p>
+    <a href="https://www.linkedin.com/newsletters/7415401669913706496/" 
+       target="_blank" 
+       style="background-color: #0077b5; color: white; padding: 10px 20px; text-decoration: none; border-radius: 25px; font-weight: bold; display: inline-block;">
+       Suscribirse al Boletín en LinkedIn
+    </a>
+</div>
 
 
 # Bibliografía
