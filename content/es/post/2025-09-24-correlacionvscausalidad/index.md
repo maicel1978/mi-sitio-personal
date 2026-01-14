@@ -235,7 +235,19 @@ Si trabajas con datos reales —en salud, investigación o políticas públicas�
 
 Si quieres, descríbelo de forma general (sin datos sensibles). Responderé señalando **qué tipo de trampa causal está en juego** y cómo habría que replantearla.
 
+"Si te gusta cuestionar los datos y la IA con rigor, suscríbete a mi boletín en LinkedIn para no perderte estos análisis semanalmente."
+
+<div style="background-color: #f3f6f8; padding: 20px; border-radius: 10px; text-align: center; margin-top: 30px; border: 1px solid #e0e0e0;">
+    <p style="color: #000; font-weight: bold; margin-bottom: 15px;">¿Te interesa pensar más allá de los números?</p>
+    <a href="https://www.linkedin.com/newsletters/7415401669913706496/" 
+       target="_blank" 
+       style="background-color: #0077b5; color: white; padding: 10px 20px; text-decoration: none; border-radius: 25px; font-weight: bold; display: inline-block;">
+       Suscribirse al Boletín en LinkedIn
+    </a>
+</div>
+
 ---
+
 
 ## Bibliografía
 
@@ -248,4 +260,7 @@ Pearl, J. (2009). *Causality*.
 Silva Aycaguer, L. C. (1998). *Cultura estadística e investigación científica*. 
 
 Vigen, T. (2015). *Spurious Correlations*.
+
+
+
 
