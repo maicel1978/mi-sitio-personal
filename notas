@@ -267,22 +267,30 @@ linkeling
     semana: 2
     rol_editorial: critica_metodologica_clasica
     funcion: profundidad, autoridad, continuidad lógica
-    
--> (publicado hasta aquí) 👆
-
-  - slug: manifiesto-es
-    titulo: "Sobre este blog: estadística, salud y pensamiento incómodo"
-    fecha: 2026-01-09
-    semana: 1
-    rol_editorial: contrato_editorial
-    funcion: marco, límites, expectativas    
-
-  - slug: eda
+ 
+   - slug: eda
     titulo: "Análisis exploratorio de datos (EDA)"
     fecha: 2026-01-20
     semana: 4
     rol_editorial: tecnica_con_criterio
-    funcion: puente entre pensamiento y práctica
+    funcion: puente entre pensamiento y práctica   
+    
+    
+   - slug: signifiacion
+    titulo: "Significación Estadística, ¿Ciencia o Pirotecnia?"
+    fecha: 2026-01-19
+    semana: 5
+    
+
+  - slug: siete-pecados-protocolos-clinicos
+    titulo: "Los siete pecados capitales del protocolo y del Plan de Análisis Estadístico: confesiones de un regulador"
+    fecha: 2026-01-25
+    semana: 6
+ 
+
+  -> (publicado hasta aquí) 👆
+
+
 
 # libro (revisa nota libro)
 
