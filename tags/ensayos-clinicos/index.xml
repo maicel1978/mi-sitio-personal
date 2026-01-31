@@ -66,62 +66,123 @@ target="_blank"
 style="background-color: #0077b5; color: white; padding: 10px 20px; text-decoration: none; border-radius: 25px; font-weight: bold; display: inline-block;">
 Suscribirse al Boletín en LinkedIn
 &lt;/a>
-&lt;/div></description></item><item><title>El Frankenstein Metodológico: La Bestia Silenciosa en los Ensayos Clínicos</title><link>https://bioestadisticaedu.com/post/er-01/</link><pubDate>Thu, 01 Jan 2026 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/er-01/</guid><description>&lt;p>&lt;em>Por Maicel Monzon&lt;/em>&lt;/p>
+&lt;/div></description></item><item><title>El Frankenstein Metodológico: cuando la estadística responde otra pregunta</title><link>https://bioestadisticaedu.com/post/er-01/</link><pubDate>Thu, 01 Jan 2026 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/er-01/</guid><description>&lt;p>&lt;em>Por Maicel Monzon&lt;/em>&lt;/p>
 &lt;h2 id="introducción">Introducción&lt;/h2>
-&lt;p>Abres un informe de estudio clínico (CSR) o un artículo en &lt;em>The Lancet&lt;/em> y todo brilla: estructura impecable, tablas claras, variables bien definidas y un plan de análisis estadístico (SAP) que parece inquebrantable.&lt;/p>
-&lt;p>Pero, debajo de esa fachada, a veces acecha el &lt;strong>Frankenstein metodológico&lt;/strong>: piezas técnicamente correctas que, al ensamblarse, terminan respondiendo una pregunta que nadie formuló de manera explícita.&lt;/p>
-&lt;p>No es un error de principiante. Es un problema sistémico: la fricción entre la intención clínica y la realidad operativa del estudio.&lt;/p>
-&lt;p>Casos históricos como rofecoxib (Vioxx) recuerdan que un programa de ensayos puede presentar resultados convincentes en un aspecto y, al mismo tiempo, subestimar riesgos relevantes. Más allá del caso concreto, la lección general es clara: un informe puede ser “correcto” en lo técnico y, aun así, conducir a una lectura equivocada si la pregunta, los datos y el análisis no están alineados.&lt;/p>
-&lt;p>El núcleo del problema no es que “los números estén mal”, sino que &lt;strong>la señal estadística puede quedar desconectada del sentido clínico&lt;/strong>. Y entonces la historia se sostiene en el papel, pero se desmorona cuando hay que tomar decisiones.&lt;/p>
+&lt;p>Lees un informe final de un ensayo clínico (CSR) o un artículo en una revista de alto impacto.&lt;br>
+Todo parece correcto: objetivos claros, variables bien definidas, tablas limpias y un Plan de Análisis Estadístico (SAP) coherente.&lt;/p>
+&lt;p>Sin embargo, a veces ocurre algo más inquietante:&lt;/p>
+&lt;blockquote>
+&lt;p>el estudio parece responder una pregunta…&lt;br>
+pero &lt;strong>no exactamente la que motivó el ensayo&lt;/strong>.&lt;/p>&lt;/blockquote>
+&lt;p>No se trata de un error aritmético ni de un &lt;em>p-hacking&lt;/em> burdo.&lt;br>
+Es algo más sutil: una &lt;strong>desconexión entre el fenómeno clínico que se quería estudiar y el efecto que realmente se termina estimando&lt;/strong>.&lt;/p>
+&lt;p>A esta criatura la llamo el &lt;strong>Frankenstein metodológico&lt;/strong>:
+una construcción hecha de piezas técnicamente correctas que, al ensamblarse, producen una inferencia distinta a la pretendida.&lt;/p>
+&lt;p>Casos históricos como rofecoxib (Vioxx) mostraron que un programa de ensayos puede generar señales convincentes en algunos análisis y, al mismo tiempo, ocultar riesgos relevantes.&lt;br>
+Más allá del ejemplo concreto, la lección general es más amplia:&lt;/p>
+&lt;blockquote>
+&lt;p>un análisis puede ser estadísticamente válido&lt;br>
+y clínicamente engañoso&lt;br>
+si no hay alineación entre pregunta, datos y método.&lt;/p>&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="la-idea-central-desconexión-inferencial">La idea central: desconexión inferencial&lt;/h2>
+&lt;p>Llamo &lt;strong>desconexión inferencial&lt;/strong> a la ruptura entre:&lt;/p>
+&lt;p>&lt;strong>fenómeno clínico → pregunta científica → estimando → análisis estadístico&lt;/strong>&lt;/p>
+&lt;p>Cuando estas piezas no están alineadas, el estudio puede terminar respondiendo:&lt;/p>
+&lt;ul>
+&lt;li>otra pregunta,&lt;/li>
+&lt;li>bajo otros supuestos,&lt;/li>
+&lt;li>con implicaciones clínicas distintas,&lt;/li>
+&lt;/ul>
+&lt;p>sin que eso quede claramente explicitado en el informe.&lt;/p>
+&lt;p>En términos del marco ICH E9(R1), el problema no es solo “qué análisis se hizo”, sino:&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>qué efecto se terminó estimando realmente&lt;/strong>&lt;br>
+y si ese efecto corresponde a la pregunta clínica original.&lt;/p>&lt;/blockquote>
 &lt;hr>
 &lt;h2 id="qué-es-el-frankenstein-metodológico">Qué es el Frankenstein metodológico&lt;/h2>
-&lt;p>Llamo &lt;strong>Frankenstein metodológico&lt;/strong> a esta situación:&lt;/p>
+&lt;p>Definición operativa:&lt;/p>
 &lt;blockquote>
-&lt;p>El protocolo promete responder una pregunta clínica, pero el análisis final termina estimando otro efecto con implicaciones causales distintas (por cómo se manejan abandonos, tratamientos de rescate, cambios de tratamiento y datos faltantes), sin explicitarlo con claridad.&lt;/p>&lt;/blockquote>
-&lt;p>No es necesariamente fraude, ni siempre mala práctica individual. A menudo es el resultado de procesos bien intencionados que pierden coherencia entre etapas.&lt;/p>
-&lt;p>Suele aparecer cuando confluyen tres elementos:&lt;/p>
-&lt;ol>
-&lt;li>&lt;strong>Promesa inicial:&lt;/strong> el protocolo define la pregunta clínica y la operacionaliza mediante &lt;em>estimandos&lt;/em> (según ICH E9(R1)).&lt;/li>
-&lt;li>&lt;strong>Fricción inevitable:&lt;/strong> desviaciones, pérdidas de seguimiento y &lt;strong>sucesos intercurrentes&lt;/strong> (por ejemplo, discontinuación, rescate, cambio de tratamiento) alteran el escenario previsto.&lt;/li>
-&lt;li>&lt;strong>Presentación confusa:&lt;/strong> el informe conserva etiquetas (por ejemplo, «intención de tratar») aunque el análisis, en la práctica, esté estimando algo distinto, sin suficiente transparencia.&lt;/li>
-&lt;/ol>
-&lt;hr>
-&lt;h2 id="génesis-del-monstruo-de-la-teoría-a-la-tragedia">Génesis del Monstruo: De la Teoría a la Tragedia&lt;/h2>
-&lt;h3 id="1-traducción-traicionera-clínica-vs-operacional">1. Traducción Traicionera: Clínica vs. Operacional&lt;/h3>
-&lt;p>Los clínicos piensan en fenómenos (“mejorar la calidad de vida”, “reducir exacerbaciones”, “prolongar la supervivencia”), mientras que los equipos estadísticos necesitan variables medibles, reglas de medición y decisiones claras ante eventos que interrumpen el curso ideal del tratamiento.&lt;/p>
-&lt;p>Si ese diálogo no se cierra, el resultado es previsible: la pregunta clínica y el efecto que se termina estimando se separan. Un ejemplo típico es tratar la supervivencia libre de progresión como si fuera inmune a discontinuaciones por toxicidad o a tratamientos posteriores, cuando esos sucesos pueden sesgar la interpretación.&lt;/p>
-&lt;p>&lt;strong>Recomendación:&lt;/strong> define explícitamente, en lenguaje operativo, los cuatro componentes del estimando: población, variable, manejo de sucesos intercurrentes y medida resumen, conforme a ICH E9(R1).&lt;/p>
-&lt;h3 id="2-etiquetas-como-armadura-falsa">2. Etiquetas como Armadura Falsa&lt;/h3>
-&lt;p>La expresión &lt;strong>«análisis por intención de tratar» (ITT)&lt;/strong> evoca rigor, pero una etiqueta no sustituye una definición.&lt;/p>
-&lt;p>En ensayos aleatorizados, ITT suele entenderse como “analizar según el grupo asignado al azar”, porque la aleatorización es la protección causal. En estudios no aleatorizados o de un solo brazo, esa protección no existe; usar «ITT» sin aclarar qué significa (y qué se hizo con abandonos, cambios de tratamiento o faltantes) puede inducir a error.&lt;/p>
-&lt;p>El problema central no es usar siglas, sino usarlas para evitar preguntas incómodas: ¿quién entró al análisis, bajo qué reglas, y qué supuestos sostienen la estimación?&lt;/p>
-&lt;h3 id="3-señal-estadística-frente-a-relevancia-clínica">3. Señal estadística frente a relevancia clínica&lt;/h3>
-&lt;p>Un valor de &lt;em>p&lt;/em> menor que 0,05 no es sinónimo de “impacto clínico”.&lt;/p>
-&lt;p>Es frecuente confundir significación estadística con relevancia clínica: se detecta un efecto, pero no se responde si ese efecto cambia decisiones. Por eso es preferible reportar magnitudes interpretables (por ejemplo, diferencias absolutas de riesgo, cocientes de riesgos, NNT) y contextualizar el balance entre beneficios, riesgos y cargas.&lt;/p>
-&lt;p>Además, cuando hay una proporción importante de datos faltantes (sobre todo si está desbalanceada entre brazos), la conclusión puede volverse muy dependiente de supuestos. En ese escenario, los análisis de sensibilidad dejan de ser un “extra” y se convierten en parte esencial de la evidencia.&lt;/p>
-&lt;hr>
-&lt;h2 id="anatomía-del-frankenstein-etapas-críticas">Anatomía del Frankenstein: etapas críticas&lt;/h2>
+&lt;p>Existe un Frankenstein metodológico cuando el protocolo promete responder una pregunta clínica, pero el análisis final estima un efecto diferente debido al manejo de sucesos intercurrentes, datos faltantes o decisiones analíticas no alineadas con esa pregunta.&lt;/p>&lt;/blockquote>
+&lt;p>No implica fraude ni mala fe.&lt;br>
+Suele surgir de procesos fragmentados:&lt;/p>
 &lt;ul>
-&lt;li>&lt;strong>Planificación (la ilusión):&lt;/strong> el protocolo promete un estimando (por ejemplo, bajo una estrategia tipo “política de tratamiento”), pero no define con precisión qué ocurrirá ante sucesos intercurrentes y faltantes.&lt;/li>
-&lt;li>&lt;strong>Ejecución (el caos):&lt;/strong> pérdidas de seguimiento y faltantes cuyo mecanismo no es aleatorio distorsionan lo que realmente se observa.&lt;/li>
-&lt;li>&lt;strong>Presentación (la confusión):&lt;/strong> el informe declara “éxito” sin mostrar con claridad la distancia entre lo planificado y lo efectivamente estimado.&lt;/li>
+&lt;li>los clínicos formulan objetivos,&lt;/li>
+&lt;li>los estadísticos implementan métodos,&lt;/li>
+&lt;li>la ejecución introduce desviaciones,&lt;/li>
+&lt;li>el informe conserva etiquetas formales (“ITT”, “primario”, “confirmatorio”),&lt;/li>
 &lt;/ul>
-&lt;p>&lt;strong>Recomendación práctica:&lt;/strong> audita la robustez con análisis de sensibilidad. Modifica supuestos plausibles sobre datos faltantes y sucesos intercurrentes y verifica si la conclusión se mantiene.&lt;/p>
+&lt;p>pero nadie verifica si todo sigue apuntando a la misma pregunta.&lt;/p>
 &lt;hr>
-&lt;h2 id="caso-práctico-en-r-datos-faltantes-que-revelan-el-monstruo">Caso práctico en R: Datos faltantes que revelan el monstruo&lt;/h2>
-&lt;p>Simulamos un ensayo con desenlace binario (éxito/fracaso):&lt;/p>
+&lt;h2 id="dónde-nace-el-monstruo">Dónde nace el monstruo&lt;/h2>
+&lt;h3 id="1-de-fenómeno-clínico-a-variable">1. De fenómeno clínico a variable&lt;/h3>
+&lt;p>El clínico piensa en fenómenos: “mejorar la calidad de vida”,&lt;br>
+“reducir exacerbaciones”, “prolongar la supervivencia”.&lt;/p>
+&lt;p>El análisis necesita:&lt;/p>
 &lt;ul>
-&lt;li>60 % de éxito en el grupo control,&lt;/li>
-&lt;li>65 % de éxito en el grupo de tratamiento.&lt;/li>
+&lt;li>una variable,&lt;/li>
+&lt;li>un tiempo,&lt;/li>
+&lt;li>reglas ante abandonos,&lt;/li>
+&lt;li>supuestos sobre lo no observado.&lt;/li>
 &lt;/ul>
-&lt;p>Introducimos &lt;strong>datos faltantes no al azar&lt;/strong>: en el grupo de tratamiento, quienes no responden tienen mayor probabilidad de abandonar. El objetivo no es recomendar métodos, sino mostrar cómo decisiones analíticas distintas generan historias distintas si no se explicitan supuestos.&lt;/p>
+&lt;p>Si esa traducción no es explícita, la pregunta cambia sin que nadie lo declare.&lt;/p>
+&lt;hr>
+&lt;h3 id="2-el-uso-ritual-de-etiquetas">2. El uso ritual de etiquetas&lt;/h3>
+&lt;p>Expresiones como:&lt;/p>
+&lt;ul>
+&lt;li>“intención de tratar (ITT)”&lt;/li>
+&lt;li>“análisis primario”&lt;/li>
+&lt;li>“resultado principal”&lt;/li>
+&lt;/ul>
+&lt;p>funcionan a veces como &lt;strong>amuletos metodológicos&lt;/strong>: tranquilizan, pero no explican.&lt;/p>
+&lt;p>En ensayos aleatorizados, ITT suele entenderse como “analizar según asignación aleatoria”.&lt;br>
+Pero ¿qué significa eso cuando:&lt;/p>
+&lt;ul>
+&lt;li>hay rescates,&lt;/li>
+&lt;li>hay discontinuaciones,&lt;/li>
+&lt;li>hay datos faltantes informativos?&lt;/li>
+&lt;/ul>
+&lt;p>Sin reglas explícitas, la etiqueta no garantiza nada.&lt;/p>
+&lt;hr>
+&lt;h3 id="3-significación-estadística--relevancia-clínica">3. Significación estadística ≠ relevancia clínica&lt;/h3>
+&lt;p>Un valor de &lt;em>p&lt;/em> pequeño indica compatibilidad con un modelo nulo, no utilidad clínica.&lt;/p>
+&lt;p>Además, cuando una fracción relevante de los datos está ausente, la conclusión puede depender más de los supuestos que de los datos observados.&lt;/p>
+&lt;p>En ese escenario:&lt;/p>
+&lt;blockquote>
+&lt;p>los análisis de sensibilidad no son opcionales:&lt;br>
+son parte del resultado.&lt;/p>&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="anatomía-del-frankenstein-vista-general">Anatomía del Frankenstein (vista general)&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>Planificación:&lt;/strong> se promete un efecto (estimando) poco operacionalizado.&lt;/li>
+&lt;li>&lt;strong>Ejecución:&lt;/strong> aparecen sucesos intercurrentes y faltantes.&lt;/li>
+&lt;li>&lt;strong>Análisis:&lt;/strong> se elige una estrategia sin discutir su relación con la pregunta clínica.&lt;/li>
+&lt;li>&lt;strong>Reporte:&lt;/strong> se presenta un resultado “limpio” sin mostrar la distancia con lo que se quería estimar.&lt;/li>
+&lt;/ul>
+&lt;p>Este post se centra solo en &lt;strong>una&lt;/strong> de esas posibles desconexiones:&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>datos faltantes y su impacto sobre el efecto estimado&lt;/strong>&lt;br>
+(Caso 1 del sistema).&lt;/p>&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="caso-práctico-reproducible-datos-faltantes">Caso práctico (reproducible): datos faltantes&lt;/h2>
+&lt;p>Simulamos un ensayo con desenlace binario:&lt;/p>
+&lt;ul>
+&lt;li>60 % de éxito en control&lt;/li>
+&lt;li>65 % en tratamiento&lt;/li>
+&lt;/ul>
+&lt;p>Introducimos datos faltantes &lt;strong>no aleatorios&lt;/strong>:&lt;br>
+en el grupo tratado, los no respondedores abandonan más.&lt;/p>
+&lt;p>La pregunta clínica implícita es:&lt;/p>
+&lt;blockquote>
+&lt;p>“¿es mejor el tratamiento que el control?”&lt;/p>&lt;/blockquote>
+&lt;p>Pero la pregunta estadística efectiva depende de &lt;strong>cómo tratemos lo no observado&lt;/strong>.&lt;/p>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th style="text-align: left">estrategia&lt;/th>
-&lt;th style="text-align: right">controles&lt;/th>
-&lt;th style="text-align: right">tratados&lt;/th>
-&lt;th style="text-align: right">diferecia&lt;/th>
+&lt;th style="text-align: left">Estrategia&lt;/th>
+&lt;th style="text-align: right">Control&lt;/th>
+&lt;th style="text-align: right">Tratamiento&lt;/th>
+&lt;th style="text-align: right">Diferencia&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -146,87 +207,83 @@ Suscribirse al Boletín en LinkedIn
 &lt;/tbody>
 &lt;/table>
 &lt;hr>
-&lt;h3 id="un-gráfico-tres-narrativas">Un gráfico, tres narrativas&lt;/h3>
+&lt;h3 id="un-solo-conjunto-de-datos-tres-historias">Un solo conjunto de datos, tres historias&lt;/h3>
 &lt;img src="https://bioestadisticaedu.com/post/er-01/index_files/figure-html/grafico_faltantes-1.png" width="672" />
-&lt;p>Con el mismo conjunto de datos, el análisis “solo casos completos” puede exagerar el beneficio, mientras que un escenario pesimista puede invertirlo. El punto central es este: &lt;strong>cada forma de manejar los faltantes introduce supuestos&lt;/strong> y, en la práctica, puede acercarte o alejarte de la pregunta clínica original.&lt;/p>
-&lt;hr>
-&lt;h2 id="lista-de-verificación-cómo-cazar-al-monstruo">Lista de verificación: cómo cazar al monstruo&lt;/h2>
-&lt;ol>
-&lt;li>&lt;strong>¿Coincide la pregunta clínica con el efecto objetivo (estimando) y con lo que realmente se estima en el análisis?&lt;/strong>&lt;/li>
-&lt;li>&lt;strong>¿Las etiquetas (por ejemplo, «ITT») están definidas con reglas operativas claras y conteos verificables?&lt;/strong>&lt;/li>
-&lt;li>&lt;strong>¿El manejo de sucesos intercurrentes está especificado (y no “resuelto” a posteriori)?&lt;/strong>&lt;/li>
-&lt;li>&lt;strong>¿Hay análisis de sensibilidad para datos faltantes y supuestos críticos?&lt;/strong>&lt;/li>
-&lt;li>&lt;strong>¿Se reporta relevancia clínica (por ejemplo, DMCI, diferencias absolutas, NNT) además de significación estadística?&lt;/strong>&lt;/li>
-&lt;li>&lt;strong>¿La conclusión depende de decisiones analíticas poco transparentes presentadas como detalles menores?&lt;/strong>&lt;/li>
-&lt;/ol>
-&lt;p>Si la respuesta es “no” en dos o más, no basta con “mejorar el reporte”: hay que replantear el diseño o, al menos, el marco de inferencia.&lt;/p>
-&lt;hr>
-&lt;h2 id="conclusión-domar-al-frankenstein-para-producir-evidencia-robusta">Conclusión: domar al Frankenstein para producir evidencia robusta&lt;/h2>
-&lt;p>La evidencia clínica rara vez colapsa por errores burdos. Más a menudo se debilita por incoherencias elegantes: un protocolo que promete una cosa, una ejecución que fuerza concesiones y un informe que no explicita cómo esas concesiones cambiaron la pregunta.&lt;/p>
-&lt;p>Un buen antídoto combina:&lt;/p>
+&lt;p>Con los mismos datos:&lt;/p>
 &lt;ul>
-&lt;li>alineación rigurosa entre pregunta clínica, estimando y análisis;&lt;/li>
-&lt;li>transparencia sobre datos faltantes y sucesos intercurrentes;&lt;/li>
-&lt;li>un cambio de enfoque: de “estadística como fin” a “estadística como herramienta para decidir”.&lt;/li>
+&lt;li>un análisis puede exagerar el beneficio,&lt;/li>
+&lt;li>otro puede neutralizarlo,&lt;/li>
+&lt;li>otro puede invertirlo.&lt;/li>
 &lt;/ul>
-&lt;p>Leer ICH E9(R1), hacer pilotos internos y entrenar a los equipos en trazabilidad inferencial ayuda a que el ensayo responda, de verdad, la pregunta que importa.&lt;/p>
-&lt;p>¿Tu estudio resiste esta auditoría? Si no, mejor detectarlo hoy que defenderlo mañana.&lt;/p>
-&lt;hr>
-&lt;h2 id="cuéntame-tu-caso-sin-datos-sensibles">Cuéntame tu caso (sin datos sensibles)&lt;/h2>
-&lt;p>&lt;strong>Una sola pregunta (y por qué importa)&lt;/strong>&lt;/p>
-&lt;p>Si este post te resultó incómodo, probablemente ya viste un Frankenstein metodológico en la práctica.&lt;/p>
-&lt;p>La pregunta clave es esta:&lt;/p>
+&lt;p>No porque los números “mientan”, sino porque:&lt;/p>
 &lt;blockquote>
-&lt;p>¿En qué punto de tu estudio la pregunta clínica dejó de coincidir con lo que realmente se estaba estimando?&lt;/p>&lt;/blockquote>
-&lt;p>No hace falta que respondas todo. Con un solo punto mal alineado basta para que el monstruo aparezca.&lt;/p>
-&lt;p>&lt;strong>Si quieres concretar (opcional)&lt;/strong>&lt;/p>
-&lt;p>Si te resulta más fácil, puedes responder usando uno o dos de estos ítems.
-No es un cuestionario: es una guía para pensar con claridad.&lt;/p>
-&lt;p>Área terapéutica o tipo de estudio:&lt;/p>
-&lt;p>Qué se prometía responder en el protocolo (1 frase):&lt;/p>
-&lt;p>Qué terminó estimándose en la práctica:&lt;/p>
-&lt;p>El suceso intercurrente que más distorsionó la inferencia
-(abandono, rescate, cambio de tratamiento, faltantes, otro):&lt;/p>
-&lt;p>Dónde nació el problema: diseño / ejecución / análisis / reporte&lt;/p>
-&lt;p>No incluyas datos sensibles ni identificables.&lt;/p>
-&lt;p>&lt;strong>¿Qué haré con estos comentarios?&lt;/strong>&lt;/p>
-&lt;p>Los usaré (anonimizados) para detectar patrones reales, no ejemplos de manual.&lt;/p>
-&lt;p>Algunos casos se transformarán en:&lt;/p>
-&lt;p>nuevos posts técnicos,&lt;/p>
-&lt;p>ejemplos comparativos,&lt;/p>
-&lt;p>o capítulos del libro (si el patrón lo justifica).&lt;/p>
-&lt;p>No responderé con “opiniones generales”, sino con una observación metodológica concreta cuando sea pertinente.&lt;/p>
-&lt;p>&lt;strong>Nota práctica&lt;/strong>&lt;/p>
-&lt;p>Si comentar en el blog te resulta incómodo, puedes dejar tu respuesta en LinkedIn.
-Yo me encargo de traer la discusión de vuelta al sistema.&lt;/p>
+&lt;p>&lt;strong>cada estrategia introduce un supuesto distinto sobre lo no observado&lt;/strong>
+y, por tanto, estima un efecto distinto.&lt;/p>&lt;/blockquote>
+&lt;p>La desconexión no es técnica:
+es inferencial.&lt;/p>
 &lt;hr>
-&lt;h2 id="suscripción">Suscripción:&lt;/h2>
-&lt;p>&lt;a href="https://bioestadisticaedu.com/subscribe/">&lt;strong>Suscríbete a bioestadísticaedu&lt;/strong>&lt;/a> y recibe directamente en tu bandeja de entrada:&lt;/p>
+&lt;h2 id="cómo-detectar-un-frankenstein-en-un-informe">Cómo detectar un Frankenstein en un informe&lt;/h2>
+&lt;ol>
+&lt;li>¿La pregunta clínica está formulada explícitamente?&lt;/li>
+&lt;li>¿El estimando está definido (población, variable, sucesos intercurrentes, medida)?&lt;/li>
+&lt;li>¿El análisis corresponde a ese estimando?&lt;/li>
+&lt;li>¿Los datos faltantes están tratados como un problema inferencial, no solo operativo?&lt;/li>
+&lt;li>¿La conclusión depende críticamente de supuestos no discutidos?&lt;/li>
+&lt;/ol>
+&lt;p>Si fallan dos o más, el monstruo probablemente ya esté vivo.&lt;/p>
+&lt;hr>
+&lt;h2 id="este-post-es-solo-el-primer-caso">Este post es solo el primer caso&lt;/h2>
+&lt;p>Este ejemplo aborda una sola desconexión:&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>estimando vs. datos realmente observados (faltantes).&lt;/strong>&lt;/p>&lt;/blockquote>
+&lt;p>Pero hay otras, igualmente peligrosas:&lt;/p>
 &lt;ul>
-&lt;li>Caja de Herramientas Anti‑Frankenstein&lt;/li>
+&lt;li>fenómeno clínico → objetivo mal formulado&lt;/li>
+&lt;li>objetivo → hipótesis irrelevante&lt;/li>
+&lt;li>hipótesis → cálculo muestral desalineado&lt;/li>
+&lt;li>estimando → método de análisis incoherente&lt;/li>
+&lt;/ul>
+&lt;p>Cada una merece su propio análisis.&lt;/p>
+&lt;p>Este post funciona como &lt;strong>caso 1: datos faltantes&lt;/strong>
+dentro de una tipología más amplia de desconexiones inferenciales.&lt;/p>
+&lt;hr>
+&lt;h2 id="conclusión">Conclusión&lt;/h2>
+&lt;p>La fragilidad de la evidencia clínica rara vez nace de errores groseros.
+Más a menudo surge de incoherencias elegantes:&lt;/p>
+&lt;blockquote>
+&lt;p>una pregunta clínica,
+un diseño que se desvía,
+un análisis que responde otra cosa,
+y un informe que no distingue entre ambas.&lt;/p>&lt;/blockquote>
+&lt;p>El antídoto no es solo mejor estadística, sino:&lt;/p>
+&lt;ul>
+&lt;li>trazabilidad entre pregunta y análisis,&lt;/li>
+&lt;li>definición explícita de estimandos,&lt;/li>
+&lt;li>análisis de sensibilidad como parte de la evidencia,&lt;/li>
+&lt;li>y una lectura crítica que no se conforme con etiquetas.&lt;/li>
 &lt;/ul>
 &lt;hr>
 &lt;h2 id="bibliografía">Bibliografía&lt;/h2>
 &lt;ul>
-&lt;li>
-&lt;p>International Council for Harmonisation of Technical Requirements for Pharmaceuticals for Human Use (ICH). ICH E9 (R1) addendum on estimands and sensitivity analysis in clinical trials to the guideline on statistical principles for clinical trials. Geneva: ICH; 2019. Available from: &lt;a href="https://database.ich.org/sites/default/files/E9-R1_Step4_Guideline_2019_1203.pdf" target="_blank" rel="noopener">https://database.ich.org/sites/default/files/E9-R1_Step4_Guideline_2019_1203.pdf&lt;/a>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Kahan BC, Morris TP, White IR, Carpenter J. The estimands framework: a primer on the ICH E9(R1) addendum. BMJ. 2024;384:e076316. doi:10.1136/bmj-2023-076316. Available from: &lt;a href="https://www.bmj.com/content/384/bmj-2023-076316" target="_blank" rel="noopener">https://www.bmj.com/content/384/bmj-2023-076316&lt;/a>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Cro S, Morris TP, Kenward MG, Carpenter JR. Choosing Estimands in Clinical Trials: Putting the ICH E9(R1) Into Practice. Ther Innov Regul Sci. 2020;54(2):324-341. doi:10.1007/s43441-019-00061-x. Available from: &lt;a href="https://pubmed.ncbi.nlm.nih.gov/32072573/" target="_blank" rel="noopener">https://pubmed.ncbi.nlm.nih.gov/32072573/&lt;/a>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Ioannidis JPA, Greenland S, Hlatky MA, et al. Methodology over metrics: current scientific standards are a disservice to patients and society. J Clin Epidemiol. 2021;138:219-226. doi:10.1016/j.jclinepi.2021.05.018. Available from: &lt;a href="https://pubmed.ncbi.nlm.nih.gov/34077797/" target="_blank" rel="noopener">https://pubmed.ncbi.nlm.nih.gov/34077797/&lt;/a>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Topol EJ. Failing the public health&amp;ndash;rofecoxib, Merck, and the FDA. N Engl J Med. 2004;351(17):1707-1709. doi:10.1056/NEJMp048286. Available from: &lt;a href="https://www.nejm.org/doi/full/10.1056/NEJMp048286" target="_blank" rel="noopener">https://www.nejm.org/doi/full/10.1056/NEJMp048286&lt;/a>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Krumholz HM, Ross JS, Presler AH, Egilman DS. What have we learnt from Vioxx? BMJ. 2007;334(7585):120-123. doi:10.1136/bmj.39024.487720.68. Available from: &lt;a href="https://pubmed.ncbi.nlm.nih.gov/17235089/" target="_blank" rel="noopener">https://pubmed.ncbi.nlm.nih.gov/17235089/&lt;/a>&lt;/p>
-&lt;/li>
-&lt;/ul></description></item><item><title>Los siete pecados capitales del protocolo y del Plan de Análisis Estadístico: confesiones de un regulador</title><link>https://bioestadisticaedu.com/post/siete-pecados-protocolos-clinicos/</link><pubDate>Sun, 09 Nov 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/siete-pecados-protocolos-clinicos/</guid><description>&lt;p>&lt;em>Por Maicel Monzon&lt;/em>&lt;/p>
+&lt;li>ICH E9(R1) Addendum on estimands and sensitivity analysis. 2019.&lt;/li>
+&lt;li>Kahan BC et al. The estimands framework. &lt;em>BMJ&lt;/em>. 2024.&lt;/li>
+&lt;li>Cro S et al. Choosing estimands in clinical trials. &lt;em>Ther Innov Regul Sci&lt;/em>. 2020.&lt;/li>
+&lt;li>Ioannidis JPA et al. Methodology over metrics. &lt;em>J Clin Epidemiol&lt;/em>. 2021.&lt;/li>
+&lt;li>Topol EJ. Failing the public health—rofecoxib. &lt;em>NEJM&lt;/em>. 2004.&lt;/li>
+&lt;li>Krumholz HM et al. What have we learnt from Vioxx? &lt;em>BMJ&lt;/em>. 2007.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="suscripción">Suscripción&lt;/h2>
+&lt;p>&lt;a href="https://bioestadisticaedu.com/subscribe/">&lt;strong>Suscríbete a bioestadísticaedu&lt;/strong>&lt;/a>
+y recibe la serie completa sobre desconexiones inferenciales en ensayos clínicos.&lt;/p>
+&lt;div style="background-color: #f3f6f8; padding: 20px; border-radius: 10px; text-align: center; margin-top: 30px; border: 1px solid #e0e0e0;">
+&lt;p style="color: #000; font-weight: bold; margin-bottom: 15px;">¿Te interesa pensar más allá de los números?&lt;/p>
+&lt;a href="https://www.linkedin.com/newsletters/7415401669913706496/"
+target="_blank"
+style="background-color: #0077b5; color: white; padding: 10px 20px; text-decoration: none; border-radius: 25px; font-weight: bold; display: inline-block;">
+Suscribirse al Boletín en LinkedIn
+&lt;/a>
+&lt;/div></description></item><item><title>Los siete pecados capitales del protocolo y del Plan de Análisis Estadístico: confesiones de un regulador</title><link>https://bioestadisticaedu.com/post/siete-pecados-protocolos-clinicos/</link><pubDate>Sun, 09 Nov 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/siete-pecados-protocolos-clinicos/</guid><description>&lt;p>&lt;em>Por Maicel Monzon&lt;/em>&lt;/p>
 &lt;p>&lt;strong>¿Sabías que más de la mitad de los protocolos de ensayos clínicos requieren modificaciones antes de su aprobación debido a deficiencias metodológicas evitables?&lt;/strong>&lt;/p>
 &lt;p>Imagine la escena: tras &lt;strong>meses de trabajo meticuloso&lt;/strong>, el &lt;strong>protocolo&lt;/strong> de su &lt;strong>ensayo clínico regresa&lt;/strong> con una &lt;strong>solicitud de información adicional&lt;/strong> por parte de la autoridad reguladora, por lo que tendrás que hacer &lt;strong>modificaciones&lt;/strong> para someterlo a una nueva evaluación.&lt;/p>
 &lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
