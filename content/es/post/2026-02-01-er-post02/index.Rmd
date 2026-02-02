@@ -13,7 +13,7 @@ tags:
   - "simulacion-R"
 slug: "er-02"
 featured: true
-draft: true
+draft: false
 share: true
 commentable: true
 show_related: true
