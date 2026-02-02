@@ -1,4 +1,151 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Evaluacion-Regulatoria | Bioestadística edu</title><link>https://bioestadisticaedu.com/tags/evaluacion-regulatoria/</link><atom:link href="https://bioestadisticaedu.com/tags/evaluacion-regulatoria/index.xml" rel="self" type="application/rss+xml"/><description>Evaluacion-Regulatoria</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Thu, 01 Jan 2026 00:00:00 +0000</lastBuildDate><image><url>https://bioestadisticaedu.com/media/icon_hu_551fbaee136b383e.png</url><title>Evaluacion-Regulatoria</title><link>https://bioestadisticaedu.com/tags/evaluacion-regulatoria/</link></image><item><title>El Frankenstein metodológico: cuando la estadística responde otra pregunta</title><link>https://bioestadisticaedu.com/post/er-01/</link><pubDate>Thu, 01 Jan 2026 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/er-01/</guid><description>&lt;p>&lt;em>Por Maicel Monzon&lt;/em>&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Evaluacion-Regulatoria | Bioestadística edu</title><link>https://bioestadisticaedu.com/tags/evaluacion-regulatoria/</link><atom:link href="https://bioestadisticaedu.com/tags/evaluacion-regulatoria/index.xml" rel="self" type="application/rss+xml"/><description>Evaluacion-Regulatoria</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Sun, 01 Feb 2026 00:00:00 +0000</lastBuildDate><image><url>https://bioestadisticaedu.com/media/icon_hu_551fbaee136b383e.png</url><title>Evaluacion-Regulatoria</title><link>https://bioestadisticaedu.com/tags/evaluacion-regulatoria/</link></image><item><title>El Frankenstein metodológico: desconexión inferencial entre fenómeno clínico y objetivos o hipótesis</title><link>https://bioestadisticaedu.com/post/er-02/</link><pubDate>Sun, 01 Feb 2026 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/er-02/</guid><description>&lt;p>&lt;em>Por Maicel Monzon&lt;/em>&lt;/p>
+&lt;h2 id="introducción">Introducción&lt;/h2>
+&lt;p>En un ensayo clínico, la pregunta clínica inicial suele surgir de un fenómeno observable:&lt;br>
+por ejemplo, &lt;strong>reducir exacerbaciones en EPOC&lt;/strong>, &lt;strong>prolongar la supervivencia en cáncer&lt;/strong> o &lt;strong>mejorar la calidad de vida tras un procedimiento&lt;/strong>.&lt;/p>
+&lt;p>El desafío surge cuando trasladamos esta pregunta clínica a &lt;strong>objetivos operativos y hipótesis estadísticas&lt;/strong>.&lt;/p>
+&lt;p>Pequeñas decisiones de definición pueden generar una &lt;strong>desconexión inferencial sistemática&lt;/strong>, de modo que el estudio termina midiendo algo distinto de lo que se pretendía entender.&lt;/p>
+&lt;p>Este post es el &lt;strong>Caso 2&lt;/strong> dentro de nuestra serie sobre desconexiones inferenciales, enlazando con &lt;a href="https://bioestadisticaedu.com/post/er-01/">ER‑01: Datos faltantes&lt;/a>&lt;/p>
+&lt;hr>
+&lt;h2 id="del-fenómeno-clínico-a-los-objetivos">Del fenómeno clínico a los objetivos&lt;/h2>
+&lt;h3 id="ejemplo-conceptual">Ejemplo conceptual&lt;/h3>
+&lt;p>Fenómeno clínico: &lt;em>“Disminuir la frecuencia de exacerbaciones en pacientes con EPOC”&lt;/em>&lt;/p>
+&lt;ul>
+&lt;li>Pregunta clínica implícita: ¿el tratamiento reduce el número total de exacerbaciones y mejora la salud global?&lt;/li>
+&lt;/ul>
+&lt;details class="spoiler " id="spoiler-1">
+&lt;summary class="cursor-pointer">Ver definiciones operativas de exacerbación y salud global en el ejemplo (Haz clic para ver detalles)&lt;/summary>
+&lt;div class="rounded-lg bg-neutral-50 dark:bg-neutral-800 p-2">
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Exacerbación&lt;/strong>: episodio agudo de empeoramiento clínico en un paciente con EPOC que requiere intensificación del tratamiento (por ejemplo, uso de corticoides sistémicos, antibióticos o ingreso hospitalario).&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Salud global&lt;/strong>: constructo clínico integrado que resume el estado general del paciente, incorporando la carga total de exacerbaciones, la evolución de los síntomas respiratorios, la función pulmonar y la calidad de vida relacionada con la salud, tal como se entiende en la práctica clínica habitual.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/div>
+&lt;/details>
+&lt;p>Operacionalización a objetivo estadístico mal planteado:&lt;/p>
+&lt;blockquote>
+&lt;p>Comparar la proporción de pacientes con al menos una exacerbación en 12 semanas.&lt;/p>&lt;/blockquote>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-yellow-100 dark:bg-yellow-900">
+&lt;span class="pr-3 pt-1 text-red-400">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0zM12 15.75h.007v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;p>&lt;strong>Problema&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>El objetivo &lt;strong>simplifica&lt;/strong> un fenómeno recurrente a una &lt;strong>variable dicotómica&lt;/strong>.&lt;/li>
+&lt;li>La &lt;strong>frecuencia y severidad&lt;/strong> de las exacerbaciones quedan &lt;strong>ignoradas&lt;/strong>.&lt;/li>
+&lt;li>La hipótesis formal puede detectar &lt;strong>diferencia estadística&lt;/strong> sin reflejar un &lt;strong>beneficio clínico real&lt;/strong> para el paciente.&lt;/li>
+&lt;/ul>&lt;/span>
+&lt;/div>
+&lt;hr>
+&lt;h2 id="tipos-de-desconexión-frecuentes">Tipos de desconexión frecuentes&lt;/h2>
+&lt;ol>
+&lt;li>&lt;strong>Reducción excesiva del fenómeno&lt;/strong>
+&lt;ul>
+&lt;li>Ej: medir &lt;em>“evento binario”&lt;/em> en lugar de &lt;em>frecuencia o severidad&lt;/em>.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Ventanas de tiempo arbitrarias&lt;/strong>
+&lt;ul>
+&lt;li>Ej: solo primeras 12 semanas, aunque el efecto real se da a las 24 semanas.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Subpoblaciones no alineadas&lt;/strong>
+&lt;ul>
+&lt;li>Ej: excluir pacientes con comorbilidades relevantes para la práctica clínica.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Supuestos implícitos en hipótesis&lt;/strong>
+&lt;ul>
+&lt;li>Ej: asumir independencia de eventos recurrentes, ignorando la correlación intraindividuo entre episodios.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-yellow-100 dark:bg-yellow-900">
+&lt;span class="pr-3 pt-1 text-red-400">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0zM12 15.75h.007v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">Cada elección puede generar que la hipótesis estadística &lt;strong>responda a una pregunta distinta&lt;/strong> de la clínica original.&lt;/span>
+&lt;/div>
+&lt;hr>
+&lt;h2 id="simulación-ilustrativa-efecto-vs-objetivo-mal-planteado">Simulación ilustrativa: efecto vs. objetivo mal planteado&lt;/h2>
+&lt;p>Vamos a mostrar cómo un objetivo simplificado puede hacer que el efecto clínico parezca menor de lo que realmente es:&lt;/p>
+&lt;img src="https://bioestadisticaedu.com/post/er-02/index_files/figure-html/simulacion_hipotesis-1.png" width="672" />
+&lt;h3 id="interpretación">Interpretación&lt;/h3>
+&lt;p>&lt;strong>Fenómeno real:&lt;/strong> reducción media de exacerbaciones de 1.66 → 0.52, lo que representa una disminución sustancial de la carga total de eventos por paciente, clínicamente interpretable como menor inestabilidad de la enfermedad.&lt;/p>
+&lt;p>&lt;strong>Objetivo simplificado (≥1 exacerbación):&lt;/strong> la comparación se limita a la ocurrencia de al menos un evento (0.78 → 0.40), transformando un fenómeno cuantitativo recurrente en un desenlace binario que no distingue entre uno y múltiples episodios clínicos. La señal cambia de naturaleza: pasa de representar una reducción en la carga total de enfermedad a una mera diferencia en la ocurrencia mínima del fenómeno.&lt;/p>
+&lt;p>&lt;strong>Conclusión:&lt;/strong> la hipótesis estadística basada en un objetivo simplificado puede conducir a interpretaciones parciales o engañosas, mostrando la &lt;strong>desconexión inferencial&lt;/strong> entre fenómeno clínico y formulación operativa de la hipótesis.&lt;/p>
+&lt;hr>
+&lt;h2 id="checklist-para-alinear-objetivos-e-hipótesis">Checklist para alinear objetivos e hipótesis&lt;/h2>
+&lt;ul>
+&lt;li>¿El objetivo operacional captura la esencia del fenómeno clínico?&lt;/li>
+&lt;li>¿La hipótesis estadística corresponde al objetivo?&lt;/li>
+&lt;li>¿Se explicitan supuestos sobre población, tiempo y eventos recurrentes?&lt;/li>
+&lt;li>¿Se analiza la sensibilidad a definiciones alternativas de éxito?&lt;/li>
+&lt;li>¿Se documenta la distancia entre la pregunta clínica y la formulación operativa?&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="conclusión">Conclusión&lt;/h2>
+&lt;p>Pequeñas decisiones en la operacionalización del fenómeno clínico a objetivos y hipótesis pueden producir &lt;strong>desconexiones inferenciales tempranas&lt;/strong>, incluso antes de tocar los datos.&lt;/p>
+&lt;p>Este post sirve como &lt;strong>Caso 2&lt;/strong> de nuestra serie:&lt;/p>
+&lt;ul>
+&lt;li>El Frankenstein Metodológico: cuando la estadística responde otra pregunta → manejo de datos faltantes (desconexión en análisis)&lt;/li>
+&lt;li>Post 02: formulación de objetivos y hipótesis (desconexión temprana)&lt;/li>
+&lt;/ul>
+&lt;p>Próximos casos cubrirán:&lt;/p>
+&lt;ul>
+&lt;li>estimando → análisis estadístico&lt;/li>
+&lt;li>hipótesis → cálculo del tamaño muestral&lt;/li>
+&lt;/ul>
+&lt;p>La idea central: &lt;strong>trazar un mapa de cada posible desconexión desde fenómeno clínico hasta análisis final&lt;/strong>.&lt;/p>
+&lt;hr>
+&lt;h2 id="suscripción">Suscripción&lt;/h2>
+&lt;p>&lt;a href="https://bioestadisticaedu.com/subscribe/">&lt;strong>Suscríbete a bioestadísticaedu&lt;/strong>&lt;/a>
+y recibe la serie completa sobre desconexiones inferenciales en ensayos clínicos.&lt;/p>
+&lt;div style="background-color: #f3f6f8; padding: 20px; border-radius: 10px; text-align: center; margin-top: 30px; border: 1px solid #e0e0e0;">
+&lt;p style="color: #000; font-weight: bold; margin-bottom: 15px;">¿Te interesa pensar más allá de los números?&lt;/p>
+&lt;a href="https://www.linkedin.com/newsletters/7415401669913706496/"
+target="_blank"
+style="background-color: #0077b5; color: white; padding: 10px 20px; text-decoration: none; border-radius: 25px; font-weight: bold; display: inline-block;">
+Suscribirse al Boletín en LinkedIn
+&lt;/a>
+&lt;/div>
+&lt;hr>
+&lt;h2 id="bibliografía">Bibliografía&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>International Council for Harmonisation of Technical Requirements for Pharmaceuticals for Human Use (ICH). Addendum on estimands and sensitivity analysis in clinical trials to the guideline on statistical principles for clinical trials E9(R1). Geneva: ICH; 2019. Disponible en: &lt;a href="https://database.ich.org/sites/default/files/E9-R1_Step4_Guideline_2019_1203.pdf" target="_blank" rel="noopener">https://database.ich.org/sites/default/files/E9-R1_Step4_Guideline_2019_1203.pdf&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Kahan BC, Morris TP, White IR, Carpenter J. The estimands framework: a primer on the ICH E9(R1) addendum. BMJ. 2024;384:e076316. doi:10.1136/bmj-2023-076316&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Cro S, Morris TP, Kenward MG, Carpenter JR. Choosing estimands in clinical trials: putting the ICH E9(R1) into practice. Ther Innov Regul Sci. 2020;54(2):324–341. doi:10.1007/s43441-019-00061-x&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Altman DG, Royston P. The cost of dichotomising continuous variables. BMJ. 2006;332(7549):1080. doi:10.1136/bmj.332.7549.1080&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Royston P, Altman DG, Sauerbrei W. Dichotomizing continuous predictors in multiple regression: a bad idea. Stat Med. 2006;25(1):127–141. doi:10.1002/sim.2331&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Cook RJ, Lawless JF. The statistical analysis of recurrent events. New York: Springer; 2007.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Andersen PK, Gill RD. Cox’s regression model for counting processes: a large sample study. Ann Stat. 1982;10(4):1100–1120.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Ioannidis JPA, Greenland S, Hlatky MA, et al. Methodology over metrics: current scientific standards are a disservice to patients and society. J Clin Epidemiol. 2021;138:219–226. doi:10.1016/j.jclinepi.2021.05.018&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>U.S. Food and Drug Administration (FDA). Multiple endpoints in clinical trials: guidance for industry. Silver Spring (MD): FDA; 2017.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>European Medicines Agency (EMA). Guideline on the evaluation of medicinal products for the treatment of chronic obstructive pulmonary disease (COPD). London: EMA; 2012.&lt;/p>
+&lt;/li>
+&lt;/ul></description></item><item><title>El Frankenstein metodológico: cuando la estadística responde otra pregunta</title><link>https://bioestadisticaedu.com/post/er-01/</link><pubDate>Thu, 01 Jan 2026 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/er-01/</guid><description>&lt;p>&lt;em>Por Maicel Monzon&lt;/em>&lt;/p>
 &lt;h2 id="introducción">Introducción&lt;/h2>
 &lt;p>Lees un informe final de un ensayo clínico (CSR) o un artículo en una revista de alto impacto.&lt;br>
 Todo parece correcto: objetivos claros, variables bien definidas, tablas limpias y un Plan de Análisis Estadístico (SAP) coherente.&lt;/p>
