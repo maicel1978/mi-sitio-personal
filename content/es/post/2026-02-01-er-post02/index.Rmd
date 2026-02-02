@@ -1,0 +1,225 @@
+---
+title: "El Frankenstein metodológico: desconexión inferencial entre fenómeno clínico y objetivos o hipótesis"
+subtitle: "Cuando lo que queremos estudiar no coincide con lo que formulamos"
+summary: "Exploramos cómo la traducción del fenómeno clínico a objetivos e hipótesis puede crear una desconexión inferencial. Incluye ejemplos reproducibles y recomendaciones prácticas."
+author: "admin"
+date: "2026-02-01"
+categories: ["Evaluación Regulatoria"]
+tags:
+  - "evaluacion-regulatoria"
+  - "ensayos-clínicos"
+  - "objetivos"
+  - "hipotesis"
+  - "simulacion-R"
+slug: "er-02"
+featured: true
+draft: true
+share: true
+commentable: true
+show_related: true
+show_breadcrumb: true
+type: post
+---
+
+*Por Maicel Monzon*
+
+## Introducción
+
+En un ensayo clínico, la pregunta clínica inicial suele surgir de un fenómeno observable:  
+por ejemplo, **reducir exacerbaciones en EPOC**, **prolongar la supervivencia en cáncer** o **mejorar la calidad de vida tras un procedimiento**.
+
+El desafío surge cuando trasladamos esta pregunta clínica a **objetivos operativos y hipótesis estadísticas**.  
+
+Pequeñas decisiones de definición pueden generar una **desconexión inferencial sistemática**, de modo que el estudio termina midiendo algo distinto de lo que se pretendía entender.
+
+Este post es el **Caso 2** dentro de nuestra serie sobre desconexiones inferenciales, enlazando con [ER‑01: Datos faltantes]({{< relref "/post/2025-01-01-er-post01" >}})
+
+
+---
+
+## Del fenómeno clínico a los objetivos
+
+### Ejemplo conceptual
+
+Fenómeno clínico: *“Disminuir la frecuencia de exacerbaciones en pacientes con EPOC”*  
+
+- Pregunta clínica implícita: ¿el tratamiento reduce el número total de exacerbaciones y mejora la salud global?
+
+
+{{< spoiler text="Ver definiciones operativas de exacerbación y salud global en el ejemplo (Haz clic para ver detalles)" >}}
+
+* **Exacerbación**: episodio agudo de empeoramiento clínico en un paciente con EPOC que requiere intensificación del tratamiento (por ejemplo, uso de corticoides sistémicos, antibióticos o ingreso hospitalario).
+
+* **Salud global**: constructo clínico integrado que resume el estado general del paciente, incorporando la carga total de exacerbaciones, la evolución de los síntomas respiratorios, la función pulmonar y la calidad de vida relacionada con la salud, tal como se entiende en la práctica clínica habitual.
+
+{{< /spoiler >}}
+
+Operacionalización a objetivo estadístico mal planteado:  
+
+> Comparar la proporción de pacientes con al menos una exacerbación en 12 semanas.
+
+{{% callout warning %}} **Problema**
+- El objetivo **simplifica** un fenómeno recurrente a una **variable dicotómica**.  
+- La **frecuencia y severidad** de las exacerbaciones quedan **ignoradas**.  
+- La hipótesis formal puede detectar **diferencia estadística** sin reflejar un **beneficio clínico real** para el paciente.
+{{% /callout %}}
+
+---
+
+## Tipos de desconexión frecuentes
+
+1. **Reducción excesiva del fenómeno**  
+   - Ej: medir *“evento binario”* en lugar de *frecuencia o severidad*.
+2. **Ventanas de tiempo arbitrarias**  
+   - Ej: solo primeras 12 semanas, aunque el efecto real se da a las 24 semanas.
+3. **Subpoblaciones no alineadas**  
+   - Ej: excluir pacientes con comorbilidades relevantes para la práctica clínica.
+4. **Supuestos implícitos en hipótesis**  
+   - Ej: asumir independencia de eventos recurrentes, ignorando la correlación intraindividuo entre episodios.
+   
+{{% callout warning %}} Cada elección puede generar que la hipótesis estadística **responda a una pregunta distinta** de la clínica original.
+{{% /callout %}}
+
+---
+
+## Simulación ilustrativa: efecto vs. objetivo mal planteado
+
+Vamos a mostrar cómo un objetivo simplificado puede hacer que el efecto clínico parezca menor de lo que realmente es:
+
+
+```{r simulacion_hipotesis, echo=FALSE, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(ggplot2)
+set.seed(456)
+
+n <- 100
+datos <- tibble(
+  id = 1:n,
+  grupo = rep(c("Control", "Tratamiento"), each = n/2)
+)
+
+# Ajustamos lambda para mostrar la desconexión
+lambda <- c(Control = 1.5, Tratamiento = 0.5)
+datos <- datos %>%
+  mutate(
+    exac = rpois(n(), lambda[grupo]),
+    binaria = ifelse(exac >= 1, 1, 0)
+  )
+
+# Resumen para tabla
+res_tabla <- datos %>%
+  group_by(grupo) %>%
+  summarise(
+    exac_media = mean(exac),
+    prob_al_menos_una = mean(binaria)
+  )
+
+# res_tabla
+
+# Preparar datos para gráfico
+res_grafico <- res_tabla %>%
+  pivot_longer(cols = c(exac_media, prob_al_menos_una),
+               names_to = "medida",
+               values_to = "valor") %>%
+  mutate(
+    medida = recode(medida,
+                    exac_media = "Media de exacerbaciones",
+                    prob_al_menos_una = "Probabilidad ≥1 exacerbación")
+  )
+
+# Gráfico combinado
+ggplot(res_grafico, aes(x = grupo, y = valor, fill = medida)) +
+  geom_col(position = position_dodge(width = 0.7), width = 0.6) +
+  geom_text(aes(label = round(valor, 2)),
+            position = position_dodge(width = 0.7),
+            vjust = -0.5, size = 4) +
+  scale_fill_manual(values = c("Media de exacerbaciones" = "steelblue",
+                               "Probabilidad ≥1 exacerbación" = "tomato")) +
+  labs(
+    title = "Fenómeno clínico vs. objetivo simplificado",
+    subtitle = "El efecto se manifiesta en la media de exacerbaciones, pero se reduce al dicotomizar el desenlace como ≥1 exacerbación",
+    x = "Grupo",
+    y = "Valor",
+    fill = "Medida"
+  ) +
+  theme_minimal(base_size = 13) +
+  coord_cartesian(ylim = c(0, max(res_grafico$valor) + 0.2))
+
+```
+
+### Interpretación
+
+**Fenómeno real:** reducción media de exacerbaciones de 1.66 → 0.52, lo que representa una disminución sustancial de la carga total de eventos por paciente, clínicamente interpretable como menor inestabilidad de la enfermedad.
+
+**Objetivo simplificado (≥1 exacerbación):** la comparación se limita a la ocurrencia de al menos un evento (0.78 → 0.40), transformando un fenómeno cuantitativo recurrente en un desenlace binario que no distingue entre uno y múltiples episodios clínicos. La señal cambia de naturaleza: pasa de representar una reducción en la carga total de enfermedad a una mera diferencia en la ocurrencia mínima del fenómeno.
+
+**Conclusión:** la hipótesis estadística basada en un objetivo simplificado puede conducir a interpretaciones parciales o engañosas, mostrando la **desconexión inferencial** entre fenómeno clínico y formulación operativa de la hipótesis.
+
+---
+
+## Checklist para alinear objetivos e hipótesis
+
+- ¿El objetivo operacional captura la esencia del fenómeno clínico?
+- ¿La hipótesis estadística corresponde al objetivo?
+- ¿Se explicitan supuestos sobre población, tiempo y eventos recurrentes?
+- ¿Se analiza la sensibilidad a definiciones alternativas de éxito?
+- ¿Se documenta la distancia entre la pregunta clínica y la formulación operativa?
+
+---
+
+## Conclusión
+
+Pequeñas decisiones en la operacionalización del fenómeno clínico a objetivos y hipótesis pueden producir **desconexiones inferenciales tempranas**, incluso antes de tocar los datos.
+
+Este post sirve como **Caso 2** de nuestra serie:
+
+* El Frankenstein Metodológico: cuando la estadística responde otra pregunta → manejo de datos faltantes (desconexión en análisis)
+* Post 02: formulación de objetivos y hipótesis (desconexión temprana)
+
+Próximos casos cubrirán:
+
+* estimando → análisis estadístico
+* hipótesis → cálculo del tamaño muestral
+
+La idea central: **trazar un mapa de cada posible desconexión desde fenómeno clínico hasta análisis final**.
+
+---
+
+## Suscripción
+
+[**Suscríbete a bioestadísticaedu**]({{< relref "/subscribe/" >}})
+y recibe la serie completa sobre desconexiones inferenciales en ensayos clínicos.
+
+
+<div style="background-color: #f3f6f8; padding: 20px; border-radius: 10px; text-align: center; margin-top: 30px; border: 1px solid #e0e0e0;">
+    <p style="color: #000; font-weight: bold; margin-bottom: 15px;">¿Te interesa pensar más allá de los números?</p>
+    <a href="https://www.linkedin.com/newsletters/7415401669913706496/" 
+       target="_blank" 
+       style="background-color: #0077b5; color: white; padding: 10px 20px; text-decoration: none; border-radius: 25px; font-weight: bold; display: inline-block;">
+       Suscribirse al Boletín en LinkedIn
+    </a>
+</div>
+
+---
+
+## Bibliografía
+
+- International Council for Harmonisation of Technical Requirements for Pharmaceuticals for Human Use (ICH). Addendum on estimands and sensitivity analysis in clinical trials to the guideline on statistical principles for clinical trials E9(R1). Geneva: ICH; 2019. Disponible en: https://database.ich.org/sites/default/files/E9-R1_Step4_Guideline_2019_1203.pdf
+
+- Kahan BC, Morris TP, White IR, Carpenter J. The estimands framework: a primer on the ICH E9(R1) addendum. BMJ. 2024;384:e076316. doi:10.1136/bmj-2023-076316
+
+- Cro S, Morris TP, Kenward MG, Carpenter JR. Choosing estimands in clinical trials: putting the ICH E9(R1) into practice. Ther Innov Regul Sci. 2020;54(2):324–341. doi:10.1007/s43441-019-00061-x
+
+- Altman DG, Royston P. The cost of dichotomising continuous variables. BMJ. 2006;332(7549):1080. doi:10.1136/bmj.332.7549.1080
+
+- Royston P, Altman DG, Sauerbrei W. Dichotomizing continuous predictors in multiple regression: a bad idea. Stat Med. 2006;25(1):127–141. doi:10.1002/sim.2331
+
+- Cook RJ, Lawless JF. The statistical analysis of recurrent events. New York: Springer; 2007.
+
+- Andersen PK, Gill RD. Cox’s regression model for counting processes: a large sample study. Ann Stat. 1982;10(4):1100–1120.
+
+- Ioannidis JPA, Greenland S, Hlatky MA, et al. Methodology over metrics: current scientific standards are a disservice to patients and society. J Clin Epidemiol. 2021;138:219–226. doi:10.1016/j.jclinepi.2021.05.018
+
+- U.S. Food and Drug Administration (FDA). Multiple endpoints in clinical trials: guidance for industry. Silver Spring (MD): FDA; 2017.
+
+- European Medicines Agency (EMA). Guideline on the evaluation of medicinal products for the treatment of chronic obstructive pulmonary disease (COPD). London: EMA; 2012.

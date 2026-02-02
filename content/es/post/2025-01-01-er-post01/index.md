@@ -1,5 +1,5 @@
 ---
-title: "El Frankenstein Metodológico: cuando la estadística responde otra pregunta"
+title: "El Frankenstein metodológico: cuando la estadística responde otra pregunta"
 subtitle: "Desconexión entre la pregunta clínica y lo que realmente se estima en un ensayo"
 summary: "Un análisis puede ser técnicamente correcto y, aun así, responder a una pregunta clínica distinta. Este post introduce el concepto de desconexión inferencial y lo ilustra con un caso reproducible de datos faltantes."
 author: "admin"
