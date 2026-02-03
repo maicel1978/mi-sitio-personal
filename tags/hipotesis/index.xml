@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hipotesis | Bioestadística edu</title><link>https://bioestadisticaedu.com/tags/hipotesis/</link><atom:link href="https://bioestadisticaedu.com/tags/hipotesis/index.xml" rel="self" type="application/rss+xml"/><description>Hipotesis</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Sun, 01 Feb 2026 00:00:00 +0000</lastBuildDate><image><url>https://bioestadisticaedu.com/media/icon_hu_551fbaee136b383e.png</url><title>Hipotesis</title><link>https://bioestadisticaedu.com/tags/hipotesis/</link></image><item><title>El Frankenstein metodológico: desconexión inferencial entre fenómeno clínico y objetivos o hipótesis</title><link>https://bioestadisticaedu.com/post/er-02/</link><pubDate>Sun, 01 Feb 2026 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/er-02/</guid><description>&lt;p>&lt;em>Por Maicel Monzon&lt;/em>&lt;/p>
 &lt;h2 id="introducción">Introducción&lt;/h2>
-&lt;p>En un ensayo clínico, la pregunta clínica inicial suele surgir de un fenómeno observable:&lt;br>
-por ejemplo, &lt;strong>reducir exacerbaciones en EPOC&lt;/strong>, &lt;strong>prolongar la supervivencia en cáncer&lt;/strong> o &lt;strong>mejorar la calidad de vida tras un procedimiento&lt;/strong>.&lt;/p>
+&lt;p>En un ensayo clínico, la pregunta clínica inicial suele surgir de un fenómeno observable: por ejemplo, &lt;strong>reducir exacerbaciones en EPOC&lt;/strong>, &lt;strong>prolongar la supervivencia en cáncer&lt;/strong> o &lt;strong>mejorar la calidad de vida tras un procedimiento&lt;/strong>.&lt;/p>
 &lt;p>El desafío surge cuando trasladamos esta pregunta clínica a &lt;strong>objetivos operativos y hipótesis estadísticas&lt;/strong>.&lt;/p>
 &lt;p>Pequeñas decisiones de definición pueden generar una &lt;strong>desconexión inferencial sistemática&lt;/strong>, de modo que el estudio termina midiendo algo distinto de lo que se pretendía entender.&lt;/p>
 &lt;p>Este post es el &lt;strong>Caso 2&lt;/strong> dentro de nuestra serie sobre desconexiones inferenciales, enlazando con &lt;a href="https://bioestadisticaedu.com/post/er-01/">ER‑01: Datos faltantes&lt;/a>&lt;/p>
@@ -32,12 +31,19 @@ por ejemplo, &lt;strong>reducir exacerbaciones en EPOC&lt;/strong>, &lt;strong>p
 &lt;span class="pr-3 pt-1 text-red-400">
 &lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0zM12 15.75h.007v.008H12z"/>&lt;/svg>
 &lt;/span>
-&lt;span class="dark:text-neutral-300">&lt;p>&lt;strong>Problema&lt;/strong>&lt;/p>
+&lt;span class="dark:text-neutral-300">&lt;p>&lt;strong>Problema:&lt;/strong>&lt;/p>
 &lt;ul>
-&lt;li>El objetivo &lt;strong>simplifica&lt;/strong> un fenómeno recurrente a una &lt;strong>variable dicotómica&lt;/strong>.&lt;/li>
-&lt;li>La &lt;strong>frecuencia y severidad&lt;/strong> de las exacerbaciones quedan &lt;strong>ignoradas&lt;/strong>.&lt;/li>
-&lt;li>La hipótesis formal puede detectar &lt;strong>diferencia estadística&lt;/strong> sin reflejar un &lt;strong>beneficio clínico real&lt;/strong> para el paciente.&lt;/li>
-&lt;/ul>&lt;/span>
+&lt;li>
+&lt;p>El objetivo &lt;strong>simplifica&lt;/strong> un fenómeno recurrente a una &lt;strong>variable dicotómica&lt;/strong>.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>La &lt;strong>frecuencia y severidad&lt;/strong> de las exacerbaciones quedan &lt;strong>ignoradas&lt;/strong>.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>La hipótesis formal puede detectar &lt;strong>diferencia estadística&lt;/strong> sin reflejar un &lt;strong>beneficio clínico real&lt;/strong> para el paciente.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/span>
 &lt;/div>
 &lt;hr>
 &lt;h2 id="tipos-de-desconexión-frecuentes">Tipos de desconexión frecuentes&lt;/h2>
@@ -77,6 +83,12 @@ por ejemplo, &lt;strong>reducir exacerbaciones en EPOC&lt;/strong>, &lt;strong>p
 &lt;p>&lt;strong>Fenómeno real:&lt;/strong> reducción media de exacerbaciones de 1.66 → 0.52, lo que representa una disminución sustancial de la carga total de eventos por paciente, clínicamente interpretable como menor inestabilidad de la enfermedad.&lt;/p>
 &lt;p>&lt;strong>Objetivo simplificado (≥1 exacerbación):&lt;/strong> la comparación se limita a la ocurrencia de al menos un evento (0.78 → 0.40), transformando un fenómeno cuantitativo recurrente en un desenlace binario que no distingue entre uno y múltiples episodios clínicos. La señal cambia de naturaleza: pasa de representar una reducción en la carga total de enfermedad a una mera diferencia en la ocurrencia mínima del fenómeno.&lt;/p>
 &lt;p>&lt;strong>Conclusión:&lt;/strong> la hipótesis estadística basada en un objetivo simplificado puede conducir a interpretaciones parciales o engañosas, mostrando la &lt;strong>desconexión inferencial&lt;/strong> entre fenómeno clínico y formulación operativa de la hipótesis.&lt;/p>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-yellow-100 dark:bg-yellow-900">
+&lt;span class="pr-3 pt-1 text-red-400">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0zM12 15.75h.007v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;strong>Advertencia metodológica:&lt;/strong> en escenarios con heterogeneidad clínica o con efectos diferenciales sobre la frecuencia y la severidad de los eventos, distintas formas de operacionalizar el mismo fenómeno pueden no solo atenuar la magnitud del efecto observado, sino incluso conducir a conclusiones opuestas sobre qué grupo resulta más favorable. En estos casos, no cambia el fenómeno clínico subyacente, sino la pregunta estadística que se ha decidido formular.&lt;/span>
+&lt;/div>
 &lt;hr>
 &lt;h2 id="checklist-para-alinear-objetivos-e-hipótesis">Checklist para alinear objetivos e hipótesis&lt;/h2>
 &lt;ul>
