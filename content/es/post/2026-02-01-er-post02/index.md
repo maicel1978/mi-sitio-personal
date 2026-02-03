@@ -21,12 +21,14 @@ show_breadcrumb: true
 type: post
 ---
 
+
+
+
 *Por Maicel Monzon*
 
 ## Introducción
 
-En un ensayo clínico, la pregunta clínica inicial suele surgir de un fenómeno observable:  
-por ejemplo, **reducir exacerbaciones en EPOC**, **prolongar la supervivencia en cáncer** o **mejorar la calidad de vida tras un procedimiento**.
+En un ensayo clínico, la pregunta clínica inicial suele surgir de un fenómeno observable:  por ejemplo, **reducir exacerbaciones en EPOC**, **prolongar la supervivencia en cáncer** o **mejorar la calidad de vida tras un procedimiento**.
 
 El desafío surge cuando trasladamos esta pregunta clínica a **objetivos operativos y hipótesis estadísticas**.  
 
@@ -58,10 +60,12 @@ Operacionalización a objetivo estadístico mal planteado:
 
 > Comparar la proporción de pacientes con al menos una exacerbación en 12 semanas.
 
-{{% callout warning %}} **Problema**
+{{% callout warning %}} **Problema:**
 - El objetivo **simplifica** un fenómeno recurrente a una **variable dicotómica**.  
-- La **frecuencia y severidad** de las exacerbaciones quedan **ignoradas**.  
+- La **frecuencia y severidad** de las exacerbaciones quedan **ignoradas**. 
+
 - La hipótesis formal puede detectar **diferencia estadística** sin reflejar un **beneficio clínico real** para el paciente.
+
 {{% /callout %}}
 
 ---
@@ -96,6 +100,9 @@ Vamos a mostrar cómo un objetivo simplificado puede hacer que el efecto clínic
 **Objetivo simplificado (≥1 exacerbación):** la comparación se limita a la ocurrencia de al menos un evento (0.78 → 0.40), transformando un fenómeno cuantitativo recurrente en un desenlace binario que no distingue entre uno y múltiples episodios clínicos. La señal cambia de naturaleza: pasa de representar una reducción en la carga total de enfermedad a una mera diferencia en la ocurrencia mínima del fenómeno.
 
 **Conclusión:** la hipótesis estadística basada en un objetivo simplificado puede conducir a interpretaciones parciales o engañosas, mostrando la **desconexión inferencial** entre fenómeno clínico y formulación operativa de la hipótesis.
+
+{{% callout warning %}} **Advertencia metodológica:** en escenarios con heterogeneidad clínica o con efectos diferenciales sobre la frecuencia y la severidad de los eventos, distintas formas de operacionalizar el mismo fenómeno pueden no solo atenuar la magnitud del efecto observado, sino incluso conducir a conclusiones opuestas sobre qué grupo resulta más favorable. En estos casos, no cambia el fenómeno clínico subyacente, sino la pregunta estadística que se ha decidido formular.{{% /callout %}}
+
 
 ---
 
