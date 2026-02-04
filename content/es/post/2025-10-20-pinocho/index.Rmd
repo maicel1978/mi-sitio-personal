@@ -43,7 +43,7 @@ source("analisis.R")
 knitr::opts_chunk$set(
   echo = FALSE, warning = FALSE, message = FALSE,
   fig.align = "center", fig.retina = 2, fig.width = 10, fig.height = 6,
-  dev = 'svg'
+  dev = 'svg',cache = TRUE
 )
 
 # TEMA GRÁFICO UNIFICADO (Para que todo se vea profesional)
