@@ -1,4 +1,135 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Ensayos Clínicos | Bioestadística edu</title><link>https://bioestadisticaedu.com/tags/ensayos-clinicos/</link><atom:link href="https://bioestadisticaedu.com/tags/ensayos-clinicos/index.xml" rel="self" type="application/rss+xml"/><description>Ensayos Clínicos</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Sun, 01 Feb 2026 00:00:00 +0000</lastBuildDate><image><url>https://bioestadisticaedu.com/media/icon_hu_551fbaee136b383e.png</url><title>Ensayos Clínicos</title><link>https://bioestadisticaedu.com/tags/ensayos-clinicos/</link></image><item><title>El Frankenstein metodológico: desconexión inferencial entre fenómeno clínico y objetivos o hipótesis</title><link>https://bioestadisticaedu.com/post/er-02/</link><pubDate>Sun, 01 Feb 2026 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/er-02/</guid><description>&lt;p>&lt;em>Por Maicel Monzon&lt;/em>&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Ensayos Clínicos | Bioestadística edu</title><link>https://bioestadisticaedu.com/tags/ensayos-clinicos/</link><atom:link href="https://bioestadisticaedu.com/tags/ensayos-clinicos/index.xml" rel="self" type="application/rss+xml"/><description>Ensayos Clínicos</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Tue, 03 Feb 2026 00:00:00 +0000</lastBuildDate><image><url>https://bioestadisticaedu.com/media/icon_hu_551fbaee136b383e.png</url><title>Ensayos Clínicos</title><link>https://bioestadisticaedu.com/tags/ensayos-clinicos/</link></image><item><title>Rituales metodológicos en ensayos clínicos: cuando la técnica reemplaza al pensamiento</title><link>https://bioestadisticaedu.com/post/rituales-metodologicos-00/</link><pubDate>Tue, 03 Feb 2026 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/rituales-metodologicos-00/</guid><description>&lt;p>&lt;em>Por Maicel Monzón&lt;/em>&lt;/p>
+&lt;hr>
+&lt;h2 id="introducción-la-escena-del-ritual">Introducción: la escena del ritual&lt;/h2>
+&lt;p>Durante más de una década fui responsable del &lt;strong>análisis estadístico de ensayos clínicos en CENCEC&lt;/strong>, y desde hace aproximadamente tres años en el &lt;strong>CECMED&lt;/strong>. Esta experiencia abarca &lt;strong>todas las fases de los ensayos clínicos&lt;/strong>, desde la elaboración de protocolos hasta la evaluación de proyectos concluidos y reportes de análisis.&lt;/p>
+&lt;p>A lo largo de este recorrido, he observado que en cada etapa pueden surgir &lt;strong>decisiones técnicas que, aunque correctas formalmente, requieren reflexión crítica sobre su propósito&lt;/strong>. La serie que presentamos aborda lo que denominamos &lt;strong>rituales metodológicos&lt;/strong>: procedimientos ejecutados de manera sistemática que pueden priorizar la técnica sobre la interpretación de los resultados, afectando la alineación entre el diseño, la pregunta clínica y la inferencia estadística.&lt;/p>
+&lt;hr>
+&lt;h2 id="definición-conceptual">Definición conceptual&lt;/h2>
+&lt;p>En el contexto de ensayos clínicos y evaluación regulatoria:&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Ritual metodológico&lt;/strong>
+Procedimiento técnico realizado siguiendo normas o costumbres establecidas, &lt;strong>sin justificación explícita frente al fenómeno clínico que se pretende comprender&lt;/strong>.
+Este procedimiento puede cumplir reglas, generar documentos impecables, pero no necesariamente produce conocimiento veraz ni evidencia clínica útil.&lt;/p>&lt;/blockquote>
+&lt;p>Se distingue de un error: &lt;strong>es buena técnica aplicada sin pensamiento crítico&lt;/strong>, un automatismo formal.&lt;/p>
+&lt;hr>
+&lt;h2 id="relevancia">Relevancia&lt;/h2>
+&lt;p>Los rituales metodológicos generan consecuencias importantes:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Decisiones clínicas menos informadas&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>Riesgo de interpretación parcial o sesgada&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>Desperdicio de tiempo y recursos&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>Desconexión entre el diseño, la pregunta clínica y los resultados&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;p>Este fenómeno no implica negligencia, sino que &lt;strong>la técnica puede prevalecer sobre la reflexión sobre la evidencia&lt;/strong>.&lt;/p>
+&lt;hr>
+&lt;h2 id="atlas-de-rituales-metodológicos">Atlas de rituales metodológicos&lt;/h2>
+&lt;p>Esta serie documentará cada ritual con:&lt;/p>
+&lt;ul>
+&lt;li>Análisis conceptual&lt;/li>
+&lt;li>Riesgos inferenciales y clínicos&lt;/li>
+&lt;li>Excepciones legítimas&lt;/li>
+&lt;li>Ejemplos prácticos y simulaciones reproducibles&lt;/li>
+&lt;/ul>
+&lt;h3 id="rituales-de-diseño-y-análisis">Rituales de diseño y análisis&lt;/h3>
+&lt;p>&lt;strong>1. Poblaciones según intención de tratar en estudios no aleatorizados&lt;/strong>&lt;/p>
+&lt;p>Aplicar esta población sin aleatorización genera un control que no refleja la causalidad.&lt;/p>
+&lt;p>→ Ritual formal, desvinculado de la pregunta clínica.&lt;/p>
+&lt;p>&lt;strong>2. Aleatorización como garantía absoluta&lt;/strong>&lt;/p>
+&lt;p>Creer que la aleatorización equilibra automáticamente todas las características, incluso en muestras pequeñas o heterogéneas.&lt;/p>
+&lt;p>→ La aleatorización se convierte en un amuleto, no en instrumento de inferencia.&lt;/p>
+&lt;p>&lt;strong>3. Objetivos secundarios multiplicados&lt;/strong>&lt;/p>
+&lt;p>Multiplicidad de objetivos por inercia o hábito.&lt;/p>
+&lt;p>→ Aumenta la probabilidad de hallazgos azarosos y desvía la atención de la pregunta principal.&lt;/p>
+&lt;p>&lt;strong>4. Comparación con controles históricos sin ajuste&lt;/strong>&lt;/p>
+&lt;p>Uso de datos antiguos sin técnicas de control de sesgos.&lt;/p>
+&lt;p>→ Comparación susceptible a sesgos y errores de interpretación.&lt;/p>
+&lt;p>&lt;strong>5. Análisis intermedios predefinidos solo por rutina&lt;/strong>
+Realizar análisis intermedios sin reglas claras de detención.&lt;/p>
+&lt;p>→ Riesgo de sobrestimación de efectos y decisiones prematuras.&lt;/p>
+&lt;p>&lt;strong>6. Modelos complejos por disponibilidad de software&lt;/strong>
+Aplicar modelos porque el programa lo permite, sin evaluar adecuación.&lt;/p>
+&lt;p>→ Ajuste del ruido como si fuera señal.&lt;/p>
+&lt;p>&lt;strong>7. Ignorar la diferencia mínima clínicamente relevante&lt;/strong>&lt;/p>
+&lt;p>Focalizarse únicamente en significación estadística sin considerar relevancia clínica.&lt;/p>
+&lt;p>→ Resultados precisos pero clínicamente irrelevantes.&lt;/p>
+&lt;hr>
+&lt;h3 id="rituales-éticos-e-institucionales">Rituales éticos e institucionales&lt;/h3>
+&lt;p>&lt;strong>8. Uso de placebo sin justificación clínica&lt;/strong>&lt;/p>
+&lt;p>Administrar placebo cuando existe tratamiento activo, siguiendo normas formales.&lt;/p>
+&lt;p>→ Ética formal, no necesariamente alineada con el beneficio del paciente.&lt;/p>
+&lt;p>&lt;strong>9. Variables sustitutas no validadas&lt;/strong>&lt;/p>
+&lt;p>Aceptar biomarcadores como indicador de éxito sin evidencia de efecto clínico relevante.&lt;/p>
+&lt;p>→ Evidencia parcial, desvinculada de resultados significativos para el paciente.&lt;/p>
+&lt;p>&lt;strong>10. Interpretación de tendencias cerca del umbral de significación&lt;/strong>&lt;/p>
+&lt;p>Considerar valores próximos a 0,05 como evidencia de efecto.&lt;/p>
+&lt;p>→ Estadística como consuelo, no como respuesta válida.&lt;/p>
+&lt;p>&lt;strong>11. Enfoque administrativo de los comités de ética&lt;/strong>&lt;/p>
+&lt;p>Revisiones centradas en formatos y documentación más que en valor científico o impacto clínico.&lt;/p>
+&lt;p>→ Cumplimiento formal sin reflexión crítica.&lt;/p>
+&lt;hr>
+&lt;h2 id="marco-general-para-superar-los-rituales">Marco general para superar los rituales&lt;/h2>
+&lt;ol>
+&lt;li>&lt;strong>Definir primero qué se pretende estimar&lt;/strong> (según ICH E9(R1)).&lt;/li>
+&lt;li>&lt;strong>Justificar los métodos por contexto clínico y biológico&lt;/strong>.&lt;/li>
+&lt;li>&lt;strong>Explorar la sensibilidad&lt;/strong> y supuestos, no solo la significación.&lt;/li>
+&lt;li>&lt;strong>Documentar las decisiones&lt;/strong> y la distancia entre la pregunta clínica y su operacionalización.&lt;/li>
+&lt;li>&lt;strong>Integrar pensamiento clínico y estadístico&lt;/strong>, no solo cumplimiento de procedimientos.&lt;/li>
+&lt;/ol>
+&lt;blockquote>
+&lt;p>La estadística no se abandona; se reintegra a su propósito original: &lt;strong>informar decisiones clínicas y generar conocimiento veraz&lt;/strong>.&lt;/p>&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="conclusión">Conclusión&lt;/h2>
+&lt;p>Este post constituye &lt;strong>el mapa de la serie&lt;/strong>. Cada ritual será desarrollado en detalle en futuras entradas, con ejemplos, simulaciones y listas de verificación.
+La serie permitirá:&lt;/p>
+&lt;ul>
+&lt;li>Identificar rituales metodológicos&lt;/li>
+&lt;li>Evaluar riesgos inferenciales y clínicos&lt;/li>
+&lt;li>Alinear análisis con la pregunta clínica&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Reflexión final:&lt;/strong> la evidencia no se genera cumpliendo procedimientos; se construye pensando críticamente en cada decisión metodológica.&lt;/p>
+&lt;hr>
+&lt;h2 id="suscripción">Suscripción&lt;/h2>
+&lt;p>&lt;a href="https://bioestadisticaedu.com/subscribe/%7d">&lt;strong>Suscríbase a bioestadísticaedu&lt;/strong>&lt;/a>
+y reciba la serie completa sobre rituales metodológicos en ensayos clínicos.&lt;/p>
+&lt;div style="background-color: #f3f6f8; padding: 20px; border-radius: 10px; text-align: center; margin-top: 30px; border: 1px solid #e0e0e0;">
+&lt;p style="color: #000; font-weight: bold; margin-bottom: 15px;">¿Desea pensar más allá de los números?&lt;/p>
+&lt;a href="https://www.linkedin.com/newsletters/7415401669913706496/"
+target="_blank"
+style="background-color: #0077b5; color: white; padding: 10px 20px; text-decoration: none; border-radius: 25px; font-weight: bold; display: inline-block;">
+Suscribirse al Boletín en LinkedIn
+&lt;/a>
+&lt;/div>
+&lt;hr>
+&lt;h2 id="bibliografía">Bibliografía&lt;/h2>
+&lt;ul>
+&lt;li>Altman DG (1984). &lt;em>Statistical ritual in clinical journals: is there a cure?&lt;/em> BMJ. 288:841–843, 920–922.&lt;/li>
+&lt;li>Gigerenzer G (2018). &lt;em>Statistical Rituals: The Replication Delusion and How We Got There.&lt;/em> Advances in Methods and Practices in Psychological Science, 1(2):198–218.&lt;/li>
+&lt;li>ICH E9(R1). &lt;em>Addendum sobre estimandos y análisis de sensibilidad en ensayos clínicos.&lt;/em> 2019.&lt;/li>
+&lt;li>FDA. &lt;em>Múltiples objetivos en ensayos clínicos: guía para la industria.&lt;/em> 2017.&lt;/li>
+&lt;li>EMA. &lt;em>Guía sobre evaluación de productos medicinales.&lt;/em> 2012.&lt;/li>
+&lt;/ul>
+&lt;!-- ## **Versión LinkedIn – Español (revisada)** -->
+&lt;!-- **Post principal (carrusel o texto breve)** -->
+&lt;!-- > 🔍 **¿Cumples procedimientos o piensas críticamente?** -->
+&lt;!-- > -->
+&lt;!-- > En investigación clínica, un análisis impecable puede **no responder la pregunta correcta**. Esto es lo que llamamos **ritual estadístico**: ejecutar pasos técnicos sin cuestionar su sentido ni sus supuestos. -->
+&lt;!-- > -->
+&lt;!-- > Aprende a identificarlo, por qué los checklists no bastan y cómo recuperar el pensamiento crítico en bioestadística. -->
+&lt;!-- > -->
+&lt;!-- > 💡 Comparte tu experiencia: ¿has visto rituales estadísticos en tu campo? -->
+&lt;!-- **Primer comentario (con enlace al blog y llamada a la acción)** -->
+&lt;!-- > Lee el artículo completo y participa con tu ejemplo: -->
+&lt;!-- > [El ritual estadístico: Cuando cumplir el procedimiento reemplaza al pensamiento](https://bioestadisticaedu.com/post/er-02/) -->
+&lt;!-- > -->
+&lt;!-- > Para aportar, puedes usar este mini-formato y completar lo que puedas (sin datos sensibles): -->
+&lt;!-- > -->
+&lt;!-- > * Tipo de estudio / área terapéutica: ___ -->
+&lt;!-- > * Variable principal: ___ -->
+&lt;!-- > * Pregunta clínica (1 frase): ___ -->
+&lt;!-- > * Suposición crítica ignorada o endpoint cuestionable: ___ -->
+&lt;!-- > -->
+&lt;!-- > Responderé con **una sugerencia metodológica concreta**, para que entrenes tu pensamiento crítico en bioestadística. -->
+&lt;!-- --- --></description></item><item><title>El Frankenstein metodológico: desconexión inferencial entre fenómeno clínico y objetivos o hipótesis</title><link>https://bioestadisticaedu.com/post/er-02/</link><pubDate>Sun, 01 Feb 2026 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/er-02/</guid><description>&lt;p>&lt;em>Por Maicel Monzon&lt;/em>&lt;/p>
 &lt;h2 id="introducción">Introducción&lt;/h2>
 &lt;p>En un ensayo clínico, la pregunta clínica inicial suele surgir de un fenómeno observable: por ejemplo, &lt;strong>reducir exacerbaciones en EPOC&lt;/strong>, &lt;strong>prolongar la supervivencia en cáncer&lt;/strong> o &lt;strong>mejorar la calidad de vida tras un procedimiento&lt;/strong>.&lt;/p>
 &lt;p>El desafío surge cuando trasladamos esta pregunta clínica a &lt;strong>objetivos operativos y hipótesis estadísticas&lt;/strong>.&lt;/p>
