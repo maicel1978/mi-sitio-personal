@@ -1,0 +1,130 @@
+---
+title: "Ritual ITT/PP en Estudios No Aleatorizados: Desmontando un Mito"
+subtitle: "Cómo evitar la inercia metodológica y definir poblaciones con sentido"
+author: "admin"
+date: '2026-02-04'
+slug: "rituales-metodologicos-01"
+categories: ["Evaluación Regulatoria"]
+tags:
+  - "ensayos clínicos"
+  - "rituales metodológicos"
+  - "errores metodológicos"
+  - "atajos regulatorios"
+summary: Una guía crítica y práctica sobre la aplicación mecánica de poblaciones ITT/PP en estudios no aleatorizados, por qué este ritual es innecesario y cómo definir análisis de manera sólida y defendible según ICH, EMA y FDA.
+featured: false
+commentable: true
+type: post
+---
+
+*Por Maicel Monzón*
+
+## **Introducción**
+
+En muchos protocolos de **ensayos no aleatorizados** se incluyen poblaciones denominadas **Intención de Tratar (ITT)**, **Por Protocolo (PP)** y **Seguridad**, replicando plantillas de ensayos controlados aleatorizados (RCT).
+
+Este ritual examina **por qué esta práctica se produce por inercia**, los riesgos que introduce y cómo definir análisis con sentido científico y regulatorio.
+
+## Mensaje warning
+
+{{% callout warning %}} **Advertencia:** en estudios no aleatorizados **no existe ITT ni PP clásico**, porque no hay grupos definidos a priori mediante asignación aleatoria. Aplicar estas poblaciones mecánicamente **carece de fundamento metodológico**. La población de análisis debe definirse exclusivamente según **criterios de exposición y elegibilidad**, sin intentar replicar definiciones de ensayos controlados.
+{{% /callout %}}
+
+
+
+**Ejemplo concreto:**
+
+> Si un estudio de un solo brazo evalúa un fármaco experimental y no hay aleatorización, no existe un grupo de comparación definido. Incluir un “ITT” como si hubiera aleatorización es como intentar repartir cartas que nunca se barajaron: no protege contra sesgos y genera falsa sensación de rigor.
+
+---
+
+## **1. La inercia ritual**
+
+El uso de ITT/PP en estudios no aleatorizados suele obedecer a **costumbre o plantilla heredada**:
+
+* Se copian protocolos de RCT anteriores.
+* Se aplican términos sin evaluar si aportan información.
+* Se genera la ilusión de rigor metodológico sin valor inferencial.
+
+**Consecuencia:** análisis confusos, riesgo de sesgos y observaciones regulatorias negativas.
+
+---
+
+## **2. Por qué ITT no se aplica sin aleatorización**
+
+1. ITT preserva el balance de covariables garantizado **solo por aleatorización**.
+2. Sin asignación aleatoria, **no existe grupo definido a priori** para aplicar ITT o PP.
+3. Cualquier intento de replicar estas poblaciones es **meramente simbólico** y no protege contra sesgos de selección o abandono.
+
+> En estudios no aleatorizados, **hablar de ITT o PP clásico es un ritual sin valor metodológico**.
+
+---
+
+## **3. Poblaciones con sentido**
+
+Aunque ITT/PP no aplican, se pueden definir poblaciones de análisis razonables y defendibles:
+
+| Propósito             | Población sugerida                                                                                   | Observaciones                                                                                 |
+| --------------------- | ---------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| Eficacia              | **Todos los sujetos que iniciaron tratamiento y tienen al menos una medición del endpoint primario** | Permite análisis completo y evaluable; realizar análisis de sensibilidad para datos faltantes |
+| Seguridad             | **Todos los sujetos expuestos al tratamiento**                                                       | Documentar dosis y tiempo de exposición; permite seguimiento de eventos adversos              |
+| Análisis exploratorio | Subgrupos predefinidos según criterios clínicos o de riesgo                                          | Solo como análisis de sensibilidad, nunca como ITT/PP                                         |
+
+**Notas regulatorias:**
+
+* Justificar cada población en **SAP y protocolo**.
+* Evitar usar términos ITT/PP sin aclarar que no se trata de ITT clásico.
+* Aplicar métodos de ajuste si se comparan con controles históricos: propensity scores, matching, weighting.
+
+---
+
+## **4. Por qué se produce la confusión**
+
+1. **Formación heredada:** muchos cursos y manuales enseñan ITT/PP como paquete estándar.
+2. **Plantillas de protocolo:** promueven la aplicación mecánica de poblaciones sin evaluar pertinencia.
+3. **Deseo de simplificar:** aplicar ITT da sensación de rigor aunque carezca de fundamento.
+4. **Reducción terminológica:** términos como “Full Analysis Set” se usan fuera de contexto, generando falsa sensación de cumplimiento metodológico.
+
+---
+
+## **5. Ritual resumido: pasos prácticos**
+
+1. Reconocer que **sin aleatorización no existe ITT ni PP clásico**.
+2. Definir la población de análisis según **exposición y criterios de elegibilidad**.
+3. Documentar **eventos intercurrentes y datos faltantes**.
+4. Analizar subgrupos solo como exploratorio o sensibilidad.
+5. Justificar cada decisión en **SAP y protocolo**.
+6. Si se utilizan controles históricos, aplicar métodos de ajuste robustos para minimizar sesgos.
+
+---
+
+## **6. Conclusión**
+
+* La aplicación mecánica de ITT/PP en estudios no aleatorizados es **un ritual por inercia**.
+* La validez no proviene de nombres de poblaciones, sino de **claridad conceptual, transparencia y definición adecuada de la población de análisis**.
+* Adaptar las poblaciones al diseño real **reduce sesgos y facilita la aprobación regulatoria**.
+
+> Reflexión final: “Cada población tiene un propósito. No todas las plantillas son sagradas. La ciencia avanza cuando se cuestionan los rituales.”
+
+---
+
+**Referencias**
+
+* ICH E9(R1): Estimands and Sensitivity Analysis in Clinical Trials
+* EMA Reflection Paper on Single-Arm Trials (2023)
+* FDA Guidance on Externally Controlled Trials (2023)
+
+---
+
+## Suscripción
+
+[**Suscríbase a bioestadísticaedu**]({{< relref "/subscribe/" >}}})
+y reciba la serie completa sobre rituales metodológicos en ensayos clínicos.
+
+<div style="background-color: #f3f6f8; padding: 20px; border-radius: 10px; text-align: center; margin-top: 30px; border: 1px solid #e0e0e0;">
+    <p style="color: #000; font-weight: bold; margin-bottom: 15px;">¿Desea pensar más allá de los números?</p>
+    <a href="https://www.linkedin.com/newsletters/7415401669913706496/" 
+       target="_blank" 
+       style="background-color: #0077b5; color: white; padding: 10px 20px; text-decoration: none; border-radius: 25px; font-weight: bold; display: inline-block;">
+       Suscribirse al Boletín en LinkedIn
+    </a>
+</div>
