@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Authority (Data Edition) - Bioestadística Edu</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        :root { --bg: #000000; --ui-panel: #1a1a1a; --accent: #ffffff; --error: #ff4d4d; --gray: #888; }
+        body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0a0a; color: white; margin: 0; display: flex; height: 100vh; overflow: hidden; }
+        
+        /* Editor */
+        .sidebar { width: 420px; background: var(--ui-panel); padding: 25px; display: flex; flex-direction: column; border-right: 1px solid #333; overflow-y: auto; }
+        h1 { font-size: 1.1rem; margin-bottom: 20px; color: var(--gray); letter-spacing: 1px; text-transform: uppercase; }
+        textarea { flex-grow: 1; background: #000; color: #fff; border: 1px solid #333; border-radius: 8px; padding: 15px; font-family: 'Inter', sans-serif; line-height: 1.5; resize: none; margin-bottom: 15px; font-size: 0.9rem; }
+        
+        .control-group { background: #252525; padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #333; }
+        label { display: block; font-size: 0.7rem; color: var(--gray); margin-bottom: 8px; text-transform: uppercase; font-weight: bold; }
+        
+        .btn { cursor: pointer; padding: 12px; border: none; border-radius: 6px; font-weight: bold; transition: 0.2s; margin-bottom: 8px; text-align: center; width: 100%; font-size: 0.85rem; }
+        .btn-main { background: white; color: black; }
+        .btn-main:hover { background: #ccc; }
+        .btn-img { background: #0a66c2; color: white; } /* LinkedIn Blue */
+        .btn-outline { background: transparent; color: white; border: 1px solid #444; }
+        .btn-outline:hover { background: #333; }
+
+        /* Vista Previa */
+        .main-view { flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #000; padding: 20px; position: relative; }
+        canvas { max-width: 90%; max-height: 75vh; border: 1px solid #333; background: #000; }
+        .word-counter { margin-top: 15px; font-size: 0.8rem; color: var(--gray); font-family: monospace; }
+        .error-msg { color: var(--error); }
+
+        .nav-tools { display: flex; gap: 10px; margin-top: 20px; }
+        footer { margin-top: 20px; font-size: 0.65rem; color: #555; text-align: center; letter-spacing: 0.5px; }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <h1>LinkedIn Data Authority</h1>
+    
+    <label>Contenido (Separa con ---)</label>
+    <textarea id="editor" oninput="update()">
+PORTADA:
+¿Cómo detectar sesgos en modelos de supervivencia?
+---
+PROBLEMA:
+Ignorar los riesgos competitivos en la muestra.
+Esto sobreestima la probabilidad del evento principal.
+---
+GRÁFICO DE EJEMPLO:
+Aquí insertamos una curva de Kaplan-Meier.
+Observa la divergencia en el mes 12.
+---
+NÚCLEO TÉCNICO:
+Usa la función de incidencia acumulada (CIF).
+Es el estándar cuando existen riesgos competitivos.
+---
+PREGUNTA:
+¿Qué método usas para validar tus supuestos de proporcionalidad?</textarea>
+
+    <div class="control-group">
+        <label id="slideLabel">Slide Actual: 1</label>
+        <input type="file" id="slideImgInput" style="display:none" accept="image/*">
+        <button class="btn btn-img" onclick="document.getElementById('slideImgInput').click()">+ INSERTAR GRÁFICO EN ESTE SLIDE</button>
+        <button class="btn btn-outline" style="font-size: 0.7rem;" onclick="clearSlideImage()">Quitar imagen de este slide</button>
+    </div>
+
+    <button class="btn btn-main" onclick="exportPDF()">DESCARGAR CARRUSEL (PDF)</button>
+    
+    <footer>
+        AUTOR: MAICEL MONZÓN PÉREZ | BIOESTADÍSTICA EDU
+    </footer>
+</div>
+
+<div class="main-view">
+    <canvas id="canvas" width="1080" height="1080"></canvas>
+    <div class="word-counter" id="counter">Cargando...</div>
+    <div class="nav-tools">
+        <button class="btn btn-outline" style="width:120px" onclick="changeSlide(-1)">Anterior</button>
+        <button class="btn btn-outline" style="width:120px" onclick="changeSlide(1)">Siguiente</button>
+    </div>
+</div>
+
+<script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const editor = document.getElementById('editor');
+    const slideImgInput = document.getElementById('slideImgInput');
+    
+    let slides = [];
+    let currentSlide = 0;
+    let slideImages = {}; // Diccionario para guardar imágenes por índice de slide
+
+    slideImgInput.onchange = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const img = new Image();
+            img.onload = update;
+            img.src = event.target.result;
+            slideImages[currentSlide] = img;
+        };
+        reader.readAsDataURL(file);
+    };
+
+    function clearSlideImage() {
+        delete slideImages[currentSlide];
+        update();
+    }
+
+    function update() {
+        slides = editor.value.split('---').map(s => s.trim());
+        document.getElementById('slideLabel').innerText = `Configuración Slide: ${currentSlide + 1}`;
+        draw();
+    }
+
+    function draw() {
+        ctx.fillStyle = "#000000";
+        ctx.fillRect(0, 0, 1080, 1080);
+
+        const content = slides[currentSlide] || "";
+        const words = content.split(/\s+/).filter(w => w.length > 0);
+        const hasImg = slideImages[currentSlide];
+        
+        // Validación palabras
+        let limit = (currentSlide === 0) ? 12 : 30;
+        document.getElementById('counter').innerHTML = `DIAPOSITIVA ${currentSlide + 1} | PALABRAS: <span class="${words.length > limit ? 'error-msg' : ''}">${words.length} / ${limit}</span>`;
+
+        ctx.fillStyle = "#FFFFFF";
+        ctx.textAlign = "center";
+
+        if (currentSlide === 0) {
+            // PORTADA
+            ctx.font = "bold 80px 'Inter', sans-serif";
+            wrapText(ctx, content.toUpperCase(), 540, 480, 900, 95);
+        } else if (hasImg) {
+            // SLIDE CON GRÁFICO
+            // Texto arriba
+            ctx.font = "bold 45px 'Inter', sans-serif";
+            wrapText(ctx, content, 540, 150, 900, 60);
+            
+            // Dibujar imagen
+            const img = slideImages[currentSlide];
+            const padding = 100;
+            const maxWidth = 880; 
+            const maxHeight = 600;
+            
+            let width = img.width;
+            let height = img.height;
+            const ratio = Math.min(maxWidth / width, maxHeight / height);
+            
+            width *= ratio;
+            height *= ratio;
+            
+            const x = (1080 - width) / 2;
+            const y = 400; // Posición debajo del texto
+
+            // Borde sutil para el gráfico
+            ctx.strokeStyle = "#333";
+            ctx.lineWidth = 2;
+            ctx.strokeRect(x - 2, y - 2, width + 4, height + 4);
+            
+            ctx.drawImage(img, x, y, width, height);
+        } else {
+            // SLIDE SÓLO TEXTO
+            ctx.font = "500 48px 'Inter', sans-serif";
+            wrapText(ctx, content, 540, 400, 850, 70);
+        }
+
+        // Branding
+        ctx.font = "bold 22px 'Inter', sans-serif";
+        ctx.fillStyle = "#444";
+        ctx.fillText("BIOESTADÍSTICA EDU | MAICEL MONZÓN PÉREZ", 540, 1030);
+    }
+
+    function wrapText(context, text, x, y, maxWidth, lineHeight) {
+        const lines = text.split('\n');
+        for (let i = 0; i < lines.length; i++) {
+            let words = lines[i].split(' ');
+            let line = '';
+            for (let n = 0; n < words.length; n++) {
+                let testLine = line + words[n] + ' ';
+                if (context.measureText(testLine).width > maxWidth && n > 0) {
+                    context.fillText(line, x, y);
+                    line = words[n] + ' ';
+                    y += lineHeight;
+                } else { line = testLine; }
+            }
+            context.fillText(line, x, y);
+            y += lineHeight;
+        }
+    }
+
+    function changeSlide(dir) {
+        currentSlide = (currentSlide + dir + slides.length) % slides.length;
+        update();
+    }
+
+    async function exportPDF() {
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF('p', 'px', [1080, 1080]);
+        const originalSlide = currentSlide;
+
+        for(let i=0; i<slides.length; i++) {
+            currentSlide = i;
+            draw();
+            const imgData = canvas.toDataURL('image/jpeg', 0.95);
+            if (i > 0) pdf.addPage([1080, 1080], 'p');
+            pdf.addImage(imgData, 'JPEG', 0, 0, 1080, 1080);
+        }
+        
+        pdf.save(`carrusel_data_${new Date().getTime()}.pdf`);
+        currentSlide = originalSlide;
+        update();
+    }
+
+    update();
+</script>
+</body>
+</html>
