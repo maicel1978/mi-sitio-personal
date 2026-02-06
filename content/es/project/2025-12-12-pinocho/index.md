@@ -1,10 +1,12 @@
 ---
-title: "Herramienta interactiva: Detector Forense de Datos Falsos"
+title: "Detector Forense de Datos Falsos"
 summary: "Herramienta interactiva basada en la Ley de Benford y análisis de dígitos terminales para detectar fraude en datos biomédicos."
-type: project
+slug: "detector-datos-falsos"
+categories: ["proyectos"]
 tags:
-- Herramientas
-- Estadística Forense
+  - "herramientas"
+  - "software-educativo" 
+  - "estadística forense"
 date: "2025-10-20"
 external_link: "/apps/detector-avanzado.html"
 image:

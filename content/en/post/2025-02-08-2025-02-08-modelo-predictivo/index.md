@@ -302,10 +302,6 @@ How does it work?
 
 A functional application to run the model on a web page, mobile phone, or tablet is a very good option to generalize the model.
 
-In this link, I show you the web calculator I programmed in js, html, and css, for my thesis model.
-
-[see CovidCencecAPK]({{< relref "/project/2025-02-28-covidcencecapk" >}})
-
 
 ## My Recommendations and Position {#hi}
 
