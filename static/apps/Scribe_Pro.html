@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bio-Scribe Pro - Bioestadística Edu</title>
+    <style>
+        :root { --bg: #050505; --accent: #ef4444; --accent-blue: #3b82f6; --card: #111; --text: #eee; }
+        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        
+        .container { max-width: 800px; width: 100%; }
+        header { text-align: center; margin-bottom: 30px; }
+        h1 { font-size: 1.8rem; letter-spacing: -1px; margin: 0; }
+        
+        .editor-container { background: var(--card); border: 1px solid #222; border-radius: 20px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        
+        textarea { width: 100%; height: 350px; background: transparent; border: none; color: white; font-size: 1.1rem; line-height: 1.6; outline: none; resize: none; font-family: inherit; margin-bottom: 20px; }
+        
+        .toolbar { display: flex; flex-wrap: wrap; gap: 10px; padding-top: 20px; border-top: 1px solid #222; align-items: center; }
+        
+        .btn { padding: 12px 20px; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 8px; font-size: 0.9rem; }
+        .btn-mic { background: var(--accent); color: white; }
+        .btn-mic.active { animation: pulse 1.5s infinite; background: #b91c1c; }
+        .btn-play { background: var(--accent-blue); color: white; }
+        .btn-outline { background: #222; color: white; border: 1px solid #333; }
+        .btn-outline:hover { background: #333; }
+
+        select { background: #222; color: white; border: 1px solid #333; padding: 10px; border-radius: 10px; flex-grow: 1; outline: none; }
+        
+        .stats { margin-top: 15px; font-size: 0.8rem; color: #666; display: flex; gap: 20px; }
+        
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0px rgba(239, 68, 68, 0.4); } 100% { box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        footer { margin-top: auto; padding: 40px 0; text-align: center; font-size: 0.75rem; color: #444; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Bio-Scribe <span style="color:var(--accent-blue)">Pro</span></h1>
+        <p style="color:#666; font-size: 0.9rem;">Dictado y lectura profesional con Web Speech API</p>
+    </header>
+
+    <div class="editor-container">
+        <textarea id="editor" placeholder="Haz clic en el micrófono y empieza a hablar..."></textarea>
+        
+        <div class="stats">
+            <span id="wordCount">0 palabras</span>
+            <span id="status">Sistema listo</span>
+        </div>
+
+        <div class="toolbar">
+            <button class="btn btn-mic" id="micBtn">
+                <span id="micIcon">🎤</span> <span id="micText">Iniciar Dictado</span>
+            </button>
+            
+            <button class="btn btn-play" id="playBtn">
+                <span>🔊</span> Escuchar
+            </button>
+
+            <select id="voiceSelect">
+                <!-- Voces cargadas por JS -->
+            </select>
+
+            <button class="btn btn-outline" onclick="copyText()">📋 Copiar</button>
+            <button class="btn btn-outline" onclick="clearText()">🗑️ Limpiar</button>
+        </div>
+    </div>
+</div>
+
+<footer>
+    Autor: <strong>Maicel Monzón Pérez</strong> | Bioestadística Edu<br>
+    Tecnología nativa de navegador (No requiere descargas)
+</footer>
+
+<script>
+    const editor = document.getElementById('editor');
+    const micBtn = document.getElementById('micBtn');
+    const micText = document.getElementById('micText');
+    const playBtn = document.getElementById('playBtn');
+    const status = document.getElementById('status');
+    const wordCount = document.getElementById('wordCount');
+    const voiceSelect = document.getElementById('voiceSelect');
+
+    // --- RECONOCIMIENTO DE VOZ (Speech to Text) ---
+    const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    
+    if (!Recognition) {
+        status.innerText = "Tu navegador no soporta dictado de voz.";
+        micBtn.disabled = true;
+    } else {
+        const recognition = new Recognition();
+        recognition.lang = 'es-ES';
+        recognition.continuous = true;
+        recognition.interimResults = true;
+
+        let isRecording = false;
+
+        micBtn.onclick = () => {
+            if (!isRecording) {
+                recognition.start();
+            } else {
+                recognition.stop();
+            }
+        };
+
+        recognition.onstart = () => {
+            isRecording = true;
+            micBtn.classList.add('active');
+            micText.innerText = "Detener Dictado";
+            status.innerText = "Escuchando...";
+        };
+
+        recognition.onresult = (event) => {
+            let interimTranscript = '';
+            let finalTranscript = '';
+
+            for (let i = event.resultIndex; i < event.results.length; ++i) {
+                if (event.results[i].isFinal) {
+                    editor.value += event.results[i][0].transcript + '. ';
+                }
+            }
+            updateStats();
+        };
+
+        recognition.onend = () => {
+            isRecording = false;
+            micBtn.classList.remove('active');
+            micText.innerText = "Iniciar Dictado";
+            status.innerText = "Dictado pausado";
+        };
+    }
+
+    // --- SÍNTESIS DE VOZ (Text to Speech) ---
+    const synth = window.speechSynthesis;
+
+    function loadVoices() {
+        const voices = synth.getVoices();
+        voiceSelect.innerHTML = voices
+            .filter(v => v.lang.includes('es') || v.lang.includes('en'))
+            .map(v => `<option value="${v.name}">${v.name} (${v.lang})</option>`)
+            .join('');
+    }
+
+    // Chrome necesita este evento, otros no
+    if (synth.onvoiceschanged !== undefined) {
+        synth.onvoiceschanged = loadVoices;
+    }
+    loadVoices();
+
+    playBtn.onclick = () => {
+        if (synth.speaking) {
+            synth.cancel();
+            return;
+        }
+        const utterance = new SpeechSynthesisUtterance(editor.value);
+        const selectedVoice = synth.getVoices().find(v => v.name === voiceSelect.value);
+        if (selectedVoice) utterance.voice = selectedVoice;
+        
+        utterance.onstart = () => status.innerText = "Leyendo...";
+        utterance.onend = () => status.innerText = "Lectura finalizada";
+        
+        synth.speak(utterance);
+    };
+
+    // --- UTILIDADES ---
+    function updateStats() {
+        const text = editor.value.trim();
+        const words = text ? text.split(/\s+/).length : 0;
+        wordCount.innerText = `${words} palabras`;
+    }
+
+    function copyText() {
+        navigator.clipboard.writeText(editor.value);
+        const originalText = status.innerText;
+        status.innerText = "¡Copiado al portapapeles!";
+        setTimeout(() => status.innerText = originalText, 2000);
+    }
+
+    function clearText() {
+        if (confirm("¿Limpiar todo el texto?")) {
+            editor.value = "";
+            updateStats();
+        }
+    }
+
+    editor.oninput = updateStats;
+</script>
+
+</body>
+</html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compresor Pro - Bioestadística Edu</title>
+    <style>
+        :root {
+            --primary: #1e40af;
+            --primary-hover: #1e3a8a;
+            --accent: #3b82f6;
+            --bg: #f1f5f9;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .app-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            transition: transform 0.3s ease;
+        }
+
+        h1 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.75rem;
+            text-align: center;
+            color: var(--primary);
+        }
+
+        p.subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        /* Área de Carga */
+        .drop-zone {
+            border: 2px dashed #cbd5e1;
+            border-radius: 12px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8fafc;
+            position: relative;
+        }
+
+        .drop-zone.drag-over {
+            border-color: var(--accent);
+            background: #eff6ff;
+            transform: scale(1.02);
+        }
+
+        .drop-zone p { margin: 0; color: var(--text-muted); }
+        .drop-zone b { color: var(--accent); }
+
+        #fileInput { display: none; }
+
+        /* Controles */
+        .settings {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: #f8fafc;
+            border-radius: 8px;
+        }
+
+        .control-group { margin-bottom: 1rem; }
+        .control-group:last-child { margin-bottom: 0; }
+
+        label {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            accent-color: var(--accent);
+            cursor: pointer;
+        }
+
+        /* Botón */
+        .btn-download {
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: none; /* Se muestra solo cuando hay imagen */
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: background 0.3s;
+        }
+
+        .btn-download:hover { background: var(--primary-hover); }
+
+        /* Resultados y Stats */
+        #resultArea {
+            margin-top: 2rem;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-card {
+            background: #f1f5f9;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; }
+        .stat-value { font-size: 1.1rem; font-weight: bold; display: block; }
+
+        #previewImg {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 2rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-card">
+    <h1>Compresor de Imágenes</h1>
+    <p class="subtitle">Optimiza tus archivos sin perder calidad visual</p>
+    
+    <div class="drop-zone" id="dropZone">
+        <p>Arrastra tu imagen aquí o <b>haz clic para buscar</b></p>
+        <input type="file" id="fileInput" accept="image/jpeg, image/png, image/webp">
+    </div>
+
+    <div class="settings">
+        <div class="control-group">
+            <label>Calidad de compresión <span id="qPercent">80%</span></label>
+            <input type="range" id="quality" min="5" max="100" value="80">
+        </div>
+    </div>
+
+    <div id="resultArea">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-label">Original</span>
+                <span class="stat-value" id="oldSize">0 KB</span>
+            </div>
+            <div class="stat-card" style="border-left: 3px solid #22c55e;">
+                <span class="stat-label">Comprimida</span>
+                <span class="stat-value" id="newSize">0 KB</span>
+            </div>
+        </div>
+        
+        <img id="previewImg" src="" alt="Vista previa">
+        
+        <button id="downloadBtn" class="btn-download">
+            <span>⬇</span> Descargar Imagen Optimizada
+        </button>
+    </div>
+</div>
+
+<footer>
+    Autor: <b>Maicel Monzón Pérez</b><br>
+    &copy; 2024 Bioestadística Edu - Herramientas Útiles
+</footer>
+
+<script>
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('fileInput');
+    const qualityInput = document.getElementById('quality');
+    const qPercent = document.getElementById('qPercent');
+    const resultArea = document.getElementById('resultArea');
+    const downloadBtn = document.getElementById('downloadBtn');
+    
+    let originalFile = null;
+
+    // Manejo de Drag & Drop Visual
+    ['dragenter', 'dragover'].forEach(name => {
+        dropZone.addEventListener(name, (e) => {
+            e.preventDefault();
+            dropZone.classList.add('drag-over');
+        });
+    });
+
+    ['dragleave', 'drop'].forEach(name => {
+        dropZone.addEventListener(name, (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('drag-over');
+        });
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+        const files = e.dataTransfer.files;
+        if (files.length) handleFile(files[0]);
+    });
+
+    dropZone.addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', (e) => {
+        if (e.target.files.length) handleFile(e.target.files[0]);
+    });
+
+    qualityInput.addEventListener('input', () => {
+        qPercent.innerText = qualityInput.value + '%';
+        if (originalFile) compressImage();
+    });
+
+    function handleFile(file) {
+        if (!file.type.startsWith('image/')) {
+            alert('Por favor, selecciona un archivo de imagen válido.');
+            return;
+        }
+        originalFile = file;
+        document.getElementById('oldSize').innerText = (file.size / 1024).toFixed(1) + ' KB';
+        compressImage();
+    }
+
+    function compressImage() {
+        const reader = new FileReader();
+        reader.readAsDataURL(originalFile);
+        reader.onload = (event) => {
+            const img = new Image();
+            img.src = event.target.result;
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0);
+
+                const quality = qualityInput.value / 100;
+                // Forzamos salida a JPEG para asegurar compresión
+                canvas.toBlob((blob) => {
+                    const url = URL.createObjectURL(blob);
+                    
+                    document.getElementById('previewImg').src = url;
+                    document.getElementById('newSize').innerText = (blob.size / 1024).toFixed(1) + ' KB';
+                    
+                    resultArea.style.display = 'block';
+                    downloadBtn.style.display = 'flex';
+                    
+                    downloadBtn.onclick = () => {
+                        const link = document.createElement('a');
+                        link.href = url;
+                        link.download = `optimizada_${originalFile.name.replace(/\.[^/.]+$/, "")}.jpg`;
+                        link.click();
+                    };
+                }, 'image/jpeg', quality);
+            };
+        };
+    }
+</script>
+
+</body>
+</html>

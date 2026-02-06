@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Globo-Meter Pro - Bioestadística Edu</title>
+    <style>
+        :root { 
+            --bg: #030712; --card: #111827; --accent: #d946ef; --text: #f3f4f6;
+            --muela-purple: #a855f7; --globo-red: #ef4444; --pure-green: #10b981;
+        }
+        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        
+        .container { max-width: 1000px; width: 100%; }
+        header { text-align: center; margin-bottom: 20px; }
+        h1 { font-size: 2.5rem; letter-spacing: -2px; margin: 0; background: linear-gradient(90deg, var(--accent), #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .intro-box { background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 16px; padding: 20px; margin-bottom: 30px; font-size: 0.95rem; line-height: 1.6; color: #9ca3af; }
+        .intro-box b { color: var(--text); }
+
+        .main-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; }
+        .box { background: var(--card); border: 1px solid #1f2937; border-radius: 20px; padding: 25px; }
+        
+        textarea { width: 100%; height: 300px; background: #030712; color: #00ff88; border: 1px solid #374151; border-radius: 12px; padding: 15px; resize: none; outline: none; font-family: 'Fira Code', monospace; font-size: 0.95rem; line-height: 1.5; }
+        
+        .needle-base { width: 100%; height: 24px; background: #1f2937; border-radius: 12px; margin: 20px 0; overflow: hidden; position: relative; border: 1px solid #374151; }
+        #needle { width: 0%; height: 100%; background: linear-gradient(90deg, var(--pure-green), var(--muela-purple), var(--globo-red)); transition: 1.5s cubic-bezier(0.19, 1, 0.22, 1); }
+
+        .diagnosis { margin-top: 10px; padding: 15px; border-radius: 12px; font-weight: bold; font-size: 1.2rem; border: 1px solid transparent; min-height: 60px; text-align: center; }
+        .quote { font-style: italic; color: #6b7280; margin-top: 10px; font-size: 0.9rem; min-height: 40px; text-align: center; }
+
+        .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 25px; }
+        .metric-item { background: #030712; padding: 15px; border-radius: 12px; border: 1px solid #1f2937; position: relative; }
+        .metric-item b { display: block; font-size: 1.3rem; color: var(--accent); }
+        .metric-item span { font-size: 0.65rem; color: #4b5563; text-transform: uppercase; font-weight: bold; display: flex; align-items: center; gap: 5px; }
+        
+        .info-icon { display: inline-block; width: 14px; height: 14px; background: #374151; border-radius: 50%; font-size: 10px; cursor: help; line-height: 14px; color: #fff; text-align: center; }
+        .info-icon:hover::after {
+            content: attr(data-txt); position: absolute; bottom: 100%; left: 0; background: #000; color: #fff; padding: 10px; border-radius: 8px; width: 220px; font-size: 0.75rem; z-index: 100; text-transform: none; font-weight: normal; line-height: 1.4; border: 1px solid #333;
+        }
+
+        .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+        .btn { padding: 18px; border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 0.9rem; transition: 0.3s; border: none; }
+        .btn-primary { background: #fff; color: #000; }
+        .btn-primary:hover { background: var(--accent); color: #fff; box-shadow: 0 0 20px rgba(217, 70, 239, 0.4); }
+        .btn-sample { background: #1f2937; color: #9ca3af; border: 1px solid #374151; }
+        .btn-sample:hover { background: #374151; color: #fff; }
+
+        .science-footer { max-width: 1000px; margin-top: 40px; background: var(--card); border-radius: 20px; padding: 30px; border: 1px solid #1f2937; }
+        .science-footer h3 { margin-top: 0; color: var(--accent); font-size: 1.1rem; text-transform: uppercase; }
+        .science-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; font-size: 0.85rem; color: #9ca3af; line-height: 1.6; }
+        .science-grid b { color: #fff; }
+
+        footer { margin-top: 50px; text-align: center; font-size: 0.75rem; color: #374151; padding: 20px; border-top: 1px solid #111; width: 100%; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Globo-Meter <span style="color:#fff">Forense</span></h1>
+        <p style="color:#6b7280">Peritaje de Verborrea e Inconsistencia Semántica</p>
+    </header>
+
+    <div class="intro-box">
+        Esta herramienta audita la <b>eficiencia comunicativa</b> de un texto. ¿Es información sólida o es solo muela? Mediante algoritmos de <b>Teoría de la Información</b>, detectamos cuándo alguien está "inflando un globo".
+    </div>
+
+    <div class="main-grid">
+        <div class="box">
+            <textarea id="inputText" placeholder="Pega aquí el texto para auditar la 'infladera'..."></textarea>
+            <div class="btn-group">
+                <button class="btn btn-sample" onclick="cargarEjemplo()">CARGAR EJEMPLO (MUELA)</button>
+                <button class="btn btn-primary" onclick="auditarGlobo()">AUDITAR SUSTANCIA</button>
+            </div>
+        </div>
+
+        <div class="box">
+            <div style="text-align:center">
+                <span style="font-size: 0.7rem; color: #4b5563; letter-spacing: 2px;">VOLUMEN DE AIRE DETECTADO</span>
+                <div class="needle-base"><div id="needle"></div></div>
+                <div id="resultBox" class="diagnosis">Esperando muestra...</div>
+                <div id="funnyQuote" class="quote"></div>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-item">
+                    <b id="ldVal">0%</b>
+                    <span>Sustancia <i class="info-icon" data-txt="Densidad Léxica: Relación entre palabras con carga semántica vs conectores vacíos.">?</i></span>
+                </div>
+                <div class="metric-item">
+                    <b id="hVal">0</b>
+                    <span>Entropía <i class="info-icon" data-txt="Entropía de Shannon: Mide la riqueza léxica. Baja entropía = Discurso repetitivo.">?</i></span>
+                </div>
+                <div class="metric-item">
+                    <b id="vacVal">0</b>
+                    <span>Muela <i class="info-icon" data-txt="Índice de Vacuidad: Mide la redundancia y el uso de términos abstractos sin fondo.">?</i></span>
+                </div>
+                <div class="metric-item">
+                    <b id="chaosVal">0</b>
+                    <span>Caos <i class="info-icon" data-txt="Inconsistencia Sintáctica: Varianza en la estructura. Mucho caos = Ideas inconexas.">?</i></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="science-footer">
+        <h3>Manual de Peritaje Científico</h3>
+        <div class="science-grid">
+            <div>
+                <p><b>1. Densidad Léxica:</b> Un texto científico sólido tiene >50%. Un globo lleno de aire baja del 40% debido al exceso de conectores innecesarios.</p>
+                <p><b>2. Entropía (H):</b> Mide la cantidad de información. El "inflador" usa un vocabulario limitado, lo que arroja una entropía baja.</p>
+            </div>
+            <div>
+                <p><b>3. Índice de Muela:</b> Calculamos la tasa de repetición. Si usas 500 palabras para decir algo que requiere 50, la muela se dispara.</p>
+                <p><b>4. Burstiness (Caos):</b> Los humanos alternamos frases de distinta longitud. Un "inflador" pierde el ritmo o escribe bloques monótonos.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    Auditor Jefe: <strong>Maicel Monzón Pérez</strong> | Bioestadística Edu
+</footer>
+
+<script>
+    const STOPWORDS = new Set(["de", "que", "el", "en", "y", "a", "los", "se", "del", "las", "un", "por", "con", "no", "una", "su", "para", "es", "al", "lo", "como", "más", "pero", "sus", "le", "ya", "o", "este", "sí", "porque", "esta", "entre", "cuando", "muy", "sin", "sobre", "también", "me", "hasta", "hay", "donde", "quien", "desde", "todo", "nos", "durante", "todos", "uno", "les", "ni", "contra", "otros", "ese", "eso", "ante", "ellos", "e", "esto", "mí", "antes", "algunos", "qué", "unos", "yo", "otro", "otras", "otra", "él", "tanto", "esa", "estos", "mucho", "quienes", "nada", "pocos", "mucha", "mis", "tus", "sus", "básicamente", "realmente", "obviamente", "digamos", "o sea", "bueno", "claro"]);
+
+    function cargarEjemplo() {
+        const muelaText = `Básicamente, en lo que respecta al enfoque holístico de Una Sola Salud, es de vital importancia recalcar que la interconectividad sistémica de los paradigmas actuales nos obliga a repensar lo que viene siendo la sinergia entre lo humano y lo animal desde una perspectiva que, obviamente, sea transversal. O sea, si no somos capaces de articular una narrativa de resiliencia ante los desafíos que se presentan en el horizonte de lo que es la salud pública, entonces estaríamos hablando de una desconexión que realmente no aporta al empoderamiento de los ecosistemas. Porque, claro, lo que es la salud es una sola cosa, pero a la vez es todo, y desde ese punto de vista, hay que decir que lo fundamental es seguir dialogando para que, de alguna manera, se pueda implementar lo que ya sabemos que hay que implementar en este sentido.`;
+        document.getElementById('inputText').value = muelaText;
+        auditarGlobo();
+    }
+
+    function auditarGlobo() {
+        const text = document.getElementById('inputText').value.trim();
+        if (text.length < 50) return;
+
+        const words = text.toLowerCase().match(/\b\w+\b/g) || [];
+        const contentWords = words.filter(w => !STOPWORDS.has(w));
+        const sentences = text.match(/[^\.!\?]+[\.!\?]+/g) || [text];
+
+        const ld = (contentWords.length / words.length) * 100;
+        const freq = {}; words.forEach(w => freq[w] = (freq[w] || 0) + 1);
+        let h = 0; Object.values(freq).forEach(c => { let p = c/words.length; h -= p * Math.log2(p); });
+        const uniqueContent = new Set(contentWords).size;
+        const muela = (1 - (uniqueContent / contentWords.length)) * 10;
+        const lens = sentences.map(s => s.split(/\s+/).length);
+        const avg = lens.reduce((a,b)=>a+b)/lens.length;
+        const variance = lens.reduce((a,b)=>a+Math.pow(b-avg,2),0)/lens.length;
+        const chaos = Math.sqrt(variance);
+
+        let globoScore = (100 - ld) + (muela * 4);
+        if (h < 4.5) globoScore += 15;
+        globoScore = Math.min(Math.max(Math.round(globoScore), 5), 100);
+
+        document.getElementById('needle').style.width = globoScore + "%";
+        document.getElementById('ldVal').innerText = Math.round(ld) + "%";
+        document.getElementById('hVal').innerText = h.toFixed(2);
+        document.getElementById('vacVal').innerText = muela.toFixed(1);
+        document.getElementById('chaosVal').innerText = chaos.toFixed(1);
+
+        const res = document.getElementById('resultBox');
+        const quote = document.getElementById('funnyQuote');
+
+        if (globoScore > 80) {
+            res.innerText = "🎈 ZEPELÍN DE HELIO 🎈";
+            res.style.color = "var(--globo-red)";
+            quote.innerText = '"Nivel crítico de infladera. Aquí hay más aire que en una bolsa de papitas. Científicamente, esto es un vacío existencial."';
+        } else if (globoScore > 60) {
+            res.innerText = "🦷 MUELA NIVEL EXPERTO 🦷";
+            res.style.color = "var(--muela-purple)";
+            quote.innerText = '"Mucha verborrea y poca vitamina. Estás adornando la guayaba con palabras de domingo."';
+        } else if (globoScore > 35) {
+            res.innerText = "⚖️ DISCURSO EQUILIBRADO ⚖️";
+            res.style.color = "var(--accent)";
+            quote.innerText = '"Se deja leer, aunque por momentos te gana el deseo de sonar importante sin necesidad."';
+        } else {
+            res.innerText = "💎 NUGGET DE VERDAD 💎";
+            res.style.color = "var(--pure-green)";
+            quote.innerText = '"¡Candela pura! Texto denso, directo y con rigor. Aquí no hay aire, hay ciencia."';
+        }
+    }
+</script>
+
+</body>
+</html>

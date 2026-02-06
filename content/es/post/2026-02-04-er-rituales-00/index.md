@@ -80,8 +80,6 @@ Esta serie documentará cada ritual con:
 → Ritual formal, desvinculado de la pregunta clínica.
 
 
-
-
 **2. Aleatorización como garantía absoluta**
 
 Creer que la aleatorización equilibra automáticamente todas las características, incluso en muestras pequeñas o heterogéneas.

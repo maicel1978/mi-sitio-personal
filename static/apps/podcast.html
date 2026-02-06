@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bio-Podcast AI - Bioestadística Edu</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <style>
+        :root { --bg: #0a0a0a; --accent: #8b5cf6; --text: #f4f4f5; }
+        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        .container { max-width: 600px; width: 100%; text-align: center; }
+        
+        .player-card { background: #18181b; border: 1px solid #27272a; padding: 30px; border-radius: 24px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5); margin-top: 20px; }
+        .cover-art { width: 150px; height: 150px; background: linear-gradient(45deg, #8b5cf6, #d946ef); margin: 0 auto 20px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+        
+        .status { font-size: 0.8rem; color: #a1a1aa; margin: 15px 0; min-height: 1.2rem; }
+        .btn { background: var(--accent); color: white; border: none; padding: 15px 30px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s; width: 100%; font-size: 1rem; }
+        .btn:disabled { background: #3f3f46; cursor: not-allowed; }
+        
+        #transcript { margin-top: 20px; font-size: 0.9rem; text-align: left; background: #000; padding: 15px; border-radius: 12px; height: 150px; overflow-y: auto; color: #71717a; border: 1px solid #27272a; }
+        .host-a { color: #a78bfa; font-weight: bold; }
+        .host-b { color: #f472b6; font-weight: bold; }
+        
+        input[type="file"] { display: none; }
+        .upload-label { display: block; border: 2px dashed #3f3f46; padding: 20px; border-radius: 12px; cursor: pointer; margin-bottom: 20px; }
+        footer { margin-top: 40px; font-size: 0.7rem; color: #52525b; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Bio-Podcast <span style="color:var(--accent)">AI</span></h1>
+        <p style="color:#71717a">Convierte papers en programas de radio</p>
+    </header>
+
+    <div class="player-card">
+        <div class="cover-art">🎙️</div>
+        
+        <label class="upload-label" id="dropZone">
+            <span>📄 Toca para subir PDF o Texto</span>
+            <input type="file" id="fileInput" accept="application/pdf, text/plain">
+        </label>
+
+        <div id="status" class="status">Listo para procesar</div>
+        
+        <button id="playBtn" class="btn" disabled>GENERAR Y REPRODUCIR PODCAST</button>
+        
+        <div id="transcript">
+            Aquí aparecerá el guion del podcast...
+        </div>
+    </div>
+
+    <footer>
+        Autor: <strong>Maicel Monzón Pérez</strong> | Bioestadística Edu<br>
+        Procesado localmente en tu dispositivo.
+    </footer>
+</div>
+
+<script type="module">
+    import { pipeline } from 'https://cdn.jsdelivr.net/npm/@xenova/transformers@2.6.0';
+
+    const fileInput = document.getElementById('fileInput');
+    const playBtn = document.getElementById('playBtn');
+    const status = document.getElementById('status');
+    const transcript = document.getElementById('transcript');
+    
+    let summarizer;
+    let fullText = "";
+    const synth = window.speechSynthesis;
+
+    // Inicializar IA de Resumen
+    async function initAI() {
+        status.innerText = "Cargando cerebro de la IA (esto tarda la primera vez)...";
+        summarizer = await pipeline('summarization', 'Xenova/distilbart-cnn-6-6');
+        status.innerText = "IA Lista. Sube un archivo.";
+    }
+
+    // Leer PDF
+    const pdfjsLib = window['pdfjs-dist/build/pdf'];
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+
+    fileInput.onchange = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        status.innerText = "Leyendo documento...";
+        if (file.type === "application/pdf") {
+            const arrayBuffer = await file.arrayBuffer();
+            const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
+            fullText = "";
+            for (let i = 1; i <= Math.min(pdf.numPages, 5); i++) { // Limitamos a 5 páginas por velocidad
+                const page = await pdf.getPage(i);
+                const content = await page.getTextContent();
+                fullText += content.items.map(item => item.str).join(" ") + " ";
+            }
+        } else {
+            fullText = await file.text();
+        }
+        
+        status.innerText = "Documento cargado. Listo para el podcast.";
+        playBtn.disabled = false;
+    };
+
+    // Generar Podcast
+    playBtn.onclick = async () => {
+        playBtn.disabled = true;
+        status.innerText = "La IA está analizando los puntos clave...";
+        
+        // 1. Resumir texto
+        const output = await summarizer(fullText, { max_new_tokens: 150 });
+        const summary = output[0].summary_text;
+
+        // 2. Crear Guion Diálogo
+        const script = [
+            { host: "Alex", text: "¡Hola a todos! Bienvenidos a nuestro micro-podcast de ciencia." },
+            { host: "María", text: "Hola Alex. Hoy tenemos un tema fascinante basado en un nuevo documento." },
+            { host: "Alex", text: "Exacto. El punto principal que destaca el autor es el siguiente:" },
+            { host: "María", text: summary },
+            { host: "Alex", text: "Es impresionante. Esto cambia mucho la forma en que entendemos el área." },
+            { host: "María", text: "Totalmente de acuerdo. Gracias por escucharnos en Bioestadística Edu." }
+        ];
+
+        status.innerText = "Reproduciendo Podcast...";
+        renderAndSpeak(script);
+    };
+
+    function renderAndSpeak(script) {
+        transcript.innerHTML = "";
+        let i = 0;
+
+        function speakNext() {
+            if (i >= script.length) {
+                status.innerText = "Podcast finalizado.";
+                playBtn.disabled = false;
+                return;
+            }
+
+            const part = script[i];
+            const p = document.createElement('p');
+            p.innerHTML = `<span class="${part.host === 'Alex' ? 'host-a' : 'host-b'}">${part.host}:</span> ${part.text}`;
+            transcript.appendChild(p);
+            transcript.scrollTop = transcript.scrollHeight;
+
+            const utterance = new SpeechSynthesisUtterance(part.text);
+            utterance.lang = 'es-ES';
+            
+            // Intentar asignar voces diferentes si existen
+            const voices = synth.getVoices().filter(v => v.lang.includes('es'));
+            if (part.host === "Alex") {
+                utterance.voice = voices[0];
+                utterance.pitch = 0.9;
+            } else {
+                utterance.voice = voices[1] || voices[0];
+                utterance.pitch = 1.2;
+            }
+
+            utterance.onend = () => {
+                i++;
+                speakNext();
+            };
+            synth.speak(utterance);
+        }
+
+        speakNext();
+    }
+
+    initAI();
+</script>
+
+</body>
+</html>

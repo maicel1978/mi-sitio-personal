@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF a Imagen HQ - Bioestadística Edu</title>
+    <!-- Cargamos PDF.js desde un CDN confiable -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <style>
+        :root { --primary: #0f172a; --accent: #38bdf8; --bg: #f8fafc; }
+        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--primary); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        .container { max-width: 900px; width: 100%; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
+        header { text-align: center; margin-bottom: 30px; }
+        .upload-section { border: 2px dashed #cbd5e1; padding: 40px; border-radius: 15px; text-align: center; cursor: pointer; transition: 0.3s; background: #f1f5f9; }
+        .upload-section:hover { border-color: var(--accent); background: #e0f2fe; }
+        .controls { display: flex; gap: 20px; margin: 20px 0; align-items: center; justify-content: center; flex-wrap: wrap; }
+        .btn { background: var(--primary); color: white; padding: 12px 25px; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; transition: 0.3s; }
+        .btn:hover { opacity: 0.9; transform: translateY(-1px); }
+        .btn-download { background: #22c55e; font-size: 0.8rem; padding: 5px 10px; }
+        #preview-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-top: 30px; }
+        .page-card { border: 1px solid #e2e8f0; padding: 10px; border-radius: 10px; text-align: center; }
+        canvas { max-width: 100%; height: auto; border-radius: 5px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .loader { display: none; margin: 20px auto; width: 30px; height: 30px; border: 4px solid #f3f3f3; border-top: 4px solid var(--accent); border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        footer { margin-top: 40px; font-size: 0.9rem; color: #64748b; text-align: center; border-top: 1px solid #e2e8f0; padding-top: 20px; width: 100%; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>PDF a Imagen de Alta Resolución</h1>
+        <p>Extrae páginas de tus artículos científicos con calidad para presentaciones.</p>
+    </header>
+
+    <div class="upload-section" onclick="document.getElementById('fileInput').click()">
+        <p id="status-text">Arrastra tu PDF aquí o haz clic para seleccionar</p>
+        <input type="file" id="fileInput" accept="application/pdf" style="display:none">
+    </div>
+
+    <div class="controls">
+        <label>Calidad (Escala): 
+            <select id="scale">
+                <option value="1">Normal (Baja)</option>
+                <option value="2" selected>HD (Media)</option>
+                <option value="3">Ultra HD (Alta)</option>
+                <option value="5">Científica (Máxima)</option>
+            </select>
+        </label>
+        <div id="loader" class="loader"></div>
+    </div>
+
+    <div id="preview-container"></div>
+</div>
+
+<footer>
+    Herramienta de Productividad Científica<br>
+    Autor: <strong>Maicel Monzón Pérez</strong> | Bioestadística Edu
+</footer>
+
+<script>
+    const pdfjsLib = window['pdfjs-dist/build/pdf'];
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+
+    const fileInput = document.getElementById('fileInput');
+    const container = document.getElementById('preview-container');
+    const loader = document.getElementById('loader');
+    const statusText = document.getElementById('status-text');
+
+    fileInput.addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        container.innerHTML = '';
+        loader.style.display = 'block';
+        statusText.innerText = "Procesando: " + file.name;
+
+        const reader = new FileReader();
+        reader.onload = async function() {
+            const typedarray = new Uint8Array(this.result);
+            
+            try {
+                const pdf = await pdfjsLib.getDocument(typedarray).promise;
+                const scale = parseFloat(document.getElementById('scale').value);
+
+                for (let i = 1; i <= pdf.numPages; i++) {
+                    const page = await pdf.getPage(i);
+                    const viewport = page.getViewport({ scale: scale });
+                    
+                    // Crear elementos de la interfaz
+                    const card = document.createElement('div');
+                    card.className = 'page-card';
+                    
+                    const canvas = document.createElement('canvas');
+                    const context = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+
+                    await page.render({ canvasContext: context, viewport: viewport }).promise;
+
+                    const pInfo = document.createElement('p');
+                    pInfo.innerText = `Página ${i}`;
+                    pInfo.style.fontSize = '0.8rem';
+
+                    const downloadBtn = document.createElement('button');
+                    downloadBtn.className = 'btn btn-download';
+                    downloadBtn.innerText = 'Descargar PNG';
+                    downloadBtn.onclick = () => {
+                        const link = document.createElement('a');
+                        link.download = `pagina_${i}_${file.name.replace('.pdf', '')}.png`;
+                        link.href = canvas.toDataURL('image/png');
+                        link.click();
+                    };
+
+                    card.appendChild(canvas);
+                    card.appendChild(pInfo);
+                    card.appendChild(downloadBtn);
+                    container.appendChild(card);
+                }
+            } catch (error) {
+                console.error(error);
+                alert("Error al procesar el PDF.");
+            }
+            loader.style.display = 'none';
+        };
+        reader.readAsArrayBuffer(file);
+    });
+</script>
+
+</body>
+</html>

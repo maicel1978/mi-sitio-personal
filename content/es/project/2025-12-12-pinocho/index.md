@@ -1,6 +1,7 @@
 ---
 title: "Herramienta interactiva: Detector Forense de Datos Falsos"
 summary: "Herramienta interactiva basada en la Ley de Benford y análisis de dígitos terminales para detectar fraude en datos biomédicos."
+type: project
 tags:
 - Herramientas
 - Estadística Forense
@@ -13,7 +14,7 @@ image:
 
 Esta es la herramienta oficial del experimento [ Miéntele al Profesor]({{< relref "/post/2025-10-20-pinocho" >}}) .  Utilízala para auditar tus propios datos o para practicar tus habilidades de detección de fraude.
 
-### Instrucciones
+## Instrucciones
 1. Pega tus datos de la variable concentración de hemoglobina en sangre (mujer adulta) en g/L en el recuadro.
 2. Pulsa "Analizar".
 3. Observa si el "Dígito Terminal" se pone rojo (señal de intervención humana).

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bio-Lab Dictation - Bioestadística Edu</title>
+    <style>
+        :root { --lab-red: #ff3e3e; --lab-blue: #007bff; --bg: #0a0a0b; --surface: #161618; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: #e1e1e6; margin: 0; padding: 15px; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+        
+        header { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background: var(--surface); border-radius: 12px; margin-bottom: 15px; border: 1px solid #27272a; }
+        .status-indicator { display: flex; align-items: center; gap: 8px; font-weight: bold; font-size: 0.9rem; }
+        .dot { width: 12px; height: 12px; background: #333; border-radius: 50%; }
+        .recording .dot { background: var(--lab-red); animation: blink 1s infinite; }
+
+        #log-container { flex-grow: 1; background: var(--surface); border-radius: 12px; padding: 20px; overflow-y: auto; border: 1px solid #27272a; display: flex; flex-direction: column; gap: 15px; }
+        .entry { animation: slideIn 0.3s ease; border-left: 3px solid var(--lab-blue); padding-left: 15px; }
+        .timestamp { font-size: 0.7rem; color: #666; font-family: monospace; display: block; margin-bottom: 4px; }
+        .text { font-size: 1.1rem; line-height: 1.5; color: #d1d1d6; }
+
+        .controls { display: grid; grid-template-columns: 2fr 1fr; gap: 10px; margin-top: 15px; }
+        .btn { padding: 20px; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; font-size: 1rem; transition: 0.2s; }
+        .btn-record { background: var(--lab-blue); color: white; }
+        .recording .btn-record { background: var(--lab-red); }
+        .btn-secondary { background: #27272a; color: white; }
+
+        .commands-hint { font-size: 0.75rem; color: #555; text-align: center; margin-top: 10px; }
+        
+        @keyframes blink { 50% { opacity: 0.3; } }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
+        
+        footer { padding: 15px 0; text-align: center; font-size: 0.7rem; color: #444; border-top: 1px solid #1c1c1e; }
+    </style>
+</head>
+<body>
+
+<header id="header">
+    <div style="display:flex; flex-direction:column">
+        <span style="font-weight:bold; color:var(--lab-blue)">BIO-LAB RECORDER</span>
+        <span style="font-size:0.7rem; color:#666">Investigación de Campo & Laboratorio</span>
+    </div>
+    <div class="status-indicator">
+        <div class="dot"></div>
+        <span id="status-text">IDLE</span>
+    </div>
+</header>
+
+<div id="log-container">
+    <!-- Las entradas aparecerán aquí -->
+    <div class="entry" style="border:none; color:#555">
+        <span class="text">El dictado se guardará automáticamente. Usa comandos como "punto" o "nueva línea".</span>
+    </div>
+</div>
+
+<div class="commands-hint">
+    💡 Di: <b>"Punto"</b>, <b>"Coma"</b> o <b>"Nueva línea"</b> para dar formato sin manos.
+</div>
+
+<div class="controls">
+    <button id="recordBtn" class="btn btn-record">INICIAR DICTADO</button>
+    <button onclick="downloadLog()" class="btn btn-secondary">EXPORTAR .TXT</button>
+</div>
+
+<footer>
+    Autor: <strong>Maicel Monzón Pérez</strong> | Bioestadística Edu<br>
+    Los datos se almacenan en la memoria local del navegador (Privacidad Total).
+</footer>
+
+<script>
+    const recordBtn = document.getElementById('recordBtn');
+    const header = document.getElementById('header');
+    const statusText = document.getElementById('status-text');
+    const logContainer = document.getElementById('log-container');
+    
+    let recognition;
+    let isRecording = false;
+
+    // Inicializar Speech Recognition
+    if ('webkitSpeechRecognition' in window) {
+        recognition = new webkitSpeechRecognition();
+        recognition.continuous = true;
+        recognition.interimResults = false;
+        recognition.lang = 'es-ES';
+
+        recognition.onstart = () => {
+            isRecording = true;
+            header.classList.add('recording');
+            statusText.innerText = "REC";
+            recordBtn.innerText = "DETENER DICTADO";
+        };
+
+        recognition.onresult = (event) => {
+            const lastIndex = event.results.length - 1;
+            let text = event.results[lastIndex][0].transcript.trim();
+
+            // Lógica de Comandos de Voz
+            text = text.charAt(0).toUpperCase() + text.slice(1);
+            text = text.replace(/ punto/gi, ".");
+            text = text.replace(/ coma/gi, ",");
+            text = text.replace(/ nueva línea/gi, "\n");
+
+            addEntry(text);
+        };
+
+        recognition.onend = () => {
+            if (isRecording) recognition.start(); // Auto-restart para evitar cortes
+        };
+
+    } else {
+        alert("Tu navegador no soporta reconocimiento de voz. Usa Chrome en Android/PC.");
+    }
+
+    recordBtn.onclick = () => {
+        if (!isRecording) {
+            recognition.start();
+        } else {
+            isRecording = false;
+            recognition.stop();
+            header.classList.remove('recording');
+            statusText.innerText = "IDLE";
+            recordBtn.innerText = "REANUDAR DICTADO";
+        }
+    };
+
+    function addEntry(text) {
+        const time = new Date().toLocaleTimeString();
+        const entry = document.createElement('div');
+        entry.className = 'entry';
+        entry.innerHTML = `<span class="timestamp">[${time}]</span><span class="text">${text}</span>`;
+        logContainer.appendChild(entry);
+        logContainer.scrollTop = logContainer.scrollHeight;
+
+        // Persistencia en LocalStorage
+        saveToLocalStorage(time, text);
+    }
+
+    function saveToLocalStorage(time, text) {
+        let history = JSON.parse(localStorage.getItem('lab_notes') || "[]");
+        history.push({ time, text });
+        localStorage.setItem('lab_notes', JSON.stringify(history));
+    }
+
+    function downloadLog() {
+        let history = JSON.parse(localStorage.getItem('lab_notes') || "[]");
+        let content = "BIO-LAB NOTES - " + new Date().toLocaleDateString() + "\n\n";
+        history.forEach(item => {
+            content += `[${item.time}] ${item.text}\n`;
+        });
+        
+        const blob = new Blob([content], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `notas_lab_${new Date().getTime()}.txt`;
+        a.click();
+    }
+
+    // Cargar historial al abrir
+    window.onload = () => {
+        let history = JSON.parse(localStorage.getItem('lab_notes') || "[]");
+        history.forEach(item => {
+            const entry = document.createElement('div');
+            entry.className = 'entry';
+            entry.style.opacity = "0.6";
+            entry.innerHTML = `<span class="timestamp">[${item.time}]</span><span class="text">${item.text}</span>`;
+            logContainer.appendChild(entry);
+        });
+        logContainer.scrollTop = logContainer.scrollHeight;
+    };
+</script>
+
+</body>
+</html>

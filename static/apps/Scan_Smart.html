@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bio-Scan Pro - Bioestadística Edu</title>
+    <!-- Cargamos OpenCV.js para Visión Artificial -->
+    <script async src="https://docs.opencv.org/4.5.4/opencv.js" onload="onOpenCvReady();"></script>
+    <style>
+        :root { --accent: #00d1ff; --bg: #0a0a0b; --surface: #161618; }
+        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: #fff; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        
+        .container { max-width: 800px; width: 100%; text-align: center; }
+        h1 { font-size: 1.5rem; letter-spacing: -1px; margin-bottom: 5px; }
+        .status-tag { font-size: 0.7rem; color: var(--accent); border: 1px solid var(--accent); padding: 3px 10px; border-radius: 20px; text-transform: uppercase; }
+
+        .workspace { position: relative; background: #000; border-radius: 16px; margin: 20px 0; overflow: hidden; display: none; border: 1px solid #333; }
+        canvas { max-width: 100%; height: auto; cursor: crosshair; }
+        
+        /* Puntos de control (Esquinas) */
+        .corner { width: 24px; height: 24px; background: var(--accent); border: 3px solid white; border-radius: 50%; position: absolute; transform: translate(-50%, -50%); cursor: move; box-shadow: 0 0 10px rgba(0,0,0,0.5); z-index: 10; }
+
+        .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+        .btn { padding: 15px; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 0.9rem; }
+        .btn-upload { background: #333; color: white; width: 100%; }
+        .btn-scan { background: var(--accent); color: black; }
+        .btn-scan:disabled { background: #1e293b; color: #475569; cursor: wait; }
+
+        #output-container { margin-top: 20px; display: none; }
+        .result-img { max-width: 100%; border-radius: 8px; border: 2px solid #333; }
+
+        footer { margin-top: auto; padding: 40px 0; text-align: center; font-size: 0.75rem; color: #444; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Bio-Scan <span style="color:var(--accent)">Smart</span></h1>
+        <span class="status-tag" id="cv-status">Cargando Visión Artificial...</span>
+    </header>
+
+    <div style="margin-top:20px">
+        <input type="file" id="fileInput" accept="image/*" style="display:none">
+        <button class="btn btn-upload" onclick="document.getElementById('fileInput').click()">📁 SUBIR FOTO O TOMAR CAPTURA</button>
+    </div>
+
+    <div class="workspace" id="workspace">
+        <canvas id="canvasInput"></canvas>
+        <!-- Los 4 puntos se generarán aquí -->
+    </div>
+
+    <div class="controls" id="action-btns" style="display:none">
+        <button class="btn btn-scan" id="processBtn">🪄 ENDEREZAR Y ESCANEAR</button>
+        <button class="btn btn-upload" onclick="location.reload()">🔄 NUEVO</button>
+    </div>
+
+    <div id="output-container">
+        <h3>Resultado del Escaneo</h3>
+        <canvas id="canvasOutput" style="display:none"></canvas>
+        <img id="finalImg" class="result-img">
+        <p style="font-size:0.8rem; color:#666">Mantén presionada la imagen para guardarla</p>
+    </div>
+</div>
+
+<footer>
+    Autor: <strong>Maicel Monzón Pérez</strong> | Bioestadística Edu<br>
+    Tecnología: OpenCV.js Perspective Transformation
+</footer>
+
+<script>
+    let src;
+    let corners = [];
+    const canvas = document.getElementById('canvasInput');
+    const workspace = document.getElementById('workspace');
+
+    function onOpenCvReady() {
+        document.getElementById('cv-status').innerText = "Sistema Inteligente Listo";
+        document.getElementById('cv-status').style.borderColor = "#22c55e";
+        document.getElementById('cv-status').style.color = "#22c55e";
+    }
+
+    document.getElementById('fileInput').onchange = (e) => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const img = new Image();
+            img.onload = () => {
+                // Ajustar tamaño para procesamiento
+                const maxDim = 1000;
+                let scale = Math.min(maxDim / img.width, maxDim / img.height);
+                canvas.width = img.width * scale;
+                canvas.height = img.height * scale;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                
+                src = cv.imread(canvas);
+                initCorners();
+                workspace.style.display = 'block';
+                document.getElementById('action-btns').style.display = 'grid';
+            };
+            img.src = event.target.result;
+        };
+        reader.readAsDataURL(e.target.files[0]);
+    };
+
+    function initCorners() {
+        // Posicionar puntos iniciales formando un cuadrado en el centro
+        const w = canvas.width;
+        const h = canvas.height;
+        const pts = [
+            { x: w*0.2, y: h*0.2 }, { x: w*0.8, y: h*0.2 },
+            { x: w*0.8, y: h*0.8 }, { x: w*0.2, y: h*0.8 }
+        ];
+
+        workspace.querySelectorAll('.corner').forEach(c => c.remove());
+        
+        corners = pts.map((p, i) => {
+            const div = document.createElement('div');
+            div.className = 'corner';
+            div.style.left = p.x + 'px';
+            div.style.top = p.y + 'px';
+            workspace.appendChild(div);
+            
+            // Hacer Drag and Drop
+            makeDraggable(div, i);
+            return p;
+        });
+    }
+
+    function makeDraggable(el, index) {
+        let isDragging = false;
+        const move = (e) => {
+            if (!isDragging) return;
+            const rect = workspace.getBoundingClientRect();
+            let x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+            let y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+            
+            el.style.left = x + 'px';
+            el.style.top = y + 'px';
+            corners[index] = { x, y };
+        };
+
+        el.onmousedown = el.ontouchstart = () => isDragging = true;
+        window.onmouseup = window.ontouchend = () => isDragging = false;
+        window.onmousemove = window.ontouchmove = move;
+    }
+
+    document.getElementById('processBtn').onclick = () => {
+        const dst = new cv.Mat();
+        const dsize = new cv.Size(800, 1000); // Tamaño folio estándar
+        
+        // Coordenadas de origen (los 4 puntos que movió el usuario)
+        const srcPts = cv.matFromArray(4, 1, cv.CV_32FC2, [
+            corners[0].x, corners[0].y, corners[1].x, corners[1].y,
+            corners[2].x, corners[2].y, corners[3].x, corners[3].y
+        ]);
+
+        // Coordenadas de destino (rectángulo perfecto)
+        const dstPts = cv.matFromArray(4, 1, cv.CV_32FC2, [
+            0, 0, dsize.width, 0, 
+            dsize.width, dsize.height, 0, dsize.height
+        ]);
+
+        // La magia de la Homografía: Transforma la perspectiva
+        const M = cv.getPerspectiveTransform(srcPts, dstPts);
+        cv.warpPerspective(src, dst, M, dsize, cv.INTER_LINEAR, cv.BORDER_CONSTANT, new cv.Scalar());
+
+        // Realce de escáner (Brillo y Contraste)
+        cv.cvtColor(dst, dst, cv.COLOR_RGBA2GRAY);
+        cv.adaptiveThreshold(dst, dst, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY, 11, 2);
+
+        cv.imshow('canvasOutput', dst);
+        document.getElementById('finalImg').src = document.getElementById('canvasOutput').toDataURL();
+        document.getElementById('output-container').style.display = 'block';
+        
+        // Limpiar memoria
+        dst.delete(); srcPts.delete(); dstPts.delete(); M.delete();
+        window.scrollTo(0, document.body.scrollHeight);
+    };
+</script>
+
+</body>
+</html>

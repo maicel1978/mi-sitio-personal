@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bio-GIF Creator - Bioestadística Edu</title>
+    <!-- Librería para generación de GIFs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gifshot/0.4.5/gifshot.min.js"></script>
+    <style>
+        :root { --primary: #fbbf24; --bg: #09090b; --card: #18181b; --text: #f4f4f5; }
+        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        
+        .container { max-width: 700px; width: 100%; }
+        header { text-align: center; margin-bottom: 30px; }
+        h1 { font-size: 1.8rem; letter-spacing: -1px; color: var(--primary); }
+        
+        .upload-zone { border: 2px dashed #3f3f46; border-radius: 20px; padding: 40px; text-align: center; cursor: pointer; background: var(--card); transition: 0.3s; }
+        .upload-zone:hover { border-color: var(--primary); background: #222226; }
+        
+        .settings { background: var(--card); border-radius: 16px; padding: 25px; margin-top: 20px; border: 1px solid #27272a; display: none; }
+        .grid-settings { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0; }
+        
+        label { font-size: 0.75rem; color: #a1a1aa; text-transform: uppercase; display: block; margin-bottom: 5px; }
+        select, input[type="range"] { width: 100%; background: #09090b; color: white; border: 1px solid #3f3f46; padding: 8px; border-radius: 6px; }
+        
+        .btn { width: 100%; padding: 15px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 1rem; margin-top: 15px; }
+        .btn-primary { background: var(--primary); color: black; }
+        .btn-primary:hover { transform: translateY(-2px); opacity: 0.9; }
+        .btn-primary:disabled { background: #3f3f46; cursor: wait; }
+
+        .preview-container { margin-top: 20px; text-align: center; display: none; }
+        #resultGif { max-width: 100%; border-radius: 12px; border: 2px solid #3f3f46; }
+
+        .loader { display: none; margin: 20px 0; }
+        .spinner { width: 30px; height: 30px; border: 3px solid #3f3f46; border-top-color: var(--primary); border-radius: 50%; animation: spin 1s infinite linear; margin: 0 auto 10px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        footer { margin-top: auto; padding: 40px 0; text-align: center; font-size: 0.75rem; color: #52525b; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Bio-GIF <span style="color:#fff">Optimizer</span></h1>
+        <p style="color:#71717a">Convierte tus grabaciones de R/Python en GIFs para LinkedIn</p>
+    </header>
+
+    <div class="upload-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+        <span id="instruction">📁 Arrastra tu video (.mp4, .webm, .mov) aquí</span>
+        <input type="file" id="fileInput" accept="video/*" style="display:none">
+    </div>
+
+    <div class="settings" id="settingsPanel">
+        <div class="grid-settings">
+            <div>
+                <label>Duración (segundos)</label>
+                <input type="range" id="duration" min="1" max="10" value="5" oninput="dVal.innerText = this.value">
+                <span id="dVal" style="font-size: 0.8rem;">5</span>s
+            </div>
+            <div>
+                <label>FPS (Fluidez)</label>
+                <select id="fps">
+                    <option value="10">10 (Ligero)</option>
+                    <option value="15" selected>15 (Estándar)</option>
+                    <option value="20">20 (Pro)</option>
+                </select>
+            </div>
+        </div>
+        <p style="font-size: 0.7rem; color: #52525b;">* Los GIFs cortos (5-10s) tienen más impacto en el feed.</p>
+        <button class="btn btn-primary" id="createBtn">GENERAR GIF ANIMADO</button>
+    </div>
+
+    <div class="loader" id="loader">
+        <div class="spinner"></div>
+        <div id="status">Procesando fotogramas...</div>
+    </div>
+
+    <div class="preview-container" id="previewContainer">
+        <h3 style="font-size: 0.9rem; color: var(--primary);">¡GIF Listo!</h3>
+        <img id="resultGif">
+        <a id="downloadLink" class="btn btn-primary" style="display: block; text-decoration: none; text-align: center; background: #fff;">DESCARGAR GIF</a>
+    </div>
+</div>
+
+<footer>
+    Autor: <strong>Maicel Monzón Pérez</strong> | Bioestadística Edu<br>
+    Privacidad: El video se procesa localmente en tu navegador.
+</footer>
+
+<script>
+    const fileInput = document.getElementById('fileInput');
+    const settingsPanel = document.getElementById('settingsPanel');
+    const createBtn = document.getElementById('createBtn');
+    const previewContainer = document.getElementById('previewContainer');
+    const resultGif = document.getElementById('resultGif');
+    const loader = document.getElementById('loader');
+    
+    let videoUrl = "";
+
+    fileInput.onchange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            videoUrl = URL.createObjectURL(file);
+            document.getElementById('instruction').innerText = "Video cargado: " + file.name;
+            settingsPanel.style.display = 'block';
+            previewContainer.style.display = 'none';
+        }
+    };
+
+    createBtn.onclick = () => {
+        createBtn.disabled = true;
+        loader.style.display = 'block';
+        previewContainer.style.display = 'none';
+
+        const duration = parseInt(document.getElementById('duration').value);
+        const fps = parseInt(document.getElementById('fps').value);
+
+        gifshot.createGIF({
+            video: [videoUrl],
+            gifWidth: 640,
+            gifHeight: 480,
+            interval: 1 / fps,
+            numFrames: duration * fps,
+            sampleInterval: 10,
+            numWorkers: 2
+        }, function (obj) {
+            if (!obj.error) {
+                const image = obj.image;
+                resultGif.src = image;
+                
+                const downloadLink = document.getElementById('downloadLink');
+                downloadLink.href = image;
+                downloadLink.download = "bio_grafico_animado.gif";
+                
+                previewContainer.style.display = 'block';
+                loader.style.display = 'none';
+                createBtn.disabled = false;
+                window.scrollTo(0, document.body.scrollHeight);
+            }
+        });
+    };
+
+    // Drag and drop
+    const dropZone = document.getElementById('dropZone');
+    dropZone.ondragover = (e) => { e.preventDefault(); dropZone.style.borderColor = "#fbbf24"; };
+    dropZone.ondragleave = () => { dropZone.style.borderColor = "#3f3f46"; };
+    dropZone.ondrop = (e) => {
+        e.preventDefault();
+        fileInput.files = e.dataTransfer.files;
+        fileInput.dispatchEvent(new Event('change'));
+    };
+</script>
+
+</body>
+</html>
