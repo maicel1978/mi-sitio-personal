@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Lens OCR - Bioestadística Edu</title>
+    <!-- Cargamos el motor de OCR Tesseract.js desde CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
+    <style>
+        :root { --primary: #ffffff; --bg: #000000; --accent: #0a66c2; --gray: #1a1a1a; --text-muted: #888; }
+        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--primary); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        
+        .container { max-width: 600px; width: 100%; display: flex; flex-direction: column; gap: 20px; }
+        header { text-align: center; padding: 20px 0; }
+        h1 { font-size: 1.4rem; letter-spacing: -1px; margin: 0; }
+        p.tagline { color: var(--text-muted); font-size: 0.85rem; margin-top: 5px; }
+
+        /* Zona de captura */
+        .capture-area { background: var(--gray); border: 2px dashed #333; border-radius: 16px; padding: 40px 20px; text-align: center; cursor: pointer; transition: 0.3s; position: relative; overflow: hidden; }
+        .capture-area:hover { border-color: var(--accent); }
+        #preview { width: 100%; border-radius: 12px; display: none; margin-top: 15px; }
+
+        /* Controles */
+        .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .btn { padding: 15px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-camera { background: var(--accent); color: white; }
+        .btn-upload { background: #333; color: white; }
+        .btn-copy { background: #fff; color: #000; width: 100%; margin-top: 10px; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        /* Resultado */
+        .result-box { background: var(--gray); padding: 20px; border-radius: 16px; border: 1px solid #333; min-height: 150px; position: relative; }
+        #output { white-space: pre-wrap; font-size: 0.95rem; line-height: 1.6; color: #ddd; outline: none; }
+        
+        /* Loading */
+        .loader { display: none; text-align: center; padding: 20px; }
+        .spinner { width: 30px; height: 30px; border: 3px solid #333; border-top-color: var(--accent); border-radius: 50%; animation: spin 1s infinite linear; margin: 0 auto 10px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        footer { margin-top: auto; padding: 40px 0; text-align: center; font-size: 0.75rem; color: #444; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Smart Lens <span style="color:var(--accent)">OCR</span></h1>
+        <p class="tagline">Convierte fotos de presentaciones en texto editable</p>
+    </header>
+
+    <div class="capture-area" id="dropZone" onclick="document.getElementById('fileInput').click()">
+        <div id="prompt">
+            <span style="font-size: 2rem;">📷</span><br>
+            Haz clic para subir o tomar foto
+        </div>
+        <img id="preview" src="" alt="Vista previa">
+        <input type="file" id="fileInput" accept="image/*" capture="environment" style="display:none">
+    </div>
+
+    <div class="loader" id="loader">
+        <div class="spinner"></div>
+        <div id="progress">Iniciando motor de lectura...</div>
+    </div>
+
+    <div class="result-box" id="resultBox">
+        <div id="output" contenteditable="true">El texto reconocido aparecerá aquí...</div>
+        <button class="btn btn-copy" id="copyBtn" style="display: none;" onclick="copyText()">Copiar Texto al Portapapeles</button>
+    </div>
+</div>
+
+<footer>
+    Autor: <strong>Maicel Monzón Pérez</strong><br>
+    Privacidad: El procesamiento ocurre en tu dispositivo. Ninguna imagen se envía al servidor.
+</footer>
+
+<script>
+    const fileInput = document.getElementById('fileInput');
+    const preview = document.getElementById('preview');
+    const prompt = document.getElementById('prompt');
+    const output = document.getElementById('output');
+    const loader = document.getElementById('loader');
+    const progress = document.getElementById('progress');
+    const copyBtn = document.getElementById('copyBtn');
+
+    fileInput.onchange = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        // Mostrar vista previa
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            preview.src = event.target.result;
+            preview.style.display = 'block';
+            prompt.style.display = 'none';
+            recognizeText(event.target.result);
+        };
+        reader.readAsDataURL(file);
+    };
+
+    async function recognizeText(image) {
+        loader.style.display = 'block';
+        output.innerText = "";
+        copyBtn.style.display = 'none';
+
+        try {
+            // Inicializar Tesseract
+            const worker = await Tesseract.createWorker({
+                logger: m => {
+                    if(m.status === 'recognizing text') {
+                        progress.innerText = `Leyendo: ${Math.round(m.progress * 100)}%`;
+                    }
+                }
+            });
+
+            await worker.loadLanguage('spa+eng'); // Español e Inglés
+            await worker.initialize('spa+eng');
+            
+            const { data: { text } } = await worker.recognize(image);
+            
+            if (text.trim().length === 0) {
+                output.innerText = "No se detectó texto. Asegúrate de que la imagen sea nítida y tenga buen contraste.";
+            } else {
+                output.innerText = text;
+                copyBtn.style.display = 'block';
+            }
+
+            await worker.terminate();
+        } catch (error) {
+            console.error(error);
+            output.innerText = "Error al procesar la imagen.";
+        } finally {
+            loader.style.display = 'none';
+        }
+    }
+
+    function copyText() {
+        const text = output.innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            const originalText = copyBtn.innerText;
+            copyBtn.innerText = "¡Copiado!";
+            copyBtn.style.background = "#22c55e";
+            setTimeout(() => {
+                copyBtn.innerText = originalText;
+                copyBtn.style.background = "#fff";
+            }, 2000);
+        });
+    }
+
+    // Soporte para Drag & Drop
+    const dropZone = document.getElementById('dropZone');
+    dropZone.ondragover = (e) => { e.preventDefault(); dropZone.style.borderColor = "#0a66c2"; };
+    dropZone.ondragleave = () => { dropZone.style.borderColor = "#333"; };
+    dropZone.ondrop = (e) => {
+        e.preventDefault();
+        fileInput.files = e.dataTransfer.files;
+        fileInput.dispatchEvent(new Event('change'));
+    };
+</script>
+
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bio-PDF Organizer - Bioestadística Edu</title>
+    <!-- Librerías: PDF-Lib (Manipulación), PDF.js (Miniaturas), SortableJS (Arrastrar) -->
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <style>
+        :root { --primary: #3b82f6; --bg: #0f172a; --panel: #1e293b; --text: #f8fafc; }
+        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        
+        .container { max-width: 1100px; width: 100%; }
+        header { text-align: center; margin-bottom: 30px; }
+        h1 { font-size: 1.8rem; letter-spacing: -1px; margin: 0; color: var(--primary); }
+        
+        .drop-zone { border: 2px dashed #334155; border-radius: 16px; padding: 30px; text-align: center; cursor: pointer; background: var(--panel); transition: 0.3s; margin-bottom: 20px; }
+        .drop-zone:hover { border-color: var(--primary); }
+
+        /* Grilla de páginas */
+        #pages-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px; padding: 20px; background: #020617; border-radius: 16px; min-height: 200px; border: 1px solid #1e293b; }
+        
+        .page-card { background: #1e293b; border-radius: 8px; padding: 10px; position: relative; cursor: grab; transition: transform 0.2s; border: 1px solid #334155; }
+        .page-card:active { cursor: grabbing; }
+        .page-card canvas { width: 100%; border-radius: 4px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+        .page-info { font-size: 10px; color: #94a3b8; margin-top: 8px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        
+        .btn-del { position: absolute; top: -8px; right: -8px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 24px; height: 24px; cursor: pointer; font-weight: bold; font-size: 12px; display: flex; align-items: center; justify-content: center; z-index: 10; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .btn-del:hover { background: #dc2626; }
+
+        .actions { position: sticky; bottom: 20px; background: var(--panel); padding: 20px; border-radius: 50px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); display: none; gap: 15px; margin-top: 30px; border: 1px solid var(--primary); z-index: 100; justify-content: center; }
+        
+        .btn { padding: 12px 25px; border-radius: 25px; border: none; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn-save { background: var(--primary); color: white; }
+        .btn-save:hover { transform: scale(1.05); }
+
+        .loader { display: none; margin-top: 10px; font-size: 0.8rem; color: var(--primary); }
+        
+        footer { margin-top: 50px; padding: 20px; text-align: center; color: #475569; font-size: 0.75rem; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Bio-PDF <span style="color:#fff">Organizer</span></h1>
+        <p style="color:#64748b">Organiza, combina y reordena páginas localmente</p>
+    </header>
+
+    <div class="drop-zone" onclick="document.getElementById('fileInput').click()">
+        <span>📄 Arrastra uno o más PDFs para empezar</span>
+        <input type="file" id="fileInput" accept="application/pdf" multiple style="display:none">
+        <div id="loader" class="loader">Procesando páginas...</div>
+    </div>
+
+    <div id="pages-grid">
+        <!-- Las páginas aparecerán aquí -->
+    </div>
+
+    <div class="actions" id="action-bar">
+        <button class="btn btn-save" onclick="exportPDF()">DESCARGAR PDF ORGANIZADO</button>
+        <button class="btn" style="background:#334155; color:white;" onclick="location.reload()">LIMPIAR TODO</button>
+    </div>
+</div>
+
+<footer>
+    Autor: <strong>Maicel Monzón Pérez</strong> | Bioestadística Edu<br>
+    Privacidad: Tus documentos no salen de tu navegador. Combinación local 100% segura.
+</footer>
+
+<script>
+    const { PDFDocument } = PDFLib;
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+
+    const grid = document.getElementById('pages-grid');
+    const fileInput = document.getElementById('fileInput');
+    const actionBar = document.getElementById('action-bar');
+    const loader = document.getElementById('loader');
+
+    // Almacén de datos de páginas
+    let loadedPages = []; // { fileBytes, pageIndex, fileName }
+
+    // Hacer la grilla interactiva (Reordenar)
+    new Sortable(grid, {
+        animation: 150,
+        ghostClass: 'blue-background-class'
+    });
+
+    fileInput.onchange = async (e) => {
+        loader.style.display = 'block';
+        const files = Array.from(e.target.files);
+        
+        for (const file of files) {
+            const bytes = await file.arrayBuffer();
+            const pdf = await pdfjsLib.getDocument({ data: bytes }).promise;
+
+            for (let i = 1; i <= pdf.numPages; i++) {
+                const page = await pdf.getPage(i);
+                const viewport = page.getViewport({ scale: 0.3 }); // Miniatura pequeña
+                
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+                
+                await page.render({ canvasContext: context, viewport: viewport }).promise;
+
+                // Crear elemento visual
+                const pageId = Date.now() + Math.random();
+                const card = document.createElement('div');
+                card.className = 'page-card';
+                card.dataset.pageIndex = i - 1;
+                card.dataset.fileId = loadedPages.length; // Referencia al array de bytes
+                
+                card.innerHTML = `
+                    <button class="btn-del" onclick="this.parentElement.remove(); checkEmpty();">✕</button>
+                    <div class="canvas-container"></div>
+                    <div class="page-info">Pág. ${i} - ${file.name}</div>
+                `;
+                card.querySelector('.canvas-container').appendChild(canvas);
+                grid.appendChild(card);
+            }
+            loadedPages.push({ bytes, name: file.name });
+        }
+        
+        loader.style.display = 'none';
+        actionBar.style.display = 'flex';
+    };
+
+    async function exportPDF() {
+        const btn = document.querySelector('.btn-save');
+        btn.innerText = "GENERANDO...";
+        btn.disabled = true;
+
+        try {
+            const mergedPdf = await PDFDocument.create();
+            const cards = Array.from(grid.querySelectorAll('.page-card'));
+            
+            // Agrupar por archivo original para mayor eficiencia
+            const cache = {};
+
+            for (const card of cards) {
+                const fileIdx = card.dataset.fileId;
+                const pageIdx = parseInt(card.dataset.pageIndex);
+
+                if (!cache[fileIdx]) {
+                    cache[fileIdx] = await PDFDocument.load(loadedPages[fileIdx].bytes);
+                }
+
+                const [copiedPage] = await mergedPdf.copyPages(cache[fileIdx], [pageIdx]);
+                mergedPdf.addPage(copiedPage);
+            }
+
+            const pdfBytes = await mergedPdf.save();
+            const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = "PDF_Organizado_BioEstadistica.pdf";
+            a.click();
+        } catch (error) {
+            console.error(error);
+            alert("Error al generar el PDF.");
+        }
+
+        btn.innerText = "DESCARGAR PDF ORGANIZADO";
+        btn.disabled = false;
+    }
+
+    function checkEmpty() {
+        if (grid.querySelectorAll('.page-card').length === 0) {
+            actionBar.style.display = 'none';
+        }
+    }
+</script>
+
+</body>
+</html>

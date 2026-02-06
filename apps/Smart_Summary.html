@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Note Summarizer - Bioestadística Edu</title>
+    <style>
+        :root { --bg: #09090b; --card: #18181b; --accent: #3b82f6; --text: #f4f4f5; --border: #27272a; }
+        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        
+        .container { max-width: 800px; width: 100%; }
+        header { text-align: center; margin-bottom: 30px; }
+        h1 { font-size: 2rem; letter-spacing: -1px; margin: 0; background: linear-gradient(90deg, #3b82f6, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .main-grid { display: flex; flex-direction: column; gap: 20px; }
+        .input-area { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 20px; }
+        
+        textarea { width: 100%; height: 250px; background: transparent; border: none; color: white; font-size: 1rem; line-height: 1.6; outline: none; resize: none; font-family: inherit; }
+        
+        .controls { display: flex; justify-content: space-between; align-items: center; margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--border); }
+        .char-count { font-size: 0.8rem; color: #71717a; }
+        
+        .btn { background: var(--accent); color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn:disabled { background: #27272a; color: #52525b; cursor: wait; }
+        .btn:hover:not(:disabled) { opacity: 0.9; transform: translateY(-1px); }
+
+        .result-area { background: #0f172a; border: 1px solid #1e3a8a; border-radius: 16px; padding: 25px; display: none; animation: fadeIn 0.5s ease; }
+        .result-title { font-size: 0.8rem; text-transform: uppercase; color: var(--accent); font-weight: bold; margin-bottom: 15px; letter-spacing: 1px; }
+        #summary-output { line-height: 1.8; color: #cbd5e1; }
+        #summary-output ul { padding-left: 20px; }
+        #summary-output li { margin-bottom: 10px; }
+
+        .loader { display: none; text-align: center; margin: 20px 0; }
+        .progress-bar { width: 100%; height: 4px; background: #27272a; border-radius: 2px; margin-top: 10px; overflow: hidden; }
+        #progress-fill { height: 100%; background: var(--accent); width: 0%; transition: width 0.3s; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        footer { margin-top: auto; padding: 40px 0; text-align: center; color: #3f3f46; font-size: 0.75rem; border-top: 1px solid #18181b; width: 100%; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Smart Summary AI</h1>
+        <p style="color: #71717a;">Extrae la esencia de tus clases y entrevistas localmente.</p>
+    </header>
+
+    <div class="main-grid">
+        <div class="input-area">
+            <textarea id="inputText" placeholder="Pega aquí las notas de tu clase, transcripción de entrevista o artículo..."></textarea>
+            <div class="controls">
+                <div class="char-count" id="charCount">0 caracteres</div>
+                <button class="btn" id="sumBtn" disabled>Cargando IA...</button>
+            </div>
+        </div>
+
+        <div class="loader" id="loader">
+            <div id="statusMsg" style="font-size: 0.85rem; color: #a1a1aa;">Iniciando modelos neuronales...</div>
+            <div class="progress-bar"><div id="progress-fill"></div></div>
+        </div>
+
+        <div class="result-area" id="resultArea">
+            <div class="result-title">Puntos Clave Extraídos</div>
+            <div id="summary-output"></div>
+            <button class="btn" style="background: #1e293b; margin-top: 20px; width: auto;" onclick="copyResult()">Copiar Resumen</button>
+        </div>
+    </div>
+</div>
+
+<footer>
+    Bioestadística Edu | Autor: <strong>Maicel Monzón Pérez</strong><br>
+    Privacidad Total: El procesamiento se realiza en la GPU/CPU de tu dispositivo.
+</footer>
+
+<script type="module">
+    import { pipeline } from 'https://cdn.jsdelivr.net/npm/@xenova/transformers@2.6.0';
+
+    const textarea = document.getElementById('inputText');
+    const charCount = document.getElementById('charCount');
+    const sumBtn = document.getElementById('sumBtn');
+    const loader = document.getElementById('loader');
+    const progressFill = document.getElementById('progress-fill');
+    const statusMsg = document.getElementById('statusMsg');
+    const resultArea = document.getElementById('resultArea');
+    const output = document.getElementById('summary-output');
+
+    let summarizer;
+
+    // Actualizar contador de caracteres
+    textarea.oninput = () => {
+        charCount.innerText = `${textarea.value.length} caracteres`;
+    };
+
+    // Inicializar IA
+    async function init() {
+        try {
+            summarizer = await pipeline('summarization', 'Xenova/distilbart-cnn-6-6', {
+                progress_callback: (p) => {
+                    if (p.status === 'downloading') {
+                        loader.style.display = 'block';
+                        statusMsg.innerText = `Descargando modelo de IA: ${Math.round(p.progress)}%`;
+                        progressFill.style.width = `${p.progress}%`;
+                    }
+                }
+            });
+            sumBtn.disabled = false;
+            sumBtn.innerText = "GENERAR PUNTOS CLAVE";
+            statusMsg.innerText = "IA Lista.";
+            setTimeout(() => loader.style.display = 'none', 1000);
+        } catch (e) {
+            statusMsg.innerText = "Error cargando la IA. Revisa tu conexión.";
+        }
+    }
+
+    sumBtn.onclick = async () => {
+        const text = textarea.value;
+        if (text.length < 100) return alert("Por favor, ingresa un texto más largo para resumir.");
+
+        sumBtn.disabled = true;
+        loader.style.display = 'block';
+        statusMsg.innerText = "Analizando contenido y extrayendo lógica...";
+        resultArea.style.display = 'none';
+
+        try {
+            // Dividimos el texto si es muy largo para evitar errores de memoria
+            const chunks = text.match(/[\s\S]{1,2000}/g) || [text];
+            let finalSummary = "";
+
+            for (let chunk of chunks) {
+                const res = await summarizer(chunk, {
+                    max_new_tokens: 100,
+                    chunk_length: 512,
+                });
+                finalSummary += res[0].summary_text + " ";
+            }
+
+            // Formatear el resultado como puntos clave
+            const points = finalSummary.split('. ').filter(p => p.trim().length > 5);
+            output.innerHTML = `<ul>${points.map(p => `<li>${p.trim()}.</li>`).join('')}</ul>`;
+            
+            resultArea.style.display = 'block';
+            statusMsg.innerText = "Análisis completado.";
+        } catch (e) {
+            console.error(e);
+            alert("Error al procesar el texto. Prueba con un fragmento más corto.");
+        } finally {
+            sumBtn.disabled = false;
+            loader.style.display = 'none';
+        }
+    };
+
+    window.copyResult = () => {
+        navigator.clipboard.writeText(output.innerText);
+        alert("Resumen copiado al portapapeles");
+    };
+
+    init();
+</script>
+
+</body>
+</html>

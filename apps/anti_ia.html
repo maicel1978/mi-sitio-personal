@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bio-AI Forensic Pro - Bioestadística Edu</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <style>
+        :root { 
+            --bg: #020617; --panel: #0f172a; --accent: #f59e0b; --text: #f8fafc; 
+            --ai-red: #ef4444; --human-green: #22c55e; --warning: #f59e0b;
+        }
+        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        
+        .container { max-width: 1000px; width: 100%; }
+        header { text-align: center; margin-bottom: 25px; }
+        
+        /* Panel de Evaluación Global */
+        .global-assessment { 
+            background: #1e293b; border-radius: 16px; padding: 20px; margin-bottom: 25px; 
+            display: flex; align-items: center; gap: 20px; border: 1px solid #334155;
+            animation: fadeIn 0.5s ease;
+        }
+        .status-light { width: 50px; height: 50px; border-radius: 50%; background: #334155; flex-shrink: 0; border: 4px solid rgba(255,255,255,0.1); }
+        .assessment-text h2 { margin: 0; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; }
+        .assessment-text p { margin: 5px 0 0; font-size: 0.9rem; color: #94a3b8; }
+
+        .main-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .box { background: var(--panel); border-radius: 16px; padding: 20px; border: 1px solid #1e293b; }
+        
+        textarea { width: 100%; height: 350px; background: #020617; color: #fff; border: 1px solid #334155; border-radius: 8px; padding: 15px; resize: none; outline: none; font-family: inherit; font-size: 0.95rem; line-height: 1.6; }
+        #viewer { width: 100%; height: 350px; background: #020617; border-radius: 8px; padding: 15px; overflow-y: auto; white-space: pre-wrap; line-height: 1.8; border: 1px solid #334155; box-sizing: border-box; }
+        
+        .high-risk { background-color: rgba(239, 68, 68, 0.2); border-bottom: 2px solid var(--ai-red); }
+        .medium-risk { background-color: rgba(245, 158, 11, 0.15); border-bottom: 2px solid var(--accent); }
+
+        /* Métricas con Tooltips */
+        .metrics-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 25px; }
+        .metric-card { background: var(--panel); padding: 15px; border-radius: 12px; text-align: center; border: 1px solid #1e293b; position: relative; }
+        .metric-card b { display: block; font-size: 1.5rem; margin-bottom: 5px; }
+        .metric-card span { font-size: 0.65rem; color: #64748b; text-transform: uppercase; font-weight: bold; }
+        
+        .info-trigger { 
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 14px; height: 14px; background: #334155; border-radius: 50%; 
+            font-size: 10px; cursor: help; margin-left: 4px; color: #fff; vertical-align: middle;
+        }
+        .info-trigger:hover::after {
+            content: attr(data-tooltip);
+            position: absolute; bottom: 110%; left: 50%; transform: translateX(-50%);
+            background: #000; color: #fff; padding: 8px; border-radius: 4px;
+            width: 180px; font-size: 11px; text-transform: none; font-weight: normal;
+            z-index: 100; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        .btn { width: 100%; padding: 15px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 15px; font-size: 1rem; }
+        .btn-primary { background: var(--accent); color: #000; }
+        .btn-upload { background: #1e293b; color: white; border: 1px solid #334155; margin-bottom: 10px; }
+
+        footer { margin-top: 50px; padding: 30px; text-align: center; font-size: 0.8rem; color: #475569; border-top: 1px solid #1e293b; width: 100%; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1 style="color:var(--text)">Bio-AI <span style="color:var(--accent)">Forensic Pro</span></h1>
+        <p style="color:#64748b">Auditoría Lingüística para Bioestadística y Academia</p>
+    </header>
+
+    <!-- Panel de Evaluación Global -->
+    <div class="global-assessment">
+        <div class="status-light" id="globalLight"></div>
+        <div class="assessment-text">
+            <h2 id="globalTitle">Esperando Análisis</h2>
+            <p id="globalDesc">Ingresa un texto o PDF para evaluar el riesgo de autoría por IA.</p>
+        </div>
+    </div>
+
+    <div class="main-layout">
+        <div class="box">
+            <button class="btn btn-upload" onclick="document.getElementById('pdfInput').click()">📄 SUBIR PDF CIENTÍFICO</button>
+            <input type="file" id="pdfInput" accept="application/pdf" style="display:none">
+            <textarea id="inputText" placeholder="Pega el texto aquí..."></textarea>
+            <button class="btn btn-primary" id="analyzeBtn">ANALIZAR ESTADÍSTICAS</button>
+        </div>
+        
+        <div class="box">
+            <div id="viewer">El mapa de calor aparecerá aquí...</div>
+        </div>
+    </div>
+
+    <div class="metrics-bar">
+        <div class="metric-card">
+            <b id="aiScore">0%</b>
+            <span>Probabilidad IA <span class="info-trigger" data-tooltip="Estimación combinada basada en la uniformidad y predictibilidad del texto.">?</span></span>
+        </div>
+        <div class="metric-card">
+            <b id="perplexityScore">0</b>
+            <span>Perplejidad <span class="info-trigger" data-tooltip="Mide qué tan predecible es el texto. La IA suele puntuar bajo (<60) al ser muy lineal.">?</span></span>
+        </div>
+        <div class="metric-card">
+            <b id="entropyScore">0</b>
+            <span>Entropía (H) <span class="info-trigger" data-tooltip="Entropía de Shannon. Mide la riqueza y desorden léxico. A mayor valor, más humano.">?</span></span>
+        </div>
+        <div class="metric-card">
+            <b id="burstinessScore">0</b>
+            <span>Burstiness <span class="info-trigger" data-tooltip="Varianza en la longitud de oraciones. Los humanos alternan frases cortas y largas.">?</span></span>
+        </div>
+    </div>
+</div>
+
+<footer>
+    Autor: <strong>Maicel Monzón Pérez</strong> | Bioestadística Edu<br>
+    Este detector analiza patrones estadísticos. No debe usarse como prueba única de fraude.
+</footer>
+
+<script>
+    const inputText = document.getElementById('inputText');
+    const analyzeBtn = document.getElementById('analyzeBtn');
+    const viewer = document.getElementById('viewer');
+    const pdfInput = document.getElementById('pdfInput');
+
+    const CONNECTORS = ["además", "por lo tanto", "en conclusión", "asimismo", "sin embargo", "en consecuencia", "adicionalmente", "por consiguiente", "notablemente", "consecuentemente"];
+
+    analyzeBtn.onclick = () => {
+        const text = inputText.value.trim();
+        if (text.length < 150) return alert("Se requiere un texto más largo (mínimo 150 caracteres) para un análisis fiable.");
+        analyzeText(text);
+    };
+
+    function analyzeText(text) {
+        const sentences = text.match(/[^\.!\?]+[\.!\?]+/g) || [text];
+        const words = text.toLowerCase().match(/\b\w+\b/g);
+        if (!words) return;
+
+        // 1. Entropía y Perplejidad
+        const freqMap = {};
+        words.forEach(w => freqMap[w] = (freqMap[w] || 0) + 1);
+        let entropy = 0;
+        Object.values(freqMap).forEach(count => {
+            const p = count / words.length;
+            entropy -= p * Math.log2(p);
+        });
+        const perplexity = Math.pow(2, entropy);
+
+        // 2. Burstiness (Varianza longitud)
+        const lengths = sentences.map(s => s.trim().split(/\s+/).length);
+        const avgLen = lengths.reduce((a, b) => a + b) / lengths.length;
+        const variance = lengths.reduce((a, b) => a + Math.pow(b - avgLen, 2), 0) / lengths.length;
+        const burstiness = Math.sqrt(variance);
+
+        // 3. Procesamiento y Mapa de Calor
+        let aiConfidence = 0;
+        let highlightedHtml = "";
+
+        sentences.forEach(s => {
+            let sScore = 0;
+            if (perplexity < 60) sScore += 25;
+            if (burstiness < 6) sScore += 20;
+            CONNECTORS.forEach(c => { if (s.toLowerCase().includes(c)) sScore += 15; });
+            
+            aiConfidence += sScore;
+            let cls = (sScore > 40) ? "high-risk" : (sScore > 20) ? "medium-risk" : "";
+            highlightedHtml += `<span class="${cls}">${s}</span>`;
+        });
+
+        // 4. Resultados Globales
+        const avgSentScore = aiConfidence / sentences.length;
+        const finalProb = Math.min(Math.round(avgSentScore + (100 - perplexity)), 100);
+
+        updateUI(finalProb, perplexity, entropy, burstiness, highlightedHtml);
+    }
+
+    function updateUI(prob, perp, entr, burst, html) {
+        document.getElementById('aiScore').innerText = prob + "%";
+        document.getElementById('perplexityScore').innerText = Math.round(perp);
+        document.getElementById('entropyScore').innerText = entr.toFixed(2);
+        document.getElementById('burstinessScore').innerText = Math.round(burst);
+        viewer.innerHTML = html;
+
+        const light = document.getElementById('globalLight');
+        const title = document.getElementById('globalTitle');
+        const desc = document.getElementById('globalDesc');
+
+        // Lógica de Semáforo Global
+        if (prob > 70 || (perp < 55 && burst < 5)) {
+            light.style.background = "var(--ai-red)";
+            light.style.boxShadow = "0 0 20px var(--ai-red)";
+            title.innerText = "ALTO RIESGO DE IA";
+            desc.innerText = "Patrones altamente predecibles y estructura uniforme. Típico de modelos GPT.";
+        } else if (prob > 40 || perp < 75) {
+            light.style.background = "var(--warning)";
+            light.style.boxShadow = "0 0 20px var(--warning)";
+            title.innerText = "RIESGO MODERADO";
+            desc.innerText = "El texto muestra algunos patrones de IA o podría haber sido editado por una.";
+        } else {
+            light.style.background = "var(--human-green)";
+            light.style.boxShadow = "0 0 20px var(--human-green)";
+            title.innerText = "AUTORÍA HUMANA PROBABLE";
+            desc.innerText = "Alta perplejidad y varianza natural en la estructura de las oraciones.";
+        }
+    }
+
+    // PDF Handler
+    const pdfjsLib = window['pdfjs-dist/build/pdf'];
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+
+    pdfInput.onchange = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = async function() {
+            const typedarray = new Uint8Array(this.result);
+            const pdf = await pdfjsLib.getDocument(typedarray).promise;
+            let fullText = "";
+            for (let i = 1; i <= pdf.numPages; i++) {
+                const page = await pdf.getPage(i);
+                const content = await page.getTextContent();
+                fullText += content.items.map(item => item.str).join(" ") + " ";
+            }
+            inputText.value = fullText;
+            analyzeText(fullText);
+        };
+        reader.readAsArrayBuffer(file);
+    };
+</script>
+
+</body>
+</html>

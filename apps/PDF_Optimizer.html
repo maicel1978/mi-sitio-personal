@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Optimizer - Bioestadística Edu</title>
+    <!-- Librerías: Renderizado y Generación de PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        :root { --primary: #020617; --accent: #3b82f6; --text: #f8fafc; --gray: #94a3b8; }
+        body { font-family: 'Inter', system-ui, sans-serif; background: var(--primary); color: var(--text); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        .container { max-width: 600px; width: 100%; background: #0f172a; padding: 40px; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); border: 1px solid #1e293b; margin-top: 40px; }
+        header { text-align: center; margin-bottom: 30px; }
+        h1 { font-size: 1.5rem; margin: 0; letter-spacing: -0.025em; }
+        p.desc { color: var(--gray); font-size: 0.9rem; margin-top: 8px; }
+        
+        .drop-zone { border: 2px dashed #334155; border-radius: 16px; padding: 40px 20px; text-align: center; cursor: pointer; transition: 0.3s; background: #020617; margin-bottom: 25px; }
+        .drop-zone:hover { border-color: var(--accent); background: #070e1e; }
+        
+        .settings { background: #1e293b; padding: 20px; border-radius: 12px; margin-bottom: 25px; }
+        label { display: flex; justify-content: space-between; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; color: var(--gray); }
+        input[type="range"] { width: 100%; accent-color: var(--accent); cursor: pointer; }
+
+        .btn { width: 100%; padding: 14px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 1rem; }
+        .btn-primary { background: var(--accent); color: white; }
+        .btn-primary:hover { background: #2563eb; transform: translateY(-1px); }
+        .btn-primary:disabled { background: #1e293b; color: #475569; cursor: not-allowed; transform: none; }
+
+        .stats { margin-top: 25px; display: none; padding-top: 20px; border-top: 1px solid #334155; }
+        .stat-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.9rem; }
+        .progress-bar { height: 6px; background: #334155; border-radius: 10px; overflow: hidden; margin-top: 15px; }
+        #progress-fill { height: 100%; background: var(--accent); width: 0%; transition: width 0.2s; }
+        
+        footer { margin-top: auto; padding: 40px 0 20px; color: #475569; font-size: 0.75rem; text-align: center; }
+        b { color: var(--gray); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>PDF Optimizer Pro</h1>
+        <p class="desc">Compresión inteligente sin salir del navegador</p>
+    </header>
+
+    <div class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+        <span id="dropText">Arrastra tu PDF o haz clic aquí</span>
+        <input type="file" id="fileInput" accept="application/pdf" style="display:none">
+    </div>
+
+    <div class="settings">
+        <label>Calidad de compresión <span id="qVal">60%</span></label>
+        <input type="range" id="quality" min="10" max="100" value="60">
+        <p style="font-size: 0.7rem; color: #64748b; margin-top: 10px;">
+            *Nota: El texto se optimiza para visualización rápida y ahorro de espacio.
+        </p>
+    </div>
+
+    <button id="processBtn" class="btn btn-primary" disabled>OPTIMIZAR Y DESCARGAR</button>
+
+    <div class="stats" id="statsArea">
+        <div class="stat-row">
+            <span>Tamaño Original:</span>
+            <b id="oldSize">-</b>
+        </div>
+        <div class="stat-row">
+            <span>Estado:</span>
+            <b id="statusText">Esperando...</b>
+        </div>
+        <div class="progress-bar">
+            <div id="progress-fill"></div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    Herramienta de Productividad Segura<br>
+    Autor: <b>Maicel Monzón Pérez</b> | Bioestadística Edu
+</footer>
+
+<script>
+    const pdfjsLib = window['pdfjs-dist/build/pdf'];
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+
+    let selectedFile = null;
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('fileInput');
+    const processBtn = document.getElementById('processBtn');
+    const qualityInput = document.getElementById('quality');
+    const qVal = document.getElementById('qVal');
+
+    qualityInput.oninput = () => qVal.innerText = qualityInput.value + '%';
+
+    fileInput.onchange = (e) => handleFile(e.target.files[0]);
+    
+    function handleFile(file) {
+        if (file && file.type === "application/pdf") {
+            selectedFile = file;
+            document.getElementById('dropText').innerText = file.name;
+            document.getElementById('oldSize').innerText = (file.size / (1024*1024)).toFixed(2) + " MB";
+            document.getElementById('statsArea').style.display = 'block';
+            processBtn.disabled = false;
+        }
+    }
+
+    processBtn.onclick = async () => {
+        processBtn.disabled = true;
+        const quality = qualityInput.value / 100;
+        const statusText = document.getElementById('statusText');
+        const progressFill = document.getElementById('progress-fill');
+        
+        const arrayBuffer = await selectedFile.arrayBuffer();
+        const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
+        const { jsPDF } = window.jspdf;
+        const outPdf = new jsPDF('p', 'px');
+
+        for (let i = 1; i <= pdf.numPages; i++) {
+            statusText.innerText = `Procesando página ${i} de ${pdf.numPages}...`;
+            const progress = (i / pdf.numPages) * 100;
+            progressFill.style.width = progress + "%";
+
+            const page = await pdf.getPage(i);
+            const viewport = page.getViewport({ scale: 1.5 }); // Escala balanceada
+            
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+
+            await page.render({ canvasContext: ctx, viewport: viewport }).promise;
+
+            // Convertir página a imagen comprimida
+            const imgData = canvas.toDataURL('image/jpeg', quality);
+            
+            const imgProps = outPdf.getImageProperties(imgData);
+            const pdfWidth = outPdf.internal.pageSize.getWidth();
+            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+            if (i > 1) outPdf.addPage();
+            outPdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight, undefined, 'FAST');
+        }
+
+        statusText.innerText = "¡Finalizado! Descargando...";
+        outPdf.save(`optimizado_${selectedFile.name}`);
+        processBtn.disabled = false;
+        setTimeout(() => {
+            statusText.innerText = "Listo.";
+            progressFill.style.width = "0%";
+        }, 2000);
+    };
+
+    // Drag and drop simple
+    dropZone.ondragover = (e) => { e.preventDefault(); dropZone.style.borderColor = "#3b82f6"; };
+    dropZone.ondragleave = () => { dropZone.style.borderColor = "#334155"; };
+    dropZone.ondrop = (e) => {
+        e.preventDefault();
+        handleFile(e.dataTransfer.files[0]);
+    };
+</script>
+
+</body>
+</html>

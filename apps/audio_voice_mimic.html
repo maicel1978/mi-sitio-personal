@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Mimic AI - Bioestadística Edu</title>
+    <style>
+        :root { --primary: #00ff88; --bg: #050505; --card: #111; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: white; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        .container { max-width: 500px; width: 100%; }
+        
+        .voice-card { background: var(--card); border: 1px solid #222; border-radius: 20px; padding: 30px; text-align: center; box-shadow: 0 10px 30px rgba(0,255,136,0.1); }
+        .vudu-meter { height: 60px; display: flex; align-items: center; justify-content: center; gap: 3px; margin: 20px 0; }
+        .bar { width: 4px; height: 10px; background: var(--primary); border-radius: 2px; transition: 0.1s; }
+
+        .status { font-size: 0.8rem; color: #888; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
+        .btn { background: var(--primary); color: black; border: none; padding: 15px 30px; border-radius: 50px; font-weight: bold; cursor: pointer; width: 100%; transition: 0.3s; }
+        .btn:disabled { background: #222; color: #444; }
+        
+        #results { margin-top: 20px; display: none; background: #000; padding: 15px; border-radius: 12px; font-size: 0.85rem; border: 1px solid #333; }
+        textarea { width: 100%; background: #000; border: 1px solid #333; color: white; padding: 15px; border-radius: 12px; margin-top: 20px; box-sizing: border-box; font-family: inherit; }
+        
+        .pulse { animation: pulse-animation 1.5s infinite; }
+        @keyframes pulse-animation { 0% { box-shadow: 0 0 0 0px rgba(0, 255, 136, 0.4); } 100% { box-shadow: 0 0 0 20px rgba(0, 255, 136, 0); } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header style="text-align: center; margin-bottom: 30px;">
+        <h1 style="margin:0">Voice <span style="color:var(--primary)">Mimic</span></h1>
+        <p style="color:#666">Perfilado Bioacústico en tiempo real</p>
+    </header>
+
+    <div class="voice-card" id="mainCard">
+        <div class="status" id="statusMsg">Paso 1: Analiza tu voz</div>
+        
+        <div class="vudu-meter" id="meter">
+            <!-- Barras generadas por JS -->
+        </div>
+
+        <button id="recordBtn" class="btn">GRABAR MUESTRA (5 SEG)</button>
+
+        <div id="results">
+            <div style="display:flex; justify-content:space-between; margin-bottom:5px">
+                <span>Frecuencia Base:</span> <b id="freqVal">0 Hz</b>
+            </div>
+            <div style="display:flex; justify-content:space-between">
+                <span>Timbre Detectado:</span> <b id="typeVal">-</b>
+            </div>
+        </div>
+
+        <textarea id="textToSpeak" placeholder="Escribe lo que quieres que tu clon diga..."></textarea>
+        <button id="speakBtn" class="btn" style="margin-top:10px; background:#fff" disabled>REPRODUCIR VOZ CLONADA</button>
+    </div>
+
+    <footer style="margin-top:40px; text-align:center; font-size:0.7rem; color:#444">
+        MODELO DE AJUSTE PARAMÉTRICO DE VOZ<br>
+        Desarrollado por: <strong>Maicel Monzón Pérez</strong>
+    </footer>
+</div>
+
+<script>
+    const recordBtn = document.getElementById('recordBtn');
+    const speakBtn = document.getElementById('speakBtn');
+    const meter = document.getElementById('meter');
+    const statusMsg = document.getElementById('statusMsg');
+    const freqVal = document.getElementById('freqVal');
+    const typeVal = document.getElementById('typeVal');
+    
+    let audioCtx;
+    let analyser;
+    let dataArray;
+    let frequencies = [];
+    let myVoiceProfile = { pitch: 1, rate: 1 };
+
+    // Crear barras del visualizador
+    for(let i=0; i<20; i++) {
+        const bar = document.createElement('div');
+        bar.className = 'bar';
+        meter.appendChild(bar);
+    }
+
+    recordBtn.onclick = async () => {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        analyser = audioCtx.createAnalyser();
+        const source = audioCtx.createMediaStreamSource(stream);
+        source.connect(analyser);
+        analyser.fftSize = 2048;
+        dataArray = new Uint8Array(analyser.frequencyBinCount);
+
+        recordBtn.disabled = true;
+        recordBtn.classList.add('pulse');
+        statusMsg.innerText = "Escuchando... Di algo largo.";
+        frequencies = [];
+
+        const startTime = Date.now();
+        const analyze = () => {
+            analyser.getByteFrequencyData(dataArray);
+            
+            // Visualizador
+            const bars = document.querySelectorAll('.bar');
+            dataArray.slice(0, 20).forEach((val, i) => {
+                bars[i].style.height = (val / 2) + 'px';
+            });
+
+            // Detectar frecuencia dominante (Pitch)
+            let maxVal = 0;
+            let maxIndex = 0;
+            for(let i=0; i<dataArray.length; i++) {
+                if(dataArray[i] > maxVal) { maxVal = dataArray[i]; maxIndex = i; }
+            }
+            let freq = maxIndex * audioCtx.sampleRate / analyser.fftSize;
+            if(freq > 50 && freq < 500) frequencies.push(freq);
+
+            if(Date.now() - startTime < 5000) {
+                requestAnimationFrame(analyze);
+            } else {
+                finishAnalysis(stream);
+            }
+        };
+        analyze();
+    };
+
+    function finishAnalysis(stream) {
+        stream.getTracks().forEach(t => t.stop());
+        recordBtn.classList.remove('pulse');
+        recordBtn.innerText = "ANÁLISIS COMPLETADO";
+        document.getElementById('results').style.display = 'block';
+        
+        const avgFreq = frequencies.reduce((a,b) => a+b, 0) / frequencies.length;
+        freqVal.innerText = Math.round(avgFreq) + " Hz";
+        
+        // Lógica de Bioestadística: Mapeo de frecuencia a parámetros de TTS
+        // Frecuencia promedio humana: Masculina 85-155Hz, Femenina 165-255Hz
+        if(avgFreq < 160) {
+            typeVal.innerText = "Barítono / Tenor";
+            myVoiceProfile.pitch = 0.8; // Más grave
+        } else {
+            typeVal.innerText = "Soprano / Contralto";
+            myVoiceProfile.pitch = 1.4; // Más agudo
+        }
+
+        myVoiceProfile.rate = 0.9; // Ajuste de velocidad estándar
+        
+        statusMsg.innerText = "Perfil Creado con éxito";
+        speakBtn.disabled = false;
+    }
+
+    speakBtn.onclick = () => {
+        const text = document.getElementById('textToSpeak').value;
+        if(!text) return alert("Escribe algo primero");
+
+        const msg = new SpeechSynthesisUtterance();
+        msg.text = text;
+        msg.lang = 'es-ES';
+        
+        // Aplicamos el "clon"
+        msg.pitch = myVoiceProfile.pitch;
+        msg.rate = myVoiceProfile.rate;
+
+        window.speechSynthesis.speak(msg);
+    };
+</script>
+
+</body>
+</html>

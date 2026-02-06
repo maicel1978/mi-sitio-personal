@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Pro Carousel - Bioestadística Edu</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        :root { --bg: #000000; --ui-panel: #1a1a1a; --accent: #ffffff; --error: #ff4d4d; }
+        body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0a0a; color: white; margin: 0; display: flex; height: 100vh; overflow: hidden; }
+        
+        /* Panel Izquierdo (Editor) */
+        .sidebar { width: 420px; background: var(--ui-panel); padding: 25px; display: flex; flex-direction: column; border-right: 1px solid #333; overflow-y: auto; }
+        h1 { font-size: 1.2rem; margin-bottom: 20px; color: #888; letter-spacing: 1px; }
+        textarea { flex-grow: 1; background: #000; color: #fff; border: 1px solid #333; border-radius: 8px; padding: 15px; font-family: 'Inter', sans-serif; line-height: 1.5; resize: none; margin-bottom: 15px; font-size: 0.9rem; }
+        
+        .control-group { background: #252525; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+        label { display: block; font-size: 0.75rem; color: #888; margin-bottom: 8px; text-transform: uppercase; }
+        input[type="range"] { width: 100%; margin-bottom: 10px; }
+        .btn { cursor: pointer; padding: 12px; border: none; border-radius: 6px; font-weight: bold; transition: 0.3s; margin-bottom: 8px; text-align: center; width: 100%; }
+        .btn-main { background: white; color: black; }
+        .btn-main:hover { background: #ccc; }
+        .btn-file { background: #333; color: white; border: 1px solid #444; }
+
+        /* Panel Derecho (Vista Previa) */
+        .main-view { flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #000; padding: 20px; }
+        canvas { max-width: 90%; max-height: 70vh; border: 1px solid #333; box-shadow: 0 0 50px rgba(0,0,0,1); }
+        .word-counter { margin-top: 15px; font-size: 0.8rem; color: #888; }
+        .error-msg { color: var(--error); font-weight: bold; }
+
+        footer { margin-top: 20px; font-size: 0.7rem; color: #555; text-align: center; }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <h1>LINKEDIN AUTHORITY</h1>
+    
+    <label>Contenido (Usa --- para separar slides)</label>
+    <textarea id="editor" oninput="update()">
+12 PALABRAS AQUÍ: El error fatal en el análisis de muestras pequeñas.
+---
+PROBLEMA:
+Tradicionalmente se confía en el p-valor sin mirar el tamaño del efecto.
+Esto genera falsos positivos masivos.
+---
+NÚCLEO 1:
+Principio de Magnitud:
+Un efecto pequeño pero significativo no siempre es clínicamente relevante.
+---
+NÚCLEO 2:
+Criterio de Potencia:
+Sin un N adecuado, el riesgo de Error Tipo II se dispara al 80%.
+---
+PREGUNTA TÉCNICA:
+¿Cómo ajustas tu N cuando la varianza es desconocida?
+    </textarea>
+
+    <div class="control-group">
+        <label>Imagen de Fondo</label>
+        <input type="file" id="imgInput" class="btn btn-file" accept="image/*">
+        <label>Opacidad Imagen: <span id="opVal">20%</span></label>
+        <input type="range" id="opRange" min="0" max="100" value="20" oninput="update()">
+    </div>
+
+    <button class="btn btn-main" onclick="exportPDF()">DESCARGAR CARRUSEL (PDF)</button>
+    <button class="btn btn-file" onclick="exportVideo()" id="videoBtn">GENERAR VIDEO (MP4)</button>
+    
+    <footer>
+        Autor: Maicel Monzón Pérez | Bioestadística Edu
+    </footer>
+</div>
+
+<div class="main-view">
+    <canvas id="canvas" width="1080" height="1080"></canvas>
+    <div class="word-counter" id="counter">Cargando...</div>
+    <div style="margin-top:20px">
+        <button class="btn btn-file" style="width:auto" onclick="changeSlide(-1)">Anterior</button>
+        <button class="btn btn-file" style="width:auto" onclick="changeSlide(1)">Siguiente</button>
+    </div>
+</div>
+
+<script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const editor = document.getElementById('editor');
+    const imgInput = document.getElementById('imgInput');
+    
+    let slides = [];
+    let currentSlide = 0;
+    let bgImg = null;
+
+    imgInput.onchange = (e) => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            bgImg = new Image();
+            bgImg.onload = update;
+            bgImg.src = event.target.result;
+        };
+        reader.readAsDataURL(e.target.files[0]);
+    };
+
+    function update() {
+        const text = editor.value;
+        slides = text.split('---').map(s => s.trim());
+        document.getElementById('opVal').innerText = document.getElementById('opRange').value + '%';
+        draw();
+    }
+
+    function draw() {
+        // Fondo Negro
+        ctx.fillStyle = "#000000";
+        ctx.fillRect(0, 0, 1080, 1080);
+
+        // Imagen de fondo con opacidad
+        if (bgImg) {
+            ctx.globalAlpha = document.getElementById('opRange').value / 100;
+            const scale = Math.max(canvas.width / bgImg.width, canvas.height / bgImg.height);
+            const x = (canvas.width / 2) - (bgImg.width / 2) * scale;
+            const y = (canvas.height / 2) - (bgImg.height / 2) * scale;
+            ctx.drawImage(bgImg, x, y, bgImg.width * scale, bgImg.height * scale);
+            ctx.globalAlpha = 1.0;
+        }
+
+        const content = slides[currentSlide] || "";
+        const words = content.split(/\s+/).filter(w => w.length > 0);
+        const wordCount = words.length;
+
+        // Validaciones de texto
+        let limit = (currentSlide === 0) ? 12 : 30;
+        let counterEl = document.getElementById('counter');
+        counterEl.innerHTML = `Slide ${currentSlide + 1} de ${slides.length} | Palabras: <span class="${wordCount > limit ? 'error-msg' : ''}">${wordCount} / ${limit}</span>`;
+
+        // Renderizado de Texto
+        ctx.fillStyle = "#FFFFFF";
+        ctx.textAlign = "center";
+        
+        if (currentSlide === 0) {
+            // Portada: Más grande y centrada
+            ctx.font = "bold 75px 'Inter', sans-serif";
+            wrapText(ctx, content.toUpperCase(), 540, 480, 900, 90);
+        } else {
+            // Contenido: Elegante y legible
+            ctx.font = "500 45px 'Inter', sans-serif";
+            wrapText(ctx, content, 540, 350, 850, 65);
+        }
+
+        // Firma minimalista
+        ctx.font = "bold 25px 'Inter', sans-serif";
+        ctx.fillStyle = "#555";
+        ctx.fillText("BIOESTADÍSTICA EDU | MAICEL MONZÓN", 540, 1020);
+    }
+
+    function wrapText(context, text, x, y, maxWidth, lineHeight) {
+        const lines = text.split('\n');
+        for (let i = 0; i < lines.length; i++) {
+            let words = lines[i].split(' ');
+            let line = '';
+            for (let n = 0; n < words.length; n++) {
+                let testLine = line + words[n] + ' ';
+                let metrics = context.measureText(testLine);
+                if (metrics.width > maxWidth && n > 0) {
+                    context.fillText(line, x, y);
+                    line = words[n] + ' ';
+                    y += lineHeight;
+                } else {
+                    line = testLine;
+                }
+            }
+            context.fillText(line, x, y);
+            y += lineHeight;
+        }
+    }
+
+    function changeSlide(dir) {
+        currentSlide = (currentSlide + dir + slides.length) % slides.length;
+        draw();
+    }
+
+    async function exportPDF() {
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF('p', 'px', [1080, 1080]);
+        for(let i=0; i<slides.length; i++) {
+            currentSlide = i;
+            draw();
+            const imgData = canvas.toDataURL('image/jpeg', 0.95);
+            if (i > 0) pdf.addPage([1080, 1080], 'p');
+            pdf.addImage(imgData, 'JPEG', 0, 0, 1080, 1080);
+        }
+        pdf.save("carrusel_maicel.pdf");
+        update();
+    }
+
+    async function exportVideo() {
+        const btn = document.getElementById('videoBtn');
+        btn.innerText = "PROCESANDO...";
+        const stream = canvas.captureStream(30);
+        const recorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
+        const chunks = [];
+        recorder.ondataavailable = e => chunks.push(e.data);
+        recorder.onstop = () => {
+            const blob = new Blob(chunks, { type: 'video/webm' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'video_linkedin.webm';
+            link.click();
+            btn.innerText = "GENERAR VIDEO (MP4)";
+        };
+        recorder.start();
+        for(let i=0; i<slides.length; i++) {
+            currentSlide = i;
+            draw();
+            await new Promise(r => setTimeout(r, 2500)); // 2.5s por slide
+        }
+        recorder.stop();
+    }
+
+    update();
+</script>
+</body>
+</html>
