@@ -934,8 +934,6 @@ Perfect calibration occurs when predicted probabilities match actual frequencies
 &lt;li>&lt;strong>Web/mobile applications&lt;/strong>: For integration into clinical workflows&lt;/li>
 &lt;/ul>
 &lt;p>A functional application to run the model on a web page, mobile phone, or tablet is a very good option to generalize the model.&lt;/p>
-&lt;p>In this link, I show you the web calculator I programmed in js, html, and css, for my thesis model.&lt;/p>
-&lt;p>&lt;a href="https://bioestadisticaedu.com/en/project/covidcencecapk/">see CovidCencecAPK&lt;/a>&lt;/p>
 &lt;h2 id="hi">My Recommendations and Position&lt;/h2>
 &lt;p>I recognize that &lt;strong>simple data partitioning (70/30)&lt;/strong> is a frequent standard and often the starting point in Machine Learning practice. However, if our goal is to strengthen the credibility and robustness of our findings, especially in the field of clinical models, this approach deserves a pause and serious reconsideration.&lt;/p>
 &lt;p>The criticism of this practice is neither new nor isolated. Influential authors in the field like Frank Harrell and Edmund Steyerberg have expressed their clear opposition, and other experts join this consensus. As Smedenen summarizes well in this &lt;strong>tweet:&lt;/strong>&lt;/p>
