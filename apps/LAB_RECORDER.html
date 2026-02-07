@@ -4,51 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Bio-Lab Dictation Pro - Maicel Monzón-Pérez</title>
-    
     <style>
-        :root { --primary: #6366f1; --edu: #ff9800; --bg: #0f172a; --card: #1e293b; --success: #10b981; --error: #ef4444; }
+        :root { --primary: #6366f1; --edu: #ff9800; --bg: #0f172a; --card: #1e293b; --error: #ef4444; --success: #10b981; }
         body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); margin: 0; padding: 15px; display: flex; justify-content: center; color: #f8fafc; }
-        
         .card { background: var(--card); max-width: 500px; width: 100%; padding: 25px; border-radius: 24px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3); border: 1px solid #334155; box-sizing: border-box; }
-        
         .brand { text-align: center; margin-bottom: 20px; }
         .brand h1 { margin: 0; font-size: 1.5rem; letter-spacing: -1px; color: var(--primary); }
         .brand .edu { color: var(--edu); font-weight: 800; }
         .brand p { margin: 5px 0 0; font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; }
 
-        .tech-badge { background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.2); border-radius: 12px; padding: 14px; margin-bottom: 20px; }
-        .tech-badge h2 { margin: 0; font-size: 0.7rem; color: var(--primary); text-transform: uppercase; }
-        .tech-badge p { margin: 4px 0 0; font-size: 0.8rem; color: #cbd5e1; line-height: 1.4; }
+        /* Badge Tecnológico */
+        .tech-badge { background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.2); border-radius: 12px; padding: 14px; margin-bottom: 20px; font-size: 0.8rem; line-height: 1.4; color: #cbd5e1; }
 
         /* Asistente de Micrófono */
-        .help-card { display: none; background: #2d2d30; border: 2px solid var(--edu); padding: 20px; border-radius: 16px; margin-bottom: 20px; animation: shake 0.5s; }
-        .help-card h3 { color: var(--edu); margin-top: 0; font-size: 1rem; }
-        .help-card ol { font-size: 0.8rem; padding-left: 20px; color: #cbd5e1; line-height: 1.5; }
-        .browser-icon { background: #444; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
+        .help-card { display: none; background: #2d2d30; border: 2px solid var(--edu); padding: 15px; border-radius: 16px; margin-bottom: 20px; font-size: 0.85rem; }
+        .help-card h3 { color: var(--edu); margin: 0 0 10px 0; font-size: 1rem; }
+        .browser-icon { background: #444; padding: 2px 5px; border-radius: 4px; font-weight: bold; }
 
+        /* Monitor de IA */
         .status-box { background: #000; padding: 12px; border-radius: 12px; margin-bottom: 15px; border: 1px solid #334155; }
         .status-header { display: flex; justify-content: space-between; font-size: 0.7rem; font-weight: bold; margin-bottom: 8px; }
         .progress-bar { width: 100%; height: 6px; background: #334155; border-radius: 10px; overflow: hidden; }
         #progress-fill { width: 0%; height: 100%; background: var(--primary); transition: width 0.3s; }
 
-        .vu-container { display: flex; gap: 3px; height: 25px; align-items: flex-end; justify-content: center; margin-bottom: 15px; background: rgba(0,0,0,0.2); border-radius: 8px; padding: 5px; }
-        .vu-bar { width: 5px; background: var(--primary); border-radius: 2px; height: 2px; transition: height 0.1s; }
+        /* Vúmetro Real */
+        .vu-container { display: flex; gap: 3px; height: 30px; align-items: flex-end; justify-content: center; margin-bottom: 15px; background: rgba(0,0,0,0.3); border-radius: 10px; padding: 5px; }
+        .vu-bar { width: 6px; background: var(--primary); border-radius: 2px; height: 3px; transition: height 0.1s; }
 
-        textarea { width: 100%; height: 180px; padding: 15px; border: 1px solid #334155; border-radius: 15px; box-sizing: border-box; resize: none; font-size: 1rem; background: #0f172a; color: #fff; line-height: 1.6; outline: none; margin-bottom: 15px; }
+        textarea { width: 100%; height: 200px; padding: 15px; border: 1px solid #334155; border-radius: 16px; font-size: 1rem; background: #0f172a; color: #fff; line-height: 1.6; outline: none; margin-bottom: 15px; box-sizing: border-box; }
         textarea:focus { border-color: var(--primary); }
 
-        .btn { width: 100%; padding: 16px; border: none; border-radius: 14px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .btn-rec { background: var(--primary); color: white; margin-bottom: 10px; }
-        .btn-rec:disabled { background: #334155; cursor: wait; }
+        .btn { width: 100%; padding: 18px; border: none; border-radius: 15px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 8px; color: white; }
+        .btn-rec { background: var(--primary); }
         .recording .btn-rec { background: var(--error); animation: pulse 1.5s infinite; }
+        .btn-rec:disabled { background: #334155; cursor: wait; }
         
-        .btn-group { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
-        .btn-sec { background: #334155; color: #cbd5e1; font-size: 0.7rem; padding: 12px; }
+        .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .btn-sec { background: #334155; color: #cbd5e1; font-size: 0.8rem; }
 
         @keyframes pulse { 0% { box-shadow: 0 0 0 0px rgba(239, 68, 68, 0.4); } 100% { box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); } }
-        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
-
-        footer { text-align: center; margin-top: 25px; font-size: 0.65rem; color: #64748b; border-top: 1px solid #334155; padding-top: 15px; line-height: 1.5; }
+        footer { text-align: center; margin-top: 25px; font-size: 0.65rem; color: #64748b; border-top: 1px solid #334155; padding-top: 15px; }
     </style>
 </head>
 <body>
@@ -60,29 +55,16 @@
     </div>
 
     <div class="tech-badge">
-        <h2>Inteligencia Lingüística Local</h2>
-        <p>Dictado neural vía <strong>OpenAI Whisper Tiny</strong>. Procesamiento Transformer 100% privado en este dispositivo.</p>
+        <strong>IA Autónoma:</strong> Whisper Neural Network (Tiny).<br>
+        Procesamiento Transformer ejecutado 100% en local.
     </div>
 
-    <!-- Asistente de Recuperación de Micrófono -->
-    <div id="help-assistant" class="help-card">
-        <h3>🛠️ Activar Micrófono</h3>
-        <p style="font-size:0.8rem">El acceso ha sido denegado. Sigue estos pasos:</p>
-        <div id="instr-chrome" style="display:none">
-            <ol>
-                <li>Toca el <strong>candado</strong> 🔒 o el icono <span class="browser-icon">⊘</span> junto a la URL.</li>
-                <li>Entra en <strong>Permisos</strong> o <strong>Configuración del sitio</strong>.</li>
-                <li>Cambia Micrófono a <strong style="color:var(--success)">Permitir</strong>.</li>
-            </ol>
-        </div>
-        <div id="instr-safari" style="display:none">
-            <ol>
-                <li>Toca el icono <span class="browser-icon">AA</span> en la barra de direcciones.</li>
-                <li>Toca <strong>Configuración del sitio web</strong>.</li>
-                <li>Cambia Micrófono a <strong style="color:var(--success)">Permitir</strong>.</li>
-            </ol>
-        </div>
-        <button onclick="location.reload()" class="btn btn-rec" style="font-size:0.8rem; padding:10px">RECARGAR PÁGINA</button>
+    <!-- Ayuda de Micrófono -->
+    <div id="help-card" class="help-card">
+        <h3>🎙️ Acceso Denegado</h3>
+        <div id="instr-chrome" style="display:none">Toca el 🔒 al lado de la URL y activa el <b>Micrófono</b>.</div>
+        <div id="instr-safari" style="display:none">Toca <span class="browser-icon">AA</span> y entra en <b>Configuración del sitio</b> para permitir el micro.</div>
+        <button onclick="location.reload()" class="btn btn-sec" style="margin-top:10px">REINTENTAR RECARGANDO</button>
     </div>
 
     <div class="status-box">
@@ -95,20 +77,18 @@
 
     <div class="vu-container" id="vu-meter"></div>
 
-    <textarea id="output" placeholder="Las notas dictadas aparecerán aquí tras procesar cada bloque..."></textarea>
+    <textarea id="output" placeholder="Dicta tus observaciones aquí..."></textarea>
 
-    <button id="rec-btn" class="btn btn-rec" disabled>ESPERANDO MOTOR...</button>
+    <button id="rec-btn" class="btn btn-rec" disabled>CARGANDO MODELO...</button>
     
-    <div class="btn-group">
-        <button id="copy-btn" class="btn btn-sec">COPIAR</button>
-        <button id="export-btn" class="btn btn-sec">EXPORTAR</button>
-        <button id="clear-btn" class="btn btn-sec" style="color:#fca5a5">LIMPIAR</button>
+    <div class="btn-group" style="margin-top:10px">
+        <button id="copy-btn" class="btn btn-sec">📋 COPIAR</button>
+        <button id="export-btn" class="btn btn-sec">💾 TXT</button>
     </div>
 
     <footer>
-        PROTOCOLO DE CAPTURA DE CAMPO OFFLINE<br>
-        Desarrollado por: <strong>Maicel Monzón-Pérez</strong><br>
-        © 2024 - Ingeniería de IA Web Local
+        PROTOCOLOS DE CAPTURA NEURAL OFFLINE<br>
+        Desarrollado por: <strong>Maicel Monzón-Pérez</strong>
     </footer>
 </div>
 
@@ -121,7 +101,7 @@
     const recBtn = document.getElementById('rec-btn');
     const output = document.getElementById('output');
     const vuContainer = document.getElementById('vu-meter');
-    const helpAssistant = document.getElementById('help-assistant');
+    const helpCard = document.getElementById('help-card');
 
     let transcriber;
     let isRecording = false;
@@ -129,8 +109,8 @@
     let stream;
     let audioChunks = [];
 
-    // Crear vúmetro dinámico
-    for(let i=0; i<20; i++) {
+    // Generar Vúmetro
+    for(let i=0; i<15; i++) {
         const bar = document.createElement('div');
         bar.className = 'vu-bar';
         vuContainer.appendChild(bar);
@@ -141,7 +121,6 @@
         try {
             if (window.location.protocol === 'http:' && window.location.hostname !== 'localhost') {
                 statusTxt.innerText = "❌ REQUIERE HTTPS";
-                alert("Esta herramienta requiere una conexión segura (HTTPS) para activar el micrófono.");
                 return;
             }
 
@@ -154,7 +133,7 @@
                         statusTxt.innerText = 'Descargando IA...';
                     }
                     if (data.status === 'ready') {
-                        statusTxt.innerText = '✓ Motor Offline Listo';
+                        statusTxt.innerText = '✓ Motor Neural Preparado';
                         percentTxt.innerText = '100%';
                         recBtn.disabled = false;
                         recBtn.innerText = 'INICIAR DICTADO';
@@ -162,7 +141,7 @@
                 }
             });
         } catch (e) {
-            statusTxt.innerText = "Error cargando motor neural.";
+            statusTxt.innerText = "Error cargando motor.";
         }
     }
 
@@ -171,20 +150,17 @@
     async function toggleRecording() {
         if (!isRecording) {
             try {
-                // Prueba de micrófono preventiva
-                const checkStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                checkStream.getTracks().forEach(t => t.stop());
-
-                // Iniciar AudioContext (Debe ser tras clic de usuario)
+                // Forzar despertar AudioContext por interacción humana
                 if (!audioContext) {
                     audioContext = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 16000 });
                 }
                 if (audioContext.state === 'suspended') await audioContext.resume();
 
-                stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                stream = await navigator.mediaDevices.getUserMedia({ 
+                    audio: { echoCancellation: true, noiseSuppression: true } 
+                });
+
                 const source = audioContext.createMediaStreamSource(stream);
-                
-                // Analizador Vúmetro
                 const analyser = audioContext.createAnalyser();
                 analyser.fftSize = 64;
                 source.connect(analyser);
@@ -194,14 +170,13 @@
                     if(!isRecording) return;
                     analyser.getByteFrequencyData(dataArray);
                     vuBars.forEach((bar, i) => {
-                        const val = (dataArray[i] / 255) * 45;
+                        const val = (dataArray[i] / 255) * 40;
                         bar.style.height = Math.max(3, val) + "px";
                     });
                     requestAnimationFrame(updateVU);
                 };
                 updateVU();
 
-                // Procesador de bloques
                 const processor = audioContext.createScriptProcessor(4096, 1, 1);
                 source.connect(processor);
                 processor.connect(audioContext.destination);
@@ -209,17 +184,17 @@
                 processor.onaudioprocess = (e) => {
                     if (isRecording) {
                         audioChunks.push(new Float32Array(e.inputBuffer.getChannelData(0)));
-                        if (audioChunks.length > 35) processAudio(); // Bloques de ~8 seg
+                        if (audioChunks.length > 30) processAudio(); // Bloques de ~8 seg
                     }
                 };
 
                 isRecording = true;
                 document.body.classList.add('recording');
-                recBtn.innerText = "DETENER Y CERRAR";
-                helpAssistant.style.display = 'none';
+                recBtn.innerText = "DETENER Y PROCESAR";
+                helpCard.style.display = 'none';
 
             } catch (err) {
-                showPermissionAssistant();
+                showHelp();
             }
         } else {
             stopRecording();
@@ -231,17 +206,17 @@
         const fullBuffer = concatBuffers(audioChunks);
         audioChunks = [];
         
-        statusTxt.innerText = "⚡ Procesando Voz...";
+        statusTxt.innerText = "⚡ Transcribiendo...";
         const result = await transcriber(fullBuffer, { language: 'spanish', task: 'transcribe' });
 
         if (result.text.trim()) {
-            let text = result.text.trim();
-            text = text.charAt(0).toUpperCase() + text.slice(1);
-            text = text.replace(/\bpunto\b/gi, ".").replace(/\bcoma\b/gi, ",").replace(/\bnueva línea\b/gi, "\n");
-            output.value += (output.value ? ' ' : '') + text;
+            let t = result.text.trim();
+            t = t.charAt(0).toUpperCase() + t.slice(1);
+            t = t.replace(/\bpunto\b/gi, ".").replace(/\bcoma\b/gi, ",").replace(/\bnueva línea\b/gi, "\n");
+            output.value += (output.value ? ' ' : '') + t;
             output.scrollTop = output.scrollHeight;
         }
-        statusTxt.innerText = "✓ Motor Offline Listo";
+        statusTxt.innerText = "✓ Motor Neural Preparado";
     }
 
     function stopRecording() {
@@ -250,11 +225,11 @@
         recBtn.innerText = "INICIAR DICTADO";
         processAudio();
         if (stream) stream.getTracks().forEach(t => t.stop());
-        vuBars.forEach(b => b.style.height = "2px");
+        vuBars.forEach(b => b.style.height = "3px");
     }
 
-    function showPermissionAssistant() {
-        helpAssistant.style.display = 'block';
+    function showHelp() {
+        helpCard.style.display = 'block';
         const ua = navigator.userAgent.toLowerCase();
         if (ua.includes('safari') && !ua.includes('chrome')) {
             document.getElementById('instr-safari').style.display = 'block';
@@ -278,21 +253,15 @@
 
     document.getElementById('copy-btn').onclick = () => {
         navigator.clipboard.writeText(output.value);
-        const b = document.getElementById('copy-btn');
-        b.innerText = "COPIADO";
-        setTimeout(() => b.innerText = "COPIAR", 2000);
+        alert("Copiado al portapapeles");
     };
 
     document.getElementById('export-btn').onclick = () => {
         const blob = new Blob([output.value], {type: 'text/plain'});
         const a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = `Notas_BioEdu_${Date.now()}.txt`;
+        a.download = `Notas_Lab_${Date.now()}.txt`;
         a.click();
-    };
-
-    document.getElementById('clear-btn').onclick = () => {
-        if(confirm("¿Limpiar notas actuales?")) output.value = "";
     };
 </script>
 </body>
