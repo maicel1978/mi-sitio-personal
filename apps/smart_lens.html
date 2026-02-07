@@ -2,155 +2,220 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Lens OCR - Bioestadística Edu</title>
-    <!-- Cargamos el motor de OCR Tesseract.js desde CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Vision Engine OCR - BioestadísticaEdu</title>
+    <!-- Tesseract v5: Motor Neural de alto rendimiento -->
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    
     <style>
-        :root { --primary: #ffffff; --bg: #000000; --accent: #0a66c2; --gray: #1a1a1a; --text-muted: #888; }
-        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--primary); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        :root { --primary: #6366f1; --edu: #ff9800; --bg: #0b0f1a; --card: #161e2e; --accent: #10b981; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: #f1f5f9; margin: 0; padding: 15px; display: flex; justify-content: center; line-height: 1.5; }
         
-        .container { max-width: 600px; width: 100%; display: flex; flex-direction: column; gap: 20px; }
-        header { text-align: center; padding: 20px 0; }
-        h1 { font-size: 1.4rem; letter-spacing: -1px; margin: 0; }
-        p.tagline { color: var(--text-muted); font-size: 0.85rem; margin-top: 5px; }
-
-        /* Zona de captura */
-        .capture-area { background: var(--gray); border: 2px dashed #333; border-radius: 16px; padding: 40px 20px; text-align: center; cursor: pointer; transition: 0.3s; position: relative; overflow: hidden; }
-        .capture-area:hover { border-color: var(--accent); }
-        #preview { width: 100%; border-radius: 12px; display: none; margin-top: 15px; }
-
-        /* Controles */
-        .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .btn { padding: 15px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .btn-camera { background: var(--accent); color: white; }
-        .btn-upload { background: #333; color: white; }
-        .btn-copy { background: #fff; color: #000; width: 100%; margin-top: 10px; }
-        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
-        /* Resultado */
-        .result-box { background: var(--gray); padding: 20px; border-radius: 16px; border: 1px solid #333; min-height: 150px; position: relative; }
-        #output { white-space: pre-wrap; font-size: 0.95rem; line-height: 1.6; color: #ddd; outline: none; }
+        .card { background: var(--card); max-width: 500px; width: 100%; padding: 25px; border-radius: 28px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); border: 1px solid #1e293b; box-sizing: border-box; }
         
-        /* Loading */
-        .loader { display: none; text-align: center; padding: 20px; }
-        .spinner { width: 30px; height: 30px; border: 3px solid #333; border-top-color: var(--accent); border-radius: 50%; animation: spin 1s infinite linear; margin: 0 auto 10px; }
-        @keyframes spin { to { transform: rotate(360deg); } }
+        .brand { text-align: center; margin-bottom: 20px; }
+        .brand h1 { margin: 0; font-size: 1.6rem; letter-spacing: -1px; color: var(--primary); }
+        .brand .edu { color: var(--edu); font-weight: 800; }
+        .brand p { margin: 5px 0 0; font-size: 0.7rem; color: #64748b; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; }
 
-        footer { margin-top: auto; padding: 40px 0; text-align: center; font-size: 0.75rem; color: #444; }
+        /* Badge Tecnológico de Prestigio */
+        .tech-badge { background: rgba(99, 102, 241, 0.05); border: 1px solid rgba(99, 102, 241, 0.2); border-radius: 16px; padding: 15px; margin-bottom: 20px; }
+        .tech-badge h2 { margin: 0; font-size: 0.7rem; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; }
+        .tech-badge p { margin: 6px 0 0; font-size: 0.8rem; color: #94a3b8; line-height: 1.4; }
+
+        /* Zona de Captura Minimalista */
+        .capture-zone { border: 2px dashed #334155; border-radius: 20px; padding: 35px 20px; text-align: center; cursor: pointer; transition: 0.3s; background: rgba(0,0,0,0.2); position: relative; }
+        .capture-zone:hover { border-color: var(--primary); background: rgba(99, 102, 241, 0.05); }
+        #preview { width: 100%; border-radius: 14px; display: none; margin-top: 15px; border: 1px solid #334155; box-shadow: 0 10px 15px rgba(0,0,0,0.3); }
+
+        /* Monitor de Procesamiento Neural */
+        .status-box { background: #000; padding: 12px; border-radius: 12px; margin: 15px 0; display: none; }
+        .status-header { display: flex; justify-content: space-between; font-size: 0.65rem; font-weight: bold; text-transform: uppercase; color: var(--accent); }
+        .progress-bar { width: 100%; height: 4px; background: #1e293b; border-radius: 10px; overflow: hidden; margin-top: 8px; }
+        #progress-fill { width: 0%; height: 100%; background: var(--accent); transition: width 0.2s; }
+
+        textarea { width: 100%; height: 180px; padding: 15px; border: 1px solid #334155; border-radius: 16px; background: #0b0f1a; color: #e2e8f0; font-size: 0.95rem; resize: none; outline: none; box-sizing: border-box; margin-top: 10px; border-left: 4px solid var(--primary); }
+
+        /* Botonera */
+        .btn { width: 100%; padding: 16px; border: none; border-radius: 14px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 8px; color: white; margin-top: 10px; }
+        .btn-copy { background: var(--primary); }
+        .btn-group { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+        .btn-sec { background: #1e293b; color: #94a3b8; font-size: 0.75rem; border: 1px solid #334155; }
+        .btn-sec:hover { background: #334155; color: #fff; }
+
+        footer { text-align: center; margin-top: 25px; font-size: 0.65rem; color: #475569; border-top: 1px solid #1e293b; padding-top: 15px; }
+        .author { color: #94a3b8; font-weight: 700; }
+        
+        #hiddenCanvas { display: none; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <h1>Smart Lens <span style="color:var(--accent)">OCR</span></h1>
-        <p class="tagline">Convierte fotos de presentaciones en texto editable</p>
-    </header>
+<div class="card">
+    <div class="brand">
+        <h1>Vision Lens <span class="edu">OCR</span></h1>
+        <p>Bioestadística<span class="edu">Edu</span></p>
+    </div>
 
-    <div class="capture-area" id="dropZone" onclick="document.getElementById('fileInput').click()">
-        <div id="prompt">
-            <span style="font-size: 2rem;">📷</span><br>
-            Haz clic para subir o tomar foto
+    <div class="tech-badge">
+        <h2>Arquitectura Neural de Reconocimiento</h2>
+        <p>Optimización de tensores visuales mediante <strong>Redes Neuronales LSTM</strong>. Diseñado para captura de alta fidelidad en proyectores y documentos técnicos.</p>
+    </div>
+
+    <div class="status-box" id="statusBox">
+        <div class="status-header">
+            <span id="status-txt">Iniciando Inferencia...</span>
+            <span id="percent-txt">0%</span>
         </div>
-        <img id="preview" src="" alt="Vista previa">
+        <div class="progress-bar"><div id="progress-fill"></div></div>
+    </div>
+
+    <div class="capture-zone" id="drop-zone" onclick="document.getElementById('fileInput').click()">
+        <div id="prompt">
+            <span style="font-size: 1.8rem; opacity: 0.8;">📷</span><br>
+            <span style="font-size: 0.8rem; color: #94a3b8;">Capturar Diapositiva o Documento</span>
+        </div>
+        <canvas id="hiddenCanvas"></canvas>
+        <img id="preview">
         <input type="file" id="fileInput" accept="image/*" capture="environment" style="display:none">
     </div>
 
-    <div class="loader" id="loader">
-        <div class="spinner"></div>
-        <div id="progress">Iniciando motor de lectura...</div>
+    <textarea id="output" placeholder="El texto extraído mediante visión artificial aparecerá aquí..."></textarea>
+
+    <button id="copyBtn" class="btn btn-copy" disabled>📋 COPIAR NOTA AL PORTAPAPELES</button>
+    
+    <div class="btn-group">
+        <button id="saveBtn" class="btn btn-sec">💾 GUARDAR .TXT</button>
+        <button id="refreshBtn" class="btn btn-sec">🔄 REINICIAR</button>
+        <button onclick="location.reload()" class="btn btn-sec">🧹 LIMPIAR</button>
     </div>
 
-    <div class="result-box" id="resultBox">
-        <div id="output" contenteditable="true">El texto reconocido aparecerá aquí...</div>
-        <button class="btn btn-copy" id="copyBtn" style="display: none;" onclick="copyText()">Copiar Texto al Portapapeles</button>
-    </div>
+    <footer>
+        EXTRACCIÓN ÓPTICA DE DATOS - PROTOCOLO V5<br>
+        Desarrollado por: <span class="author">Maicel Monzón-Pérez</span>
+    </footer>
 </div>
-
-<footer>
-    Autor: <strong>Maicel Monzón Pérez</strong><br>
-    Privacidad: El procesamiento ocurre en tu dispositivo. Ninguna imagen se envía al servidor.
-</footer>
 
 <script>
     const fileInput = document.getElementById('fileInput');
-    const preview = document.getElementById('preview');
-    const prompt = document.getElementById('prompt');
     const output = document.getElementById('output');
-    const loader = document.getElementById('loader');
-    const progress = document.getElementById('progress');
+    const statusBox = document.getElementById('statusBox');
+    const progressFill = document.getElementById('progress-fill');
+    const percentTxt = document.getElementById('percent-txt');
+    const statusTxt = document.getElementById('status-txt');
+    const preview = document.getElementById('preview');
     const copyBtn = document.getElementById('copyBtn');
+    const canvas = document.getElementById('hiddenCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let worker = null;
+
+    // Inicialización asíncrona del motor Tesseract Neural
+    async function initWorker() {
+        if (worker) return worker;
+        
+        statusBox.style.display = 'block';
+        statusTxt.innerText = "Preparando Redes LSTM...";
+        
+        // Inicializamos cargando español e inglés para términos técnicos
+        worker = await Tesseract.createWorker('spa+eng', 1, {
+            logger: m => {
+                if (m.status === 'recognizing text') {
+                    const p = Math.round(m.progress * 100);
+                    progressFill.style.width = p + '%';
+                    percentTxt.innerText = p + '%';
+                    statusTxt.innerText = "Analizando Glifos...";
+                }
+            }
+        });
+        return worker;
+    }
 
     fileInput.onchange = (e) => {
         const file = e.target.files[0];
         if (!file) return;
 
-        // Mostrar vista previa
         const reader = new FileReader();
         reader.onload = (event) => {
+            const img = new Image();
+            img.onload = () => {
+                // Pre-procesamiento visual: El secreto para diapositivas
+                preprocessImage(img);
+                runOCR();
+            };
+            img.src = event.target.result;
             preview.src = event.target.result;
             preview.style.display = 'block';
-            prompt.style.display = 'none';
-            recognizeText(event.target.result);
+            document.getElementById('prompt').style.display = 'none';
         };
         reader.readAsDataURL(file);
     };
 
-    async function recognizeText(image) {
-        loader.style.display = 'block';
-        output.innerText = "";
-        copyBtn.style.display = 'none';
+    function preprocessImage(img) {
+        // Normalización de escala para prevenir colapso de RAM en móviles
+        const maxWidth = 1200;
+        const scale = Math.min(1, maxWidth / img.width);
+        canvas.width = img.width * scale;
+        canvas.height = img.height * scale;
+        
+        // Filtros de realce: Escala de grises + Mejora de contraste para proyectores
+        ctx.filter = 'grayscale(1) contrast(1.3) brightness(1.05)';
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    }
 
+    async function runOCR() {
+        output.value = "Ejecutando algoritmos de visión artificial...";
+        copyBtn.disabled = true;
+        
         try {
-            // Inicializar Tesseract
-            const worker = await Tesseract.createWorker({
-                logger: m => {
-                    if(m.status === 'recognizing text') {
-                        progress.innerText = `Leyendo: ${Math.round(m.progress * 100)}%`;
-                    }
-                }
-            });
-
-            await worker.loadLanguage('spa+eng'); // Español e Inglés
-            await worker.initialize('spa+eng');
+            const w = await initWorker();
+            // Obtenemos la imagen optimizada del canvas
+            const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.85));
+            const { data: { text } } = await w.recognize(blob);
             
-            const { data: { text } } = await worker.recognize(image);
-            
-            if (text.trim().length === 0) {
-                output.innerText = "No se detectó texto. Asegúrate de que la imagen sea nítida y tenga buen contraste.";
+            if (!text.trim()) {
+                output.value = "La IA no pudo aislar caracteres legibles. Verifique el enfoque y el contraste.";
             } else {
-                output.innerText = text;
-                copyBtn.style.display = 'block';
+                output.value = text;
+                copyBtn.disabled = false;
             }
-
-            await worker.terminate();
-        } catch (error) {
-            console.error(error);
-            output.innerText = "Error al procesar la imagen.";
+        } catch (err) {
+            output.value = "Error crítico en la unidad neural.";
+            console.error(err);
         } finally {
-            loader.style.display = 'none';
+            statusBox.style.display = 'none';
         }
     }
 
-    function copyText() {
-        const text = output.innerText;
-        navigator.clipboard.writeText(text).then(() => {
-            const originalText = copyBtn.innerText;
-            copyBtn.innerText = "¡Copiado!";
-            copyBtn.style.background = "#22c55e";
-            setTimeout(() => {
-                copyBtn.innerText = originalText;
-                copyBtn.style.background = "#fff";
-            }, 2000);
-        });
-    }
+    // --- ACCIONES DE USUARIO ---
 
-    // Soporte para Drag & Drop
-    const dropZone = document.getElementById('dropZone');
-    dropZone.ondragover = (e) => { e.preventDefault(); dropZone.style.borderColor = "#0a66c2"; };
-    dropZone.ondragleave = () => { dropZone.style.borderColor = "#333"; };
-    dropZone.ondrop = (e) => {
+    document.getElementById('copyBtn').onclick = () => {
+        navigator.clipboard.writeText(output.value);
+        copyBtn.innerText = "✅ NOTA COPIADA";
+        setTimeout(() => copyBtn.innerText = "📋 COPIAR NOTA AL PORTAPAPELES", 2000);
+    };
+
+    document.getElementById('saveBtn').onclick = () => {
+        if (!output.value) return;
+        const blob = new Blob([output.value], { type: 'text/plain' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `OCR_BioEdu_${Date.now()}.txt`;
+        a.click();
+    };
+
+    document.getElementById('refreshBtn').onclick = () => {
+        output.value = "";
+        preview.style.display = 'none';
+        document.getElementById('prompt').style.display = 'block';
+        fileInput.value = "";
+    };
+
+    // Soporte para Arrastrar archivos (PC)
+    const dz = document.getElementById('drop-zone');
+    dz.ondragover = (e) => { e.preventDefault(); dz.style.borderColor = "#6366f1"; };
+    dz.ondragleave = () => { dz.style.borderColor = "#334155"; };
+    dz.ondrop = (e) => {
         e.preventDefault();
         fileInput.files = e.dataTransfer.files;
         fileInput.dispatchEvent(new Event('change'));
