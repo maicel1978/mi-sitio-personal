@@ -1,7 +1,7 @@
 ---
 # Título enfocado en arquitectura de datos y reconocimiento de voz
-title: "Audio Data Architect: Sistema de deconversión Speech-to-Text para Protocolos y Entrevistas Clínicas"
-date: "2025-12-25" # Progresión: 2025-12-27 -> 2025-12-25
+title: "Conversor de Voz a Texto (NLP)"
+date: "2026-02-07" # Progresión: 2025-12-27 -> 2025-12-25
 # Estructura de agrupación solicitada por Maicel Monzón
 categories: ["proyectos"]
 tags:
@@ -11,7 +11,7 @@ tags:
   - "Procesamiento de Voz"
   - "Digitalización Científica"
 # Sumario optimizado para Google Index (Enfoque en precisión y flujo de trabajo)
-summary: "Protocolo de transcripción avanzada desarrollado por Maicel Monzón. Utiliza redes neuronales para la conversión precisa de grabaciones de audio en texto, facilitando la documentación de hallazgos y el análisis de evidencia científica."
+summary: "Utiliza Redes Neuronales Transformer (Whisper ASR) para transcripción de voz a texto."
 # Configuración técnica y URL relativa preservada
 slug: "transcriptor-audio-inteligencia-artificial-neuronal"
 external_link: "/apps/trascriptor.html"

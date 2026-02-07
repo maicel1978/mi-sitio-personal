@@ -1,0 +1,15 @@
+{
+  "name": "Texto a Voz - BioEdu",
+  "short_name": "BioVoz",
+  "start_url": "audio_voice_mimic.html",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#007bff",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3039/3039395.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

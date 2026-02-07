@@ -1,19 +1,18 @@
 ---
 # Título con terminología de vanguardia
-title: "Voice Mimic: Análisis de Huella Sonora y Síntesis de Perfil Bioacústico en Tiempo Real"
+title: "Conversor de Texto a Voz (tecnología PWA)"
 # Sumario optimizado para Google Index con autoría correcta
-summary: "Protocolo de Voice Mimic desarrollado por Maicel Monzón para la clonación y análisis de perfiles bioacústicos. Extracción de huella sonora y síntesis de voz mediante algoritmos de inteligencia lingüística."
+summary: "Implementa motores de audio basados en arquitecturas Transformer (NLP) para convertir texto en habla natural."
 slug: "voice-mimic-biometria-acustica-clonacion"
 date: "2026-02-05"
 # Estructura de agrupación solicitada por Maicel Monzón
 categories: ["proyectos"]
 tags:
   - "herramientas" # Tag agrupador principal
-  - "Bioacústica Forense"
   - "Inteligencia Lingüística"
   - "Procesamiento de Audio Digital"
   - "Biometría de Voz"
 # Configuración técnica preservada
-external_link: "/apps/audio_voice_mimic.html"
+external_link: "/apps/anti_transciptor.html"
 ---
 

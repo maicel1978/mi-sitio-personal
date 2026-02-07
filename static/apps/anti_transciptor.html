@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Texto a Voz (TTS) - BioestadísticaEdu</title>
+    
+    <!-- Estilos integrados en el archivo -->
+    <style>
+        :root { --primary: #2563eb; --edu: #ff9800; --bg: #f8fafc; --dark: #0f172a; }
+        body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); margin: 0; padding: 15px; display: flex; justify-content: center; color: var(--dark); }
+        
+        .card { background: white; max-width: 500px; width: 100%; padding: 25px; border-radius: 24px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; }
+        
+        .brand { text-align: center; margin-bottom: 20px; }
+        .brand h1 { margin: 0; font-size: 1.6rem; letter-spacing: -1px; color: var(--primary); }
+        .brand .edu { color: var(--edu); font-weight: 800; }
+        .brand p { margin: 5px 0 0; font-size: 0.7rem; color: #64748b; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; }
+
+        /* Badge Tecnológico WoW */
+        .tech-badge { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 12px; padding: 14px; margin-bottom: 20px; }
+        .tech-badge h2 { margin: 0; font-size: 0.75rem; color: #1e40af; text-transform: uppercase; letter-spacing: 0.5px; }
+        .tech-badge p { margin: 4px 0 0; font-size: 0.85rem; color: #1e3a8a; line-height: 1.4; }
+
+        .control-group { margin-bottom: 15px; }
+        label { display: block; font-size: 0.7rem; font-weight: bold; color: #64748b; margin-bottom: 5px; text-transform: uppercase; }
+        select, input[type="range"] { width: 100%; padding: 10px; border-radius: 10px; border: 1px solid #e2e8f0; background: #fcfcfc; font-size: 0.9rem; outline: none; }
+
+        textarea { width: 100%; height: 160px; padding: 15px; border: 1px solid #e2e8f0; border-radius: 12px; box-sizing: border-box; resize: none; font-size: 0.95rem; margin-bottom: 15px; background: #fcfcfc; line-height: 1.6; outline: none; transition: 0.3s; }
+        textarea:focus { border-color: var(--primary); background: #fff; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+
+        .btn { width: 100%; padding: 16px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-main { background: var(--primary); color: white; margin-bottom: 10px; box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2); }
+        .btn-main:active { transform: scale(0.98); }
+        
+        .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .btn-sec { background: #fff; color: #475569; border: 1px solid #d1d5db; font-size: 0.8rem; }
+        .btn-sec:hover { background: #f8fafc; }
+
+        footer { text-align: center; margin-top: 25px; font-size: 0.7rem; color: #94a3b8; border-top: 1px solid #f1f5f9; padding-top: 15px; line-height: 1.5; }
+        .author { color: #334155; font-weight: 700; }
+
+        #loading-msg { display: none; font-size: 0.75rem; color: var(--primary); text-align: center; margin-bottom: 10px; font-weight: bold; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div class="brand">
+        <h1>Texto a Voz</h1>
+        <p>Bioestadística<span class="edu">Edu</span></p>
+    </div>
+
+    <!-- Wow Effect: Explicación tecnológica -->
+    <div class="tech-badge">
+        <h2>Arquitectura de Síntesis Neural</h2>
+        <p>Conversión de texto mediante <strong>Procesamiento de Lenguaje Natural (NLP)</strong> y motores de síntesis con redes neuronales Transformer de alta fidelidad.</p>
+    </div>
+
+    <textarea id="input-text" placeholder="Escribe o pega el texto que deseas convertir en audio..."></textarea>
+
+    <div class="control-group">
+        <label>Selección de Voz Neural (Español)</label>
+        <select id="voice-select"></select>
+    </div>
+
+    <div class="control-group">
+        <label>Velocidad de Prosa</label>
+        <input type="range" id="rate-range" min="0.5" max="1.5" step="0.1" value="1">
+    </div>
+
+    <div id="loading-msg">GENERANDO FLUJO DE AUDIO MP3...</div>
+
+    <button id="play-btn" class="btn btn-main">▶ REPRODUCIR SÍNTESIS</button>
+    
+    <div class="btn-group">
+        <button id="copy-btn" class="btn btn-sec">📋 COPIAR TEXTO</button>
+        <button id="download-btn" class="btn btn-sec">📥 DESCARGAR MP3</button>
+    </div>
+
+    <footer>
+        ANTAGONISTA DEL PROTOCOLO "VOZ A TEXTO"<br>
+        Desarrollado por: <span class="author">Maicel Monzón-Pérez</span><br>
+        © 2024 - Sistema de Síntesis de Alta Fidelidad
+    </footer>
+</div>
+
+<script>
+    // Todo el JavaScript integrado para que sea un solo archivo
+    const synth = window.speechSynthesis;
+    const voiceSelect = document.getElementById('voice-select');
+    const inputText = document.getElementById('input-text');
+    const playBtn = document.getElementById('play-btn');
+    const rateRange = document.getElementById('rate-range');
+    const downloadBtn = document.getElementById('download-btn');
+    const loadingMsg = document.getElementById('loading-msg');
+
+    let voices = [];
+
+    // Carga de voces del sistema operativo (Google, Microsoft, Apple Neural)
+    function loadVoices() {
+        voices = synth.getVoices().filter(v => v.lang.startsWith('es'));
+        voiceSelect.innerHTML = '';
+        
+        voices.forEach(voice => {
+            const option = document.createElement('option');
+            // Identificar si la voz es de alta calidad (Neural)
+            const isNeural = voice.name.includes('Google') || voice.name.includes('Natural') || voice.name.includes('Neural');
+            option.textContent = `${voice.name} ${isNeural ? '(Neural/HD)' : '(Local)'}`;
+            option.value = voice.name;
+            if (isNeural) option.selected = true;
+            voiceSelect.appendChild(option);
+        });
+    }
+
+    // Chrome y Edge cargan voces de forma asíncrona
+    if (speechSynthesis.onvoiceschanged !== undefined) {
+        speechSynthesis.onvoiceschanged = loadVoices;
+    }
+    loadVoices();
+
+    // Lógica de Reproducción
+    playBtn.onclick = () => {
+        if (synth.speaking) { 
+            synth.cancel(); 
+            playBtn.innerText = "▶ REPRODUCIR SÍNTESIS";
+            return; 
+        }
+        
+        if (inputText.value.trim() === "") return;
+
+        const utterance = new SpeechSynthesisUtterance(inputText.value);
+        const selectedVoice = voices.find(v => v.name === voiceSelect.value);
+        utterance.voice = selectedVoice;
+        utterance.rate = rateRange.value;
+
+        utterance.onstart = () => playBtn.innerText = "■ DETENER REPRODUCCIÓN";
+        utterance.onend = () => playBtn.innerText = "▶ REPRODUCIR SÍNTESIS";
+
+        synth.speak(utterance);
+    };
+
+    // Funcionalidad de Copiar
+    document.getElementById('copy-btn').onclick = () => {
+        navigator.clipboard.writeText(inputText.value);
+        const btn = document.getElementById('copy-btn');
+        btn.innerText = "✅ COPIADO";
+        setTimeout(() => btn.innerText = "📋 COPIAR TEXTO", 2000);
+    };
+
+    // Funcionalidad de Descarga (Vía Google TTS API + Proxy)
+    downloadBtn.onclick = async () => {
+        const text = inputText.value.trim();
+        if (!text) return alert("Escribe un texto primero.");
+
+        loadingMsg.style.display = "block";
+        downloadBtn.disabled = true;
+
+        try {
+            // Utilizamos el motor de Google para generar el archivo descargable
+            const googleUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(text.substring(0, 200))}&tl=es&client=tw-ob`;
+            
+            // Proxy para evitar errores de CORS en el navegador
+            const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(googleUrl)}`;
+            
+            const response = await fetch(proxyUrl);
+            if (!response.ok) throw new Error();
+
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Voz_BioEdu_Neural_${Date.now()}.mp3`;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        } catch (err) {
+            alert("Aviso: El audio se abrirá en una nueva pestaña. Toca los tres puntos (⋮) para guardarlo como MP3.");
+            window.open(`https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(text.substring(0, 200))}&tl=es&client=tw-ob`, '_blank');
+        } finally {
+            loadingMsg.style.display = "none";
+            downloadBtn.disabled = false;
+        }
+    };
+</script>
+
+</body>
+</html>
