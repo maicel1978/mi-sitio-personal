@@ -1,6 +1,6 @@
 ---
-title: "BIO-LAB RECORDER: Sistema de Gestión de Dictado y Registro Automatizado"
-date: "2026-01-24" # Progresión: 2026-01-26 -> 2026-01-24
+title: "Bio-Lab Dictation (escribe mientras le dictas)"
+date: "2026-02-01" 
 # Estructura de agrupación solicitada por Maicel Monzón
 categories: ["proyectos"]
 tags:
@@ -9,7 +9,7 @@ tags:
   - "Procesamiento de Voz"
   - "Gestión de Datos"
 # Sumario optimizado para Google Index (Enfoque en operatividad de alta precisión)
-summary: "Protocolo de captura inteligente desarrollado por Maicel Monzón para la digitalización de notas  mediante dictado."
+summary: "Dictado neural basado en OpenAI Whisper (Transformers). Procesamiento 100% local para privacidad absoluta en laboratorio."
 # Configuración técnica y URL relativa preservada
 slug: "bio-lab-recorder-dictado-automatizado"
 external_link: "/apps/LAB_RECORDER.html"
