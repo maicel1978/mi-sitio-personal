@@ -1,6 +1,6 @@
 ---
 # Título enfocado en captura de conocimiento y movilidad
-title: "Cazador Inteligente de patallas o documentos (neuronales de memoria a corto plazo)"
+title: "Cazador Inteligente de patallas o documentos"
 date: "2026-02-07" # Progresión: 2026-01-02 -> 2025-12-31
 # Estructura de agrupación solicitada por Maicel Monzón
 categories: ["proyectos"]
