@@ -2,167 +2,223 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Voice Mimic AI - Bioestadística Edu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Voice Mimic Pro - Bioestadística</title>
     <style>
-        :root { --primary: #00ff88; --bg: #050505; --card: #111; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: white; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
-        .container { max-width: 500px; width: 100%; }
+        :root { --primary: #00ff88; --error: #ff4444; --bg: #0a0a0a; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); color: white; margin: 0; padding: 20px; display: flex; justify-content: center; }
+        .container { max-width: 450px; width: 100%; }
+        .voice-card { background: #1a1a1a; border-radius: 24px; padding: 25px; border: 1px solid #333; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
         
-        .voice-card { background: var(--card); border: 1px solid #222; border-radius: 20px; padding: 30px; text-align: center; box-shadow: 0 10px 30px rgba(0,255,136,0.1); }
-        .vudu-meter { height: 60px; display: flex; align-items: center; justify-content: center; gap: 3px; margin: 20px 0; }
-        .bar { width: 4px; height: 10px; background: var(--primary); border-radius: 2px; transition: 0.1s; }
+        /* Visualizador optimizado */
+        .vudu-meter { height: 80px; display: flex; align-items: flex-end; justify-content: center; gap: 4px; margin: 20px 0; background: #000; border-radius: 12px; padding: 10px; overflow: hidden; }
+        .bar { flex: 1; background: var(--primary); border-radius: 2px; min-height: 2px; transition: height 0.05s ease; }
 
-        .status { font-size: 0.8rem; color: #888; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
-        .btn { background: var(--primary); color: black; border: none; padding: 15px 30px; border-radius: 50px; font-weight: bold; cursor: pointer; width: 100%; transition: 0.3s; }
-        .btn:disabled { background: #222; color: #444; }
+        .btn { background: var(--primary); color: #000; border: none; padding: 16px; border-radius: 12px; font-weight: 800; cursor: pointer; width: 100%; font-size: 1rem; margin-bottom: 10px; -webkit-tap-highlight-color: transparent; }
+        .btn:disabled { background: #333; color: #666; cursor: not-allowed; }
         
-        #results { margin-top: 20px; display: none; background: #000; padding: 15px; border-radius: 12px; font-size: 0.85rem; border: 1px solid #333; }
-        textarea { width: 100%; background: #000; border: 1px solid #333; color: white; padding: 15px; border-radius: 12px; margin-top: 20px; box-sizing: border-box; font-family: inherit; }
+        #results { background: #000; padding: 15px; border-radius: 12px; margin: 15px 0; display: none; border-left: 4px solid var(--primary); }
+        textarea { width: 100%; background: #222; border: 1px solid #444; color: white; padding: 12px; border-radius: 12px; box-sizing: border-box; font-size: 16px; margin-bottom: 10px; }
         
-        .pulse { animation: pulse-animation 1.5s infinite; }
-        @keyframes pulse-animation { 0% { box-shadow: 0 0 0 0px rgba(0, 255, 136, 0.4); } 100% { box-shadow: 0 0 0 20px rgba(0, 255, 136, 0); } }
+        .error-msg { color: var(--error); font-size: 0.8rem; margin-top: 10px; text-align: center; display: none; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <header style="text-align: center; margin-bottom: 30px;">
-        <h1 style="margin:0">Voice <span style="color:var(--primary)">Mimic</span></h1>
-        <p style="color:#666">Perfilado Bioacústico en tiempo real</p>
-    </header>
+    <div class="voice-card">
+        <h2 style="margin-top:0; color:var(--primary)">Voice Analyser AI</h2>
+        <div id="statusMsg" style="font-size: 0.9rem; color: #aaa;">Presiona para iniciar análisis</div>
 
-    <div class="voice-card" id="mainCard">
-        <div class="status" id="statusMsg">Paso 1: Analiza tu voz</div>
+        <div class="vudu-meter" id="meter"></div>
+
+        <button id="recordBtn" class="btn">INICIAR ESCUCHA</button>
         
-        <div class="vudu-meter" id="meter">
-            <!-- Barras generadas por JS -->
-        </div>
-
-        <button id="recordBtn" class="btn">GRABAR MUESTRA (5 SEG)</button>
-
         <div id="results">
-            <div style="display:flex; justify-content:space-between; margin-bottom:5px">
-                <span>Frecuencia Base:</span> <b id="freqVal">0 Hz</b>
-            </div>
-            <div style="display:flex; justify-content:space-between">
-                <span>Timbre Detectado:</span> <b id="typeVal">-</b>
-            </div>
+            <small>ANÁLISIS BIOACÚSTICO:</small>
+            <div>Frecuencia Dominante: <strong id="freqVal">0 Hz</strong></div>
+            <div>Perfil: <strong id="typeVal">-</strong></div>
         </div>
 
-        <textarea id="textToSpeak" placeholder="Escribe lo que quieres que tu clon diga..."></textarea>
-        <button id="speakBtn" class="btn" style="margin-top:10px; background:#fff" disabled>REPRODUCIR VOZ CLONADA</button>
+        <textarea id="textToSpeak" placeholder="Escribe un texto para clonar tu tono..."></textarea>
+        <button id="speakBtn" class="btn" style="background:#fff" disabled>REPRODUCIR CLON</button>
+        <div id="errorLog" class="error-msg"></div>
     </div>
-
-    <footer style="margin-top:40px; text-align:center; font-size:0.7rem; color:#444">
-        MODELO DE AJUSTE PARAMÉTRICO DE VOZ<br>
-        Desarrollado por: <strong>Maicel Monzón Pérez</strong>
-    </footer>
 </div>
 
 <script>
+    let audioCtx = null;
+    let analyser = null;
+    let microphone = null;
+    let isRecording = false;
+    let pitchSamples = [];
+
     const recordBtn = document.getElementById('recordBtn');
     const speakBtn = document.getElementById('speakBtn');
-    const meter = document.getElementById('meter');
-    const statusMsg = document.getElementById('statusMsg');
-    const freqVal = document.getElementById('freqVal');
-    const typeVal = document.getElementById('typeVal');
-    
-    let audioCtx;
-    let analyser;
-    let dataArray;
-    let frequencies = [];
-    let myVoiceProfile = { pitch: 1, rate: 1 };
+    const errorLog = document.getElementById('errorLog');
 
-    // Crear barras del visualizador
-    for(let i=0; i<20; i++) {
+    // Inicializar barras del visualizador
+    const meter = document.getElementById('meter');
+    for(let i=0; i<30; i++) {
         const bar = document.createElement('div');
         bar.className = 'bar';
         meter.appendChild(bar);
     }
+    const bars = document.querySelectorAll('.bar');
+
+    async function initAudio() {
+        try {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') await audioCtx.resume();
+            
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            microphone = audioCtx.createMediaStreamSource(stream);
+            analyser = audioCtx.createAnalyser();
+            analyser.fftSize = 2048;
+            microphone.connect(analyser);
+            return stream;
+        } catch (err) {
+            showError("Error: No se pudo acceder al micrófono.");
+            return null;
+        }
+    }
+
+    // Algoritmo de Autocorrelación para detectar Pitch real
+    function autoCorrelate(buffer, sampleRate) {
+        let SIZE = buffer.length;
+        let rms = 0;
+        for (let i=0; i<SIZE; i++) {
+            let val = buffer[i]/128 - 1;
+            rms += val*val;
+        }
+        if (Math.sqrt(rms/SIZE) < 0.01) return -1; // Silencio
+
+        let r1 = 0, r2 = SIZE - 1, thres = 0.2;
+        for (let i=0; i<SIZE/2; i++) if (Math.abs(buffer[i]-128)<128*thres) { r1=i; break; }
+        for (let i=1; i<SIZE/2; i++) if (Math.abs(buffer[SIZE-i]-128)<128*thres) { r2=SIZE-i; break; }
+
+        buffer = buffer.slice(r1, r2);
+        SIZE = buffer.length;
+
+        let c = new Array(SIZE).fill(0);
+        for (let i=0; i<SIZE; i++)
+            for (let j=0; j<SIZE-i; j++)
+                c[i] = c[i] + (buffer[j]-128)*(buffer[j+i]-128);
+
+        let d = 0; while (c[d]>c[d+1]) d++;
+        let maxval = -1, maxpos = -1;
+        for (let i=d; i<SIZE; i++) {
+            if (c[i] > maxval) { maxval = c[i]; maxpos = i; }
+        }
+        return sampleRate / maxpos;
+    }
 
     recordBtn.onclick = async () => {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        analyser = audioCtx.createAnalyser();
-        const source = audioCtx.createMediaStreamSource(stream);
-        source.connect(analyser);
-        analyser.fftSize = 2048;
-        dataArray = new Uint8Array(analyser.frequencyBinCount);
+        const stream = await initAudio();
+        if (!stream) return;
 
+        isRecording = true;
         recordBtn.disabled = true;
-        recordBtn.classList.add('pulse');
-        statusMsg.innerText = "Escuchando... Di algo largo.";
-        frequencies = [];
-
+        recordBtn.innerText = "ESCUCHANDO...";
+        pitchSamples = [];
+        
+        const dataArray = new Uint8Array(analyser.frequencyBinCount);
         const startTime = Date.now();
-        const analyze = () => {
+
+        const draw = () => {
+            if (!isRecording) return;
+            
             analyser.getByteFrequencyData(dataArray);
             
-            // Visualizador
-            const bars = document.querySelectorAll('.bar');
-            dataArray.slice(0, 20).forEach((val, i) => {
-                bars[i].style.height = (val / 2) + 'px';
-            });
-
-            // Detectar frecuencia dominante (Pitch)
-            let maxVal = 0;
-            let maxIndex = 0;
-            for(let i=0; i<dataArray.length; i++) {
-                if(dataArray[i] > maxVal) { maxVal = dataArray[i]; maxIndex = i; }
+            // Visualizador: Mapeo logarítmico para que se vea mejor
+            for(let i=0; i<bars.length; i++) {
+                let val = dataArray[i*2]; 
+                bars[i].style.height = (val / 2.5) + 'px';
             }
-            let freq = maxIndex * audioCtx.sampleRate / analyser.fftSize;
-            if(freq > 50 && freq < 500) frequencies.push(freq);
 
-            if(Date.now() - startTime < 5000) {
-                requestAnimationFrame(analyze);
+            // Detección de frecuencia
+            const buffer = new Uint8Array(analyser.fftSize);
+            analyser.getByteTimeDomainData(buffer);
+            const pitch = autoCorrelate(buffer, audioCtx.sampleRate);
+            
+            if (pitch > 50 && pitch < 500) {
+                pitchSamples.push(pitch);
+            }
+
+            if (Date.now() - startTime < 4000) {
+                requestAnimationFrame(draw);
             } else {
-                finishAnalysis(stream);
+                stopRecording(stream);
             }
         };
-        analyze();
+        draw();
     };
 
-    function finishAnalysis(stream) {
+    function stopRecording(stream) {
+        isRecording = false;
         stream.getTracks().forEach(t => t.stop());
-        recordBtn.classList.remove('pulse');
-        recordBtn.innerText = "ANÁLISIS COMPLETADO";
-        document.getElementById('results').style.display = 'block';
+        recordBtn.disabled = false;
+        recordBtn.innerText = "RE-ANALIZAR VOZ";
         
-        const avgFreq = frequencies.reduce((a,b) => a+b, 0) / frequencies.length;
-        freqVal.innerText = Math.round(avgFreq) + " Hz";
-        
-        // Lógica de Bioestadística: Mapeo de frecuencia a parámetros de TTS
-        // Frecuencia promedio humana: Masculina 85-155Hz, Femenina 165-255Hz
-        if(avgFreq < 160) {
-            typeVal.innerText = "Barítono / Tenor";
-            myVoiceProfile.pitch = 0.8; // Más grave
+        if (pitchSamples.length > 0) {
+            const avgPitch = pitchSamples.reduce((a,b) => a+b, 0) / pitchSamples.length;
+            displayResults(avgPitch);
         } else {
-            typeVal.innerText = "Soprano / Contralto";
-            myVoiceProfile.pitch = 1.4; // Más agudo
+            showError("No se detectó voz clara. Intenta de nuevo.");
+        }
+    }
+
+    function displayResults(pitch) {
+        document.getElementById('results').style.display = 'block';
+        document.getElementById('freqVal').innerText = Math.round(pitch) + " Hz";
+        
+        let type = "Voz Media";
+        let pitchAdjust = 1.0;
+
+        if (pitch < 140) {
+            type = "Masculina (Grave)";
+            pitchAdjust = 0.8;
+        } else if (pitch > 180) {
+            type = "Femenina (Aguda)";
+            pitchAdjust = 1.3;
         }
 
-        myVoiceProfile.rate = 0.9; // Ajuste de velocidad estándar
-        
-        statusMsg.innerText = "Perfil Creado con éxito";
+        document.getElementById('typeVal').innerText = type;
+        window.voicePitch = pitchAdjust;
         speakBtn.disabled = false;
+    }
+
+    function showError(txt) {
+        errorLog.innerText = txt;
+        errorLog.style.display = 'block';
+        setTimeout(() => { errorLog.style.display = 'none'; }, 4000);
     }
 
     speakBtn.onclick = () => {
         const text = document.getElementById('textToSpeak').value;
-        if(!text) return alert("Escribe algo primero");
+        if (!text) return showError("Escribe algo para hablar");
 
-        const msg = new SpeechSynthesisUtterance();
-        msg.text = text;
+        // Cancelar cualquier habla previa (crucial para móviles)
+        window.speechSynthesis.cancel();
+
+        const msg = new SpeechSynthesisUtterance(text);
         msg.lang = 'es-ES';
-        
-        // Aplicamos el "clon"
-        msg.pitch = myVoiceProfile.pitch;
-        msg.rate = myVoiceProfile.rate;
+        msg.pitch = window.voicePitch || 1;
+        msg.rate = 0.95;
+
+        // Intentar seleccionar una voz local (mejora calidad)
+        const voices = window.speechSynthesis.getVoices();
+        if (voices.length > 0) {
+            msg.voice = voices.find(v => v.lang.includes('es')) || voices[0];
+        }
 
         window.speechSynthesis.speak(msg);
     };
-</script>
 
+    // Pre-cargar voces para móviles
+    window.speechSynthesis.getVoices();
+</script>
 </body>
 </html>
