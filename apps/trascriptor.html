@@ -2,264 +2,200 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transcriptor AI - Maicel Monzon Perez</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Voz a Texto (ASR) - BioestadísticaEdu</title>
+    
     <style>
-        :root {
-            --primary: #2563eb;
-            --primary-hover: #1d4ed8;
-            --bg: #ffffff;
-            --text: #1f2937;
-            --text-light: #6b7280;
-            --gray-bg: #f9fafb;
-            --border: #e5e7eb;
-        }
+        :root { --primary: #10b981; --edu: #ff9800; --bg: #f8fafc; --dark: #0f172a; }
+        body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); margin: 0; padding: 15px; display: flex; justify-content: center; color: var(--dark); }
+        
+        .card { background: white; max-width: 500px; width: 100%; padding: 25px; border-radius: 24px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; }
+        
+        .brand { text-align: center; margin-bottom: 20px; }
+        .brand h1 { margin: 0; font-size: 1.6rem; letter-spacing: -1px; color: var(--primary); }
+        .brand .edu { color: var(--edu); font-weight: 800; }
+        .brand p { margin: 5px 0 0; font-size: 0.7rem; color: #64748b; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-        }
+        .tech-badge { background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 10px; padding: 12px; margin-bottom: 20px; }
+        .tech-badge h2 { margin: 0; font-size: 0.75rem; color: #065f46; text-transform: uppercase; letter-spacing: 0.5px; }
+        .tech-badge p { margin: 4px 0 0; font-size: 0.85rem; color: #047857; line-height: 1.4; }
 
-        .container {
-            width: 100%;
-            max-width: 600px;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-        }
+        .status-container { margin-bottom: 20px; padding: 12px; background: #f1f5f9; border-radius: 12px; border: 1px solid #e2e8f0; }
+        .progress-info { display: flex; justify-content: space-between; font-size: 0.7rem; color: #475569; margin-bottom: 8px; font-weight: bold; }
+        .progress-bar { width: 100%; height: 6px; background: #e2e8f0; border-radius: 10px; overflow: hidden; }
+        #progress-fill { width: 0%; height: 100%; background: var(--primary); transition: width 0.3s ease; }
 
-        h2 { 
-            font-size: 1.5rem; 
-            margin: 0 0 10px 0; 
-            font-weight: 700; 
-            color: #111;
-            text-align: center;
-        }
+        .upload-area { border: 2px dashed #cbd5e0; padding: 25px 15px; border-radius: 16px; text-align: center; margin-bottom: 15px; cursor: pointer; background: #fff; transition: 0.3s; }
+        .upload-area:hover { border-color: var(--primary); background: #f0fdf4; }
+        
+        textarea { width: 100%; height: 180px; padding: 15px; border: 1px solid #e2e8f0; border-radius: 12px; box-sizing: border-box; resize: none; font-size: 0.95rem; margin-bottom: 15px; background: #fcfcfc; line-height: 1.6; outline: none; }
+        textarea:focus { border-color: var(--primary); background: #fff; box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1); }
 
-        .description {
-            font-size: 0.9rem;
-            color: var(--text-light);
-            text-align: center;
-            margin-bottom: 25px;
-        }
+        .btn { width: 100%; padding: 16px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-main { background: var(--primary); color: white; margin-bottom: 10px; box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2); }
+        .btn-main:disabled { background: #94a3b8; cursor: wait; box-shadow: none; }
+        
+        .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .btn-sec { background: #fff; color: #475569; border: 1px solid #d1d5db; font-size: 0.8rem; }
+        .btn-sec:hover { background: #f8fafc; }
 
-        .upload-card {
-            border: 2px dashed var(--border);
-            padding: 25px;
-            border-radius: 10px;
-            text-align: center;
-            margin-bottom: 20px;
-            background: var(--gray-bg);
-        }
+        footer { text-align: center; margin-top: 25px; font-size: 0.7rem; color: #94a3b8; border-top: 1px solid #f1f5f9; padding-top: 15px; line-height: 1.5; }
+        .author { color: #334155; font-weight: 700; }
 
-        input[type="file"] { font-size: 0.85rem; }
-
-        .controls { display: flex; gap: 12px; margin-bottom: 20px; }
-
-        button {
-            flex: 1;
-            padding: 12px 20px;
-            border-radius: 8px;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-size: 0.95rem;
-        }
-
-        #btn-transcribe { background: var(--primary); color: white; }
-        #btn-transcribe:disabled { background: var(--border); cursor: not-allowed; }
-        #btn-transcribe:hover:not(:disabled) { background: var(--primary-hover); }
-
-        #btn-copy { 
-            background: white; 
-            color: var(--text); 
-            border: 1px solid var(--border); 
-            display: none; 
-            flex: 0 0 auto;
-        }
-        #btn-copy:hover { background: var(--gray-bg); }
-
-        #status-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-            font-size: 0.85rem;
-            color: var(--text-light);
-        }
-
-        #output {
-            width: 100%;
-            min-height: 150px;
-            max-height: 300px;
-            overflow-y: auto;
-            background: var(--gray-bg);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 15px;
-            box-sizing: border-box;
-            font-size: 1rem;
-            line-height: 1.6;
-            white-space: pre-wrap;
-            color: #374151;
-        }
-
-        .tech-note {
-            margin-top: 20px;
-            padding: 12px;
-            background: #fffbeb;
-            border: 1px solid #fef3c7;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            color: #92400e;
-            line-height: 1.4;
-        }
-
-        .footer {
-            margin-top: 25px;
-            padding-top: 15px;
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.8rem;
-            color: var(--text-light);
-        }
-
-        .signature { font-weight: 600; color: var(--text); }
-
-        .loader {
-            width: 14px;
-            height: 14px;
-            border: 2px solid #ddd;
-            border-radius: 50%;
-            border-top-color: var(--primary);
-            animation: spin 1s linear infinite;
-        }
+        .spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: #fff; animation: spin 1s linear infinite; display: none; }
         @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2>Transcriptor de Audio</h2>
-    <p class="description">Convierte tus grabaciones a texto usando Inteligencia Artificial privada.</p>
+<div class="card">
+    <div class="brand">
+        <h1>Voz a Texto</h1>
+        <p>Bioestadística<span class="edu">Edu</span></p>
+    </div>
+
+    <!-- Wow Effect: Explicación tecnológica -->
+    <div class="tech-badge">
+        <h2>Arquitectura Neural de Vanguardia</h2>
+        <p>Procesamiento Automático del Habla mediante <strong>Redes Neuronales Transformer (Whisper ASR)</strong>. Transcripción local con IA de grado científico.</p>
+    </div>
+
+    <!-- Monitor de Red Neuronal -->
+    <div class="status-container">
+        <div class="progress-info">
+            <span id="status-text">Cargando Red Neuronal...</span>
+            <span id="percent-text">0%</span>
+        </div>
+        <div class="progress-bar"><div id="progress-fill"></div></div>
+    </div>
+
+    <div class="upload-area" onclick="document.getElementById('audio-in').click()">
+        <span id="file-name">📂 Seleccionar archivo de voz (Audio)</span>
+        <input type="file" id="audio-in" hidden accept="audio/*">
+    </div>
+
+    <textarea id="output" placeholder="El texto procesado por la IA aparecerá aquí..."></textarea>
+
+    <button id="start-btn" class="btn btn-main" disabled>
+        <div class="spinner" id="btn-spinner"></div>
+        <span id="btn-text">ESPERANDO IA...</span>
+    </button>
     
-    <div class="upload-card">
-        <input type="file" id="audio-upload" accept="audio/*">
+    <div class="btn-group" id="actions" style="display:none">
+        <button id="copy-btn" class="btn btn-sec">📋 COPIAR TEXTO</button>
+        <button id="save-btn" class="btn btn-sec">💾 GUARDAR .TXT</button>
     </div>
 
-    <div id="status-container">
-        <div id="loader-icon" style="display:none;" class="loader"></div>
-        <span id="status-text">Cargando motor de IA...</span>
-    </div>
-
-    <div class="controls">
-        <button id="btn-transcribe" disabled>Esperando IA...</button>
-        <button id="btn-copy">Copiar</button>
-    </div>
-
-    <div id="output">El texto transcrito aparecerá aquí...</div>
-
-    <div class="tech-note">
-        <strong>Nota técnica:</strong> Esta aplicación utiliza el modelo Whisper (Tiny) ejecutándose localmente en tu navegador mediante WebAssembly. 
-        <strong>Privacidad:</strong> El audio nunca sale de tu dispositivo. 
-        <strong>Límites:</strong> Para audios de más de 30 minutos, asegúrate de tener suficiente memoria RAM disponible.
-    </div>
-
-    <div class="footer">
-        <span>© 2024 Transcriptor Local</span>
-        <span class="signature">Autor: Maicel Monzon Perez</span>
-    </div>
+    <footer>
+        ANTAGONISTA DEL PROTOCOLO "TEXTO A VOZ"<br>
+        Desarrollado por: <span class="author">Maicel Monzón-Pérez</span><br>
+        © 2024 - Ejecución Neural Local y Privada
+    </footer>
 </div>
 
 <script type="module">
     import { pipeline } from 'https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.1';
 
     const statusText = document.getElementById('status-text');
-    const loaderIcon = document.getElementById('loader-icon');
-    const btnTranscribe = document.getElementById('btn-transcribe');
-    const btnCopy = document.getElementById('btn-copy');
+    const percentText = document.getElementById('percent-text');
+    const progressFill = document.getElementById('progress-fill');
+    const startBtn = document.getElementById('start-btn');
+    const btnText = document.getElementById('btn-text');
+    const btnSpinner = document.getElementById('btn-spinner');
     const output = document.getElementById('output');
-    const fileInput = document.getElementById('audio-upload');
+    const audioIn = document.getElementById('audio-in');
+    const actions = document.getElementById('actions');
 
     let transcriber;
 
-    // Inicializar la IA
-    async function init() {
+    // Inicialización del Modelo Transformer
+    async function initIA() {
         try {
-            loaderIcon.style.display = "inline-block";
-            // Whisper Tiny es el mejor balance para una web personal
-            transcriber = await pipeline('automatic-speech-recognition', 'Xenova/whisper-tiny');
-            statusText.innerText = "IA Lista. Proceso local activo.";
-            loaderIcon.style.display = "none";
-            btnTranscribe.disabled = false;
-            btnTranscribe.innerText = "Comenzar Transcripción";
+            transcriber = await pipeline('automatic-speech-recognition', 'Xenova/whisper-tiny', {
+                progress_callback: (data) => {
+                    if (data.status === 'progress') {
+                        const p = Math.round(data.progress);
+                        progressFill.style.width = p + '%';
+                        percentText.innerText = p + '%';
+                        statusText.innerText = 'Descargando motor neural...';
+                    }
+                    if (data.status === 'ready') {
+                        statusText.innerText = '✓ Red Neuronal lista';
+                        percentText.innerText = '100%';
+                        startBtn.disabled = false;
+                        btnText.innerText = 'INICIAR PROCESAMIENTO';
+                    }
+                }
+            });
         } catch (e) {
-            statusText.innerText = "Error al cargar el motor de IA.";
+            statusText.innerText = 'Error: Revisa tu conexión.';
             console.error(e);
         }
     }
 
-    init();
+    initIA();
 
-    btnTranscribe.onclick = async () => {
-        if (!fileInput.files[0]) {
-            alert("Por favor, selecciona un archivo de audio.");
-            return;
-        }
-        
-        btnTranscribe.disabled = true;
-        btnTranscribe.innerText = "Procesando...";
-        loaderIcon.style.display = "inline-block";
-        statusText.innerText = "Transcribiendo audio (esto puede tardar unos minutos)...";
-        output.innerText = "Escuchando...";
-
-        try {
-            const audioContext = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 16000 });
-            const arrayBuffer = await fileInput.files[0].arrayBuffer();
-            const buffer = await audioContext.decodeAudioData(arrayBuffer);
-            const audioData = buffer.getChannelData(0);
-
-            // Configuración optimizada para audios largos
-            const result = await transcriber(audioData, { 
-                language: 'spanish', 
-                task: 'transcribe',
-                chunk_length_s: 30, // Procesa en bloques de 30 seg para no saturar
-                stride_length_s: 5   // Solapamiento para mejorar precisión entre bloques
-            });
-
-            output.innerText = result.text;
-            btnCopy.style.display = "block";
-            statusText.innerText = "Transcripción completada con éxito.";
-        } catch (err) {
-            console.error(err);
-            statusText.innerText = "Error en el procesamiento del audio.";
-            output.innerText = "Hubo un error. Asegúrate de que el archivo sea un audio válido y no demasiado extenso para la memoria de tu navegador.";
-        } finally {
-            btnTranscribe.disabled = false;
-            btnTranscribe.innerText = "Nueva Transcripción";
-            loaderIcon.style.display = "none";
+    audioIn.onchange = (e) => {
+        if(e.target.files[0]) {
+            document.getElementById('file-name').innerText = "✓ Audio: " + e.target.files[0].name;
+            startBtn.disabled = false;
         }
     };
 
-    // Funcionalidad de copiar al portapapeles
-    btnCopy.onclick = () => {
-        navigator.clipboard.writeText(output.innerText);
-        const originalText = btnCopy.innerText;
-        btnCopy.innerText = "¡Copiado!";
-        btnCopy.style.background = "#dcfce7";
-        setTimeout(() => {
-            btnCopy.innerText = originalText;
-            btnCopy.style.background = "white";
-        }, 2000);
+    startBtn.onclick = async () => {
+        if (!audioIn.files[0]) return;
+        
+        startBtn.disabled = true;
+        btnSpinner.style.display = 'block';
+        btnText.innerText = 'ANALIZANDO ONDAS...';
+        output.value = "La IA está procesando el lenguaje natural. Este proceso es intensivo y ocurre 100% en tu dispositivo...";
+
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 16000 });
+            const arrayBuffer = await audioIn.files[0].arrayBuffer();
+            const decoded = await audioCtx.decodeAudioData(arrayBuffer);
+            const audioData = decoded.getChannelData(0);
+
+            const result = await transcriber(audioData, { 
+                language: 'spanish', 
+                task: 'transcribe',
+                chunk_length_s: 30,
+                stride_length_s: 5
+            });
+
+            output.value = result.text;
+            actions.style.display = "grid";
+            statusText.innerText = "✓ Procesamiento completado";
+        } catch (err) {
+            output.value = "Error: El audio es muy complejo o el dispositivo no tiene suficiente memoria RAM.";
+            statusText.innerText = "Fallo en la transcripción.";
+        } finally {
+            startBtn.disabled = false;
+            btnSpinner.style.display = 'none';
+            btnText.innerText = 'NUEVA TRANSCRIPCIÓN';
+        }
+    };
+
+    // Funcionalidad de Copiar
+    document.getElementById('copy-btn').onclick = () => {
+        navigator.clipboard.writeText(output.value);
+        const btn = document.getElementById('copy-btn');
+        btn.innerText = "✅ COPIADO";
+        setTimeout(() => btn.innerText = "📋 COPIAR TEXTO", 2000);
+    };
+
+    // Funcionalidad de Guardar TXT
+    document.getElementById('save-btn').onclick = () => {
+        const text = output.value;
+        const blob = new Blob([text], { type: 'text/plain' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `Transcripcion_Voz_BioEdu_${Date.now()}.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
     };
 </script>
 
