@@ -1,6 +1,6 @@
 ---
 # Título con terminología de vanguardia
-title: "Conversor de Texto a Voz (tecnología PWA)"
+title: "Conversor de Texto a Voz"
 # Sumario optimizado para Google Index con autoría correcta
 summary: "Implementa motores de audio basados en arquitecturas Transformer (NLP) para convertir texto en habla natural."
 slug: "voice-mimic-biometria-acustica-clonacion"
