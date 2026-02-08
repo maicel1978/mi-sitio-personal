@@ -1,6 +1,6 @@
 ---
 title: "Analizador de Deltas: Calculadora de Margen de No-Inferioridad"
-date: "2026-01-18" # Progresión: 2026-01-20 -> 2026-01-18
+date: "2024-12-18" # Progresión: 2026-01-20 -> 2026-01-18
 categories: ["proyectos"]
 tags:
   - "herramientas" # Tag agrupador principal

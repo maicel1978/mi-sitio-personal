@@ -1,6 +1,6 @@
 ---
 title: "Analizador de Potencia Post-hoc: Evaluación de Sensibilidad Observada"
-date: "2026-01-06" # Progresión: 2026-01-08 -> 2026-01-06
+date: "2024-12-06" # Progresión: 2026-01-08 -> 2026-01-06
 # Estructura de agrupación solicitada por Maicel Monzón
 categories: ["proyectos"]
 tags:

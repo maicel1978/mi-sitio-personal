@@ -1,6 +1,6 @@
 ---
 title: "Monitor Adaptativo Bayesiano: Sistema de Actualización de Probabilidad Posterior"
-date: "2026-01-16" # Progresión: 2026-01-18 -> 2026-01-16
+date: "2024-12-16" # Progresión: 2026-01-18 -> 2026-01-16
 categories: ["proyectos"]
 tags:
   - "herramientas" # Tag agrupador principal
