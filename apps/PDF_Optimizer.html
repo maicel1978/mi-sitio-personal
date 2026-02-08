@@ -2,162 +2,186 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF Optimizer - Bioestadística Edu</title>
-    <!-- Librerías: Renderizado y Generación de PDF -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Spectral PDF Optimizer V7 - BioestadísticaEdu</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
-        :root { --primary: #020617; --accent: #3b82f6; --text: #f8fafc; --gray: #94a3b8; }
-        body { font-family: 'Inter', system-ui, sans-serif; background: var(--primary); color: var(--text); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
-        .container { max-width: 600px; width: 100%; background: #0f172a; padding: 40px; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); border: 1px solid #1e293b; margin-top: 40px; }
-        header { text-align: center; margin-bottom: 30px; }
-        h1 { font-size: 1.5rem; margin: 0; letter-spacing: -0.025em; }
-        p.desc { color: var(--gray); font-size: 0.9rem; margin-top: 8px; }
-        
-        .drop-zone { border: 2px dashed #334155; border-radius: 16px; padding: 40px 20px; text-align: center; cursor: pointer; transition: 0.3s; background: #020617; margin-bottom: 25px; }
-        .drop-zone:hover { border-color: var(--accent); background: #070e1e; }
-        
-        .settings { background: #1e293b; padding: 20px; border-radius: 12px; margin-bottom: 25px; }
-        label { display: flex; justify-content: space-between; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; color: var(--gray); }
-        input[type="range"] { width: 100%; accent-color: var(--accent); cursor: pointer; }
-
-        .btn { width: 100%; padding: 14px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 1rem; }
-        .btn-primary { background: var(--accent); color: white; }
-        .btn-primary:hover { background: #2563eb; transform: translateY(-1px); }
-        .btn-primary:disabled { background: #1e293b; color: #475569; cursor: not-allowed; transform: none; }
-
-        .stats { margin-top: 25px; display: none; padding-top: 20px; border-top: 1px solid #334155; }
-        .stat-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.9rem; }
-        .progress-bar { height: 6px; background: #334155; border-radius: 10px; overflow: hidden; margin-top: 15px; }
-        #progress-fill { height: 100%; background: var(--accent); width: 0%; transition: width 0.2s; }
-        
-        footer { margin-top: auto; padding: 40px 0 20px; color: #475569; font-size: 0.75rem; text-align: center; }
-        b { color: var(--gray); }
+        :root { --primary: #3b82f6; --edu: #f59e0b; --bg: #0b0f1a; --card: #161e2e; --accent: #10b981; --error: #ef4444; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: #f1f5f9; margin: 0; padding: 10px; display: flex; justify-content: center; }
+        .card { background: var(--card); max-width: 500px; width: 100%; padding: 25px; border-radius: 28px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); border: 1px solid #1e293b; box-sizing: border-box; }
+        .brand { text-align: center; margin-bottom: 20px; }
+        .brand h1 { margin: 0; font-size: 1.5rem; letter-spacing: -1px; color: var(--primary); }
+        .brand .edu { color: var(--edu); font-weight: 800; }
+        .tech-badge { background: rgba(59, 130, 246, 0.05); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 16px; padding: 15px; margin-bottom: 20px; font-size: 0.75rem; color: #94a3b8; line-height: 1.4; }
+        .upload-zone { border: 2px dashed #334155; border-radius: 20px; padding: 30px 15px; text-align: center; cursor: pointer; transition: 0.3s; background: rgba(0,0,0,0.2); margin-bottom: 20px; }
+        .controls { background: #0b0f1a; padding: 15px; border-radius: 16px; margin-bottom: 20px; border: 1px solid #1e293b; }
+        label { display: flex; justify-content: space-between; font-size: 0.65rem; font-weight: bold; color: #64748b; text-transform: uppercase; margin-bottom: 10px; }
+        select { width: 100%; padding: 10px; border-radius: 10px; background: #161e2e; border: 1px solid #334155; color: white; margin-bottom: 15px; }
+        .stats-container { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; display: none; }
+        .stat-card { background: #000; padding: 12px; border-radius: 12px; border: 1px solid #1e293b; text-align: center; }
+        .stat-val { font-size: 0.9rem; font-weight: bold; color: var(--accent); }
+        .reduction-pill { background: var(--accent); color: #000; font-size: 0.6rem; padding: 2px 6px; border-radius: 4px; font-weight: 800; margin-top: 5px; display: inline-block; }
+        .status-box { background: #000; padding: 12px; border-radius: 12px; margin-bottom: 15px; display: none; border: 1px solid #1e293b; }
+        .progress-bar { width: 100%; height: 4px; background: #1e293b; border-radius: 10px; overflow: hidden; margin-top: 10px; }
+        #progress-fill { width: 0%; height: 100%; background: var(--primary); transition: width 0.2s; }
+        .btn { width: 100%; padding: 16px; border: none; border-radius: 14px; font-weight: bold; cursor: pointer; font-size: 1rem; color: white; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-main { background: var(--primary); box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3); }
+        .btn-download { background: var(--accent); color: #000; margin-top: 10px; display: none; }
+        footer { text-align: center; margin-top: 25px; font-size: 0.6rem; color: #475569; border-top: 1px solid #1e293b; padding-top: 15px; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <h1>PDF Optimizer Pro</h1>
-        <p class="desc">Compresión inteligente sin salir del navegador</p>
-    </header>
+<div class="card">
+    <div class="brand">
+        <h1>Spectral PDF <span class="edu">Optimizer</span></h1>
+        <p style="font-size:0.6rem; color:#64748b; text-transform:uppercase; margin-top:5px;">BioestadísticaEdu</p>
+    </div>
 
-    <div class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
-        <span id="dropText">Arrastra tu PDF o haz clic aquí</span>
+    <div class="tech-badge">
+        <strong>Normalización Isométrica:</strong> Rasterización adaptativa para aplanado de documentos y optimización de activos escaneados.
+    </div>
+
+    <div class="upload-zone" onclick="document.getElementById('fileInput').click()">
+        <span id="upload-txt" style="font-size: 0.75rem; color: #94a3b8;">📄 SELECCIONAR DOCUMENTO</span>
         <input type="file" id="fileInput" accept="application/pdf" style="display:none">
     </div>
 
-    <div class="settings">
-        <label>Calidad de compresión <span id="qVal">60%</span></label>
-        <input type="range" id="quality" min="10" max="100" value="60">
-        <p style="font-size: 0.7rem; color: #64748b; margin-top: 10px;">
-            *Nota: El texto se optimiza para visualización rápida y ahorro de espacio.
-        </p>
+    <div class="controls">
+        <label>Perfil de Optimización</label>
+        <select id="resProfile">
+            <option value="1.0">Compresión Extrema (Ahorro Máximo)</option>
+            <option value="1.3" selected>Equilibrado (Recomendado)</option>
+            <option value="1.8">Alta Fidelidad (Papers/Gráficos)</option>
+        </select>
+        
+        <label>Calidad Visual <span id="qLabel" style="color:var(--primary)">60%</span></label>
+        <input type="range" id="quality" min="10" max="90" value="60">
     </div>
 
-    <button id="processBtn" class="btn btn-primary" disabled>OPTIMIZAR Y DESCARGAR</button>
-
-    <div class="stats" id="statsArea">
-        <div class="stat-row">
-            <span>Tamaño Original:</span>
-            <b id="oldSize">-</b>
-        </div>
-        <div class="stat-row">
-            <span>Estado:</span>
-            <b id="statusText">Esperando...</b>
-        </div>
-        <div class="progress-bar">
-            <div id="progress-fill"></div>
-        </div>
+    <div class="stats-container" id="statsContainer">
+        <div class="stat-card"><div style="font-size:0.5rem; color:#64748b">ORIGINAL</div><div class="stat-val" id="oldSize">-</div></div>
+        <div class="stat-card"><div style="font-size:0.5rem; color:#64748b">ESTIMADO</div><div class="stat-val" id="newSize">-</div><div id="savePill" class="reduction-pill" style="display:none"></div></div>
     </div>
+
+    <div class="status-box" id="statusBox">
+        <div style="display: flex; justify-content: space-between; font-size: 0.6rem; font-weight: bold; color: var(--primary);">
+            <span id="statusInfo">ESPERANDO...</span>
+            <span id="percentTxt">0%</span>
+        </div>
+        <div class="progress-bar"><div id="progress-fill"></div></div>
+    </div>
+
+    <button id="processBtn" class="btn btn-main" disabled>INICIAR OPTIMIZACIÓN</button>
+    <button id="downloadBtn" class="btn btn-download">📥 DESCARGAR PDF</button>
+
+    <footer>
+        ARQUITECTURA DE COMPRESIÓN V7 (SMART SCALE)<br>
+        Maicel Monzón-Pérez | © 2024
+    </footer>
 </div>
 
-<footer>
-    Herramienta de Productividad Segura<br>
-    Autor: <b>Maicel Monzón Pérez</b> | Bioestadística Edu
-</footer>
+<canvas id="procCanvas" style="display:none"></canvas>
 
 <script>
     const pdfjsLib = window['pdfjs-dist/build/pdf'];
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-    let selectedFile = null;
-    const dropZone = document.getElementById('dropZone');
     const fileInput = document.getElementById('fileInput');
     const processBtn = document.getElementById('processBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
     const qualityInput = document.getElementById('quality');
-    const qVal = document.getElementById('qVal');
+    const qLabel = document.getElementById('qLabel');
+    const statusBox = document.getElementById('statusBox');
+    const statsContainer = document.getElementById('statsContainer');
+    const progressFill = document.getElementById('progress-fill');
 
-    qualityInput.oninput = () => qVal.innerText = qualityInput.value + '%';
+    let selectedFile = null;
+    let finalBlob = null;
 
-    fileInput.onchange = (e) => handleFile(e.target.files[0]);
-    
-    function handleFile(file) {
+    qualityInput.oninput = () => qLabel.innerText = qualityInput.value + '%';
+
+    fileInput.onchange = (e) => {
+        const file = e.target.files[0];
         if (file && file.type === "application/pdf") {
             selectedFile = file;
-            document.getElementById('dropText').innerText = file.name;
+            document.getElementById('upload-txt').innerText = "✓ " + file.name;
             document.getElementById('oldSize').innerText = (file.size / (1024*1024)).toFixed(2) + " MB";
-            document.getElementById('statsArea').style.display = 'block';
+            statsContainer.style.display = 'grid';
             processBtn.disabled = false;
+            downloadBtn.style.display = 'none';
         }
-    }
+    };
 
     processBtn.onclick = async () => {
         processBtn.disabled = true;
+        statusBox.style.display = 'block';
         const quality = qualityInput.value / 100;
-        const statusText = document.getElementById('statusText');
-        const progressFill = document.getElementById('progress-fill');
+        const scale = parseFloat(document.getElementById('resProfile').value);
         
-        const arrayBuffer = await selectedFile.arrayBuffer();
-        const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
-        const { jsPDF } = window.jspdf;
-        const outPdf = new jsPDF('p', 'px');
-
-        for (let i = 1; i <= pdf.numPages; i++) {
-            statusText.innerText = `Procesando página ${i} de ${pdf.numPages}...`;
-            const progress = (i / pdf.numPages) * 100;
-            progressFill.style.width = progress + "%";
-
-            const page = await pdf.getPage(i);
-            const viewport = page.getViewport({ scale: 1.5 }); // Escala balanceada
+        try {
+            const arrayBuffer = await selectedFile.arrayBuffer();
+            const pdf = await pdfjsLib.getDocument({data: arrayBuffer}).promise;
+            const { jsPDF } = window.jspdf;
             
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-            canvas.height = viewport.height;
-            canvas.width = viewport.width;
+            let outPdf = null;
+            const canvas = document.getElementById('procCanvas');
+            const ctx = canvas.getContext('2d', { alpha: false });
 
-            await page.render({ canvasContext: ctx, viewport: viewport }).promise;
+            for (let i = 1; i <= pdf.numPages; i++) {
+                const progress = Math.round((i / pdf.numPages) * 100);
+                progressFill.style.width = progress + "%";
+                document.getElementById('percentTxt').innerText = progress + "%";
+                document.getElementById('statusInfo').innerText = `PAG: ${i}/${pdf.numPages}`;
 
-            // Convertir página a imagen comprimida
-            const imgData = canvas.toDataURL('image/jpeg', quality);
-            
-            const imgProps = outPdf.getImageProperties(imgData);
-            const pdfWidth = outPdf.internal.pageSize.getWidth();
-            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+                const page = await pdf.getPage(i);
+                const viewport = page.getViewport({ scale: scale }); 
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
 
-            if (i > 1) outPdf.addPage();
-            outPdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight, undefined, 'FAST');
+                await page.render({ canvasContext: ctx, viewport: viewport }).promise;
+
+                const imgData = canvas.toDataURL('image/jpeg', quality);
+                const pW = viewport.width * 0.75; 
+                const pH = viewport.height * 0.75;
+
+                if (i === 1) {
+                    outPdf = new jsPDF({ orientation: pW > pH ? 'l' : 'p', unit: 'pt', format: [pW, pH] });
+                } else {
+                    outPdf.addPage([pW, pH], pW > pH ? 'l' : 'p');
+                }
+
+                outPdf.addImage(imgData, 'JPEG', 0, 0, pW, pH, undefined, 'FAST');
+                await new Promise(r => setTimeout(r, 30));
+            }
+
+            finalBlob = outPdf.output('blob');
+            const newSizeMB = finalBlob.size / (1024*1024);
+            const saving = ((1 - (newSizeMB / (selectedFile.size / (1024*1024)))) * 100).toFixed(0);
+
+            document.getElementById('newSize').innerText = newSizeMB.toFixed(2) + " MB";
+            const pill = document.getElementById('savePill');
+            pill.innerText = saving > 0 ? `AHORRO: ${saving}%` : `INCREMENTO: ${Math.abs(saving)}%`;
+            pill.style.display = 'inline-block';
+            pill.style.background = saving > 0 ? 'var(--accent)' : 'var(--error)';
+
+            document.getElementById('statusInfo').innerText = "PROCESO FINALIZADO";
+            downloadBtn.style.display = 'flex';
+
+        } catch (err) {
+            alert("Error en el motor neural.");
+        } finally {
+            processBtn.disabled = false;
         }
-
-        statusText.innerText = "¡Finalizado! Descargando...";
-        outPdf.save(`optimizado_${selectedFile.name}`);
-        processBtn.disabled = false;
-        setTimeout(() => {
-            statusText.innerText = "Listo.";
-            progressFill.style.width = "0%";
-        }, 2000);
     };
 
-    // Drag and drop simple
-    dropZone.ondragover = (e) => { e.preventDefault(); dropZone.style.borderColor = "#3b82f6"; };
-    dropZone.ondragleave = () => { dropZone.style.borderColor = "#334155"; };
-    dropZone.ondrop = (e) => {
-        e.preventDefault();
-        handleFile(e.dataTransfer.files[0]);
+    downloadBtn.onclick = () => {
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(finalBlob);
+        link.download = `Spectral_Opt_${selectedFile.name}`;
+        link.click();
     };
 </script>
-
 </body>
 </html>

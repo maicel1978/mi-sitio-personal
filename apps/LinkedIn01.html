@@ -2,81 +2,111 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LinkedIn Pro Carousel - Bioestadística Edu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>LinkedIn Authority V8 - BioestadísticaEdu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
-        :root { --bg: #000000; --ui-panel: #1a1a1a; --accent: #ffffff; --error: #ff4d4d; }
-        body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0a0a; color: white; margin: 0; display: flex; height: 100vh; overflow: hidden; }
-        
-        /* Panel Izquierdo (Editor) */
-        .sidebar { width: 420px; background: var(--ui-panel); padding: 25px; display: flex; flex-direction: column; border-right: 1px solid #333; overflow-y: auto; }
-        h1 { font-size: 1.2rem; margin-bottom: 20px; color: #888; letter-spacing: 1px; }
-        textarea { flex-grow: 1; background: #000; color: #fff; border: 1px solid #333; border-radius: 8px; padding: 15px; font-family: 'Inter', sans-serif; line-height: 1.5; resize: none; margin-bottom: 15px; font-size: 0.9rem; }
-        
-        .control-group { background: #252525; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
-        label { display: block; font-size: 0.75rem; color: #888; margin-bottom: 8px; text-transform: uppercase; }
-        input[type="range"] { width: 100%; margin-bottom: 10px; }
-        .btn { cursor: pointer; padding: 12px; border: none; border-radius: 6px; font-weight: bold; transition: 0.3s; margin-bottom: 8px; text-align: center; width: 100%; }
-        .btn-main { background: white; color: black; }
-        .btn-main:hover { background: #ccc; }
-        .btn-file { background: #333; color: white; border: 1px solid #444; }
+        :root { --primary: #6366f1; --edu: #ff9800; --bg: #000; --panel: #111; --border: #222; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: white; margin: 0; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+        @media (min-width: 1000px) { body { flex-direction: row; } }
 
-        /* Panel Derecho (Vista Previa) */
-        .main-view { flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #000; padding: 20px; }
-        canvas { max-width: 90%; max-height: 70vh; border: 1px solid #333; box-shadow: 0 0 50px rgba(0,0,0,1); }
-        .word-counter { margin-top: 15px; font-size: 0.8rem; color: #888; }
-        .error-msg { color: var(--error); font-weight: bold; }
+        /* Panel de Edición */
+        .sidebar { width: 100%; height: 50%; background: var(--panel); padding: 20px; display: flex; flex-direction: column; border-right: 1px solid var(--border); box-sizing: border-box; overflow-y: auto; }
+        @media (min-width: 1000px) { .sidebar { width: 450px; height: 100%; } }
 
-        footer { margin-top: 20px; font-size: 0.7rem; color: #555; text-align: center; }
+        .brand-box { text-align: center; margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+        .brand-box h1 { margin: 0; font-size: 0.9rem; letter-spacing: 3px; color: var(--primary); text-transform: uppercase; }
+
+        textarea { flex-grow: 1; background: #000; color: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 15px; font-size: 0.85rem; line-height: 1.5; resize: none; outline: none; margin-bottom: 15px; }
+
+        .controls-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+        .control-item { background: #1a1a1a; padding: 10px; border-radius: 10px; border: 1px solid #222; }
+        label { display: block; font-size: 0.6rem; color: #666; text-transform: uppercase; margin-bottom: 5px; font-weight: 800; }
+        input[type="range"] { width: 100%; accent-color: var(--primary); cursor: pointer; }
+
+        .btn { cursor: pointer; padding: 16px; border: none; border-radius: 12px; font-weight: bold; transition: 0.2s; width: 100%; font-size: 0.9rem; color: white; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .btn-main { background: var(--primary); box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4); }
+        .btn-main:active { transform: scale(0.98); }
+
+        /* Visor de Carrusel Adaptativo */
+        .main-view { flex-grow: 1; background: #080808; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; position: relative; overflow: hidden; }
+        
+        .canvas-wrapper { position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+        canvas { max-width: 100%; max-height: 100%; object-fit: contain; box-shadow: 0 50px 100px rgba(0,0,0,0.8); border-radius: 4px; }
+
+        .nav-ui { position: absolute; bottom: 30px; display: flex; gap: 15px; align-items: center; background: rgba(26,26,26,0.8); padding: 8px 20px; border-radius: 50px; backdrop-filter: blur(10px); border: 1px solid #333; }
+        .nav-btn { background: none; border: none; color: white; font-size: 1.2rem; cursor: pointer; padding: 5px 15px; }
+        
+        #counter { font-size: 0.8rem; font-weight: bold; color: #888; border-left: 1px solid #444; border-right: 1px solid #444; padding: 0 15px; }
+
+        /* Export Spinner */
+        .spinner { width: 20px; height: 20px; border: 3px solid rgba(255,255,255,0.2); border-top-color: white; border-radius: 50%; animation: spin 1s linear infinite; display: none; }
+        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
 <div class="sidebar">
-    <h1>LINKEDIN AUTHORITY</h1>
-    
-    <label>Contenido (Usa --- para separar slides)</label>
-    <textarea id="editor" oninput="update()">
-12 PALABRAS AQUÍ: El error fatal en el análisis de muestras pequeñas.
+    <div class="brand-box">
+        <h1>Spectral Authority <span style="color:var(--edu)">V8</span></h1>
+    </div>
+
+    <textarea id="editor" spellcheck="false">
+EL ERROR FATAL EN EL ANÁLISIS DE MUESTRAS PEQUEÑAS
+Aquí mi framework de 7 pasos que subió mi precisión de 0.68 → 0.92
 ---
-PROBLEMA:
+¿QUÉ APRENDERÁS HOY?
+1. El error #1 en muestras pequeñas
+2. Métrica de magnitud real
+3. Ajuste de N dinámico
+4. Checklist final de validación
+---
+EL PROBLEMA:
 Tradicionalmente se confía en el p-valor sin mirar el tamaño del efecto.
 Esto genera falsos positivos masivos.
 ---
-NÚCLEO 1:
-Principio de Magnitud:
-Un efecto pequeño pero significativo no siempre es clínicamente relevante.
----
-NÚCLEO 2:
-Criterio de Potencia:
-Sin un N adecuado, el riesgo de Error Tipo II se dispara al 80%.
----
-PREGUNTA TÉCNICA:
-¿Cómo ajustas tu N cuando la varianza es desconocida?
+PROTOCOLO BIOEDU
+Pregunta técnica: ¿Cuál de estos pasos te genera más problemas en tu pipeline?
+Comenta abajo (respondo en <24h).
     </textarea>
 
-    <div class="control-group">
-        <label>Imagen de Fondo</label>
-        <input type="file" id="imgInput" class="btn btn-file" accept="image/*">
-        <label>Opacidad Imagen: <span id="opVal">20%</span></label>
-        <input type="range" id="opRange" min="0" max="100" value="20" oninput="update()">
+    <div class="controls-grid">
+        <div class="control-item">
+            <label>Tamaño Texto</label>
+            <input type="range" id="sizeRange" min="30" max="120" value="80">
+        </div>
+        <div class="control-item">
+            <label>Posición Vertical</label>
+            <input type="range" id="yRange" min="20" max="80" value="50">
+        </div>
+        <div class="control-item">
+            <label>Opacidad Fondo</label>
+            <input type="range" id="opRange" min="0" max="100" value="15">
+        </div>
+        <div class="control-item">
+            <label>Imagen Fondo</label>
+            <input type="file" id="imgInput" style="display:none" accept="image/*">
+            <button onclick="document.getElementById('imgInput').click()" style="background:#333; border:none; color:white; font-size:0.6rem; padding:5px; border-radius:4px; width:100%; cursor:pointer">SUBIR FOTO</button>
+        </div>
     </div>
 
-    <button class="btn btn-main" onclick="exportPDF()">DESCARGAR CARRUSEL (PDF)</button>
-    <button class="btn btn-file" onclick="exportVideo()" id="videoBtn">GENERAR VIDEO (MP4)</button>
-    
-    <footer>
-        Autor: Maicel Monzón Pérez | Bioestadística Edu
-    </footer>
+    <button id="exportBtn" class="btn btn-main" onclick="exportPDF()">
+        <div class="spinner" id="spinner"></div>
+        <span id="btnText">EXPORTAR PARA LINKEDIN</span>
+    </button>
+    <p style="font-size:0.55rem; color:#444; text-align:center; margin-top:10px">MAICEL MONZÓN-PÉREZ | PROTOCOLO DE ALTA FIDELIDAD</p>
 </div>
 
 <div class="main-view">
-    <canvas id="canvas" width="1080" height="1080"></canvas>
-    <div class="word-counter" id="counter">Cargando...</div>
-    <div style="margin-top:20px">
-        <button class="btn btn-file" style="width:auto" onclick="changeSlide(-1)">Anterior</button>
-        <button class="btn btn-file" style="width:auto" onclick="changeSlide(1)">Siguiente</button>
+    <div class="canvas-wrapper">
+        <canvas id="canvas" width="1080" height="1350"></canvas>
+    </div>
+    
+    <div class="nav-ui">
+        <button class="nav-btn" onclick="changeSlide(-1)">❮</button>
+        <span id="counter">1 / 4</span>
+        <button class="nav-btn" onclick="changeSlide(1)">❯</button>
     </div>
 </div>
 
@@ -84,138 +114,158 @@ PREGUNTA TÉCNICA:
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
     const editor = document.getElementById('editor');
+    const sizeRange = document.getElementById('sizeRange');
+    const yRange = document.getElementById('yRange');
+    const opRange = document.getElementById('opRange');
     const imgInput = document.getElementById('imgInput');
-    
+
     let slides = [];
     let currentSlide = 0;
     let bgImg = null;
+    let bgUrl = null;
 
+    const W = 1080;
+    const H = 1350;
+
+    // GESTIÓN DE MEMORIA
     imgInput.onchange = (e) => {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            bgImg = new Image();
-            bgImg.onload = update;
-            bgImg.src = event.target.result;
-        };
-        reader.readAsDataURL(e.target.files[0]);
+        const file = e.target.files[0];
+        if (!file) return;
+        if (bgUrl) URL.revokeObjectURL(bgUrl);
+        bgUrl = URL.createObjectURL(file);
+        bgImg = new Image();
+        bgImg.onload = update;
+        bgImg.src = bgUrl;
     };
 
+    // ACTUALIZACIÓN REACTIVA
+    [editor, sizeRange, yRange, opRange].forEach(el => el.oninput = update);
+
     function update() {
-        const text = editor.value;
-        slides = text.split('---').map(s => s.trim());
-        document.getElementById('opVal').innerText = document.getElementById('opRange').value + '%';
+        slides = editor.value.split('---').map(s => s.trim()).filter(s => s !== "");
+        if(currentSlide >= slides.length) currentSlide = 0;
+        document.getElementById('counter').innerText = `${currentSlide + 1} / ${slides.length}`;
         draw();
     }
 
     function draw() {
-        // Fondo Negro
-        ctx.fillStyle = "#000000";
-        ctx.fillRect(0, 0, 1080, 1080);
+        // 1. Limpieza y Fondo
+        ctx.fillStyle = "#000";
+        ctx.fillRect(0, 0, W, H);
 
-        // Imagen de fondo con opacidad
+        // 2. Imagen de Fondo Optimizado
         if (bgImg) {
-            ctx.globalAlpha = document.getElementById('opRange').value / 100;
-            const scale = Math.max(canvas.width / bgImg.width, canvas.height / bgImg.height);
-            const x = (canvas.width / 2) - (bgImg.width / 2) * scale;
-            const y = (canvas.height / 2) - (bgImg.height / 2) * scale;
-            ctx.drawImage(bgImg, x, y, bgImg.width * scale, bgImg.height * scale);
-            ctx.globalAlpha = 1.0;
+            ctx.save();
+            ctx.globalAlpha = opRange.value / 100;
+            const scale = Math.max(W / bgImg.width, H / bgImg.height);
+            const drawW = bgImg.width * scale;
+            const drawH = bgImg.height * scale;
+            ctx.drawImage(bgImg, (W - drawW) / 2, (H - drawH) / 2, drawW, drawH);
+            ctx.restore();
         }
 
+        // 3. Estética de Autoridad (Línea Neón)
+        const gradient = ctx.createLinearGradient(0, 0, 0, H);
+        gradient.addColorStop(0, "#6366f1");
+        gradient.addColorStop(1, "#a855f7");
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, 14, H);
+        // Efecto Glow sutil
+        ctx.shadowBlur = 20;
+        ctx.shadowColor = "#6366f1";
+        ctx.fillRect(0, 0, 4, H);
+        ctx.shadowBlur = 0;
+
+        // 4. Renderizado de Texto Inteligente
         const content = slides[currentSlide] || "";
-        const words = content.split(/\s+/).filter(w => w.length > 0);
-        const wordCount = words.length;
-
-        // Validaciones de texto
-        let limit = (currentSlide === 0) ? 12 : 30;
-        let counterEl = document.getElementById('counter');
-        counterEl.innerHTML = `Slide ${currentSlide + 1} de ${slides.length} | Palabras: <span class="${wordCount > limit ? 'error-msg' : ''}">${wordCount} / ${limit}</span>`;
-
-        // Renderizado de Texto
-        ctx.fillStyle = "#FFFFFF";
         ctx.textAlign = "center";
-        
+        ctx.textBaseline = "middle";
+
+        const baseSize = parseInt(sizeRange.value);
+        const yPos = (H * (yRange.value / 100));
+
         if (currentSlide === 0) {
-            // Portada: Más grande y centrada
-            ctx.font = "bold 75px 'Inter', sans-serif";
-            wrapText(ctx, content.toUpperCase(), 540, 480, 900, 90);
+            ctx.fillStyle = "#FFF";
+            ctx.font = `900 ${baseSize * 1.1}px 'Inter', sans-serif`;
+            renderWrappedText(ctx, content.toUpperCase(), W / 2, yPos, 940, baseSize * 1.3);
         } else {
-            // Contenido: Elegante y legible
-            ctx.font = "500 45px 'Inter', sans-serif";
-            wrapText(ctx, content, 540, 350, 850, 65);
+            ctx.fillStyle = "#E5E7EB";
+            ctx.font = `600 ${baseSize * 0.7}px 'Inter', sans-serif`;
+            renderWrappedText(ctx, content, W / 2, yPos, 880, baseSize * 0.9);
         }
 
-        // Firma minimalista
-        ctx.font = "bold 25px 'Inter', sans-serif";
-        ctx.fillStyle = "#555";
-        ctx.fillText("BIOESTADÍSTICA EDU | MAICEL MONZÓN", 540, 1020);
+        // 5. Footer Branding
+        ctx.font = "900 24px 'Inter', sans-serif";
+        ctx.fillStyle = "#222";
+        ctx.fillText("MAICEL MONZÓN | BIOESTADÍSTICA EDU", W/2, H-100);
+        
+        ctx.fillStyle = "#6366f1";
+        ctx.font = "bold 35px 'Inter', sans-serif";
+        ctx.fillText(currentSlide + 1, W-100, H-100);
     }
 
-    function wrapText(context, text, x, y, maxWidth, lineHeight) {
-        const lines = text.split('\n');
-        for (let i = 0; i < lines.length; i++) {
-            let words = lines[i].split(' ');
+    function renderWrappedText(context, text, x, y, maxWidth, lineHeight) {
+        const paragraphs = text.split('\n');
+        let allLines = [];
+        
+        paragraphs.forEach(para => {
+            const words = para.split(' ');
             let line = '';
-            for (let n = 0; n < words.length; n++) {
-                let testLine = line + words[n] + ' ';
-                let metrics = context.measureText(testLine);
-                if (metrics.width > maxWidth && n > 0) {
-                    context.fillText(line, x, y);
-                    line = words[n] + ' ';
-                    y += lineHeight;
-                } else {
-                    line = testLine;
-                }
-            }
-            context.fillText(line, x, y);
-            y += lineHeight;
-        }
+            words.forEach(word => {
+                let test = line + word + ' ';
+                if (context.measureText(test).width > maxWidth) {
+                    allLines.push(line.trim());
+                    line = word + ' ';
+                } else { line = test; }
+            });
+            allLines.push(line.trim());
+        });
+
+        // Centrado vertical basado en la altura total del bloque
+        let totalHeight = allLines.length * lineHeight;
+        let startY = y - (totalHeight / 2) + (lineHeight / 2);
+
+        allLines.forEach(l => {
+            context.fillText(l, x, startY);
+            startY += lineHeight;
+        });
     }
 
     function changeSlide(dir) {
         currentSlide = (currentSlide + dir + slides.length) % slides.length;
-        draw();
-    }
-
-    async function exportPDF() {
-        const { jsPDF } = window.jspdf;
-        const pdf = new jsPDF('p', 'px', [1080, 1080]);
-        for(let i=0; i<slides.length; i++) {
-            currentSlide = i;
-            draw();
-            const imgData = canvas.toDataURL('image/jpeg', 0.95);
-            if (i > 0) pdf.addPage([1080, 1080], 'p');
-            pdf.addImage(imgData, 'JPEG', 0, 0, 1080, 1080);
-        }
-        pdf.save("carrusel_maicel.pdf");
         update();
     }
 
-    async function exportVideo() {
-        const btn = document.getElementById('videoBtn');
-        btn.innerText = "PROCESANDO...";
-        const stream = canvas.captureStream(30);
-        const recorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
-        const chunks = [];
-        recorder.ondataavailable = e => chunks.push(e.data);
-        recorder.onstop = () => {
-            const blob = new Blob(chunks, { type: 'video/webm' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = 'video_linkedin.webm';
-            link.click();
-            btn.innerText = "GENERAR VIDEO (MP4)";
-        };
-        recorder.start();
+    async function exportPDF() {
+        const btn = document.getElementById('exportBtn');
+        const spinner = document.getElementById('spinner');
+        const btnText = document.getElementById('btnText');
+
+        btn.disabled = true;
+        spinner.style.display = 'block';
+        btnText.innerText = 'GENERANDO...';
+
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF('p', 'pt', [W, H]);
+        
         for(let i=0; i<slides.length; i++) {
             currentSlide = i;
             draw();
-            await new Promise(r => setTimeout(r, 2500)); // 2.5s por slide
+            const imgData = canvas.toDataURL('image/png', 1.0);
+            if (i > 0) pdf.addPage([W, H], 'p');
+            pdf.addImage(imgData, 'PNG', 0, 0, W, H, undefined, 'FAST');
+            await new Promise(r => setTimeout(r, 60));
         }
-        recorder.stop();
+        
+        pdf.save(`Carrusel_Premium_BioEdu_${Date.now()}.pdf`);
+        btn.disabled = false;
+        spinner.style.display = 'none';
+        btnText.innerText = 'EXPORTAR PARA LINKEDIN';
+        currentSlide = 0;
+        update();
     }
 
-    update();
+    document.fonts.ready.then(() => update());
 </script>
 </body>
 </html>

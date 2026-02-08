@@ -2,298 +2,178 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Compresor Pro - Bioestadística Edu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Spectral Image Optimizer - BioestadísticaEdu</title>
     <style>
-        :root {
-            --primary: #1e40af;
-            --primary-hover: #1e3a8a;
-            --accent: #3b82f6;
-            --bg: #f1f5f9;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --white: #ffffff;
-        }
+        :root { --primary: #10b981; --edu: #ff9800; --bg: #0b0f1a; --card: #161e2e; --accent: #10b981; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: #f1f5f9; margin: 0; padding: 15px; display: flex; justify-content: center; }
+        
+        .card { background: var(--card); max-width: 500px; width: 100%; padding: 25px; border-radius: 28px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); border: 1px solid #1e293b; box-sizing: border-box; }
+        
+        .brand { text-align: center; margin-bottom: 20px; }
+        .brand h1 { margin: 0; font-size: 1.5rem; letter-spacing: -1px; color: var(--primary); }
+        .brand .edu { color: var(--edu); font-weight: 800; }
+        .brand p { margin: 5px 0 0; font-size: 0.7rem; color: #64748b; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; }
 
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg);
-            color: var(--text-main);
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            align-items: center;
-            padding: 20px;
-        }
+        .tech-badge { background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 12px; padding: 14px; margin-bottom: 20px; font-size: 0.8rem; color: #94a3b8; line-height: 1.4; }
 
-        .app-card {
-            background: var(--white);
-            padding: 2.5rem;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 600px;
-            transition: transform 0.3s ease;
-        }
+        .upload-zone { border: 2px dashed #334155; border-radius: 20px; padding: 30px 15px; text-align: center; cursor: pointer; transition: 0.3s; background: rgba(0,0,0,0.2); margin-bottom: 20px; }
+        .upload-zone:hover { border-color: var(--primary); }
 
-        h1 {
-            margin: 0 0 0.5rem 0;
-            font-size: 1.75rem;
-            text-align: center;
-            color: var(--primary);
-        }
+        .settings { background: #0b0f1a; padding: 15px; border-radius: 16px; margin-bottom: 20px; border: 1px solid #1e293b; }
+        label { display: flex; justify-content: space-between; font-size: 0.65rem; font-weight: bold; color: #64748b; text-transform: uppercase; margin-bottom: 8px; }
+        input[type="range"], select { width: 100%; accent-color: var(--primary); background: #161e2e; color: white; border: 1px solid #334155; padding: 5px; border-radius: 5px; margin-bottom: 15px; }
 
-        p.subtitle {
-            text-align: center;
-            color: var(--text-muted);
-            margin-bottom: 2rem;
-            font-size: 0.95rem;
-        }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; display: none; }
+        .stat-card { background: #000; padding: 10px; border-radius: 10px; border: 1px solid #1e293b; text-align: center; }
+        .stat-val { font-size: 0.9rem; font-weight: bold; color: var(--accent); }
 
-        /* Área de Carga */
-        .drop-zone {
-            border: 2px dashed #cbd5e1;
-            border-radius: 12px;
-            padding: 40px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: #f8fafc;
-            position: relative;
-        }
+        #previewImg { width: 100%; border-radius: 12px; margin-bottom: 15px; display: none; border: 1px solid #334155; }
 
-        .drop-zone.drag-over {
-            border-color: var(--accent);
-            background: #eff6ff;
-            transform: scale(1.02);
-        }
-
-        .drop-zone p { margin: 0; color: var(--text-muted); }
-        .drop-zone b { color: var(--accent); }
-
-        #fileInput { display: none; }
-
-        /* Controles */
-        .settings {
-            margin: 2rem 0;
-            padding: 1.5rem;
-            background: #f8fafc;
-            border-radius: 8px;
-        }
-
-        .control-group { margin-bottom: 1rem; }
-        .control-group:last-child { margin-bottom: 0; }
-
-        label {
-            display: flex;
-            justify-content: space-between;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-        }
-
-        input[type="range"] {
-            width: 100%;
-            accent-color: var(--accent);
-            cursor: pointer;
-        }
-
-        /* Botón */
-        .btn-download {
-            background: var(--primary);
-            color: white;
-            border: none;
-            width: 100%;
-            padding: 1rem;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            display: none; /* Se muestra solo cuando hay imagen */
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            transition: background 0.3s;
-        }
-
-        .btn-download:hover { background: var(--primary-hover); }
-
-        /* Resultados y Stats */
-        #resultArea {
-            margin-top: 2rem;
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 1.5rem;
-        }
-
-        .stat-card {
-            background: #f1f5f9;
-            padding: 10px;
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .stat-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; }
-        .stat-value { font-size: 1.1rem; font-weight: bold; display: block; }
-
-        #previewImg {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            border: 1px solid #e2e8f0;
-            margin-bottom: 1rem;
-        }
-
-        footer {
-            margin-top: auto;
-            padding: 2rem;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            text-align: center;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .btn { width: 100%; padding: 16px; border: none; border-radius: 14px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 1rem; color: white; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-main { background: var(--primary); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); }
+        
+        footer { text-align: center; margin-top: 25px; font-size: 0.65rem; color: #475569; border-top: 1px solid #1e293b; padding-top: 15px; }
     </style>
 </head>
 <body>
 
-<div class="app-card">
-    <h1>Compresor de Imágenes</h1>
-    <p class="subtitle">Optimiza tus archivos sin perder calidad visual</p>
-    
-    <div class="drop-zone" id="dropZone">
-        <p>Arrastra tu imagen aquí o <b>haz clic para buscar</b></p>
-        <input type="file" id="fileInput" accept="image/jpeg, image/png, image/webp">
+<div class="card">
+    <div class="brand">
+        <h1>Spectral Image <span class="edu">Optimizer</span></h1>
+        <p>Bioestadística<span class="edu">Edu</span></p>
+    </div>
+
+    <div class="tech-badge">
+        <strong>Muestreo Espacial:</strong> Algoritmo de compresión de activos visuales mediante cuantización de color y preservación de canal alfa sobre fondo neutro.
+    </div>
+
+    <div class="upload-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+        <span id="upload-txt" style="font-size: 0.8rem; color: #94a3b8;">📷 CARGAR O ARRASTRAR IMAGEN</span>
+        <input type="file" id="fileInput" accept="image/*" style="display:none">
     </div>
 
     <div class="settings">
-        <div class="control-group">
-            <label>Calidad de compresión <span id="qPercent">80%</span></label>
-            <input type="range" id="quality" min="5" max="100" value="80">
-        </div>
+        <label>Ancho Máximo (Resampling) <span id="wLabel" style="color:var(--primary)">Original</span></label>
+        <select id="maxWidth">
+            <option value="0">Original (Sin redimensionar)</option>
+            <option value="1920">Full HD (1920px)</option>
+            <option value="1280" selected>HD Ready (1280px)</option>
+            <option value="800">Web Móvil (800px)</option>
+        </select>
+
+        <label>Calidad Visual <span id="qLabel" style="color:var(--primary)">75%</span></label>
+        <input type="range" id="quality" min="10" max="95" value="75">
     </div>
 
-    <div id="resultArea">
-        <div class="stats-grid">
-            <div class="stat-card">
-                <span class="stat-label">Original</span>
-                <span class="stat-value" id="oldSize">0 KB</span>
-            </div>
-            <div class="stat-card" style="border-left: 3px solid #22c55e;">
-                <span class="stat-label">Comprimida</span>
-                <span class="stat-value" id="newSize">0 KB</span>
-            </div>
-        </div>
-        
-        <img id="previewImg" src="" alt="Vista previa">
-        
-        <button id="downloadBtn" class="btn-download">
-            <span>⬇</span> Descargar Imagen Optimizada
-        </button>
+    <div class="stats-grid" id="statsGrid">
+        <div class="stat-card"><div style="font-size:0.5rem; color:#64748b">ORIGINAL</div><div class="stat-val" id="oldSize">-</div></div>
+        <div class="stat-card"><div style="font-size:0.5rem; color:#64748b">OPTIMIZADO</div><div class="stat-val" id="newSize">-</div></div>
     </div>
+
+    <img id="previewImg" alt="Vista previa">
+
+    <button id="downloadBtn" class="btn btn-main" style="display:none">📥 DESCARGAR OPTIMIZADA</button>
+
+    <footer>
+        ARQUITECTURA DE PROCESAMIENTO V3 (ALPHA-SAFE)<br>
+        Desarrollado por: <strong>Maicel Monzón-Pérez</strong>
+    </footer>
 </div>
 
-<footer>
-    Autor: <b>Maicel Monzón Pérez</b><br>
-    &copy; 2024 Bioestadística Edu - Herramientas Útiles
-</footer>
-
 <script>
-    const dropZone = document.getElementById('dropZone');
     const fileInput = document.getElementById('fileInput');
     const qualityInput = document.getElementById('quality');
-    const qPercent = document.getElementById('qPercent');
-    const resultArea = document.getElementById('resultArea');
+    const maxWidthInput = document.getElementById('maxWidth');
+    const previewImg = document.getElementById('previewImg');
     const downloadBtn = document.getElementById('downloadBtn');
     
-    let originalFile = null;
+    let originalImg = null;
+    let currentBlobUrl = null;
 
-    // Manejo de Drag & Drop Visual
-    ['dragenter', 'dragover'].forEach(name => {
-        dropZone.addEventListener(name, (e) => {
-            e.preventDefault();
-            dropZone.classList.add('drag-over');
-        });
-    });
-
-    ['dragleave', 'drop'].forEach(name => {
-        dropZone.addEventListener(name, (e) => {
-            e.preventDefault();
-            dropZone.classList.remove('drag-over');
-        });
-    });
-
-    dropZone.addEventListener('drop', (e) => {
-        const files = e.dataTransfer.files;
-        if (files.length) handleFile(files[0]);
-    });
-
-    dropZone.addEventListener('click', () => fileInput.click());
-    fileInput.addEventListener('change', (e) => {
-        if (e.target.files.length) handleFile(e.target.files[0]);
-    });
-
-    qualityInput.addEventListener('input', () => {
-        qPercent.innerText = qualityInput.value + '%';
-        if (originalFile) compressImage();
-    });
+    fileInput.onchange = (e) => {
+        const file = e.target.files[0];
+        if (file) handleFile(file);
+    };
 
     function handleFile(file) {
-        if (!file.type.startsWith('image/')) {
-            alert('Por favor, selecciona un archivo de imagen válido.');
-            return;
-        }
-        originalFile = file;
-        document.getElementById('oldSize').innerText = (file.size / 1024).toFixed(1) + ' KB';
-        compressImage();
-    }
-
-    function compressImage() {
         const reader = new FileReader();
-        reader.readAsDataURL(originalFile);
-        reader.onload = (event) => {
-            const img = new Image();
-            img.src = event.target.result;
-            img.onload = () => {
-                const canvas = document.createElement('canvas');
-                const ctx = canvas.getContext('2d');
-                
-                canvas.width = img.width;
-                canvas.height = img.height;
-                ctx.drawImage(img, 0, 0);
-
-                const quality = qualityInput.value / 100;
-                // Forzamos salida a JPEG para asegurar compresión
-                canvas.toBlob((blob) => {
-                    const url = URL.createObjectURL(blob);
-                    
-                    document.getElementById('previewImg').src = url;
-                    document.getElementById('newSize').innerText = (blob.size / 1024).toFixed(1) + ' KB';
-                    
-                    resultArea.style.display = 'block';
-                    downloadBtn.style.display = 'flex';
-                    
-                    downloadBtn.onclick = () => {
-                        const link = document.createElement('a');
-                        link.href = url;
-                        link.download = `optimizada_${originalFile.name.replace(/\.[^/.]+$/, "")}.jpg`;
-                        link.click();
-                    };
-                }, 'image/jpeg', quality);
+        reader.onload = (e) => {
+            originalImg = new Image();
+            originalImg.onload = () => {
+                document.getElementById('oldSize').innerText = (file.size / 1024).toFixed(1) + ' KB';
+                document.getElementById('statsGrid').style.display = 'grid';
+                document.getElementById('upload-txt').innerText = "✓ " + file.name;
+                compress();
             };
+            originalImg.src = e.target.result;
         };
+        reader.readAsDataURL(file);
     }
-</script>
 
+    // Debounce para el slider de calidad (evita lag en móviles)
+    let timeout = null;
+    qualityInput.oninput = () => {
+        document.getElementById('qLabel').innerText = qualityInput.value + '%';
+        clearTimeout(timeout);
+        timeout = setTimeout(compress, 150);
+    };
+
+    maxWidthInput.onchange = compress;
+
+    function compress() {
+        if (!originalImg) return;
+
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = originalImg.width;
+        let height = originalImg.height;
+        const maxW = parseInt(maxWidthInput.value);
+
+        // Lógica de Redimensión (Resampling)
+        if (maxW > 0 && width > maxW) {
+            height = height * (maxW / width);
+            width = maxW;
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+
+        // PROTECCIÓN DE TRANSPARENCIA: Fondo blanco para evitar negros en JPEG
+        ctx.fillStyle = "#FFFFFF";
+        ctx.fillRect(0, 0, width, height);
+        ctx.drawImage(originalImg, 0, 0, width, height);
+
+        const quality = qualityInput.value / 100;
+
+        canvas.toBlob((blob) => {
+            // GESTIÓN DE MEMORIA: Liberar el objeto anterior antes de crear uno nuevo
+            if (currentBlobUrl) URL.revokeObjectURL(currentBlobUrl);
+            
+            currentBlobUrl = URL.createObjectURL(blob);
+            previewImg.src = currentBlobUrl;
+            previewImg.style.display = 'block';
+            downloadBtn.style.display = 'flex';
+            document.getElementById('newSize').innerText = (blob.size / 1024).toFixed(1) + ' KB';
+
+            downloadBtn.onclick = () => {
+                const link = document.createElement('a');
+                link.href = currentBlobUrl;
+                link.download = `optimized_${Date.now()}.jpg`;
+                link.click();
+            };
+        }, 'image/jpeg', quality);
+    }
+
+    // Drag and drop
+    const dz = document.getElementById('dropZone');
+    dz.ondragover = (e) => { e.preventDefault(); dz.style.borderColor = "#10b981"; };
+    dz.ondragleave = () => { dz.style.borderColor = "#334155"; };
+    dz.ondrop = (e) => {
+        e.preventDefault();
+        if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+    };
+</script>
 </body>
 </html>

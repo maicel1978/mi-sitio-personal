@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Spectral PDF Composer Pro - BioestadísticaEdu</title>
+    <!-- Motores: jsPDF (PDF) y Sortable (Arrastrar) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+    <style>
+        :root { --primary: #6366f1; --edu: #f59e0b; --bg: #0b0f1a; --card: #161e2e; --accent: #10b981; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: #f1f5f9; margin: 0; padding: 10px; display: flex; justify-content: center; }
+        .card { background: var(--card); max-width: 500px; width: 100%; padding: 25px; border-radius: 28px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); border: 1px solid #1e293b; box-sizing: border-box; }
+        
+        .brand { text-align: center; margin-bottom: 20px; }
+        .brand h1 { margin: 0; font-size: 1.5rem; color: var(--primary); letter-spacing: -1px; }
+        .brand .edu { color: var(--edu); font-weight: 800; }
+        
+        .tech-badge { background: rgba(99, 102, 241, 0.05); border: 1px solid rgba(99, 102, 241, 0.2); border-radius: 12px; padding: 12px; margin-bottom: 20px; font-size: 0.75rem; color: #94a3b8; line-height: 1.4; }
+
+        .upload-zone { border: 2px dashed #334155; border-radius: 16px; padding: 30px 15px; text-align: center; cursor: pointer; background: rgba(0,0,0,0.2); }
+        .upload-zone:hover { border-color: var(--primary); }
+
+        /* Lista Reordenable con Sortable */
+        #preview-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(85px, 1fr)); gap: 10px; margin: 20px 0; max-height: 250px; overflow-y: auto; padding: 10px; background: #000; border-radius: 12px; border: 1px solid #1e293b; }
+        .thumb-wrapper { position: relative; cursor: grab; transition: transform 0.2s; }
+        .thumb-wrapper:active { cursor: grabbing; }
+        .thumb { width: 100%; height: 85px; object-fit: cover; border-radius: 8px; border: 2px solid #334155; pointer-events: none; }
+        .sortable-ghost { opacity: 0.3; transform: scale(0.9); }
+        .index-tag { position: absolute; top: 4px; left: 4px; background: var(--primary); color: white; font-size: 0.6rem; padding: 2px 5px; border-radius: 4px; font-weight: bold; }
+
+        .status-box { background: #000; padding: 15px; border-radius: 14px; margin-bottom: 15px; display: none; border: 1px solid #1e293b; }
+        .progress-bar { width: 100%; height: 4px; background: #1e293b; border-radius: 10px; overflow: hidden; margin-top: 10px; }
+        #progress-fill { width: 0%; height: 100%; background: var(--accent); transition: width 0.3s; }
+
+        .btn { width: 100%; padding: 18px; border: none; border-radius: 15px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 1rem; color: white; }
+        .btn-main { background: var(--primary); box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3); margin-top: 10px; }
+        .btn-main:disabled { background: #334155; cursor: wait; }
+        
+        footer { text-align: center; margin-top: 25px; font-size: 0.6rem; color: #475569; border-top: 1px solid #1e293b; padding-top: 15px; }
+        canvas { display: none; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div class="brand">
+        <h1>Spectral PDF <span class="edu">Composer</span></h1>
+        <p style="font-size: 0.6rem; color: #64748b; text-transform: uppercase;">Bioestadística<span class="edu">Edu</span></p>
+    </div>
+
+    <div class="tech-badge">
+        <strong>Modo de Edición Activo:</strong> Arrastra las imágenes para organizar la secuencia de páginas. El sistema normalizará el lienzo automáticamente.
+    </div>
+
+    <div class="upload-zone" onclick="document.getElementById('fileInput').click()">
+        <span id="upload-txt" style="font-size: 0.75rem; color: #94a3b8;">📷 CARGAR IMÁGENES</span>
+        <input type="file" id="fileInput" accept="image/*" multiple style="display:none">
+    </div>
+
+    <div id="preview-list"></div>
+
+    <div class="status-box" id="statusBox">
+        <div style="display: flex; justify-content: space-between; font-size: 0.7rem; font-weight: bold; color: var(--accent);">
+            <span id="status-info">Ordenando...</span>
+            <span id="percent-txt">0%</span>
+        </div>
+        <div class="progress-bar"><div id="progress-fill"></div></div>
+    </div>
+
+    <button id="generateBtn" class="btn btn-main" disabled>ENSAMBLAR PDF ORDENADO</button>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px;">
+        <button onclick="location.reload()" class="btn" style="background:#1e293b; color:#94a3b8; font-size:0.8rem">LIMPIAR</button>
+        <button id="downloadBtn" class="btn" style="display:none; background:#1e293b; color:var(--accent); font-size:0.8rem">💾 DESCARGAR</button>
+    </div>
+
+    <footer>
+        ARQUITECTURA DE ENCAPSULACIÓN V7 (SORTABLE)<br>
+        Maicel Monzón-Pérez | BioestadísticaEdu
+    </footer>
+</div>
+
+<canvas id="procCanvas"></canvas>
+
+<script>
+    const { jsPDF } = window.jspdf;
+    const fileInput = document.getElementById('fileInput');
+    const previewList = document.getElementById('preview-list');
+    const generateBtn = document.getElementById('generateBtn');
+    const statusBox = document.getElementById('statusBox');
+    const progressFill = document.getElementById('progress-fill');
+    const statusInfo = document.getElementById('status-info');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const canvas = document.getElementById('procCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Mapa para vincular el elemento visual con el archivo original
+    let fileMap = new Map();
+
+    // Inicializar Sortable.js
+    new Sortable(previewList, {
+        animation: 150,
+        ghostClass: 'sortable-ghost',
+        onEnd: () => { /* El orden ha cambiado visualmente */ }
+    });
+
+    fileInput.onchange = (e) => {
+        const files = Array.from(e.target.files);
+        if (files.length === 0) return;
+        
+        previewList.innerHTML = '';
+        generateBtn.disabled = false;
+        fileMap.clear();
+
+        files.forEach((file, index) => {
+            const id = 'img_' + Date.now() + '_' + index;
+            const url = URL.createObjectURL(file);
+            
+            const wrapper = document.createElement('div');
+            wrapper.className = 'thumb-wrapper';
+            wrapper.dataset.id = id;
+            wrapper.innerHTML = `<span class="index-tag">${index + 1}</span><img src="${url}" class="thumb">`;
+            
+            previewList.appendChild(wrapper);
+            fileMap.set(id, file); // Guardamos el archivo asociado al ID
+        });
+    };
+
+    generateBtn.onclick = async () => {
+        // PASO 1: Obtener el orden ACTUAL de la interfaz
+        const orderedWrappers = Array.from(previewList.querySelectorAll('.thumb-wrapper'));
+        const orderedFiles = orderedWrappers.map(w => fileMap.get(w.dataset.id));
+
+        generateBtn.disabled = true;
+        statusBox.style.display = 'block';
+        
+        let processedImages = [];
+        let maxWidth = 0;
+        let maxHeight = 0;
+
+        // PASO 2: Escaneo de dimensiones
+        statusInfo.innerText = "Escaneando activos...";
+        for (let i = 0; i < orderedFiles.length; i++) {
+            const data = await processImage(orderedFiles[i]);
+            processedImages.push(data);
+            if (data.w > maxWidth) maxWidth = data.w;
+            if (data.h > maxHeight) maxHeight = data.h;
+        }
+
+        // PASO 3: Ensamblaje secuencial
+        let pdf = null;
+        const pW_Master = maxWidth * 0.75; 
+        const pH_Master = maxHeight * 0.75;
+
+        for (let i = 0; i < processedImages.length; i++) {
+            const progress = Math.round(((i + 1) / processedImages.length) * 100);
+            statusInfo.innerText = `Ensamblando página ${i+1}...`;
+            progressFill.style.width = `${progress}%`;
+
+            const img = processedImages[i];
+            const orient = pW_Master > pH_Master ? 'l' : 'p';
+
+            if (i === 0) {
+                pdf = new jsPDF({ orientation: orient, unit: 'pt', format: [pW_Master, pH_Master] });
+            } else {
+                pdf.addPage([pW_Master, pH_Master], orient);
+            }
+
+            // Ajuste Isométrico (Sin distorsión)
+            const ratio = Math.min(pW_Master / (img.w * 0.75), pH_Master / (img.h * 0.75));
+            const fW = (img.w * 0.75) * ratio;
+            const fH = (img.h * 0.75) * ratio;
+            const x = (pW_Master - fW) / 2;
+            const y = (pH_Master - fH) / 2;
+
+            pdf.addImage(img.src, 'JPEG', x, y, fW, fH, undefined, 'FAST');
+            await new Promise(r => setTimeout(r, 60));
+        }
+
+        window.finalDoc = pdf;
+        statusInfo.innerText = "✓ Ensamblaje Completado";
+        downloadBtn.style.display = 'block';
+        generateBtn.disabled = false;
+    };
+
+    function processImage(file) {
+        return new Promise(res => {
+            const img = new Image();
+            img.onload = () => {
+                const limit = 1600;
+                let w = img.width, h = img.height;
+                if (w > limit) { h = h * (limit / w); w = limit; }
+                canvas.width = w; canvas.height = h;
+                ctx.fillStyle = "#FFFFFF";
+                ctx.fillRect(0, 0, w, h);
+                ctx.drawImage(img, 0, 0, w, h);
+                res({ src: canvas.toDataURL('image/jpeg', 0.85), w, h });
+            };
+            img.src = URL.createObjectURL(file);
+        });
+    }
+
+    downloadBtn.onclick = () => window.finalDoc.save(`BIOEDU_SORTED_${Date.now()}.pdf`);
+</script>
+</body>
+</html>
