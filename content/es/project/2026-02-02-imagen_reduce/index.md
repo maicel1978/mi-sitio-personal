@@ -1,8 +1,8 @@
 ---
 # Título con enfoque en eficiencia y arquitectura de datos
-title: "Optimizador Estructural: Compresor de Activos Visuales de Alta Fidelidad"
+title: "Compresor de Imágenes"
 summary: "Herramienta de optimización desarrollada por Maicel Monzón para la reducción inteligente de peso en imágenes. Garantiza la integridad visual y mejora el rendimiento de carga en ecosistemas digitales."
-date: "2026-01-28" # Progresión: 2026-01-30 -> 2026-01-28
+date: "2025-10-24" # Progresión: 2026-01-30 -> 2026-01-28
 categories: ["proyectos"]
 tags:
   - "herramientas" # Tag agrupador principal

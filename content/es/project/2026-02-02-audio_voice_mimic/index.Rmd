@@ -3,8 +3,8 @@
 title: "Conversor de Texto a Voz"
 # Sumario optimizado para Google Index con autoría correcta
 summary: "Implementa motores de audio basados en arquitecturas Transformer (NLP) para convertir texto en habla natural."
-slug: "voice-mimic-biometria-acustica-clonacion"
-date: "2026-02-05"
+slug: "texto-voz"
+date: "2025-12-29"
 # Estructura de agrupación solicitada por Maicel Monzón
 categories: ["proyectos"]
 tags:

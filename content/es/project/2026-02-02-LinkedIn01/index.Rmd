@@ -1,6 +1,6 @@
 ---
-title: "LinkedIn Carousel Architect: Ingeniería de Micro-Contenido Visual"
-date: "2026-01-22" # Progresión: 2026-01-24 -> 2026-01-22
+title: "Conversor de Texto a LinkedIn Carousel ver 1"
+date: "2024-11-28" # Progresión: 2026-01-24 -> 2026-01-22
 # Estructura de agrupación solicitada por Maicel Monzón
 categories: ["proyectos"]
 tags:

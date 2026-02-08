@@ -1,6 +1,6 @@
 ---
-title: "Conversor de PDF a Imagen"
-date: "2025-11-28"
+title: "Conversor de Imagen a PDF"
+date: "2025-10-26"
 # Estructura de agrupación solicitada por Maicel Monzón
 categories: ["proyectos"]
 tags:
@@ -10,8 +10,8 @@ tags:
   - "Gestión Documental"
   - "Visualización de Datos"
 # Sumario optimizado para Google Index (Enfoque en integridad visual)
-summary: "Herramienta de procesamiento desarrollada por Maicel Monzón para la extracción optimizada de gráficos y páginas desde documentos PDF. Garantiza la máxima resolución para su integración en soportes de divulgación científica."
+summary: "Spectral PDF Composer es una herrmienta de procesamiento desarrollada para la creación de documentos PDF a partir de imágenes."
 # Configuración técnica y URL relativa preservada
-slug: "PDF2Imagen"
-external_link: "/apps/PDF2Imagen.html"
+slug: "Imagen2PDF"
+external_link: "/apps/Imagen2PDF.html"
 ---

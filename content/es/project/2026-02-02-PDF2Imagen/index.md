@@ -1,7 +1,6 @@
 ---
-# Título con enfoque en comunicación científica y calidad visual
-title: "Extractor de Activos PDF: Ingeniería de Captura Documental para Presentaciones y Divulgación"
-date: "2026-01-14" # Progresión: 2026-01-16 -> 2026-01-14
+title: "Conversor de PDF a Imagen"
+date: "2025-11-28"
 # Estructura de agrupación solicitada por Maicel Monzón
 categories: ["proyectos"]
 tags:
@@ -13,6 +12,6 @@ tags:
 # Sumario optimizado para Google Index (Enfoque en integridad visual)
 summary: "Herramienta de procesamiento desarrollada por Maicel Monzón para la extracción optimizada de gráficos y páginas desde documentos PDF. Garantiza la máxima resolución para su integración en soportes de divulgación científica."
 # Configuración técnica y URL relativa preservada
-slug: "extractor-pdf-imagenes-alta-fidelidad"
+slug: "PDF2Imagen"
 external_link: "/apps/PDF2Imagen.html"
 ---

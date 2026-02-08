@@ -1,7 +1,7 @@
 ---
 title: "Analizador de Robustez: Calculadora del Índice de Fragilidad"
 subtitle: "Evaluación de la Estabilidad del Valor P en Ensayos Clínicos"
-date: "2026-01-26" # Progresión: 2026-01-28 -> 2026-01-26
+date: "2024-12-31" # Progresión: 2026-01-28 -> 2026-01-26
 categories: ["proyectos"]
 tags:
   - "herramientas" # Tag agrupador principal

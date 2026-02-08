@@ -1,6 +1,6 @@
 ---
-title: "Bio-PDF Organizer: Arquitectura y Reestructuración Documental"
-date: "2026-01-10" # Progresión: 2026-01-12 -> 2026-01-10
+title: "Organizador de páginas en un PDF"
+date: "2025-11-26" 
 # Estructura de agrupación solicitada por Maicel Monzón
 categories: ["proyectos"]
 tags:
@@ -10,9 +10,9 @@ tags:
   - "Productividad Científica"
   - "Gestión de Activos"
 # Sumario optimizado para Google Index (Enfoque en flujo de trabajo y privacidad)
-summary: "Sistema de organización modular desarrollado por Maicel Monzón para la reestructuración de documentos PDF. Permite combinar y reordenar activos de forma local, eliminando riesgos de exposición de datos externos."
+summary: "Spectral PDF Composer desarrollado por Maicel Monzón permite la reestructuración de documentos PDF."
 # Configuración técnica y URL relativa preservada
-slug: "bio-pdf-organizer-reestructuracion-documental"
+slug: "PDF_Organizer"
 external_link: "/apps/PDF_Organizer.html"
 ---
 

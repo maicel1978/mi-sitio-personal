@@ -2,78 +2,119 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF a Imagen HQ - Bioestadística Edu</title>
-    <!-- Cargamos PDF.js desde un CDN confiable -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PDF Spectral Renderer - BioestadísticaEdu</title>
+    <!-- PDF.js v3.11 - Versión Estable -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <style>
-        :root { --primary: #0f172a; --accent: #38bdf8; --bg: #f8fafc; }
-        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--primary); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
-        .container { max-width: 900px; width: 100%; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
-        header { text-align: center; margin-bottom: 30px; }
-        .upload-section { border: 2px dashed #cbd5e1; padding: 40px; border-radius: 15px; text-align: center; cursor: pointer; transition: 0.3s; background: #f1f5f9; }
-        .upload-section:hover { border-color: var(--accent); background: #e0f2fe; }
-        .controls { display: flex; gap: 20px; margin: 20px 0; align-items: center; justify-content: center; flex-wrap: wrap; }
-        .btn { background: var(--primary); color: white; padding: 12px 25px; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; transition: 0.3s; }
-        .btn:hover { opacity: 0.9; transform: translateY(-1px); }
-        .btn-download { background: #22c55e; font-size: 0.8rem; padding: 5px 10px; }
-        #preview-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-top: 30px; }
-        .page-card { border: 1px solid #e2e8f0; padding: 10px; border-radius: 10px; text-align: center; }
-        canvas { max-width: 100%; height: auto; border-radius: 5px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .loader { display: none; margin: 20px auto; width: 30px; height: 30px; border: 4px solid #f3f3f3; border-top: 4px solid var(--accent); border-radius: 50%; animation: spin 1s linear infinite; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        footer { margin-top: 40px; font-size: 0.9rem; color: #64748b; text-align: center; border-top: 1px solid #e2e8f0; padding-top: 20px; width: 100%; }
+        :root { --primary: #38bdf8; --edu: #fbbf24; --bg: #0b0f1a; --card: #161e2e; --accent: #10b981; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: #f1f5f9; margin: 0; padding: 15px; display: flex; justify-content: center; }
+        
+        .card { background: var(--card); max-width: 800px; width: 100%; padding: 30px; border-radius: 28px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); border: 1px solid #1e293b; }
+        
+        .brand { text-align: center; margin-bottom: 25px; }
+        .brand h1 { margin: 0; font-size: 1.6rem; letter-spacing: -1px; color: var(--primary); }
+        .brand .edu { color: var(--edu); font-weight: 800; }
+        .brand p { margin: 5px 0 0; font-size: 0.7rem; color: #64748b; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; }
+
+        .tech-badge { background: rgba(56, 189, 248, 0.05); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 16px; padding: 15px; margin-bottom: 25px; }
+        .tech-badge h2 { margin: 0; font-size: 0.7rem; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; }
+        .tech-badge p { margin: 6px 0 0; font-size: 0.8rem; color: #94a3b8; line-height: 1.4; }
+
+        .upload-zone { border: 2px dashed #334155; border-radius: 20px; padding: 40px 20px; text-align: center; cursor: pointer; transition: 0.3s; background: rgba(0,0,0,0.2); margin-bottom: 20px; }
+        .upload-zone:hover { border-color: var(--primary); background: rgba(56, 189, 248, 0.05); }
+
+        .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; background: #0b0f1a; padding: 15px; border-radius: 16px; border: 1px solid #1e293b; }
+        label { display: block; font-size: 0.7rem; font-weight: bold; color: #64748b; margin-bottom: 5px; text-transform: uppercase; }
+        select { width: 100%; padding: 10px; border-radius: 10px; border: 1px solid #334155; background: #161e2e; color: #fff; outline: none; }
+
+        /* Monitor de Rasterización */
+        .status-box { background: #000; padding: 15px; border-radius: 12px; margin-bottom: 20px; display: none; border: 1px solid #1e293b; }
+        .status-header { display: flex; justify-content: space-between; font-size: 0.7rem; font-weight: bold; color: var(--accent); }
+        .progress-bar { width: 100%; height: 4px; background: #1e293b; border-radius: 10px; overflow: hidden; margin-top: 10px; }
+        #progress-fill { width: 0%; height: 100%; background: var(--accent); transition: width 0.3s; }
+
+        /* Grid de Resultados */
+        #preview-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
+        .page-card { background: #0b0f1a; border: 1px solid #1e293b; padding: 10px; border-radius: 15px; text-align: center; animation: fadeIn 0.5s ease; }
+        canvas { width: 100%; height: auto; border-radius: 8px; margin-bottom: 10px; }
+        
+        .btn-dl { background: var(--accent); color: #000; border: none; padding: 8px 12px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.7rem; width: 100%; transition: 0.2s; }
+        .btn-dl:hover { transform: scale(1.03); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } }
+        footer { text-align: center; margin-top: 30px; font-size: 0.65rem; color: #475569; border-top: 1px solid #1e293b; padding-top: 20px; }
+        .author { color: #94a3b8; font-weight: 700; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <h1>PDF a Imagen de Alta Resolución</h1>
-        <p>Extrae páginas de tus artículos científicos con calidad para presentaciones.</p>
-    </header>
+<div class="card">
+    <div class="brand">
+        <h1>Spectral Renderer <span class="edu">PDF</span></h1>
+        <p>Bioestadística<span class="edu">Edu</span></p>
+    </div>
 
-    <div class="upload-section" onclick="document.getElementById('fileInput').click()">
-        <p id="status-text">Arrastra tu PDF aquí o haz clic para seleccionar</p>
-        <input type="file" id="fileInput" accept="application/pdf" style="display:none">
+    <div class="tech-badge">
+        <h2>Motor de Rasterización Vectorial</h2>
+        <p>Inferencia de alta precisión para extracción de gráficos científicos. Basado en <strong>Arquitectura de PDF.js Core</strong> con muestreo escalable hasta 5.0x (Scientific Grade).</p>
     </div>
 
     <div class="controls">
-        <label>Calidad (Escala): 
+        <div>
+            <label>Nivel de Definición</label>
             <select id="scale">
-                <option value="1">Normal (Baja)</option>
-                <option value="2" selected>HD (Media)</option>
-                <option value="3">Ultra HD (Alta)</option>
-                <option value="5">Científica (Máxima)</option>
+                <option value="1.5">Estándar (Web)</option>
+                <option value="2.5" selected>Alta Definición (HD)</option>
+                <option value="4">Científica (4.0x)</option>
+                <option value="5">Máxima Precisión (5.0x)</option>
             </select>
-        </label>
-        <div id="loader" class="loader"></div>
+        </div>
+        <div style="display: flex; align-items: flex-end;">
+            <div style="font-size: 0.6rem; color: #64748b; font-style: italic;">* Escalas > 4.0 pueden requerir alta memoria RAM.</div>
+        </div>
+    </div>
+
+    <div class="upload-zone" onclick="document.getElementById('fileInput').click()">
+        <span id="status-text" style="font-size: 0.85rem; color: #94a3b8;">📁 Arrastra o selecciona archivo PDF</span>
+        <input type="file" id="fileInput" accept="application/pdf" style="display:none">
+    </div>
+
+    <div class="status-box" id="statusBox">
+        <div class="status-header">
+            <span id="rendering-info">Rasterizando: 0 / 0</span>
+            <span id="percent-txt">0%</span>
+        </div>
+        <div class="progress-bar"><div id="progress-fill"></div></div>
     </div>
 
     <div id="preview-container"></div>
-</div>
 
-<footer>
-    Herramienta de Productividad Científica<br>
-    Autor: <strong>Maicel Monzón Pérez</strong> | Bioestadística Edu
-</footer>
+    <footer>
+        EXTRACCIÓN DE ACTIVOS VECTORIALES - PROTOCOLO V2<br>
+        Desarrollado por: <span class="author">Maicel Monzón-Pérez</span>
+    </footer>
+</div>
 
 <script>
     const pdfjsLib = window['pdfjs-dist/build/pdf'];
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+    // Configuración del Worker para evitar problemas de compatibilidad
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
     const fileInput = document.getElementById('fileInput');
     const container = document.getElementById('preview-container');
-    const loader = document.getElementById('loader');
-    const statusText = document.getElementById('status-text');
+    const statusBox = document.getElementById('statusBox');
+    const progressFill = document.getElementById('progress-fill');
+    const renderingInfo = document.getElementById('rendering-info');
+    const percentTxt = document.getElementById('percent-txt');
 
-    fileInput.addEventListener('change', async (e) => {
+    fileInput.onchange = async (e) => {
         const file = e.target.files[0];
         if (!file) return;
 
         container.innerHTML = '';
-        loader.style.display = 'block';
-        statusText.innerText = "Procesando: " + file.name;
+        statusBox.style.display = 'block';
+        const scale = parseFloat(document.getElementById('scale').value);
 
         const reader = new FileReader();
         reader.onload = async function() {
@@ -81,50 +122,61 @@
             
             try {
                 const pdf = await pdfjsLib.getDocument(typedarray).promise;
-                const scale = parseFloat(document.getElementById('scale').value);
+                const totalPages = pdf.numPages;
 
-                for (let i = 1; i <= pdf.numPages; i++) {
+                // RENDERIZADO SECUENCIAL (Blindaje de RAM)
+                for (let i = 1; i <= totalPages; i++) {
+                    // Actualizar UI de progreso
+                    const progress = Math.round((i / totalPages) * 100);
+                    renderingInfo.innerText = `Rasterizando página: ${i} / ${totalPages}`;
+                    percentTxt.innerText = `${progress}%`;
+                    progressFill.style.width = `${progress}%`;
+
                     const page = await pdf.getPage(i);
                     const viewport = page.getViewport({ scale: scale });
                     
-                    // Crear elementos de la interfaz
                     const card = document.createElement('div');
                     card.className = 'page-card';
                     
                     const canvas = document.createElement('canvas');
-                    const context = canvas.getContext('2d');
+                    const context = canvas.getContext('2d', { alpha: false }); // Optimización de rendimiento
                     canvas.height = viewport.height;
                     canvas.width = viewport.width;
 
                     await page.render({ canvasContext: context, viewport: viewport }).promise;
 
-                    const pInfo = document.createElement('p');
-                    pInfo.innerText = `Página ${i}`;
-                    pInfo.style.fontSize = '0.8rem';
+                    // Convertir a BLOB para ahorro masivo de memoria RAM
+                    canvas.toBlob((blob) => {
+                        const blobURL = URL.createObjectURL(blob);
+                        
+                        const downloadBtn = document.createElement('button');
+                        downloadBtn.className = 'btn-dl';
+                        downloadBtn.innerText = `⬇ DESCARGAR PÁG ${i}`;
+                        downloadBtn.onclick = () => {
+                            const link = document.createElement('a');
+                            link.download = `PG_${i}_${file.name.replace('.pdf', '')}.png`;
+                            link.href = blobURL;
+                            link.click();
+                        };
 
-                    const downloadBtn = document.createElement('button');
-                    downloadBtn.className = 'btn btn-download';
-                    downloadBtn.innerText = 'Descargar PNG';
-                    downloadBtn.onclick = () => {
-                        const link = document.createElement('a');
-                        link.download = `pagina_${i}_${file.name.replace('.pdf', '')}.png`;
-                        link.href = canvas.toDataURL('image/png');
-                        link.click();
-                    };
-
-                    card.appendChild(canvas);
-                    card.appendChild(pInfo);
-                    card.appendChild(downloadBtn);
-                    container.appendChild(card);
+                        card.appendChild(canvas);
+                        card.appendChild(downloadBtn);
+                        container.appendChild(card);
+                    }, 'image/png');
+                    
+                    // Pequeña pausa para permitir que el navegador respire (especialmente en móviles)
+                    await new Promise(r => setTimeout(r, 50));
                 }
+                
+                statusBox.style.display = 'none';
             } catch (error) {
                 console.error(error);
-                alert("Error al procesar el PDF.");
+                alert("Error crítico al decodificar el documento.");
+                statusBox.style.display = 'none';
             }
-            loader.style.display = 'none';
         };
         reader.readAsArrayBuffer(file);
-    });
+    };
 </script>
 
 </body>

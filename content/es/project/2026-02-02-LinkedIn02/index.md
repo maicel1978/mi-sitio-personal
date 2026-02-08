@@ -1,6 +1,6 @@
 ---
 title: "LinkedIn Narrative Engine v2: Arquitectura de Slides con Composición de Imagen y Contexto Dinámico"
-date: "2026-01-20" # Progresión: 2026-01-22 -> 2026-01-20
+date: "2024-11-27" # Progresión: 2026-01-22 -> 2026-01-20
 # Estructura de agrupación solicitada por Maicel Monzón
 categories: ["proyectos"]
 tags:
