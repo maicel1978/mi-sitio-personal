@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Scribe Pro - Transcripción de Voz Mejorada</title>
+    <title>Scribe Pro - Transcripción de Voz</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
@@ -18,24 +18,22 @@
         body {
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
             min-height: 100vh;
+            min-height: 100dvh;
             overflow-x: hidden;
         }
 
-        /* Animación del botón de grabación */
+        /* Pulse en botón de grabar */
         @keyframes pulse-ring {
-            0% { transform: scale(0.8); opacity: 1; }
-            100% { transform: scale(1.8); opacity: 0; }
+            0% { transform: scale(0.9); opacity: 1; }
+            100% { transform: scale(2); opacity: 0; }
         }
-
         @keyframes pulse-dot {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            50% { transform: scale(1.08); }
         }
-
         .recording-btn.active {
             animation: pulse-dot 1.5s ease-in-out infinite;
         }
-
         .recording-btn.active::before {
             content: '';
             position: absolute;
@@ -45,32 +43,18 @@
             animation: pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
         }
 
-        /* Visualizador de audio */
-        .audio-bar {
-            transition: height 0.1s ease;
-        }
+        .audio-bar { transition: height 0.1s ease; }
 
-        /* Scrollbar personalizado */
-        .custom-scroll::-webkit-scrollbar {
-            width: 6px;
-        }
-        .custom-scroll::-webkit-scrollbar-track {
-            background: rgba(255,255,255,0.05);
-            border-radius: 3px;
-        }
-        .custom-scroll::-webkit-scrollbar-thumb {
-            background: rgba(255,255,255,0.2);
-            border-radius: 3px;
-        }
+        .custom-scroll::-webkit-scrollbar { width: 6px; }
+        .custom-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 3px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
 
-        /* Glassmorphism */
         .glass {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-
         .glass-strong {
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(30px);
@@ -78,19 +62,15 @@
             border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
-        /* Status indicator */
         .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            display: inline-block;
+            width: 8px; height: 8px; border-radius: 50%; display: inline-block;
         }
         .status-dot.ready { background: #22c55e; box-shadow: 0 0 8px #22c55e; }
         .status-dot.recording { background: #ef4444; box-shadow: 0 0 8px #ef4444; }
         .status-dot.error { background: #f59e0b; box-shadow: 0 0 8px #f59e0b; }
+        .status-dot.blocked { background: #ef4444; box-shadow: 0 0 8px #ef4444; }
         .status-dot.unsupported { background: #6b7280; }
 
-        /* Toast notification */
         .toast {
             position: fixed;
             top: 20px;
@@ -98,39 +78,147 @@
             transform: translateX(-50%) translateY(-100px);
             z-index: 9999;
             transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            max-width: 90vw;
+            max-width: 92vw;
         }
-        .toast.show {
-            transform: translateX(-50%) translateY(0);
-        }
+        .toast.show { transform: translateX(-50%) translateY(0); }
 
-        /* Textarea mejorado */
         textarea:focus {
             outline: none;
             border-color: rgba(99, 102, 241, 0.5);
             box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
         }
 
-        /* Botón hover effect */
-        .btn-glow:hover {
-            box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+        .btn-glow:hover { box-shadow: 0 0 20px rgba(99, 102, 241, 0.3); }
+
+        /* Modal overlay */
+        .modal-overlay {
+            position: fixed; inset: 0; z-index: 100;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(8px);
+            display: flex; align-items: center; justify-content: center;
+            padding: 16px;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.show { opacity: 1; pointer-events: auto; }
+        .modal-overlay .modal-box {
+            background: #1e293b;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 20px;
+            max-width: 420px; width: 100%;
+            max-height: 85vh; overflow-y: auto;
+            padding: 24px;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay.show .modal-box { transform: scale(1); }
+
+        /* Número de paso */
+        .step-num {
+            width: 28px; height: 28px; min-width: 28px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 13px;
         }
 
-        /* Debug panel */
-        .debug-panel {
-            font-family: 'Courier New', monospace;
-            font-size: 11px;
-            line-height: 1.4;
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
         }
+        .blink { animation: blink 1s ease-in-out infinite; }
     </style>
 </head>
 <body class="text-white">
 
-    <!-- Toast Notification -->
+    <!-- Toast -->
     <div id="toast" class="toast">
         <div class="glass-strong rounded-xl px-5 py-3 flex items-center gap-3 shadow-2xl">
             <i id="toast-icon" class="fas fa-info-circle text-blue-400"></i>
             <span id="toast-msg" class="text-sm text-white/90"></span>
+        </div>
+    </div>
+
+    <!-- Modal: Micrófono Bloqueado -->
+    <div id="micBlockedModal" class="modal-overlay">
+        <div class="modal-box custom-scroll">
+            <div class="text-center mb-5">
+                <div class="w-16 h-16 rounded-full bg-red-500/20 flex items-center justify-center mx-auto mb-3">
+                    <i class="fas fa-microphone-slash text-red-400 text-2xl"></i>
+                </div>
+                <h2 class="text-lg font-bold text-white">Micrófono Bloqueado</h2>
+                <p class="text-sm text-white/50 mt-1">Tu navegador tiene el micrófono denegado para este sitio. Hay que desbloquearlo manualmente.</p>
+            </div>
+
+            <!-- Instrucciones Chrome Android -->
+            <div id="instrChrome" class="space-y-3">
+                <h3 class="text-xs font-bold text-indigo-400 uppercase tracking-wider">Instrucciones para Chrome (Android)</h3>
+                <div class="flex gap-3 items-start">
+                    <div class="step-num bg-indigo-500/30 text-indigo-300">1</div>
+                    <p class="text-sm text-white/70">Toca el <strong class="text-white">icono de candado 🔒</strong> o el icono de ajustes a la izquierda de la barra de dirección (arriba).</p>
+                </div>
+                <div class="flex gap-3 items-start">
+                    <div class="step-num bg-indigo-500/30 text-indigo-300">2</div>
+                    <p class="text-sm text-white/70">Toca <strong class="text-white">"Permisos"</strong> o <strong class="text-white">"Configuración del sitio"</strong>.</p>
+                </div>
+                <div class="flex gap-3 items-start">
+                    <div class="step-num bg-indigo-500/30 text-indigo-300">3</div>
+                    <p class="text-sm text-white/70">Busca <strong class="text-white">"Micrófono"</strong> y cámbialo a <strong class="text-green-400">"Permitir"</strong>.</p>
+                </div>
+                <div class="flex gap-3 items-start">
+                    <div class="step-num bg-indigo-500/30 text-indigo-300">4</div>
+                    <p class="text-sm text-white/70"><strong class="text-white">Recarga la página</strong> (desliza hacia abajo o toca el botón de recargar).</p>
+                </div>
+            </div>
+
+            <!-- Instrucciones Safari iOS -->
+            <div id="instrSafari" class="space-y-3 hidden">
+                <h3 class="text-xs font-bold text-indigo-400 uppercase tracking-wider">Instrucciones para Safari (iPhone/iPad)</h3>
+                <div class="flex gap-3 items-start">
+                    <div class="step-num bg-indigo-500/30 text-indigo-300">1</div>
+                    <p class="text-sm text-white/70">Ve a <strong class="text-white">Configuración del iPhone</strong> (el icono de engranaje).</p>
+                </div>
+                <div class="flex gap-3 items-start">
+                    <div class="step-num bg-indigo-500/30 text-indigo-300">2</div>
+                    <p class="text-sm text-white/70">Baja y toca <strong class="text-white">"Safari"</strong>.</p>
+                </div>
+                <div class="flex gap-3 items-start">
+                    <div class="step-num bg-indigo-500/30 text-indigo-300">3</div>
+                    <p class="text-sm text-white/70">Toca <strong class="text-white">"Micrófono"</strong> y selecciona <strong class="text-green-400">"Permitir"</strong> o <strong class="text-green-400">"Preguntar"</strong>.</p>
+                </div>
+                <div class="flex gap-3 items-start">
+                    <div class="step-num bg-indigo-500/30 text-indigo-300">4</div>
+                    <p class="text-sm text-white/70">Vuelve aquí y <strong class="text-white">recarga la página</strong>.</p>
+                </div>
+                <div class="bg-amber-500/10 border border-amber-500/20 rounded-xl p-3 mt-2">
+                    <p class="text-xs text-amber-300"><i class="fas fa-triangle-exclamation mr-1"></i> Si usas Chrome en iPhone: Chrome en iOS usa el motor de Safari por dentro. Las mismas limitaciones aplican.</p>
+                </div>
+            </div>
+
+            <!-- Instrucciones genéricas -->
+            <div id="instrGeneric" class="space-y-3 hidden">
+                <h3 class="text-xs font-bold text-indigo-400 uppercase tracking-wider">Instrucciones generales</h3>
+                <div class="flex gap-3 items-start">
+                    <div class="step-num bg-indigo-500/30 text-indigo-300">1</div>
+                    <p class="text-sm text-white/70">Busca el <strong class="text-white">icono de candado</strong> en la barra de dirección.</p>
+                </div>
+                <div class="flex gap-3 items-start">
+                    <div class="step-num bg-indigo-500/30 text-indigo-300">2</div>
+                    <p class="text-sm text-white/70">Cambia el permiso del <strong class="text-white">Micrófono</strong> a <strong class="text-green-400">Permitir</strong>.</p>
+                </div>
+                <div class="flex gap-3 items-start">
+                    <div class="step-num bg-indigo-500/30 text-indigo-300">3</div>
+                    <p class="text-sm text-white/70"><strong class="text-white">Recarga esta página.</strong></p>
+                </div>
+            </div>
+
+            <div class="mt-6 space-y-2">
+                <button onclick="location.reload()" class="w-full py-3 bg-indigo-500 hover:bg-indigo-600 text-white font-semibold rounded-xl transition text-sm">
+                    <i class="fas fa-arrows-rotate mr-2"></i>Ya lo hice, recargar página
+                </button>
+                <button onclick="closeModal('micBlockedModal')" class="w-full py-3 bg-white/5 hover:bg-white/10 text-white/60 font-medium rounded-xl transition text-sm">
+                    Cerrar
+                </button>
+            </div>
         </div>
     </div>
 
@@ -143,13 +231,10 @@
                 </div>
                 <div>
                     <h1 class="text-lg font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Scribe Pro</h1>
-                    <p class="text-[10px] text-white/40 -mt-0.5">Transcripción de voz · Fix Edition</p>
+                    <p class="text-[10px] text-white/40 -mt-0.5">Transcripción de voz</p>
                 </div>
             </div>
             <div class="flex items-center gap-2">
-                <button onclick="toggleDebug()" class="text-white/40 hover:text-white/80 transition p-2" title="Debug">
-                    <i class="fas fa-bug text-sm"></i>
-                </button>
                 <div class="flex items-center gap-2 glass rounded-lg px-3 py-1.5">
                     <span class="status-dot" id="statusDot"></span>
                     <span class="text-xs text-white/60" id="statusText">Iniciando...</span>
@@ -158,31 +243,51 @@
         </div>
     </header>
 
-    <!-- Main Content -->
+    <!-- Main -->
     <main class="max-w-4xl mx-auto px-4 py-6 space-y-5">
 
-        <!-- Diagnóstico / Debug Panel -->
-        <div id="debugPanel" class="hidden glass rounded-2xl p-4 space-y-3">
-            <div class="flex items-center justify-between">
-                <h3 class="text-sm font-semibold text-amber-400"><i class="fas fa-stethoscope mr-2"></i>Panel de Diagnóstico</h3>
-                <button onclick="runDiagnostics()" class="text-xs bg-amber-500/20 text-amber-400 px-3 py-1 rounded-lg hover:bg-amber-500/30 transition">
-                    <i class="fas fa-play mr-1"></i>Ejecutar diagnóstico
-                </button>
-            </div>
-            <div id="debugLog" class="debug-panel bg-black/40 rounded-xl p-3 max-h-60 overflow-y-auto custom-scroll text-green-400 space-y-1">
-                <p class="text-white/30">Presiona "Ejecutar diagnóstico" para analizar...</p>
+        <!-- ALERTA: Micrófono bloqueado (se muestra si está denegado) -->
+        <div id="alertBlocked" class="hidden">
+            <div class="bg-red-500/10 border border-red-500/30 rounded-2xl p-5">
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 min-w-[48px] rounded-full bg-red-500/20 flex items-center justify-center">
+                        <i class="fas fa-microphone-slash text-red-400 text-xl blink"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-red-300 text-sm">Micrófono bloqueado por el navegador</h3>
+                        <p class="text-xs text-white/50 mt-1">En algún momento se denegó el permiso. Esto NO se puede cambiar desde la app — hay que hacerlo desde la configuración del navegador.</p>
+                        <button onclick="showModal('micBlockedModal')" class="mt-3 bg-red-500/20 hover:bg-red-500/30 text-red-300 text-sm font-semibold px-4 py-2 rounded-xl transition">
+                            <i class="fas fa-wrench mr-2"></i>Ver cómo desbloquearlo
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- Selector de Idioma y Modo -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <!-- PASO 1: Probar micrófono (se muestra al inicio si no hay permiso) -->
+        <div id="micTestSection" class="hidden">
+            <div class="glass-strong rounded-2xl p-6 text-center">
+                <div class="w-16 h-16 rounded-full bg-green-500/15 flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-microphone text-green-400 text-2xl"></i>
+                </div>
+                <h2 class="text-base font-bold text-white mb-1">Primero, activa el micrófono</h2>
+                <p class="text-sm text-white/50 mb-5">Tu navegador necesita permiso para usar el micrófono.<br>Toca el botón y <strong class="text-white/70">acepta "Permitir"</strong> cuando aparezca el mensaje.</p>
+                <button onclick="requestMicPermission()" id="micTestBtn" class="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold px-8 py-4 rounded-2xl text-base transition active:scale-95 shadow-lg shadow-green-500/20">
+                    <i class="fas fa-shield-check mr-2"></i>Permitir micrófono
+                </button>
+                <p class="text-xs text-white/30 mt-3">Si no aparece ningún mensaje, probablemente ya está bloqueado — mira las instrucciones abajo.</p>
+            </div>
+        </div>
+
+        <!-- Configuración (idioma + modo) -->
+        <div id="configSection" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div class="glass rounded-2xl p-4">
                 <label class="text-xs text-white/50 mb-2 block font-medium">
-                    <i class="fas fa-language mr-1"></i>Idioma de reconocimiento
+                    <i class="fas fa-language mr-1"></i>Idioma
                 </label>
                 <select id="langSelect" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500/50 transition appearance-none cursor-pointer">
                     <option value="es-ES">🇪🇸 Español (España)</option>
-                    <option value="es-MX">🇲🇽 Español (México)</option>
+                    <option value="es-MX" selected>🇲🇽 Español (México)</option>
                     <option value="es-AR">🇦🇷 Español (Argentina)</option>
                     <option value="es-CO">🇨🇴 Español (Colombia)</option>
                     <option value="en-US">🇺🇸 English (US)</option>
@@ -195,65 +300,34 @@
             </div>
             <div class="glass rounded-2xl p-4">
                 <label class="text-xs text-white/50 mb-2 block font-medium">
-                    <i class="fas fa-sliders mr-1"></i>Modo de transcripción
+                    <i class="fas fa-sliders mr-1"></i>Modo
                 </label>
                 <div class="flex gap-2">
                     <button onclick="setMode('continuous')" id="modeContinuous" class="flex-1 py-2.5 rounded-xl text-sm font-medium transition bg-indigo-500/30 text-indigo-300 border border-indigo-500/30">
                         <i class="fas fa-infinity mr-1"></i>Continuo
                     </button>
                     <button onclick="setMode('single')" id="modeSingle" class="flex-1 py-2.5 rounded-xl text-sm font-medium transition bg-white/5 text-white/50 border border-white/10">
-                        <i class="fas fa-comment mr-1"></i>Frase única
+                        <i class="fas fa-comment mr-1"></i>Frase
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- Área de Grabación -->
-        <div class="glass-strong rounded-3xl p-6 sm:p-8">
-            <!-- Visualizador de Audio -->
-            <div class="flex items-end justify-center gap-[3px] h-16 mb-6" id="visualizer">
-                <div class="audio-bar w-1.5 bg-indigo-500/30 rounded-full" style="height: 8px"></div>
-                <div class="audio-bar w-1.5 bg-indigo-500/30 rounded-full" style="height: 8px"></div>
-                <div class="audio-bar w-1.5 bg-indigo-500/30 rounded-full" style="height: 8px"></div>
-                <div class="audio-bar w-1.5 bg-indigo-500/30 rounded-full" style="height: 8px"></div>
-                <div class="audio-bar w-1.5 bg-indigo-500/30 rounded-full" style="height: 8px"></div>
-                <div class="audio-bar w-1.5 bg-indigo-500/30 rounded-full" style="height: 8px"></div>
-                <div class="audio-bar w-1.5 bg-indigo-500/30 rounded-full" style="height: 8px"></div>
-                <div class="audio-bar w-1.5 bg-indigo-500/30 rounded-full" style="height: 8px"></div>
-                <div class="audio-bar w-1.5 bg-indigo-500/30 rounded-full" style="height: 8px"></div>
-                <div class="audio-bar w-1.5 bg-indigo-500/30 rounded-full" style="height: 8px"></div>
-                <div class="audio-bar w-1.5 bg-indigo-500/30 rounded-full" style="height: 8px"></div>
-                <div class="audio-bar w-1.5 bg-indigo-500/30 rounded-full" style="height: 8px"></div>
-                <div class="audio-bar w-1.5 bg-indigo-500/30 rounded-full" style="height: 8px"></div>
-                <div class="audio-bar w-1.5 bg-indigo-500/30 rounded-full" style="height: 8px"></div>
-                <div class="audio-bar w-1.5 bg-indigo-500/30 rounded-full" style="height: 8px"></div>
-                <div class="audio-bar w-1.5 bg-indigo-500/30 rounded-full" style="height: 8px"></div>
-                <div class="audio-bar w-1.5 bg-indigo-500/30 rounded-full" style="height: 8px"></div>
-                <div class="audio-bar w-1.5 bg-indigo-500/30 rounded-full" style="height: 8px"></div>
-                <div class="audio-bar w-1.5 bg-indigo-500/30 rounded-full" style="height: 8px"></div>
-                <div class="audio-bar w-1.5 bg-indigo-500/30 rounded-full" style="height: 8px"></div>
-                <div class="audio-bar w-1.5 bg-indigo-500/30 rounded-full" style="height: 8px"></div>
-                <div class="audio-bar w-1.5 bg-indigo-500/30 rounded-full" style="height: 8px"></div>
-                <div class="audio-bar w-1.5 bg-indigo-500/30 rounded-full" style="height: 8px"></div>
-                <div class="audio-bar w-1.5 bg-indigo-500/30 rounded-full" style="height: 8px"></div>
-                <div class="audio-bar w-1.5 bg-indigo-500/30 rounded-full" style="height: 8px"></div>
-                <div class="audio-bar w-1.5 bg-indigo-500/30 rounded-full" style="height: 8px"></div>
-                <div class="audio-bar w-1.5 bg-indigo-500/30 rounded-full" style="height: 8px"></div>
-                <div class="audio-bar w-1.5 bg-indigo-500/30 rounded-full" style="height: 8px"></div>
-                <div class="audio-bar w-1.5 bg-indigo-500/30 rounded-full" style="height: 8px"></div>
-                <div class="audio-bar w-1.5 bg-indigo-500/30 rounded-full" style="height: 8px"></div>
-            </div>
+        <!-- Área de grabación -->
+        <div id="recordSection" class="glass-strong rounded-3xl p-6 sm:p-8">
+            <!-- Visualizador -->
+            <div class="flex items-end justify-center gap-[3px] h-16 mb-6" id="visualizer"></div>
 
-            <!-- Botón Principal -->
+            <!-- Botón principal -->
             <div class="flex flex-col items-center gap-4">
-                <button id="recordBtn" onclick="toggleRecording()" class="recording-btn relative w-20 h-20 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-2xl hover:shadow-indigo-500/25 transition-all duration-300 active:scale-95 btn-glow">
-                    <i id="recordIcon" class="fas fa-microphone text-2xl text-white"></i>
+                <button id="recordBtn" onclick="toggleRecording()" class="recording-btn relative w-24 h-24 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-2xl hover:shadow-indigo-500/25 transition-all duration-300 active:scale-95 btn-glow disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+                    <i id="recordIcon" class="fas fa-microphone text-3xl text-white"></i>
                 </button>
-                <p id="recordLabel" class="text-sm text-white/50">Toca para grabar</p>
-                <p id="recordTime" class="text-xs text-white/30 hidden">00:00</p>
+                <p id="recordLabel" class="text-sm text-white/50">Primero permite el micrófono ↑</p>
+                <p id="recordTime" class="text-xs text-white/30 hidden font-mono">00:00</p>
             </div>
 
-            <!-- Texto en tiempo real (interim) -->
+            <!-- Interim -->
             <div id="interimBox" class="mt-6 hidden">
                 <div class="bg-white/5 rounded-xl p-4 border border-white/10">
                     <p class="text-xs text-indigo-400 mb-1"><i class="fas fa-ear-listen mr-1"></i>Escuchando...</p>
@@ -262,7 +336,7 @@
             </div>
         </div>
 
-        <!-- Área de Transcripción -->
+        <!-- Transcripción -->
         <div class="glass rounded-2xl p-4 sm:p-6">
             <div class="flex items-center justify-between mb-3">
                 <h2 class="text-sm font-semibold text-white/70">
@@ -270,58 +344,61 @@
                 </h2>
                 <div class="flex items-center gap-2">
                     <span id="charCount" class="text-xs text-white/30">0 caracteres</span>
-                    <button onclick="copyText()" class="text-xs bg-white/5 hover:bg-white/10 text-white/50 hover:text-white/80 px-3 py-1.5 rounded-lg transition" title="Copiar">
+                    <button onclick="copyText()" class="text-xs bg-white/5 hover:bg-white/10 text-white/50 hover:text-white/80 px-3 py-1.5 rounded-lg transition">
                         <i class="fas fa-copy mr-1"></i>Copiar
                     </button>
-                    <button onclick="clearText()" class="text-xs bg-white/5 hover:bg-red-500/20 text-white/50 hover:text-red-400 px-3 py-1.5 rounded-lg transition" title="Limpiar">
+                    <button onclick="downloadText()" class="text-xs bg-white/5 hover:bg-white/10 text-white/50 hover:text-white/80 px-3 py-1.5 rounded-lg transition" title="Descargar">
+                        <i class="fas fa-download mr-1"></i>
+                    </button>
+                    <button onclick="clearText()" class="text-xs bg-white/5 hover:bg-red-500/20 text-white/50 hover:text-red-400 px-3 py-1.5 rounded-lg transition">
                         <i class="fas fa-trash mr-1"></i>
                     </button>
                 </div>
             </div>
-            <textarea id="transcription" class="w-full bg-black/30 border border-white/10 rounded-xl p-4 text-white/90 text-sm leading-relaxed resize-none custom-scroll transition min-h-[150px]" placeholder="La transcripción aparecerá aquí...&#10;&#10;Toca el botón del micrófono para comenzar." rows="8"></textarea>
+            <textarea id="transcription" class="w-full bg-black/30 border border-white/10 rounded-xl p-4 text-white/90 text-sm leading-relaxed resize-none custom-scroll transition min-h-[150px]" placeholder="La transcripción aparecerá aquí..." rows="8"></textarea>
         </div>
 
-        <!-- Información de Problemas Comunes -->
+        <!-- FAQ -->
         <div class="glass rounded-2xl p-4 sm:p-6">
             <details class="group">
                 <summary class="flex items-center justify-between cursor-pointer text-sm font-semibold text-white/70 list-none">
-                    <span><i class="fas fa-circle-question mr-2 text-amber-400"></i>¿El micrófono no funciona? Soluciones comunes</span>
+                    <span><i class="fas fa-circle-question mr-2 text-amber-400"></i>¿Problemas? Soluciones rápidas</span>
                     <i class="fas fa-chevron-down text-white/30 group-open:rotate-180 transition-transform"></i>
                 </summary>
                 <div class="mt-4 space-y-3 text-xs text-white/50 leading-relaxed">
                     <div class="flex gap-3 items-start bg-white/5 rounded-xl p-3">
-                        <i class="fas fa-lock text-green-400 mt-0.5"></i>
+                        <i class="fas fa-lock text-green-400 mt-0.5 min-w-[16px]"></i>
                         <div>
-                            <p class="text-white/70 font-medium">1. HTTPS obligatorio</p>
-                            <p>El micrófono SOLO funciona en páginas servidas por HTTPS (o localhost). Verifica que tu URL empiece con <code class="bg-white/10 px-1 rounded">https://</code></p>
+                            <p class="text-white/70 font-medium">Dice "denegado" pero ya di permiso</p>
+                            <p>Una vez que se niega, el navegador lo recuerda. Toca el <strong>candado 🔒</strong> en la barra de dirección → Permisos → Micrófono → Permitir → <strong>Recarga la página</strong>.</p>
                         </div>
                     </div>
                     <div class="flex gap-3 items-start bg-white/5 rounded-xl p-3">
-                        <i class="fas fa-shield-halved text-blue-400 mt-0.5"></i>
+                        <i class="fas fa-mobile-screen text-purple-400 mt-0.5 min-w-[16px]"></i>
                         <div>
-                            <p class="text-white/70 font-medium">2. Permisos del navegador</p>
-                            <p>En móviles: Ve a <strong>Configuración del sitio</strong> en tu navegador y permite el acceso al micrófono. En iOS Safari: Configuración → Safari → Micrófono → Permitir.</p>
+                            <p class="text-white/70 font-medium">iPhone / iPad (Safari)</p>
+                            <p>Ve a <strong>Configuración del iPhone → Safari → Micrófono → Permitir</strong>. Safari en iOS tiene soporte limitado para esta tecnología.</p>
                         </div>
                     </div>
                     <div class="flex gap-3 items-start bg-white/5 rounded-xl p-3">
-                        <i class="fas fa-mobile-screen text-purple-400 mt-0.5"></i>
+                        <i class="fas fa-ban text-red-400 mt-0.5 min-w-[16px]"></i>
                         <div>
-                            <p class="text-white/70 font-medium">3. iOS Safari (iPhone/iPad)</p>
-                            <p>Safari en iOS tiene soporte LIMITADO para Web Speech API. Si no funciona, prueba con <strong>Chrome para iOS</strong> o usa el modo de escritura manual.</p>
+                            <p class="text-white/70 font-medium">Otra app usa el micrófono</p>
+                            <p>Cierra apps que usen micrófono: llamadas, WhatsApp, Zoom, Teams, etc.</p>
                         </div>
                     </div>
                     <div class="flex gap-3 items-start bg-white/5 rounded-xl p-3">
-                        <i class="fas fa-ban text-red-400 mt-0.5"></i>
+                        <i class="fas fa-wifi text-cyan-400 mt-0.5 min-w-[16px]"></i>
                         <div>
-                            <p class="text-white/70 font-medium">4. Otra app usa el micrófono</p>
-                            <p>Cierra otras apps que puedan estar usando el micrófono (llamadas, WhatsApp, Zoom, etc.)</p>
+                            <p class="text-white/70 font-medium">Necesita internet</p>
+                            <p>El reconocimiento de voz de Chrome procesa en la nube. Sin internet, no funciona.</p>
                         </div>
                     </div>
                     <div class="flex gap-3 items-start bg-white/5 rounded-xl p-3">
-                        <i class="fas fa-arrows-rotate text-cyan-400 mt-0.5"></i>
+                        <i class="fas fa-chrome text-blue-400 mt-0.5 min-w-[16px]"></i>
                         <div>
-                            <p class="text-white/70 font-medium">5. Reiniciar permisos</p>
-                            <p>Si denegaste el permiso antes: En Chrome → candado en la barra de URL → Permisos del sitio → Micrófono → Permitir → Recargar página.</p>
+                            <p class="text-white/70 font-medium">¿Qué navegador funciona mejor?</p>
+                            <p><strong>Chrome en Android</strong> es el que mejor soporte tiene. En iPhone, prueba Safari. Firefox y otros no soportan esta tecnología.</p>
                         </div>
                     </div>
                 </div>
@@ -330,14 +407,13 @@
 
     </main>
 
-    <!-- Footer -->
     <footer class="text-center py-6 text-xs text-white/20">
-        Scribe Pro Fix Edition · Diagnóstico de micrófono integrado
+        Scribe Pro · Transcripción de voz a texto
     </footer>
 
     <script>
         // ========================================
-        // VARIABLES GLOBALES
+        // VARIABLES
         // ========================================
         let recognition = null;
         let isRecording = false;
@@ -348,7 +424,8 @@
         let animationId = null;
         let recordingTimer = null;
         let recordingSeconds = 0;
-        let fullTranscript = '';
+        let micPermissionGranted = false;
+        let recognitionRestarting = false;
 
         // ========================================
         // ELEMENTOS DOM
@@ -365,61 +442,183 @@
         const interimText = $('interimText');
         const charCount = $('charCount');
         const visualizer = $('visualizer');
-        const bars = visualizer.querySelectorAll('.audio-bar');
+
+        // Crear barras del visualizador
+        function createBars() {
+            visualizer.innerHTML = '';
+            const count = 30;
+            for (let i = 0; i < count; i++) {
+                const bar = document.createElement('div');
+                bar.className = 'audio-bar w-1.5 bg-indigo-500/30 rounded-full';
+                bar.style.height = '8px';
+                visualizer.appendChild(bar);
+            }
+        }
+        createBars();
 
         // ========================================
-        // INICIALIZACIÓN
+        // INICIO: Detectar estado del micrófono
         // ========================================
-        document.addEventListener('DOMContentLoaded', () => {
-            checkSupport();
+        document.addEventListener('DOMContentLoaded', async () => {
             transcription.addEventListener('input', updateCharCount);
+            detectPlatformForModal();
+            await checkInitialState();
         });
 
-        function checkSupport() {
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        function detectPlatformForModal() {
+            const ua = navigator.userAgent;
+            const isIOS = /iPad|iPhone|iPod/.test(ua);
+            const isSafari = /Safari/.test(ua) && !/Chrome/.test(ua);
+            const isAndroidChrome = /Android/.test(ua) && /Chrome/.test(ua);
 
+            // Mostrar instrucciones correctas en el modal
+            $('instrChrome').classList.add('hidden');
+            $('instrSafari').classList.add('hidden');
+            $('instrGeneric').classList.add('hidden');
+
+            if (isIOS) {
+                $('instrSafari').classList.remove('hidden');
+            } else if (isAndroidChrome) {
+                $('instrChrome').classList.remove('hidden');
+            } else {
+                $('instrGeneric').classList.remove('hidden');
+            }
+        }
+
+        async function checkInitialState() {
+            // 1. ¿Soporta SpeechRecognition?
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
             if (!SpeechRecognition) {
                 setStatus('unsupported', 'No soportado');
-                showToast('Tu navegador no soporta reconocimiento de voz. Prueba Chrome.', 'error');
+                recordLabel.textContent = 'Tu navegador no soporta esta función. Usa Chrome.';
                 recordBtn.disabled = true;
-                recordBtn.classList.add('opacity-50');
-                logDebug('❌ SpeechRecognition API no disponible', 'error');
-                logDebug('Navigator: ' + navigator.userAgent, 'info');
+                $('micTestSection').classList.add('hidden');
+                showToast('Navegador no compatible. Usa Google Chrome.', 'error');
                 return;
             }
 
-            // Verificar HTTPS
-            if (location.protocol !== 'https:' && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
-                logDebug('⚠️ No se está usando HTTPS. El micrófono puede no funcionar.', 'warn');
+            // 2. ¿Ya tiene permiso de micrófono?
+            let permState = 'unknown';
+            if (navigator.permissions && navigator.permissions.query) {
+                try {
+                    const perm = await navigator.permissions.query({ name: 'microphone' });
+                    permState = perm.state; // 'granted', 'denied', 'prompt'
+                    console.log('[ScribePro] Permiso micrófono:', permState);
+
+                    // Escuchar cambios de permiso en tiempo real
+                    perm.onchange = () => {
+                        console.log('[ScribePro] Permiso cambió a:', perm.state);
+                        if (perm.state === 'granted') {
+                            onMicPermissionGranted();
+                        } else if (perm.state === 'denied') {
+                            onMicPermissionDenied();
+                        }
+                    };
+                } catch(e) {
+                    console.log('[ScribePro] No se pudo consultar permiso:', e);
+                }
             }
 
-            setStatus('ready', 'Listo');
-            logDebug('✅ SpeechRecognition API disponible', 'success');
-            initRecognition();
+            if (permState === 'granted') {
+                // Ya tenemos permiso, activar todo
+                onMicPermissionGranted();
+            } else if (permState === 'denied') {
+                // Está bloqueado
+                onMicPermissionDenied();
+            } else {
+                // 'prompt' o 'unknown' — mostrar botón de pedir permiso
+                showMicTestUI();
+            }
         }
 
         // ========================================
-        // CONFIGURACIÓN DEL RECONOCIMIENTO DE VOZ
+        // FLUJO DE PERMISOS
+        // ========================================
+        function showMicTestUI() {
+            $('micTestSection').classList.remove('hidden');
+            $('alertBlocked').classList.add('hidden');
+            recordBtn.disabled = true;
+            recordLabel.textContent = 'Primero permite el micrófono ↑';
+            setStatus('error', 'Sin permiso');
+        }
+
+        async function requestMicPermission() {
+            const btn = $('micTestBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Solicitando...';
+
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    audio: {
+                        echoCancellation: true,
+                        noiseSuppression: true,
+                        autoGainControl: true
+                    }
+                });
+                // Éxito — liberar stream de prueba
+                stream.getTracks().forEach(t => t.stop());
+                onMicPermissionGranted();
+                showToast('¡Micrófono activado! Ya puedes grabar.', 'success');
+            } catch(err) {
+                console.error('[ScribePro] getUserMedia error:', err);
+                if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
+                    onMicPermissionDenied();
+                } else if (err.name === 'NotFoundError') {
+                    showToast('No se encontró micrófono en este dispositivo.', 'error');
+                    setStatus('error', 'Sin micrófono');
+                } else if (err.name === 'NotReadableError') {
+                    showToast('El micrófono está siendo usado por otra app. Ciérrala y vuelve a intentar.', 'error');
+                } else {
+                    showToast('Error al acceder al micrófono: ' + err.message, 'error');
+                }
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-shield-check mr-2"></i>Permitir micrófono';
+            }
+        }
+
+        function onMicPermissionGranted() {
+            micPermissionGranted = true;
+            $('micTestSection').classList.add('hidden');
+            $('alertBlocked').classList.add('hidden');
+            recordBtn.disabled = false;
+            recordLabel.textContent = 'Toca para grabar';
+            setStatus('ready', 'Listo');
+            initRecognition();
+        }
+
+        function onMicPermissionDenied() {
+            micPermissionGranted = false;
+            $('micTestSection').classList.add('hidden');
+            $('alertBlocked').classList.remove('hidden');
+            recordBtn.disabled = true;
+            recordLabel.textContent = 'Micrófono bloqueado';
+            setStatus('blocked', 'Bloqueado');
+
+            // Mostrar modal automáticamente
+            setTimeout(() => showModal('micBlockedModal'), 500);
+        }
+
+        // ========================================
+        // RECONOCIMIENTO DE VOZ
         // ========================================
         function initRecognition() {
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            recognition = new SpeechRecognition();
+            if (!SpeechRecognition) return;
 
-            const lang = $('langSelect').value;
-            recognition.lang = lang;
+            recognition = new SpeechRecognition();
+            recognition.lang = $('langSelect').value;
             recognition.continuous = (currentMode === 'continuous');
             recognition.interimResults = true;
             recognition.maxAlternatives = 1;
 
-            logDebug(`🎙️ Configurado: lang=${lang}, continuous=${recognition.continuous}`, 'info');
-
             recognition.onstart = () => {
-                logDebug('🟢 recognition.onstart disparado', 'success');
+                console.log('[ScribePro] recognition.onstart');
+                recognitionRestarting = false;
                 isRecording = true;
                 setStatus('recording', 'Grabando...');
                 recordBtn.classList.add('active');
                 recordBtn.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
-                recordIcon.className = 'fas fa-stop text-2xl text-white';
+                recordIcon.className = 'fas fa-stop text-3xl text-white';
                 recordLabel.textContent = 'Toca para detener';
                 recordTime.classList.remove('hidden');
                 startTimer();
@@ -427,19 +626,17 @@
 
             recognition.onresult = (event) => {
                 let interim = '';
-                let final = '';
+                let finalText = '';
 
                 for (let i = event.resultIndex; i < event.results.length; i++) {
-                    const transcript = event.results[i][0].transcript;
+                    const t = event.results[i][0].transcript;
                     if (event.results[i].isFinal) {
-                        final += transcript;
-                        logDebug(`📝 Final: "${transcript}"`, 'success');
+                        finalText += t;
                     } else {
-                        interim += transcript;
+                        interim += t;
                     }
                 }
 
-                // Mostrar texto interim
                 if (interim) {
                     interimBox.classList.remove('hidden');
                     interimText.textContent = interim;
@@ -447,100 +644,92 @@
                     interimBox.classList.add('hidden');
                 }
 
-                // Agregar texto final
-                if (final) {
-                    const currentText = transcription.value;
-                    const separator = currentText && !currentText.endsWith('\n') && !currentText.endsWith(' ') ? ' ' : '';
-                    transcription.value = currentText + separator + final;
+                if (finalText) {
+                    const cur = transcription.value;
+                    const sep = cur && !cur.endsWith('\n') && !cur.endsWith(' ') ? ' ' : '';
+                    transcription.value = cur + sep + finalText;
                     updateCharCount();
-                    // Auto-scroll
                     transcription.scrollTop = transcription.scrollHeight;
                 }
             };
 
             recognition.onerror = (event) => {
-                logDebug(`❌ Error: ${event.error} - ${event.message || 'sin mensaje'}`, 'error');
+                console.warn('[ScribePro] recognition.onerror:', event.error, event.message);
 
                 switch (event.error) {
                     case 'not-allowed':
-                        showToast('Permiso de micrófono denegado. Revisa la configuración del navegador.', 'error');
-                        setStatus('error', 'Sin permiso');
-                        break;
+                        onMicPermissionDenied();
+                        return;
+
                     case 'no-speech':
-                        logDebug('⚠️ No se detectó voz', 'warn');
-                        // En modo continuo, reiniciar automáticamente
+                        // Silencio — reiniciar en modo continuo
                         if (currentMode === 'continuous' && isRecording) {
-                            logDebug('🔄 Reiniciando por no-speech...', 'info');
-                            restartRecognition();
+                            console.log('[ScribePro] No speech, restarting...');
+                            safeRestart();
                             return;
                         }
+                        showToast('No se detectó voz. Intenta de nuevo.', 'warn');
                         break;
+
                     case 'audio-capture':
-                        showToast('No se pudo capturar audio. ¿Hay micrófono disponible?', 'error');
-                        setStatus('error', 'Sin micrófono');
+                        showToast('No se pudo capturar audio. ¿Hay micrófono?', 'error');
                         break;
+
                     case 'network':
-                        showToast('Error de red. Se necesita conexión a internet.', 'error');
-                        setStatus('error', 'Sin red');
+                        showToast('Sin conexión a internet. Se necesita para el reconocimiento.', 'error');
                         break;
+
                     case 'aborted':
-                        logDebug('⚠️ Reconocimiento abortado', 'warn');
+                        // Normal al detener, no mostrar error
+                        if (!isRecording) return;
                         break;
+
                     default:
-                        showToast(`Error: ${event.error}`, 'error');
+                        showToast('Error: ' + event.error, 'error');
                 }
 
-                if (event.error !== 'no-speech') {
+                if (event.error !== 'no-speech' && event.error !== 'aborted') {
                     stopRecordingUI();
                 }
             };
 
             recognition.onend = () => {
-                logDebug('🔴 recognition.onend disparado', 'info');
+                console.log('[ScribePro] recognition.onend, isRecording:', isRecording);
                 interimBox.classList.add('hidden');
 
-                // Auto-restart en modo continuo si aún queremos grabar
                 if (isRecording && currentMode === 'continuous') {
-                    logDebug('🔄 Auto-reiniciando (modo continuo)...', 'info');
-                    try {
-                        setTimeout(() => {
-                            if (isRecording) {
-                                recognition.start();
-                                logDebug('✅ Reiniciado exitosamente', 'success');
-                            }
-                        }, 200);
-                    } catch (e) {
-                        logDebug(`❌ Error al reiniciar: ${e.message}`, 'error');
-                        stopRecordingUI();
-                    }
+                    safeRestart();
                 } else {
                     stopRecordingUI();
                 }
             };
 
-            // Cambiar idioma cuando se seleccione otro
-            $('langSelect').addEventListener('change', () => {
-                const wasRecording = isRecording;
-                if (wasRecording) stopRecording();
+            // Cambio de idioma
+            $('langSelect').onchange = () => {
+                const wasRec = isRecording;
+                if (wasRec) stopRecording();
                 initRecognition();
-                if (wasRecording) {
-                    setTimeout(() => startRecording(), 300);
-                }
-            });
+                if (wasRec) setTimeout(() => startRecording(), 400);
+            };
         }
 
-        function restartRecognition() {
-            try {
-                recognition.stop();
-            } catch(e) {}
+        function safeRestart() {
+            if (recognitionRestarting || !isRecording) return;
+            recognitionRestarting = true;
+
+            try { recognition.stop(); } catch(e) {}
+
             setTimeout(() => {
-                if (isRecording) {
-                    try {
-                        recognition.start();
-                    } catch(e) {
-                        logDebug(`❌ Error reiniciando: ${e.message}`, 'error');
-                        stopRecordingUI();
-                    }
+                if (!isRecording) { recognitionRestarting = false; return; }
+                try {
+                    recognition.lang = $('langSelect').value;
+                    recognition.continuous = (currentMode === 'continuous');
+                    recognition.start();
+                    console.log('[ScribePro] Restarted OK');
+                } catch(e) {
+                    console.error('[ScribePro] Restart failed:', e);
+                    recognitionRestarting = false;
+                    stopRecordingUI();
                 }
             }, 300);
         }
@@ -558,85 +747,63 @@
 
         async function startRecording() {
             if (!recognition) {
-                showToast('Reconocimiento de voz no disponible', 'error');
+                showToast('Reconocimiento no disponible', 'error');
                 return;
             }
 
-            logDebug('🎬 Intentando iniciar grabación...', 'info');
-
-            // PASO 1: Solicitar permiso de micrófono PRIMERO con getUserMedia
-            // Esto es CRUCIAL para móviles - fuerza el diálogo de permisos
+            // Obtener stream (para visualizador y confirmar permiso)
             try {
-                logDebug('📱 Solicitando getUserMedia para permisos...', 'info');
                 mediaStream = await navigator.mediaDevices.getUserMedia({
-                    audio: {
-                        echoCancellation: true,
-                        noiseSuppression: true,
-                        autoGainControl: true
-                    }
+                    audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true }
                 });
-                logDebug('✅ getUserMedia exitoso - micrófono permitido', 'success');
-
-                // Configurar visualizador de audio
                 setupAudioVisualizer(mediaStream);
-
-            } catch (err) {
-                logDebug(`❌ getUserMedia falló: ${err.name} - ${err.message}`, 'error');
-
+            } catch(err) {
+                console.error('[ScribePro] getUserMedia failed:', err);
                 if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
-                    showToast('Permiso de micrófono denegado. Permite el acceso en la configuración del navegador.', 'error');
-                    setStatus('error', 'Permiso denegado');
-                } else if (err.name === 'NotFoundError') {
-                    showToast('No se encontró ningún micrófono en este dispositivo.', 'error');
-                    setStatus('error', 'Sin micrófono');
-                } else if (err.name === 'NotReadableError') {
-                    showToast('El micrófono está siendo usado por otra aplicación.', 'error');
-                    setStatus('error', 'Micrófono ocupado');
+                    onMicPermissionDenied();
                 } else {
-                    showToast(`Error al acceder al micrófono: ${err.message}`, 'error');
-                    setStatus('error', 'Error');
+                    showToast('Error al acceder al micrófono: ' + err.message, 'error');
                 }
                 return;
             }
 
-            // PASO 2: Iniciar reconocimiento de voz
+            // Iniciar reconocimiento
             try {
-                // Reconfigurar recognition con los ajustes actuales
                 recognition.lang = $('langSelect').value;
                 recognition.continuous = (currentMode === 'continuous');
                 recognition.interimResults = true;
-
-                isRecording = true; // Marcar ANTES de start() para que onend sepa qué hacer
+                isRecording = true;
                 recognition.start();
-                logDebug('✅ recognition.start() llamado', 'success');
-            } catch (err) {
-                logDebug(`❌ recognition.start() falló: ${err.message}`, 'error');
+            } catch(err) {
+                console.error('[ScribePro] recognition.start failed:', err);
                 isRecording = false;
-                showToast(`Error al iniciar: ${err.message}`, 'error');
+                // Si dice "already started", intentar detener y reiniciar
+                if (err.message && err.message.includes('already started')) {
+                    try { recognition.stop(); } catch(e) {}
+                    setTimeout(() => startRecording(), 500);
+                    return;
+                }
+                showToast('Error al iniciar: ' + err.message, 'error');
                 cleanupAudio();
             }
         }
 
         function stopRecording() {
-            logDebug('⏹️ Deteniendo grabación...', 'info');
+            console.log('[ScribePro] Stopping...');
             isRecording = false;
-
-            try {
-                recognition.stop();
-            } catch(e) {
-                logDebug(`⚠️ Error al detener recognition: ${e.message}`, 'warn');
-            }
-
+            recognitionRestarting = false;
+            try { recognition.stop(); } catch(e) {}
             cleanupAudio();
             stopRecordingUI();
         }
 
         function stopRecordingUI() {
             isRecording = false;
+            recognitionRestarting = false;
             setStatus('ready', 'Listo');
             recordBtn.classList.remove('active');
             recordBtn.style.background = 'linear-gradient(135deg, #6366f1, #9333ea)';
-            recordIcon.className = 'fas fa-microphone text-2xl text-white';
+            recordIcon.className = 'fas fa-microphone text-3xl text-white';
             recordLabel.textContent = 'Toca para grabar';
             interimBox.classList.add('hidden');
             stopTimer();
@@ -651,35 +818,32 @@
                 audioContext = new (window.AudioContext || window.webkitAudioContext)();
                 analyser = audioContext.createAnalyser();
                 analyser.fftSize = 64;
-
                 const source = audioContext.createMediaStreamSource(stream);
                 source.connect(analyser);
-
                 const dataArray = new Uint8Array(analyser.frequencyBinCount);
+                const bars = visualizer.querySelectorAll('.audio-bar');
 
                 function animate() {
                     if (!isRecording) return;
                     analyser.getByteFrequencyData(dataArray);
-
                     bars.forEach((bar, i) => {
-                        const value = dataArray[i % dataArray.length] || 0;
-                        const height = Math.max(4, (value / 255) * 60);
-                        bar.style.height = height + 'px';
-                        bar.style.background = value > 128
-                            ? `rgba(239, 68, 68, ${0.5 + value/510})`
-                            : `rgba(99, 102, 241, ${0.3 + value/510})`;
+                        const v = dataArray[i % dataArray.length] || 0;
+                        const h = Math.max(4, (v / 255) * 60);
+                        bar.style.height = h + 'px';
+                        bar.style.background = v > 128
+                            ? `rgba(239, 68, 68, ${0.5 + v/510})`
+                            : `rgba(99, 102, 241, ${0.3 + v/510})`;
                     });
-
                     animationId = requestAnimationFrame(animate);
                 }
                 animate();
-                logDebug('✅ Visualizador de audio configurado', 'success');
             } catch(e) {
-                logDebug(`⚠️ Visualizador no disponible: ${e.message}`, 'warn');
+                console.warn('[ScribePro] Visualizer error:', e);
             }
         }
 
         function resetVisualizer() {
+            const bars = visualizer.querySelectorAll('.audio-bar');
             bars.forEach(bar => {
                 bar.style.height = '8px';
                 bar.style.background = 'rgba(99, 102, 241, 0.3)';
@@ -687,19 +851,9 @@
         }
 
         function cleanupAudio() {
-            if (animationId) {
-                cancelAnimationFrame(animationId);
-                animationId = null;
-            }
-            if (mediaStream) {
-                mediaStream.getTracks().forEach(track => track.stop());
-                mediaStream = null;
-                logDebug('🔇 Stream de audio liberado', 'info');
-            }
-            if (audioContext && audioContext.state !== 'closed') {
-                audioContext.close().catch(() => {});
-                audioContext = null;
-            }
+            if (animationId) { cancelAnimationFrame(animationId); animationId = null; }
+            if (mediaStream) { mediaStream.getTracks().forEach(t => t.stop()); mediaStream = null; }
+            if (audioContext && audioContext.state !== 'closed') { audioContext.close().catch(() => {}); audioContext = null; }
         }
 
         // ========================================
@@ -709,79 +863,72 @@
             recordingSeconds = 0;
             updateTimerDisplay();
             recordTime.classList.remove('hidden');
-            recordingTimer = setInterval(() => {
-                recordingSeconds++;
-                updateTimerDisplay();
-            }, 1000);
+            recordingTimer = setInterval(() => { recordingSeconds++; updateTimerDisplay(); }, 1000);
         }
-
         function stopTimer() {
-            clearInterval(recordingTimer);
-            recordingTimer = null;
-            recordTime.classList.add('hidden');
-            recordingSeconds = 0;
+            clearInterval(recordingTimer); recordingTimer = null;
+            recordTime.classList.add('hidden'); recordingSeconds = 0;
         }
-
         function updateTimerDisplay() {
-            const min = String(Math.floor(recordingSeconds / 60)).padStart(2, '0');
-            const sec = String(recordingSeconds % 60).padStart(2, '0');
-            recordTime.textContent = `${min}:${sec}`;
+            const m = String(Math.floor(recordingSeconds / 60)).padStart(2, '0');
+            const s = String(recordingSeconds % 60).padStart(2, '0');
+            recordTime.textContent = `${m}:${s}`;
         }
 
         // ========================================
-        // MODO DE TRANSCRIPCIÓN
+        // MODO
         // ========================================
         function setMode(mode) {
             currentMode = mode;
-            const wasRecording = isRecording;
-
+            const wasRec = isRecording;
             $('modeContinuous').className = mode === 'continuous'
                 ? 'flex-1 py-2.5 rounded-xl text-sm font-medium transition bg-indigo-500/30 text-indigo-300 border border-indigo-500/30'
                 : 'flex-1 py-2.5 rounded-xl text-sm font-medium transition bg-white/5 text-white/50 border border-white/10';
             $('modeSingle').className = mode === 'single'
                 ? 'flex-1 py-2.5 rounded-xl text-sm font-medium transition bg-indigo-500/30 text-indigo-300 border border-indigo-500/30'
                 : 'flex-1 py-2.5 rounded-xl text-sm font-medium transition bg-white/5 text-white/50 border border-white/10';
-
-            if (wasRecording) {
+            if (wasRec) {
                 stopRecording();
-                setTimeout(() => {
-                    initRecognition();
-                    startRecording();
-                }, 500);
-            } else {
+                setTimeout(() => { initRecognition(); startRecording(); }, 500);
+            } else if (recognition) {
                 initRecognition();
             }
-
-            logDebug(`⚙️ Modo cambiado a: ${mode}`, 'info');
         }
 
         // ========================================
         // UTILIDADES
         // ========================================
         function setStatus(type, text) {
-            statusDot.className = `status-dot ${type}`;
+            statusDot.className = 'status-dot ' + type;
             statusText.textContent = text;
         }
 
         function updateCharCount() {
-            const len = transcription.value.length;
-            charCount.textContent = `${len} caracter${len !== 1 ? 'es' : ''}`;
+            const n = transcription.value.length;
+            charCount.textContent = n + ' caracter' + (n !== 1 ? 'es' : '');
         }
 
         function copyText() {
-            const text = transcription.value;
-            if (!text) {
-                showToast('No hay texto para copiar', 'warn');
-                return;
+            const t = transcription.value;
+            if (!t) { showToast('No hay texto para copiar', 'warn'); return; }
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(t).then(() => {
+                    showToast('Texto copiado al portapapeles', 'success');
+                }).catch(() => fallbackCopy());
+            } else {
+                fallbackCopy();
             }
-            navigator.clipboard.writeText(text).then(() => {
-                showToast('Texto copiado al portapapeles', 'success');
-            }).catch(() => {
-                // Fallback para navegadores que no soportan clipboard API
-                transcription.select();
+        }
+
+        function fallbackCopy() {
+            transcription.select();
+            transcription.setSelectionRange(0, 99999);
+            try {
                 document.execCommand('copy');
                 showToast('Texto copiado', 'success');
-            });
+            } catch(e) {
+                showToast('No se pudo copiar. Selecciona el texto manualmente.', 'error');
+            }
         }
 
         function clearText() {
@@ -790,139 +937,54 @@
             updateCharCount();
         }
 
+        function downloadText() {
+            const t = transcription.value;
+            if (!t) { showToast('No hay texto para descargar', 'warn'); return; }
+            const blob = new Blob([t], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            const now = new Date();
+            a.download = `transcripcion_${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}_${String(now.getHours()).padStart(2,'0')}${String(now.getMinutes()).padStart(2,'0')}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast('Archivo descargado', 'success');
+        }
+
         // ========================================
-        // TOAST NOTIFICATIONS
+        // MODALES
+        // ========================================
+        function showModal(id) { $(id).classList.add('show'); }
+        function closeModal(id) { $(id).classList.remove('show'); }
+
+        // Cerrar modal al hacer click fuera
+        document.querySelectorAll('.modal-overlay').forEach(m => {
+            m.addEventListener('click', (e) => {
+                if (e.target === m) closeModal(m.id);
+            });
+        });
+
+        // ========================================
+        // TOAST
         // ========================================
         let toastTimeout = null;
         function showToast(msg, type = 'info') {
             const toast = $('toast');
             const icon = $('toast-icon');
             const msgEl = $('toast-msg');
-
             const icons = {
                 info: 'fas fa-info-circle text-blue-400',
                 success: 'fas fa-check-circle text-green-400',
                 error: 'fas fa-exclamation-circle text-red-400',
                 warn: 'fas fa-triangle-exclamation text-amber-400'
             };
-
             icon.className = icons[type] || icons.info;
             msgEl.textContent = msg;
-
             clearTimeout(toastTimeout);
             toast.classList.add('show');
-            toastTimeout = setTimeout(() => toast.classList.remove('show'), 4000);
-        }
-
-        // ========================================
-        // PANEL DE DEBUG
-        // ========================================
-        function toggleDebug() {
-            $('debugPanel').classList.toggle('hidden');
-        }
-
-        function logDebug(msg, type = 'info') {
-            const log = $('debugLog');
-            const colors = {
-                info: 'text-blue-300',
-                success: 'text-green-400',
-                error: 'text-red-400',
-                warn: 'text-amber-400'
-            };
-            const time = new Date().toLocaleTimeString();
-            const p = document.createElement('p');
-            p.className = colors[type] || 'text-white/60';
-            p.textContent = `[${time}] ${msg}`;
-            log.appendChild(p);
-            log.scrollTop = log.scrollHeight;
-
-            // También log en consola
-            console.log(`[ScribePro] ${msg}`);
-        }
-
-        async function runDiagnostics() {
-            const log = $('debugLog');
-            log.innerHTML = '';
-
-            logDebug('=== DIAGNÓSTICO COMPLETO ===', 'info');
-            logDebug(`📱 User Agent: ${navigator.userAgent}`, 'info');
-            logDebug(`🔒 Protocolo: ${location.protocol}`, location.protocol === 'https:' ? 'success' : 'warn');
-            logDebug(`🌐 Host: ${location.hostname}`, 'info');
-
-            // Detectar plataforma
-            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-            const isAndroid = /Android/.test(navigator.userAgent);
-            const isSafari = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
-            const isChrome = /Chrome/.test(navigator.userAgent);
-
-            logDebug(`📱 Plataforma: ${isIOS ? 'iOS' : isAndroid ? 'Android' : 'Desktop'}`, 'info');
-            logDebug(`🌐 Navegador: ${isSafari ? 'Safari' : isChrome ? 'Chrome' : 'Otro'}`, 'info');
-
-            // Verificar APIs
-            const hasSpeechRecognition = !!(window.SpeechRecognition || window.webkitSpeechRecognition);
-            logDebug(`🎤 SpeechRecognition: ${hasSpeechRecognition ? 'SÍ' : 'NO'}`, hasSpeechRecognition ? 'success' : 'error');
-
-            const hasGetUserMedia = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
-            logDebug(`📹 getUserMedia: ${hasGetUserMedia ? 'SÍ' : 'NO'}`, hasGetUserMedia ? 'success' : 'error');
-
-            const hasAudioContext = !!(window.AudioContext || window.webkitAudioContext);
-            logDebug(`🔊 AudioContext: ${hasAudioContext ? 'SÍ' : 'NO'}`, hasAudioContext ? 'success' : 'error');
-
-            // Verificar permisos
-            if (navigator.permissions) {
-                try {
-                    const result = await navigator.permissions.query({ name: 'microphone' });
-                    logDebug(`🔐 Permiso micrófono: ${result.state}`, result.state === 'granted' ? 'success' : result.state === 'denied' ? 'error' : 'warn');
-                } catch(e) {
-                    logDebug(`⚠️ No se pudo verificar permisos: ${e.message}`, 'warn');
-                }
-            } else {
-                logDebug('⚠️ Permissions API no disponible', 'warn');
-            }
-
-            // Intentar acceder al micrófono
-            if (hasGetUserMedia) {
-                try {
-                    logDebug('🎙️ Probando acceso al micrófono...', 'info');
-                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                    const tracks = stream.getAudioTracks();
-                    logDebug(`✅ Micrófono accesible: ${tracks[0].label}`, 'success');
-                    logDebug(`  Estado: ${tracks[0].readyState}, Habilitado: ${tracks[0].enabled}`, 'info');
-                    // Enumerar dispositivos
-                    const devices = await navigator.mediaDevices.enumerateDevices();
-                    const audioInputs = devices.filter(d => d.kind === 'audioinput');
-                    logDebug(`🎤 Dispositivos de audio encontrados: ${audioInputs.length}`, 'info');
-                    audioInputs.forEach((d, i) => {
-                        logDebug(`  ${i+1}. ${d.label || 'Sin nombre'} (${d.deviceId.slice(0,8)}...)`, 'info');
-                    });
-                    stream.getTracks().forEach(t => t.stop());
-                } catch(e) {
-                    logDebug(`❌ Error accediendo al micrófono: ${e.name} - ${e.message}`, 'error');
-
-                    if (e.name === 'NotAllowedError') {
-                        logDebug('👆 SOLUCIÓN: Permite el micrófono en la configuración del navegador', 'warn');
-                    }
-                }
-            }
-
-            // Advertencias específicas por plataforma
-            if (isIOS && isSafari) {
-                logDebug('', 'info');
-                logDebug('⚠️ NOTA iOS Safari:', 'warn');
-                logDebug('  - Web Speech API tiene soporte limitado', 'warn');
-                logDebug('  - Asegúrate de que Safari tenga permiso de micrófono', 'warn');
-                logDebug('  - Ve a: Configuración → Safari → Micrófono', 'warn');
-            }
-
-            if (isIOS && isChrome) {
-                logDebug('', 'info');
-                logDebug('ℹ️ NOTA Chrome en iOS:', 'info');
-                logDebug('  - Chrome en iOS usa WebKit internamente', 'info');
-                logDebug('  - Las limitaciones de Safari también aplican', 'warn');
-            }
-
-            logDebug('', 'info');
-            logDebug('=== FIN DEL DIAGNÓSTICO ===', 'info');
+            toastTimeout = setTimeout(() => toast.classList.remove('show'), 4500);
         }
     </script>
 
