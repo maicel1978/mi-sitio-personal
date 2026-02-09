@@ -1,6 +1,6 @@
 ---
-title: "Bio-Scribe Pro: Ingeniería de Dictado y Síntesis Basada en Web Speech API"
-date: "2026-01-02" # Progresión: 2026-01-04 -> 2026-01-02
+title: "Ingeniería de Dictado y Síntesis Basada en Web Speech API"
+date: "2025-09-29" # Progresión: 2026-01-04 -> 2026-01-02
 # Estructura de agrupación solicitada por Maicel Monzón
 categories: ["proyectos"]
 tags:
