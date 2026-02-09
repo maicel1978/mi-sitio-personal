@@ -1,64 +1,121 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Evaluación Regulatoria | Bioestadística edu</title><link>https://bioestadisticaedu.com/tags/evaluacion-regulatoria/</link><atom:link href="https://bioestadisticaedu.com/tags/evaluacion-regulatoria/index.xml" rel="self" type="application/rss+xml"/><description>Evaluación Regulatoria</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Mon, 12 Jan 2026 00:00:00 +0000</lastBuildDate><image><url>https://bioestadisticaedu.com/media/icon_hu_551fbaee136b383e.png</url><title>Evaluación Regulatoria</title><link>https://bioestadisticaedu.com/tags/evaluacion-regulatoria/</link></image><item><title>Sobre este blog: estadística, salud y pensamiento crítico</title><link>https://bioestadisticaedu.com/post/manifiesto-es/</link><pubDate>Mon, 12 Jan 2026 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/manifiesto-es/</guid><description>&lt;p>&lt;em>Por Maicel Monzon&lt;/em>&lt;/p>
-&lt;h2 id="sobre-este-blog-estadística-salud-y-pensamiento-crítico">Sobre este blog: estadística, salud y pensamiento crítico&lt;/h2>
-&lt;p>Este blog no nació para explicar “estadística fácil”.
-Nació de una incomodidad persistente.
-Durante años he trabajado en investigación clínica y evaluación de ensayos clínicos:&lt;/p>
-&lt;p>protocolos bien escritos, métodos correctos, resultados “significativos”…&lt;/p>
-&lt;p>&lt;em>“y, aun así, preguntas mal planteadas, conclusiones frágiles y decisiones difíciles de defender.“&lt;/em>&lt;/p>
-&lt;p>La estadística, cuando se convierte en ritual, deja de ser una herramienta científica y pasa a ser una caja negra respetable.&lt;/p>
-&lt;p>Este espacio existe para abrir esa caja.&lt;/p>
-&lt;p>Aquí se piensa sobre estadística, salud, investigación y regulación cuando equivocarse tiene consecuencias reales, no académicas.&lt;/p>
-&lt;p>No escribo para simplificar en exceso.
-Escribo para entender qué estamos haciendo realmente cuando decimos que &lt;strong>“la evidencia respalda”&lt;/strong> algo.&lt;/p>
-&lt;h2 id="qué-vas-a-encontrar-aquí">¿Qué vas a encontrar aquí?&lt;/h2>
-&lt;p>El contenido se articula alrededor de varios ejes, no como compartimentos estancos, sino como &lt;strong>zonas de fricción.&lt;/strong>&lt;/p>
-&lt;p>&lt;strong>Estadística en Salud&lt;/strong>&lt;/p>
-&lt;p>Métodos usados donde importan de verdad: ensayos clínicos, vigilancia, evaluación de riesgos.
-Con especial atención a lo que no garantizan.&lt;/p>
-&lt;p>&lt;strong>Metodología de Investigación&lt;/strong>&lt;/p>
-&lt;p>Diseños, sesgos, supuestos implícitos y prácticas que se normalizan aunque erosionen la validez científica.&lt;/p>
-&lt;p>&lt;strong>Evaluación Regulatoria&lt;/strong>&lt;/p>
-&lt;p>Cómo se leen protocolos e informes finales, qué se exige formalmente y qué se pasa por alto en la práctica.
-Y por qué un documento puede ser técnicamente correcto y científicamente débil.&lt;/p>
-&lt;p>&lt;strong>Código Práctico en R o Python&lt;/strong>&lt;/p>
-&lt;p>Ejemplos reproducibles cuando el código ayuda a pensar mejor, no a impresionar.&lt;/p>
-&lt;p>&lt;strong>Reflexiones Críticas&lt;/strong>&lt;/p>
-&lt;p>Cuando el problema no es el modelo, sino la pregunta.
-O peor: cuando nadie se detiene a examinarla.&lt;/p>
-&lt;h2 id="qué-no-vas-a-encontrar">Qué NO vas a encontrar&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Evaluacion-Regulatoria | Bioestadística edu</title><link>https://bioestadisticaedu.com/tags/evaluacion-regulatoria/</link><atom:link href="https://bioestadisticaedu.com/tags/evaluacion-regulatoria/index.xml" rel="self" type="application/rss+xml"/><description>Evaluacion-Regulatoria</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Sun, 01 Feb 2026 00:00:00 +0000</lastBuildDate><image><url>https://bioestadisticaedu.com/media/icon_hu_551fbaee136b383e.png</url><title>Evaluacion-Regulatoria</title><link>https://bioestadisticaedu.com/tags/evaluacion-regulatoria/</link></image><item><title>El Frankenstein metodológico: desconexión inferencial entre fenómeno clínico y objetivos o hipótesis</title><link>https://bioestadisticaedu.com/post/er-02/</link><pubDate>Sun, 01 Feb 2026 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/er-02/</guid><description>&lt;p>&lt;em>Por Maicel Monzon&lt;/em>&lt;/p>
+&lt;h2 id="introducción">Introducción&lt;/h2>
+&lt;p>En un ensayo clínico, la pregunta clínica inicial suele surgir de un fenómeno observable: por ejemplo, &lt;strong>reducir exacerbaciones en EPOC&lt;/strong>, &lt;strong>prolongar la supervivencia en cáncer&lt;/strong> o &lt;strong>mejorar la calidad de vida tras un procedimiento&lt;/strong>.&lt;/p>
+&lt;p>El desafío surge cuando trasladamos esta pregunta clínica a &lt;strong>objetivos operativos y hipótesis estadísticas&lt;/strong>.&lt;/p>
+&lt;p>Pequeñas decisiones de definición pueden generar una &lt;strong>desconexión inferencial sistemática&lt;/strong>, de modo que el estudio termina midiendo algo distinto de lo que se pretendía entender.&lt;/p>
+&lt;p>Este post es el &lt;strong>Caso 2&lt;/strong> dentro de nuestra serie sobre desconexiones inferenciales, enlazando con &lt;a href="https://bioestadisticaedu.com/post/er-01/">ER‑01: Datos faltantes&lt;/a>&lt;/p>
+&lt;hr>
+&lt;h2 id="del-fenómeno-clínico-a-los-objetivos">Del fenómeno clínico a los objetivos&lt;/h2>
+&lt;h3 id="ejemplo-conceptual">Ejemplo conceptual&lt;/h3>
+&lt;p>Fenómeno clínico: &lt;em>“Disminuir la frecuencia de exacerbaciones en pacientes con EPOC”&lt;/em>&lt;/p>
+&lt;ul>
+&lt;li>Pregunta clínica implícita: ¿el tratamiento reduce el número total de exacerbaciones y mejora la salud global?&lt;/li>
+&lt;/ul>
+&lt;details class="spoiler " id="spoiler-1">
+&lt;summary class="cursor-pointer">Ver definiciones operativas de exacerbación y salud global en el ejemplo (Haz clic para ver detalles)&lt;/summary>
+&lt;div class="rounded-lg bg-neutral-50 dark:bg-neutral-800 p-2">
 &lt;ul>
 &lt;li>
-&lt;p>Recetas rápidas.&lt;/p>
+&lt;p>&lt;strong>Exacerbación&lt;/strong>: episodio agudo de empeoramiento clínico en un paciente con EPOC que requiere intensificación del tratamiento (por ejemplo, uso de corticoides sistémicos, antibióticos o ingreso hospitalario).&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>Promesas de automatización milagrosa.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Optimismo ingenuo sobre la estadística o la inteligencia artificial.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Contenido escrito para agradar algoritmos.&lt;/p>
+&lt;p>&lt;strong>Salud global&lt;/strong>: constructo clínico integrado que resume el estado general del paciente, incorporando la carga total de exacerbaciones, la evolución de los síntomas respiratorios, la función pulmonar y la calidad de vida relacionada con la salud, tal como se entiende en la práctica clínica habitual.&lt;/p>
 &lt;/li>
 &lt;/ul>
-&lt;h2 id="por-qué-suscribirse">Por qué suscribirse&lt;/h2>
-&lt;p>Si te interesa:&lt;/p>
+&lt;/div>
+&lt;/details>
+&lt;p>Operacionalización a objetivo estadístico mal planteado:&lt;/p>
+&lt;blockquote>
+&lt;p>Comparar la proporción de pacientes con al menos una exacerbación en 12 semanas.&lt;/p>&lt;/blockquote>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-yellow-100 dark:bg-yellow-900">
+&lt;span class="pr-3 pt-1 text-red-400">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0zM12 15.75h.007v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;p>&lt;strong>Problema:&lt;/strong>&lt;/p>
 &lt;ul>
 &lt;li>
-&lt;p>pensar con más rigor y menos automatismo,&lt;/p>
+&lt;p>El objetivo &lt;strong>simplifica&lt;/strong> un fenómeno recurrente a una &lt;strong>variable dicotómica&lt;/strong>.&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>detectar errores antes de que se conviertan en “evidencia”,&lt;/p>
+&lt;p>La &lt;strong>frecuencia y severidad&lt;/strong> de las exacerbaciones quedan &lt;strong>ignoradas&lt;/strong>.&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>leer análisis escritos desde dentro del sistema, no desde la comodidad del comentario externo,&lt;/p>
+&lt;p>La hipótesis formal puede detectar &lt;strong>diferencia estadística&lt;/strong> sin reflejar un &lt;strong>beneficio clínico real&lt;/strong> para el paciente.&lt;/p>
 &lt;/li>
 &lt;/ul>
-&lt;p>&lt;strong>puedes suscribirte.&lt;/strong>
-No prometo frecuencia fija, sí coherencia y honestidad intelectual.&lt;/p>
-&lt;p>Este es un proyecto a largo plazo.
-Si te quedas, será para pensar despacio.&lt;/p>
-&lt;p>&lt;strong>“Si quieres aprender a mirar más allá de los números, este es tu lugar.”&lt;/strong>&lt;/p>
-&lt;p>&lt;a href="https://bioestadisticaedu.com/subscribe/">&lt;strong>Suscríbete a bioestadísticaedu&lt;/strong>&lt;/a>&lt;/p>
+&lt;/span>
+&lt;/div>
+&lt;hr>
+&lt;h2 id="tipos-de-desconexión-frecuentes">Tipos de desconexión frecuentes&lt;/h2>
+&lt;ol>
+&lt;li>&lt;strong>Reducción excesiva del fenómeno&lt;/strong>
+&lt;ul>
+&lt;li>Ej: medir &lt;em>“evento binario”&lt;/em> en lugar de &lt;em>frecuencia o severidad&lt;/em>.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Ventanas de tiempo arbitrarias&lt;/strong>
+&lt;ul>
+&lt;li>Ej: solo primeras 12 semanas, aunque el efecto real se da a las 24 semanas.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Subpoblaciones no alineadas&lt;/strong>
+&lt;ul>
+&lt;li>Ej: excluir pacientes con comorbilidades relevantes para la práctica clínica.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Supuestos implícitos en hipótesis&lt;/strong>
+&lt;ul>
+&lt;li>Ej: asumir independencia de eventos recurrentes, ignorando la correlación intraindividuo entre episodios.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-yellow-100 dark:bg-yellow-900">
+&lt;span class="pr-3 pt-1 text-red-400">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0zM12 15.75h.007v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">Cada elección puede generar que la hipótesis estadística &lt;strong>responda a una pregunta distinta&lt;/strong> de la clínica original.&lt;/span>
+&lt;/div>
+&lt;hr>
+&lt;h2 id="simulación-ilustrativa-efecto-vs-objetivo-mal-planteado">Simulación ilustrativa: efecto vs. objetivo mal planteado&lt;/h2>
+&lt;p>Vamos a mostrar cómo un objetivo simplificado puede hacer que el efecto clínico parezca menor de lo que realmente es:&lt;/p>
+&lt;img src="https://bioestadisticaedu.com/post/er-02/index_files/figure-html/simulacion_hipotesis-1.png" width="672" />
+&lt;h3 id="interpretación">Interpretación&lt;/h3>
+&lt;p>&lt;strong>Fenómeno real:&lt;/strong> reducción media de exacerbaciones de 1.66 → 0.52, lo que representa una disminución sustancial de la carga total de eventos por paciente, clínicamente interpretable como menor inestabilidad de la enfermedad.&lt;/p>
+&lt;p>&lt;strong>Objetivo simplificado (≥1 exacerbación):&lt;/strong> la comparación se limita a la ocurrencia de al menos un evento (0.78 → 0.40), transformando un fenómeno cuantitativo recurrente en un desenlace binario que no distingue entre uno y múltiples episodios clínicos. La señal cambia de naturaleza: pasa de representar una reducción en la carga total de enfermedad a una mera diferencia en la ocurrencia mínima del fenómeno.&lt;/p>
+&lt;p>&lt;strong>Conclusión:&lt;/strong> la hipótesis estadística basada en un objetivo simplificado puede conducir a interpretaciones parciales o engañosas, mostrando la &lt;strong>desconexión inferencial&lt;/strong> entre fenómeno clínico y formulación operativa de la hipótesis.&lt;/p>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-yellow-100 dark:bg-yellow-900">
+&lt;span class="pr-3 pt-1 text-red-400">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0zM12 15.75h.007v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;strong>Advertencia metodológica:&lt;/strong> en escenarios con heterogeneidad clínica o con efectos diferenciales sobre la frecuencia y la severidad de los eventos, distintas formas de operacionalizar el mismo fenómeno pueden no solo atenuar la magnitud del efecto observado, sino incluso conducir a conclusiones opuestas sobre qué grupo resulta más favorable. En estos casos, no cambia el fenómeno clínico subyacente, sino la pregunta estadística que se ha decidido formular.&lt;/span>
+&lt;/div>
+&lt;hr>
+&lt;h2 id="checklist-para-alinear-objetivos-e-hipótesis">Checklist para alinear objetivos e hipótesis&lt;/h2>
+&lt;ul>
+&lt;li>¿El objetivo operacional captura la esencia del fenómeno clínico?&lt;/li>
+&lt;li>¿La hipótesis estadística corresponde al objetivo?&lt;/li>
+&lt;li>¿Se explicitan supuestos sobre población, tiempo y eventos recurrentes?&lt;/li>
+&lt;li>¿Se analiza la sensibilidad a definiciones alternativas de éxito?&lt;/li>
+&lt;li>¿Se documenta la distancia entre la pregunta clínica y la formulación operativa?&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="conclusión">Conclusión&lt;/h2>
+&lt;p>Pequeñas decisiones en la operacionalización del fenómeno clínico a objetivos y hipótesis pueden producir &lt;strong>desconexiones inferenciales tempranas&lt;/strong>, incluso antes de tocar los datos.&lt;/p>
+&lt;p>Este post sirve como &lt;strong>Caso 2&lt;/strong> de nuestra serie:&lt;/p>
+&lt;ul>
+&lt;li>El Frankenstein Metodológico: cuando la estadística responde otra pregunta → manejo de datos faltantes (desconexión en análisis)&lt;/li>
+&lt;li>Post 02: formulación de objetivos y hipótesis (desconexión temprana)&lt;/li>
+&lt;/ul>
+&lt;p>Próximos casos cubrirán:&lt;/p>
+&lt;ul>
+&lt;li>estimando → análisis estadístico&lt;/li>
+&lt;li>hipótesis → cálculo del tamaño muestral&lt;/li>
+&lt;/ul>
+&lt;p>La idea central: &lt;strong>trazar un mapa de cada posible desconexión desde fenómeno clínico hasta análisis final&lt;/strong>.&lt;/p>
+&lt;hr>
+&lt;h2 id="suscripción">Suscripción&lt;/h2>
+&lt;p>&lt;a href="https://bioestadisticaedu.com/subscribe/">&lt;strong>Suscríbete a bioestadísticaedu&lt;/strong>&lt;/a>
+y recibe la serie completa sobre desconexiones inferenciales en ensayos clínicos.&lt;/p>
 &lt;div style="background-color: #f3f6f8; padding: 20px; border-radius: 10px; text-align: center; margin-top: 30px; border: 1px solid #e0e0e0;">
 &lt;p style="color: #000; font-weight: bold; margin-bottom: 15px;">¿Te interesa pensar más allá de los números?&lt;/p>
 &lt;a href="https://www.linkedin.com/newsletters/7415401669913706496/"
@@ -66,259 +123,193 @@ target="_blank"
 style="background-color: #0077b5; color: white; padding: 10px 20px; text-decoration: none; border-radius: 25px; font-weight: bold; display: inline-block;">
 Suscribirse al Boletín en LinkedIn
 &lt;/a>
-&lt;/div></description></item><item><title>VAR Científico: El arte de mover la portería</title><link>https://bioestadisticaedu.com/post/var-caso01/</link><pubDate>Fri, 12 Dec 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/var-caso01/</guid><description>&lt;p>&lt;em>Por Maicel Monzon&lt;/em>&lt;/p>
-&lt;p>En el fútbol, si el balón sale por la banda, no puedes mover la portería para que entre.
-En la literatura médica, a veces, los postes tienen ruedas.
-Bienvenidos al VAR Científico. Aquí revisamos el partido completo: comparamos lo que prometieron en el protocolo con lo que celebraron en el paper. Si hubo mano, fuera de juego o portería relocalizada, el monitor no miente.&lt;/p>
-&lt;h2 id="-la-promesa-inicial-clinicaltrialsgov--nct01324037">📋 La promesa inicial (ClinicalTrials.gov – NCT01324037)&lt;/h2>
+&lt;/div>
+&lt;hr>
+&lt;h2 id="bibliografía">Bibliografía&lt;/h2>
 &lt;ul>
 &lt;li>
-&lt;p>&lt;strong>Objetivo principal:&lt;/strong> Reducción del consumo acumulado de morfina en las primeras 48 horas post-cirugía.&lt;/p>
+&lt;p>International Council for Harmonisation of Technical Requirements for Pharmaceuticals for Human Use (ICH). Addendum on estimands and sensitivity analysis in clinical trials to the guideline on statistical principles for clinical trials E9(R1). Geneva: ICH; 2019. Disponible en: &lt;a href="https://database.ich.org/sites/default/files/E9-R1_Step4_Guideline_2019_1203.pdf" target="_blank" rel="noopener">https://database.ich.org/sites/default/files/E9-R1_Step4_Guideline_2019_1203.pdf&lt;/a>&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>&lt;strong>Regla:&lt;/strong> Portería fija en el centro del campo.&lt;/p>
-&lt;/li>
-&lt;/ul>
-&lt;p>⚽ El resultado publicado (Expert Opinion on Pharmacotherapy)&lt;/p>
-&lt;ul>
-&lt;li>
-&lt;p>&lt;strong>Los datos hablaron:&lt;/strong> la morfina no bajó significativamente. Empate técnico en el mejor de los casos.&lt;/p>
+&lt;p>Kahan BC, Morris TP, White IR, Carpenter J. The estimands framework: a primer on the ICH E9(R1) addendum. BMJ. 2024;384:e076316. doi:10.1136/bmj-2023-076316&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>&lt;strong>La &amp;ldquo;jugada&amp;rdquo;:&lt;/strong> Declarar éxito basándose en la reducción del dolor en un punto temporal secundario y promocionarlo como el gol de la victoria en el abstract.&lt;/p>
+&lt;p>Cro S, Morris TP, Kenward MG, Carpenter JR. Choosing estimands in clinical trials: putting the ICH E9(R1) into practice. Ther Innov Regul Sci. 2020;54(2):324–341. doi:10.1007/s43441-019-00061-x&lt;/p>
 &lt;/li>
-&lt;/ul>
-&lt;h2 id="-dictamen-del-var">🖥️ Dictamen del VAR&lt;/h2>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>Elemento&lt;/th>
-&lt;th>Protocolo Original&lt;/th>
-&lt;th>Paper Publicado&lt;/th>
-&lt;th>Dictamen VAR&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>Portería (Objetivo)&lt;/td>
-&lt;td>Consumo morfina 48h&lt;/td>
-&lt;td>Dolor puntual&lt;/td>
-&lt;td>Movida 20 metros&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>Resultado oficial&lt;/td>
-&lt;td>No significativo&lt;/td>
-&lt;td>(Silencio de radio)&lt;/td>
-&lt;td>Fuera de juego&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>Gol celebrado&lt;/td>
-&lt;td>-&lt;/td>
-&lt;td>Variable secundaria&lt;/td>
-&lt;td>Anulado por el VAR&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>Transparencia&lt;/td>
-&lt;td>Registro obligatorio&lt;/td>
-&lt;td>Cambio omitido&lt;/td>
-&lt;td>Tarjeta roja ética&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;h2 id="-sentencia-final">⚖️ Sentencia Final&lt;/h2>
-&lt;p>Cuando el objetivo principal falla y un secundario olvidado se convierte en la estrella del estudio, no estamos ante un descubrimiento: estamos ante una redecoración del fracaso. Es el equivalente científico a que el árbitro corra con la portería a cuestas para cazar un balón que iba al córner y grite &amp;ldquo;¡Golazo!&amp;rdquo; mientras el linier mira hacia otro lado.&lt;/p>
-&lt;p>🧤 Lección de Juego Limpio&lt;/p>
-&lt;p>La próxima vez que leas sobre un &lt;strong>&amp;ldquo;avance revolucionario&amp;rdquo;&lt;/strong>, hazte una pregunta de vestuario: ¿Dónde estaba la portería al empezar el partido? Porque un gol marcado con portería móvil no cuenta en ninguna liga seria&amp;hellip; ni debería contar en tu prescripción.&lt;/p>
-&lt;p>&lt;strong>Próximamente en VAR Científico&lt;/strong>&lt;/p>
-&lt;p>Caso 2: El antidepresivo que se volvió analgésico estrella tras un oportuno cambio de banda.
-Fuentes:&lt;/p>
-&lt;ul>
-&lt;li>Registro: NCT01324037&lt;/li>
-&lt;li>Auditoría de Integridad: Proyecto COMPARE (University of Oxford).&lt;/li>
-&lt;/ul>
-&lt;!-- ¿Por qué esta versión es la "campeona"?-->
-&lt;!-- * Impacto inmediato: Eliminamos introducciones blandas.-->
-&lt;!-- * Visualidad: La tabla es el corazón del post. Se entiende de un vistazo, incluso para alguien que no sepa de fútbol, por el código de colores implícito (Goles vs Tarjetas).-->
-&lt;!-- * Networking: Citar a la EMA (Agencia Europea de Medicamentos) o a Oxford en tus comentarios de este post te pondrá en el radar de la gente que realmente toma decisiones en Europa.-->
-&lt;!-- ¿Te parece que con esto ya tenemos el "Balón de Oro" de los posts de bioestadística? Si es así, ¡estoy listo para cuando decidas lanzar el Caso #2!--></description></item><item><title>Diseños Alternativos a Ensayos Clínicos Controlados Aleatorizados: Contextos de Aplicación y Riesgos Regulatorios</title><link>https://bioestadisticaedu.com/post/atajos/</link><pubDate>Thu, 07 Aug 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/atajos/</guid><description>&lt;p>&lt;em>Por Maicel Monzon&lt;/em>&lt;/p>
+&lt;li>
+&lt;p>Altman DG, Royston P. The cost of dichotomising continuous variables. BMJ. 2006;332(7549):1080. doi:10.1136/bmj.332.7549.1080&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Royston P, Altman DG, Sauerbrei W. Dichotomizing continuous predictors in multiple regression: a bad idea. Stat Med. 2006;25(1):127–141. doi:10.1002/sim.2331&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Cook RJ, Lawless JF. The statistical analysis of recurrent events. New York: Springer; 2007.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Andersen PK, Gill RD. Cox’s regression model for counting processes: a large sample study. Ann Stat. 1982;10(4):1100–1120.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Ioannidis JPA, Greenland S, Hlatky MA, et al. Methodology over metrics: current scientific standards are a disservice to patients and society. J Clin Epidemiol. 2021;138:219–226. doi:10.1016/j.jclinepi.2021.05.018&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>U.S. Food and Drug Administration (FDA). Multiple endpoints in clinical trials: guidance for industry. Silver Spring (MD): FDA; 2017.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>European Medicines Agency (EMA). Guideline on the evaluation of medicinal products for the treatment of chronic obstructive pulmonary disease (COPD). London: EMA; 2012.&lt;/p>
+&lt;/li>
+&lt;/ul></description></item><item><title>El Frankenstein metodológico: cuando la estadística responde otra pregunta</title><link>https://bioestadisticaedu.com/post/er-01/</link><pubDate>Thu, 01 Jan 2026 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/er-01/</guid><description>&lt;p>&lt;em>Por Maicel Monzon&lt;/em>&lt;/p>
 &lt;h2 id="introducción">Introducción&lt;/h2>
-&lt;p>Los ensayos clínicos controlados, aleatorizados y enmascarados (ECAs) constituyen el marco metodológico más robusto para evaluar la &lt;strong>eficacia y seguridad&lt;/strong> de nuevas intervenciones terapéuticas. Son considerados el &amp;ldquo;estándar de oro&amp;rdquo; en investigación clínica por agencias como &lt;strong>ICH, EMA y FDA&lt;/strong>, ya que proporcionan el mayor control contra el sesgo y la mayor solidez en inferencia causal.&lt;/p>
-&lt;p>En este marco, los &lt;strong>ensayos confirmatorios&lt;/strong> son aquellos diseñados explícitamente para confirmar hipótesis clínicas relevantes, con base en análisis predefinidos y control adecuado de errores. Cuando estos estudios sustentan una solicitud de comercialización, adquieren la condición de &lt;strong>ensayos pivotal&lt;/strong> (terminología empleada por FDA y EMA).&lt;/p>
-&lt;p>En principio, se recomienda la presentación de &lt;strong>dos ensayos confirmatorios independientes&lt;/strong>. Sin embargo, &lt;strong>tanto EMA como FDA&lt;/strong> contemplan aprobaciones basadas en &lt;strong>un único ensayo pivotal&lt;/strong>, siempre que esté respaldado por &lt;strong>evidencia complementaria rigurosa&lt;/strong>. La &lt;strong>FDA&lt;/strong>, mediante el concepto de &lt;strong>evidencia confirmatoria&lt;/strong> (FDA 2023), formaliza esta vía alternativa. La &lt;strong>EMA&lt;/strong>, aunque no utiliza esa denominación, acepta enfoques equivalentes (meta-análisis, controles históricos validados, análisis de consistencia interna).&lt;/p>
-&lt;h2 id="tabla-1-términos-clave-definición-origen-normativo-y-función-regulatoria">Tabla 1. Términos clave: definición, origen normativo y función regulatoria&lt;/h2>
+&lt;p>Lees un informe final de un ensayo clínico (CSR) o un artículo en una revista de alto impacto.&lt;br>
+Todo parece correcto: objetivos claros, variables bien definidas, tablas limpias y un Plan de Análisis Estadístico (SAP) coherente.&lt;/p>
+&lt;p>Sin embargo, a veces ocurre algo más inquietante:&lt;/p>
+&lt;blockquote>
+&lt;p>el estudio parece responder una pregunta…&lt;br>
+pero &lt;strong>no exactamente la que motivó el ensayo&lt;/strong>.&lt;/p>&lt;/blockquote>
+&lt;p>No se trata de un error aritmético ni de un &lt;em>p-hacking&lt;/em> burdo.&lt;br>
+Es algo más sutil: una &lt;strong>desconexión entre el fenómeno clínico que se quería estudiar y el efecto que realmente se termina estimando&lt;/strong>.&lt;/p>
+&lt;p>A esta criatura la llamo el &lt;strong>Frankenstein metodológico&lt;/strong>:
+una construcción hecha de piezas técnicamente correctas que, al ensamblarse, producen una inferencia distinta a la pretendida.&lt;/p>
+&lt;p>Casos históricos como rofecoxib (Vioxx) mostraron que un programa de ensayos puede generar señales convincentes en algunos análisis y, al mismo tiempo, ocultar riesgos relevantes.&lt;br>
+Más allá del ejemplo concreto, la lección general es más amplia:&lt;/p>
+&lt;blockquote>
+&lt;p>un análisis puede ser estadísticamente válido&lt;br>
+y clínicamente engañoso&lt;br>
+si no hay alineación entre pregunta, datos y método.&lt;/p>&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="la-idea-central-desconexión-inferencial">La idea central: desconexión inferencial&lt;/h2>
+&lt;p>Llamo &lt;strong>desconexión inferencial&lt;/strong> a la ruptura entre:&lt;/p>
+&lt;p>&lt;strong>fenómeno clínico → pregunta científica → estimando → análisis estadístico&lt;/strong>&lt;/p>
+&lt;p>Cuando estas piezas no están alineadas, el estudio puede terminar respondiendo:&lt;/p>
+&lt;ul>
+&lt;li>otra pregunta,&lt;/li>
+&lt;li>bajo otros supuestos,&lt;/li>
+&lt;li>con implicaciones clínicas distintas,&lt;/li>
+&lt;/ul>
+&lt;p>sin que eso quede claramente explicitado en el informe.&lt;/p>
+&lt;p>En términos del marco ICH E9(R1), el problema no es solo “qué análisis se hizo”, sino:&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>qué efecto se terminó estimando realmente&lt;/strong>&lt;br>
+y si ese efecto corresponde a la pregunta clínica original.&lt;/p>&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="qué-es-el-frankenstein-metodológico">Qué es el Frankenstein metodológico&lt;/h2>
+&lt;p>Definición operativa:&lt;/p>
+&lt;blockquote>
+&lt;p>Existe un Frankenstein metodológico cuando el protocolo promete responder una pregunta clínica, pero el análisis final estima un efecto diferente debido al manejo de sucesos intercurrentes, datos faltantes o decisiones analíticas no alineadas con esa pregunta.&lt;/p>&lt;/blockquote>
+&lt;p>No implica fraude ni mala fe.&lt;br>
+Suele surgir de procesos fragmentados:&lt;/p>
+&lt;ul>
+&lt;li>los clínicos formulan objetivos,&lt;/li>
+&lt;li>los estadísticos implementan métodos,&lt;/li>
+&lt;li>la ejecución introduce desviaciones,&lt;/li>
+&lt;li>el informe conserva etiquetas formales (“ITT”, “primario”, “confirmatorio”),&lt;/li>
+&lt;/ul>
+&lt;p>pero nadie verifica si todo sigue apuntando a la misma pregunta.&lt;/p>
+&lt;hr>
+&lt;h2 id="dónde-nace-el-monstruo">Dónde nace el monstruo&lt;/h2>
+&lt;h3 id="1-de-fenómeno-clínico-a-variable">1. De fenómeno clínico a variable&lt;/h3>
+&lt;p>El clínico piensa en fenómenos: “mejorar la calidad de vida”,&lt;br>
+“reducir exacerbaciones”, “prolongar la supervivencia”.&lt;/p>
+&lt;p>El análisis necesita:&lt;/p>
+&lt;ul>
+&lt;li>una variable,&lt;/li>
+&lt;li>un tiempo,&lt;/li>
+&lt;li>reglas ante abandonos,&lt;/li>
+&lt;li>supuestos sobre lo no observado.&lt;/li>
+&lt;/ul>
+&lt;p>Si esa traducción no es explícita, la pregunta cambia sin que nadie lo declare.&lt;/p>
+&lt;hr>
+&lt;h3 id="2-el-uso-ritual-de-etiquetas">2. El uso ritual de etiquetas&lt;/h3>
+&lt;p>Expresiones como:&lt;/p>
+&lt;ul>
+&lt;li>“intención de tratar (ITT)”&lt;/li>
+&lt;li>“análisis primario”&lt;/li>
+&lt;li>“resultado principal”&lt;/li>
+&lt;/ul>
+&lt;p>funcionan a veces como &lt;strong>amuletos metodológicos&lt;/strong>: tranquilizan, pero no explican.&lt;/p>
+&lt;p>En ensayos aleatorizados, ITT suele entenderse como “analizar según asignación aleatoria”.&lt;br>
+Pero ¿qué significa eso cuando:&lt;/p>
+&lt;ul>
+&lt;li>hay rescates,&lt;/li>
+&lt;li>hay discontinuaciones,&lt;/li>
+&lt;li>hay datos faltantes informativos?&lt;/li>
+&lt;/ul>
+&lt;p>Sin reglas explícitas, la etiqueta no garantiza nada.&lt;/p>
+&lt;hr>
+&lt;h3 id="3-significación-estadística--relevancia-clínica">3. Significación estadística ≠ relevancia clínica&lt;/h3>
+&lt;p>Un valor de &lt;em>p&lt;/em> pequeño indica compatibilidad con un modelo nulo, no utilidad clínica.&lt;/p>
+&lt;p>Además, cuando una fracción relevante de los datos está ausente, la conclusión puede depender más de los supuestos que de los datos observados.&lt;/p>
+&lt;p>En ese escenario:&lt;/p>
+&lt;blockquote>
+&lt;p>los análisis de sensibilidad no son opcionales:&lt;br>
+son parte del resultado.&lt;/p>&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="anatomía-del-frankenstein-vista-general">Anatomía del Frankenstein (vista general)&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>Planificación:&lt;/strong> se promete un efecto (estimando) poco operacionalizado.&lt;/li>
+&lt;li>&lt;strong>Ejecución:&lt;/strong> aparecen sucesos intercurrentes y faltantes.&lt;/li>
+&lt;li>&lt;strong>Análisis:&lt;/strong> se elige una estrategia sin discutir su relación con la pregunta clínica.&lt;/li>
+&lt;li>&lt;strong>Reporte:&lt;/strong> se presenta un resultado “limpio” sin mostrar la distancia con lo que se quería estimar.&lt;/li>
+&lt;/ul>
+&lt;p>Este post se centra solo en &lt;strong>una&lt;/strong> de esas posibles desconexiones:&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>datos faltantes y su impacto sobre el efecto estimado&lt;/strong>&lt;br>
+(Caso 1 del sistema).&lt;/p>&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="caso-práctico-reproducible-datos-faltantes">Caso práctico (reproducible): datos faltantes&lt;/h2>
+&lt;p>Simulamos un ensayo con desenlace binario:&lt;/p>
+&lt;ul>
+&lt;li>60 % de éxito en control&lt;/li>
+&lt;li>65 % en tratamiento&lt;/li>
+&lt;/ul>
+&lt;p>Introducimos datos faltantes &lt;strong>no aleatorios&lt;/strong>:&lt;br>
+en el grupo tratado, los no respondedores abandonan más.&lt;/p>
+&lt;p>La pregunta clínica implícita es:&lt;/p>
+&lt;blockquote>
+&lt;p>“¿es mejor el tratamiento que el control?”&lt;/p>&lt;/blockquote>
+&lt;p>Pero la pregunta estadística efectiva depende de &lt;strong>cómo tratemos lo no observado&lt;/strong>.&lt;/p>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>&lt;strong>Término&lt;/strong>&lt;/th>
-&lt;th>&lt;strong>Fuente regulatoria&lt;/strong>&lt;/th>
-&lt;th>&lt;strong>Definición técnica&lt;/strong>&lt;/th>
-&lt;th>&lt;strong>Función regulatoria&lt;/strong>&lt;/th>
+&lt;th style="text-align: left">Estrategia&lt;/th>
+&lt;th style="text-align: right">Control&lt;/th>
+&lt;th style="text-align: right">Tratamiento&lt;/th>
+&lt;th style="text-align: right">Diferencia&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
-&lt;td>&lt;strong>Ensayo clínico confirmatorio&lt;/strong>&lt;/td>
-&lt;td>ICH E9&lt;/td>
-&lt;td>Estudio con hipótesis explícita, análisis planificado y diseño robusto para inferencia causal.&lt;/td>
-&lt;td>Fuente principal de evidencia en autorizaciones de comercialización.&lt;/td>
+&lt;td style="text-align: left">Solo casos completos&lt;/td>
+&lt;td style="text-align: right">0.63&lt;/td>
+&lt;td style="text-align: right">0.75&lt;/td>
+&lt;td style="text-align: right">0.12&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>&lt;strong>Ensayo pivotal&lt;/strong>&lt;/td>
-&lt;td>FDA, EMA&lt;/td>
-&lt;td>Estudio esencial para demostrar eficacia y seguridad en el expediente regulatorio.&lt;/td>
-&lt;td>Sustento central del dossier clínico.&lt;/td>
+&lt;td style="text-align: left">Imputación simplista&lt;/td>
+&lt;td style="text-align: right">0.67&lt;/td>
+&lt;td style="text-align: right">0.80&lt;/td>
+&lt;td style="text-align: right">0.13&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>&lt;strong>Evidencia confirmatoria&lt;/strong>&lt;/td>
-&lt;td>FDA (2023)&lt;/td>
-&lt;td>Datos adicionales (clínicos/no clínicos) que refuerzan un ensayo pivotal único.&lt;/td>
-&lt;td>Permite cumplir el estándar de &amp;ldquo;evidencia sustancial&amp;rdquo; con un solo ECA.&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;strong>Evidencia sustancial&lt;/strong>&lt;/td>
-&lt;td>FDA (21 CFR 314.126)&lt;/td>
-&lt;td>Estándar legal que puede cumplirse mediante 2 ECAs o, cuando esté justificado, 1 ECA + confirmación.&lt;/td>
-&lt;td>Requisito para la aprobación de nuevos medicamentos en EE.UU.&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;strong>Evidencia complementaria&lt;/strong>&lt;/td>
-&lt;td>ICH E9; EMA, FDA&lt;/td>
-&lt;td>Estudios no pivotal que aportan consistencia (ej. subgrupos, dosis, seguridad, datos externos).&lt;/td>
-&lt;td>Reforzar la plausibilidad de los hallazgos principales.&lt;/td>
+&lt;td style="text-align: left">Escenario pesimista&lt;/td>
+&lt;td style="text-align: right">0.67&lt;/td>
+&lt;td style="text-align: right">0.60&lt;/td>
+&lt;td style="text-align: right">-0.07&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
 &lt;hr>
-&lt;h1 id="estructura-metodológica-de-los-ecas-y-su-anclaje-normativo">Estructura metodológica de los ECAs y su anclaje normativo&lt;/h1>
-&lt;p>Los ECAs incorporan tres garantías fundamentales: &lt;strong>aleatorización&lt;/strong>, &lt;strong>grupo control&lt;/strong> y &lt;strong>cegamiento&lt;/strong>. Estos componentes son esenciales para maximizar la validez interna y minimizar fuentes de sesgo sistemático.&lt;/p>
-&lt;h2 id="tabla-2-garantías-anti-sesgo-en-ecas">Tabla 2. Garantías anti-sesgo en ECAs&lt;/h2>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>&lt;strong>Componente metodológico&lt;/strong>&lt;/th>
-&lt;th>&lt;strong>Función específica&lt;/strong>&lt;/th>
-&lt;th>&lt;strong>Cómo reduce el sesgo&lt;/strong>&lt;/th>
-&lt;th>&lt;strong>Referencia normativa ICH&lt;/strong>&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>&lt;strong>Aleatorización&lt;/strong>&lt;/td>
-&lt;td>Asignación no predecible de tratamientos&lt;/td>
-&lt;td>Mitiga el sesgo de selección; equilibra factores conocidos/desconocidos&lt;/td>
-&lt;td>ICH E9 Sección 2.2.3&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;strong>Grupo control&lt;/strong>&lt;/td>
-&lt;td>Comparación con placebo o tratamiento estándar&lt;/td>
-&lt;td>Permite contrafactual válido e inferencia causal robusta&lt;/td>
-&lt;td>ICH E10; ICH E8(R1)&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;strong>Cegamiento (blinding)&lt;/strong>&lt;/td>
-&lt;td>Ocultamiento de asignación a participantes e investigadores&lt;/td>
-&lt;td>Previene sesgo de evaluación, expectativa y cointervención&lt;/td>
-&lt;td>ICH E9 Sección 2.2.4&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;hr>
-&lt;h1 id="contextos-que-permiten-prescindir-de-ecas">Contextos que permiten prescindir de ECAs&lt;/h1>
-&lt;p>La omisión de ECAs solo es aceptable en contextos claramente delimitados por justificaciones éticas, científicas o logísticas:&lt;/p>
-&lt;ol>
-&lt;li>&lt;strong>Enfermedades raras o ultrarraras&lt;/strong>, con poblaciones muy limitadas.&lt;/li>
-&lt;li>&lt;strong>Situaciones de emergencia sanitaria&lt;/strong>, con necesidades clínicas urgentes.&lt;/li>
-&lt;li>Cuando la &lt;strong>aleatorización o el cegamiento son éticamente problemáticos&lt;/strong>.&lt;/li>
-&lt;li>Cuando existen &lt;strong>datos históricos o reales bien estructurados y validados&lt;/strong>.&lt;/li>
-&lt;/ol>
-&lt;p>La aceptación de estos diseños como base regulatoria &lt;strong>requiere validación metodológica específica y evaluación caso por caso&lt;/strong>, según guías EMA y FDA.&lt;/p>
-&lt;hr>
-&lt;h1 id="diseños-alternativos-más-empleados-y-criterios-de-validación">Diseños alternativos más empleados y criterios de validación&lt;/h1>
-&lt;h2 id="tabla-3-diseños-alternativos-justificación-limitaciones-y-requisitos-regulatorios">Tabla 3. Diseños alternativos: justificación, limitaciones y requisitos regulatorios&lt;/h2>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>&lt;strong>Diseño alternativo&lt;/strong>&lt;/th>
-&lt;th>&lt;strong>Justificación de uso&lt;/strong>&lt;/th>
-&lt;th>&lt;strong>Limitaciones críticas&lt;/strong>&lt;/th>
-&lt;th>&lt;strong>Requisitos de validación&lt;/strong>&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>&lt;strong>Single-Arm Trials (SAT)&lt;/strong>&lt;/td>
-&lt;td>Enfermedades raras; oncología sin comparador disponible&lt;/td>
-&lt;td>Ausencia de grupo control; alta vulnerabilidad a sesgo de selección&lt;/td>
-&lt;td>Control externo robusto; endpoints validados; análisis de consistencia&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;strong>Controles externos/sintéticos&lt;/strong>&lt;/td>
-&lt;td>Cohortes históricas o datos de mundo real&lt;/td>
-&lt;td>Riesgo de confusión residual y sesgo de canalización&lt;/td>
-&lt;td>Propensity score matching; alineación temporal; CHMP/4366/2020 (EMA)&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;strong>Diseños adaptativos&lt;/strong>&lt;/td>
-&lt;td>Eficiencia en reclutamiento; ajustes preplanificados&lt;/td>
-&lt;td>Riesgo de error tipo I si no se prespecifican adecuadamente&lt;/td>
-&lt;td>Control de multiplicidad; simulación previa; ICH E9(R1)&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;strong>Real-World Evidence (RWE)&lt;/strong>&lt;/td>
-&lt;td>Acceso a datos de rutina clínica; seguimiento largo; baja carga ética&lt;/td>
-&lt;td>Falta de aleatorización; sesgo de confusión no medido&lt;/td>
-&lt;td>PROACE principles (FDA 2023); data provenance; calidad del DMR; plan de análisis riguroso&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;hr>
-&lt;h1 id="riesgos-del-uso-estratégico-de-diseños-no-confirmatorios">Riesgos del uso estratégico de diseños no confirmatorios&lt;/h1>
-&lt;p>Aunque válidos en contextos excepcionales, el uso frecuente y estratégico de estos diseños plantea &lt;strong>serios desafíos regulatorios&lt;/strong>, especialmente si se recurre a ellos como vía para &lt;strong>prescindir de ECAs sin justificación metodológica sólida&lt;/strong>.&lt;/p>
-&lt;h2 id="riesgos-identificados">Riesgos identificados:&lt;/h2>
+&lt;h3 id="un-solo-conjunto-de-datos-tres-historias">Un solo conjunto de datos, tres historias&lt;/h3>
+&lt;img src="https://bioestadisticaedu.com/post/er-01/index_files/figure-html/grafico_faltantes-1.png" width="672" />
+&lt;p>Con los mismos datos:&lt;/p>
 &lt;ul>
-&lt;li>Aprobaciones basadas en &lt;strong>evidencia débil o no reproducible&lt;/strong>.&lt;/li>
-&lt;li>Incremento del &lt;strong>sesgo sistemático&lt;/strong> en resultados de eficacia.&lt;/li>
-&lt;li>Exposición de pacientes a intervenciones &lt;strong>no validadas rigurosamente&lt;/strong>.&lt;/li>
-&lt;li>&lt;strong>Deslegitimación del proceso regulatorio&lt;/strong> ante la comunidad científica y la sociedad.&lt;/li>
+&lt;li>un análisis puede exagerar el beneficio,&lt;/li>
+&lt;li>otro puede neutralizarlo,&lt;/li>
+&lt;li>otro puede invertirlo.&lt;/li>
 &lt;/ul>
-&lt;hr>
-&lt;h1 id="recomendaciones-regulatorias">Recomendaciones regulatorias&lt;/h1>
-&lt;h2 id="a-para-la-industria">A. Para la industria&lt;/h2>
-&lt;ul>
-&lt;li>Presentar &lt;strong>justificación exhaustiva&lt;/strong> cuando no se utilicen ECAs.&lt;/li>
-&lt;li>Cumplir con requisitos metodológicos específicos según tipo de diseño alternativo.&lt;/li>
-&lt;li>Incluir análisis de sensibilidad, consistencia y control de sesgo.&lt;/li>
-&lt;/ul>
-&lt;h2 id="b-para-las-agencias-reguladoras">B. Para las agencias reguladoras&lt;/h2>
-&lt;ul>
-&lt;li>&lt;strong>Reforzar guías específicas&lt;/strong> (EMA, FDA) que regulen el uso de diseños alternativos.&lt;/li>
-&lt;li>Exigir &lt;strong>registro público&lt;/strong>, transparencia y acceso a protocolos completos.&lt;/li>
-&lt;li>Fortalecer &lt;strong>capacidades internas&lt;/strong> en estadística avanzada y diseño de estudios no aleatorizados.&lt;/li>
-&lt;li>Establecer &lt;strong>comités independientes&lt;/strong> de evaluación para salvaguardas éticas y científicas.&lt;/li>
-&lt;/ul>
-&lt;hr>
-&lt;h1 id="conclusión">Conclusión&lt;/h1>
-&lt;p>Los diseños alternativos no deben entenderse como sustitutos genéricos del ECA, sino como herramientas &lt;strong>válidas solo bajo condiciones estrictamente justificadas y validadas&lt;/strong>. El regulador tiene la responsabilidad científica y ética de exigir evidencia que no solo sea suficiente, sino también sólida, reproducible y libre de sesgos. La precisión metodológica y la claridad terminológica no son un lujo en este proceso: &lt;strong>son el principio rector que protege la salud pública frente a la ambigüedad científica&lt;/strong>.&lt;/p>
-&lt;hr>
-&lt;!-- 🎧 **Escucha el podcast de esta publicación** -->
-&lt;!--
-&lt;audio controls >
-&lt;source src="https://bioestadisticaedu.com/mp3/atajos.mp3" type="audio/mpeg">
-&lt;/audio>
--->
-&lt;hr>
-&lt;h1 id="bibliografía">Bibliografía&lt;/h1>
-&lt;ol>
-&lt;li>FDA. &lt;em>Demonstrating Substantial Evidence of Effectiveness with One Adequate and Well-Controlled Clinical Investigation and Confirmatory Evidence&lt;/em>. Draft Guidance. 2023.&lt;/li>
-&lt;li>EMA. &lt;em>Reflection Paper on Single‑Arm Trials as Pivotal Evidence&lt;/em>. EMA/CHMP/161300/2023.&lt;/li>
-&lt;li>FDA. &lt;em>Real-World Evidence Framework&lt;/em>. 2023 Update.&lt;/li>
-&lt;li>EMA. &lt;em>Use of Real‑World Evidence in Regulatory Decision-Making&lt;/em>. EMA/INS/GCP/455222/2024.&lt;/li>
-&lt;li>ICH. &lt;em>E9: Statistical Principles for Clinical Trials&lt;/em>. 1998.&lt;/li>
-&lt;li>ICH. &lt;em>E9(R1): Addendum on Estimands and Sensitivity Analysis in Clinical Trials&lt;/em>. 2020.&lt;/li>
-&lt;li>EMA. &lt;em>Guideline on Adjustment for Baseline Covariates in Clinical Trials&lt;/em>. CHMP/EWP/2863/99.&lt;/li>
-&lt;li>FDA. &lt;em>Real-World Evidence Program Annual Report 2025 (PUB-245)&lt;/em>.&lt;/li>
-&lt;li>Temple R, Ellenberg SS. &lt;em>Placebo-Controlled Trials and Active-Control Trials in the Evaluation of New Treatments&lt;/em>. &lt;em>Ann Intern Med&lt;/em>. 2000;133(6):455–463.&lt;/li>
-&lt;/ol></description></item></channel></rss>stima un efecto distinto.&lt;/p>&lt;/blockquote>
+&lt;p>No porque los números “mientan”, sino porque:&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>cada estrategia introduce un supuesto distinto sobre lo no observado&lt;/strong>
+y, por tanto, estima un efecto distinto.&lt;/p>&lt;/blockquote>
 &lt;p>La desconexión no es técnica:
 es inferencial.&lt;/p>
 &lt;hr>
