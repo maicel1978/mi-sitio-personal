@@ -1,7 +1,7 @@
 ---
 # Título enfocado en Visión Artificial y Gestión de Datos
-title: "Bio-Scan Smart: Ingeniería de Reconocimiento de Texto (OCR) para Digitalización de Notas Clínicas"
-date: "2026-01-04" # Progresión: 2026-01-06 -> 2026-01-04
+title: "Scan Smart: Escanea imagenes"
+date: "2025-10-22" # Progresión: 2026-01-06 -> 2026-01-04
 # Estructura de agrupación solicitada por Maicel Monzón
 categories: ["proyectos"]
 tags:

@@ -3,180 +3,1676 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bio-Scan Pro - Bioestadística Edu</title>
-    <!-- Cargamos OpenCV.js para Visión Artificial -->
-    <script async src="https://docs.opencv.org/4.5.4/opencv.js" onload="onOpenCvReady();"></script>
+    <title>BioScan Vision</title>
     <style>
-        :root { --accent: #00d1ff; --bg: #0a0a0b; --surface: #161618; }
-        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: #fff; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
-        
-        .container { max-width: 800px; width: 100%; text-align: center; }
-        h1 { font-size: 1.5rem; letter-spacing: -1px; margin-bottom: 5px; }
-        .status-tag { font-size: 0.7rem; color: var(--accent); border: 1px solid var(--accent); padding: 3px 10px; border-radius: 20px; text-transform: uppercase; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        .workspace { position: relative; background: #000; border-radius: 16px; margin: 20px 0; overflow: hidden; display: none; border: 1px solid #333; }
-        canvas { max-width: 100%; height: auto; cursor: crosshair; }
-        
-        /* Puntos de control (Esquinas) */
-        .corner { width: 24px; height: 24px; background: var(--accent); border: 3px solid white; border-radius: 50%; position: absolute; transform: translate(-50%, -50%); cursor: move; box-shadow: 0 0 10px rgba(0,0,0,0.5); z-index: 10; }
+        :root {
+            --c-bg: #0a0a0f;
+            --c-surface: #12121a;
+            --c-surface2: #1a1a26;
+            --c-border: #2a2a3a;
+            --c-accent: #6366f1;
+            --c-accent-glow: rgba(99, 102, 241, 0.3);
+            --c-success: #22c55e;
+            --c-warn: #f59e0b;
+            --c-text: #e2e8f0;
+            --c-text-dim: #64748b;
+            --c-text-muted: #475569;
+            --radius: 12px;
+            --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
 
-        .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
-        .btn { padding: 15px; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 0.9rem; }
-        .btn-upload { background: #333; color: white; width: 100%; }
-        .btn-scan { background: var(--accent); color: black; }
-        .btn-scan:disabled { background: #1e293b; color: #475569; cursor: wait; }
+        html, body {
+            font-family: var(--font);
+            background: var(--c-bg);
+            color: var(--c-text);
+            height: 100%;
+            overflow: hidden;
+        }
 
-        #output-container { margin-top: 20px; display: none; }
-        .result-img { max-width: 100%; border-radius: 8px; border: 2px solid #333; }
+        /* ==================== LAYOUT ==================== */
+        #app {
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            height: 100dvh;
+            overflow: hidden;
+        }
 
-        footer { margin-top: auto; padding: 40px 0; text-align: center; font-size: 0.75rem; color: #444; }
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 20px;
+            background: var(--c-surface);
+            border-bottom: 1px solid var(--c-border);
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        .logo span { color: var(--c-accent); }
+
+        .header-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            color: var(--c-text-dim);
+        }
+        .status-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--c-text-muted);
+        }
+        .status-dot.active { background: var(--c-success); box-shadow: 0 0 8px rgba(34,197,94,0.5); }
+
+        /* ==================== WORKSPACE ==================== */
+        #workspace {
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background:
+                radial-gradient(circle at 50% 50%, rgba(99,102,241,0.03) 0%, transparent 70%),
+                linear-gradient(var(--c-bg), var(--c-bg));
+        }
+
+        /* Grid de fondo sutil */
+        #workspace::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+        }
+
+        #canvas-container {
+            position: relative;
+            display: inline-block;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            border-radius: 4px;
+            line-height: 0;
+        }
+
+        #mainCanvas {
+            display: block;
+            border-radius: 4px;
+            cursor: crosshair;
+            max-width: calc(100vw - 40px);
+            max-height: calc(100dvh - 260px);
+        }
+
+        /* ==================== HANDLES ==================== */
+        .corner-handle {
+            position: absolute;
+            width: 28px; height: 28px;
+            transform: translate(-50%, -50%);
+            z-index: 50;
+            cursor: grab;
+            touch-action: none;
+        }
+        .corner-handle:active { cursor: grabbing; }
+
+        .corner-handle::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: white;
+            border: 3px solid var(--c-accent);
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px var(--c-accent-glow), 0 2px 10px rgba(0,0,0,0.5);
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        .corner-handle:active::before {
+            transform: scale(1.3);
+            box-shadow: 0 0 0 8px var(--c-accent-glow), 0 4px 20px rgba(0,0,0,0.6);
+        }
+
+        /* Touch target extendido para móvil */
+        .corner-handle::after {
+            content: '';
+            position: absolute;
+            inset: -12px;
+        }
+
+        /* ==================== LUPA ==================== */
+        #loupe {
+            position: absolute;
+            width: 120px; height: 120px;
+            border-radius: 50%;
+            border: 2px solid var(--c-accent);
+            box-shadow: 0 0 0 3px var(--c-accent-glow), 0 8px 30px rgba(0,0,0,0.8);
+            overflow: hidden;
+            pointer-events: none;
+            display: none;
+            z-index: 200;
+        }
+        #loupe canvas {
+            width: 100%; height: 100%;
+        }
+        #loupe .crosshair {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+        #loupe .crosshair::before,
+        #loupe .crosshair::after {
+            content: '';
+            position: absolute;
+            background: rgba(255,255,255,0.4);
+        }
+        #loupe .crosshair::before {
+            left: 50%; top: 20%; bottom: 20%; width: 1px;
+            transform: translateX(-50%);
+        }
+        #loupe .crosshair::after {
+            top: 50%; left: 20%; right: 20%; height: 1px;
+            transform: translateY(-50%);
+        }
+
+        /* ==================== PANEL INFERIOR ==================== */
+        #controls-panel {
+            background: var(--c-surface);
+            border-top: 1px solid var(--c-border);
+            padding: 0;
+            display: none;
+        }
+
+        .controls-inner {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Tabs */
+        .tab-bar {
+            display: flex;
+            border-bottom: 1px solid var(--c-border);
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        .tab-bar::-webkit-scrollbar { display: none; }
+
+        .tab-btn {
+            padding: 12px 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--c-text-muted);
+            background: none;
+            border: none;
+            cursor: pointer;
+            white-space: nowrap;
+            position: relative;
+            transition: color 0.2s;
+        }
+        .tab-btn:hover { color: var(--c-text-dim); }
+        .tab-btn.active {
+            color: var(--c-accent);
+        }
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 20px; right: 20px;
+            height: 2px;
+            background: var(--c-accent);
+            border-radius: 2px 2px 0 0;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 16px 20px;
+        }
+        .tab-content.active { display: block; }
+
+        /* Controles */
+        .ctrl-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .ctrl-row:last-child { margin-bottom: 0; }
+
+        .ctrl-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--c-text-dim);
+            min-width: 80px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .ctrl-slider {
+            flex: 1;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 4px;
+            border-radius: 4px;
+            background: var(--c-border);
+            outline: none;
+        }
+        .ctrl-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px; height: 16px;
+            border-radius: 50%;
+            background: var(--c-accent);
+            cursor: pointer;
+            box-shadow: 0 0 8px var(--c-accent-glow);
+        }
+        .ctrl-slider::-moz-range-thumb {
+            width: 16px; height: 16px;
+            border-radius: 50%;
+            background: var(--c-accent);
+            cursor: pointer;
+            border: none;
+        }
+
+        .ctrl-value {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--c-text);
+            min-width: 40px;
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Mode selector */
+        .mode-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 8px;
+        }
+
+        .mode-btn {
+            padding: 14px 12px;
+            border-radius: 10px;
+            border: 2px solid var(--c-border);
+            background: var(--c-surface2);
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        .mode-btn:hover { border-color: var(--c-text-muted); }
+        .mode-btn.selected {
+            border-color: var(--c-accent);
+            background: rgba(99,102,241,0.1);
+        }
+        .mode-btn .mode-icon { font-size: 20px; margin-bottom: 4px; }
+        .mode-btn .mode-name { font-size: 11px; font-weight: 700; color: var(--c-text); }
+        .mode-btn .mode-desc { font-size: 9px; color: var(--c-text-muted); margin-top: 2px; }
+
+        /* Acciones */
+        .action-row {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn {
+            padding: 14px 24px;
+            border-radius: 10px;
+            border: none;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            flex: 1;
+            background: var(--c-accent);
+            color: white;
+            box-shadow: 0 4px 15px var(--c-accent-glow);
+        }
+        .btn-primary:hover { filter: brightness(1.1); }
+        .btn-primary:active { transform: scale(0.98); }
+
+        .btn-secondary {
+            background: var(--c-surface2);
+            color: var(--c-text-dim);
+            border: 1px solid var(--c-border);
+        }
+        .btn-secondary:hover { color: var(--c-text); border-color: var(--c-text-muted); }
+
+        .btn-icon {
+            width: 48px;
+            padding: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-icon svg { width: 18px; height: 18px; }
+
+        /* ==================== WELCOME SCREEN ==================== */
+        #welcome-screen {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 90;
+            padding: 40px;
+            text-align: center;
+            background: var(--c-bg);
+        }
+
+        .welcome-icon {
+            width: 80px; height: 80px;
+            border-radius: 24px;
+            background: rgba(99,102,241,0.1);
+            border: 1px solid rgba(99,102,241,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+        .welcome-icon svg { width: 36px; height: 36px; color: var(--c-accent); }
+
+        .welcome-title {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        .welcome-sub {
+            font-size: 14px;
+            color: var(--c-text-dim);
+            max-width: 360px;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        .upload-zone {
+            width: 100%;
+            max-width: 400px;
+            border: 2px dashed var(--c-border);
+            border-radius: 16px;
+            padding: 40px 24px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .upload-zone:hover, .upload-zone.dragover {
+            border-color: var(--c-accent);
+            background: rgba(99,102,241,0.05);
+        }
+        .upload-zone p { font-size: 13px; color: var(--c-text-dim); }
+        .upload-zone .upload-cta {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 12px 32px;
+            background: var(--c-accent);
+            color: white;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        /* ==================== LOADING ==================== */
+        #loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(10,10,15,0.92);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 500;
+        }
+
+        .loader-ring {
+            width: 44px; height: 44px;
+            border: 3px solid var(--c-border);
+            border-top-color: var(--c-accent);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-bottom: 16px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .loader-text {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--c-text-dim);
+        }
+
+        .loader-progress {
+            width: 200px;
+            height: 3px;
+            background: var(--c-border);
+            border-radius: 3px;
+            margin-top: 12px;
+            overflow: hidden;
+        }
+        .loader-progress-bar {
+            height: 100%;
+            background: var(--c-accent);
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        /* ==================== RESULT VIEW ==================== */
+        #result-view {
+            position: fixed;
+            inset: 0;
+            background: var(--c-bg);
+            display: none;
+            flex-direction: column;
+            z-index: 300;
+        }
+
+        .result-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 20px;
+            background: var(--c-surface);
+            border-bottom: 1px solid var(--c-border);
+        }
+
+        .result-body {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow: auto;
+        }
+
+        .result-body img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 4px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
+        .result-footer {
+            padding: 16px 20px;
+            background: var(--c-surface);
+            border-top: 1px solid var(--c-border);
+        }
+
+        .result-actions {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            gap: 8px;
+        }
+
+        .result-info {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 12px;
+        }
+        .result-info-item {
+            font-size: 11px;
+            color: var(--c-text-dim);
+        }
+        .result-info-item strong {
+            color: var(--c-text);
+        }
+
+        /* ==================== TOAST ==================== */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            padding: 12px 24px;
+            background: var(--c-surface2);
+            border: 1px solid var(--c-border);
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--c-text);
+            z-index: 600;
+            opacity: 0;
+            transition: all 0.3s;
+            pointer-events: none;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 600px) {
+            .mode-grid { grid-template-columns: repeat(2, 1fr); }
+            .ctrl-label { min-width: 60px; font-size: 10px; }
+            .tab-btn { padding: 10px 14px; font-size: 10px; }
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
+<div id="app">
+    <!-- HEADER -->
     <header>
-        <h1>Bio-Scan <span style="color:var(--accent)">Smart</span></h1>
-        <span class="status-tag" id="cv-status">Cargando Visión Artificial...</span>
+        <div class="logo">Bio<span>Scan</span></div>
+        <div class="header-status">
+            <div class="status-dot" id="statusDot"></div>
+            <span id="statusText">Esperando imagen</span>
+        </div>
     </header>
 
-    <div style="margin-top:20px">
-        <input type="file" id="fileInput" accept="image/*" style="display:none">
-        <button class="btn btn-upload" onclick="document.getElementById('fileInput').click()">📁 SUBIR FOTO O TOMAR CAPTURA</button>
+    <!-- WORKSPACE -->
+    <div id="workspace">
+        <!-- Welcome -->
+        <div id="welcome-screen">
+            <div class="welcome-icon">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0z"/>
+                </svg>
+            </div>
+            <h1 class="welcome-title">BioScan Vision</h1>
+            <p class="welcome-sub">
+                Digitaliza documentos con corrección de perspectiva real,
+                procesamiento de imagen avanzado y exportación de alta calidad.
+            </p>
+            <div class="upload-zone" id="uploadZone">
+                <p>Arrastra una imagen aquí o</p>
+                <div class="upload-cta">Seleccionar archivo</div>
+                <input type="file" id="fileInput" accept="image/*" capture="environment"
+                       style="position:absolute;inset:0;opacity:0;cursor:pointer;">
+            </div>
+        </div>
+
+        <!-- Canvas de trabajo -->
+        <div id="canvas-container" style="display:none;">
+            <canvas id="mainCanvas"></canvas>
+        </div>
+
+        <!-- Lupa -->
+        <div id="loupe">
+            <canvas id="loupeCanvas" width="240" height="240"></canvas>
+            <div class="crosshair"></div>
+        </div>
     </div>
 
-    <div class="workspace" id="workspace">
-        <canvas id="canvasInput"></canvas>
-        <!-- Los 4 puntos se generarán aquí -->
-    </div>
+    <!-- CONTROLS -->
+    <div id="controls-panel">
+        <div class="controls-inner">
+            <div class="tab-bar" id="tabBar">
+                <button class="tab-btn active" data-tab="mode">Modo</button>
+                <button class="tab-btn" data-tab="adjust">Ajustes</button>
+                <button class="tab-btn" data-tab="actions">Exportar</button>
+            </div>
 
-    <div class="controls" id="action-btns" style="display:none">
-        <button class="btn btn-scan" id="processBtn">🪄 ENDEREZAR Y ESCANEAR</button>
-        <button class="btn btn-upload" onclick="location.reload()">🔄 NUEVO</button>
-    </div>
+            <!-- Tab: Modo -->
+            <div class="tab-content active" id="tab-mode">
+                <div class="mode-grid">
+                    <div class="mode-btn selected" data-mode="color">
+                        <div class="mode-icon">🎨</div>
+                        <div class="mode-name">Color HD</div>
+                        <div class="mode-desc">Original mejorado</div>
+                    </div>
+                    <div class="mode-btn" data-mode="gray">
+                        <div class="mode-icon">🌗</div>
+                        <div class="mode-name">Grises</div>
+                        <div class="mode-desc">Escala de grises</div>
+                    </div>
+                    <div class="mode-btn" data-mode="bw">
+                        <div class="mode-icon">📄</div>
+                        <div class="mode-name">Documento</div>
+                        <div class="mode-desc">B/N adaptativo</div>
+                    </div>
+                    <div class="mode-btn" data-mode="sharp">
+                        <div class="mode-icon">🔍</div>
+                        <div class="mode-name">Nitidez+</div>
+                        <div class="mode-desc">Enfoque extremo</div>
+                    </div>
+                </div>
+            </div>
 
-    <div id="output-container">
-        <h3>Resultado del Escaneo</h3>
-        <canvas id="canvasOutput" style="display:none"></canvas>
-        <img id="finalImg" class="result-img">
-        <p style="font-size:0.8rem; color:#666">Mantén presionada la imagen para guardarla</p>
+            <!-- Tab: Ajustes -->
+            <div class="tab-content" id="tab-adjust">
+                <div class="ctrl-row">
+                    <span class="ctrl-label">Brillo</span>
+                    <input type="range" class="ctrl-slider" id="slBrightness" min="-50" max="50" value="0">
+                    <span class="ctrl-value" id="valBrightness">0</span>
+                </div>
+                <div class="ctrl-row">
+                    <span class="ctrl-label">Contraste</span>
+                    <input type="range" class="ctrl-slider" id="slContrast" min="-50" max="50" value="10">
+                    <span class="ctrl-value" id="valContrast">10</span>
+                </div>
+                <div class="ctrl-row">
+                    <span class="ctrl-label">Rotación</span>
+                    <input type="range" class="ctrl-slider" id="slRotation" min="-180" max="180" value="0">
+                    <span class="ctrl-value" id="valRotation">0°</span>
+                </div>
+            </div>
+
+            <!-- Tab: Exportar -->
+            <div class="tab-content" id="tab-actions">
+                <div class="action-row">
+                    <button class="btn btn-primary" id="btnProcess">Procesar y Exportar</button>
+                    <button class="btn btn-secondary btn-icon" id="btnAutoDetect" title="Auto-detectar bordes">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 21h10M12 3v14m0 0l-4-4m4 4l4-4"/>
+                        </svg>
+                    </button>
+                    <button class="btn btn-secondary btn-icon" id="btnReset" title="Reiniciar">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<footer>
-    Autor: <strong>Maicel Monzón Pérez</strong> | Bioestadística Edu<br>
-    Tecnología: OpenCV.js Perspective Transformation
-</footer>
+<!-- LOADING -->
+<div id="loading-overlay">
+    <div class="loader-ring"></div>
+    <div class="loader-text" id="loaderText">Procesando...</div>
+    <div class="loader-progress">
+        <div class="loader-progress-bar" id="loaderBar"></div>
+    </div>
+</div>
+
+<!-- RESULT -->
+<div id="result-view">
+    <div class="result-header">
+        <div class="logo" style="font-size:15px;">Bio<span>Scan</span></div>
+        <button class="btn btn-secondary" id="btnBackFromResult"
+                style="padding:8px 16px;font-size:11px;">← Volver</button>
+    </div>
+    <div class="result-body">
+        <img id="resultImg" alt="Resultado">
+    </div>
+    <div class="result-footer">
+        <div class="result-info" id="resultInfo"></div>
+        <div class="result-actions">
+            <button class="btn btn-primary" id="btnDownload">Descargar JPG</button>
+            <button class="btn btn-secondary" id="btnDownloadPNG">PNG</button>
+            <button class="btn btn-secondary" id="btnCopyClipboard">Copiar</button>
+        </div>
+    </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
 
 <script>
-    let src;
-    let corners = [];
-    const canvas = document.getElementById('canvasInput');
-    const workspace = document.getElementById('workspace');
+/**
+ * ============================================================
+ * BIOSCAN VISION ENGINE
+ * Corrección de perspectiva + procesamiento de imagen real
+ * ============================================================
+ */
 
-    function onOpenCvReady() {
-        document.getElementById('cv-status').innerText = "Sistema Inteligente Listo";
-        document.getElementById('cv-status').style.borderColor = "#22c55e";
-        document.getElementById('cv-status').style.color = "#22c55e";
-    }
+// ===================== IMAGE PROCESSING CORE =====================
 
-    document.getElementById('fileInput').onchange = (e) => {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            const img = new Image();
-            img.onload = () => {
-                // Ajustar tamaño para procesamiento
-                const maxDim = 1000;
-                let scale = Math.min(maxDim / img.width, maxDim / img.height);
-                canvas.width = img.width * scale;
-                canvas.height = img.height * scale;
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                
-                src = cv.imread(canvas);
-                initCorners();
-                workspace.style.display = 'block';
-                document.getElementById('action-btns').style.display = 'grid';
-            };
-            img.src = event.target.result;
-        };
-        reader.readAsDataURL(e.target.files[0]);
-    };
+const ImageProc = {
 
-    function initCorners() {
-        // Posicionar puntos iniciales formando un cuadrado en el centro
-        const w = canvas.width;
-        const h = canvas.height;
-        const pts = [
-            { x: w*0.2, y: h*0.2 }, { x: w*0.8, y: h*0.2 },
-            { x: w*0.8, y: h*0.8 }, { x: w*0.2, y: h*0.8 }
+    /**
+     * Interpolación bilineal — la diferencia entre basura y calidad
+     */
+    bilinearSample(data, w, h, x, y) {
+        const x0 = Math.floor(x), y0 = Math.floor(y);
+        const x1 = Math.min(x0 + 1, w - 1), y1 = Math.min(y0 + 1, h - 1);
+        const fx = x - x0, fy = y - y0;
+        const fx1 = 1 - fx, fy1 = 1 - fy;
+
+        const i00 = (y0 * w + x0) * 4;
+        const i10 = (y0 * w + x1) * 4;
+        const i01 = (y1 * w + x0) * 4;
+        const i11 = (y1 * w + x1) * 4;
+
+        const w00 = fx1 * fy1, w10 = fx * fy1, w01 = fx1 * fy, w11 = fx * fy;
+
+        return [
+            data[i00] * w00 + data[i10] * w10 + data[i01] * w01 + data[i11] * w11,
+            data[i00+1] * w00 + data[i10+1] * w10 + data[i01+1] * w01 + data[i11+1] * w11,
+            data[i00+2] * w00 + data[i10+2] * w10 + data[i01+2] * w01 + data[i11+2] * w11,
+        ];
+    },
+
+    /**
+     * Homografía 2D — resolver sistema 8x8 con pivoteo parcial
+     */
+    solveHomography(src, dst) {
+        const n = 8;
+        const A = [];
+        const b = [];
+
+        for (let i = 0; i < 4; i++) {
+            const sx = src[i].x, sy = src[i].y;
+            const dx = dst[i].x, dy = dst[i].y;
+            A.push([sx, sy, 1, 0, 0, 0, -sx * dx, -sy * dx]);
+            A.push([0, 0, 0, sx, sy, 1, -sx * dy, -sy * dy]);
+            b.push(dx, dy);
+        }
+
+        // Eliminación Gaussiana con pivoteo parcial
+        for (let col = 0; col < n; col++) {
+            let maxRow = col;
+            for (let row = col + 1; row < n; row++) {
+                if (Math.abs(A[row][col]) > Math.abs(A[maxRow][col])) maxRow = row;
+            }
+            [A[col], A[maxRow]] = [A[maxRow], A[col]];
+            [b[col], b[maxRow]] = [b[maxRow], b[col]];
+
+            if (Math.abs(A[col][col]) < 1e-10) {
+                throw new Error('Matriz singular — puntos colineales');
+            }
+
+            for (let row = col + 1; row < n; row++) {
+                const factor = A[row][col] / A[col][col];
+                b[row] -= factor * b[col];
+                for (let k = col; k < n; k++) {
+                    A[row][k] -= factor * A[col][k];
+                }
+            }
+        }
+
+        // Sustitución hacia atrás
+        const h = new Array(9);
+        h[8] = 1;
+        for (let i = n - 1; i >= 0; i--) {
+            let sum = 0;
+            for (let j = i + 1; j < n; j++) sum += A[i][j] * h[j];
+            h[i] = (b[i] - sum) / A[i][i];
+        }
+
+        return h;
+    },
+
+    /**
+     * Aplicar homografía con interpolación bilineal
+     */
+    warpPerspective(srcData, srcW, srcH, corners, outputMode, brightness, contrast, onProgress) {
+        // Calcular dimensiones de salida proporcionales
+        const topW = Math.hypot(corners[1].x - corners[0].x, corners[1].y - corners[0].y);
+        const botW = Math.hypot(corners[2].x - corners[3].x, corners[2].y - corners[3].y);
+        const leftH = Math.hypot(corners[3].x - corners[0].x, corners[3].y - corners[0].y);
+        const rightH = Math.hypot(corners[2].x - corners[1].x, corners[2].y - corners[1].y);
+
+        const outW = Math.round(Math.max(topW, botW));
+        const outH = Math.round(Math.max(leftH, rightH));
+
+        if (outW < 10 || outH < 10 || outW > 8000 || outH > 8000) {
+            throw new Error('Dimensiones de salida inválidas');
+        }
+
+        const dst = [
+            { x: 0, y: 0 },
+            { x: outW, y: 0 },
+            { x: outW, y: outH },
+            { x: 0, y: outH }
         ];
 
-        workspace.querySelectorAll('.corner').forEach(c => c.remove());
-        
-        corners = pts.map((p, i) => {
-            const div = document.createElement('div');
-            div.className = 'corner';
-            div.style.left = p.x + 'px';
-            div.style.top = p.y + 'px';
-            workspace.appendChild(div);
-            
-            // Hacer Drag and Drop
-            makeDraggable(div, i);
-            return p;
-        });
-    }
+        const H = this.solveHomography(dst, corners);
 
-    function makeDraggable(el, index) {
-        let isDragging = false;
-        const move = (e) => {
-            if (!isDragging) return;
-            const rect = workspace.getBoundingClientRect();
-            let x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
-            let y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
-            
-            el.style.left = x + 'px';
-            el.style.top = y + 'px';
-            corners[index] = { x, y };
+        const out = new Uint8ClampedArray(outW * outH * 4);
+
+        // Factor de contraste y brillo
+        const cF = 1 + contrast / 100;
+        const bF = brightness * 2.55;
+
+        const totalRows = outH;
+        let lastProgress = 0;
+
+        for (let y = 0; y < outH; y++) {
+            for (let x = 0; x < outW; x++) {
+                const den = H[6] * x + H[7] * y + H[8];
+                if (Math.abs(den) < 1e-10) continue;
+
+                const sx = (H[0] * x + H[1] * y + H[2]) / den;
+                const sy = (H[3] * x + H[4] * y + H[5]) / den;
+
+                if (sx < 0 || sx >= srcW - 1 || sy < 0 || sy >= srcH - 1) continue;
+
+                let [r, g, b] = this.bilinearSample(srcData, srcW, srcH, sx, sy);
+
+                // Ajustes de brillo y contraste
+                r = (r - 128) * cF + 128 + bF;
+                g = (g - 128) * cF + 128 + bF;
+                b = (b - 128) * cF + 128 + bF;
+
+                const idx = (y * outW + x) * 4;
+
+                switch (outputMode) {
+                    case 'gray': {
+                        const gray = 0.299 * r + 0.587 * g + 0.114 * b;
+                        out[idx] = out[idx+1] = out[idx+2] = gray;
+                        break;
+                    }
+                    case 'bw': {
+                        const gray = 0.299 * r + 0.587 * g + 0.114 * b;
+                        // Se aplica binarización global primero, luego Sauvola refina
+                        out[idx] = out[idx+1] = out[idx+2] = gray;
+                        break;
+                    }
+                    case 'sharp': {
+                        out[idx] = r; out[idx+1] = g; out[idx+2] = b;
+                        break;
+                    }
+                    default: {
+                        out[idx] = r; out[idx+1] = g; out[idx+2] = b;
+                    }
+                }
+                out[idx + 3] = 255;
+            }
+
+            // Progress callback cada 5%
+            const progress = Math.floor((y / totalRows) * 100);
+            if (progress >= lastProgress + 5) {
+                lastProgress = progress;
+                if (onProgress) onProgress(progress);
+            }
+        }
+
+        // Post-procesamiento según modo
+        if (outputMode === 'bw') {
+            this.sauvola(out, outW, outH);
+        }
+        if (outputMode === 'sharp') {
+            this.unsharpMask(out, outW, outH, 1.5);
+        }
+
+        return { data: out, width: outW, height: outH };
+    },
+
+    /**
+     * Binarización de Sauvola — para documentos reales
+     * Mucho mejor que un threshold fijo
+     */
+    sauvola(data, w, h, windowSize = 15, k = 0.2, R = 128) {
+        const half = Math.floor(windowSize / 2);
+        const gray = new Float32Array(w * h);
+
+        // Extraer canal gris
+        for (let i = 0; i < w * h; i++) {
+            gray[i] = data[i * 4];
+        }
+
+        // Integral image + integral image cuadrada
+        const integral = new Float64Array(w * h);
+        const integralSq = new Float64Array(w * h);
+
+        for (let y = 0; y < h; y++) {
+            let rowSum = 0, rowSumSq = 0;
+            for (let x = 0; x < w; x++) {
+                const idx = y * w + x;
+                const val = gray[idx];
+                rowSum += val;
+                rowSumSq += val * val;
+                integral[idx] = rowSum + (y > 0 ? integral[idx - w] : 0);
+                integralSq[idx] = rowSumSq + (y > 0 ? integralSq[idx - w] : 0);
+            }
+        }
+
+        const getAreaSum = (img, x1, y1, x2, y2) => {
+            x1 = Math.max(0, x1); y1 = Math.max(0, y1);
+            x2 = Math.min(w - 1, x2); y2 = Math.min(h - 1, y2);
+            let val = img[y2 * w + x2];
+            if (x1 > 0) val -= img[y2 * w + (x1 - 1)];
+            if (y1 > 0) val -= img[(y1 - 1) * w + x2];
+            if (x1 > 0 && y1 > 0) val += img[(y1 - 1) * w + (x1 - 1)];
+            return val;
         };
 
-        el.onmousedown = el.ontouchstart = () => isDragging = true;
-        window.onmouseup = window.ontouchend = () => isDragging = false;
-        window.onmousemove = window.ontouchmove = move;
+        for (let y = 0; y < h; y++) {
+            for (let x = 0; x < w; x++) {
+                const x1 = x - half, y1 = y - half;
+                const x2 = x + half, y2 = y + half;
+
+                const cx1 = Math.max(0, x1), cy1 = Math.max(0, y1);
+                const cx2 = Math.min(w - 1, x2), cy2 = Math.min(h - 1, y2);
+                const area = (cx2 - cx1 + 1) * (cy2 - cy1 + 1);
+
+                const sum = getAreaSum(integral, x1, y1, x2, y2);
+                const sumSq = getAreaSum(integralSq, x1, y1, x2, y2);
+
+                const mean = sum / area;
+                const variance = (sumSq / area) - (mean * mean);
+                const stddev = Math.sqrt(Math.max(0, variance));
+
+                const threshold = mean * (1 + k * (stddev / R - 1));
+
+                const idx = (y * w + x) * 4;
+                const val = gray[y * w + x] > threshold ? 255 : 0;
+                data[idx] = data[idx+1] = data[idx+2] = val;
+            }
+        }
+    },
+
+    /**
+     * Unsharp Mask — enfoque real
+     */
+    unsharpMask(data, w, h, amount = 1.5) {
+        const copy = new Uint8ClampedArray(data);
+
+        // Blur 3x3 simple
+        const kernel = [1,2,1,2,4,2,1,2,1];
+        const kSum = 16;
+
+        for (let y = 1; y < h - 1; y++) {
+            for (let x = 1; x < w - 1; x++) {
+                for (let c = 0; c < 3; c++) {
+                    let sum = 0, ki = 0;
+                    for (let ky = -1; ky <= 1; ky++) {
+                        for (let kx = -1; kx <= 1; kx++) {
+                            sum += copy[((y + ky) * w + (x + kx)) * 4 + c] * kernel[ki++];
+                        }
+                    }
+                    const blurred = sum / kSum;
+                    const original = copy[(y * w + x) * 4 + c];
+                    const sharpened = original + (original - blurred) * amount;
+                    data[(y * w + x) * 4 + c] = Math.max(0, Math.min(255, sharpened));
+                }
+            }
+        }
+    },
+
+    /**
+     * Auto-detección de bordes del documento
+     * Estrategia: Canny simplificado → detectar contorno más grande → aproximar cuadrilátero
+     */
+    autoDetectCorners(imageData, w, h) {
+        // 1. Convertir a escala de grises
+        const gray = new Float32Array(w * h);
+        for (let i = 0; i < w * h; i++) {
+            const idx = i * 4;
+            gray[i] = 0.299 * imageData[idx] + 0.587 * imageData[idx+1] + 0.114 * imageData[idx+2];
+        }
+
+        // 2. Gaussian blur 5x5
+        const blurred = new Float32Array(w * h);
+        const gk = [1,4,6,4,1]; // 1D kernel, separable
+        const gkSum = 16;
+        const temp = new Float32Array(w * h);
+
+        // Horizontal pass
+        for (let y = 0; y < h; y++) {
+            for (let x = 2; x < w - 2; x++) {
+                let sum = 0;
+                for (let k = -2; k <= 2; k++) sum += gray[y * w + x + k] * gk[k + 2];
+                temp[y * w + x] = sum / gkSum;
+            }
+        }
+        // Vertical pass
+        for (let y = 2; y < h - 2; y++) {
+            for (let x = 0; x < w; x++) {
+                let sum = 0;
+                for (let k = -2; k <= 2; k++) sum += temp[(y + k) * w + x] * gk[k + 2];
+                blurred[y * w + x] = sum / gkSum;
+            }
+        }
+
+        // 3. Sobel para gradientes
+        const gradMag = new Float32Array(w * h);
+        const gradDir = new Float32Array(w * h);
+
+        for (let y = 1; y < h - 1; y++) {
+            for (let x = 1; x < w - 1; x++) {
+                const gx = -blurred[(y-1)*w+x-1] + blurred[(y-1)*w+x+1]
+                          -2*blurred[y*w+x-1] + 2*blurred[y*w+x+1]
+                          -blurred[(y+1)*w+x-1] + blurred[(y+1)*w+x+1];
+
+                const gy = -blurred[(y-1)*w+x-1] - 2*blurred[(y-1)*w+x] - blurred[(y-1)*w+x+1]
+                          +blurred[(y+1)*w+x-1] + 2*blurred[(y+1)*w+x] + blurred[(y+1)*w+x+1];
+
+                gradMag[y * w + x] = Math.sqrt(gx * gx + gy * gy);
+                gradDir[y * w + x] = Math.atan2(gy, gx);
+            }
+        }
+
+        // 4. Non-maximum suppression
+        const nms = new Float32Array(w * h);
+        for (let y = 1; y < h - 1; y++) {
+            for (let x = 1; x < w - 1; x++) {
+                const idx = y * w + x;
+                const angle = (gradDir[idx] * 180 / Math.PI + 180) % 180;
+                let n1, n2;
+
+                if (angle < 22.5 || angle >= 157.5) {
+                    n1 = gradMag[y * w + x - 1]; n2 = gradMag[y * w + x + 1];
+                } else if (angle < 67.5) {
+                    n1 = gradMag[(y-1) * w + x + 1]; n2 = gradMag[(y+1) * w + x - 1];
+                } else if (angle < 112.5) {
+                    n1 = gradMag[(y-1) * w + x]; n2 = gradMag[(y+1) * w + x];
+                } else {
+                    n1 = gradMag[(y-1) * w + x - 1]; n2 = gradMag[(y+1) * w + x + 1];
+                }
+
+                nms[idx] = (gradMag[idx] >= n1 && gradMag[idx] >= n2) ? gradMag[idx] : 0;
+            }
+        }
+
+        // 5. Doble threshold + hysteresis simplificada
+        // Calcular threshold automáticamente (Otsu simplificado sobre gradientes)
+        let maxGrad = 0;
+        for (let i = 0; i < nms.length; i++) if (nms[i] > maxGrad) maxGrad = nms[i];
+        const highT = maxGrad * 0.15;
+        const lowT = highT * 0.4;
+
+        const edges = new Uint8Array(w * h);
+        for (let i = 0; i < w * h; i++) {
+            edges[i] = nms[i] >= highT ? 255 : (nms[i] >= lowT ? 128 : 0);
+        }
+
+        // Hysteresis: conectar bordes débiles a fuertes
+        let changed = true;
+        while (changed) {
+            changed = false;
+            for (let y = 1; y < h - 1; y++) {
+                for (let x = 1; x < w - 1; x++) {
+                    const idx = y * w + x;
+                    if (edges[idx] !== 128) continue;
+                    let hasStrong = false;
+                    for (let dy = -1; dy <= 1 && !hasStrong; dy++) {
+                        for (let dx = -1; dx <= 1 && !hasStrong; dx++) {
+                            if (edges[(y+dy) * w + (x+dx)] === 255) hasStrong = true;
+                        }
+                    }
+                    if (hasStrong) { edges[idx] = 255; changed = true; }
+                }
+            }
+        }
+        for (let i = 0; i < w * h; i++) if (edges[i] !== 255) edges[i] = 0;
+
+        // 6. Encontrar contorno — rastreo simple de bordes exteriores
+        // Acumulamos puntos de borde
+        const edgePoints = [];
+        // Dividir imagen en regiones y encontrar extremos
+        const margin = Math.floor(Math.min(w, h) * 0.02);
+
+        for (let y = margin; y < h - margin; y++) {
+            for (let x = margin; x < w - margin; x++) {
+                if (edges[y * w + x] === 255) {
+                    edgePoints.push({ x, y });
+                }
+            }
+        }
+
+        if (edgePoints.length < 100) {
+            // No hay suficientes bordes, devolver esquinas por defecto
+            return null;
+        }
+
+        // 7. Convex hull simplificado + encontrar los 4 extremos
+        // Buscar los puntos más alejados del centro
+        const cx = w / 2, cy = h / 2;
+
+        // Dividir en cuadrantes y encontrar el punto más extremo en cada esquina
+        const topLeft = edgePoints
+            .filter(p => p.x < cx && p.y < cy)
+            .sort((a, b) => (a.x + a.y) - (b.x + b.y))[0];
+
+        const topRight = edgePoints
+            .filter(p => p.x >= cx && p.y < cy)
+            .sort((a, b) => ((w - a.x) + a.y) - ((w - b.x) + b.y))[0];
+
+        const bottomRight = edgePoints
+            .filter(p => p.x >= cx && p.y >= cy)
+            .sort((a, b) => ((w - a.x) + (h - a.y)) - ((w - b.x) + (h - b.y)))[0];
+
+        const bottomLeft = edgePoints
+            .filter(p => p.x < cx && p.y >= cy)
+            .sort((a, b) => (a.x + (h - a.y)) - (b.x + (h - b.y)))[0];
+
+        if (!topLeft || !topRight || !bottomRight || !bottomLeft) {
+            return null;
+        }
+
+        return [topLeft, topRight, bottomRight, bottomLeft];
     }
+};
 
-    document.getElementById('processBtn').onclick = () => {
-        const dst = new cv.Mat();
-        const dsize = new cv.Size(800, 1000); // Tamaño folio estándar
-        
-        // Coordenadas de origen (los 4 puntos que movió el usuario)
-        const srcPts = cv.matFromArray(4, 1, cv.CV_32FC2, [
-            corners[0].x, corners[0].y, corners[1].x, corners[1].y,
-            corners[2].x, corners[2].y, corners[3].x, corners[3].y
-        ]);
 
-        // Coordenadas de destino (rectángulo perfecto)
-        const dstPts = cv.matFromArray(4, 1, cv.CV_32FC2, [
-            0, 0, dsize.width, 0, 
-            dsize.width, dsize.height, 0, dsize.height
-        ]);
+// ===================== APP CONTROLLER =====================
 
-        // La magia de la Homografía: Transforma la perspectiva
-        const M = cv.getPerspectiveTransform(srcPts, dstPts);
-        cv.warpPerspective(src, dst, M, dsize, cv.INTER_LINEAR, cv.BORDER_CONSTANT, new cv.Scalar());
+const App = {
+    img: null,
+    srcCanvas: null,
+    srcData: null,
+    corners: [],      // En coordenadas de imagen REAL
+    handles: [],
+    scale: 1,
+    activeHandle: -1,
+    isDirty: false,
+    mode: 'color',
+    brightness: 0,
+    contrast: 10,
+    rotation: 0,
 
-        // Realce de escáner (Brillo y Contraste)
-        cv.cvtColor(dst, dst, cv.COLOR_RGBA2GRAY);
-        cv.adaptiveThreshold(dst, dst, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY, 11, 2);
+    // DOM refs
+    dom: {},
 
-        cv.imshow('canvasOutput', dst);
-        document.getElementById('finalImg').src = document.getElementById('canvasOutput').toDataURL();
-        document.getElementById('output-container').style.display = 'block';
-        
-        // Limpiar memoria
-        dst.delete(); srcPts.delete(); dstPts.delete(); M.delete();
-        window.scrollTo(0, document.body.scrollHeight);
-    };
+    init() {
+        // Cache de elementos DOM
+        const ids = [
+            'mainCanvas', 'fileInput', 'welcome-screen', 'canvas-container',
+            'controls-panel', 'loading-overlay', 'loaderText', 'loaderBar',
+            'result-view', 'resultImg', 'resultInfo', 'statusDot', 'statusText',
+            'loupe', 'loupeCanvas', 'tabBar', 'toast',
+            'slBrightness', 'slContrast', 'slRotation',
+            'valBrightness', 'valContrast', 'valRotation',
+            'btnProcess', 'btnAutoDetect', 'btnReset',
+            'btnDownload', 'btnDownloadPNG', 'btnCopyClipboard', 'btnBackFromResult',
+            'uploadZone'
+        ];
+        ids.forEach(id => {
+            this.dom[id.replace(/-/g, '_')] = document.getElementById(id);
+        });
+
+        this.ctx = this.dom.mainCanvas.getContext('2d', { willReadFrequently: true });
+        this.loupeCtx = this.dom.loupeCanvas.getContext('2d');
+
+        this.bindEvents();
+        this.setStatus('idle', 'Esperando imagen');
+    },
+
+    setStatus(state, text) {
+        this.dom.statusDot.className = 'status-dot' + (state === 'active' ? ' active' : '');
+        this.dom.statusText.textContent = text;
+    },
+
+    toast(msg, duration = 2500) {
+        this.dom.toast.textContent = msg;
+        this.dom.toast.classList.add('show');
+        clearTimeout(this._toastTimer);
+        this._toastTimer = setTimeout(() => this.dom.toast.classList.remove('show'), duration);
+    },
+
+    showLoader(text = 'Procesando...', progress = 0) {
+        this.dom.loading_overlay.style.display = 'flex';
+        this.dom.loaderText.textContent = text;
+        this.dom.loaderBar.style.width = progress + '%';
+    },
+
+    hideLoader() {
+        this.dom.loading_overlay.style.display = 'none';
+    },
+
+    // ==================== EVENTS ====================
+
+    bindEvents() {
+        // File input
+        this.dom.fileInput.addEventListener('change', (e) => this.loadImage(e.target.files[0]));
+
+        // Drag & drop
+        const zone = this.dom.uploadZone;
+        zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('dragover'); });
+        zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
+        zone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            zone.classList.remove('dragover');
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) this.loadImage(file);
+        });
+
+        // Handle dragging
+        const workspace = document.getElementById('workspace');
+
+        const getPointer = (e) => {
+            const t = e.touches ? e.touches[0] : e;
+            return { x: t.clientX, y: t.clientY };
+        };
+
+        workspace.addEventListener('mousemove', (e) => this.onPointerMove(getPointer(e)));
+        workspace.addEventListener('touchmove', (e) => {
+            if (this.activeHandle >= 0) e.preventDefault();
+            this.onPointerMove(getPointer(e));
+        }, { passive: false });
+
+        const endDrag = () => {
+            this.activeHandle = -1;
+            this.dom.loupe.style.display = 'none';
+        };
+        workspace.addEventListener('mouseup', endDrag);
+        workspace.addEventListener('touchend', endDrag);
+        workspace.addEventListener('touchcancel', endDrag);
+
+        // Tabs
+        this.dom.tabBar.addEventListener('click', (e) => {
+            const btn = e.target.closest('.tab-btn');
+            if (!btn) return;
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+        });
+
+        // Mode buttons
+        document.querySelectorAll('.mode-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                this.mode = btn.dataset.mode;
+            });
+        });
+
+        // Sliders
+        const bindSlider = (slider, display, prop, suffix = '') => {
+            slider.addEventListener('input', () => {
+                this[prop] = parseInt(slider.value);
+                display.textContent = slider.value + suffix;
+                this.requestRender();
+            });
+        };
+        bindSlider(this.dom.slBrightness, this.dom.valBrightness, 'brightness');
+        bindSlider(this.dom.slContrast, this.dom.valContrast, 'contrast');
+        bindSlider(this.dom.slRotation, this.dom.valRotation, 'rotation', '°');
+
+        // Buttons
+        this.dom.btnProcess.addEventListener('click', () => this.process());
+        this.dom.btnAutoDetect.addEventListener('click', () => this.autoDetect());
+        this.dom.btnReset.addEventListener('click', () => this.resetCorners());
+
+        this.dom.btnDownload.addEventListener('click', () => this.download('jpeg'));
+        this.dom.btnDownloadPNG.addEventListener('click', () => this.download('png'));
+        this.dom.btnCopyClipboard.addEventListener('click', () => this.copyToClipboard());
+        this.dom.btnBackFromResult.addEventListener('click', () => {
+            this.dom.result_view.style.display = 'none';
+        });
+
+        // Resize
+        window.addEventListener('resize', () => {
+            if (this.img) this.fitCanvas();
+        });
+    },
+
+    // ==================== IMAGE LOADING ====================
+
+    loadImage(file) {
+        if (!file) return;
+        this.showLoader('Cargando imagen...');
+
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+            const img = new Image();
+            img.onload = () => {
+                this.img = img;
+
+                // Crear canvas fuente a resolución original
+                this.srcCanvas = document.createElement('canvas');
+                this.srcCanvas.width = img.naturalWidth;
+                this.srcCanvas.height = img.naturalHeight;
+                const sctx = this.srcCanvas.getContext('2d', { willReadFrequently: true });
+                sctx.drawImage(img, 0, 0);
+                this.srcData = sctx.getImageData(0, 0, img.naturalWidth, img.naturalHeight);
+
+                // UI transition
+                this.dom.welcome_screen.style.display = 'none';
+                this.dom.canvas_container.style.display = 'inline-block';
+                this.dom.controls_panel.style.display = 'block';
+
+                this.resetCorners();
+                this.fitCanvas();
+                this.setStatus('active', `${img.naturalWidth}×${img.naturalHeight}`);
+                this.hideLoader();
+                this.toast('Imagen cargada — ajusta las esquinas');
+            };
+            img.onerror = () => {
+                this.hideLoader();
+                this.toast('Error al cargar la imagen');
+            };
+            img.src = ev.target.result;
+        };
+        reader.readAsDataURL(file);
+    },
+
+    resetCorners() {
+        if (!this.img) return;
+        const w = this.img.naturalWidth, h = this.img.naturalHeight;
+        const m = 0.08;
+        this.corners = [
+            { x: w * m, y: h * m },
+            { x: w * (1 - m), y: h * m },
+            { x: w * (1 - m), y: h * (1 - m) },
+            { x: w * m, y: h * (1 - m) }
+        ];
+        this.updateHandles();
+        this.requestRender();
+    },
+
+    // ==================== CANVAS & RENDERING ====================
+
+    fitCanvas() {
+        const workspace = document.getElementById('workspace');
+        const maxW = workspace.clientWidth - 40;
+        const maxH = workspace.clientHeight - 40;
+        const imgW = this.img.naturalWidth;
+        const imgH = this.img.naturalHeight;
+
+        this.scale = Math.min(maxW / imgW, maxH / imgH, 1);
+
+        const cw = Math.round(imgW * this.scale);
+        const ch = Math.round(imgH * this.scale);
+
+        this.dom.mainCanvas.width = cw;
+        this.dom.mainCanvas.height = ch;
+        this.dom.mainCanvas.style.width = cw + 'px';
+        this.dom.mainCanvas.style.height = ch + 'px';
+
+        this.updateHandles();
+        this.requestRender();
+    },
+
+    requestRender() {
+        if (this._renderPending) return;
+        this._renderPending = true;
+        requestAnimationFrame(() => {
+            this._renderPending = false;
+            this.render();
+        });
+    },
+
+    render() {
+        if (!this.img) return;
+        const ctx = this.ctx;
+        const cw = this.dom.mainCanvas.width;
+        const ch = this.dom.mainCanvas.height;
+
+        // Dibujar imagen
+        ctx.drawImage(this.img, 0, 0, cw, ch);
+
+        // Overlay semitransparente fuera de la selección
+        ctx.save();
+        ctx.fillStyle = 'rgba(0,0,0,0.45)';
+        ctx.fillRect(0, 0, cw, ch);
+
+        // Recortar la zona seleccionada (mostrarla clara)
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.beginPath();
+        const s = this.scale;
+        ctx.moveTo(this.corners[0].x * s, this.corners[0].y * s);
+        for (let i = 1; i < 4; i++) {
+            ctx.lineTo(this.corners[i].x * s, this.corners[i].y * s);
+        }
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+
+        // Redibujar la imagen dentro de la selección (sin oscurecer)
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(this.corners[0].x * s, this.corners[0].y * s);
+        for (let i = 1; i < 4; i++) {
+            ctx.lineTo(this.corners[i].x * s, this.corners[i].y * s);
+        }
+        ctx.closePath();
+        ctx.clip();
+        ctx.drawImage(this.img, 0, 0, cw, ch);
+        ctx.restore();
+
+        // Líneas de la selección
+        ctx.strokeStyle = '#6366f1';
+        ctx.lineWidth = 2;
+        ctx.setLineDash([]);
+        ctx.beginPath();
+        ctx.moveTo(this.corners[0].x * s, this.corners[0].y * s);
+        for (let i = 1; i < 4; i++) {
+            ctx.lineTo(this.corners[i].x * s, this.corners[i].y * s);
+        }
+        ctx.closePath();
+        ctx.stroke();
+
+        // Puntos de esquina (indicadores en canvas, los handles reales son divs)
+        this.corners.forEach((c) => {
+            ctx.beginPath();
+            ctx.arc(c.x * s, c.y * s, 4, 0, Math.PI * 2);
+            ctx.fillStyle = '#6366f1';
+            ctx.fill();
+        });
+    },
+
+    // ==================== HANDLES ====================
+
+    updateHandles() {
+        const container = this.dom.canvas_container;
+        container.querySelectorAll('.corner-handle').forEach(h => h.remove());
+        this.handles = [];
+
+        this.corners.forEach((corner, i) => {
+            const h = document.createElement('div');
+            h.className = 'corner-handle';
+            h.style.left = (corner.x * this.scale) + 'px';
+            h.style.top = (corner.y * this.scale) + 'px';
+
+            const startDrag = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                this.activeHandle = i;
+            };
+
+            h.addEventListener('mousedown', startDrag);
+            h.addEventListener('touchstart', startDrag, { passive: false });
+
+            container.appendChild(h);
+            this.handles.push(h);
+        });
+    },
+
+    onPointerMove(pointer) {
+        if (this.activeHandle < 0) return;
+
+        const rect = this.dom.mainCanvas.getBoundingClientRect();
+        const canvasX = pointer.x - rect.left;
+        const canvasY = pointer.y - rect.top;
+
+        // Clampar a los límites del canvas
+        const cx = Math.max(0, Math.min(canvasX, this.dom.mainCanvas.width));
+        const cy = Math.max(0, Math.min(canvasY, this.dom.mainCanvas.height));
+
+        // Convertir a coordenadas de imagen real
+        this.corners[this.activeHandle] = {
+            x: cx / this.scale,
+            y: cy / this.scale
+        };
+
+        // Mover handle
+        this.handles[this.activeHandle].style.left = cx + 'px';
+        this.handles[this.activeHandle].style.top = cy + 'px';
+
+        // Lupa
+        this.updateLoupe(cx, cy, pointer);
+
+        this.requestRender();
+    },
+
+    updateLoupe(cx, cy, pointer) {
+        const loupe = this.dom.loupe;
+        const loupeSize = 120;
+        const container = this.dom.canvas_container;
+        const containerRect = container.getBoundingClientRect();
+
+        // Posicionar la lupa arriba-izquierda del punto, offset para no tapar el dedo
+        let lx = cx - loupeSize / 2;
+        let ly = cy - loupeSize - 50;
+
+        // Si se sale por arriba, ponerla abajo
+        if (ly < 0) ly = cy + 50;
+        // Si se sale por la izquierda
+        if (lx < 0) lx = 10;
+        if (lx + loupeSize > containerRect.width) lx = containerRect.width - loupeSize - 10;
+
+        loupe.style.display = 'block';
+        loupe.style.left = lx + 'px';
+        loupe.style.top = ly + 'px';
+
+        // Dibujar zoom 5x
+        const zoom = 5;
+        const srcSize = loupeSize / zoom;
+        const loupeCanvas = this.dom.loupeCanvas;
+
+        this.loupeCtx.clearRect(0, 0, 240, 240);
+        this.loupeCtx.drawImage(
+            this.dom.mainCanvas,
+            cx - srcSize / 2, cy - srcSize / 2, srcSize, srcSize,
+            0, 0, 240, 240
+        );
+    },
+
+    // ==================== AUTO DETECTION ====================
+
+    autoDetect() {
+        if (!this.srcData) return;
+        this.showLoader('Analizando bordes...');
+
+        setTimeout(() => {
+            try {
+                const corners = ImageProc.autoDetectCorners(
+                    this.srcData.data,
+                    this.img.naturalWidth,
+                    this.img.naturalHeight
+                );
+
+                if (corners) {
+                    this.corners = corners;
+                    this.updateHandles();
+                    this.requestRender();
+                    this.toast('Bordes detectados automáticamente');
+                } else {
+                    this.toast('No se detectaron bordes claros — ajusta manualmente');
+                }
+            } catch (e) {
+                console.error(e);
+                this.toast('Error en detección: ' + e.message);
+            }
+            this.hideLoader();
+        }, 50);
+    },
+
+    // ==================== PROCESSING ====================
+
+    async process() {
+        if (!this.srcData) return;
+        this.showLoader('Corrigiendo perspectiva...', 0);
+
+        // Usar setTimeout para permitir que el UI se actualice
+        await new Promise(r => setTimeout(r, 50));
+
+        try {
+            const result = ImageProc.warpPerspective(
+                this.srcData.data,
+                this.img.naturalWidth,
+                this.img.naturalHeight,
+                this.corners,
+                this.mode,
+                this.brightness,
+                this.contrast,
+                (progress) => {
+                    this.dom.loaderBar.style.width = progress + '%';
+                    this.dom.loaderText.textContent = `Procesando... ${progress}%`;
+                }
+            );
+
+            // Aplicar rotación si es necesario
+            let finalCanvas = document.createElement('canvas');
+            let finalCtx;
+
+            if (this.rotation !== 0) {
+                const rad = this.rotation * Math.PI / 180;
+                const cos = Math.abs(Math.cos(rad));
+                const sin = Math.abs(Math.sin(rad));
+                const newW = Math.round(result.width * cos + result.height * sin);
+                const newH = Math.round(result.width * sin + result.height * cos);
+
+                finalCanvas.width = newW;
+                finalCanvas.height = newH;
+                finalCtx = finalCanvas.getContext('2d');
+
+                // Primero poner la imagen warpeada en un canvas temporal
+                const tempC = document.createElement('canvas');
+                tempC.width = result.width;
+                tempC.height = result.height;
+                const tempCtx = tempC.getContext('2d');
+                const tempData = tempCtx.createImageData(result.width, result.height);
+                tempData.data.set(result.data);
+                tempCtx.putImageData(tempData, 0, 0);
+
+                finalCtx.translate(newW / 2, newH / 2);
+                finalCtx.rotate(rad);
+                finalCtx.drawImage(tempC, -result.width / 2, -result.height / 2);
+            } else {
+                finalCanvas.width = result.width;
+                finalCanvas.height = result.height;
+                finalCtx = finalCanvas.getContext('2d');
+                const imgData = finalCtx.createImageData(result.width, result.height);
+                imgData.data.set(result.data);
+                finalCtx.putImageData(imgData, 0, 0);
+            }
+
+            // Guardar referencia para exportación
+            this._resultCanvas = finalCanvas;
+
+            // Mostrar resultado
+            const quality = this.mode === 'bw' ? 'image/png' : 'image/jpeg';
+            const q = this.mode === 'bw' ? undefined : 0.95;
+            this.dom.resultImg.src = finalCanvas.toDataURL(quality, q);
+
+            // Info
+            const sizeKB = Math.round(this.dom.resultImg.src.length * 0.75 / 1024);
+            this.dom.resultInfo.innerHTML = `
+                <span class="result-info-item"><strong>${finalCanvas.width}×${finalCanvas.height}</strong> px</span>
+                <span class="result-info-item"><strong>~${sizeKB}</strong> KB</span>
+                <span class="result-info-item"><strong>${this.mode.toUpperCase()}</strong> modo</span>
+            `;
+
+            this.dom.result_view.style.display = 'flex';
+            this.hideLoader();
+            this.toast('Procesamiento completado');
+
+        } catch (e) {
+            console.error(e);
+            this.hideLoader();
+            this.toast('Error: ' + e.message);
+        }
+    },
+
+    // ==================== EXPORT ====================
+
+    download(format) {
+        if (!this._resultCanvas) return;
+        const mime = format === 'png' ? 'image/png' : 'image/jpeg';
+        const ext = format === 'png' ? 'png' : 'jpg';
+        const q = format === 'png' ? undefined : 0.95;
+
+        const a = document.createElement('a');
+        a.download = `BioScan_${Date.now()}.${ext}`;
+        a.href = this._resultCanvas.toDataURL(mime, q);
+        a.click();
+        this.toast(`Descargando ${ext.toUpperCase()}...`);
+    },
+
+    async copyToClipboard() {
+        if (!this._resultCanvas) return;
+        try {
+            const blob = await new Promise(resolve =>
+                this._resultCanvas.toBlob(resolve, 'image/png')
+            );
+            await navigator.clipboard.write([
+                new ClipboardItem({ 'image/png': blob })
+            ]);
+            this.toast('Copiado al portapapeles');
+        } catch (e) {
+            this.toast('No se pudo copiar — descarga en su lugar');
+        }
+    }
+};
+
+// INIT
+document.addEventListener('DOMContentLoaded', () => App.init());
 </script>
 
 </body>
