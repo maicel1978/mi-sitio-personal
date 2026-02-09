@@ -3,339 +3,312 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Bio-Scribe Pro | Clinical Dictation</title>
+    <title>Bio-Scribe Pro | Bioestadística Edu</title>
+    <!-- Usamos una fuente más profesional -->
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #2563eb;
-            --danger: #dc2626;
-            --success: #16a34a;
-            --bg: #f8fafc;
-            --surface: #ffffff;
-            --text: #0f172a;
-            --border: #e2e8f0;
+            --danger: #ef4444;
+            --success: #22c55e;
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #f1f5f9;
         }
 
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg: #020617;
-                --surface: #0f172a;
-                --text: #f1f5f9;
-                --border: #1e293b;
-            }
-        }
-
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        * { box-sizing: border-box; font-family: 'Lexend', sans-serif; }
         
         body {
-            font-family: system-ui, -apple-system, sans-serif;
             background-color: var(--bg);
             color: var(--text);
             margin: 0;
             display: flex;
             flex-direction: column;
             height: 100vh;
-            overflow: hidden;
+            overflow: hidden; /* Evita rebotes en móvil */
         }
 
-        /* Capa de Instrucciones para el Micrófono */
-        #permissionOverlay {
+        /* Overlay de Error de Permisos */
+        #permissionDenied {
             display: none;
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
-            z-index: 9999;
-            color: white;
+            top:0; left:0; width:100%; height:100%;
+            background: rgba(15, 23, 42, 0.95);
+            z-index: 10000;
             padding: 2rem;
-            text-align: center;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            text-align: center;
+        }
+
+        .alert-card {
+            background: var(--card);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid var(--danger);
+            max-width: 400px;
         }
 
         header {
-            padding: 1rem;
-            background: var(--surface);
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            padding: 1.5rem;
+            text-align: center;
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
         }
 
-        .brand { font-weight: 800; font-size: 1.1rem; }
-        .brand span { color: var(--primary); }
-
-        main {
+        .main-container {
             flex: 1;
             display: flex;
             flex-direction: column;
-            padding: 0.75rem;
-            gap: 0.75rem;
-            max-width: 900px;
+            padding: 1rem;
+            max-width: 800px;
             margin: 0 auto;
             width: 100%;
+            gap: 1rem;
         }
 
-        .editor-wrapper {
+        .editor-area {
             flex: 1;
-            background: var(--surface);
-            border-radius: 16px;
-            border: 1px solid var(--border);
+            background: var(--card);
+            border-radius: 24px;
+            border: 1px solid #334155;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3);
         }
 
         textarea {
             flex: 1;
-            width: 100%;
-            padding: 1.2rem;
-            border: none;
             background: transparent;
+            border: none;
             color: var(--text);
-            font-size: 1.1rem;
-            line-height: 1.5;
-            resize: none;
+            padding: 1.5rem;
+            font-size: 1.2rem;
+            line-height: 1.6;
             outline: none;
+            resize: none;
         }
 
-        .controls {
+        .bottom-controls {
+            padding: 1rem;
+            background: rgba(15, 23, 42, 0.5);
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 0.5rem;
-            padding: 0.75rem;
-            background: var(--surface);
-            border-top: 1px solid var(--border);
+            gap: 0.75rem;
+            border-bottom-left-radius: 24px;
+            border-bottom-right-radius: 24px;
         }
 
         .btn {
-            padding: 0.8rem 0.5rem;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            background: var(--surface);
-            color: var(--text);
+            border: none;
+            border-radius: 14px;
+            padding: 1rem;
             font-weight: 600;
-            font-size: 0.85rem;
             cursor: pointer;
+            transition: 0.2s;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: 4px;
+            justify-content: center;
+            gap: 8px;
+            color: white;
+            font-size: 0.9rem;
         }
 
         .btn-mic {
             grid-column: span 3;
             background: var(--primary);
-            color: white;
-            border: none;
-            padding: 1.2rem;
             font-size: 1.1rem;
-            flex-direction: row;
-            justify-content: center;
+            padding: 1.2rem;
         }
 
-        .btn-mic.active {
+        .btn-mic.recording {
             background: var(--danger);
             animation: pulse 1.5s infinite;
         }
 
+        .btn-secondary { background: #334155; }
+        .btn-secondary:active { background: #475569; }
+
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(0.98); opacity: 0.8; }
-            100% { transform: scale(1); }
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
         }
 
         .status-bar {
             display: flex;
             justify-content: space-between;
             padding: 0.5rem 1rem;
-            font-size: 0.7rem;
-            background: var(--border);
-            color: var(--text);
+            font-size: 0.75rem;
+            color: #94a3b8;
         }
 
-        /* Alerta de No HTTPS */
-        #httpsWarning {
-            display: none;
-            background: var(--danger);
+        select {
+            grid-column: span 3;
+            background: #0f172a;
             color: white;
+            border: 1px solid #334155;
             padding: 0.5rem;
-            text-align: center;
-            font-size: 0.8rem;
-            font-weight: bold;
+            border-radius: 8px;
         }
     </style>
 </head>
 <body>
 
-<div id="httpsWarning">⚠️ Error: El dictado requiere una conexión segura (HTTPS)</div>
-
-<div id="permissionOverlay">
-    <h2>🎙️ Acceso al Micrófono Bloqueado</h2>
-    <p>Para usar el dictado, debes permitir el acceso al micrófono.</p>
-    <div style="background: #333; padding: 1rem; border-radius: 10px; text-align: left; margin: 1rem 0;">
-        1. Toca el icono del <b>candado</b> o <b>configuración</b> en la barra de direcciones.<br><br>
-        2. Activa el interruptor de <b>Micrófono</b>.<br><br>
-        3. Recarga la página.
+<div id="permissionDenied">
+    <div class="alert-card">
+        <h2 style="color:var(--danger)">Microfono Bloqueado</h2>
+        <p>Chrome no tiene permiso para escuchar. Haz clic en el icono del candado 🔒 junto a la URL y activa el <b>Micrófono</b>.</p>
+        <button class="btn btn-secondary" style="width:100%" onclick="location.reload()">Ya lo hice, reintentar</button>
     </div>
-    <button class="btn" onclick="location.reload()" style="width: 200px;">Entendido, recargar</button>
 </div>
 
 <header>
-    <div class="brand">BIO-SCRIBE <span>PRO</span></div>
-    <div id="statusIndicator" style="font-size: 0.8rem; color: var(--success);">● Sistema Listo</div>
+    <h1 style="margin:0; font-size: 1.4rem;">BIO-SCRIBE <span style="color:var(--primary)">PRO</span></h1>
 </header>
 
-<main>
-    <div class="editor-wrapper">
-        <textarea id="editor" placeholder="Toca el botón azul para empezar a hablar..."></textarea>
+<div class="main-container">
+    <div class="editor-area">
+        <textarea id="editor" placeholder="Pulsa el botón azul y dicta tus hallazgos bioestadísticos..."></textarea>
         
         <div class="status-bar">
             <span id="wordCount">0 palabras</span>
-            <span id="saveStatus">Auto-guardado activo</span>
+            <span id="status">● Sistema Listo</span>
         </div>
 
-        <div class="controls">
+        <div class="bottom-controls">
             <button class="btn btn-mic" id="micBtn">
                 <span id="micIcon">🎤</span> <span id="micText">Iniciar Dictado</span>
             </button>
             
-            <button class="btn" id="playBtn"><span>🔊</span>Oír</button>
-            <button class="btn" onclick="copyText()"><span>📋</span>Copiar</button>
-            <button class="btn" onclick="clearText()"><span>🗑️</span>Borrar</button>
-
-            <select id="voiceSelect" class="btn" style="grid-column: span 3; width: 100%; display: block;">
-                <!-- Voces -->
-            </select>
+            <button class="btn btn-secondary" onclick="speakText()">🔊 Leer</button>
+            <button class="btn btn-secondary" onclick="copyText()">📋 Copiar</button>
+            <button class="btn btn-secondary" onclick="clearText()">🗑️ Limpiar</button>
+            
+            <select id="voiceSelect"></select>
         </div>
     </div>
-</main>
+</div>
 
 <script>
     const editor = document.getElementById('editor');
     const micBtn = document.getElementById('micBtn');
     const micText = document.getElementById('micText');
-    const statusIndicator = document.getElementById('statusIndicator');
-    const permissionOverlay = document.getElementById('permissionOverlay');
-    const voiceSelect = document.getElementById('voiceSelect');
+    const status = document.getElementById('status');
+    const wordCount = document.getElementById('wordCount');
+    const permissionOverlay = document.getElementById('permissionDenied');
 
     let recognition;
     let isRecording = false;
 
-    // 1. VERIFICAR HTTPS (Crucial para móviles)
-    if (window.location.protocol === 'http:' && window.location.hostname !== 'localhost') {
-        document.getElementById('httpsWarning').style.display = 'block';
+    // --- CONFIGURACIÓN DE VOZ (LECTURA) ---
+    const synth = window.speechSynthesis;
+    function loadVoices() {
+        const voices = synth.getVoices();
+        const select = document.getElementById('voiceSelect');
+        select.innerHTML = voices
+            .filter(v => v.lang.includes('es'))
+            .map(v => `<option value="${v.name}">${v.name}</option>`).join('');
     }
+    if (synth.onvoiceschanged !== undefined) synth.onvoiceschanged = loadVoices;
+    loadVoices();
 
-    // 2. INICIALIZAR RECONOCIMIENTO
-    function initRecognition() {
+    // --- CONFIGURACIÓN DE DICTADO ---
+    function initSpeech() {
         const Speech = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (!Speech) {
-            alert("Tu navegador no soporta dictado de voz. Usa Chrome o Safari actualizado.");
+            alert("Este navegador no soporta dictado.");
             return;
         }
 
         recognition = new Speech();
+        recognition.lang = 'es-ES';
         recognition.continuous = true;
         recognition.interimResults = false;
-        recognition.lang = 'es-ES';
 
         recognition.onstart = () => {
             isRecording = true;
-            micBtn.classList.add('active');
-            micText.innerText = "Detener Dictado";
-            statusIndicator.innerText = "● Escuchando...";
-            statusIndicator.style.color = "var(--danger)";
+            micBtn.classList.add('recording');
+            micText.innerText = "Detener";
+            status.innerText = "● Escuchando activamente...";
+            status.style.color = "var(--danger)";
         };
 
         recognition.onresult = (event) => {
-            const result = event.results[event.results.length - 1][0].transcript;
-            const formatted = result.charAt(0).toUpperCase() + result.slice(1);
-            editor.value += (editor.value ? " " : "") + formatted + ". ";
-            saveData();
+            const transcript = event.results[event.results.length - 1][0].transcript;
+            const cleanText = transcript.charAt(0).toUpperCase() + transcript.slice(1);
+            editor.value += (editor.value ? " " : "") + cleanText + ". ";
+            updateStats();
         };
 
         recognition.onerror = (event) => {
-            console.error("Error Speech:", event.error);
-            if (event.error === 'not-allowed') {
+            console.error(event.error);
+            if(event.error === 'not-allowed') {
                 permissionOverlay.style.display = 'flex';
             }
             stopRecording();
         };
 
         recognition.onend = () => {
-            if (isRecording) recognition.start(); // Forzar reconexión si se corta
+            if (isRecording) {
+                recognition.start(); // Auto-reinicio para que no se corte en móviles
+            }
         };
     }
 
     function stopRecording() {
         isRecording = false;
         recognition.stop();
-        micBtn.classList.remove('active');
+        micBtn.classList.remove('recording');
         micText.innerText = "Iniciar Dictado";
-        statusIndicator.innerText = "● Sistema Listo";
-        statusIndicator.style.color = "var(--success)";
+        status.innerText = "● Sistema Listo";
+        status.style.color = "var(--success)";
     }
 
-    // 3. EVENTO DEL BOTÓN (Debe ser por click directo del usuario)
     micBtn.onclick = () => {
-        // En móviles, la primera vez DEBE haber un gesto de usuario
-        if (!recognition) initRecognition();
-        
+        if (!recognition) initSpeech();
         if (!isRecording) {
-            try {
-                recognition.start();
-            } catch (e) {
-                console.log("Error al arrancar:", e);
-            }
+            recognition.start();
         } else {
             stopRecording();
         }
     };
 
-    // 4. PERSISTENCIA Y UTILIDADES
-    function saveData() {
-        localStorage.setItem('bioScribe_doc', editor.value);
-        const words = editor.value.trim().split(/\s+/).length;
-        document.getElementById('wordCount').innerText = `${editor.value ? words : 0} palabras`;
+    // --- UTILIDADES ---
+    function updateStats() {
+        const text = editor.value.trim();
+        const words = text ? text.split(/\s+/).length : 0;
+        wordCount.innerText = `${words} palabras`;
+        localStorage.setItem('scribe_back', editor.value);
     }
-
-    window.onload = () => {
-        editor.value = localStorage.getItem('bioScribe_doc') || '';
-        saveData();
-        loadVoices();
-    };
-
-    function loadVoices() {
-        const synth = window.speechSynthesis;
-        const updateVoices = () => {
-            const voices = synth.getVoices().filter(v => v.lang.includes('es'));
-            voiceSelect.innerHTML = voices.map(v => `<option value="${v.name}">${v.name}</option>`).join('');
-        };
-        if (synth.onvoiceschanged !== undefined) synth.onvoiceschanged = updateVoices;
-        updateVoices();
-    }
-
-    document.getElementById('playBtn').onclick = () => {
-        const synth = window.speechSynthesis;
-        if (synth.speaking) return synth.cancel();
-        const utter = new SpeechSynthesisUtterance(editor.value);
-        utter.voice = synth.getVoices().find(v => v.name === voiceSelect.value);
-        synth.speak(utter);
-    };
 
     function copyText() {
         navigator.clipboard.writeText(editor.value);
-        alert("Texto copiado");
+        status.innerText = "¡Copiado con éxito!";
+        setTimeout(() => status.innerText = "● Sistema Listo", 2000);
     }
 
     function clearText() {
         if(confirm("¿Borrar todo?")) {
-            editor.value = '';
-            saveData();
+            editor.value = "";
+            updateStats();
         }
     }
 
-    editor.oninput = saveData;
+    function speakText() {
+        if (synth.speaking) { synth.cancel(); return; }
+        const utter = new SpeechSynthesisUtterance(editor.value);
+        const voices = synth.getVoices();
+        utter.voice = voices.find(v => v.name === document.getElementById('voiceSelect').value);
+        synth.speak(utter);
+    }
+
+    // Cargar respaldo
+    window.onload = () => {
+        editor.value = localStorage.getItem('scribe_back') || '';
+        updateStats();
+    };
 </script>
 
 </body>
