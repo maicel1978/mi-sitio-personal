@@ -3,154 +3,1117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bio-GIF Creator - Bioestadística Edu</title>
-    <!-- Librería para generación de GIFs -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gifshot/0.4.5/gifshot.min.js"></script>
+    <title>GIF Tools Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #fbbf24; --bg: #09090b; --card: #18181b; --text: #f4f4f5; }
-        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
-        
-        .container { max-width: 700px; width: 100%; }
-        header { text-align: center; margin-bottom: 30px; }
-        h1 { font-size: 1.8rem; letter-spacing: -1px; color: var(--primary); }
-        
-        .upload-zone { border: 2px dashed #3f3f46; border-radius: 20px; padding: 40px; text-align: center; cursor: pointer; background: var(--card); transition: 0.3s; }
-        .upload-zone:hover { border-color: var(--primary); background: #222226; }
-        
-        .settings { background: var(--card); border-radius: 16px; padding: 25px; margin-top: 20px; border: 1px solid #27272a; display: none; }
-        .grid-settings { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0; }
-        
-        label { font-size: 0.75rem; color: #a1a1aa; text-transform: uppercase; display: block; margin-bottom: 5px; }
-        select, input[type="range"] { width: 100%; background: #09090b; color: white; border: 1px solid #3f3f46; padding: 8px; border-radius: 6px; }
-        
-        .btn { width: 100%; padding: 15px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 1rem; margin-top: 15px; }
-        .btn-primary { background: var(--primary); color: black; }
-        .btn-primary:hover { transform: translateY(-2px); opacity: 0.9; }
-        .btn-primary:disabled { background: #3f3f46; cursor: wait; }
-
-        .preview-container { margin-top: 20px; text-align: center; display: none; }
-        #resultGif { max-width: 100%; border-radius: 12px; border: 2px solid #3f3f46; }
-
-        .loader { display: none; margin: 20px 0; }
-        .spinner { width: 30px; height: 30px; border: 3px solid #3f3f46; border-top-color: var(--primary); border-radius: 50%; animation: spin 1s infinite linear; margin: 0 auto 10px; }
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #111118;
+            --bg-card: #1a1a25;
+            --bg-card-hover: #22222f;
+            --border: #2a2a3a;
+            --border-active: #7c6cf0;
+            --accent: #7c6cf0;
+            --accent-light: #a89afe;
+            --accent-glow: rgba(124, 108, 240, 0.25);
+            --accent-2: #00c9a7;
+            --accent-2-glow: rgba(0, 201, 167, 0.25);
+            --accent-3: #f5a623;
+            --accent-3-glow: rgba(245, 166, 35, 0.25);
+            --success: #00c9a7;
+            --danger: #ef5350;
+            --linkedin: #0a66c2;
+            --linkedin-glow: rgba(10, 102, 194, 0.25);
+            --text-primary: #eeeef5;
+            --text-secondary: #8585a0;
+            --text-muted: #55556a;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg-primary); color: var(--text-primary);
+            min-height: 100vh;
+        }
+        .bg-effects { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+        .bg-orb {
+            position: absolute; border-radius: 50%;
+            filter: blur(100px); opacity: 0.12;
+            animation: floatOrb 25s ease-in-out infinite;
+        }
+        .bg-orb:nth-child(1) { width: 500px; height: 500px; background: var(--accent); top: -150px; right: -150px; }
+        .bg-orb:nth-child(2) { width: 400px; height: 400px; background: var(--accent-2); bottom: -100px; left: -100px; animation-delay: -8s; }
+        .bg-orb:nth-child(3) { width: 300px; height: 300px; background: var(--accent-3); top: 50%; left: 40%; animation-delay: -16s; }
+        @keyframes floatOrb {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(60px, -80px) scale(1.1); }
+            66% { transform: translate(-40px, 60px) scale(0.9); }
+        }
+        .app { position: relative; z-index: 1; max-width: 1000px; margin: 0 auto; padding: 20px; }
+        .header { text-align: center; padding: 32px 0 24px; }
+        .logo { display: inline-flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+        .logo-icon {
+            width: 44px; height: 44px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            border-radius: 12px; display: flex; align-items: center; justify-content: center;
+            font-size: 22px; box-shadow: 0 6px 24px var(--accent-glow);
+        }
+        .logo-text {
+            font-size: 28px; font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .header p { color: var(--text-secondary); font-size: 14px; }
+        .privacy {
+            display: inline-flex; align-items: center; gap: 6px;
+            margin-top: 10px; padding: 5px 14px;
+            background: rgba(0, 201, 167, 0.08);
+            border: 1px solid rgba(0, 201, 167, 0.15);
+            border-radius: 20px; color: var(--success);
+            font-size: 11px; font-weight: 600;
+        }
+        .tabs {
+            display: flex; gap: 4px; background: var(--bg-secondary);
+            border-radius: 16px; padding: 5px; margin-bottom: 24px;
+            border: 1px solid var(--border);
+        }
+        .tab {
+            flex: 1; padding: 14px 12px; border-radius: 12px; border: none;
+            background: transparent; color: var(--text-secondary);
+            font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit;
+            transition: all 0.3s; text-align: center;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .tab:hover { color: var(--text-primary); background: var(--bg-card); }
+        .tab.active { background: var(--bg-card); color: var(--text-primary); box-shadow: 0 2px 12px rgba(0,0,0,0.3); }
+        .tab-icon { font-size: 18px; }
+        .panel { display: none; }
+        .panel.active { display: block; animation: fadeUp 0.4s ease; }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+        .dropzone {
+            border: 2px dashed var(--border); border-radius: 18px; padding: 50px 30px;
+            text-align: center; cursor: pointer; transition: all 0.3s;
+            background: var(--bg-secondary); position: relative; overflow: hidden;
+        }
+        .dropzone::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            opacity: 0; transition: opacity 0.3s; border-radius: 16px;
+        }
+        .dropzone:hover, .dropzone.over { border-color: var(--accent); box-shadow: 0 0 30px var(--accent-glow); }
+        .dropzone:hover::before, .dropzone.over::before { opacity: 0.04; }
+        .dropzone-content { position: relative; z-index: 1; }
+        .dropzone-icon { font-size: 48px; margin-bottom: 12px; display: block; animation: bounce 3s ease-in-out infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        .dropzone h3 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+        .dropzone p { color: var(--text-secondary); font-size: 13px; margin-bottom: 16px; }
+        .dropzone .hint { color: var(--text-muted); font-size: 11px; margin-top: 14px; }
+        .dropzone input[type="file"] { display: none; }
+        .btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 12px 28px; border-radius: 12px; font-size: 14px; font-weight: 700;
+            cursor: pointer; border: none; font-family: inherit; transition: all 0.3s; color: white;
+        }
+        .btn-accent { background: linear-gradient(135deg, var(--accent), #9580ff); box-shadow: 0 4px 16px var(--accent-glow); }
+        .btn-success { background: linear-gradient(135deg, var(--accent-2), #55efc4); color: #0a0a0f; box-shadow: 0 4px 16px var(--accent-2-glow); }
+        .btn-warning { background: linear-gradient(135deg, var(--accent-3), #ffd966); color: #0a0a0f; box-shadow: 0 4px 16px var(--accent-3-glow); }
+        .btn-outline { background: transparent; color: var(--text-secondary); border: 1px solid var(--border); }
+        .btn-outline:hover { border-color: var(--accent); color: var(--text-primary); background: var(--bg-card); }
+        .btn-sm { padding: 8px 16px; font-size: 12px; border-radius: 10px; }
+        .btn-danger-ghost { background: rgba(239,83,80,0.08); color: var(--danger); border: 1px solid rgba(239,83,80,0.15); }
+        .btn:hover { transform: translateY(-2px); }
+        .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
+        .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 18px; padding: 24px; margin-bottom: 20px; }
+        .card-title { font-size: 16px; font-weight: 700; margin-bottom: 18px; display: flex; align-items: center; gap: 10px; }
+        .file-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+        .file-item {
+            display: flex; align-items: center; gap: 12px; padding: 12px 16px;
+            background: var(--bg-secondary); border-radius: 12px; border: 1px solid var(--border);
+            transition: all 0.3s; animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(-12px); } to { opacity: 1; transform: translateX(0); } }
+        .file-thumb { width: 48px; height: 48px; border-radius: 8px; overflow: hidden; background: var(--bg-primary); flex-shrink: 0; }
+        .file-thumb img, .file-thumb video { width: 100%; height: 100%; object-fit: cover; }
+        .file-info { flex: 1; min-width: 0; }
+        .file-name { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .file-meta { font-size: 11px; color: var(--text-secondary); display: flex; gap: 10px; margin-top: 3px; }
+        .file-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+        .file-badge { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 8px; }
+        .badge-success { background: rgba(0,201,167,0.1); color: var(--success); }
+        .badge-accent { background: rgba(124,108,240,0.1); color: var(--accent-light); }
+        .icon-btn {
+            width: 30px; height: 30px; border-radius: 8px; border: none;
+            background: rgba(239,83,80,0.08); color: var(--danger); cursor: pointer;
+            display: flex; align-items: center; justify-content: center; font-size: 14px; transition: all 0.3s;
+        }
+        .icon-btn:hover { background: rgba(239,83,80,0.18); transform: scale(1.1); }
+        .settings-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+        .setting { background: var(--bg-secondary); border-radius: 14px; padding: 18px; border: 1px solid var(--border); }
+        .setting-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+        .setting-name { font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+        .setting-val { font-size: 12px; font-weight: 700; color: var(--accent-light); background: rgba(124,108,240,0.1); padding: 2px 10px; border-radius: 8px; }
+        .setting-desc { font-size: 11px; color: var(--text-muted); margin-bottom: 10px; line-height: 1.5; }
+        input[type="range"] {
+            width: 100%; -webkit-appearance: none; appearance: none;
+            height: 5px; border-radius: 3px; background: var(--bg-primary); outline: none; cursor: pointer;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), #9580ff); cursor: pointer;
+            box-shadow: 0 2px 8px var(--accent-glow); transition: transform 0.2s;
+        }
+        input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+        input[type="range"]::-moz-range-thumb {
+            width: 20px; height: 20px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), #9580ff); cursor: pointer; border: none;
+        }
+        .presets { display: flex; gap: 5px; margin-top: 10px; flex-wrap: wrap; }
+        .preset {
+            flex: 1; min-width: 50px; padding: 6px 4px; border-radius: 8px;
+            border: 1px solid var(--border); background: var(--bg-primary);
+            color: var(--text-muted); font-size: 10px; font-weight: 700;
+            cursor: pointer; transition: all 0.3s; font-family: inherit; text-align: center;
+        }
+        .preset:hover, .preset.on { border-color: var(--accent); color: var(--accent-light); background: rgba(124,108,240,0.06); }
+        .social-presets { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 20px; }
+        .social-preset {
+            padding: 14px; border-radius: 14px; border: 1px solid var(--border);
+            background: var(--bg-secondary); cursor: pointer; transition: all 0.3s;
+            text-align: center; font-family: inherit;
+        }
+        .social-preset:hover { border-color: var(--border-active); background: var(--bg-card-hover); transform: translateY(-2px); }
+        .social-preset.active { border-color: var(--accent); background: rgba(124, 108, 240, 0.08); box-shadow: 0 4px 20px var(--accent-glow); }
+        .social-preset .sp-icon { font-size: 24px; margin-bottom: 6px; display: block; }
+        .social-preset .sp-name { font-size: 12px; font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+        .social-preset .sp-desc { font-size: 10px; color: var(--text-muted); line-height: 1.4; }
+        .tip-box {
+            background: rgba(10, 102, 194, 0.06); border: 1px solid rgba(10, 102, 194, 0.15);
+            border-radius: 14px; padding: 16px 20px; margin-bottom: 20px; display: none;
+        }
+        .tip-box.visible { display: block; animation: fadeUp 0.3s ease; }
+        .tip-box-title { font-size: 13px; font-weight: 700; color: var(--linkedin); display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+        .tip-box ul { font-size: 12px; color: var(--text-secondary); padding-left: 18px; line-height: 1.8; }
+        .tip-box li strong { color: var(--text-primary); }
+        .num-input {
+            width: 100%; padding: 11px 14px; background: var(--bg-primary); border: 1px solid var(--border);
+            border-radius: 10px; color: var(--text-primary); font-size: 13px; font-weight: 600;
+            font-family: inherit; outline: none; text-align: center;
+        }
+        .num-input:focus { border-color: var(--accent); }
+        .input-row { display: flex; gap: 10px; align-items: center; }
+        .input-group { flex: 1; }
+        .input-label { font-size: 10px; color: var(--text-muted); font-weight: 600; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .custom-select {
+            width: 100%; padding: 11px 14px; background: var(--bg-primary); border: 1px solid var(--border);
+            border-radius: 10px; color: var(--text-primary); font-size: 13px; font-weight: 500;
+            font-family: inherit; outline: none; cursor: pointer; appearance: none;
+        }
+        .custom-select:focus { border-color: var(--accent); }
+        .select-wrap { position: relative; }
+        .select-wrap::after { content: '▾'; position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); pointer-events: none; }
+        .custom-select option { background: var(--bg-card); }
+        .progress-wrap { margin-top: 16px; }
+        .progress-info { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 6px; }
+        .progress-info .label { color: var(--text-secondary); font-weight: 500; }
+        .progress-info .value { color: var(--accent-light); font-weight: 700; }
+        .progress-bar { height: 6px; background: var(--bg-primary); border-radius: 3px; overflow: hidden; }
+        .progress-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--accent), var(--accent-2)); transition: width 0.4s ease; width: 0%; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 20px; }
+        .stat { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 18px; text-align: center; }
+        .stat-icon { font-size: 24px; margin-bottom: 6px; }
+        .stat-num { font-size: 24px; font-weight: 800; background: linear-gradient(135deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .stat.green .stat-num { background: linear-gradient(135deg, var(--accent-2), #55efc4); -webkit-background-clip: text; }
+        .stat-label { font-size: 11px; color: var(--text-secondary); margin-top: 3px; font-weight: 500; }
+        .compare { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-bottom: 14px; }
+        .compare-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; border-bottom: 1px solid var(--border); font-size: 13px; font-weight: 600; }
+        .compare-body { display: grid; grid-template-columns: 1fr 1fr; }
+        .compare-side { padding: 18px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .compare-side:first-child { border-right: 1px solid var(--border); }
+        .compare-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 10px; }
+        .compare-side:last-child .compare-label { color: var(--success); }
+        .compare-img { max-width: 100%; max-height: 260px; border-radius: 8px; background: var(--bg-primary); }
+        .compare-size { margin-top: 10px; font-size: 12px; font-weight: 600; color: var(--text-secondary); }
+        .actions-bar { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
+        .video-preview { width: 100%; max-height: 300px; border-radius: 12px; background: var(--bg-primary); margin: 16px 0; }
+        .image-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 8px; margin: 16px 0; }
+        .image-grid-item {
+            aspect-ratio: 1; border-radius: 10px; overflow: hidden; position: relative;
+            border: 2px solid var(--border); cursor: grab; transition: all 0.3s;
+        }
+        .image-grid-item:hover { border-color: var(--accent); }
+        .image-grid-item img { width: 100%; height: 100%; object-fit: cover; }
+        .image-grid-item .order {
+            position: absolute; top: 4px; left: 4px; width: 20px; height: 20px; border-radius: 6px;
+            background: var(--accent); color: white; font-size: 10px; font-weight: 800;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .image-grid-item .rm-img {
+            position: absolute; top: 4px; right: 4px; width: 20px; height: 20px; border-radius: 6px;
+            background: var(--danger); color: white; border: none; cursor: pointer;
+            font-size: 10px; font-weight: 800; display: flex; align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.2s;
+        }
+        .image-grid-item:hover .rm-img { opacity: 1; }
+        .gif-preview-container { text-align: center; margin: 20px 0; }
+        .gif-preview-container img { max-width: 100%; max-height: 300px; border-radius: 12px; border: 1px solid var(--border); }
+        .linkedin-ready {
+            display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 10px;
+            background: rgba(10,102,194,0.1); border: 1px solid rgba(10,102,194,0.2);
+            color: var(--linkedin); font-size: 11px; font-weight: 700; margin-top: 8px;
+        }
+        .spinner { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.2); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
-
-        footer { margin-top: auto; padding: 40px 0; text-align: center; font-size: 0.75rem; color: #52525b; }
+        .toast {
+            position: fixed; bottom: 24px; right: 24px; padding: 12px 22px; border-radius: 12px;
+            font-size: 13px; font-weight: 600; z-index: 999; transform: translateY(80px); opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4,0,0.2,1); display: flex; align-items: center; gap: 8px; max-width: 360px;
+        }
+        .toast.show { transform: translateY(0); opacity: 1; }
+        .toast.ok { background: var(--success); color: white; }
+        .toast.err { background: var(--danger); color: white; }
+        .toast.nfo { background: var(--accent); color: white; }
+        .footer { text-align: center; padding: 36px 0 16px; color: var(--text-muted); font-size: 12px; }
+        .footer a { color: var(--accent-light); text-decoration: none; }
+        @media (max-width: 640px) {
+            .app { padding: 12px; }
+            .logo-text { font-size: 22px; }
+            .tab { font-size: 11px; padding: 12px 6px; gap: 4px; }
+            .tab-icon { font-size: 14px; }
+            .settings-grid { grid-template-columns: 1fr; }
+            .compare-body { grid-template-columns: 1fr; }
+            .compare-side:first-child { border-right: none; border-bottom: 1px solid var(--border); }
+            .stats-grid, .social-presets { grid-template-columns: 1fr 1fr; }
+            .dropzone { padding: 36px 18px; }
+            .actions-bar { flex-direction: column; }
+            .actions-bar .btn { justify-content: center; }
+        }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <header>
-        <h1>Bio-GIF <span style="color:#fff">Optimizer</span></h1>
-        <p style="color:#71717a">Convierte tus grabaciones de R/Python en GIFs para LinkedIn</p>
+<div class="bg-effects"><div class="bg-orb"></div><div class="bg-orb"></div><div class="bg-orb"></div></div>
+<div class="app">
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">⚡</div>
+            <span class="logo-text">GIF Tools Pro</span>
+        </div>
+        <p>Optimiza, convierte y crea GIFs — todo en tu navegador</p>
+        <div class="privacy">🔒 100% local · Nada se sube a servidores</div>
     </header>
 
-    <div class="upload-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
-        <span id="instruction">📁 Arrastra tu video (.mp4, .webm, .mov) aquí</span>
-        <input type="file" id="fileInput" accept="video/*" style="display:none">
+    <div class="tabs">
+        <button class="tab active" data-tab="optimize" onclick="switchTab('optimize')"><span class="tab-icon">⚡</span> Optimizar</button>
+        <button class="tab" data-tab="convert" onclick="switchTab('convert')"><span class="tab-icon">🔄</span> Video → GIF</button>
+        <button class="tab" data-tab="create" onclick="switchTab('create')"><span class="tab-icon">🎨</span> Imágenes → GIF</button>
     </div>
 
-    <div class="settings" id="settingsPanel">
-        <div class="grid-settings">
-            <div>
-                <label>Duración (segundos)</label>
-                <input type="range" id="duration" min="1" max="10" value="5" oninput="dVal.innerText = this.value">
-                <span id="dVal" style="font-size: 0.8rem;">5</span>s
+    <!-- TAB 1: OPTIMIZE -->
+    <div class="panel active" id="panel-optimize">
+        <div class="dropzone" id="dz-opt">
+            <div class="dropzone-content">
+                <span class="dropzone-icon">🎞️</span>
+                <h3>Arrastra tus GIFs aquí</h3>
+                <p>o haz clic para seleccionar</p>
+                <button class="btn btn-accent" onclick="G('fi-opt').click()">📁 Seleccionar GIFs</button>
+                <p class="hint">Múltiples archivos · Máx 50MB c/u</p>
             </div>
-            <div>
-                <label>FPS (Fluidez)</label>
-                <select id="fps">
-                    <option value="10">10 (Ligero)</option>
-                    <option value="15" selected>15 (Estándar)</option>
-                    <option value="20">20 (Pro)</option>
-                </select>
+            <input type="file" id="fi-opt" accept=".gif,image/gif" multiple>
+        </div>
+        <div id="opt-queue" style="display:none">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+                <span class="card-title" style="margin:0">📋 Archivos <span id="opt-count" class="file-badge badge-accent">0</span></span>
+                <div style="display:flex;gap:6px;">
+                    <button class="btn btn-outline btn-sm" onclick="G('fi-opt').click()">+ Agregar</button>
+                    <button class="btn btn-danger-ghost btn-sm" onclick="optClear()">✕ Limpiar</button>
+                </div>
+            </div>
+            <div class="file-list" id="opt-list"></div>
+        </div>
+        <div class="card" id="opt-settings" style="display:none">
+            <div class="card-title">⚙️ Configuración</div>
+            <div style="margin-bottom:18px;">
+                <div class="setting-desc" style="margin-bottom:10px;font-weight:600;color:var(--text-secondary);">🚀 Presets rápidos:</div>
+                <div class="social-presets">
+                    <button class="social-preset" onclick="applyPreset('linkedin')" id="sp-linkedin">
+                        <span class="sp-icon">💼</span><div class="sp-name">LinkedIn</div><div class="sp-desc">GIF < 5MB · 480px</div>
+                    </button>
+                    <button class="social-preset" onclick="applyPreset('web')" id="sp-web">
+                        <span class="sp-icon">🌐</span><div class="sp-name">Web / Blog</div><div class="sp-desc">Ligero · 600px</div>
+                    </button>
+                    <button class="social-preset" onclick="applyPreset('max')" id="sp-max">
+                        <span class="sp-icon">🔥</span><div class="sp-name">Compresión Max</div><div class="sp-desc">Mínimo peso</div>
+                    </button>
+                    <button class="social-preset active" onclick="applyPreset('custom')" id="sp-custom">
+                        <span class="sp-icon">🎛️</span><div class="sp-name">Personalizado</div><div class="sp-desc">Manual</div>
+                    </button>
+                </div>
+            </div>
+            <div class="tip-box" id="opt-tips">
+                <div class="tip-box-title">💼 Tips LinkedIn</div>
+                <ul>
+                    <li><strong>Mensajes:</strong> GIF animado < <strong>5MB</strong></li>
+                    <li><strong>Posts:</strong> LinkedIn convierte a video, mejor sube <strong>MP4</strong></li>
+                    <li><strong>Aspecto:</strong> 1:1 o 4:5 para máximo espacio</li>
+                </ul>
+            </div>
+            <div class="settings-grid">
+                <div class="setting">
+                    <div class="setting-header"><span class="setting-name">🎨 Colores</span><span class="setting-val" id="sv-col">128</span></div>
+                    <div class="setting-desc">Menos colores = menor tamaño</div>
+                    <input type="range" id="sl-col" min="8" max="256" value="128" step="8">
+                    <div class="presets">
+                        <button class="preset" onclick="setO('col',32)">32</button>
+                        <button class="preset" onclick="setO('col',64)">64</button>
+                        <button class="preset on" onclick="setO('col',128)">128</button>
+                        <button class="preset" onclick="setO('col',256)">256</button>
+                    </div>
+                </div>
+                <div class="setting">
+                    <div class="setting-header"><span class="setting-name">📦 Compresión</span><span class="setting-val" id="sv-lossy">30</span></div>
+                    <div class="setting-desc">20-40 imperceptible</div>
+                    <input type="range" id="sl-lossy" min="0" max="100" value="30">
+                    <div class="presets">
+                        <button class="preset" onclick="setO('lossy',10)">Suave</button>
+                        <button class="preset on" onclick="setO('lossy',30)">Normal</button>
+                        <button class="preset" onclick="setO('lossy',60)">Fuerte</button>
+                        <button class="preset" onclick="setO('lossy',100)">Max</button>
+                    </div>
+                </div>
+                <div class="setting">
+                    <div class="setting-header"><span class="setting-name">📐 Escala</span><span class="setting-val" id="sv-scale">100%</span></div>
+                    <input type="range" id="sl-scale" min="10" max="100" value="100" step="5">
+                    <div class="presets">
+                        <button class="preset" onclick="setO('scale',25)">25%</button>
+                        <button class="preset" onclick="setO('scale',50)">50%</button>
+                        <button class="preset" onclick="setO('scale',75)">75%</button>
+                        <button class="preset on" onclick="setO('scale',100)">100%</button>
+                    </div>
+                </div>
             </div>
         </div>
-        <p style="font-size: 0.7rem; color: #52525b;">* Los GIFs cortos (5-10s) tienen más impacto en el feed.</p>
-        <button class="btn btn-primary" id="createBtn">GENERAR GIF ANIMADO</button>
+        <div id="opt-action" style="display:none;text-align:center;">
+            <button class="btn btn-accent" id="opt-go" onclick="optRun()" style="padding:16px 48px;font-size:15px;">⚡ Optimizar GIFs</button>
+            <div class="progress-wrap" id="opt-prog" style="display:none;">
+                <div class="progress-info"><span class="label" id="opt-pl">Procesando...</span><span class="value" id="opt-pv">0%</span></div>
+                <div class="progress-bar"><div class="progress-fill" id="opt-pf"></div></div>
+            </div>
+        </div>
+        <div id="opt-results" style="display:none;">
+            <div class="stats-grid" id="opt-stats"></div>
+            <div id="opt-comp"></div>
+            <div class="actions-bar" id="opt-dl"></div>
+        </div>
     </div>
 
-    <div class="loader" id="loader">
-        <div class="spinner"></div>
-        <div id="status">Procesando fotogramas...</div>
+    <!-- TAB 2: VIDEO → GIF -->
+    <div class="panel" id="panel-convert">
+        <div class="dropzone" id="dz-conv">
+            <div class="dropzone-content">
+                <span class="dropzone-icon">🎬</span>
+                <h3>Arrastra un video aquí</h3>
+                <p>MP4, WebM → GIF animado</p>
+                <button class="btn btn-success" onclick="G('fi-conv').click()">🎥 Seleccionar video</button>
+                <p class="hint">Máximo 100MB</p>
+            </div>
+            <input type="file" id="fi-conv" accept="video/mp4,video/webm,.mp4,.webm">
+        </div>
+        <div id="conv-editor" style="display:none;">
+            <div class="card">
+                <div class="card-title">🚀 ¿Para dónde es?</div>
+                <div class="social-presets">
+                    <button class="social-preset" onclick="convPreset('linkedin')" id="cp-li"><span class="sp-icon">💼</span><div class="sp-name">LinkedIn</div><div class="sp-desc">480px · 10fps · 5s</div></button>
+                    <button class="social-preset" onclick="convPreset('web')" id="cp-web"><span class="sp-icon">🌐</span><div class="sp-name">Web</div><div class="sp-desc">600px · 10fps</div></button>
+                    <button class="social-preset active" onclick="convPreset('custom')" id="cp-cust"><span class="sp-icon">🎛️</span><div class="sp-name">Custom</div><div class="sp-desc">Tú decides</div></button>
+                </div>
+                <div class="tip-box" id="conv-tips">
+                    <div class="tip-box-title">💼 LinkedIn: Video → GIF</div>
+                    <ul>
+                        <li>GIF ideal para mensaje: <strong>< 5MB</strong></li>
+                        <li>Para posts mejor sube el <strong>MP4 directo</strong></li>
+                        <li>Mantén <strong>3-5 segundos</strong> en loop</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-title">🎥 Preview</div>
+                <video class="video-preview" id="conv-video" controls muted playsinline style="display:block;"></video>
+                <div class="file-meta" style="margin-top:8px;"><span id="conv-vinfo"></span></div>
+            </div>
+            <div class="card">
+                <div class="card-title">✂️ Recortar</div>
+                <div class="input-row" style="margin-bottom:14px;">
+                    <div class="input-group"><div class="input-label">Inicio (s)</div><input type="number" class="num-input" id="conv-start" value="0" min="0" step="0.1"></div>
+                    <span style="color:var(--text-muted);margin-top:14px;">→</span>
+                    <div class="input-group"><div class="input-label">Fin (s)</div><input type="number" class="num-input" id="conv-end" value="5" min="0.1" step="0.1"></div>
+                    <div class="input-group"><div class="input-label">Duración</div><div class="num-input" id="conv-dur" style="cursor:default;background:var(--bg-secondary);">5s</div></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-title">⚙️ Configuración</div>
+                <div class="settings-grid">
+                    <div class="setting">
+                        <div class="setting-header"><span class="setting-name">📐 Ancho</span><span class="setting-val" id="sv-cw">480</span></div>
+                        <input type="range" id="sl-cw" min="120" max="1280" value="480" step="10">
+                        <div class="presets">
+                            <button class="preset" onclick="setC('w',240)">240</button>
+                            <button class="preset" onclick="setC('w',360)">360</button>
+                            <button class="preset on" onclick="setC('w',480)">480</button>
+                            <button class="preset" onclick="setC('w',720)">720</button>
+                        </div>
+                    </div>
+                    <div class="setting">
+                        <div class="setting-header"><span class="setting-name">🎬 FPS</span><span class="setting-val" id="sv-cf">10</span></div>
+                        <input type="range" id="sl-cf" min="4" max="24" value="10">
+                        <div class="presets">
+                            <button class="preset" onclick="setC('f',5)">5</button>
+                            <button class="preset on" onclick="setC('f',10)">10</button>
+                            <button class="preset" onclick="setC('f',15)">15</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align:center;">
+                <button class="btn btn-success" id="conv-go" onclick="convRun()" style="padding:16px 48px;font-size:15px;">🔄 Convertir a GIF</button>
+                <div class="progress-wrap" id="conv-prog" style="display:none;">
+                    <div class="progress-info"><span class="label" id="conv-pl">Capturando...</span><span class="value" id="conv-pv">0%</span></div>
+                    <div class="progress-bar"><div class="progress-fill" id="conv-pf"></div></div>
+                </div>
+            </div>
+            <div id="conv-result" style="display:none;margin-top:24px;">
+                <div class="card" style="text-align:center;">
+                    <div class="card-title" style="justify-content:center;">✅ ¡GIF creado!</div>
+                    <div class="gif-preview-container"><img id="conv-gif-img" src=""></div>
+                    <div class="file-meta" style="justify-content:center;margin:10px 0;"><span id="conv-gif-info"></span></div>
+                    <div id="conv-badge"></div>
+                    <div class="actions-bar">
+                        <button class="btn btn-success" id="conv-dl-btn">💾 Descargar GIF</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="preview-container" id="previewContainer">
-        <h3 style="font-size: 0.9rem; color: var(--primary);">¡GIF Listo!</h3>
-        <img id="resultGif">
-        <a id="downloadLink" class="btn btn-primary" style="display: block; text-decoration: none; text-align: center; background: #fff;">DESCARGAR GIF</a>
+    <!-- TAB 3: IMAGES → GIF -->
+    <div class="panel" id="panel-create">
+        <div class="dropzone" id="dz-cr">
+            <div class="dropzone-content">
+                <span class="dropzone-icon">🖼️</span>
+                <h3>Arrastra imágenes aquí</h3>
+                <p>JPG, PNG, WebP → GIF animado</p>
+                <button class="btn btn-warning" onclick="G('fi-cr').click()">🖼️ Seleccionar imágenes</button>
+                <p class="hint">Mínimo 2 imágenes · Arrastra para reordenar</p>
+            </div>
+            <input type="file" id="fi-cr" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp" multiple>
+        </div>
+        <div id="cr-editor" style="display:none;">
+            <div class="card">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+                    <div class="card-title" style="margin:0;">🖼️ Imágenes <span id="cr-count" class="file-badge badge-accent">0</span></div>
+                    <div style="display:flex;gap:6px;">
+                        <button class="btn btn-outline btn-sm" onclick="G('fi-cr').click()">+ Agregar</button>
+                        <button class="btn btn-danger-ghost btn-sm" onclick="crClear()">✕ Limpiar</button>
+                    </div>
+                </div>
+                <div class="image-grid" id="cr-grid"></div>
+                <div class="setting-desc">Arrastra para reordenar. Orden: izquierda → derecha.</div>
+            </div>
+            <div class="card">
+                <div class="card-title">⚙️ Configuración</div>
+                <div class="settings-grid">
+                    <div class="setting">
+                        <div class="setting-header">
+                            <span class="setting-name">⏱️ Velocidad (ms)</span>
+                            <span class="setting-val" id="sv-del">3000</span>
+                        </div>
+                        <div class="setting-desc">Milisegundos entre cada imagen. Para texto usa 3-5 segundos.</div>
+                        <input type="range" id="sl-del" min="100" max="10000" value="3000" step="100">
+                        <div class="presets">
+                            <button class="preset" onclick="setCR('del',300)">Rápido</button>
+                            <button class="preset" onclick="setCR('del',1000)">Normal</button>
+                            <button class="preset on" onclick="setCR('del',3000)">Lectura</button>
+                            <button class="preset" onclick="setCR('del',5000)">Lento</button>
+                            <button class="preset" onclick="setCR('del',8000)">Muy lento</button>
+                        </div>
+                    </div>
+                    <div class="setting">
+                        <div class="setting-header"><span class="setting-name">📐 Ancho</span><span class="setting-val" id="sv-crw">480</span></div>
+                        <input type="range" id="sl-crw" min="100" max="1280" value="480" step="10">
+                        <div class="presets">
+                            <button class="preset" onclick="setCR('w',240)">240</button>
+                            <button class="preset on" onclick="setCR('w',480)">480</button>
+                            <button class="preset" onclick="setCR('w',720)">720</button>
+                            <button class="preset" onclick="setCR('w',1080)">1080</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align:center;">
+                <button class="btn btn-warning" id="cr-go" onclick="crRun()" style="padding:16px 48px;font-size:15px;" disabled>🎨 Crear GIF</button>
+                <div class="progress-wrap" id="cr-prog" style="display:none;">
+                    <div class="progress-info"><span class="label" id="cr-pl">Generando...</span><span class="value" id="cr-pv">0%</span></div>
+                    <div class="progress-bar"><div class="progress-fill" id="cr-pf"></div></div>
+                </div>
+            </div>
+            <div id="cr-result" style="display:none;margin-top:24px;">
+                <div class="card" style="text-align:center;">
+                    <div class="card-title" style="justify-content:center;">✅ ¡GIF creado!</div>
+                    <div class="gif-preview-container"><img id="cr-gif-img" src=""></div>
+                    <div class="file-meta" style="justify-content:center;margin:10px 0;"><span id="cr-gif-info"></span></div>
+                    <div class="actions-bar">
+                        <button class="btn btn-success" id="cr-dl-btn">💾 Descargar GIF</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <footer class="footer">
+        <p>GIF Tools Pro · 100% local</p>
+        <p style="margin-top:4px;">Hecho con ❤️ · <a href="https://bioestadisticaedu.com">bioestadisticaedu.com</a></p>
+    </footer>
 </div>
-
-<footer>
-    Autor: <strong>Maicel Monzón Pérez</strong> | Bioestadística Edu<br>
-    Privacidad: El video se procesa localmente en tu navegador.
-</footer>
+<div class="toast" id="toast"></div>
 
 <script>
-    const fileInput = document.getElementById('fileInput');
-    const settingsPanel = document.getElementById('settingsPanel');
-    const createBtn = document.getElementById('createBtn');
-    const previewContainer = document.getElementById('previewContainer');
-    const resultGif = document.getElementById('resultGif');
-    const loader = document.getElementById('loader');
-    
-    let videoUrl = "";
-
-    fileInput.onchange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            videoUrl = URL.createObjectURL(file);
-            document.getElementById('instruction').innerText = "Video cargado: " + file.name;
-            settingsPanel.style.display = 'block';
-            previewContainer.style.display = 'none';
+// ==========================================
+//  GIF ENCODER — Pure JS, zero dependencies
+// ==========================================
+class GIFEncoder {
+    constructor(w, h) {
+        this.width = w;
+        this.height = h;
+        this.data = [];
+        this.frames = [];
+        this.repeat = 0;
+    }
+    writeHeader() { this.writeStr('GIF89a'); }
+    writeLSD() {
+        this.writeShort(this.width);
+        this.writeShort(this.height);
+        this.data.push(0x70, 0, 0);
+    }
+    writeNetscapeExt() {
+        this.data.push(0x21, 0xFF, 11);
+        this.writeStr('NETSCAPE2.0');
+        this.data.push(3, 1);
+        this.writeShort(this.repeat);
+        this.data.push(0);
+    }
+    addFrame(imageData, delay = 100) {
+        this.frames.push({ data: imageData, delay: delay });
+    }
+    writeGraphicCtrlExt(delay) {
+        this.data.push(0x21, 0xF9, 4, 0);
+        this.writeShort(Math.round(delay / 10));
+        this.data.push(0, 0);
+    }
+    writeImageDesc(hasLCT, colorTableSize) {
+        this.data.push(0x2C);
+        this.writeShort(0);
+        this.writeShort(0);
+        this.writeShort(this.width);
+        this.writeShort(this.height);
+        this.data.push(hasLCT ? (0x80 | (colorTableSize - 1)) : 0);
+    }
+    quantize(pixels, maxColors) {
+        const colorMap = new Map();
+        for (let i = 0; i < pixels.length; i += 4) {
+            const r = pixels[i] >> 3, g = pixels[i+1] >> 3, b = pixels[i+2] >> 3;
+            const key = (r << 10) | (g << 5) | b;
+            colorMap.set(key, (colorMap.get(key) || 0) + 1);
         }
-    };
-
-    createBtn.onclick = () => {
-        createBtn.disabled = true;
-        loader.style.display = 'block';
-        previewContainer.style.display = 'none';
-
-        const duration = parseInt(document.getElementById('duration').value);
-        const fps = parseInt(document.getElementById('fps').value);
-
-        gifshot.createGIF({
-            video: [videoUrl],
-            gifWidth: 640,
-            gifHeight: 480,
-            interval: 1 / fps,
-            numFrames: duration * fps,
-            sampleInterval: 10,
-            numWorkers: 2
-        }, function (obj) {
-            if (!obj.error) {
-                const image = obj.image;
-                resultGif.src = image;
-                
-                const downloadLink = document.getElementById('downloadLink');
-                downloadLink.href = image;
-                downloadLink.download = "bio_grafico_animado.gif";
-                
-                previewContainer.style.display = 'block';
-                loader.style.display = 'none';
-                createBtn.disabled = false;
-                window.scrollTo(0, document.body.scrollHeight);
-            }
+        let colors = [];
+        colorMap.forEach((count, key) => {
+            colors.push({
+                r: ((key >> 10) & 31) << 3,
+                g: ((key >> 5) & 31) << 3,
+                b: (key & 31) << 3, count
+            });
         });
-    };
+        colors.sort((a, b) => b.count - a.count);
+        colors = colors.slice(0, maxColors);
+        while (colors.length < maxColors) colors.push({ r: 0, g: 0, b: 0, count: 0 });
+        const palette = [];
+        for (const c of colors) palette.push(c.r, c.g, c.b);
+        const indexed = new Uint8Array(pixels.length / 4);
+        for (let i = 0; i < pixels.length; i += 4) {
+            const r = pixels[i], g = pixels[i+1], b = pixels[i+2];
+            let best = 0, bestDist = Infinity;
+            for (let j = 0; j < colors.length; j++) {
+                const dr = r - colors[j].r, dg = g - colors[j].g, db = b - colors[j].b;
+                const dist = dr*dr + dg*dg + db*db;
+                if (dist < bestDist) { bestDist = dist; best = j; }
+                if (dist === 0) break;
+            }
+            indexed[i / 4] = best;
+        }
+        return { palette, indexed };
+    }
+    lzwEncode(indexed, colorBits) {
+        const minCodeSize = Math.max(2, colorBits);
+        const clearCode = 1 << minCodeSize;
+        const eoiCode = clearCode + 1;
+        const output = [minCodeSize];
+        let codeSize = minCodeSize + 1, nextCode = eoiCode + 1;
+        const maxCode = 4096;
+        let table = {};
+        function initTable() {
+            table = {};
+            for (let i = 0; i < clearCode; i++) table[String(i)] = i;
+            nextCode = eoiCode + 1;
+            codeSize = minCodeSize + 1;
+        }
+        let buffer = 0, bufferBits = 0;
+        const subBlock = [];
+        function writeBits(code, size) {
+            buffer |= (code << bufferBits);
+            bufferBits += size;
+            while (bufferBits >= 8) {
+                subBlock.push(buffer & 0xFF);
+                buffer >>= 8;
+                bufferBits -= 8;
+                if (subBlock.length === 255) {
+                    output.push(subBlock.length);
+                    for (const b of subBlock) output.push(b);
+                    subBlock.length = 0;
+                }
+            }
+        }
+        initTable();
+        writeBits(clearCode, codeSize);
+        let current = String(indexed[0]);
+        for (let i = 1; i < indexed.length; i++) {
+            const next = current + ',' + indexed[i];
+            if (table[next] !== undefined) {
+                current = next;
+            } else {
+                writeBits(table[current], codeSize);
+                if (nextCode < maxCode) {
+                    table[next] = nextCode++;
+                    if (nextCode > (1 << codeSize) && codeSize < 12) codeSize++;
+                } else {
+                    writeBits(clearCode, codeSize);
+                    initTable();
+                }
+                current = String(indexed[i]);
+            }
+        }
+        writeBits(table[current], codeSize);
+        writeBits(eoiCode, codeSize);
+        if (bufferBits > 0) subBlock.push(buffer & 0xFF);
+        if (subBlock.length > 0) {
+            output.push(subBlock.length);
+            for (const b of subBlock) output.push(b);
+        }
+        output.push(0);
+        return output;
+    }
+    encode(numColors = 256) {
+        this.data = [];
+        numColors = Math.min(256, Math.max(2, numColors));
+        let colorBits = 1;
+        while ((1 << colorBits) < numColors) colorBits++;
+        const paletteSize = 1 << colorBits;
+        this.writeHeader();
+        this.writeLSD();
+        this.writeNetscapeExt();
+        for (let f = 0; f < this.frames.length; f++) {
+            const frame = this.frames[f];
+            const { palette, indexed } = this.quantize(frame.data, paletteSize);
+            this.writeGraphicCtrlExt(frame.delay);
+            this.writeImageDesc(true, colorBits);
+            for (let i = 0; i < palette.length; i++) this.data.push(palette[i]);
+            const lzw = this.lzwEncode(indexed, colorBits);
+            for (const b of lzw) this.data.push(b);
+        }
+        this.data.push(0x3B);
+        return new Uint8Array(this.data);
+    }
+    writeStr(s) { for (let i = 0; i < s.length; i++) this.data.push(s.charCodeAt(i)); }
+    writeShort(v) { this.data.push(v & 0xFF, (v >> 8) & 0xFF); }
+}
 
-    // Drag and drop
-    const dropZone = document.getElementById('dropZone');
-    dropZone.ondragover = (e) => { e.preventDefault(); dropZone.style.borderColor = "#fbbf24"; };
-    dropZone.ondragleave = () => { dropZone.style.borderColor = "#3f3f46"; };
-    dropZone.ondrop = (e) => {
-        e.preventDefault();
-        fileInput.files = e.dataTransfer.files;
-        fileInput.dispatchEvent(new Event('change'));
+// ==========================================
+//  APP LOGIC
+// ==========================================
+const G = id => document.getElementById(id);
+function fmt(b) {
+    if (!b) return '0 B';
+    const k=1024, s=['B','KB','MB','GB'];
+    const i=Math.floor(Math.log(b)/Math.log(k));
+    return parseFloat((b/Math.pow(k,i)).toFixed(1))+' '+s[i];
+}
+function toast(msg, t='nfo') {
+    const el=G('toast');
+    el.className=`toast ${t}`;
+    el.innerHTML=`${{ok:'✅',err:'❌',nfo:'ℹ️'}[t]||''} ${msg}`;
+    el.classList.add('show');
+    setTimeout(()=>el.classList.remove('show'), 3500);
+}
+function switchTab(tab) {
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+    document.querySelector(`.tab[data-tab="${tab}"]`).classList.add('active');
+    G(`panel-${tab}`).classList.add('active');
+}
+function setupDZ(dzId, fiId, fn) {
+    const dz=G(dzId), fi=G(fiId);
+    ['dragenter','dragover','dragleave','drop'].forEach(e=>dz.addEventListener(e,ev=>{ev.preventDefault();ev.stopPropagation();}));
+    ['dragenter','dragover'].forEach(e=>dz.addEventListener(e,()=>dz.classList.add('over')));
+    ['dragleave','drop'].forEach(e=>dz.addEventListener(e,()=>dz.classList.remove('over')));
+    dz.addEventListener('drop',e=>fn([...e.dataTransfer.files]));
+    dz.addEventListener('click',e=>{if(e.target.tagName!=='BUTTON')fi.click();});
+    fi.addEventListener('change',e=>{fn([...e.target.files]);fi.value='';});
+}
+function download(url, name) {
+    const a=document.createElement('a');
+    a.href=url; a.download=name;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    toast('Descarga iniciada ✓','ok');
+}
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+// ==========================================
+//  TAB 1: OPTIMIZE
+// ==========================================
+const OPT = { files:[], results:[], col:128, lossy:30, scale:100 };
+
+setupDZ('dz-opt','fi-opt', files=>{
+    const gifs=files.filter(f=>f.type==='image/gif');
+    if(!gifs.length) return toast('Solo GIFs','err');
+    gifs.forEach(f=>{
+        if(f.size>50*1024*1024) return toast(`${f.name}>50MB`,'err');
+        if(OPT.files.find(x=>x.name===f.name&&x.size===f.size)) return;
+        OPT.files.push({
+            id:Math.random().toString(36).substr(2,6),
+            file:f, name:f.name, size:f.size, url:URL.createObjectURL(f)
+        });
+    });
+    optUI(); toast(`${gifs.length} añadido(s)`,'ok');
+});
+
+function optUI() {
+    const has=OPT.files.length>0;
+    G('opt-queue').style.display=has?'':'none';
+    G('opt-settings').style.display=has?'':'none';
+    G('opt-action').style.display=has?'':'none';
+    G('opt-count').textContent=OPT.files.length;
+    G('opt-list').innerHTML=OPT.files.map(f=>`
+        <div class="file-item">
+            <div class="file-thumb"><img src="${f.url}"></div>
+            <div class="file-info">
+                <div class="file-name">${f.name}</div>
+                <div class="file-meta"><span>📦 ${fmt(f.size)}</span></div>
+            </div>
+            <div class="file-actions">
+                <span class="file-badge badge-success" id="s-${f.id}" style="display:none"></span>
+                <button class="icon-btn" onclick="optRm('${f.id}')">✕</button>
+            </div>
+        </div>`).join('');
+}
+function optRm(id) {
+    const i=OPT.files.findIndex(f=>f.id===id);
+    if(i>-1){URL.revokeObjectURL(OPT.files[i].url);OPT.files.splice(i,1);}
+    optUI();
+}
+function optClear() {
+    OPT.files.forEach(f=>URL.revokeObjectURL(f.url));
+    OPT.files=[];OPT.results=[];optUI();
+    G('opt-results').style.display='none';
+    toast('Limpiado','nfo');
+}
+G('sl-col').oninput=e=>{OPT.col=+e.target.value;G('sv-col').textContent=e.target.value;};
+G('sl-lossy').oninput=e=>{OPT.lossy=+e.target.value;G('sv-lossy').textContent=e.target.value;};
+G('sl-scale').oninput=e=>{OPT.scale=+e.target.value;G('sv-scale').textContent=e.target.value+'%';};
+function setO(k,v){const m={col:'sl-col',lossy:'sl-lossy',scale:'sl-scale'};G(m[k]).value=v;G(m[k]).dispatchEvent(new Event('input'));}
+
+function applyPreset(name) {
+    document.querySelectorAll('#opt-settings .social-preset').forEach(b=>b.classList.remove('active'));
+    const p={linkedin:{col:128,lossy:50,scale:50,tip:true},web:{col:128,lossy:30,scale:75,tip:false},max:{col:64,lossy:80,scale:40,tip:false},custom:{col:128,lossy:30,scale:100,tip:false}};
+    const s=p[name];if(!s)return;
+    G(`sp-${name}`).classList.add('active');
+    setO('col',s.col);setO('lossy',s.lossy);setO('scale',s.scale);
+    G('opt-tips').classList.toggle('visible',s.tip);
+    toast('Preset aplicado','ok');
+}
+
+async function optRun() {
+    if(!OPT.files.length)return;
+    G('opt-go').innerHTML='<div class="spinner"></div> Procesando...';
+    G('opt-go').disabled=true;
+    G('opt-prog').style.display='';
+    OPT.results=[];
+    for(let i=0;i<OPT.files.length;i++){
+        const pct=Math.round((i/OPT.files.length)*100);
+        G('opt-pf').style.width=pct+'%';G('opt-pv').textContent=pct+'%';
+        G('opt-pl').textContent=`${i+1}/${OPT.files.length}`;
+        try{
+            const r=await compressGif(OPT.files[i]);
+            OPT.results.push(r);
+            const el=G(`s-${OPT.files[i].id}`);
+            if(el){el.textContent=`-${((1-r.ns/r.os)*100).toFixed(0)}%`;el.style.display='';}
+        }catch(e){console.error(e);toast(`Error: ${OPT.files[i].name}`,'err');}
+        await sleep(50);
+    }
+    G('opt-pf').style.width='100%';G('opt-pv').textContent='100%';G('opt-pl').textContent='¡Listo!';
+    G('opt-go').innerHTML='⚡ Optimizar GIFs';G('opt-go').disabled=false;
+    setTimeout(()=>G('opt-prog').style.display='none',1200);
+    if(OPT.results.length) showOptResults();
+}
+
+function compressGif(fObj){
+    return new Promise((res,rej)=>{
+        const img=new Image();
+        img.onload=()=>{
+            const c=document.createElement('canvas');
+            const ctx=c.getContext('2d');
+            const s=OPT.scale/100;
+            const w=Math.round(img.naturalWidth*s);
+            const h=Math.round(img.naturalHeight*s);
+            c.width=w;c.height=h;
+            ctx.drawImage(img,0,0,w,h);
+            const q=Math.max(0.1,1-OPT.lossy/120);
+            c.toBlob(blob=>{
+                if(!blob)return rej('blob error');
+                const url=URL.createObjectURL(blob);
+                res({id:fObj.id,name:fObj.name,os:fObj.size,ns:blob.size,ou:fObj.url,nu:url,blob,w,h});
+            },'image/webp',q);
+        };
+        img.onerror=()=>rej('load error');
+        img.src=fObj.url;
+    });
+}
+
+function showOptResults(){
+    G('opt-results').style.display='';
+    let tO=0,tN=0;OPT.results.forEach(r=>{tO+=r.os;tN+=r.ns;});
+    const sv=((1-tN/tO)*100).toFixed(1);
+    G('opt-stats').innerHTML=`
+        <div class="stat"><div class="stat-icon">📁</div><div class="stat-num">${OPT.results.length}</div><div class="stat-label">Procesados</div></div>
+        <div class="stat"><div class="stat-icon">📊</div><div class="stat-num">${fmt(tO)}</div><div class="stat-label">Original</div></div>
+        <div class="stat green"><div class="stat-icon">✨</div><div class="stat-num">${fmt(tN)}</div><div class="stat-label">Optimizado</div></div>
+        <div class="stat green"><div class="stat-icon">🔥</div><div class="stat-num">-${sv}%</div><div class="stat-label">Reducción</div></div>`;
+    G('opt-comp').innerHTML=OPT.results.map(r=>`
+        <div class="compare">
+            <div class="compare-head"><span>📎 ${r.name}</span><span style="color:var(--success);font-weight:700;">-${((1-r.ns/r.os)*100).toFixed(1)}%</span></div>
+            <div class="compare-body">
+                <div class="compare-side"><div class="compare-label">Original</div><img class="compare-img" src="${r.ou}"><div class="compare-size">${fmt(r.os)}</div></div>
+                <div class="compare-side"><div class="compare-label">Optimizado</div><img class="compare-img" src="${r.nu}"><div class="compare-size">${fmt(r.ns)}</div></div>
+            </div>
+        </div>`).join('');
+    G('opt-dl').innerHTML=OPT.results.map(r=>`<button class="btn btn-success" onclick="download('${r.nu}','${r.name.replace(/\.[^.]+$/,'')}_opt.webp')">💾 ${r.name}</button>`).join('');
+    G('opt-results').scrollIntoView({behavior:'smooth'});
+    toast(`${OPT.results.length} optimizado(s) ✓`,'ok');
+}
+
+// ==========================================
+//  TAB 2: VIDEO → GIF
+// ==========================================
+const CV={file:null,url:null,start:0,end:5,w:480,fps:10};
+
+setupDZ('dz-conv','fi-conv',files=>{
+    const f=files.find(f=>f.type.startsWith('video/'));
+    if(!f)return toast('Selecciona un video','err');
+    if(f.size>100*1024*1024)return toast('Máx 100MB','err');
+    CV.file=f;CV.url=URL.createObjectURL(f);
+    const vid=G('conv-video');vid.src=CV.url;
+    vid.onloadedmetadata=()=>{
+        CV.end=Math.min(5,vid.duration);
+        G('conv-end').value=CV.end.toFixed(1);
+        G('conv-dur').textContent=CV.end.toFixed(1)+'s';
+        G('conv-vinfo').textContent=`${f.name} · ${fmt(f.size)} · ${vid.videoWidth}×${vid.videoHeight} · ${vid.duration.toFixed(1)}s`;
     };
+    G('dz-conv').style.display='none';G('conv-editor').style.display='';
+    toast('Video cargado ✓','ok');
+});
+
+G('conv-start').oninput=e=>{CV.start=Math.max(0,+e.target.value);G('conv-dur').textContent=Math.max(0.1,CV.end-CV.start).toFixed(1)+'s';};
+G('conv-end').oninput=e=>{CV.end=Math.max(CV.start+0.1,+e.target.value);G('conv-dur').textContent=(CV.end-CV.start).toFixed(1)+'s';};
+G('sl-cw').oninput=e=>{CV.w=+e.target.value;G('sv-cw').textContent=e.target.value;};
+G('sl-cf').oninput=e=>{CV.fps=+e.target.value;G('sv-cf').textContent=e.target.value;};
+function setC(k,v){const m={w:'sl-cw',f:'sl-cf'};G(m[k]).value=v;G(m[k]).dispatchEvent(new Event('input'));}
+
+function convPreset(name){
+    document.querySelectorAll('#conv-editor .social-preset').forEach(b=>b.classList.remove('active'));
+    const p={linkedin:{w:480,fps:10,end:5,tip:true},web:{w:600,fps:10,end:8,tip:false},custom:{w:480,fps:10,end:5,tip:false}};
+    const s=p[name];if(!s)return;
+    const id={linkedin:'cp-li',web:'cp-web',custom:'cp-cust'}[name];
+    G(id).classList.add('active');
+    setC('w',s.w);setC('f',s.fps);
+    if(CV.file){CV.end=Math.min(s.end,G('conv-video').duration||s.end);G('conv-end').value=CV.end.toFixed(1);G('conv-dur').textContent=(CV.end-CV.start).toFixed(1)+'s';}
+    G('conv-tips').classList.toggle('visible',s.tip);
+    toast('Preset aplicado','ok');
+}
+
+async function convRun(){
+    if(!CV.file)return;
+    G('conv-go').innerHTML='<div class="spinner"></div> Convirtiendo...';
+    G('conv-go').disabled=true;
+    G('conv-prog').style.display='';
+    G('conv-result').style.display='none';
+    try{
+        const vid=document.createElement('video');
+        vid.muted=true;vid.playsInline=true;vid.preload='auto';vid.src=CV.url;
+        await new Promise((r,j)=>{vid.oncanplaythrough=r;vid.onerror=j;vid.load();});
+        const aspect=vid.videoHeight/vid.videoWidth;
+        const w=CV.w, h=Math.round(w*aspect);
+        const canvas=document.createElement('canvas');
+        canvas.width=w;canvas.height=h;
+        const ctx=canvas.getContext('2d',{willReadFrequently:true});
+        const dur=CV.end-CV.start;
+        const totalFrames=Math.max(1,Math.ceil(dur*CV.fps));
+        const delay=Math.round(1000/CV.fps);
+        const encoder=new GIFEncoder(w,h);
+        encoder.repeat=0;
+        G('conv-pl').textContent='Capturando frames...';
+        for(let i=0;i<totalFrames;i++){
+            const time=CV.start+i/CV.fps;
+            vid.currentTime=Math.min(time, vid.duration);
+            await new Promise(r=>{
+                const h2=()=>{vid.removeEventListener('seeked',h2);requestAnimationFrame(()=>requestAnimationFrame(r));};
+                vid.addEventListener('seeked',h2);
+                setTimeout(r, 500);
+            });
+            ctx.drawImage(vid,0,0,w,h);
+            const imageData=ctx.getImageData(0,0,w,h);
+            encoder.addFrame(imageData.data, delay);
+            const pct=Math.round(((i+1)/totalFrames)*80);
+            G('conv-pf').style.width=pct+'%';G('conv-pv').textContent=pct+'%';
+            G('conv-pl').textContent=`Frame ${i+1}/${totalFrames}`;
+            await sleep(30);
+        }
+        G('conv-pl').textContent='Codificando GIF...';
+        G('conv-pf').style.width='85%';
+        await sleep(50);
+        const bytes=encoder.encode(128);
+        const blob=new Blob([bytes],{type:'image/gif'});
+        const url=URL.createObjectURL(blob);
+        G('conv-pf').style.width='100%';G('conv-pv').textContent='100%';
+        G('conv-pl').textContent='¡Completado!';
+        G('conv-gif-img').src=url;
+        G('conv-gif-info').textContent=`${fmt(blob.size)} · ${w}×${h} · ${totalFrames} frames · ${CV.fps}fps`;
+        const ok=blob.size<5*1024*1024;
+        G('conv-badge').innerHTML=ok
+            ?'<div class="linkedin-ready">💼 Listo para LinkedIn (< 5MB) ✓</div>'
+            :'<div class="linkedin-ready" style="background:rgba(239,83,80,0.1);border-color:rgba(239,83,80,0.2);color:var(--danger);">⚠️ > 5MB — Reduce duración o resolución</div>';
+        G('conv-dl-btn').onclick=()=>download(url,CV.file.name.replace(/\.[^.]+$/,'')+'.gif');
+        G('conv-result').style.display='';
+        setTimeout(()=>G('conv-prog').style.display='none',1200);
+        G('conv-go').innerHTML='🔄 Convertir a GIF';G('conv-go').disabled=false;
+        toast('¡GIF creado! ✓','ok');
+        G('conv-result').scrollIntoView({behavior:'smooth'});
+    }catch(e){
+        console.error(e);toast('Error al convertir: '+e.message,'err');
+        G('conv-go').innerHTML='🔄 Convertir a GIF';G('conv-go').disabled=false;
+        G('conv-prog').style.display='none';
+    }
+}
+
+// ==========================================
+//  TAB 3: IMAGES → GIF
+// ==========================================
+const CR={imgs:[],delay:3000,w:480,q:10};
+
+setupDZ('dz-cr','fi-cr',files=>{
+    const imgs=files.filter(f=>f.type.startsWith('image/'));
+    if(!imgs.length)return toast('Solo imágenes','err');
+    imgs.forEach(f=>{
+        CR.imgs.push({id:Math.random().toString(36).substr(2,6),file:f,name:f.name,url:URL.createObjectURL(f)});
+    });
+    crUI();toast(`${imgs.length} añadida(s)`,'ok');
+});
+
+function crUI(){
+    const has=CR.imgs.length>0;
+    G('dz-cr').style.display=has?'none':'';G('cr-editor').style.display=has?'':'none';
+    G('cr-count').textContent=CR.imgs.length;
+    G('cr-go').disabled=CR.imgs.length<2;
+    G('cr-grid').innerHTML=CR.imgs.map((img,i)=>`
+        <div class="image-grid-item" draggable="true" data-idx="${i}">
+            <img src="${img.url}"><div class="order">${i+1}</div>
+            <button class="rm-img" onclick="event.stopPropagation();crRm('${img.id}')">✕</button>
+        </div>`).join('');
+    let dragI=null;
+    document.querySelectorAll('.image-grid-item').forEach(el=>{
+        el.addEventListener('dragstart',()=>{dragI=+el.dataset.idx;el.style.opacity='0.4';});
+        el.addEventListener('dragend',()=>{el.style.opacity='1';});
+        el.addEventListener('dragover',e=>e.preventDefault());
+        el.addEventListener('drop',e=>{
+            e.preventDefault();
+            const di=+el.dataset.idx;
+            if(dragI!==null&&dragI!==di){const m=CR.imgs.splice(dragI,1)[0];CR.imgs.splice(di,0,m);crUI();}
+        });
+    });
+}
+function crRm(id){
+    const i=CR.imgs.findIndex(x=>x.id===id);
+    if(i>-1){URL.revokeObjectURL(CR.imgs[i].url);CR.imgs.splice(i,1);}
+    crUI();
+    if(!CR.imgs.length){G('dz-cr').style.display='';G('cr-editor').style.display='none';}
+}
+function crClear(){
+    CR.imgs.forEach(x=>URL.revokeObjectURL(x.url));CR.imgs=[];crUI();
+    G('dz-cr').style.display='';G('cr-editor').style.display='none';G('cr-result').style.display='none';
+    toast('Limpiado','nfo');
+}
+G('sl-del').oninput=e=>{CR.delay=+e.target.value;G('sv-del').textContent=e.target.value;};
+G('sl-crw').oninput=e=>{CR.w=+e.target.value;G('sv-crw').textContent=e.target.value;};
+G('sl-crq').oninput=e=>{CR.q=+e.target.value;G('sv-crq').textContent=e.target.value;};
+function setCR(k,v){const m={del:'sl-del',w:'sl-crw',q:'sl-crq'};G(m[k]).value=v;G(m[k]).dispatchEvent(new Event('input'));}
+
+async function crRun(){
+    if(CR.imgs.length<2)return toast('Mín. 2 imágenes','err');
+    G('cr-go').innerHTML='<div class="spinner"></div> Generando...';
+    G('cr-go').disabled=true;
+    G('cr-prog').style.display='';
+    G('cr-result').style.display='none';
+    try{
+        const loaded=[];
+        for(let i=0;i<CR.imgs.length;i++){
+            const img=new Image();
+            await new Promise((r,j)=>{img.onload=r;img.onerror=j;img.src=CR.imgs[i].url;});
+            loaded.push(img);
+            const p=Math.round(((i+1)/CR.imgs.length)*30);
+            G('cr-pf').style.width=p+'%';G('cr-pv').textContent=p+'%';
+            G('cr-pl').textContent=`Cargando ${i+1}/${CR.imgs.length}`;
+        }
+        const aspect=loaded[0].naturalHeight/loaded[0].naturalWidth;
+        const w=CR.w,h=Math.round(w*aspect);
+        const canvas=document.createElement('canvas');
+        canvas.width=w;canvas.height=h;
+        const ctx=canvas.getContext('2d',{willReadFrequently:true});
+        const encoder=new GIFEncoder(w,h);
+        encoder.repeat=0;
+        for(let i=0;i<loaded.length;i++){
+            ctx.clearRect(0,0,w,h);
+            ctx.drawImage(loaded[i],0,0,w,h);
+            const imageData=ctx.getImageData(0,0,w,h);
+            encoder.addFrame(imageData.data, CR.delay);
+            const p=30+Math.round(((i+1)/loaded.length)*30);
+            G('cr-pf').style.width=p+'%';G('cr-pv').textContent=p+'%';
+            G('cr-pl').textContent=`Frame ${i+1}/${loaded.length}`;
+            await sleep(30);
+        }
+        G('cr-pl').textContent='Codificando GIF...';
+        G('cr-pf').style.width='70%';
+        await sleep(50);
+        const bytes=encoder.encode(128);
+        const blob=new Blob([bytes],{type:'image/gif'});
+        const url=URL.createObjectURL(blob);
+        G('cr-pf').style.width='100%';G('cr-pv').textContent='100%';G('cr-pl').textContent='¡Completado!';
+        G('cr-gif-img').src=url;
+        G('cr-gif-info').textContent=`${fmt(blob.size)} · ${w}×${h} · ${loaded.length} frames · ${(CR.delay/1000).toFixed(1)}s/frame`;
+        G('cr-dl-btn').onclick=()=>download(url,'animated.gif');
+        G('cr-result').style.display='';
+        setTimeout(()=>G('cr-prog').style.display='none',1200);
+        G('cr-go').innerHTML='🎨 Crear GIF';G('cr-go').disabled=false;
+        toast('¡GIF creado! ✓','ok');
+        G('cr-result').scrollIntoView({behavior:'smooth'});
+    }catch(e){
+        console.error(e);toast('Error: '+e.message,'err');
+        G('cr-go').innerHTML='🎨 Crear GIF';G('cr-go').disabled=false;
+        G('cr-prog').style.display='none';
+    }
+}
 </script>
-
 </body>
 </html>
