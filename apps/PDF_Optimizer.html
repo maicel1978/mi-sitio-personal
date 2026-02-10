@@ -15,19 +15,24 @@
         .brand .edu { color: var(--edu); font-weight: 800; }
         .tech-badge { background: rgba(59, 130, 246, 0.05); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 16px; padding: 15px; margin-bottom: 20px; font-size: 0.75rem; color: #94a3b8; line-height: 1.4; }
         .upload-zone { border: 2px dashed #334155; border-radius: 20px; padding: 30px 15px; text-align: center; cursor: pointer; transition: 0.3s; background: rgba(0,0,0,0.2); margin-bottom: 20px; }
+        .upload-zone:hover { border-color: var(--primary); background: rgba(59,130,246,0.05); }
         .controls { background: #0b0f1a; padding: 15px; border-radius: 16px; margin-bottom: 20px; border: 1px solid #1e293b; }
         label { display: flex; justify-content: space-between; font-size: 0.65rem; font-weight: bold; color: #64748b; text-transform: uppercase; margin-bottom: 10px; }
-        select { width: 100%; padding: 10px; border-radius: 10px; background: #161e2e; border: 1px solid #334155; color: white; margin-bottom: 15px; }
-        .stats-container { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; display: none; }
+        select, input[type="range"] { width: 100%; box-sizing: border-box; }
+        select { padding: 10px; border-radius: 10px; background: #161e2e; border: 1px solid #334155; color: white; margin-bottom: 15px; }
+        input[type="range"] { margin-bottom: 5px; accent-color: var(--primary); }
+        .stats-container { display: none; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
         .stat-card { background: #000; padding: 12px; border-radius: 12px; border: 1px solid #1e293b; text-align: center; }
         .stat-val { font-size: 0.9rem; font-weight: bold; color: var(--accent); }
         .reduction-pill { background: var(--accent); color: #000; font-size: 0.6rem; padding: 2px 6px; border-radius: 4px; font-weight: 800; margin-top: 5px; display: inline-block; }
         .status-box { background: #000; padding: 12px; border-radius: 12px; margin-bottom: 15px; display: none; border: 1px solid #1e293b; }
         .progress-bar { width: 100%; height: 4px; background: #1e293b; border-radius: 10px; overflow: hidden; margin-top: 10px; }
         #progress-fill { width: 0%; height: 100%; background: var(--primary); transition: width 0.2s; }
-        .btn { width: 100%; padding: 16px; border: none; border-radius: 14px; font-weight: bold; cursor: pointer; font-size: 1rem; color: white; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn { width: 100%; padding: 16px; border: none; border-radius: 14px; font-weight: bold; cursor: pointer; font-size: 1rem; color: white; display: flex; align-items: center; justify-content: center; gap: 8px; box-sizing: border-box; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .btn-main { background: var(--primary); box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3); }
         .btn-download { background: var(--accent); color: #000; margin-top: 10px; display: none; }
+        .error-msg { background: rgba(239,68,68,0.1); border: 1px solid var(--error); color: var(--error); padding: 10px; border-radius: 10px; font-size: 0.7rem; margin-bottom: 10px; display: none; word-break: break-word; }
         footer { text-align: center; margin-top: 25px; font-size: 0.6rem; color: #475569; border-top: 1px solid #1e293b; padding-top: 15px; }
     </style>
 </head>
@@ -43,7 +48,7 @@
         <strong>Normalización Isométrica:</strong> Rasterización adaptativa para aplanado de documentos y optimización de activos escaneados.
     </div>
 
-    <div class="upload-zone" onclick="document.getElementById('fileInput').click()">
+    <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()">
         <span id="upload-txt" style="font-size: 0.75rem; color: #94a3b8;">📄 SELECCIONAR DOCUMENTO</span>
         <input type="file" id="fileInput" accept="application/pdf" style="display:none">
     </div>
@@ -51,8 +56,8 @@
     <div class="controls">
         <label>Perfil de Optimización</label>
         <select id="resProfile">
-            <option value="1.0">Compresión Extrema (Ahorro Máximo)</option>
-            <option value="1.3" selected>Equilibrado (Recomendado)</option>
+            <option value="0.8">Compresión Extrema (Ahorro Máximo)</option>
+            <option value="1.2" selected>Equilibrado (Recomendado)</option>
             <option value="1.8">Alta Fidelidad (Papers/Gráficos)</option>
         </select>
         
@@ -61,9 +66,18 @@
     </div>
 
     <div class="stats-container" id="statsContainer">
-        <div class="stat-card"><div style="font-size:0.5rem; color:#64748b">ORIGINAL</div><div class="stat-val" id="oldSize">-</div></div>
-        <div class="stat-card"><div style="font-size:0.5rem; color:#64748b">ESTIMADO</div><div class="stat-val" id="newSize">-</div><div id="savePill" class="reduction-pill" style="display:none"></div></div>
+        <div class="stat-card">
+            <div style="font-size:0.5rem; color:#64748b">ORIGINAL</div>
+            <div class="stat-val" id="oldSize">-</div>
+        </div>
+        <div class="stat-card">
+            <div style="font-size:0.5rem; color:#64748b">OPTIMIZADO</div>
+            <div class="stat-val" id="newSize">-</div>
+            <div id="savePill" class="reduction-pill" style="display:none"></div>
+        </div>
     </div>
+
+    <div class="error-msg" id="errorBox"></div>
 
     <div class="status-box" id="statusBox">
         <div style="display: flex; justify-content: space-between; font-size: 0.6rem; font-weight: bold; color: var(--primary);">
@@ -74,7 +88,7 @@
     </div>
 
     <button id="processBtn" class="btn btn-main" disabled>INICIAR OPTIMIZACIÓN</button>
-    <button id="downloadBtn" class="btn btn-download">📥 DESCARGAR PDF</button>
+    <button id="downloadBtn" class="btn btn-download">📥 DESCARGAR PDF OPTIMIZADO</button>
 
     <footer>
         ARQUITECTURA DE COMPRESIÓN V7 (SMART SCALE)<br>
@@ -82,105 +96,282 @@
     </footer>
 </div>
 
+<!-- Canvas oculto para renderizado -->
 <canvas id="procCanvas" style="display:none"></canvas>
 
 <script>
+    // ─── Inicialización de PDF.js ───
     const pdfjsLib = window['pdfjs-dist/build/pdf'];
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 
+        'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-    const fileInput = document.getElementById('fileInput');
-    const processBtn = document.getElementById('processBtn');
-    const downloadBtn = document.getElementById('downloadBtn');
+    // ─── Referencias DOM ───
+    const fileInput    = document.getElementById('fileInput');
+    const processBtn   = document.getElementById('processBtn');
+    const downloadBtn  = document.getElementById('downloadBtn');
     const qualityInput = document.getElementById('quality');
-    const qLabel = document.getElementById('qLabel');
-    const statusBox = document.getElementById('statusBox');
+    const qLabel       = document.getElementById('qLabel');
+    const statusBox    = document.getElementById('statusBox');
     const statsContainer = document.getElementById('statsContainer');
     const progressFill = document.getElementById('progress-fill');
+    const errorBox     = document.getElementById('errorBox');
 
     let selectedFile = null;
-    let finalBlob = null;
+    let finalBlob    = null;
+    let blobUrl      = null;  // FIX: trackear URL para revocar
 
-    qualityInput.oninput = () => qLabel.innerText = qualityInput.value + '%';
+    // Límite seguro de canvas (evita crash en móviles y navegadores)
+    const MAX_CANVAS_DIM = 4096;
+
+    // ─── Utilidades ───
+    function formatSize(bytes) {
+        if (bytes < 1024) return bytes + ' B';
+        if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+        return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+    }
+
+    function showError(msg) {
+        errorBox.textContent = msg;
+        errorBox.style.display = 'block';
+    }
+
+    function hideError() {
+        errorBox.style.display = 'none';
+    }
+
+    function resetUI() {
+        progressFill.style.width = '0%';
+        document.getElementById('percentTxt').innerText = '0%';
+        document.getElementById('statusInfo').innerText = 'ESPERANDO...';
+        document.getElementById('newSize').innerText = '-';
+        document.getElementById('savePill').style.display = 'none';
+        downloadBtn.style.display = 'none';
+        hideError();
+        // Liberar blob anterior si existe
+        if (blobUrl) {
+            URL.revokeObjectURL(blobUrl);
+            blobUrl = null;
+        }
+        finalBlob = null;
+    }
+
+    // ─── Eventos ───
+    qualityInput.oninput = () => {
+        qLabel.innerText = qualityInput.value + '%';
+    };
 
     fileInput.onchange = (e) => {
         const file = e.target.files[0];
-        if (file && file.type === "application/pdf") {
-            selectedFile = file;
-            document.getElementById('upload-txt').innerText = "✓ " + file.name;
-            document.getElementById('oldSize').innerText = (file.size / (1024*1024)).toFixed(2) + " MB";
-            statsContainer.style.display = 'grid';
-            processBtn.disabled = false;
-            downloadBtn.style.display = 'none';
+        if (!file) return;
+        
+        if (file.type !== 'application/pdf') {
+            showError('Por favor selecciona un archivo PDF válido.');
+            return;
         }
+
+        selectedFile = file;
+        document.getElementById('upload-txt').innerText = '✓ ' + file.name;
+        document.getElementById('oldSize').innerText = formatSize(file.size);
+        statsContainer.style.display = 'grid';
+        processBtn.disabled = false;
+        resetUI();
+        hideError();
     };
 
+    // ─── Procesamiento Principal ───
     processBtn.onclick = async () => {
-        processBtn.disabled = true;
-        statusBox.style.display = 'block';
-        const quality = qualityInput.value / 100;
-        const scale = parseFloat(document.getElementById('resProfile').value);
+        if (!selectedFile) return;
         
-        try {
-            const arrayBuffer = await selectedFile.arrayBuffer();
-            const pdf = await pdfjsLib.getDocument({data: arrayBuffer}).promise;
-            const { jsPDF } = window.jspdf;
-            
-            let outPdf = null;
-            const canvas = document.getElementById('procCanvas');
-            const ctx = canvas.getContext('2d', { alpha: false });
+        processBtn.disabled = true;
+        resetUI();
+        statusBox.style.display = 'block';
 
-            for (let i = 1; i <= pdf.numPages; i++) {
-                const progress = Math.round((i / pdf.numPages) * 100);
-                progressFill.style.width = progress + "%";
-                document.getElementById('percentTxt').innerText = progress + "%";
-                document.getElementById('statusInfo').innerText = `PAG: ${i}/${pdf.numPages}`;
+        const quality = qualityInput.value / 100;
+        const scale   = parseFloat(document.getElementById('resProfile').value);
+
+        let pdf = null;
+
+        try {
+            // FIX: Usar Uint8Array para mayor compatibilidad
+            const arrayBuffer = await selectedFile.arrayBuffer();
+            const typedArray  = new Uint8Array(arrayBuffer);
+            
+            pdf = await pdfjsLib.getDocument({ data: typedArray }).promise;
+            
+            const { jsPDF } = window.jspdf;
+            let outPdf = null;
+
+            const canvas = document.getElementById('procCanvas');
+            // FIX: willReadFrequently optimiza las lecturas repetidas del canvas
+            const ctx = canvas.getContext('2d', { 
+                alpha: false, 
+                willReadFrequently: true 
+            });
+
+            const totalPages = pdf.numPages;
+
+            for (let i = 1; i <= totalPages; i++) {
+                // Actualizar progreso
+                const progress = Math.round((i / totalPages) * 100);
+                progressFill.style.width = progress + '%';
+                document.getElementById('percentTxt').innerText = progress + '%';
+                document.getElementById('statusInfo').innerText = 
+                    `PROCESANDO: ${i} de ${totalPages}`;
 
                 const page = await pdf.getPage(i);
-                const viewport = page.getViewport({ scale: scale }); 
-                canvas.height = viewport.height;
-                canvas.width = viewport.width;
 
-                await page.render({ canvasContext: ctx, viewport: viewport }).promise;
+                // FIX: Viewport ORIGINAL para dimensiones reales de la página (en puntos)
+                const origViewport = page.getViewport({ scale: 1.0 });
+                const pageWidthPt  = origViewport.width;   // ancho en puntos
+                const pageHeightPt = origViewport.height;  // alto en puntos
 
-                const imgData = canvas.toDataURL('image/jpeg', quality);
-                const pW = viewport.width * 0.75; 
-                const pH = viewport.height * 0.75;
-
-                if (i === 1) {
-                    outPdf = new jsPDF({ orientation: pW > pH ? 'l' : 'p', unit: 'pt', format: [pW, pH] });
-                } else {
-                    outPdf.addPage([pW, pH], pW > pH ? 'l' : 'p');
+                // FIX: Calcular escala de render con protección de tamaño máximo
+                let renderScale = scale;
+                const maxRenderDim = Math.max(
+                    origViewport.width * renderScale, 
+                    origViewport.height * renderScale
+                );
+                if (maxRenderDim > MAX_CANVAS_DIM) {
+                    renderScale = MAX_CANVAS_DIM / Math.max(origViewport.width, origViewport.height);
                 }
 
-                outPdf.addImage(imgData, 'JPEG', 0, 0, pW, pH, undefined, 'FAST');
+                const renderViewport = page.getViewport({ scale: renderScale });
+                canvas.width  = Math.floor(renderViewport.width);
+                canvas.height = Math.floor(renderViewport.height);
+
+                // FIX: Limpiar canvas con fondo blanco (evita residuos entre páginas)
+                ctx.fillStyle = '#FFFFFF';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                // Renderizar página
+                await page.render({ 
+                    canvasContext: ctx, 
+                    viewport: renderViewport 
+                }).promise;
+
+                // Convertir a JPEG
+                const imgData = canvas.toDataURL('image/jpeg', quality);
+
+                // FIX: Verificar que toDataURL no devolvió vacío
+                if (!imgData || imgData === 'data:,') {
+                    throw new Error(`Error al rasterizar la página ${i}. Canvas demasiado grande.`);
+                }
+
+                // Crear o añadir página al PDF de salida
+                if (i === 1) {
+                    outPdf = new jsPDF({
+                        orientation: pageWidthPt > pageHeightPt ? 'l' : 'p',
+                        unit: 'pt',
+                        format: [pageWidthPt, pageHeightPt],
+                        compress: true
+                    });
+                } else {
+                    outPdf.addPage(
+                        [pageWidthPt, pageHeightPt], 
+                        pageWidthPt > pageHeightPt ? 'l' : 'p'
+                    );
+                }
+
+                // FIX: Alias único por página evita reutilización de imagen
+                outPdf.addImage(
+                    imgData, 'JPEG', 
+                    0, 0, 
+                    pageWidthPt, pageHeightPt, 
+                    `img_page_${i}`, 
+                    'FAST'
+                );
+
+                // FIX: Liberar recursos de la página
+                page.cleanup();
+
+                // Ceder control al navegador para evitar congelamiento
                 await new Promise(r => setTimeout(r, 30));
             }
 
+            // Generar blob final
             finalBlob = outPdf.output('blob');
-            const newSizeMB = finalBlob.size / (1024*1024);
-            const saving = ((1 - (newSizeMB / (selectedFile.size / (1024*1024)))) * 100).toFixed(0);
 
-            document.getElementById('newSize').innerText = newSizeMB.toFixed(2) + " MB";
+            // Mostrar estadísticas
+            const newSizeMB  = finalBlob.size / (1024 * 1024);
+            const origSizeMB = selectedFile.size / (1024 * 1024);
+            const saving = ((1 - (newSizeMB / origSizeMB)) * 100).toFixed(0);
+
+            document.getElementById('newSize').innerText = formatSize(finalBlob.size);
+
             const pill = document.getElementById('savePill');
-            pill.innerText = saving > 0 ? `AHORRO: ${saving}%` : `INCREMENTO: ${Math.abs(saving)}%`;
+            if (saving > 0) {
+                pill.innerText = `↓ AHORRO: ${saving}%`;
+                pill.style.background = 'var(--accent)';
+                pill.style.color = '#000';
+            } else {
+                pill.innerText = `↑ INCREMENTO: ${Math.abs(saving)}%`;
+                pill.style.background = 'var(--error)';
+                pill.style.color = '#fff';
+            }
             pill.style.display = 'inline-block';
-            pill.style.background = saving > 0 ? 'var(--accent)' : 'var(--error)';
 
-            document.getElementById('statusInfo').innerText = "PROCESO FINALIZADO";
+            document.getElementById('statusInfo').innerText = '✓ PROCESO FINALIZADO';
             downloadBtn.style.display = 'flex';
 
         } catch (err) {
-            alert("Error en el motor neural.");
+            console.error('Error durante el procesamiento:', err);
+            showError('Error: ' + (err.message || 'No se pudo procesar el PDF.'));
+            document.getElementById('statusInfo').innerText = '✗ ERROR';
+            progressFill.style.background = 'var(--error)';
         } finally {
+            // FIX: Liberar recursos del documento PDF
+            if (pdf) {
+                try { pdf.destroy(); } catch(e) {}
+            }
             processBtn.disabled = false;
         }
     };
 
+    // ─── Descarga ───
     downloadBtn.onclick = () => {
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(finalBlob);
-        link.download = `Spectral_Opt_${selectedFile.name}`;
-        link.click();
+        if (!finalBlob) {
+            showError('No hay archivo procesado para descargar.');
+            return;
+        }
+
+        try {
+            // Limpiar URL anterior si existe
+            if (blobUrl) {
+                URL.revokeObjectURL(blobUrl);
+            }
+
+            blobUrl = URL.createObjectURL(finalBlob);
+
+            const link = document.createElement('a');
+            link.href = blobUrl;
+
+            // Nombre limpio para el archivo
+            const baseName = selectedFile.name.replace(/\.pdf$/i, '');
+            link.download = `${baseName}_optimizado.pdf`;
+
+            // FIX: Añadir al DOM antes de click (requerido en Safari/iOS)
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.click();
+
+            // FIX: Limpieza retardada para permitir que la descarga inicie
+            setTimeout(() => {
+                document.body.removeChild(link);
+                // No revocar inmediatamente: algunos navegadores necesitan tiempo
+            }, 3000);
+
+        } catch (err) {
+            console.error('Error al descargar:', err);
+            showError('Error al descargar: ' + (err.message || 'Intenta de nuevo.'));
+            
+            // FIX: Fallback - abrir en nueva pestaña
+            try {
+                const fallbackUrl = URL.createObjectURL(finalBlob);
+                window.open(fallbackUrl, '_blank');
+            } catch(e2) {
+                showError('No se pudo descargar. Intenta con otro navegador.');
+            }
+        }
     };
 </script>
 </body>
