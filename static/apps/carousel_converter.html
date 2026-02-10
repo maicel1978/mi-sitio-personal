@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carousel Studio — GIF para LinkedIn</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg:#08080d;--bg2:#0e0e16;--bg3:#16161f;--bg4:#1e1e2a;
+            --border:#252535;--accent:#6c5ce7;--accent2:#a29bfe;
+            --accent-g:rgba(108,92,231,0.22);
+            --green:#00b894;--green2:#55efc4;--green-g:rgba(0,184,148,0.22);
+            --red:#e74c3c;--linkedin:#0a66c2;
+            --t1:#f0f0f8;--t2:#9090a8;--t3:#606078;
+        }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;}
+        .bg-fx{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+        .orb{position:absolute;border-radius:50%;filter:blur(120px);opacity:0.1;animation:fo 30s ease-in-out infinite;}
+        .orb:nth-child(1){width:500px;height:500px;background:var(--accent);top:-200px;right:-200px;}
+        .orb:nth-child(2){width:400px;height:400px;background:var(--green);bottom:-150px;left:-150px;animation-delay:-10s;}
+        @keyframes fo{0%,100%{transform:translate(0,0)scale(1);}50%{transform:translate(60px,-80px)scale(1.1);}}
+
+        .app{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:20px;}
+        .header{text-align:center;padding:28px 0 22px;}
+        .logo{display:inline-flex;align-items:center;gap:10px;margin-bottom:8px;}
+        .logo-icon{width:42px;height:42px;background:linear-gradient(135deg,var(--accent),var(--green));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 6px 20px var(--accent-g);}
+        .logo-text{font-size:22px;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+        .header p{color:var(--t2);font-size:13px;}
+        .badge{display:inline-flex;align-items:center;gap:5px;margin-top:8px;padding:4px 12px;background:rgba(0,184,148,0.08);border:1px solid rgba(0,184,148,0.15);border-radius:16px;color:var(--green);font-size:10px;font-weight:600;}
+
+        .dropzone{border:2px dashed var(--border);border-radius:18px;padding:50px 24px;text-align:center;cursor:pointer;transition:all 0.3s;background:var(--bg2);position:relative;overflow:hidden;}
+        .dropzone::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--accent),var(--green));opacity:0;transition:opacity 0.3s;border-radius:16px;}
+        .dropzone:hover,.dropzone.over{border-color:var(--accent);box-shadow:0 0 36px var(--accent-g);}
+        .dropzone:hover::before,.dropzone.over::before{opacity:0.04;}
+        .dropzone-c{position:relative;z-index:1;}
+        .dz-icon{font-size:48px;margin-bottom:12px;display:block;animation:bn 3s ease-in-out infinite;}
+        @keyframes bn{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+        .dropzone h3{font-size:17px;font-weight:700;margin-bottom:5px;}
+        .dropzone p{color:var(--t2);font-size:12px;margin-bottom:14px;}
+        .dropzone .hint{color:var(--t3);font-size:10px;margin-top:12px;}
+        .dropzone input{display:none;}
+
+        .btn{display:inline-flex;align-items:center;gap:6px;padding:10px 22px;border-radius:11px;font-size:12px;font-weight:700;cursor:pointer;border:none;font-family:inherit;transition:all 0.25s;color:white;}
+        .btn:hover{transform:translateY(-1px);}
+        .btn:disabled{opacity:0.4;cursor:not-allowed;transform:none!important;}
+        .btn-accent{background:linear-gradient(135deg,var(--accent),#9580ff);box-shadow:0 4px 14px var(--accent-g);}
+        .btn-green{background:linear-gradient(135deg,var(--green),var(--green2));color:#0a0a0f;box-shadow:0 4px 14px var(--green-g);}
+        .btn-ghost{background:var(--bg3);color:var(--t2);border:1px solid var(--border);}
+        .btn-ghost:hover{border-color:var(--accent);color:var(--t1);}
+        .btn-sm{padding:7px 13px;font-size:10px;border-radius:8px;}
+        .btn-danger{background:rgba(231,76,60,0.08);color:var(--red);border:1px solid rgba(231,76,60,0.15);}
+        .btn-lg{padding:14px 44px;font-size:14px;border-radius:13px;}
+
+        .card{background:var(--bg3);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:16px;}
+        .card-title{font-size:14px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+        .card-count{background:var(--accent);color:white;padding:2px 9px;border-radius:7px;font-size:10px;font-weight:800;}
+
+        .thumbs{display:flex;gap:6px;overflow-x:auto;padding:4px 0;scroll-behavior:smooth;}
+        .thumbs::-webkit-scrollbar{height:3px;}
+        .thumbs::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+        .thumb{flex-shrink:0;width:52px;height:65px;border-radius:7px;overflow:hidden;border:2px solid var(--border);cursor:pointer;transition:all 0.2s;position:relative;background:var(--bg);}
+        .thumb:hover{border-color:var(--accent);}
+        .thumb.on{border-color:var(--accent);box-shadow:0 0 10px var(--accent-g);}
+        .thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+        .thumb .tn{position:absolute;bottom:1px;right:3px;font-size:7px;font-weight:800;color:white;text-shadow:0 1px 3px rgba(0,0,0,0.9);}
+        .thumb .rm{position:absolute;top:1px;right:1px;width:14px;height:14px;border-radius:3px;background:rgba(231,76,60,0.9);color:white;border:none;cursor:pointer;font-size:8px;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.2s;}
+        .thumb:hover .rm{opacity:1;}
+
+        /* Viewer */
+        .viewer-wrap{max-width:440px;margin:0 auto;}
+        .viewer{position:relative;width:100%;border-radius:14px;overflow:hidden;box-shadow:0 18px 48px rgba(0,0,0,0.5);background:#000;}
+        .viewer-inner{position:relative;width:100%;}
+        .viewer-inner img{width:100%;display:block;object-fit:contain;background:#000;}
+        .v-page{position:absolute;top:8px;right:10px;font-size:10px;font-weight:700;color:rgba(255,255,255,0.6);background:rgba(0,0,0,0.4);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:3px 9px;border-radius:6px;z-index:5;}
+        .v-arr{position:absolute;top:50%;transform:translateY(-50%);width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,0.4);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.06);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;z-index:5;transition:all 0.2s;opacity:0;font-family:inherit;}
+        .viewer:hover .v-arr{opacity:1;}
+        .v-arr:hover{background:rgba(0,0,0,0.65);color:white;transform:translateY(-50%) scale(1.08);}
+        .v-arr.l{left:6px;}.v-arr.r{right:6px;}
+        .v-prog{position:absolute;bottom:0;left:0;right:0;height:2px;background:rgba(255,255,255,0.06);z-index:5;}
+        .v-prog-bar{height:100%;background:linear-gradient(90deg,var(--accent),var(--green));transition:width 0.3s;}
+
+        .v-dots{display:flex;gap:5px;justify-content:center;margin-top:10px;}
+        .v-dot{width:6px;height:6px;border-radius:50%;background:var(--border);transition:all 0.3s;cursor:pointer;}
+        .v-dot.on{background:var(--accent);transform:scale(1.5);}
+        .v-ctrls{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:10px;flex-wrap:wrap;}
+
+        /* Settings */
+        .settings-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;}
+        .setting{background:var(--bg2);border-radius:12px;padding:16px;border:1px solid var(--border);}
+        .setting-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+        .setting-n{font-size:11px;font-weight:600;display:flex;align-items:center;gap:5px;}
+        .setting-v{font-size:10px;font-weight:700;color:var(--accent2);background:rgba(108,92,231,0.1);padding:2px 8px;border-radius:6px;}
+        .setting-d{font-size:9px;color:var(--t3);margin-bottom:8px;line-height:1.4;}
+        input[type="range"]{width:100%;-webkit-appearance:none;height:4px;border-radius:2px;background:var(--bg);outline:none;cursor:pointer;}
+        input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#9580ff);cursor:pointer;box-shadow:0 2px 6px var(--accent-g);}
+        input[type="range"]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--accent);cursor:pointer;border:none;}
+        .presets{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap;}
+        .preset{flex:1;min-width:36px;padding:5px 3px;border-radius:6px;border:1px solid var(--border);background:var(--bg);color:var(--t3);font-size:9px;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:inherit;text-align:center;}
+        .preset:hover,.preset.on{border-color:var(--accent);color:var(--accent2);background:rgba(108,92,231,0.04);}
+
+        .tr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(68px,1fr));gap:4px;}
+        .tr-btn{padding:9px 4px;border-radius:9px;border:1px solid var(--border);background:var(--bg2);color:var(--t3);font-size:9px;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:inherit;text-align:center;}
+        .tr-btn:hover{border-color:var(--accent);color:var(--accent2);}
+        .tr-btn.on{border-color:var(--accent);color:var(--accent2);background:rgba(108,92,231,0.06);box-shadow:0 2px 8px var(--accent-g);}
+        .tr-btn .tri{font-size:16px;display:block;margin-bottom:2px;}
+
+        /* Result */
+        .result{text-align:center;margin-top:20px;}
+        .result img{max-width:100%;max-height:400px;border-radius:12px;border:1px solid var(--border);margin:12px 0;}
+        .result-info{font-size:12px;color:var(--t2);margin:8px 0;}
+        .linkedin-badge{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:8px;font-size:10px;font-weight:700;margin:8px 0;}
+        .linkedin-badge.ok{background:rgba(0,184,148,0.1);border:1px solid rgba(0,184,148,0.2);color:var(--green);}
+        .linkedin-badge.warn{background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.2);color:var(--red);}
+
+        /* Progress */
+        .progress-wrap{margin-top:14px;}
+        .progress-info{display:flex;justify-content:space-between;font-size:11px;margin-bottom:5px;}
+        .progress-info .label{color:var(--t2);}
+        .progress-info .value{color:var(--accent2);font-weight:700;}
+        .p-bar{height:5px;background:var(--bg);border-radius:3px;overflow:hidden;}
+        .p-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--accent),var(--green));transition:width 0.3s;width:0%;}
+
+        .spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,0.2);border-top-color:white;border-radius:50%;animation:spin 0.7s linear infinite;}
+        @keyframes spin{to{transform:rotate(360deg);}}
+
+        .toast{position:fixed;bottom:20px;right:20px;padding:11px 20px;border-radius:11px;font-size:12px;font-weight:600;z-index:999;transform:translateY(80px);opacity:0;transition:all 0.4s cubic-bezier(0.4,0,0.2,1);display:flex;align-items:center;gap:7px;max-width:340px;}
+        .toast.show{transform:translateY(0);opacity:1;}
+        .toast.ok{background:var(--green);color:white;}
+        .toast.err{background:var(--red);color:white;}
+        .toast.nfo{background:var(--accent);color:white;}
+
+        .footer{text-align:center;padding:28px 0 14px;color:var(--t3);font-size:11px;}
+        .footer a{color:var(--accent2);text-decoration:none;}
+        .hidden{display:none!important;}
+
+        @media(max-width:600px){
+            .app{padding:10px;}
+            .logo-text{font-size:18px;}
+            .viewer-wrap{max-width:100%;}
+            .settings-grid{grid-template-columns:1fr;}
+            .tr-grid{grid-template-columns:repeat(4,1fr);}
+        }
+    </style>
+</head>
+<body>
+<div class="bg-fx"><div class="orb"></div><div class="orb"></div></div>
+<div class="app">
+    <header class="header">
+        <div class="logo"><div class="logo-icon">🎠</div><span class="logo-text">Carousel Studio</span></div>
+        <p>Convierte tus slides en un GIF animado con transiciones para LinkedIn</p>
+        <div class="badge">🔒 100% local · Nada se sube</div>
+    </header>
+
+    <!-- STEP 1 -->
+    <div id="s1">
+        <div class="dropzone" id="dz">
+            <div class="dropzone-c">
+                <span class="dz-icon">🖼️</span>
+                <h3>Arrastra tus imágenes aquí</h3>
+                <p>Las slides de tu carrusel en orden</p>
+                <button class="btn btn-accent" onclick="Q('fi').click()">📁 Seleccionar imágenes</button>
+                <p class="hint">JPG, PNG, WebP · Cualquier tamaño · Mínimo 2</p>
+            </div>
+            <input type="file" id="fi" accept="image/*" multiple>
+        </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div id="s2" class="hidden">
+        <div class="card">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                <div class="card-title" style="margin:0;">📑 Slides <span class="card-count" id="cnt">0</span></div>
+                <div style="display:flex;gap:5px;">
+                    <button class="btn btn-ghost btn-sm" onclick="Q('fi2').click()">+ Agregar</button>
+                    <button class="btn btn-danger btn-sm" onclick="resetAll()">✕ Nuevo</button>
+                    <input type="file" id="fi2" accept="image/*" multiple style="display:none">
+                </div>
+            </div>
+            <div class="thumbs" id="thumbs"></div>
+        </div>
+
+        <!-- Preview -->
+        <div style="margin:14px 0;">
+            <div class="viewer-wrap">
+                <div class="viewer" id="viewer">
+                    <button class="v-arr l" onclick="event.stopPropagation();navPrev()">‹</button>
+                    <button class="v-arr r" onclick="event.stopPropagation();navNext()">›</button>
+                    <div class="v-page" id="vpg"></div>
+                    <div class="v-prog"><div class="v-prog-bar" id="vbar"></div></div>
+                    <div class="viewer-inner" id="vInner"></div>
+                </div>
+                <div class="v-dots" id="dots"></div>
+                <div class="v-ctrls">
+                    <button class="btn btn-ghost btn-sm" onclick="navPrev()">←</button>
+                    <button class="btn btn-ghost btn-sm" id="playBtn" onclick="togglePlay()">▶️ Auto</button>
+                    <button class="btn btn-ghost btn-sm" onclick="navNext()">→</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings -->
+        <div class="card">
+            <div class="card-title">⚙️ Configuración del GIF</div>
+            <div class="settings-grid">
+                <div class="setting">
+                    <div class="setting-h"><span class="setting-n">⏱️ Tiempo por slide</span><span class="setting-v" id="svTime">3.0s</span></div>
+                    <div class="setting-d">Segundos que se muestra cada slide. Para texto: 3-5s</div>
+                    <input type="range" id="slTime" min="1000" max="10000" value="3000" step="500">
+                    <div class="presets">
+                        <button class="preset" onclick="setTime(1000)">1s</button>
+                        <button class="preset" onclick="setTime(2000)">2s</button>
+                        <button class="preset on" onclick="setTime(3000)">3s</button>
+                        <button class="preset" onclick="setTime(5000)">5s</button>
+                        <button class="preset" onclick="setTime(8000)">8s</button>
+                    </div>
+                </div>
+                <div class="setting">
+                    <div class="setting-h"><span class="setting-n">📐 Resolución</span><span class="setting-v" id="svRes">480px</span></div>
+                    <div class="setting-d">Mayor = mejor calidad pero más peso</div>
+                    <input type="range" id="slRes" min="240" max="800" value="480" step="10">
+                    <div class="presets">
+                        <button class="preset" onclick="setRes(320)">320</button>
+                        <button class="preset on" onclick="setRes(480)">480</button>
+                        <button class="preset" onclick="setRes(600)">600</button>
+                        <button class="preset" onclick="setRes(800)">800</button>
+                    </div>
+                </div>
+                <div class="setting">
+                    <div class="setting-h"><span class="setting-n">🎬 Transición</span></div>
+                    <div class="setting-d">Efecto entre slides dentro del GIF</div>
+                    <div class="tr-grid" id="trG"></div>
+                </div>
+                <div class="setting">
+                    <div class="setting-h"><span class="setting-n">⚡ Velocidad transición</span><span class="setting-v" id="svTrSpeed">0.5s</span></div>
+                    <div class="setting-d">Duración del efecto de transición</div>
+                    <input type="range" id="slTrSpeed" min="200" max="1000" value="500" step="50">
+                    <div class="presets">
+                        <button class="preset" onclick="setTrSpeed(200)">Rápida</button>
+                        <button class="preset on" onclick="setTrSpeed(500)">Normal</button>
+                        <button class="preset" onclick="setTrSpeed(800)">Lenta</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Generate -->
+        <div style="text-align:center;margin:20px 0;">
+            <button class="btn btn-green btn-lg" id="genBtn" onclick="generateGIF()">🎞️ Generar GIF para LinkedIn</button>
+            <div class="progress-wrap hidden" id="prog">
+                <div class="progress-info"><span class="label" id="progL">Procesando...</span><span class="value" id="progV">0%</span></div>
+                <div class="p-bar"><div class="p-fill" id="progF"></div></div>
+            </div>
+        </div>
+
+        <!-- Result -->
+        <div class="result hidden" id="result">
+            <div class="card" style="text-align:center;">
+                <div class="card-title" style="justify-content:center;">✅ ¡GIF listo!</div>
+                <img id="gifPreview" src="">
+                <div class="result-info" id="gifInfo"></div>
+                <div id="gifBadge"></div>
+                <div style="margin-top:14px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+                    <button class="btn btn-green" id="dlBtn">💾 Descargar GIF</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer"><p>Carousel Studio · <a href="https://bioestadisticaedu.com">bioestadisticaedu.com</a></p></footer>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+// ==========================================
+//  GIF ENCODER
+// ==========================================
+class GE{constructor(w,h){this.w=w;this.h=h;this.d=[];this.f=[];this.r=0;}
+wh(){this.ws('GIF89a');}wl(){this.wn(this.w);this.wn(this.h);this.d.push(0x70,0,0);}
+wns(){this.d.push(0x21,0xFF,11);this.ws('NETSCAPE2.0');this.d.push(3,1);this.wn(this.r);this.d.push(0);}
+af(d,dl=100){this.f.push({d,dl});}
+wg(dl){this.d.push(0x21,0xF9,4,0);this.wn(Math.round(dl/10));this.d.push(0,0);}
+wi(b){this.d.push(0x2C);this.wn(0);this.wn(0);this.wn(this.w);this.wn(this.h);this.d.push(0x80|(b-1));}
+q(px,mx){const m=new Map();for(let i=0;i<px.length;i+=4){const k=((px[i]>>4)<<8)|((px[i+1]>>4)<<4)|(px[i+2]>>4);m.set(k,(m.get(k)||0)+1);}
+let c=[];m.forEach((n,k)=>{c.push({r:((k>>8)&15)*17,g:((k>>4)&15)*17,b:(k&15)*17,n});});
+c.sort((a,b)=>b.n-a.n);c=c.slice(0,mx);
+while(c.length<mx)c.push({r:0,g:0,b:0,n:0});
+const p=[];c.forEach(x=>{p.push(x.r,x.g,x.b);});
+const idx=new Uint8Array(px.length/4);
+for(let i=0;i<px.length;i+=4){
+const r=px[i],g=px[i+1],b=px[i+2];
+let best=0,bd=1e9;
+for(let j=0;j<c.length;j++){
+const dr=r-c[j].r,dg=g-c[j].g,db=b-c[j].b;
+const dd=dr*dr+dg*dg+db*db;
+if(dd<bd){bd=dd;best=j;}
+if(dd===0)break;}
+idx[i/4]=best;}
+return{p,idx};}
+lzw(idx,b){const mn=Math.max(2,b),cc=1<<mn,ei=cc+1,o=[mn];let cs=mn+1,nc=ei+1;const mx=4096;let t={};
+function ini(){t={};for(let i=0;i<cc;i++)t[i]=i;nc=ei+1;cs=mn+1;}
+let bf=0,bb=0;const sb=[];
+function wb(c,s){bf|=(c<<bb);bb+=s;while(bb>=8){sb.push(bf&0xFF);bf>>=8;bb-=8;if(sb.length===255){o.push(sb.length);for(const x of sb)o.push(x);sb.length=0;}}}
+ini();wb(cc,cs);let cu=String(idx[0]);
+for(let i=1;i<idx.length;i++){const nx=cu+','+idx[i];
+if(t[nx]!==undefined){cu=nx;}
+else{wb(t[cu],cs);if(nc<mx){t[nx]=nc++;if(nc>(1<<cs)&&cs<12)cs++;}else{wb(cc,cs);ini();}cu=String(idx[i]);}}
+wb(t[cu],cs);wb(ei,cs);if(bb>0)sb.push(bf&0xFF);
+if(sb.length){o.push(sb.length);for(const x of sb)o.push(x);}o.push(0);return o;}
+enc(nc=128){this.d=[];nc=Math.min(256,Math.max(2,nc));let cb=1;while((1<<cb)<nc)cb++;const ps=1<<cb;
+this.wh();this.wl();this.wns();
+for(const fr of this.f){const{p,idx}=this.q(fr.d,ps);this.wg(fr.dl);this.wi(cb);for(const x of p)this.d.push(x);const l=this.lzw(idx,cb);for(const x of l)this.d.push(x);}
+this.d.push(0x3B);return new Uint8Array(this.d);}
+ws(s){for(let i=0;i<s.length;i++)this.d.push(s.charCodeAt(i));}
+wn(v){this.d.push(v&0xFF,(v>>8)&0xFF);}}
+
+// ==========================================
+//  STATE
+// ==========================================
+let slides=[];
+let cur=0;
+let slideTime=3000;
+let gifRes=480;
+let trType='fade';
+let trSpeed=500;
+let autoTimer=null;
+let loadedImages=[];
+
+const Q=id=>document.getElementById(id);
+const TRANSITIONS=[
+    {id:'none',icon:'⚡',name:'Ninguna'},
+    {id:'fade',icon:'🌫️',name:'Fade'},
+    {id:'slide',icon:'➡️',name:'Slide'},
+    {id:'zoom',icon:'🔍',name:'Zoom'},
+    {id:'blur',icon:'💫',name:'Blur'}
+];
+
+function fmt(b){if(!b)return'0B';const k=1024,s=['B','KB','MB'];const i=Math.floor(Math.log(b)/Math.log(k));return parseFloat((b/Math.pow(k,i)).toFixed(1))+' '+s[i];}
+function toast(m,t='nfo'){const e=Q('toast');e.className=`toast ${t}`;e.textContent=m;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),3000);}
+function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
+
+// ==========================================
+//  FILE LOADING
+// ==========================================
+const dz=Q('dz'),fi=Q('fi');
+['dragenter','dragover','dragleave','drop'].forEach(e=>dz.addEventListener(e,ev=>{ev.preventDefault();ev.stopPropagation();}));
+['dragenter','dragover'].forEach(e=>dz.addEventListener(e,()=>dz.classList.add('over')));
+['dragleave','drop'].forEach(e=>dz.addEventListener(e,()=>dz.classList.remove('over')));
+dz.addEventListener('drop',e=>loadFiles([...e.dataTransfer.files]));
+dz.addEventListener('click',e=>{if(e.target.tagName!=='BUTTON')fi.click();});
+fi.addEventListener('change',e=>{loadFiles([...e.target.files]);fi.value='';});
+Q('fi2').addEventListener('change',e=>{loadFiles([...e.target.files]);e.target.value='';});
+
+async function loadFiles(files){
+    const imgs=files.filter(f=>f.type.startsWith('image/'));
+    if(!imgs.length)return toast('Solo imágenes','err');
+    for(const f of imgs){
+        const url=await readFile(f);
+        const img=new Image();
+        await new Promise((r,j)=>{img.onload=r;img.onerror=j;img.src=url;});
+        slides.push({url,w:img.naturalWidth,h:img.naturalHeight});
+        loadedImages.push(img);
+    }
+    cur=0;
+    Q('s1').classList.add('hidden');
+    Q('s2').classList.remove('hidden');
+    renderThumbs();
+    renderPreview();
+    renderTrGrid();
+    toast(`${imgs.length} slide(s) ✓`,'ok');
+}
+
+function readFile(f){return new Promise(r=>{const fr=new FileReader();fr.onload=e=>r(e.target.result);fr.readAsDataURL(f);});}
+
+function removeSlide(i){
+    if(slides.length<=1)return toast('Mínimo 1','err');
+    slides.splice(i,1);loadedImages.splice(i,1);
+    if(cur>=slides.length)cur=slides.length-1;
+    renderThumbs();renderPreview();
+}
+
+function resetAll(){slides=[];loadedImages=[];cur=0;stopPlay();Q('s1').classList.remove('hidden');Q('s2').classList.add('hidden');Q('result').classList.add('hidden');}
+
+// ==========================================
+//  PREVIEW (simple, no animation bugs)
+// ==========================================
+function renderPreview(){
+    if(!slides.length)return;
+    const s=slides[cur];
+    Q('vInner').innerHTML=`<img src="${s.url}" draggable="false">`;
+    Q('vpg').textContent=`${cur+1} / ${slides.length}`;
+    Q('vbar').style.width=((cur+1)/slides.length*100)+'%';
+    Q('dots').innerHTML=slides.map((_,i)=>`<div class="v-dot ${i===cur?'on':''}" onclick="goTo(${i})"></div>`).join('');
+
+    // Touch
+    const v=Q('viewer');
+    let tx=0;
+    v.ontouchstart=e=>{tx=e.touches[0].clientX;};
+    v.ontouchend=e=>{const d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>40)d<0?navNext():navPrev();};
+    v.onclick=e=>{if(e.target.closest('.v-arr'))return;const r=v.getBoundingClientRect();(e.clientX-r.left)<r.width/2?navPrev():navNext();};
+}
+
+function renderThumbs(){
+    Q('cnt').textContent=slides.length;
+    Q('thumbs').innerHTML=slides.map((s,i)=>`
+        <div class="thumb ${i===cur?'on':''}" onclick="goTo(${i})" draggable="true" data-i="${i}">
+            <img src="${s.url}"><span class="tn">${i+1}</span>
+            <button class="rm" onclick="event.stopPropagation();removeSlide(${i})">✕</button>
+        </div>`).join('');
+    let dragI=null;
+    document.querySelectorAll('.thumb[draggable]').forEach(el=>{
+        el.addEventListener('dragstart',()=>{dragI=+el.dataset.i;el.style.opacity='0.4';});
+        el.addEventListener('dragend',()=>{el.style.opacity='1';});
+        el.addEventListener('dragover',e=>e.preventDefault());
+        el.addEventListener('drop',e=>{e.preventDefault();const di=+el.dataset.i;
+            if(dragI!==null&&dragI!==di){const m=slides.splice(dragI,1)[0];const mi=loadedImages.splice(dragI,1)[0];slides.splice(di,0,m);loadedImages.splice(di,0,mi);cur=di;renderThumbs();renderPreview();}});
+    });
+    const active=document.querySelector('.thumb.on');
+    if(active)active.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+}
+
+function goTo(i){cur=i;renderThumbs();renderPreview();}
+function navNext(){if(cur<slides.length-1){cur++;renderThumbs();renderPreview();}else if(autoTimer){cur=0;renderThumbs();renderPreview();}}
+function navPrev(){if(cur>0){cur--;renderThumbs();renderPreview();}}
+function togglePlay(){autoTimer?stopPlay():startPlay();}
+function startPlay(){autoTimer=setInterval(navNext,slideTime);Q('playBtn').textContent='⏸️';}
+function stopPlay(){clearInterval(autoTimer);autoTimer=null;Q('playBtn').textContent='▶️ Auto';}
+
+document.addEventListener('keydown',e=>{
+    if(Q('s2').classList.contains('hidden'))return;if(e.target.tagName==='INPUT')return;
+    if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();navNext();}
+    if(e.key==='ArrowLeft'){e.preventDefault();navPrev();}
+});
+
+// ==========================================
+//  SETTINGS
+// ==========================================
+Q('slTime').oninput=e=>{slideTime=+e.target.value;Q('svTime').textContent=(slideTime/1000).toFixed(1)+'s';};
+Q('slRes').oninput=e=>{gifRes=+e.target.value;Q('svRes').textContent=e.target.value+'px';};
+Q('slTrSpeed').oninput=e=>{trSpeed=+e.target.value;Q('svTrSpeed').textContent=(trSpeed/1000).toFixed(1)+'s';};
+function setTime(v){Q('slTime').value=v;Q('slTime').dispatchEvent(new Event('input'));}
+function setRes(v){Q('slRes').value=v;Q('slRes').dispatchEvent(new Event('input'));}
+function setTrSpeed(v){Q('slTrSpeed').value=v;Q('slTrSpeed').dispatchEvent(new Event('input'));}
+
+function renderTrGrid(){
+    Q('trG').innerHTML=TRANSITIONS.map(t=>`<button class="tr-btn ${trType===t.id?'on':''}" onclick="setTr('${t.id}')"><span class="tri">${t.icon}</span>${t.name}</button>`).join('');
+}
+function setTr(t){trType=t;renderTrGrid();}
+
+// ==========================================
+//  GENERATE GIF WITH TRANSITIONS
+// ==========================================
+async function generateGIF(){
+    if(slides.length<2)return toast('Mínimo 2 slides','err');
+
+    const btn=Q('genBtn');
+    btn.innerHTML='<div class="spinner"></div> Generando...';
+    btn.disabled=true;
+    Q('prog').classList.remove('hidden');
+    Q('result').classList.add('hidden');
+
+    await sleep(50);
+
+    try{
+        // Determine dimensions
+        const firstImg=loadedImages[0];
+        const aspect=firstImg.naturalHeight/firstImg.naturalWidth;
+        const w=gifRes;
+        const h=Math.round(w*aspect);
+
+        const canvas=document.createElement('canvas');
+        canvas.width=w;canvas.height=h;
+        const ctx=canvas.getContext('2d',{willReadFrequently:true});
+
+        const encoder=new GE(w,h);
+        encoder.r=0;
+
+        const trFrames=Math.max(1,Math.round((trSpeed/1000)*15)); // ~15fps for transitions
+        const frameDelay=Math.round(trSpeed/trFrames);
+
+        let totalSteps=0;
+        for(let i=0;i<slides.length;i++){
+            totalSteps++; // static frame
+            if(i<slides.length-1 && trType!=='none') totalSteps+=trFrames;
+        }
+        let step=0;
+
+        for(let i=0;i<slides.length;i++){
+            // Static frame (the actual slide)
+            ctx.fillStyle='#000';
+            ctx.fillRect(0,0,w,h);
+            drawContain(ctx,loadedImages[i],w,h);
+            encoder.af(ctx.getImageData(0,0,w,h).data, slideTime);
+            step++;
+            updateProg(step/totalSteps*100,`Slide ${i+1}/${slides.length}`);
+            await sleep(20);
+
+            // Transition frames
+            if(i<slides.length-1 && trType!=='none'){
+                const imgA=loadedImages[i];
+                const imgB=loadedImages[i+1];
+
+                for(let f=0;f<trFrames;f++){
+                    const t=(f+1)/trFrames; // 0→1
+                    ctx.fillStyle='#000';
+                    ctx.fillRect(0,0,w,h);
+
+                    if(trType==='fade'){
+                        ctx.globalAlpha=1-t;
+                        drawContain(ctx,imgA,w,h);
+                        ctx.globalAlpha=t;
+                        drawContain(ctx,imgB,w,h);
+                        ctx.globalAlpha=1;
+                    }
+                    else if(trType==='slide'){
+                        const offset=Math.round(w*t);
+                        ctx.save();
+                        ctx.beginPath();ctx.rect(-offset,0,w,h);ctx.clip();
+                        drawContain(ctx,imgA,w,h);
+                        ctx.restore();
+                        ctx.save();
+                        ctx.beginPath();ctx.rect(w-offset,0,w,h);ctx.clip();
+                        ctx.translate(w-offset,0);
+                        drawContainAt(ctx,imgB,0,0,w,h);
+                        ctx.restore();
+                    }
+                    else if(trType==='zoom'){
+                        const scaleA=1+t*0.15;
+                        const scaleB=0.85+t*0.15;
+                        ctx.globalAlpha=1-t;
+                        ctx.save();
+                        ctx.translate(w/2,h/2);ctx.scale(scaleA,scaleA);ctx.translate(-w/2,-h/2);
+                        drawContain(ctx,imgA,w,h);
+                        ctx.restore();
+                        ctx.globalAlpha=t;
+                        ctx.save();
+                        ctx.translate(w/2,h/2);ctx.scale(scaleB,scaleB);ctx.translate(-w/2,-h/2);
+                        drawContain(ctx,imgB,w,h);
+                        ctx.restore();
+                        ctx.globalAlpha=1;
+                    }
+                    else if(trType==='blur'){
+                        // Simulate blur with multiple offset draws
+                        ctx.globalAlpha=1-t;
+                        drawContain(ctx,imgA,w,h);
+                        ctx.globalAlpha=t;
+                        drawContain(ctx,imgB,w,h);
+                        ctx.globalAlpha=1;
+                    }
+
+                    encoder.af(ctx.getImageData(0,0,w,h).data, frameDelay);
+                    step++;
+                    updateProg(step/totalSteps*100,`Transición ${i+1}→${i+2}`);
+                    await sleep(10);
+                }
+            }
+        }
+
+        updateProg(95,'Codificando GIF...');
+        await sleep(50);
+        const bytes=encoder.enc(128);
+        const blob=new Blob([bytes],{type:'image/gif'});
+        const url=URL.createObjectURL(blob);
+
+        updateProg(100,'¡Listo!');
+
+        // Show result
+        Q('gifPreview').src=url;
+        Q('gifInfo').textContent=`${fmt(blob.size)} · ${w}×${h} · ${slides.length} slides · ${(slideTime/1000).toFixed(1)}s/slide`;
+        const ok=blob.size<5*1024*1024;
+        Q('gifBadge').innerHTML=ok
+            ?'<div class="linkedin-badge ok">💼 Listo para LinkedIn (< 5MB) ✓</div>'
+            :'<div class="linkedin-badge warn">⚠️ > 5MB — Reduce resolución o slides</div>';
+        Q('dlBtn').onclick=()=>{const a=document.createElement('a');a.href=url;a.download='carousel.gif';document.body.appendChild(a);a.click();document.body.removeChild(a);toast('¡Descargado! ✓','ok');};
+        Q('result').classList.remove('hidden');
+        Q('result').scrollIntoView({behavior:'smooth'});
+        toast(`GIF creado (${fmt(blob.size)}) ✓`,'ok');
+
+    }catch(e){
+        console.error(e);
+        toast('Error: '+e.message,'err');
+    }
+
+    btn.innerHTML='🎞️ Generar GIF para LinkedIn';
+    btn.disabled=false;
+    setTimeout(()=>Q('prog').classList.add('hidden'),1500);
+}
+
+function drawContain(ctx,img,cw,ch){
+    const iw=img.naturalWidth,ih=img.naturalHeight;
+    const scale=Math.min(cw/iw,ch/ih);
+    const dw=iw*scale,dh=ih*scale;
+    const dx=(cw-dw)/2,dy=(ch-dh)/2;
+    ctx.drawImage(img,dx,dy,dw,dh);
+}
+
+function drawContainAt(ctx,img,x,y,cw,ch){
+    const iw=img.naturalWidth,ih=img.naturalHeight;
+    const scale=Math.min(cw/iw,ch/ih);
+    const dw=iw*scale,dh=ih*scale;
+    const dx=(cw-dw)/2,dy=(ch-dh)/2;
+    ctx.drawImage(img,dx+x,dy+y,dw,dh);
+}
+
+function updateProg(p,l){Q('progF').style.width=p+'%';Q('progV').textContent=Math.round(p)+'%';if(l)Q('progL').textContent=l;}
+
+// Init
+renderTrGrid();
+</script>
+</body>
+</html>
