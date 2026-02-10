@@ -1,8 +1,7 @@
 ---
 title: CovidCencecAPK
-authors: ["admin"]
+authors: "admin"
 date: '2023-02-28'
-type: project # <--- ¡AÑADIR ESTO!
 slug: covidcencecapk
 translationKey: "covidcencecapk"
 categories: ["proyectos"] 

@@ -2,152 +2,1010 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Spectral PDF Optimizer V7 - BioestadísticaEdu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Forge Pro — Optimizador con OCR</title>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+
     <style>
-        :root { --primary: #3b82f6; --edu: #f59e0b; --bg: #0b0f1a; --card: #161e2e; --accent: #10b981; --error: #ef4444; }
-        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: #f1f5f9; margin: 0; padding: 10px; display: flex; justify-content: center; }
-        .card { background: var(--card); max-width: 500px; width: 100%; padding: 25px; border-radius: 28px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); border: 1px solid #1e293b; box-sizing: border-box; }
-        .brand { text-align: center; margin-bottom: 20px; }
-        .brand h1 { margin: 0; font-size: 1.5rem; letter-spacing: -1px; color: var(--primary); }
-        .brand .edu { color: var(--edu); font-weight: 800; }
-        .tech-badge { background: rgba(59, 130, 246, 0.05); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 16px; padding: 15px; margin-bottom: 20px; font-size: 0.75rem; color: #94a3b8; line-height: 1.4; }
-        .upload-zone { border: 2px dashed #334155; border-radius: 20px; padding: 30px 15px; text-align: center; cursor: pointer; transition: 0.3s; background: rgba(0,0,0,0.2); margin-bottom: 20px; }
-        .upload-zone:hover { border-color: var(--primary); background: rgba(59,130,246,0.05); }
-        .controls { background: #0b0f1a; padding: 15px; border-radius: 16px; margin-bottom: 20px; border: 1px solid #1e293b; }
-        label { display: flex; justify-content: space-between; font-size: 0.65rem; font-weight: bold; color: #64748b; text-transform: uppercase; margin-bottom: 10px; }
-        select, input[type="range"] { width: 100%; box-sizing: border-box; }
-        select { padding: 10px; border-radius: 10px; background: #161e2e; border: 1px solid #334155; color: white; margin-bottom: 15px; }
-        input[type="range"] { margin-bottom: 5px; accent-color: var(--primary); }
-        .stats-container { display: none; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
-        .stat-card { background: #000; padding: 12px; border-radius: 12px; border: 1px solid #1e293b; text-align: center; }
-        .stat-val { font-size: 0.9rem; font-weight: bold; color: var(--accent); }
-        .reduction-pill { background: var(--accent); color: #000; font-size: 0.6rem; padding: 2px 6px; border-radius: 4px; font-weight: 800; margin-top: 5px; display: inline-block; }
-        .status-box { background: #000; padding: 12px; border-radius: 12px; margin-bottom: 15px; display: none; border: 1px solid #1e293b; }
-        .progress-bar { width: 100%; height: 4px; background: #1e293b; border-radius: 10px; overflow: hidden; margin-top: 10px; }
-        #progress-fill { width: 0%; height: 100%; background: var(--primary); transition: width 0.2s; }
-        .btn { width: 100%; padding: 16px; border: none; border-radius: 14px; font-weight: bold; cursor: pointer; font-size: 1rem; color: white; display: flex; align-items: center; justify-content: center; gap: 8px; box-sizing: border-box; }
-        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        .btn-main { background: var(--primary); box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3); }
-        .btn-download { background: var(--accent); color: #000; margin-top: 10px; display: none; }
-        .error-msg { background: rgba(239,68,68,0.1); border: 1px solid var(--error); color: var(--error); padding: 10px; border-radius: 10px; font-size: 0.7rem; margin-bottom: 10px; display: none; word-break: break-word; }
-        footer { text-align: center; margin-top: 25px; font-size: 0.6rem; color: #475569; border-top: 1px solid #1e293b; padding-top: 15px; }
+        :root {
+            --bg-primary: #0a0e1a;
+            --bg-secondary: #111827;
+            --bg-tertiary: #1a2235;
+            --bg-elevated: #1e293b;
+            --accent-blue: #3b82f6;
+            --accent-blue-soft: rgba(59,130,246,0.15);
+            --accent-violet: #8b5cf6;
+            --accent-violet-soft: rgba(139,92,246,0.15);
+            --accent-emerald: #10b981;
+            --accent-emerald-soft: rgba(16,185,129,0.12);
+            --accent-amber: #f59e0b;
+            --accent-red: #ef4444;
+            --accent-red-soft: rgba(239,68,68,0.12);
+            --accent-cyan: #06b6d4;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --text-faint: #475569;
+            --border-subtle: rgba(148,163,184,0.08);
+            --border-medium: rgba(148,163,184,0.15);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --radius-2xl: 24px;
+            --radius-full: 9999px;
+            --ease-out: cubic-bezier(0.16,1,0.3,1);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter','SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 20px 16px 40px;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 50% -20%, rgba(59,130,246,0.08), transparent),
+                radial-gradient(ellipse 60% 40% at 80% 100%, rgba(139,92,246,0.06), transparent);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .app-container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 580px;
+        }
+
+        .app-header {
+            text-align: center;
+            margin-bottom: 28px;
+            padding-top: 10px;
+        }
+
+        .app-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .logo-icon {
+            width: 44px; height: 44px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-violet));
+            border-radius: var(--radius-md);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.4rem;
+            box-shadow: 0 4px 15px rgba(59,130,246,0.3);
+        }
+
+        .logo-text { text-align: left; }
+
+        .logo-text h1 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .logo-text .version-tag {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .app-subtitle { font-size: 0.8rem; color: var(--text-muted); margin-top: 6px; }
+
+        .card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-2xl);
+            box-shadow: 0 25px 60px -12px rgba(0,0,0,0.6);
+            overflow: hidden;
+        }
+
+        .card-body { padding: 24px; }
+
+        /* Upload Zone */
+        .upload-zone {
+            position: relative;
+            border: 2px dashed var(--border-medium);
+            border-radius: var(--radius-xl);
+            padding: 40px 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 300ms var(--ease-out);
+            background: var(--bg-primary);
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+
+        .upload-zone::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, var(--accent-blue-soft), transparent 70%);
+            opacity: 0;
+            transition: opacity 300ms;
+        }
+
+        .upload-zone:hover { border-color: var(--accent-blue); transform: translateY(-2px); }
+        .upload-zone:hover::before { opacity: 1; }
+
+        .upload-zone.drag-over {
+            border-color: var(--accent-violet);
+            background: var(--accent-violet-soft);
+            transform: scale(1.02);
+        }
+
+        .upload-zone.has-file {
+            border-color: var(--accent-emerald);
+            border-style: solid;
+            background: var(--accent-emerald-soft);
+            padding: 20px 24px;
+        }
+
+        .upload-content { position: relative; z-index: 1; }
+
+        .upload-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            display: block;
+            filter: grayscale(0.3);
+            transition: filter 300ms;
+        }
+
+        .upload-zone:hover .upload-icon { filter: grayscale(0); }
+        .upload-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 6px; }
+        .upload-hint { font-size: 0.75rem; color: var(--text-muted); }
+
+        .file-info {
+            display: none;
+            align-items: center;
+            gap: 14px;
+            text-align: left;
+        }
+
+        .has-file .default-content { display: none; }
+        .has-file .file-info { display: flex; }
+
+        .file-icon-wrapper {
+            width: 48px; height: 48px;
+            border-radius: var(--radius-md);
+            background: var(--accent-emerald-soft);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .file-details { flex: 1; min-width: 0; }
+
+        .file-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .file-meta { font-size: 0.72rem; color: var(--text-muted); margin-top: 2px; }
+
+        .file-remove {
+            width: 32px; height: 32px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-medium);
+            background: transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem;
+            transition: all 150ms;
+            flex-shrink: 0;
+        }
+
+        .file-remove:hover {
+            background: var(--accent-red-soft);
+            border-color: var(--accent-red);
+            color: var(--accent-red);
+        }
+
+        /* Section titles */
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-bottom: 14px;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-subtle);
+        }
+
+        /* Settings */
+        .settings-panel {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-xl);
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .setting-group { margin-bottom: 20px; }
+        .setting-group:last-child { margin-bottom: 0; }
+
+        .setting-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .setting-label-text { font-size: 0.8rem; font-weight: 600; }
+
+        .setting-label-value {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            background: var(--accent-blue-soft);
+            padding: 2px 10px;
+            border-radius: var(--radius-full);
+        }
+
+        .custom-select { position: relative; }
+
+        .custom-select select {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-medium);
+            color: var(--text-primary);
+            font-size: 0.82rem;
+            font-weight: 500;
+            cursor: pointer;
+            appearance: none;
+            transition: border-color 150ms;
+            outline: none;
+        }
+
+        .custom-select select:hover,
+        .custom-select select:focus {
+            border-color: var(--accent-blue);
+        }
+
+        .custom-select select:focus {
+            box-shadow: 0 0 0 3px var(--accent-blue-soft);
+        }
+
+        .custom-select::after {
+            content: '▾';
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            pointer-events: none;
+        }
+
+        .range-slider input[type="range"] {
+            width: 100%;
+            height: 6px;
+            appearance: none;
+            background: var(--bg-elevated);
+            border-radius: var(--radius-full);
+            outline: none;
+            cursor: pointer;
+        }
+
+        .range-slider input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            width: 22px; height: 22px;
+            border-radius: 50%;
+            background: var(--accent-blue);
+            border: 3px solid var(--bg-primary);
+            box-shadow: 0 2px 8px rgba(59,130,246,0.4);
+            cursor: pointer;
+            transition: transform 150ms;
+        }
+
+        .range-slider input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.15); }
+
+        .range-slider input[type="range"]::-moz-range-thumb {
+            width: 22px; height: 22px;
+            border-radius: 50%;
+            background: var(--accent-blue);
+            border: 3px solid var(--bg-primary);
+            box-shadow: 0 2px 8px rgba(59,130,246,0.4);
+            cursor: pointer;
+        }
+
+        .range-marks {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 4px 0;
+        }
+
+        .range-marks span { font-size: 0.6rem; color: var(--text-faint); }
+
+        /* OCR */
+        .ocr-panel {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-xl);
+            padding: 20px;
+            margin-bottom: 24px;
+            transition: border-color 300ms, box-shadow 300ms;
+        }
+
+        .ocr-panel.active {
+            border-color: rgba(139,92,246,0.3);
+            box-shadow: 0 0 40px rgba(139,92,246,0.15);
+        }
+
+        .toggle-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .toggle-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .toggle-icon {
+            width: 40px; height: 40px;
+            border-radius: var(--radius-md);
+            background: var(--accent-violet-soft);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem;
+            transition: all 300ms;
+        }
+
+        .ocr-panel.active .toggle-icon {
+            background: linear-gradient(135deg, var(--accent-violet), var(--accent-blue));
+            box-shadow: 0 4px 12px rgba(139,92,246,0.3);
+        }
+
+        .toggle-text h3 { font-size: 0.85rem; font-weight: 600; margin-bottom: 2px; }
+        .toggle-text p { font-size: 0.7rem; color: var(--text-muted); }
+
+        .switch {
+            position: relative;
+            width: 52px;
+            height: 28px;
+            flex-shrink: 0;
+        }
+
+        .switch input { opacity: 0; width: 0; height: 0; position: absolute; }
+
+        .switch-track {
+            position: absolute;
+            cursor: pointer;
+            inset: 0;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-medium);
+            border-radius: var(--radius-full);
+            transition: all 300ms var(--ease-out);
+        }
+
+        .switch-track::before {
+            content: '';
+            position: absolute;
+            height: 20px; width: 20px;
+            left: 3px; bottom: 3px;
+            background: var(--text-muted);
+            border-radius: 50%;
+            transition: all 300ms var(--ease-out);
+        }
+
+        .switch input:checked + .switch-track {
+            background: var(--accent-violet);
+            border-color: var(--accent-violet);
+        }
+
+        .switch input:checked + .switch-track::before {
+            transform: translateX(24px);
+            background: white;
+        }
+
+        .ocr-expanded {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 500ms var(--ease-out), opacity 300ms, margin 300ms;
+            opacity: 0;
+            margin-top: 0;
+        }
+
+        .ocr-expanded.active {
+            max-height: 300px;
+            opacity: 1;
+            margin-top: 18px;
+        }
+
+        .ocr-benefits {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .ocr-benefit {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-sm);
+            padding: 10px 8px;
+            text-align: center;
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+        }
+
+        .ocr-benefit-icon { font-size: 1.1rem; display: block; margin-bottom: 4px; }
+
+        /* Progress */
+        .progress-section {
+            margin-bottom: 24px;
+            display: none;
+        }
+
+        .progress-section.active {
+            display: block;
+            animation: slideDown 300ms var(--ease-out);
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .progress-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-xl);
+            padding: 20px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .progress-status { font-size: 0.78rem; font-weight: 600; }
+        .progress-percent {
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: var(--accent-blue);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .progress-detail {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+            min-height: 1.2em;
+        }
+
+        .progress-track {
+            width: 100%;
+            height: 6px;
+            background: var(--bg-elevated);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+            border-radius: var(--radius-full);
+            transition: width 200ms var(--ease-out);
+        }
+
+        .progress-fill.ocr-mode {
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-violet));
+        }
+
+        .progress-fill.error { background: var(--accent-red); }
+        .progress-fill.complete {
+            background: linear-gradient(90deg, var(--accent-emerald), var(--accent-cyan));
+        }
+
+        /* Stats */
+        .stats-grid {
+            display: none;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .stats-grid.active { display: grid; }
+
+        .stat-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            text-align: center;
+        }
+
+        .stat-card.result { border-color: rgba(16,185,129,0.2); }
+
+        .stat-label {
+            font-size: 0.6rem;
+            font-weight: 700;
+            color: var(--text-faint);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .stat-value {
+            font-size: 1.1rem;
+            font-weight: 800;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .stat-card.result .stat-value { color: var(--accent-emerald); }
+
+        .savings-badge {
+            display: none;
+            margin-top: 8px;
+            font-size: 0.65rem;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: var(--radius-full);
+        }
+
+        .savings-badge.positive {
+            background: var(--accent-emerald-soft);
+            color: var(--accent-emerald);
+            display: inline-block;
+        }
+
+        .savings-badge.negative {
+            background: var(--accent-red-soft);
+            color: var(--accent-red);
+            display: inline-block;
+        }
+
+        /* Error */
+        .error-banner {
+            display: none;
+            background: var(--accent-red-soft);
+            border: 1px solid rgba(239,68,68,0.3);
+            border-radius: var(--radius-md);
+            padding: 14px 16px;
+            margin-bottom: 20px;
+            font-size: 0.78rem;
+            color: #fca5a5;
+            line-height: 1.5;
+            align-items: flex-start;
+            gap: 10px;
+            animation: shake 0.4s ease;
+        }
+
+        .error-banner.active { display: flex; }
+        .error-icon { flex-shrink: 0; font-size: 1.1rem; }
+
+        @keyframes shake {
+            0%,100% { transform: translateX(0); }
+            20% { transform: translateX(-6px); }
+            40% { transform: translateX(6px); }
+            60% { transform: translateX(-4px); }
+            80% { transform: translateX(4px); }
+        }
+
+        /* Buttons */
+        .btn {
+            width: 100%;
+            padding: 16px 24px;
+            border: none;
+            border-radius: var(--radius-lg);
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 300ms var(--ease-out);
+            outline: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:active { transform: scale(0.98); }
+        .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-blue), #2563eb);
+            color: white;
+            box-shadow: 0 4px 20px rgba(59,130,246,0.3);
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            box-shadow: 0 6px 30px rgba(59,130,246,0.45);
+            transform: translateY(-1px);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--accent-emerald), #059669);
+            color: white;
+            box-shadow: 0 4px 20px rgba(16,185,129,0.3);
+            margin-top: 12px;
+            display: none;
+        }
+
+        .btn-success.active {
+            display: flex;
+            animation: slideDown 300ms var(--ease-out);
+        }
+
+        .btn-success:hover:not(:disabled) {
+            box-shadow: 0 6px 30px rgba(16,185,129,0.45);
+            transform: translateY(-1px);
+        }
+
+        .btn-icon { font-size: 1.15rem; }
+
+        .spinner {
+            display: none;
+            width: 18px; height: 18px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        .btn-primary.processing .spinner { display: block; }
+        .btn-primary.processing .btn-label { display: none; }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .app-footer {
+            text-align: center;
+            padding: 20px 24px;
+            border-top: 1px solid var(--border-subtle);
+            background: rgba(0,0,0,0.2);
+        }
+
+        .footer-text { font-size: 0.65rem; color: var(--text-faint); line-height: 1.6; }
+
+        .hidden-canvas {
+            position: absolute;
+            left: -9999px; top: -9999px;
+            visibility: hidden;
+        }
+
+        @media (max-width: 420px) {
+            .card-body { padding: 18px; }
+            .settings-panel, .ocr-panel, .progress-card { padding: 16px; }
+            .upload-zone { padding: 28px 16px; }
+            .ocr-benefits { grid-template-columns: 1fr; }
+            .logo-text h1 { font-size: 1.15rem; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <div class="brand">
-        <h1>Spectral PDF <span class="edu">Optimizer</span></h1>
-        <p style="font-size:0.6rem; color:#64748b; text-transform:uppercase; margin-top:5px;">BioestadísticaEdu</p>
-    </div>
-
-    <div class="tech-badge">
-        <strong>Normalización Isométrica:</strong> Rasterización adaptativa para aplanado de documentos y optimización de activos escaneados.
-    </div>
-
-    <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()">
-        <span id="upload-txt" style="font-size: 0.75rem; color: #94a3b8;">📄 SELECCIONAR DOCUMENTO</span>
-        <input type="file" id="fileInput" accept="application/pdf" style="display:none">
-    </div>
-
-    <div class="controls">
-        <label>Perfil de Optimización</label>
-        <select id="resProfile">
-            <option value="0.8">Compresión Extrema (Ahorro Máximo)</option>
-            <option value="1.2" selected>Equilibrado (Recomendado)</option>
-            <option value="1.8">Alta Fidelidad (Papers/Gráficos)</option>
-        </select>
-        
-        <label>Calidad Visual <span id="qLabel" style="color:var(--primary)">60%</span></label>
-        <input type="range" id="quality" min="10" max="90" value="60">
-    </div>
-
-    <div class="stats-container" id="statsContainer">
-        <div class="stat-card">
-            <div style="font-size:0.5rem; color:#64748b">ORIGINAL</div>
-            <div class="stat-val" id="oldSize">-</div>
+<div class="app-container">
+    <header class="app-header">
+        <div class="app-logo">
+            <div class="logo-icon">⚡</div>
+            <div class="logo-text">
+                <h1>PDF Forge Pro</h1>
+                <span class="version-tag">Motor de Compresión v2.0 + OCR</span>
+            </div>
         </div>
-        <div class="stat-card">
-            <div style="font-size:0.5rem; color:#64748b">OPTIMIZADO</div>
-            <div class="stat-val" id="newSize">-</div>
-            <div id="savePill" class="reduction-pill" style="display:none"></div>
+        <p class="app-subtitle">Comprime, optimiza y haz buscables tus PDFs — todo en el navegador</p>
+    </header>
+
+    <div class="card">
+        <div class="card-body">
+
+            <div class="upload-zone" id="uploadZone" role="button" tabindex="0">
+                <div class="upload-content default-content">
+                    <span class="upload-icon">📄</span>
+                    <div class="upload-title">Arrastra tu PDF aquí</div>
+                    <div class="upload-hint">o haz clic para seleccionar · Máx. 200 MB</div>
+                </div>
+                <div class="file-info">
+                    <div class="file-icon-wrapper">📋</div>
+                    <div class="file-details">
+                        <div class="file-name" id="fileName">—</div>
+                        <div class="file-meta" id="fileMeta">—</div>
+                    </div>
+                    <button class="file-remove" id="fileRemove" title="Quitar archivo">✕</button>
+                </div>
+                <input type="file" id="fileInput" accept="application/pdf" style="display:none">
+            </div>
+
+            <div class="section-title">⚙️ Configuración</div>
+            <div class="settings-panel">
+                <div class="setting-group">
+                    <div class="setting-label">
+                        <span class="setting-label-text">Perfil de compresión</span>
+                    </div>
+                    <div class="custom-select">
+                        <select id="resProfile">
+                            <option value="0.7">🔥 Compresión máxima</option>
+                            <option value="1.2" selected>⚖️ Equilibrado (Recomendado)</option>
+                            <option value="1.8">🔬 Alta fidelidad</option>
+                            <option value="2.4">💎 Ultra calidad</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <div class="setting-label">
+                        <span class="setting-label-text">Calidad visual</span>
+                        <span class="setting-label-value" id="qLabel">60%</span>
+                    </div>
+                    <div class="range-slider">
+                        <input type="range" id="quality" min="10" max="95" value="60">
+                        <div class="range-marks"><span>Mín</span><span>Máx</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-title">🔤 Reconocimiento de Texto</div>
+            <div class="ocr-panel" id="ocrPanel">
+                <div class="toggle-row">
+                    <div class="toggle-info">
+                        <div class="toggle-icon">🔍</div>
+                        <div class="toggle-text">
+                            <h3>Texto seleccionable (OCR)</h3>
+                            <p>Permite copiar, pegar y buscar</p>
+                        </div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="ocrToggle">
+                        <span class="switch-track"></span>
+                    </label>
+                </div>
+
+                <div class="ocr-expanded" id="ocrExpanded">
+                    <div class="ocr-benefits">
+                        <div class="ocr-benefit"><span class="ocr-benefit-icon">📋</span>Copiar texto</div>
+                        <div class="ocr-benefit"><span class="ocr-benefit-icon">🔎</span>Buscar (Ctrl+F)</div>
+                        <div class="ocr-benefit"><span class="ocr-benefit-icon">♿</span>Accesibilidad</div>
+                    </div>
+
+                    <div class="setting-group">
+                        <div class="setting-label">
+                            <span class="setting-label-text">Idioma del documento</span>
+                        </div>
+                        <div class="custom-select">
+                            <select id="ocrLang">
+                                <option value="spa" selected>🇪🇸 Español</option>
+                                <option value="eng">🇬🇧 English</option>
+                                <option value="por">🇧🇷 Português</option>
+                                <option value="fra">🇫🇷 Français</option>
+                                <option value="ita">🇮🇹 Italiano</option>
+                                <option value="deu">🇩🇪 Deutsch</option>
+                                <option value="spa+eng">🌐 Español + English</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-grid" id="statsGrid">
+                <div class="stat-card">
+                    <div class="stat-label">Original</div>
+                    <div class="stat-value" id="origSize">—</div>
+                </div>
+                <div class="stat-card result">
+                    <div class="stat-label">Optimizado</div>
+                    <div class="stat-value" id="newSize">—</div>
+                    <span class="savings-badge" id="savingsBadge"></span>
+                </div>
+            </div>
+
+            <div class="error-banner" id="errorBanner" role="alert">
+                <span class="error-icon">⚠️</span>
+                <span id="errorText"></span>
+            </div>
+
+            <div class="progress-section" id="progressSection">
+                <div class="progress-card">
+                    <div class="progress-header">
+                        <span class="progress-status" id="progressStatus">Preparando...</span>
+                        <span class="progress-percent" id="progressPercent">0%</span>
+                    </div>
+                    <div class="progress-detail" id="progressDetail"></div>
+                    <div class="progress-track">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn btn-primary" id="processBtn" disabled>
+                <span class="spinner"></span>
+                <span class="btn-label">
+                    <span class="btn-icon">⚡</span>
+                    Optimizar PDF
+                </span>
+            </button>
+
+            <button class="btn btn-success" id="downloadBtn">
+                <span class="btn-icon">📥</span>
+                Descargar PDF Optimizado
+            </button>
         </div>
+
+        <footer class="app-footer">
+            <div class="footer-text">
+                Procesamiento 100% local — Tu archivo nunca sale de tu dispositivo<br>
+                PDF Forge Pro · Maicel Monzón-Pérez · © 2024
+            </div>
+        </footer>
     </div>
-
-    <div class="error-msg" id="errorBox"></div>
-
-    <div class="status-box" id="statusBox">
-        <div style="display: flex; justify-content: space-between; font-size: 0.6rem; font-weight: bold; color: var(--primary);">
-            <span id="statusInfo">ESPERANDO...</span>
-            <span id="percentTxt">0%</span>
-        </div>
-        <div class="progress-bar"><div id="progress-fill"></div></div>
-    </div>
-
-    <button id="processBtn" class="btn btn-main" disabled>INICIAR OPTIMIZACIÓN</button>
-    <button id="downloadBtn" class="btn btn-download">📥 DESCARGAR PDF OPTIMIZADO</button>
-
-    <footer>
-        ARQUITECTURA DE COMPRESIÓN V7 (SMART SCALE)<br>
-        Maicel Monzón-Pérez | © 2024
-    </footer>
 </div>
 
-<!-- Canvas oculto para renderizado -->
-<canvas id="procCanvas" style="display:none"></canvas>
+<canvas id="renderCanvas" class="hidden-canvas"></canvas>
 
 <script>
-    // ─── Inicialización de PDF.js ───
-    const pdfjsLib = window['pdfjs-dist/build/pdf'];
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 
-        'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+(() => {
+    'use strict';
 
-    // ─── Referencias DOM ───
-    const fileInput    = document.getElementById('fileInput');
-    const processBtn   = document.getElementById('processBtn');
-    const downloadBtn  = document.getElementById('downloadBtn');
-    const qualityInput = document.getElementById('quality');
-    const qLabel       = document.getElementById('qLabel');
-    const statusBox    = document.getElementById('statusBox');
-    const statsContainer = document.getElementById('statsContainer');
-    const progressFill = document.getElementById('progress-fill');
-    const errorBox     = document.getElementById('errorBox');
+    // ══════════════════════════════
+    //  CONFIGURACIÓN
+    // ══════════════════════════════
+
+    const CONFIG = {
+        MAX_FILE_SIZE: 200 * 1024 * 1024,
+        MAX_CANVAS_DIM: 4096,
+        YIELD_DELAY: 30,
+        OCR_MIN_CONFIDENCE: 30,
+        PDFJS_WORKER: 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js'
+    };
+
+    // PDF.js init
+    const pdfjsLib = window['pdfjs-dist/build/pdf'];
+    pdfjsLib.GlobalWorkerOptions.workerSrc = CONFIG.PDFJS_WORKER;
+
+    // ══════════════════════════════
+    //  ELEMENTOS DOM
+    // ══════════════════════════════
+
+    const $ = (id) => document.getElementById(id);
+
+    const DOM = {
+        fileInput: $('fileInput'),
+        uploadZone: $('uploadZone'),
+        fileName: $('fileName'),
+        fileMeta: $('fileMeta'),
+        fileRemove: $('fileRemove'),
+        resProfile: $('resProfile'),
+        quality: $('quality'),
+        qLabel: $('qLabel'),
+        ocrToggle: $('ocrToggle'),
+        ocrPanel: $('ocrPanel'),
+        ocrExpanded: $('ocrExpanded'),
+        ocrLang: $('ocrLang'),
+        statsGrid: $('statsGrid'),
+        origSize: $('origSize'),
+        newSize: $('newSize'),
+        savingsBadge: $('savingsBadge'),
+        errorBanner: $('errorBanner'),
+        errorText: $('errorText'),
+        progressSection: $('progressSection'),
+        progressStatus: $('progressStatus'),
+        progressPercent: $('progressPercent'),
+        progressDetail: $('progressDetail'),
+        progressFill: $('progressFill'),
+        processBtn: $('processBtn'),
+        downloadBtn: $('downloadBtn'),
+        canvas: $('renderCanvas')
+    };
+
+    // ══════════════════════════════
+    //  ESTADO
+    // ══════════════════════════════
 
     let selectedFile = null;
-    let finalBlob    = null;
-    let blobUrl      = null;  // FIX: trackear URL para revocar
+    let finalBlob = null;
+    let blobUrl = null;
+    let tesseractWorker = null;
+    let isProcessing = false;
 
-    // Límite seguro de canvas (evita crash en móviles y navegadores)
-    const MAX_CANVAS_DIM = 4096;
+    // ══════════════════════════════
+    //  UTILIDADES
+    // ══════════════════════════════
 
-    // ─── Utilidades ───
     function formatSize(bytes) {
-        if (bytes < 1024) return bytes + ' B';
-        if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
-        return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+        if (!bytes || bytes === 0) return '0 B';
+        const units = ['B', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(1024));
+        const val = bytes / Math.pow(1024, i);
+        return val.toFixed(i >= 2 ? 2 : (i >= 1 ? 1 : 0)) + ' ' + units[i];
     }
 
+    function wait(ms) {
+        return new Promise(r => setTimeout(r, ms || CONFIG.YIELD_DELAY));
+    }
+
+    // ══════════════════════════════
+    //  INTERFAZ
+    // ══════════════════════════════
+
     function showError(msg) {
-        errorBox.textContent = msg;
-        errorBox.style.display = 'block';
+        DOM.errorText.textContent = msg;
+        DOM.errorBanner.classList.add('active');
     }
 
     function hideError() {
-        errorBox.style.display = 'none';
+        DOM.errorBanner.classList.remove('active');
     }
 
-    function resetUI() {
-        progressFill.style.width = '0%';
-        document.getElementById('percentTxt').innerText = '0%';
-        document.getElementById('statusInfo').innerText = 'ESPERANDO...';
-        document.getElementById('newSize').innerText = '-';
-        document.getElementById('savePill').style.display = 'none';
-        downloadBtn.style.display = 'none';
+    function setProgress(percent, status, detail) {
+        if (percent !== null && percent !== undefined) {
+            DOM.progressFill.style.width = Math.round(percent) + '%';
+            DOM.progressPercent.textContent = Math.round(percent) + '%';
+        }
+        if (status !== null && status !== undefined) {
+            DOM.progressStatus.textContent = status;
+        }
+        if (detail !== null && detail !== undefined) {
+            DOM.progressDetail.textContent = detail;
+        }
+    }
+
+    function resetAll() {
+        DOM.progressFill.style.width = '0%';
+        DOM.progressFill.className = 'progress-fill';
+        DOM.progressPercent.textContent = '0%';
+        DOM.progressStatus.textContent = 'Preparando...';
+        DOM.progressDetail.textContent = '';
+        DOM.newSize.textContent = '—';
+        DOM.savingsBadge.className = 'savings-badge';
+        DOM.savingsBadge.textContent = '';
+        DOM.downloadBtn.classList.remove('active');
+        DOM.progressSection.classList.remove('active');
         hideError();
-        // Liberar blob anterior si existe
+
         if (blobUrl) {
             URL.revokeObjectURL(blobUrl);
             blobUrl = null;
@@ -155,224 +1013,460 @@
         finalBlob = null;
     }
 
-    // ─── Eventos ───
-    qualityInput.oninput = () => {
-        qLabel.innerText = qualityInput.value + '%';
-    };
+    // ══════════════════════════════
+    //  ARCHIVOS
+    // ══════════════════════════════
 
-    fileInput.onchange = (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-        
-        if (file.type !== 'application/pdf') {
-            showError('Por favor selecciona un archivo PDF válido.');
-            return;
+    function validateFile(file) {
+        if (!file) return 'No se seleccionó ningún archivo.';
+        if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
+            return 'El archivo no es un PDF válido.';
         }
+        if (file.size > CONFIG.MAX_FILE_SIZE) {
+            return 'El archivo excede el límite de ' + formatSize(CONFIG.MAX_FILE_SIZE) + '.';
+        }
+        if (file.size === 0) return 'El archivo está vacío.';
+        return null;
+    }
+
+    function loadFile(file) {
+        hideError();
+        resetAll();
+
+        const err = validateFile(file);
+        if (err) { showError(err); return; }
 
         selectedFile = file;
-        document.getElementById('upload-txt').innerText = '✓ ' + file.name;
-        document.getElementById('oldSize').innerText = formatSize(file.size);
-        statsContainer.style.display = 'grid';
-        processBtn.disabled = false;
-        resetUI();
-        hideError();
+        DOM.uploadZone.classList.add('has-file');
+        DOM.fileName.textContent = file.name;
+        DOM.fileMeta.textContent = formatSize(file.size) + ' · PDF';
+        DOM.origSize.textContent = formatSize(file.size);
+        DOM.statsGrid.classList.add('active');
+        DOM.processBtn.disabled = false;
+    }
+
+    function clearFile() {
+        DOM.uploadZone.classList.remove('has-file');
+        DOM.fileName.textContent = '—';
+        DOM.fileMeta.textContent = '—';
+        DOM.fileInput.value = '';
+        DOM.origSize.textContent = '—';
+        DOM.statsGrid.classList.remove('active');
+        DOM.processBtn.disabled = true;
+        selectedFile = null;
+        resetAll();
+    }
+
+    // ══════════════════════════════
+    //  OCR (Tesseract.js v5)
+    // ══════════════════════════════
+
+    const OCR_LABELS = {
+        'loading tesseract core':       '⚙️ Cargando motor OCR...',
+        'initializing tesseract':       '⚙️ Inicializando OCR...',
+        'loading language traineddata': '📦 Descargando modelo de idioma...',
+        'loaded language traineddata':  '✓ Modelo cargado',
+        'initializing api':            '⚙️ Preparando reconocimiento...',
+        'recognizing text':            '🔍 Reconociendo texto...'
     };
 
-    // ─── Procesamiento Principal ───
-    processBtn.onclick = async () => {
-        if (!selectedFile) return;
-        
-        processBtn.disabled = true;
-        resetUI();
-        statusBox.style.display = 'block';
+    async function initOCR(lang) {
+        DOM.progressDetail.textContent = '⚙️ Inicializando motor OCR...';
+        tesseractWorker = await Tesseract.createWorker(lang, 1, {
+            logger: (m) => {
+                if (m.status === 'recognizing text') {
+                    DOM.progressDetail.textContent = '🔍 OCR: ' + Math.round(m.progress * 100) + '%';
+                } else {
+                    DOM.progressDetail.textContent = OCR_LABELS[m.status] || m.status;
+                }
+            }
+        });
+    }
 
-        const quality = qualityInput.value / 100;
-        const scale   = parseFloat(document.getElementById('resProfile').value);
+    async function runOCR(canvas) {
+        try {
+            const result = await tesseractWorker.recognize(canvas);
+            return result.data;
+        } catch (e) {
+            console.warn('OCR error:', e);
+            return null;
+        }
+    }
 
-        let pdf = null;
+    async function stopOCR() {
+        if (tesseractWorker) {
+            try { await tesseractWorker.terminate(); } catch(e) {}
+            tesseractWorker = null;
+        }
+    }
+
+    // ══════════════════════════════
+    //  CAPA DE TEXTO INVISIBLE
+    // ══════════════════════════════
+
+    function addTextLayer(pdf, ocrData, pageW, pageH, canvasW, canvasH) {
+        if (!ocrData || !ocrData.words || ocrData.words.length === 0) return;
+
+        const sx = pageW / canvasW;
+        const sy = pageH / canvasH;
+
+        pdf.saveGraphicsState();
+        try {
+            const gs = new pdf.GState({ opacity: 0.01 });
+            pdf.setGState(gs);
+        } catch(e) {
+            // Fallback si GState no funciona
+        }
+        pdf.setFont('Helvetica');
+        pdf.setTextColor(0, 0, 0);
+
+        let added = 0;
+        for (const word of ocrData.words) {
+            if (word.confidence < CONFIG.OCR_MIN_CONFIDENCE) continue;
+            const txt = (word.text || '').trim();
+            if (!txt) continue;
+
+            const x = word.bbox.x0 * sx;
+            const y = word.bbox.y0 * sy;
+            const h = (word.bbox.y1 - word.bbox.y0) * sy;
+            const fontSize = Math.max(2, h * 0.72);
+
+            pdf.setFontSize(fontSize);
+
+            try {
+                pdf.text(txt, x, y + h * 0.82);
+                added++;
+            } catch {
+                try {
+                    const safe = txt.replace(/[^\x20-\x7E\xA0-\xFF]/g, '');
+                    if (safe) { pdf.text(safe, x, y + h * 0.82); added++; }
+                } catch { /* skip */ }
+            }
+        }
+
+        pdf.restoreGraphicsState();
+        return added;
+    }
+
+    // ══════════════════════════════
+    //  PROCESAMIENTO PRINCIPAL
+    // ══════════════════════════════
+
+    async function processDocument() {
+        if (!selectedFile || isProcessing) return;
+
+        isProcessing = true;
+        DOM.processBtn.disabled = true;
+        DOM.processBtn.classList.add('processing');
+        resetAll();
+        DOM.progressSection.classList.add('active');
+
+        const quality = DOM.quality.value / 100;
+        const scale = parseFloat(DOM.resProfile.value);
+        const enableOCR = DOM.ocrToggle.checked;
+        const ocrLang = DOM.ocrLang.value;
+
+        if (enableOCR) {
+            DOM.progressFill.classList.add('ocr-mode');
+        }
+
+        let pdfDoc = null;
+        let outPdf = null;
 
         try {
-            // FIX: Usar Uint8Array para mayor compatibilidad
+            // 1. OCR Init
+            if (enableOCR) {
+                setProgress(2, 'Inicializando OCR...', '');
+                await initOCR(ocrLang);
+            }
+
+            // 2. Cargar PDF
+            setProgress(5, 'Cargando documento...', '');
             const arrayBuffer = await selectedFile.arrayBuffer();
-            const typedArray  = new Uint8Array(arrayBuffer);
-            
-            pdf = await pdfjsLib.getDocument({ data: typedArray }).promise;
-            
+            const data = new Uint8Array(arrayBuffer);
+
+            pdfDoc = await pdfjsLib.getDocument({ data: data }).promise;
+            const totalPages = pdfDoc.numPages;
+            setProgress(8, 'Documento cargado', totalPages + ' páginas detectadas');
+
             const { jsPDF } = window.jspdf;
-            let outPdf = null;
 
-            const canvas = document.getElementById('procCanvas');
-            // FIX: willReadFrequently optimiza las lecturas repetidas del canvas
-            const ctx = canvas.getContext('2d', { 
-                alpha: false, 
-                willReadFrequently: true 
-            });
+            const canvas = DOM.canvas;
+            const ctx = canvas.getContext('2d', { alpha: false, willReadFrequently: true });
 
-            const totalPages = pdf.numPages;
-
+            // 3. Procesar cada página
             for (let i = 1; i <= totalPages; i++) {
-                // Actualizar progreso
-                const progress = Math.round((i / totalPages) * 100);
-                progressFill.style.width = progress + '%';
-                document.getElementById('percentTxt').innerText = progress + '%';
-                document.getElementById('statusInfo').innerText = 
-                    `PROCESANDO: ${i} de ${totalPages}`;
 
-                const page = await pdf.getPage(i);
+                const pctBase = 10 + ((i - 1) / totalPages) * 80;
+                const pctEnd  = 10 + (i / totalPages) * 80;
 
-                // FIX: Viewport ORIGINAL para dimensiones reales de la página (en puntos)
-                const origViewport = page.getViewport({ scale: 1.0 });
-                const pageWidthPt  = origViewport.width;   // ancho en puntos
-                const pageHeightPt = origViewport.height;  // alto en puntos
+                // 3a. Renderizar
+                setProgress(pctBase, 'Renderizando página ' + i + '/' + totalPages, '');
 
-                // FIX: Calcular escala de render con protección de tamaño máximo
+                const page = await pdfDoc.getPage(i);
+                const origVP = page.getViewport({ scale: 1.0 });
+                const pageW = origVP.width;
+                const pageH = origVP.height;
+
+                // Calcular escala segura
                 let renderScale = scale;
-                const maxRenderDim = Math.max(
-                    origViewport.width * renderScale, 
-                    origViewport.height * renderScale
-                );
-                if (maxRenderDim > MAX_CANVAS_DIM) {
-                    renderScale = MAX_CANVAS_DIM / Math.max(origViewport.width, origViewport.height);
+                const maxDim = Math.max(origVP.width, origVP.height) * renderScale;
+                if (maxDim > CONFIG.MAX_CANVAS_DIM) {
+                    renderScale = CONFIG.MAX_CANVAS_DIM / Math.max(origVP.width, origVP.height);
                 }
 
-                const renderViewport = page.getViewport({ scale: renderScale });
-                canvas.width  = Math.floor(renderViewport.width);
-                canvas.height = Math.floor(renderViewport.height);
+                const renderVP = page.getViewport({ scale: renderScale });
+                canvas.width = Math.floor(renderVP.width);
+                canvas.height = Math.floor(renderVP.height);
 
-                // FIX: Limpiar canvas con fondo blanco (evita residuos entre páginas)
+                // Fondo blanco + render
                 ctx.fillStyle = '#FFFFFF';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
+                await page.render({ canvasContext: ctx, viewport: renderVP }).promise;
 
-                // Renderizar página
-                await page.render({ 
-                    canvasContext: ctx, 
-                    viewport: renderViewport 
-                }).promise;
-
-                // Convertir a JPEG
-                const imgData = canvas.toDataURL('image/jpeg', quality);
-
-                // FIX: Verificar que toDataURL no devolvió vacío
-                if (!imgData || imgData === 'data:,') {
-                    throw new Error(`Error al rasterizar la página ${i}. Canvas demasiado grande.`);
+                // Capturar imagen
+                const imgDataURL = canvas.toDataURL('image/jpeg', quality);
+                if (!imgDataURL || imgDataURL.length < 100) {
+                    throw new Error('Error al rasterizar la página ' + i);
                 }
 
-                // Crear o añadir página al PDF de salida
+                // 3b. OCR
+                let ocrData = null;
+                if (enableOCR) {
+                    const pctOcr = pctBase + (pctEnd - pctBase) * 0.4;
+                    setProgress(pctOcr, 'OCR página ' + i + '/' + totalPages, '🔍 Reconociendo...');
+                    ocrData = await runOCR(canvas);
+
+                    if (ocrData && ocrData.words) {
+                        const count = ocrData.words.filter(w => w.confidence >= CONFIG.OCR_MIN_CONFIDENCE).length;
+                        setProgress(null, null, '✓ ' + count + ' palabras detectadas');
+                    }
+                }
+
+                // 3c. Construir página de salida
+                setProgress(pctEnd, 'Construyendo página ' + i + '...', '');
+
                 if (i === 1) {
                     outPdf = new jsPDF({
-                        orientation: pageWidthPt > pageHeightPt ? 'l' : 'p',
+                        orientation: pageW > pageH ? 'l' : 'p',
                         unit: 'pt',
-                        format: [pageWidthPt, pageHeightPt],
+                        format: [pageW, pageH],
                         compress: true
                     });
                 } else {
-                    outPdf.addPage(
-                        [pageWidthPt, pageHeightPt], 
-                        pageWidthPt > pageHeightPt ? 'l' : 'p'
-                    );
+                    outPdf.addPage([pageW, pageH], pageW > pageH ? 'l' : 'p');
                 }
 
-                // FIX: Alias único por página evita reutilización de imagen
-                outPdf.addImage(
-                    imgData, 'JPEG', 
-                    0, 0, 
-                    pageWidthPt, pageHeightPt, 
-                    `img_page_${i}`, 
-                    'FAST'
-                );
+                // Insertar imagen
+                outPdf.addImage(imgDataURL, 'JPEG', 0, 0, pageW, pageH, 'pg' + i, 'FAST');
 
-                // FIX: Liberar recursos de la página
+                // Insertar capa de texto
+                if (ocrData) {
+                    addTextLayer(outPdf, ocrData, pageW, pageH, canvas.width, canvas.height);
+                }
+
+                // Liberar
                 page.cleanup();
-
-                // Ceder control al navegador para evitar congelamiento
-                await new Promise(r => setTimeout(r, 30));
+                await wait(CONFIG.YIELD_DELAY);
             }
 
-            // Generar blob final
+            // 4. Generar blob final
+            setProgress(92, 'Generando PDF final...', enableOCR ? '📝 Incrustando texto...' : '');
+            await wait(100);
+
             finalBlob = outPdf.output('blob');
 
-            // Mostrar estadísticas
-            const newSizeMB  = finalBlob.size / (1024 * 1024);
-            const origSizeMB = selectedFile.size / (1024 * 1024);
-            const saving = ((1 - (newSizeMB / origSizeMB)) * 100).toFixed(0);
-
-            document.getElementById('newSize').innerText = formatSize(finalBlob.size);
-
-            const pill = document.getElementById('savePill');
-            if (saving > 0) {
-                pill.innerText = `↓ AHORRO: ${saving}%`;
-                pill.style.background = 'var(--accent)';
-                pill.style.color = '#000';
-            } else {
-                pill.innerText = `↑ INCREMENTO: ${Math.abs(saving)}%`;
-                pill.style.background = 'var(--error)';
-                pill.style.color = '#fff';
+            if (!finalBlob || finalBlob.size === 0) {
+                throw new Error('El PDF generado está vacío. Intenta con otros ajustes.');
             }
-            pill.style.display = 'inline-block';
 
-            document.getElementById('statusInfo').innerText = '✓ PROCESO FINALIZADO';
-            downloadBtn.style.display = 'flex';
+            console.log('✅ PDF generado:', formatSize(finalBlob.size));
+
+            // 5. Mostrar resultados
+            const origBytes = selectedFile.size;
+            const newBytes = finalBlob.size;
+            const saving = ((1 - newBytes / origBytes) * 100).toFixed(0);
+
+            DOM.newSize.textContent = formatSize(newBytes);
+
+            if (saving > 0) {
+                DOM.savingsBadge.textContent = '↓ ' + saving + '% más pequeño';
+                DOM.savingsBadge.className = 'savings-badge positive';
+            } else {
+                DOM.savingsBadge.textContent = '↑ ' + Math.abs(saving) + '% más grande';
+                DOM.savingsBadge.className = 'savings-badge negative';
+            }
+
+            DOM.progressFill.classList.add('complete');
+            setProgress(100, '✓ Optimización completa',
+                enableOCR ? '📋 Texto seleccionable y copiable' : '✓ Listo para descargar');
+
+            // MOSTRAR BOTÓN DE DESCARGA
+            DOM.downloadBtn.classList.add('active');
 
         } catch (err) {
-            console.error('Error durante el procesamiento:', err);
-            showError('Error: ' + (err.message || 'No se pudo procesar el PDF.'));
-            document.getElementById('statusInfo').innerText = '✗ ERROR';
-            progressFill.style.background = 'var(--error)';
+            console.error('Error procesando:', err);
+            showError(err.message || 'Error desconocido al procesar el PDF.');
+            DOM.progressFill.classList.add('error');
+            setProgress(100, '✗ Error', err.message || '');
         } finally {
-            // FIX: Liberar recursos del documento PDF
-            if (pdf) {
-                try { pdf.destroy(); } catch(e) {}
-            }
-            processBtn.disabled = false;
+            if (pdfDoc) { try { pdfDoc.destroy(); } catch(e) {} }
+            await stopOCR();
+            isProcessing = false;
+            DOM.processBtn.disabled = !selectedFile;
+            DOM.processBtn.classList.remove('processing');
         }
-    };
+    }
 
-    // ─── Descarga ───
-    downloadBtn.onclick = () => {
+    // ══════════════════════════════
+    //  DESCARGA
+    // ══════════════════════════════
+
+    function downloadResult() {
         if (!finalBlob) {
-            showError('No hay archivo procesado para descargar.');
+            showError('No hay archivo para descargar. Procesa un PDF primero.');
             return;
         }
 
+        console.log('📥 Iniciando descarga, tamaño:', formatSize(finalBlob.size));
+
         try {
-            // Limpiar URL anterior si existe
+            // Limpiar URL anterior
             if (blobUrl) {
                 URL.revokeObjectURL(blobUrl);
+                blobUrl = null;
             }
 
+            // Crear nueva URL
             blobUrl = URL.createObjectURL(finalBlob);
 
+            // Crear nombre del archivo
+            const baseName = selectedFile.name.replace(/\.pdf$/i, '');
+            const suffix = DOM.ocrToggle.checked ? '_optimizado_OCR' : '_optimizado';
+            const outputName = baseName + suffix + '.pdf';
+
+            // Método 1: Link invisible
             const link = document.createElement('a');
             link.href = blobUrl;
-
-            // Nombre limpio para el archivo
-            const baseName = selectedFile.name.replace(/\.pdf$/i, '');
-            link.download = `${baseName}_optimizado.pdf`;
-
-            // FIX: Añadir al DOM antes de click (requerido en Safari/iOS)
-            link.style.display = 'none';
+            link.download = outputName;
+            link.style.cssText = 'position:fixed;left:-999px;top:-999px;opacity:0;';
             document.body.appendChild(link);
+
+            // Click
             link.click();
 
-            // FIX: Limpieza retardada para permitir que la descarga inicie
+            // Limpiar después
             setTimeout(() => {
-                document.body.removeChild(link);
-                // No revocar inmediatamente: algunos navegadores necesitan tiempo
-            }, 3000);
+                if (link.parentNode) {
+                    document.body.removeChild(link);
+                }
+            }, 5000);
+
+            console.log('✅ Descarga iniciada:', outputName);
 
         } catch (err) {
-            console.error('Error al descargar:', err);
-            showError('Error al descargar: ' + (err.message || 'Intenta de nuevo.'));
-            
-            // FIX: Fallback - abrir en nueva pestaña
+            console.error('Error descargando:', err);
+
+            // Método 2: Fallback - abrir en nueva pestaña
             try {
                 const fallbackUrl = URL.createObjectURL(finalBlob);
-                window.open(fallbackUrl, '_blank');
-            } catch(e2) {
-                showError('No se pudo descargar. Intenta con otro navegador.');
+                const win = window.open(fallbackUrl, '_blank');
+
+                if (!win) {
+                    showError('El navegador bloqueó la ventana. Permite las ventanas emergentes e intenta de nuevo.');
+                } else {
+                    console.log('✅ Abierto en nueva pestaña');
+                }
+            } catch (e2) {
+                showError('No se pudo descargar: ' + (err.message || 'Error desconocido'));
             }
         }
-    };
+    }
+
+    // ══════════════════════════════
+    //  EVENTOS
+    // ══════════════════════════════
+
+    // Archivo
+    DOM.fileInput.addEventListener('change', function(e) {
+        const file = e.target.files && e.target.files[0];
+        if (file) loadFile(file);
+    });
+
+    // Click en zona de upload
+    DOM.uploadZone.addEventListener('click', function(e) {
+        if (e.target === DOM.fileRemove || DOM.fileRemove.contains(e.target)) return;
+        if (isProcessing) return;
+        DOM.fileInput.click();
+    });
+
+    // Teclado
+    DOM.uploadZone.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            DOM.fileInput.click();
+        }
+    });
+
+    // Drag & Drop
+    DOM.uploadZone.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        DOM.uploadZone.classList.add('drag-over');
+    });
+
+    DOM.uploadZone.addEventListener('dragleave', function(e) {
+        e.preventDefault();
+        DOM.uploadZone.classList.remove('drag-over');
+    });
+
+    DOM.uploadZone.addEventListener('drop', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        DOM.uploadZone.classList.remove('drag-over');
+        const file = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+        if (file) loadFile(file);
+    });
+
+    // Quitar archivo
+    DOM.fileRemove.addEventListener('click', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        if (!isProcessing) clearFile();
+    });
+
+    // Slider de calidad
+    DOM.quality.addEventListener('input', function() {
+        DOM.qLabel.textContent = this.value + '%';
+    });
+
+    // Toggle OCR
+    DOM.ocrToggle.addEventListener('change', function() {
+        const on = this.checked;
+        DOM.ocrPanel.classList.toggle('active', on);
+        DOM.ocrExpanded.classList.toggle('active', on);
+    });
+
+    // Botón procesar
+    DOM.processBtn.addEventListener('click', function() {
+        processDocument();
+    });
+
+    // Botón descargar
+    DOM.downloadBtn.addEventListener('click', function() {
+        downloadResult();
+    });
+
+    // Limpieza al cerrar
+    window.addEventListener('beforeunload', function() {
+        if (blobUrl) URL.revokeObjectURL(blobUrl);
+        stopOCR();
+    });
+
+    console.log('🚀 PDF Forge Pro v2.0 inicializado');
+
+})();
 </script>
+
 </body>
 </html>
