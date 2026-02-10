@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StatForensics v3 — Auditoría de Medidas Resumen</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f0f4f8;
+            --card: #ffffff;
+            --primary: #1a365d;
+            --primary-l: #2b4c7e;
+            --accent: #3182ce;
+            --accent-l: #ebf8ff;
+            --border: #e2e8f0;
+            --border-d: #cbd5e0;
+            --text: #1a202c;
+            --text-m: #4a5568;
+            --text-l: #718096;
+            --green: #38a169;
+            --green-bg: #f0fff4;
+            --yellow: #d69e2e;
+            --yellow-bg: #fffff0;
+            --red: #e53e3e;
+            --red-bg: #fff5f5;
+            --radius: 10px;
+            --shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 12px;
+        }
+        .app { max-width: 720px; margin: 0 auto; }
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-l) 100%);
+            color: white; padding: 24px 20px; border-radius: var(--radius);
+            margin-bottom: 16px; text-align: center;
+        }
+        .header h1 { font-size: 1.4rem; font-weight: 700; }
+        .header p { font-size: 0.78rem; opacity: 0.8; margin-top: 3px; }
+        .badge {
+            display: inline-block; background: rgba(255,255,255,0.15);
+            padding: 2px 10px; border-radius: 20px; font-size: 0.65rem; margin-top: 6px;
+        }
+
+        /* TABS — scroll horizontal en móvil */
+        .tabs-wrap {
+            overflow-x: auto; -webkit-overflow-scrolling: touch;
+            margin-bottom: 16px;
+        }
+        .tabs-wrap::-webkit-scrollbar { height: 0; }
+        .tabs {
+            display: inline-flex; gap: 3px; background: var(--card);
+            border: 1px solid var(--border); border-radius: var(--radius);
+            padding: 4px; min-width: 100%; box-shadow: var(--shadow);
+        }
+        .tab {
+            flex-shrink: 0; padding: 10px 14px; border: none; background: transparent;
+            cursor: pointer; border-radius: 7px; font-family: inherit;
+            font-size: 0.72rem; font-weight: 600; color: var(--text-l);
+            transition: all 0.2s; white-space: nowrap; text-align: center;
+        }
+        .tab:hover { background: var(--bg); color: var(--text-m); }
+        .tab.active { background: var(--primary); color: white; }
+        .tab-icon { font-size: 1rem; margin-right: 4px; }
+
+        /* PANELS */
+        .panel {
+            display: none; background: var(--card); border: 1px solid var(--border);
+            border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden;
+        }
+        .panel.active { display: block; }
+        .panel-head {
+            padding: 20px; border-bottom: 1px solid var(--border);
+        }
+        .panel-head h3 { font-size: 1rem; color: var(--primary); margin-bottom: 4px; }
+        .panel-head .desc { font-size: 0.76rem; color: var(--text-l); line-height: 1.5; }
+        .panel-head .ref {
+            display: inline-block; margin-top: 8px; font-size: 0.68rem;
+            color: var(--accent); background: var(--accent-l);
+            padding: 2px 8px; border-radius: 4px;
+        }
+        .panel-body { padding: 20px; }
+
+        /* FORMS */
+        .form-row {
+            display: grid; gap: 12px; margin-bottom: 14px;
+        }
+        .cols-2 { grid-template-columns: 1fr 1fr; }
+        .cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+        .cols-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+
+        .fg { display: flex; flex-direction: column; }
+        .fg label {
+            font-size: 0.72rem; font-weight: 600; color: var(--text);
+            margin-bottom: 3px;
+        }
+        .fg .hint {
+            font-size: 0.66rem; color: var(--text-l); margin-bottom: 2px; font-style: italic;
+        }
+        .fg input, .fg select {
+            padding: 8px 10px; border: 1px solid var(--border);
+            border-radius: 6px; font-family: inherit; font-size: 0.82rem;
+            background: #fafbfc; transition: border-color 0.2s; width: 100%;
+        }
+        .fg input:focus, .fg select:focus {
+            outline: none; border-color: var(--accent); background: white;
+        }
+
+        .section-label {
+            font-size: 0.7rem; font-weight: 700; color: var(--primary);
+            text-transform: uppercase; letter-spacing: 0.5px;
+            margin: 16px 0 8px; padding-bottom: 5px;
+            border-bottom: 2px solid var(--accent-l);
+        }
+        .section-label:first-child { margin-top: 0; }
+
+        /* BUTTONS */
+        .btn {
+            width: 100%; padding: 12px; background: var(--primary); color: white;
+            border: none; border-radius: 8px; font-family: inherit;
+            font-size: 0.85rem; font-weight: 600; cursor: pointer;
+            transition: all 0.2s; margin-top: 4px;
+        }
+        .btn:hover { background: var(--primary-l); }
+        .btn-sm {
+            display: inline-flex; align-items: center; gap: 4px;
+            width: auto; padding: 7px 14px; font-size: 0.76rem;
+            margin-top: 0; background: var(--accent); border-radius: 6px;
+            border: none; color: white; cursor: pointer; font-family: inherit;
+            font-weight: 600;
+        }
+        .btn-sm:hover { opacity: 0.9; }
+
+        /* DYNAMIC ENTRY CARDS */
+        .entry-card {
+            background: #f7fafc; border: 1px solid var(--border);
+            border-radius: 8px; padding: 14px; margin-bottom: 10px;
+            position: relative;
+        }
+        .entry-card .entry-title {
+            font-size: 0.72rem; font-weight: 700; color: var(--primary);
+            margin-bottom: 10px; display: flex; align-items: center;
+            justify-content: space-between;
+        }
+        .btn-remove {
+            background: none; border: 1px solid var(--red); color: var(--red);
+            border-radius: 5px; width: 24px; height: 24px; cursor: pointer;
+            font-size: 0.75rem; display: flex; align-items: center;
+            justify-content: center; flex-shrink: 0; transition: all 0.2s;
+        }
+        .btn-remove:hover { background: var(--red); color: white; }
+
+        /* RESULTS */
+        .results { margin-top: 18px; }
+        .rc {
+            padding: 12px 14px; border-radius: 8px; margin-bottom: 8px;
+            border-left: 4px solid; font-size: 0.82rem;
+        }
+        .rc.pass { background: var(--green-bg); border-color: var(--green); }
+        .rc.warn { background: var(--yellow-bg); border-color: var(--yellow); }
+        .rc.fail { background: var(--red-bg); border-color: var(--red); }
+        .rc-h {
+            display: flex; align-items: center; gap: 6px;
+            font-weight: 600; margin-bottom: 3px; font-size: 0.82rem;
+        }
+        .rc-d {
+            font-size: 0.76rem; color: var(--text-m); line-height: 1.55;
+        }
+        .rc-d code {
+            background: rgba(0,0,0,0.05); padding: 1px 5px;
+            border-radius: 3px; font-size: 0.74rem;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* SUMMARY BAR */
+        .summary {
+            display: flex; gap: 12px; padding: 12px;
+            background: var(--bg); border-radius: 8px;
+            margin-bottom: 12px; flex-wrap: wrap;
+        }
+        .summary-i {
+            display: flex; align-items: center; gap: 5px;
+            font-size: 0.78rem; font-weight: 500;
+        }
+        .sdot {
+            width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0;
+        }
+        .sdot.g { background: var(--green); }
+        .sdot.y { background: var(--yellow); }
+        .sdot.r { background: var(--red); }
+
+        /* NOTE */
+        .note {
+            margin-top: 14px; padding: 12px; background: var(--bg);
+            border-radius: 8px; font-size: 0.7rem; color: var(--text-l); line-height: 1.5;
+        }
+        .note strong { color: var(--text-m); }
+
+        .divider { border: none; border-top: 1px solid var(--border); margin: 14px 0; }
+
+        /* FI BIG NUMBER */
+        .fi-display {
+            text-align: center; padding: 18px;
+        }
+        .fi-number {
+            font-size: 3.2rem; font-weight: 700; line-height: 1;
+        }
+        .fi-label {
+            font-size: 0.85rem; font-weight: 600; color: var(--text-m); margin-top: 4px;
+        }
+
+        /* FOOTER */
+        .footer {
+            text-align: center; font-size: 0.66rem; color: var(--text-l);
+            margin-top: 20px; padding: 12px; line-height: 1.6;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 520px) {
+            .cols-2 { grid-template-columns: 1fr 1fr; }
+            .cols-3 { grid-template-columns: 1fr 1fr; }
+            .cols-4 { grid-template-columns: 1fr 1fr; }
+            .header h1 { font-size: 1.2rem; }
+            body { padding: 8px; }
+        }
+    </style>
+</head>
+<body>
+<div class="app">
+
+    <div class="header">
+        <h1>⚖️ StatForensics</h1>
+        <p>Auditoría de Integridad Estadística · Medidas Resumen de Ensayos Clínicos</p>
+        <div class="badge">v3.0 · Para evaluadores e inspectores</div>
+    </div>
+
+    <div class="tabs-wrap">
+        <div class="tabs" id="main-tabs">
+            <button class="tab active" onclick="showTab('grim')"><span class="tab-icon">🔢</span>GRIM</button>
+            <button class="tab" onclick="showTab('consistency')"><span class="tab-icon">🔗</span>Consistencia</button>
+            <button class="tab" onclick="showTab('pval')"><span class="tab-icon">📐</span>Recálculo p</button>
+            <button class="tab" onclick="showTab('ci')"><span class="tab-icon">📊</span>IC 95%</button>
+            <button class="tab" onclick="showTab('baseline')"><span class="tab-icon">⚖️</span>Tabla Basal</button>
+            <button class="tab" onclick="showTab('fragility')"><span class="tab-icon">💔</span>Fragilidad</button>
+        </div>
+    </div>
+
+    <!-- ========== PANEL GRIM ========== -->
+    <div class="panel active" id="panel-grim">
+        <div class="panel-head">
+            <h3>GRIM Test — Proporciones y Medias por Grupo</h3>
+            <div class="desc">
+                Ingrese las proporciones (%) o medias reportadas para cada brazo de tratamiento.
+                Verifica si cada valor es matemáticamente posible dado el N del grupo.
+            </div>
+            <span class="ref">📄 Brown & Heathers (2017). Soc Psychol Personal Sci.</span>
+        </div>
+        <div class="panel-body">
+            <div id="grim-rows"></div>
+            <div style="margin-bottom:14px;">
+                <button class="btn-sm" onclick="addGrimRow()">+ Agregar grupo</button>
+            </div>
+            <button class="btn" onclick="runGrimMulti()">Verificar Todos los Grupos</button>
+            <div class="results" id="grim-results"></div>
+            <div class="note">
+                <strong>Uso:</strong> Extraiga de la tabla del informe el N y el porcentaje o media reportada para cada brazo.
+                Solo aplica a variables donde el numerador debe ser entero (conteos, proporciones, escalas Likert).
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== PANEL CONSISTENCIA ========== -->
+    <div class="panel" id="panel-consistency">
+        <div class="panel-head">
+            <h3>Consistencia Interna de Tablas</h3>
+            <div class="desc">
+                Verifica que los N sumen, los porcentajes correspondan a n/N,
+                la medida de efecto sea recalculable y el p-valor sea coherente con el IC.
+            </div>
+            <span class="ref">📄 Principios DEBIT — Heathers (2015)</span>
+        </div>
+        <div class="panel-body">
+            <div class="section-label">Tamaños de muestra</div>
+            <div class="form-row cols-3">
+                <div class="fg">
+                    <label>N total</label>
+                    <input type="number" id="c-ntotal" value="200">
+                </div>
+                <div class="fg">
+                    <label>N tratamiento</label>
+                    <input type="number" id="c-n1" value="101">
+                </div>
+                <div class="fg">
+                    <label>N control</label>
+                    <input type="number" id="c-n2" value="99">
+                </div>
+            </div>
+
+            <div class="section-label">Desenlace principal</div>
+            <div class="form-row cols-2">
+                <div class="fg">
+                    <label>Eventos tratamiento</label>
+                    <input type="number" id="c-e1" value="23">
+                </div>
+                <div class="fg">
+                    <label>% reportado tratamiento</label>
+                    <input type="number" id="c-p1" value="22.8" step="0.1">
+                </div>
+            </div>
+            <div class="form-row cols-2">
+                <div class="fg">
+                    <label>Eventos control</label>
+                    <input type="number" id="c-e2" value="31">
+                </div>
+                <div class="fg">
+                    <label>% reportado control</label>
+                    <input type="number" id="c-p2" value="31.3" step="0.1">
+                </div>
+            </div>
+
+            <div class="section-label">Medida de efecto e IC</div>
+            <div class="form-row cols-2">
+                <div class="fg">
+                    <label>Tipo de medida</label>
+                    <select id="c-effect-type">
+                        <option value="rr">Riesgo Relativo (RR)</option>
+                        <option value="or">Odds Ratio (OR)</option>
+                        <option value="rd">Diferencia de Riesgos</option>
+                        <option value="hr">Hazard Ratio (HR)</option>
+                    </select>
+                </div>
+                <div class="fg">
+                    <label>Valor reportado</label>
+                    <input type="number" id="c-effect-val" value="0.73" step="0.01">
+                </div>
+            </div>
+            <div class="form-row cols-3">
+                <div class="fg">
+                    <label>IC 95% inferior</label>
+                    <input type="number" id="c-ci-lo" value="0.45" step="0.01">
+                </div>
+                <div class="fg">
+                    <label>IC 95% superior</label>
+                    <input type="number" id="c-ci-hi" value="1.18" step="0.01">
+                </div>
+                <div class="fg">
+                    <label>p-valor reportado</label>
+                    <input type="number" id="c-pval" value="0.19" step="0.001">
+                </div>
+            </div>
+
+            <button class="btn" onclick="runConsistency()">Verificar Consistencia</button>
+            <div class="results" id="consistency-results"></div>
+        </div>
+    </div>
+
+    <!-- ========== PANEL RECÁLCULO P ========== -->
+    <div class="panel" id="panel-pval">
+        <div class="panel-head">
+            <h3>Recálculo de p-valores</h3>
+            <div class="desc">
+                Ingrese el estadístico de prueba (t, z, χ², F) y grados de libertad
+                para verificar si el p-valor reportado es correcto.
+            </div>
+            <span class="ref">📄 Nuijten et al. (2016). Behavior Research Methods (statcheck).</span>
+        </div>
+        <div class="panel-body">
+            <div id="pval-rows"></div>
+            <div style="margin-bottom:14px;">
+                <button class="btn-sm" onclick="addPvalRow()">+ Agregar estadístico</button>
+            </div>
+            <button class="btn" onclick="runPvalCheck()">Verificar p-valores</button>
+            <div class="results" id="pval-results"></div>
+            <div class="note">
+                <strong>Ref:</strong> statcheck encontró que ~50% de papers en psicología tenían al menos
+                un p-valor inconsistente, y en ~13% la inconsistencia cambiaba la significación.
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== PANEL IC ========== -->
+    <div class="panel" id="panel-ci">
+        <div class="panel-head">
+            <h3>Verificación de Intervalos de Confianza</h3>
+            <div class="desc">
+                Verifica coherencia del IC 95%: simetría (escala log para ratios),
+                compatibilidad con p-valor y ancho razonable dado el N.
+            </div>
+            <span class="ref">📄 Berry et al. (2017). Guidelines for reporting CIs.</span>
+        </div>
+        <div class="panel-body">
+            <div class="section-label">IC reportado</div>
+            <div class="form-row cols-2">
+                <div class="fg">
+                    <label>Tipo de estimador</label>
+                    <select id="ci-type">
+                        <option value="ratio">Ratio (RR, OR, HR)</option>
+                        <option value="diff">Diferencia (medias, RD)</option>
+                    </select>
+                </div>
+                <div class="fg">
+                    <label>Estimador puntual</label>
+                    <input type="number" id="ci-point" value="0.73" step="0.01">
+                </div>
+            </div>
+            <div class="form-row cols-2">
+                <div class="fg">
+                    <label>IC inferior</label>
+                    <input type="number" id="ci-lo" value="0.45" step="0.01">
+                </div>
+                <div class="fg">
+                    <label>IC superior</label>
+                    <input type="number" id="ci-hi" value="1.18" step="0.01">
+                </div>
+            </div>
+
+            <div class="section-label">Información adicional (opcional)</div>
+            <div class="form-row cols-3">
+                <div class="fg">
+                    <label>p-valor reportado</label>
+                    <input type="number" id="ci-pval" value="0.19" step="0.001">
+                </div>
+                <div class="fg">
+                    <label>N total</label>
+                    <input type="number" id="ci-n" value="200">
+                </div>
+                <div class="fg">
+                    <label>SE reportado</label>
+                    <input type="number" id="ci-se" step="0.001" placeholder="Opcional">
+                </div>
+            </div>
+
+            <button class="btn" onclick="runCICheck()">Verificar IC</button>
+            <div class="results" id="ci-results"></div>
+        </div>
+    </div>
+
+    <!-- ========== PANEL BASELINE ========== -->
+    <div class="panel" id="panel-baseline">
+        <div class="panel-head">
+            <h3>Tabla Basal — Test de Carlisle</h3>
+            <div class="desc">
+                Evalúa si las diferencias entre grupos en variables basales son compatibles
+                con aleatorización genuina. Detecta tanto exceso de diferencias como balance
+                sospechosamente perfecto.
+            </div>
+            <span class="ref">📄 Carlisle (2017). Anaesthesia / Bolland et al. (2021). Neurology.</span>
+        </div>
+        <div class="panel-body">
+            <div class="form-row cols-2">
+                <div class="fg">
+                    <label>N grupo Tratamiento</label>
+                    <input type="number" id="bl-n1" value="100">
+                </div>
+                <div class="fg">
+                    <label>N grupo Control</label>
+                    <input type="number" id="bl-n2" value="100">
+                </div>
+            </div>
+            <div class="section-label">Variables basales</div>
+            <div id="baseline-rows"></div>
+            <div style="margin-bottom:14px;">
+                <button class="btn-sm" onclick="addBaselineRow()">+ Agregar variable</button>
+            </div>
+            <button class="btn" onclick="runBaselineCheck()">Analizar Balance Basal</button>
+            <div class="results" id="baseline-results"></div>
+            <div class="note">
+                <strong>Interpretación (Carlisle):</strong> Si la probabilidad combinada (Fisher) es extremadamente
+                baja (p < 0.001), hay razones para cuestionar la aleatorización. Paradójicamente, variables
+                "demasiado perfectamente" balanceadas también son sospechosas.
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== PANEL FRAGILIDAD ========== -->
+    <div class="panel" id="panel-fragility">
+        <div class="panel-head">
+            <h3>Índice de Fragilidad</h3>
+            <div class="desc">
+                ¿Cuántos pacientes necesitarían cambiar de desenlace para que el resultado
+                deje de ser significativo? Un índice bajo indica que la conclusión es frágil.
+            </div>
+            <span class="ref">📄 Walsh et al. (2014). J Clin Epidemiol. / Ahmed et al. (2016). CMAJ.</span>
+        </div>
+        <div class="panel-body">
+            <div class="section-label">Tabla 2×2 del desenlace</div>
+            <div class="form-row cols-2">
+                <div class="fg">
+                    <label>Eventos tratamiento</label>
+                    <input type="number" id="f-e1" value="15">
+                </div>
+                <div class="fg">
+                    <label>N tratamiento</label>
+                    <input type="number" id="f-n1" value="100">
+                </div>
+            </div>
+            <div class="form-row cols-2">
+                <div class="fg">
+                    <label>Eventos control</label>
+                    <input type="number" id="f-e2" value="30">
+                </div>
+                <div class="fg">
+                    <label>N control</label>
+                    <input type="number" id="f-n2" value="100">
+                </div>
+            </div>
+            <button class="btn" onclick="runFragility()">Calcular Fragilidad</button>
+            <div class="results" id="fragility-results"></div>
+            <div class="note">
+                <strong>Contexto:</strong> Walsh et al. (2014) analizaron 399 ensayos del NEJM, JAMA y
+                Lancet: la mediana del índice de fragilidad fue solo 8. En el 25% de los ensayos fue ≤3.
+                Siempre compare el FI con las pérdidas de seguimiento.
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        StatForensics v3.0 · Herramienta de apoyo para verificación de integridad<br>
+        No sustituye inspección de datos fuente ni juicio del evaluador<br>
+        Métodos basados en literatura científica revisada por pares
+    </div>
+</div>
+
+<script>
+// ============================================================
+//  UTILIDADES
+// ============================================================
+function showTab(id) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-' + id).classList.add('active');
+    const ids = ['grim','consistency','pval','ci','baseline','fragility'];
+    const idx = ids.indexOf(id);
+    if (idx >= 0) document.querySelectorAll('.tab')[idx].classList.add('active');
+}
+
+function rc(level, title, detail) {
+    const icons = { pass: '🟢', warn: '🟡', fail: '🔴' };
+    return `<div class="rc ${level}"><div class="rc-h">${icons[level]||''} ${title}</div><div class="rc-d">${detail}</div></div>`;
+}
+
+function summaryBar(c) {
+    return `<div class="summary">
+        <div class="summary-i"><div class="sdot g"></div>${c.pass||0} OK</div>
+        <div class="summary-i"><div class="sdot y"></div>${c.warn||0} Advertencias</div>
+        <div class="summary-i"><div class="sdot r"></div>${c.fail||0} Inconsistencias</div>
+    </div>`;
+}
+
+// --- Math helpers ---
+function normalCDF(x) {
+    if (x < 0) return 1 - normalCDF(-x);
+    const t = 1/(1+0.2316419*x);
+    const d = 0.3989422804014327;
+    return 1 - d*Math.exp(-x*x/2)*(t*(0.31938153+t*(-0.356563782+t*(1.781477937+t*(-1.821255978+t*1.330274429)))));
+}
+
+function lnGamma(x) {
+    const c = [0.99999999999980993,676.5203681218851,-1259.1392167224028,
+        771.32342877765313,-176.61502916214059,12.507343278686905,
+        -0.13857109526572012,9.9843695780195716e-6,1.5056327351493116e-7];
+    if (x < 0.5) return Math.log(Math.PI/Math.sin(Math.PI*x)) - lnGamma(1-x);
+    x -= 1; let a = c[0]; const t = x+7.5;
+    for (let i=1;i<9;i++) a += c[i]/(x+i);
+    return 0.5*Math.log(2*Math.PI)+(x+0.5)*Math.log(t)-t+Math.log(a);
+}
+
+function tCDF(t, df) {
+    if (df > 100) return normalCDF(t);
+    const x = df/(df+t*t);
+    return t > 0 ? 1-0.5*regBeta(x,df/2,0.5) : 0.5*regBeta(x,df/2,0.5);
+}
+
+function regBeta(x, a, b) {
+    if (x===0) return 0; if (x===1) return 1;
+    if (x > (a+1)/(a+b+2)) return 1-regBeta(1-x,b,a);
+    const front = Math.exp(a*Math.log(x)+b*Math.log(1-x)-lnGamma(a)-lnGamma(b)+lnGamma(a+b));
+    let f=1,c2=1,d=1;
+    for (let m=1;m<=200;m++) {
+        let num;
+        if (m%2===1) { const i=(m-1)/2; num=-(a+i)*(a+b+i)*x/((a+2*i)*(a+2*i+1)); }
+        else { const i=m/2; num=i*(b-i)*x/((a+2*i-1)*(a+2*i)); }
+        d=1+num*d; if(Math.abs(d)<1e-30) d=1e-30; d=1/d;
+        c2=1+num/c2; if(Math.abs(c2)<1e-30) c2=1e-30;
+        f*=c2*d; if(Math.abs(c2*d-1)<1e-10) break;
+    }
+    return front*f/a;
+}
+
+function chi2PVal(x, k) {
+    if (x<=0) return 1;
+    return 1-lowGammaReg(k/2, x/2);
+}
+
+function lowGammaReg(a, x) {
+    if (x===0) return 0;
+    let sum=0, term=1/a;
+    for (let n=1;n<300;n++) { sum+=term; term*=x/(a+n); if(Math.abs(term)<1e-12) break; }
+    return Math.exp(-x+a*Math.log(x)-lnGamma(a))*sum;
+}
+
+function fisherExactP(a, b, c, d) {
+    const n=a+b+c+d;
+    function lf(num){let r=0;for(let i=2;i<=num;i++)r+=Math.log(i);return r;}
+    const pC=Math.exp(lf(a+b)+lf(c+d)+lf(a+c)+lf(b+d)-lf(a)-lf(b)-lf(c)-lf(d)-lf(n));
+    let pT=0;
+    for(let i=0;i<=Math.min(a+c,a+b);i++){
+        const j=(a+b)-i,k=(a+c)-i,l=n-i-j-k;
+        if(j<0||k<0||l<0) continue;
+        const p2=Math.exp(lf(i+j)+lf(k+l)+lf(i+k)+lf(j+l)-lf(i)-lf(j)-lf(k)-lf(l)-lf(n));
+        if(p2<=pC+1e-12) pT+=p2;
+    }
+    return Math.min(pT,1);
+}
+
+
+// ============================================================
+//  MÓDULO 1: GRIM MULTI-GRUPO
+// ============================================================
+let grimCount = 0;
+function addGrimRow() {
+    grimCount++;
+    const id = grimCount;
+    const div = document.createElement('div');
+    div.className = 'entry-card';
+    div.id = `grim-r-${id}`;
+    div.innerHTML = `
+        <div class="entry-title">
+            <span>Grupo ${id}</span>
+            <button class="btn-remove" onclick="document.getElementById('grim-r-${id}').remove()" title="Eliminar">×</button>
+        </div>
+        <div class="form-row cols-2">
+            <div class="fg">
+                <label>Nombre del brazo</label>
+                <input type="text" id="gr-name-${id}" value="Grupo ${id}">
+            </div>
+            <div class="fg">
+                <label>Tipo de valor</label>
+                <select id="gr-type-${id}">
+                    <option value="pct">Porcentaje (%)</option>
+                    <option value="mean">Media discreta</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row cols-2">
+            <div class="fg">
+                <label>N del grupo</label>
+                <input type="number" id="gr-n-${id}" value="100">
+            </div>
+            <div class="fg">
+                <label>Valor reportado</label>
+                <input type="number" id="gr-val-${id}" step="0.01" value="22.8">
+            </div>
+        </div>`;
+    document.getElementById('grim-rows').appendChild(div);
+}
+
+function runGrimMulti() {
+    let html='', counts={pass:0,warn:0,fail:0};
+    for(let i=1;i<=grimCount;i++){
+        if(!document.getElementById(`grim-r-${i}`)) continue;
+        const name=document.getElementById(`gr-name-${i}`).value||`Grupo ${i}`;
+        const n=parseInt(document.getElementById(`gr-n-${i}`).value);
+        const val=parseFloat(document.getElementById(`gr-val-${i}`).value);
+        const type=document.getElementById(`gr-type-${i}`).value;
+        if(isNaN(n)||isNaN(val)||n<=0){html+=rc('warn',`${name}: Datos incompletos`,'Verifique N y valor.');counts.warn++;continue;}
+        const product = type==='pct' ? (val/100)*n : val*n;
+        const valStr=val.toString(), decPos=valStr.indexOf('.'), rDec=decPos>=0?valStr.length-decPos-1:0;
+        let consistent=false, matchK=Math.round(product);
+        for(let k=Math.max(0,matchK-3);k<=matchK+3;k++){
+            const recon = type==='pct' ? parseFloat(((k/n)*100).toFixed(rDec)) : parseFloat((k/n).toFixed(rDec));
+            if(recon===val){consistent=true;matchK=k;break;}
+        }
+        if(consistent){
+            const d=type==='pct'?`${matchK}/${n} = ${((matchK/n)*100).toFixed(rDec)}% ✓`:`Suma=${matchK}, media=${(matchK/n).toFixed(rDec)} ✓`;
+            html+=rc('pass',`${name}: Consistente`,d);counts.pass++;
+        } else {
+            const below=Math.floor(product),above=Math.ceil(product);
+            const vB=type==='pct'?((below/n)*100).toFixed(rDec):(below/n).toFixed(rDec);
+            const vA=type==='pct'?((above/n)*100).toFixed(rDec):(above/n).toFixed(rDec);
+            html+=rc('fail',`${name}: INCONSISTENTE`,
+                `<code>${val}</code> no es posible con N=${n}. Cercanos: <code>${vB}</code> (k=${below}), <code>${vA}</code> (k=${above}).`);
+            counts.fail++;
+        }
+    }
+    if(!html) html=rc('warn','Sin datos','Agregue al menos un grupo.');
+    else html=summaryBar(counts)+html;
+    document.getElementById('grim-results').innerHTML=html;
+}
+
+
+// ============================================================
+//  MÓDULO 2: CONSISTENCIA INTERNA
+// ============================================================
+function runConsistency() {
+    const nT=parseInt(document.getElementById('c-ntotal').value);
+    const n1=parseInt(document.getElementById('c-n1').value);
+    const n2=parseInt(document.getElementById('c-n2').value);
+    const e1=parseInt(document.getElementById('c-e1').value);
+    const p1=parseFloat(document.getElementById('c-p1').value);
+    const e2=parseInt(document.getElementById('c-e2').value);
+    const p2=parseFloat(document.getElementById('c-p2').value);
+    const eType=document.getElementById('c-effect-type').value;
+    const eVal=parseFloat(document.getElementById('c-effect-val').value);
+    const ciLo=parseFloat(document.getElementById('c-ci-lo').value);
+    const ciHi=parseFloat(document.getElementById('c-ci-hi').value);
+    const pval=parseFloat(document.getElementById('c-pval').value);
+
+    let html='',c={pass:0,warn:0,fail:0};
+
+    // N
+    if(n1+n2===nT){html+=rc('pass','N total consistente',`${n1}+${n2}=${n1+n2}=${nT} ✓`);c.pass++;}
+    else{html+=rc('fail','N total INCONSISTENTE',`${n1}+${n2}=${n1+n2} ≠ ${nT}. Diferencia: ${Math.abs(n1+n2-nT)}.`);c.fail++;}
+
+    // %
+    [{nm:'Tratamiento',calc:(e1/n1)*100,rep:p1,e:e1,n:n1},{nm:'Control',calc:(e2/n2)*100,rep:p2,e:e2,n:n2}].forEach(g=>{
+        const d=Math.abs(g.calc-g.rep);
+        if(d<0.15){html+=rc('pass',`% ${g.nm} OK`,`${g.e}/${g.n}=${g.calc.toFixed(1)}% (rep: ${g.rep}%) ✓`);c.pass++;}
+        else if(d<0.5){html+=rc('warn',`% ${g.nm}: discrepancia menor`,`${g.e}/${g.n}=${g.calc.toFixed(2)}% vs ${g.rep}%. Dif: ${d.toFixed(2)}pp`);c.warn++;}
+        else{html+=rc('fail',`% ${g.nm}: INCONSISTENTE`,`${g.e}/${g.n}=${g.calc.toFixed(2)}% ≠ ${g.rep}%. Dif: ${d.toFixed(2)}pp`);c.fail++;}
+    });
+
+    // Effect measure
+    const r1=e1/n1,r2=e2/n2;
+    let calcE,eL;
+    if(eType==='rr'){calcE=r1/r2;eL='RR';}
+    else if(eType==='or'){calcE=(e1*(n2-e2))/(e2*(n1-e1));eL='OR';}
+    else if(eType==='rd'){calcE=r1-r2;eL='RD';}
+    else{calcE=eVal;eL='HR';}
+
+    if(eType!=='hr'){
+        const rel=Math.abs(calcE-eVal)/Math.abs(eVal)*100;
+        if(rel<2){html+=rc('pass',`${eL} consistente`,`Recalc: ${calcE.toFixed(3)} vs rep: ${eVal} (${rel.toFixed(1)}%) ✓`);c.pass++;}
+        else if(rel<10){html+=rc('warn',`${eL}: discrepancia menor`,`Recalc: ${calcE.toFixed(3)} vs rep: ${eVal} (${rel.toFixed(1)}%). ¿Ajuste por covariables?`);c.warn++;}
+        else{html+=rc('fail',`${eL}: INCONSISTENTE`,`Recalc: ${calcE.toFixed(3)} ≠ ${eVal} (${rel.toFixed(1)}%).`);c.fail++;}
+    } else {html+=rc('warn','HR no verificable desde tabla 2×2','Requiere datos de tiempo al evento.');c.warn++;}
+
+    // CI symmetry for ratios
+    if(eType!=='rd'&&eVal>0&&ciLo>0&&ciHi>0){
+        const lE=Math.log(eVal),lL=Math.log(ciLo),lH=Math.log(ciHi);
+        const dL=lE-lL,dH=lH-lE,asym=Math.abs(dL-dH)/((dL+dH)/2)*100;
+        if(asym<5){html+=rc('pass','IC simétrico (escala log)',`Asimetría: ${asym.toFixed(1)}% ✓`);c.pass++;}
+        else if(asym<15){html+=rc('warn','IC ligeramente asimétrico',`Asimetría: ${asym.toFixed(1)}%. Aceptable con métodos exactos.`);c.warn++;}
+        else{html+=rc('fail','IC muy asimétrico',`Asimetría: ${asym.toFixed(1)}%. Estimador no centrado en su IC.`);c.fail++;}
+    }
+
+    // p vs CI
+    if(!isNaN(pval)){
+        const nullV=eType==='rd'?0:1;
+        const ciNull=ciLo<=nullV&&ciHi>=nullV;
+        const pSig=pval<0.05;
+        if(pSig&&ciNull){html+=rc('fail','CONTRADICCIÓN: p<0.05 pero IC incluye nulo',`p=${pval}, IC(${ciLo},${ciHi}) incluye ${nullV}.`);c.fail++;}
+        else if(!pSig&&!ciNull){html+=rc('fail','CONTRADICCIÓN: p≥0.05 pero IC excluye nulo',`p=${pval}, IC(${ciLo},${ciHi}) excluye ${nullV}.`);c.fail++;}
+        else{html+=rc('pass','p-valor coherente con IC',`p=${pval} ${pSig?'<':'≥'}0.05, IC ${ciNull?'incluye':'excluye'} ${nullV} ✓`);c.pass++;}
+
+        // Recalc p
+        const pP=(e1+e2)/(n1+n2),se=Math.sqrt(pP*(1-pP)*(1/n1+1/n2));
+        if(se>0){
+            const z=Math.abs(r1-r2)/se,calcP=2*(1-normalCDF(z));
+            const pR=Math.max(calcP,pval)/Math.max(Math.min(calcP,pval),1e-10);
+            if(pR<2){html+=rc('pass','p recalculado OK',`p(χ²)≈${calcP.toFixed(4)} vs rep: ${pval} ✓`);c.pass++;}
+            else if(pR<5){html+=rc('warn','p: discrepancia moderada',`p(χ²)≈${calcP.toFixed(4)} vs rep: ${pval} (${pR.toFixed(1)}x). ¿Método diferente?`);c.warn++;}
+            else{html+=rc('fail','p MUY INCONSISTENTE',`p(χ²)≈${calcP.toFixed(4)} vs rep: ${pval} (${pR.toFixed(1)}x).`);c.fail++;}
+            if((calcP<0.05)!==(pval<0.05)){
+                html+=rc('fail','⚠️ Cruza umbral 0.05',`Recalc ${calcP<0.05?'significativo':'no sig.'} vs rep ${pval<0.05?'significativo':'no sig.'}`);c.fail++;
+            }
+        }
+    }
+
+    html=summaryBar(c)+html;
+    document.getElementById('consistency-results').innerHTML=html;
+}
+
+
+// ============================================================
+//  MÓDULO 3: RECÁLCULO DE P-VALORES
+// ============================================================
+let pvalCount=0;
+function addPvalRow(){
+    pvalCount++;
+    const id=pvalCount;
+    const div=document.createElement('div');
+    div.className='entry-card';
+    div.id=`pval-r-${id}`;
+    div.innerHTML=`
+        <div class="entry-title">
+            <span>Estadístico ${id}</span>
+            <button class="btn-remove" onclick="document.getElementById('pval-r-${id}').remove()">×</button>
+        </div>
+        <div class="form-row cols-2">
+            <div class="fg">
+                <label>Descripción</label>
+                <input type="text" id="pv-desc-${id}" value="Test ${id}">
+            </div>
+            <div class="fg">
+                <label>Tipo de estadístico</label>
+                <select id="pv-stat-${id}">
+                    <option value="t">t de Student</option>
+                    <option value="z">z (normal)</option>
+                    <option value="chi2">χ² (chi-cuadrado)</option>
+                    <option value="f">F (ANOVA)</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row cols-3">
+            <div class="fg">
+                <label>Valor del estadístico</label>
+                <input type="number" id="pv-val-${id}" step="0.001" value="2.15">
+            </div>
+            <div class="fg">
+                <label>Grados de libertad</label>
+                <input type="number" id="pv-df1-${id}" value="198">
+            </div>
+            <div class="fg">
+                <label>p-valor reportado</label>
+                <input type="number" id="pv-p-${id}" step="0.001" value="0.033">
+            </div>
+        </div>`;
+    document.getElementById('pval-rows').appendChild(div);
+}
+
+function runPvalCheck(){
+    let html='',c={pass:0,warn:0,fail:0};
+    for(let i=1;i<=pvalCount;i++){
+        if(!document.getElementById(`pval-r-${i}`)) continue;
+        const desc=document.getElementById(`pv-desc-${i}`).value||`Test ${i}`;
+        const st=document.getElementById(`pv-stat-${i}`).value;
+        const sv=parseFloat(document.getElementById(`pv-val-${i}`).value);
+        const df=parseInt(document.getElementById(`pv-df1-${i}`).value);
+        const pR=parseFloat(document.getElementById(`pv-p-${i}`).value);
+        if(isNaN(sv)||isNaN(pR)){html+=rc('warn',`${desc}: Incompleto`,'Verifique valores.');c.warn++;continue;}
+
+        let calcP,met;
+        if(st==='z'){calcP=2*(1-normalCDF(Math.abs(sv)));met=`z=${sv}`;}
+        else if(st==='t'){calcP=2*(1-tCDF(Math.abs(sv),df));met=`t(${df})=${sv}`;}
+        else if(st==='chi2'){calcP=chi2PVal(sv,df||1);met=`χ²(${df||1})=${sv}`;}
+        else{calcP=chi2PVal(sv*df,df);met=`F(${df},…)=${sv}`;}
+        if(isNaN(calcP)||calcP<0) calcP=0;
+
+        const ratio=Math.max(calcP,pR)/Math.max(Math.min(calcP,pR),1e-10);
+        const cross=(calcP<0.05)!==(pR<0.05);
+        const detail=`${met} → Recalc: <code>p=${calcP.toFixed(4)}</code> vs rep: <code>p=${pR}</code>`;
+
+        if(ratio<1.5){html+=rc('pass',`${desc}: Consistente`,detail+' ✓');c.pass++;}
+        else if(!cross&&ratio<5){html+=rc('warn',`${desc}: Discrepancia moderada`,detail+` (${ratio.toFixed(1)}x)`);c.warn++;}
+        else if(cross){
+            html+=rc('fail',`${desc}: ⚠️ CAMBIA CONCLUSIÓN`,detail+`<br><strong>Cruza umbral 0.05.</strong> Recalc: ${calcP<0.05?'sig.':'no sig.'}, rep: ${pR<0.05?'sig.':'no sig.'}`);c.fail++;
+        } else {html+=rc('fail',`${desc}: INCONSISTENTE`,detail+` (${ratio.toFixed(1)}x)`);c.fail++;}
+    }
+    if(!html) html=rc('warn','Sin datos','Agregue al menos un estadístico.');
+    else html=summaryBar(c)+html;
+    document.getElementById('pval-results').innerHTML=html;
+}
+
+
+// ============================================================
+//  MÓDULO 4: IC
+// ============================================================
+function runCICheck(){
+    const type=document.getElementById('ci-type').value;
+    const pt=parseFloat(document.getElementById('ci-point').value);
+    const lo=parseFloat(document.getElementById('ci-lo').value);
+    const hi=parseFloat(document.getElementById('ci-hi').value);
+    const pval=parseFloat(document.getElementById('ci-pval').value);
+    const nT=parseInt(document.getElementById('ci-n').value);
+    const seR=parseFloat(document.getElementById('ci-se').value);
+
+    let html='',c={pass:0,warn:0,fail:0};
+
+    // Order
+    if(lo>=hi){html+=rc('fail','IC invertido',`Inferior (${lo}) ≥ superior (${hi}).`);c.fail++;}
+    else if(pt<lo||pt>hi){html+=rc('fail','Estimador fuera del IC',`${pt} fuera de (${lo}, ${hi}).`);c.fail++;}
+    else{html+=rc('pass','Estimador dentro del IC',`${lo} ≤ ${pt} ≤ ${hi} ✓`);c.pass++;}
+
+    // Symmetry
+    if(type==='ratio'&&pt>0&&lo>0&&hi>0){
+        const lP=Math.log(pt),lL=Math.log(lo),lH=Math.log(hi);
+        const dL=lP-lL,dH=lH-lP,asym=Math.abs(dL-dH)/((dL+dH)/2)*100;
+        const seLn=(lH-lL)/(2*1.96);
+        if(asym<5){html+=rc('pass','Simetría log OK',`Asimetría: ${asym.toFixed(1)}%. SE(ln)≈${seLn.toFixed(4)} ✓`);c.pass++;}
+        else if(asym<20){html+=rc('warn','Asimetría moderada',`${asym.toFixed(1)}%. Aceptable con métodos exactos.`);c.warn++;}
+        else{html+=rc('fail','Asimetría excesiva',`${asym.toFixed(1)}%. Estimador no centrado en IC.`);c.fail++;}
+        if(!isNaN(seR)&&seR>0){const r=Math.max(seLn,seR)/Math.min(seLn,seR);
+            if(r<1.2){html+=rc('pass','SE consistente con IC',`SE rep: ${seR}, SE IC: ${seLn.toFixed(4)} ✓`);c.pass++;}
+            else{html+=rc('fail','SE inconsistente con IC',`SE rep: ${seR} vs IC: ${seLn.toFixed(4)} (${r.toFixed(2)}x)`);c.fail++;}
+        }
+    } else if(type==='diff'){
+        const dL=pt-lo,dH=hi-pt,asym=(dL+dH>0)?Math.abs(dL-dH)/((dL+dH)/2)*100:0;
+        const seE=(hi-lo)/(2*1.96);
+        if(asym<3){html+=rc('pass','IC simétrico',`Asimetría: ${asym.toFixed(1)}%. SE≈${seE.toFixed(4)} ✓`);c.pass++;}
+        else if(asym<15){html+=rc('warn','Ligera asimetría',`${asym.toFixed(1)}%. Aceptable con corrección de continuidad.`);c.warn++;}
+        else{html+=rc('fail','IC muy asimétrico',`${asym.toFixed(1)}%. Inusual para diferencias.`);c.fail++;}
+        if(!isNaN(seR)&&seR>0){const r=Math.max(seE,seR)/Math.min(seE,seR);
+            if(r<1.15){html+=rc('pass','SE consistente',`SE rep: ${seR}, SE IC: ${seE.toFixed(4)} ✓`);c.pass++;}
+            else{html+=rc('fail','SE inconsistente',`SE rep: ${seR} vs IC: ${seE.toFixed(4)} (${r.toFixed(2)}x)`);c.fail++;}
+        }
+    }
+
+    // p vs CI
+    if(!isNaN(pval)){
+        const nV=type==='ratio'?1:0;
+        const ciN=lo<=nV&&hi>=nV;
+        if((pval<0.05)&&ciN){html+=rc('fail','p<0.05 pero IC incluye nulo',`Contradicción.`);c.fail++;}
+        else if((pval>=0.05)&&!ciN){html+=rc('fail','p≥0.05 pero IC excluye nulo',`Contradicción.`);c.fail++;}
+        else{html+=rc('pass','p coherente con IC',`p=${pval}, IC ${ciN?'incluye':'excluye'} ${nV} ✓`);c.pass++;}
+
+        // Reconstruct p from CI
+        if(type==='ratio'&&pt>0&&lo>0){
+            const seLn=(Math.log(hi)-Math.log(lo))/(2*1.96);
+            const z2=Math.abs(Math.log(pt))/seLn,pC=2*(1-normalCDF(z2));
+            const r=Math.max(pC,pval)/Math.max(Math.min(pC,pval),1e-10);
+            if(r<2){html+=rc('pass','p reconstruido OK',`p(IC)≈${pC.toFixed(4)} vs rep: ${pval} ✓`);c.pass++;}
+            else{html+=rc('warn','p reconstruido difiere',`p(IC)≈${pC.toFixed(4)} vs rep: ${pval} (${r.toFixed(1)}x)`);c.warn++;}
+        } else if(type==='diff'){
+            const seE=(hi-lo)/(2*1.96);
+            const z2=Math.abs(pt)/seE,pC=2*(1-normalCDF(z2));
+            const r=Math.max(pC,pval)/Math.max(Math.min(pC,pval),1e-10);
+            if(r<2){html+=rc('pass','p reconstruido OK',`p(IC)≈${pC.toFixed(4)} vs rep: ${pval} ✓`);c.pass++;}
+            else{html+=rc('warn','p reconstruido difiere',`p(IC)≈${pC.toFixed(4)} vs rep: ${pval} (${r.toFixed(1)}x)`);c.warn++;}
+        }
+    }
+
+    html=summaryBar(c)+html;
+    document.getElementById('ci-results').innerHTML=html;
+}
+
+
+// ============================================================
+//  MÓDULO 5: TABLA BASAL
+// ============================================================
+let blCount=0;
+function addBaselineRow(){
+    blCount++;
+    const id=blCount;
+    const div=document.createElement('div');
+    div.className='entry-card';
+    div.id=`bl-r-${id}`;
+    div.innerHTML=`
+        <div class="entry-title">
+            <span>Variable ${id}</span>
+            <button class="btn-remove" onclick="document.getElementById('bl-r-${id}').remove()">×</button>
+        </div>
+        <div class="form-row cols-2">
+            <div class="fg">
+                <label>Nombre</label>
+                <input type="text" id="bl-name-${id}" value="Variable ${id}">
+            </div>
+            <div class="fg">
+                <label>Tipo</label>
+                <select id="bl-type-${id}" onchange="updateBlLabels(${id})">
+                    <option value="cont">Continua (media ± DE)</option>
+                    <option value="bin">Binaria (% o proporción)</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row cols-2">
+            <div class="fg">
+                <label id="bl-lab-m1-${id}">Tto: Media</label>
+                <input type="number" step="0.01" id="bl-m1-${id}">
+            </div>
+            <div class="fg" id="bl-s1-wrap-${id}">
+                <label id="bl-lab-s1-${id}">Tto: DE</label>
+                <input type="number" step="0.01" id="bl-s1-${id}">
+            </div>
+        </div>
+        <div class="form-row cols-2">
+            <div class="fg">
+                <label id="bl-lab-m2-${id}">Ctrl: Media</label>
+                <input type="number" step="0.01" id="bl-m2-${id}">
+            </div>
+            <div class="fg" id="bl-s2-wrap-${id}">
+                <label id="bl-lab-s2-${id}">Ctrl: DE</label>
+                <input type="number" step="0.01" id="bl-s2-${id}">
+            </div>
+        </div>`;
+    document.getElementById('baseline-rows').appendChild(div);
+}
+
+function updateBlLabels(id){
+    const type=document.getElementById(`bl-type-${id}`).value;
+    if(type==='cont'){
+        document.getElementById(`bl-lab-m1-${id}`).textContent='Tto: Media';
+        document.getElementById(`bl-lab-s1-${id}`).textContent='Tto: DE';
+        document.getElementById(`bl-lab-m2-${id}`).textContent='Ctrl: Media';
+        document.getElementById(`bl-lab-s2-${id}`).textContent='Ctrl: DE';
+        document.getElementById(`bl-s1-wrap-${id}`).style.display='';
+        document.getElementById(`bl-s2-wrap-${id}`).style.display='';
+    } else {
+        document.getElementById(`bl-lab-m1-${id}`).textContent='Tto: % (ej: 62)';
+        document.getElementById(`bl-lab-s1-${id}`).textContent='(no aplica)';
+        document.getElementById(`bl-lab-m2-${id}`).textContent='Ctrl: % (ej: 58)';
+        document.getElementById(`bl-lab-s2-${id}`).textContent='(no aplica)';
+    }
+}
+
+function runBaselineCheck(){
+    const n1=parseInt(document.getElementById('bl-n1').value);
+    const n2=parseInt(document.getElementById('bl-n2').value);
+    let html='',co={pass:0,warn:0,fail:0},pVals=[],details=[];
+
+    for(let i=1;i<=blCount;i++){
+        if(!document.getElementById(`bl-r-${i}`)) continue;
+        const name=document.getElementById(`bl-name-${i}`).value||`Var ${i}`;
+        const type=document.getElementById(`bl-type-${i}`).value;
+        const m1=parseFloat(document.getElementById(`bl-m1-${i}`).value);
+        const s1=parseFloat(document.getElementById(`bl-s1-${i}`).value);
+        const m2=parseFloat(document.getElementById(`bl-m2-${i}`).value);
+        const s2=parseFloat(document.getElementById(`bl-s2-${i}`).value);
+        if(isNaN(m1)||isNaN(m2)) continue;
+
+        let p,td;
+        if(type==='cont'){
+            if(isNaN(s1)||isNaN(s2)||s1<=0||s2<=0) continue;
+            const se=Math.sqrt(s1*s1/n1+s2*s2/n2);
+            const t=Math.abs(m1-m2)/se;
+            const df=Math.min(n1-1,n2-1);
+            p=2*(1-tCDF(Math.abs(t),df));
+            if(isNaN(p)) p=2*(1-normalCDF(Math.abs(t)));
+            td=`Dif=${(m1-m2).toFixed(2)}, t=${t.toFixed(3)}, p=${p.toFixed(4)}`;
+        } else {
+            const p1=m1/100,p2=m2/100;
+            const pP=(p1*n1+p2*n2)/(n1+n2);
+            const se=Math.sqrt(pP*(1-pP)*(1/n1+1/n2));
+            if(se<=0) continue;
+            const z=Math.abs(p1-p2)/se;
+            p=2*(1-normalCDF(z));
+            td=`${m1}% vs ${m2}%, z=${z.toFixed(3)}, p=${p.toFixed(4)}`;
+        }
+        pVals.push(p);
+        details.push({name,p,td});
+    }
+
+    if(pVals.length===0){html=rc('warn','Sin datos','Complete al menos una variable.');document.getElementById('baseline-results').innerHTML=html;return;}
+
+    details.forEach(d=>{
+        const lv=d.p<0.05?'fail':'pass';
+        html+=rc(lv,d.name,`${d.td} — ${d.p<0.05?'Diferencia significativa ⚠️':'No significativa ✓'}`);
+        if(d.p<0.05) co.fail++; else co.pass++;
+    });
+
+    html+='<hr class="divider">';
+
+    const nSig=pVals.filter(p=>p<0.05).length;
+    const expSig=pVals.length*0.05;
+    const medP=[...pVals].sort((a,b)=>a-b)[Math.floor(pVals.length/2)];
+    const meanP=pVals.reduce((a,b)=>a+b,0)/pVals.length;
+    const allHigh=pVals.every(p=>p>0.3);
+
+    if(nSig>expSig+2&&nSig>=2){
+        html+=rc('fail',`Exceso de diferencias: ${nSig}/${pVals.length}`,
+            `Esperadas ~${expSig.toFixed(1)} por azar. Problemas con aleatorización.`);co.fail++;
+    }
+
+    if(allHigh&&pVals.length>=4){
+        html+=rc('fail','Variables DEMASIADO similares',
+            `Todos p>0.3 (mediana: ${medP.toFixed(3)}, media: ${meanP.toFixed(3)}).
+            Balance tan perfecto en ${pVals.length} variables es estadísticamente improbable.
+            Señal clásica de fabricación (Carlisle 2017).`);co.fail++;
+    } else if(medP>0.7&&pVals.length>=5){
+        html+=rc('warn','P-valores inusualmente altos',`Mediana p=${medP.toFixed(3)}. Balance sospechosamente bueno.`);co.warn++;
+    } else if(nSig<=expSig+1){
+        html+=rc('pass','Balance basal normal',`${nSig}/${pVals.length} sig. Mediana p=${medP.toFixed(3)} ✓`);co.pass++;
+    }
+
+    // Fisher combined
+    const fS=-2*pVals.reduce((s,p)=>s+Math.log(Math.max(p,1e-10)),0);
+    const dfF=2*pVals.length;
+    html+=rc('pass',`Fisher combinado: ${fS.toFixed(2)} (${dfF} gl)`,
+        `Media esperada: ${dfF}. ${fS>dfF*2?'⚠️ Exceso de diferencias.':fS<dfF*0.3?'⚠️ Balance sospechosamente bueno.':'Rango normal.'}`);
+
+    html=summaryBar(co)+html;
+    document.getElementById('baseline-results').innerHTML=html;
+}
+
+
+// ============================================================
+//  MÓDULO 6: FRAGILIDAD
+// ============================================================
+function runFragility(){
+    const e1=parseInt(document.getElementById('f-e1').value);
+    const n1=parseInt(document.getElementById('f-n1').value);
+    const e2=parseInt(document.getElementById('f-e2').value);
+    const n2=parseInt(document.getElementById('f-n2').value);
+    let html='';
+
+    const pInit=fisherExactP(e1,n1-e1,e2,n2-e2);
+
+    if(pInit>=0.05){
+        html+=rc('warn','Estudio NO significativo',
+            `p(Fisher)=${pInit.toFixed(4)}. El Índice de Fragilidad aplica solo a estudios con p<0.05.`);
+
+        // Reverse FI
+        let rfi=0,tE1=e1,tE2=e2;
+        while(rfi<200){
+            if(e1/n1<e2/n2&&tE1>0) tE1--; else tE2++;
+            rfi++;
+            if(fisherExactP(tE1,n1-tE1,tE2,n2-tE2)<0.05) break;
+        }
+        html+=rc('pass',`Fragilidad Reversa: ${rfi}`,`Se necesitarían ${rfi} cambios para alcanzar p<0.05.`);
+        document.getElementById('fragility-results').innerHTML=html;
+        return;
+    }
+
+    // Forward FI
+    let bestFI=Infinity,bestDesc='';
+
+    // Strategy 1: add events to group with fewer
+    {let fi=0,tE=e1;
+    while(fi<200){tE++;fi++;if(tE>n1)break;
+        const p=fisherExactP(tE,n1-tE,e2,n2-e2);
+        if(p>=0.05){if(fi<bestFI){bestFI=fi;bestDesc=`+${fi} evento(s) en tto: ${e1}→${tE}/${n1}. p=${p.toFixed(4)}`;}break;}
+    }}
+
+    // Strategy 2: remove events from group with more
+    {let fi=0,tE=e2;
+    while(fi<200){tE--;fi++;if(tE<0)break;
+        const p=fisherExactP(e1,n1-e1,tE,n2-tE);
+        if(p>=0.05){if(fi<bestFI){bestFI=fi;bestDesc=`-${fi} evento(s) en ctrl: ${e2}→${tE}/${n2}. p=${p.toFixed(4)}`;}break;}
+    }}
+
+    html+=rc('pass','p-valor inicial (Fisher bilateral)',
+        `p=${pInit.toFixed(6)}<br>Tto: ${e1}/${n1} (${(e1/n1*100).toFixed(1)}%) · Ctrl: ${e2}/${n2} (${(e2/n2*100).toFixed(1)}%)`);
+
+    const fiColor=bestFI<=3?'var(--red)':bestFI<=8?'var(--yellow)':'var(--green)';
+    html+=`<div class="fi-display">
+        <div class="fi-number" style="color:${fiColor}">${bestFI}</div>
+        <div class="fi-label">Índice de Fragilidad</div>
+    </div>`;
+
+    if(bestFI<=3){
+        html+=rc('fail','ALTAMENTE FRÁGIL',
+            `${bestDesc}<br>Si solo <strong>${bestFI}</strong> paciente(s) hubiera(n) cambiado, se pierde la significación.<br>
+            <strong>Compare con pérdidas de seguimiento.</strong>`);
+    } else if(bestFI<=8){
+        html+=rc('warn','Fragilidad moderada',
+            `${bestDesc}<br>Mediana en NEJM/JAMA/Lancet: 8 (Walsh 2014).`);
+    } else {
+        html+=rc('pass','Resultado robusto',
+            `${bestDesc}<br>FI=${bestFI} supera la mediana de la literatura.`);
+    }
+
+    const lfu=Math.round(n1*0.05);
+    html+=rc(bestFI<=lfu?'warn':'pass','FI vs pérdidas de seguimiento',
+        `Si pérdidas ≈5% (≈${lfu}/grupo), FI=${bestFI} ${bestFI<=lfu?'es MENOR que las pérdidas — conclusión cuestionable':'supera las pérdidas — más tranquilizante'}.`);
+
+    document.getElementById('fragility-results').innerHTML=html;
+}
+
+
+// ============================================================
+//  INIT
+// ============================================================
+window.addEventListener('load',()=>{
+    // GRIM defaults
+    addGrimRow();
+    document.getElementById('gr-name-1').value='Tratamiento';
+    document.getElementById('gr-n-1').value='101';
+    document.getElementById('gr-val-1').value='22.8';
+    addGrimRow();
+    document.getElementById('gr-name-2').value='Control';
+    document.getElementById('gr-n-2').value='99';
+    document.getElementById('gr-val-2').value='31.3';
+
+    // p-value defaults
+    addPvalRow();
+    addPvalRow();
+    document.getElementById('pv-desc-2').value='Subgrupo edad >65';
+    document.getElementById('pv-stat-2').value='chi2';
+    document.getElementById('pv-val-2').value='4.82';
+    document.getElementById('pv-df1-2').value='1';
+    document.getElementById('pv-p-2').value='0.028';
+
+    // Baseline defaults
+    addBaselineRow();
+    document.getElementById('bl-name-1').value='Edad (años)';
+    document.getElementById('bl-m1-1').value='62.3';
+    document.getElementById('bl-s1-1').value='11.2';
+    document.getElementById('bl-m2-1').value='63.1';
+    document.getElementById('bl-s2-1').value='10.8';
+
+    addBaselineRow();
+    document.getElementById('bl-name-2').value='Peso (kg)';
+    document.getElementById('bl-m1-2').value='78.5';
+    document.getElementById('bl-s1-2').value='14.3';
+    document.getElementById('bl-m2-2').value='77.9';
+    document.getElementById('bl-s2-2').value='13.7';
+
+    addBaselineRow();
+    document.getElementById('bl-name-3').value='Sexo masculino';
+    document.getElementById('bl-type-3').value='bin';
+    updateBlLabels(3);
+    document.getElementById('bl-m1-3').value='62';
+    document.getElementById('bl-m2-3').value='58';
+
+    addBaselineRow();
+    document.getElementById('bl-name-4').value='HbA1c (%)';
+    document.getElementById('bl-m1-4').value='7.8';
+    document.getElementById('bl-s1-4').value='1.2';
+    document.getElementById('bl-m2-4').value='7.9';
+    document.getElementById('bl-s2-4').value='1.3';
+});
+</script>
+</body>
+</html>
