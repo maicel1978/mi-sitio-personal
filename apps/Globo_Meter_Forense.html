@@ -3,185 +3,948 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Globo-Meter Pro - Bioestadística Edu</title>
+    <title>Analizador de Eficiencia Informativa - Bioestadística Edu</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
-        :root { 
-            --bg: #030712; --card: #111827; --accent: #d946ef; --text: #f3f4f6;
-            --muela-purple: #a855f7; --globo-red: #ef4444; --pure-green: #10b981;
+        :root {
+            --bg: #0a0f1c; --panel: #111827; --border: #1e2736;
+            --accent: #f59e0b; --text: #e2e8f0; --dim: #64748b;
+            --green: #10b981; --amber: #f59e0b; --red: #ef4444; --blue: #3b82f6;
         }
-        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
-        
-        .container { max-width: 1000px; width: 100%; }
-        header { text-align: center; margin-bottom: 20px; }
-        h1 { font-size: 2.5rem; letter-spacing: -2px; margin: 0; background: linear-gradient(90deg, var(--accent), #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        
-        .intro-box { background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 16px; padding: 20px; margin-bottom: 30px; font-size: 0.95rem; line-height: 1.6; color: #9ca3af; }
-        .intro-box b { color: var(--text); }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--bg); color: var(--text);
+            min-height: 100vh; display: flex; flex-direction: column; align-items: center;
+            padding: 25px 20px;
+        }
+        .container { max-width: 900px; width: 100%; }
+        header { text-align: center; margin-bottom: 30px; }
+        header h1 { font-size: 1.6rem; font-weight: 800; }
+        header h1 .hl { color: var(--accent); }
+        header p { color: var(--dim); font-size: 0.85rem; margin-top: 6px; line-height: 1.5; }
 
-        .main-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; }
-        .box { background: var(--card); border: 1px solid #1f2937; border-radius: 20px; padding: 25px; }
-        
-        textarea { width: 100%; height: 300px; background: #030712; color: #00ff88; border: 1px solid #374151; border-radius: 12px; padding: 15px; resize: none; outline: none; font-family: 'Fira Code', monospace; font-size: 0.95rem; line-height: 1.5; }
-        
-        .needle-base { width: 100%; height: 24px; background: #1f2937; border-radius: 12px; margin: 20px 0; overflow: hidden; position: relative; border: 1px solid #374151; }
-        #needle { width: 0%; height: 100%; background: linear-gradient(90deg, var(--pure-green), var(--muela-purple), var(--globo-red)); transition: 1.5s cubic-bezier(0.19, 1, 0.22, 1); }
+        .disclaimer {
+            background: rgba(99,102,241,0.06); border: 1px solid rgba(99,102,241,0.18);
+            border-radius: 10px; padding: 12px 16px; margin-bottom: 22px;
+            font-size: 0.76rem; color: #8b8ec4; line-height: 1.5;
+            display: flex; gap: 10px; align-items: flex-start;
+        }
+        .disclaimer strong { color: #a5b4fc; }
 
-        .diagnosis { margin-top: 10px; padding: 15px; border-radius: 12px; font-weight: bold; font-size: 1.2rem; border: 1px solid transparent; min-height: 60px; text-align: center; }
-        .quote { font-style: italic; color: #6b7280; margin-top: 10px; font-size: 0.9rem; min-height: 40px; text-align: center; }
+        .input-section {
+            background: var(--panel); border: 1px solid var(--border);
+            border-radius: 14px; padding: 20px; margin-bottom: 22px;
+        }
+        .input-row { display: flex; gap: 10px; margin-bottom: 12px; }
+        .btn {
+            padding: 10px 18px; border-radius: 8px; border: none;
+            font-weight: 700; font-size: 0.8rem; cursor: pointer; transition: 0.2s;
+        }
+        .btn:hover { filter: brightness(1.12); transform: translateY(-1px); }
+        .btn:active { transform: translateY(0); }
+        .btn-accent { background: var(--accent); color: #000; flex: 1; }
+        .btn-ghost {
+            background: rgba(245,158,11,0.08);
+            border: 1px dashed rgba(245,158,11,0.3); color: var(--accent);
+        }
+        .btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 
-        .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 25px; }
-        .metric-item { background: #030712; padding: 15px; border-radius: 12px; border: 1px solid #1f2937; position: relative; }
-        .metric-item b { display: block; font-size: 1.3rem; color: var(--accent); }
-        .metric-item span { font-size: 0.65rem; color: #4b5563; text-transform: uppercase; font-weight: bold; display: flex; align-items: center; gap: 5px; }
-        
-        .info-icon { display: inline-block; width: 14px; height: 14px; background: #374151; border-radius: 50%; font-size: 10px; cursor: help; line-height: 14px; color: #fff; text-align: center; }
-        .info-icon:hover::after {
-            content: attr(data-txt); position: absolute; bottom: 100%; left: 0; background: #000; color: #fff; padding: 10px; border-radius: 8px; width: 220px; font-size: 0.75rem; z-index: 100; text-transform: none; font-weight: normal; line-height: 1.4; border: 1px solid #333;
+        .context-row { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+        .ctx-btn {
+            padding: 6px 14px; border-radius: 20px;
+            border: 1px solid var(--border); background: transparent;
+            color: var(--dim); font-size: 0.72rem; font-weight: 600;
+            cursor: pointer; transition: 0.2s;
+        }
+        .ctx-btn:hover { border-color: var(--accent); color: var(--accent); }
+        .ctx-btn.active {
+            background: rgba(245,158,11,0.15); border-color: var(--accent);
+            color: var(--accent);
         }
 
-        .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
-        .btn { padding: 18px; border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 0.9rem; transition: 0.3s; border: none; }
-        .btn-primary { background: #fff; color: #000; }
-        .btn-primary:hover { background: var(--accent); color: #fff; box-shadow: 0 0 20px rgba(217, 70, 239, 0.4); }
-        .btn-sample { background: #1f2937; color: #9ca3af; border: 1px solid #374151; }
-        .btn-sample:hover { background: #374151; color: #fff; }
+        textarea {
+            width: 100%; height: 180px;
+            background: var(--bg); color: var(--text);
+            border: 1px solid var(--border); border-radius: 8px;
+            padding: 14px; resize: vertical;
+            font-family: inherit; font-size: 0.85rem; line-height: 1.6; outline: none;
+        }
+        textarea:focus { border-color: var(--accent); }
+        textarea::placeholder { color: #2a3444; }
 
-        .science-footer { max-width: 1000px; margin-top: 40px; background: var(--card); border-radius: 20px; padding: 30px; border: 1px solid #1f2937; }
-        .science-footer h3 { margin-top: 0; color: var(--accent); font-size: 1.1rem; text-transform: uppercase; }
-        .science-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; font-size: 0.85rem; color: #9ca3af; line-height: 1.6; }
-        .science-grid b { color: #fff; }
+        #results { display: none; }
 
-        footer { margin-top: 50px; text-align: center; font-size: 0.75rem; color: #374151; padding: 20px; border-top: 1px solid #111; width: 100%; }
+        .score-section {
+            background: var(--panel); border: 1px solid var(--border);
+            border-radius: 14px; padding: 25px; margin-bottom: 18px; text-align: center;
+        }
+        .score-label {
+            font-size: 0.7rem; text-transform: uppercase;
+            letter-spacing: 1.5px; color: var(--dim); font-weight: 700; margin-bottom: 12px;
+        }
+        .score-display {
+            display: flex; align-items: baseline; justify-content: center; gap: 4px; margin-bottom: 8px;
+        }
+        .score-number { font-size: 3.5rem; font-weight: 800; line-height: 1; }
+        .score-max { font-size: 1.1rem; color: var(--dim); font-weight: 600; }
+        .score-verdict { font-size: 0.85rem; font-weight: 600; line-height: 1.5; max-width: 500px; margin: 10px auto 0; }
+        .score-bar-wrap { max-width: 400px; margin: 15px auto 0; }
+        .score-bar-bg { height: 6px; background: #1e293b; border-radius: 3px; overflow: hidden; }
+        .score-bar-fill { height: 100%; border-radius: 3px; transition: width 1s ease; width: 0; }
+        .score-bar-labels {
+            display: flex; justify-content: space-between;
+            font-size: 0.58rem; color: var(--dim); margin-top: 4px;
+        }
+        .score-context-note { font-size: 0.68rem; color: var(--dim); margin-top: 10px; font-style: italic; }
+
+        .corpus-bar { display: flex; gap: 6px; margin-bottom: 18px; flex-wrap: wrap; }
+        .corpus-chip {
+            background: var(--panel); border: 1px solid var(--border);
+            border-radius: 8px; padding: 8px 14px; font-size: 0.72rem;
+            color: var(--dim); display: flex; align-items: center; gap: 6px;
+        }
+        .corpus-chip b { color: var(--accent); font-size: 0.9rem; }
+
+        .metrics {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 12px; margin-bottom: 18px;
+        }
+        .m-card {
+            background: var(--panel); border: 1px solid var(--border);
+            border-radius: 12px; padding: 16px; text-align: center;
+        }
+        .m-card .m-val { font-size: 1.5rem; font-weight: 800; margin-bottom: 4px; }
+        .m-card .m-label {
+            font-size: 0.6rem; text-transform: uppercase;
+            letter-spacing: 1px; color: var(--dim); font-weight: 700;
+        }
+        .m-card .m-sub { font-size: 0.64rem; color: var(--dim); margin-top: 5px; line-height: 1.4; }
+        .m-bar { height: 4px; background: #1e293b; border-radius: 2px; margin-top: 8px; overflow: hidden; }
+        .m-bar-fill { height: 100%; border-radius: 2px; transition: width 0.8s ease; width: 0; }
+
+        .tip {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 13px; height: 13px; background: var(--border); border-radius: 50%;
+            font-size: 8px; cursor: help; color: var(--dim); font-weight: 800;
+            margin-left: 3px; vertical-align: middle; position: relative;
+        }
+        .tip:hover::after {
+            content: attr(data-t); position: absolute;
+            bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+            background: #000; color: #fff; padding: 8px 10px;
+            border-radius: 6px; font-size: 0.66rem; width: 210px; line-height: 1.45;
+            font-weight: 400; text-transform: none; letter-spacing: 0;
+            z-index: 999; box-shadow: 0 6px 20px rgba(0,0,0,.5); pointer-events: none;
+        }
+
+        .chart-row {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 12px; margin-bottom: 18px;
+        }
+        .chart-box {
+            background: var(--panel); border: 1px solid var(--border);
+            border-radius: 12px; padding: 16px;
+        }
+        .chart-box h4 {
+            font-size: 0.7rem; text-transform: uppercase;
+            letter-spacing: 1px; color: var(--dim); margin-bottom: 12px;
+        }
+        .h-bar-group { display: flex; flex-direction: column; gap: 7px; }
+        .h-bar-row { display: flex; align-items: center; gap: 8px; }
+        .h-bar-label { font-size: 0.66rem; color: var(--dim); width: 90px; text-align: right; flex-shrink: 0; }
+        .h-bar-track { flex: 1; height: 16px; background: rgba(255,255,255,0.03); border-radius: 3px; overflow: hidden; }
+        .h-bar-fill {
+            height: 100%; border-radius: 3px; transition: width 0.7s ease;
+            display: flex; align-items: center; justify-content: flex-end;
+            padding-right: 5px; font-size: 0.58rem; font-weight: 700;
+            color: rgba(255,255,255,0.9); min-width: 22px;
+        }
+        .h-bar-pct { font-size: 0.6rem; color: var(--dim); width: 35px; }
+
+        .filler-list { max-height: 190px; overflow-y: auto; }
+        .filler-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 0.75rem;
+        }
+        .filler-item:last-child { border-bottom: none; }
+        .filler-phrase { color: #94a3b8; flex: 1; }
+        .filler-count {
+            background: rgba(239,68,68,0.12); color: var(--red);
+            padding: 2px 8px; border-radius: 4px; font-weight: 700;
+            font-size: 0.68rem; flex-shrink: 0; margin-left: 8px;
+        }
+        .filler-none { color: var(--dim); font-size: 0.75rem; font-style: italic; }
+
+        .interp-section {
+            background: var(--panel); border: 1px solid var(--border);
+            border-radius: 14px; padding: 22px; margin-bottom: 18px;
+        }
+        .interp-section h3 {
+            font-size: 0.82rem; color: var(--accent); margin-bottom: 15px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .interp-block {
+            margin-bottom: 16px; padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .interp-block:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+        .interp-block h4 {
+            font-size: 0.75rem; font-weight: 700; margin-bottom: 6px;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .interp-block p { font-size: 0.78rem; color: #94a3b8; line-height: 1.65; }
+        .interp-block p strong { color: var(--text); }
+        .dot-green { color: var(--green); }
+        .dot-amber { color: var(--amber); }
+        .dot-red { color: var(--red); }
+        .dot-blue { color: var(--blue); }
+        .interp-footer {
+            margin-top: 14px; padding-top: 12px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            font-size: 0.7rem; color: var(--dim); line-height: 1.5; font-style: italic;
+        }
+
+        .download-row { display: flex; gap: 10px; margin-top: 18px; justify-content: center; }
+        .btn-download {
+            padding: 12px 28px; border-radius: 10px;
+            border: 1px solid var(--accent); background: rgba(245,158,11,0.08);
+            color: var(--accent); font-weight: 700; font-size: 0.82rem;
+            cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 8px;
+        }
+        .btn-download:hover { background: var(--accent); color: #000; }
+        .btn-download:disabled { opacity: 0.4; cursor: wait; }
+
+        footer {
+            margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border);
+            text-align: center; font-size: 0.74rem; color: var(--dim); line-height: 1.6;
+        }
+        footer strong { color: var(--text); }
+
+        @media (max-width: 700px) {
+            .metrics { grid-template-columns: repeat(2, 1fr); }
+            .chart-row { grid-template-columns: 1fr; }
+            .input-row { flex-direction: column; }
+        }
+        @media (max-width: 450px) { .metrics { grid-template-columns: 1fr; } }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .anim { animation: fadeUp 0.35s ease forwards; }
+        .filler-list::-webkit-scrollbar { width: 4px; }
+        .filler-list::-webkit-scrollbar-track { background: transparent; }
+        .filler-list::-webkit-scrollbar-thumb { background: #334155; border-radius: 2px; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <header>
-        <h1>Globo-Meter <span style="color:#fff">Forense</span></h1>
-        <p style="color:#6b7280">Peritaje de Verborrea e Inconsistencia Semántica</p>
+        <h1>Eficiencia <span class="hl">Informativa</span></h1>
+        <p>Cuanta informacion real transmite tu texto? Analisis cuantitativo de densidad de contenido, redundancia y muletillas discursivas.</p>
     </header>
 
-    <div class="intro-box">
-        Esta herramienta audita la <b>eficiencia comunicativa</b> de un texto. ¿Es información sólida o es solo muela? Mediante algoritmos de <b>Teoría de la Información</b>, detectamos cuándo alguien está "inflando un globo".
+    <div class="disclaimer">
+        <span>📐</span>
+        <p><strong>Herramienta de analisis linguistico cuantitativo.</strong>
+        Mide propiedades estructurales asociadas a eficiencia informativa basandose en
+        densidad lexica (Halliday, 1985), entropia de Shannon (1948) y analisis de progresion
+        tematica (Danes, 1974). No evalua veracidad ni calidad cientifica del contenido.</p>
     </div>
 
-    <div class="main-grid">
-        <div class="box">
-            <textarea id="inputText" placeholder="Pega aquí el texto para auditar la 'infladera'..."></textarea>
-            <div class="btn-group">
-                <button class="btn btn-sample" onclick="cargarEjemplo()">CARGAR EJEMPLO (MUELA)</button>
-                <button class="btn btn-primary" onclick="auditarGlobo()">AUDITAR SUSTANCIA</button>
-            </div>
+    <div class="input-section">
+        <div class="input-row">
+            <button class="btn btn-ghost" onclick="document.getElementById('pdfInput').click()">📄 Cargar PDF</button>
+            <input type="file" id="pdfInput" accept="application/pdf" style="display:none">
+            <button class="btn btn-accent" id="analyzeBtn">🔍 Analizar Eficiencia</button>
         </div>
-
-        <div class="box">
-            <div style="text-align:center">
-                <span style="font-size: 0.7rem; color: #4b5563; letter-spacing: 2px;">VOLUMEN DE AIRE DETECTADO</span>
-                <div class="needle-base"><div id="needle"></div></div>
-                <div id="resultBox" class="diagnosis">Esperando muestra...</div>
-                <div id="funnyQuote" class="quote"></div>
-            </div>
-
-            <div class="metrics-grid">
-                <div class="metric-item">
-                    <b id="ldVal">0%</b>
-                    <span>Sustancia <i class="info-icon" data-txt="Densidad Léxica: Relación entre palabras con carga semántica vs conectores vacíos.">?</i></span>
-                </div>
-                <div class="metric-item">
-                    <b id="hVal">0</b>
-                    <span>Entropía <i class="info-icon" data-txt="Entropía de Shannon: Mide la riqueza léxica. Baja entropía = Discurso repetitivo.">?</i></span>
-                </div>
-                <div class="metric-item">
-                    <b id="vacVal">0</b>
-                    <span>Muela <i class="info-icon" data-txt="Índice de Vacuidad: Mide la redundancia y el uso de términos abstractos sin fondo.">?</i></span>
-                </div>
-                <div class="metric-item">
-                    <b id="chaosVal">0</b>
-                    <span>Caos <i class="info-icon" data-txt="Inconsistencia Sintáctica: Varianza en la estructura. Mucho caos = Ideas inconexas.">?</i></span>
-                </div>
-            </div>
+        <div class="context-row">
+            <span style="font-size:0.68rem;color:var(--dim);align-self:center;margin-right:4px">Contexto:</span>
+            <button class="ctx-btn active" data-ctx="academic">📄 Academico/Cientifico</button>
+            <button class="ctx-btn" data-ctx="divulgative">📰 Divulgativo</button>
+            <button class="ctx-btn" data-ctx="institutional">🏛️ Institucional/Politico</button>
         </div>
+        <textarea id="inputText" placeholder="Pega aqui el texto a analizar (minimo 200 caracteres)..."></textarea>
     </div>
 
-    <div class="science-footer">
-        <h3>Manual de Peritaje Científico</h3>
-        <div class="science-grid">
-            <div>
-                <p><b>1. Densidad Léxica:</b> Un texto científico sólido tiene >50%. Un globo lleno de aire baja del 40% debido al exceso de conectores innecesarios.</p>
-                <p><b>2. Entropía (H):</b> Mide la cantidad de información. El "inflador" usa un vocabulario limitado, lo que arroja una entropía baja.</p>
+    <div id="results">
+        <div class="score-section anim">
+            <div class="score-label">Indice de Eficiencia Informativa</div>
+            <div class="score-display">
+                <span class="score-number" id="ieiValue">-</span>
+                <span class="score-max">/ 100</span>
             </div>
-            <div>
-                <p><b>3. Índice de Muela:</b> Calculamos la tasa de repetición. Si usas 500 palabras para decir algo que requiere 50, la muela se dispara.</p>
-                <p><b>4. Burstiness (Caos):</b> Los humanos alternamos frases de distinta longitud. Un "inflador" pierde el ritmo o escribe bloques monótonos.</p>
+            <div class="score-verdict" id="ieiVerdict"></div>
+            <div class="score-bar-wrap">
+                <div class="score-bar-bg"><div class="score-bar-fill" id="ieiBar"></div></div>
+                <div class="score-bar-labels"><span>Bajo contenido</span><span>Alto contenido</span></div>
             </div>
+            <div class="score-context-note" id="contextNote"></div>
+        </div>
+
+        <div class="corpus-bar anim" id="corpusBar"></div>
+        <div class="metrics anim" id="metricsArea"></div>
+        <div class="chart-row anim">
+            <div class="chart-box">
+                <h4>📊 Composicion del Texto</h4>
+                <div class="h-bar-group" id="compChart"></div>
+            </div>
+            <div class="chart-box">
+                <h4>🔴 Muletillas y Relleno Detectados</h4>
+                <div class="filler-list" id="fillerList"></div>
+            </div>
+        </div>
+        <div class="interp-section anim" id="interpSection"></div>
+        <div class="download-row anim">
+            <button class="btn-download" id="downloadBtn">📥 Descargar Reporte PDF</button>
         </div>
     </div>
 </div>
 
 <footer>
-    Auditor Jefe: <strong>Maicel Monzón Pérez</strong> | Bioestadística Edu
+    <strong>Maicel Monzon Perez</strong> · Bioestadistica Edu<br>
+    Analisis de eficiencia informativa
 </footer>
 
 <script>
-    const STOPWORDS = new Set(["de", "que", "el", "en", "y", "a", "los", "se", "del", "las", "un", "por", "con", "no", "una", "su", "para", "es", "al", "lo", "como", "más", "pero", "sus", "le", "ya", "o", "este", "sí", "porque", "esta", "entre", "cuando", "muy", "sin", "sobre", "también", "me", "hasta", "hay", "donde", "quien", "desde", "todo", "nos", "durante", "todos", "uno", "les", "ni", "contra", "otros", "ese", "eso", "ante", "ellos", "e", "esto", "mí", "antes", "algunos", "qué", "unos", "yo", "otro", "otras", "otra", "él", "tanto", "esa", "estos", "mucho", "quienes", "nada", "pocos", "mucha", "mis", "tus", "sus", "básicamente", "realmente", "obviamente", "digamos", "o sea", "bueno", "claro"]);
+var pdfjsLib = window['pdfjs-dist/build/pdf'];
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+var jsPDF = window.jspdf.jsPDF;
 
-    function cargarEjemplo() {
-        const muelaText = `Básicamente, en lo que respecta al enfoque holístico de Una Sola Salud, es de vital importancia recalcar que la interconectividad sistémica de los paradigmas actuales nos obliga a repensar lo que viene siendo la sinergia entre lo humano y lo animal desde una perspectiva que, obviamente, sea transversal. O sea, si no somos capaces de articular una narrativa de resiliencia ante los desafíos que se presentan en el horizonte de lo que es la salud pública, entonces estaríamos hablando de una desconexión que realmente no aporta al empoderamiento de los ecosistemas. Porque, claro, lo que es la salud es una sola cosa, pero a la vez es todo, y desde ese punto de vista, hay que decir que lo fundamental es seguir dialogando para que, de alguna manera, se pueda implementar lo que ya sabemos que hay que implementar en este sentido.`;
-        document.getElementById('inputText').value = muelaText;
-        auditarGlobo();
+var inputText = document.getElementById('inputText');
+var analyzeBtn = document.getElementById('analyzeBtn');
+var pdfInput = document.getElementById('pdfInput');
+var downloadBtn = document.getElementById('downloadBtn');
+
+var selectedContext = 'academic';
+document.querySelectorAll('.ctx-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        document.querySelectorAll('.ctx-btn').forEach(function(b) { b.classList.remove('active'); });
+        this.classList.add('active');
+        selectedContext = this.getAttribute('data-ctx');
+    });
+});
+
+// ═══════════════════════════════════════
+// SANITIZAR TEXTO PARA PDF
+// jsPDF con helvetica NO soporta Unicode
+// ═══════════════════════════════════════
+function sanitize(text) {
+    if (!text) return '';
+    return text
+        .replace(/á/g, 'a').replace(/é/g, 'e').replace(/í/g, 'i')
+        .replace(/ó/g, 'o').replace(/ú/g, 'u').replace(/ü/g, 'u')
+        .replace(/Á/g, 'A').replace(/É/g, 'E').replace(/Í/g, 'I')
+        .replace(/Ó/g, 'O').replace(/Ú/g, 'U').replace(/Ü/g, 'U')
+        .replace(/ñ/g, 'n').replace(/Ñ/g, 'N')
+        .replace(/¿/g, '').replace(/¡/g, '')
+        .replace(/–/g, '-').replace(/—/g, '-')
+        .replace(/"/g, '"').replace(/"/g, '"')
+        .replace(/'/g, "'").replace(/'/g, "'")
+        .replace(/…/g, '...')
+        .replace(/°/g, 'o')
+        .replace(/×/g, 'x')
+        .replace(/·/g, '-')
+        .replace(/•/g, '-')
+        .replace(/[^\x00-\x7F]/g, '');
+}
+
+var CONTEXT_REFS = {
+    academic: {
+        name: 'Academico / Cientifico',
+        ldExpected: [0.45, 0.60],
+        ldNote: 'La prosa cientifica suele tener densidad lexica entre 45-60% (Halliday, 1985).',
+        circNote: 'Las oraciones academicas tienden a ser largas (20-30 palabras) pero densas en contenido.',
+        fillerTolerance: 0.04,
+        sentLenRef: '20-28 palabras'
+    },
+    divulgative: {
+        name: 'Divulgativo',
+        ldExpected: [0.38, 0.52],
+        ldNote: 'La prosa divulgativa es intencionalmente menos densa que la academica para facilitar la lectura.',
+        circNote: 'Se esperan oraciones mas cortas (12-22 palabras) y conectores explicativos.',
+        fillerTolerance: 0.06,
+        sentLenRef: '12-22 palabras'
+    },
+    institutional: {
+        name: 'Institucional / Politico',
+        ldExpected: [0.35, 0.50],
+        ldNote: 'El discurso institucional frecuentemente presenta baja densidad lexica. Valores < 35% son senal de alerta.',
+        circNote: 'Este genero es particularmente propenso a circunloquios y formulas vacias.',
+        fillerTolerance: 0.03,
+        sentLenRef: '15-25 palabras'
     }
+};
 
-    function auditarGlobo() {
-        const text = document.getElementById('inputText').value.trim();
-        if (text.length < 50) return;
+var FILLERS = [
+    "es importante señalar que","es importante destacar que","es importante mencionar que",
+    "cabe señalar que","cabe destacar que","cabe mencionar que",
+    "vale la pena mencionar que","resulta pertinente señalar que",
+    "conviene destacar que","no se puede dejar de mencionar que",
+    "desde una perspectiva","desde el punto de vista","desde la óptica de",
+    "en el marco de","en el contexto de","en el ámbito de",
+    "en lo que respecta a","en lo que se refiere a",
+    "en relación con lo anterior","en este sentido","en este orden de ideas","en tal sentido",
+    "como es sabido","como todos sabemos","es bien sabido que",
+    "no es un secreto que","nadie puede negar que",
+    "está claro que","resulta evidente que","es evidente que",
+    "de alguna manera","en cierta medida","hasta cierto punto",
+    "de cierta forma","por así decirlo","si se quiere",
+    "por decirlo de alguna manera","dicho de otro modo",
+    "hay que tener en cuenta que","es necesario tener en cuenta que",
+    "se debe tomar en consideración que","es preciso considerar que",
+    "todo lo anterior nos lleva a","a la luz de lo anterior",
+    "teniendo en cuenta lo anterior","sobre la base de lo expuesto",
+    "en aras de","con miras a","a los efectos de",
+    "no cabe duda de que","sin lugar a dudas","indudablemente",
+    "básicamente","fundamentalmente","esencialmente","intrínsecamente"
+];
 
-        const words = text.toLowerCase().match(/\b\w+\b/g) || [];
-        const contentWords = words.filter(w => !STOPWORDS.has(w));
-        const sentences = text.match(/[^\.!\?]+[\.!\?]+/g) || [text];
+var BUZZWORDS = [
+    "paradigma","holístico","transversal","transdisciplinar","multidimensional",
+    "intersectorial","sinergia","resiliencia","empoderamiento","gobernanza",
+    "sostenibilidad","proactivo","disruptivo","ecosistema","escalabilidad",
+    "articulación","visibilizar","transversalizar","interoperabilidad",
+    "apalancamiento","co-creación"
+];
 
-        const ld = (contentWords.length / words.length) * 100;
-        const freq = {}; words.forEach(w => freq[w] = (freq[w] || 0) + 1);
-        let h = 0; Object.values(freq).forEach(c => { let p = c/words.length; h -= p * Math.log2(p); });
-        const uniqueContent = new Set(contentWords).size;
-        const muela = (1 - (uniqueContent / contentWords.length)) * 10;
-        const lens = sentences.map(s => s.split(/\s+/).length);
-        const avg = lens.reduce((a,b)=>a+b)/lens.length;
-        const variance = lens.reduce((a,b)=>a+Math.pow(b-avg,2),0)/lens.length;
-        const chaos = Math.sqrt(variance);
+var STOPWORDS = new Set([
+    "el","la","los","las","un","una","unos","unas","de","del","al",
+    "en","con","por","para","a","ante","bajo","sobre","entre","hasta",
+    "sin","según","durante","mediante","hacia","desde","contra","tras",
+    "que","cual","cuales","quien","quienes","cuyo","cuya",
+    "y","o","ni","pero","sino","mas","aunque","porque","pues","como",
+    "se","lo","le","les","me","te","nos","os","su","sus","mi","mis",
+    "tu","tus","yo","él","ella","nosotros","ellos","ellas","usted",
+    "este","esta","estos","estas","ese","esa","esos","esas","aquel","aquella",
+    "ser","estar","haber","tener","hacer","ir","dar","ver","saber","poder",
+    "es","son","ha","han","fue","sido","está","era","hay",
+    "no","sí","muy","más","menos","ya","aún","también","tampoco",
+    "todo","toda","todos","todas","cada","otro","otra","otros","otras",
+    "mismo","misma","mismos","mismas","tal","tales","tan","tanto","tanta",
+    "aquí","ahí","allí","así","bien","mal","donde","cuando",
+    "qué","quién","cómo","dónde","cuándo","cuánto","cuál",
+    "esto","eso","aquello","algo","nada","uno",
+    "puede","pueden","debe","deben","siendo",
+    "tiene","tienen","hace","hacen"
+]);
 
-        let globoScore = (100 - ld) + (muela * 4);
-        if (h < 4.5) globoScore += 15;
-        globoScore = Math.min(Math.max(Math.round(globoScore), 5), 100);
+var analysisData = null;
 
-        document.getElementById('needle').style.width = globoScore + "%";
-        document.getElementById('ldVal').innerText = Math.round(ld) + "%";
-        document.getElementById('hVal').innerText = h.toFixed(2);
-        document.getElementById('vacVal').innerText = muela.toFixed(1);
-        document.getElementById('chaosVal').innerText = chaos.toFixed(1);
+function tokenize(text) {
+    return text.toLowerCase().match(/[a-záéíóúüñ][a-záéíóúüñ\-]*[a-záéíóúüñ]|[a-záéíóúüñ]/g) || [];
+}
+function splitSentences(text) {
+    var abbr = ['Dr','Dra','Sr','Sra','Prof','Ing','Lic','etc','vs','vol','fig','ed','eds','p','pp'];
+    var t = text;
+    abbr.forEach(function(a) { t = t.replace(new RegExp('\\b('+a+')\\.','gi'),'$1\u0000'); });
+    t = t.replace(/et\s+al\./gi,'et al\u0000');
+    t = t.replace(/(\d)\./g,'$1\u0000');
+    var raw = t.match(/[^.!?]+[.!?]+/g) || [t];
+    return raw.map(function(s){return s.replace(/\u0000/g,'.').trim();}).filter(function(s){return s.length>3;});
+}
+function escapeHtml(t) {
+    var d = document.createElement('div'); d.appendChild(document.createTextNode(t)); return d.innerHTML;
+}
 
-        const res = document.getElementById('resultBox');
-        const quote = document.getElementById('funnyQuote');
+analyzeBtn.addEventListener('click', function() {
+    var text = inputText.value.trim();
+    if (text.length < 200) { alert('Se necesitan al menos 200 caracteres.'); return; }
+    runAnalysis(text);
+});
 
-        if (globoScore > 80) {
-            res.innerText = "🎈 ZEPELÍN DE HELIO 🎈";
-            res.style.color = "var(--globo-red)";
-            quote.innerText = '"Nivel crítico de infladera. Aquí hay más aire que en una bolsa de papitas. Científicamente, esto es un vacío existencial."';
-        } else if (globoScore > 60) {
-            res.innerText = "🦷 MUELA NIVEL EXPERTO 🦷";
-            res.style.color = "var(--muela-purple)";
-            quote.innerText = '"Mucha verborrea y poca vitamina. Estás adornando la guayaba con palabras de domingo."';
-        } else if (globoScore > 35) {
-            res.innerText = "⚖️ DISCURSO EQUILIBRADO ⚖️";
-            res.style.color = "var(--accent)";
-            quote.innerText = '"Se deja leer, aunque por momentos te gana el deseo de sonar importante sin necesidad."';
-        } else {
-            res.innerText = "💎 NUGGET DE VERDAD 💎";
-            res.style.color = "var(--pure-green)";
-            quote.innerText = '"¡Candela pura! Texto denso, directo y con rigor. Aquí no hay aire, hay ciencia."';
+function runAnalysis(text) {
+    var sentences = splitSentences(text);
+    var words = tokenize(text);
+    var N = words.length;
+    if (N < 40) { alert('Texto muy corto.'); return; }
+
+    var contentWords = words.filter(function(w) { return !STOPWORDS.has(w) && w.length > 2; });
+    var lexicalDensity = contentWords.length / N;
+
+    var windowSize = Math.min(100, N);
+    var ttrSum = 0, ttrCount = 0;
+    for (var wi = 0; wi <= N - windowSize; wi += Math.floor(windowSize / 2)) {
+        var win = words.slice(wi, wi + windowSize);
+        ttrSum += new Set(win).size / win.length;
+        ttrCount++;
+    }
+    var avgTTR = ttrCount > 0 ? ttrSum / ttrCount : 0.5;
+
+    var freq = {};
+    words.forEach(function(w) { freq[w] = (freq[w] || 0) + 1; });
+    var types = Object.keys(freq).length;
+    var H = 0;
+    Object.values(freq).forEach(function(c) { var p = c / N; if (p > 0) H -= p * Math.log2(p); });
+    var Hmax = Math.log2(types) || 1;
+    var Hnorm = H / Hmax;
+
+    var textLower = text.toLowerCase();
+    var fillersFound = [];
+    var totalFillerWords = 0;
+    FILLERS.forEach(function(f) {
+        var esc = f.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\s+/g, '\\s+');
+        var m = textLower.match(new RegExp(esc, 'gi'));
+        if (m && m.length > 0) {
+            fillersFound.push({ phrase: f, count: m.length });
+            totalFillerWords += f.split(/\s+/).length * m.length;
         }
-    }
-</script>
+    });
+    fillersFound.sort(function(a, b) { return b.count - a.count; });
+    var fillerRatio = totalFillerWords / N;
 
+    var buzzFound = [];
+    BUZZWORDS.forEach(function(b) {
+        var m = textLower.match(new RegExp('\\b' + b + '\\w*\\b', 'gi'));
+        if (m && m.length > 0) buzzFound.push({ word: b, count: m.length });
+    });
+    buzzFound.sort(function(a, b) { return b.count - a.count; });
+    var totalBuzzWords = buzzFound.reduce(function(s, b) { return s + b.count; }, 0);
+
+    var seenConcepts = new Set();
+    var newInfoRatios = [];
+    sentences.forEach(function(s) {
+        var sWords = tokenize(s).filter(function(w) { return !STOPWORDS.has(w) && w.length > 2; });
+        if (sWords.length === 0) return;
+        var nc = 0;
+        sWords.forEach(function(w) { if (!seenConcepts.has(w)) { nc++; seenConcepts.add(w); } });
+        newInfoRatios.push(nc / sWords.length);
+    });
+    var avgNewInfo = newInfoRatios.length > 0 ? newInfoRatios.reduce(function(a, b) { return a + b; }, 0) / newInfoRatios.length : 0;
+
+    var thirdLen = Math.ceil(newInfoRatios.length / 3);
+    var firstThird = newInfoRatios.slice(0, thirdLen);
+    var lastThird = newInfoRatios.slice(-thirdLen);
+    var avgFirst = firstThird.length > 0 ? firstThird.reduce(function(a,b){return a+b;},0)/firstThird.length : 0;
+    var avgLast = lastThird.length > 0 ? lastThird.reduce(function(a,b){return a+b;},0)/lastThird.length : 0;
+    var infoDrop = avgFirst - avgLast;
+
+    var sLens = sentences.map(function(s) { return tokenize(s).length; }).filter(function(l) { return l > 0; });
+    var avgSentLen = sLens.reduce(function(a, b) { return a + b; }, 0) / sLens.length;
+
+    var sentDensities = [];
+    sentences.forEach(function(s) {
+        var sw = tokenize(s);
+        if (sw.length === 0) return;
+        var content = sw.filter(function(w){ return !STOPWORDS.has(w) && w.length > 2; });
+        sentDensities.push(content.length / sw.length);
+    });
+    var avgSentDensity = sentDensities.length > 0 ?
+        sentDensities.reduce(function(a,b){return a+b;},0)/sentDensities.length : 0.5;
+    var circIndex = (1 - avgSentDensity) * (0.5 + avgSentLen / 60);
+
+    var bigrams = {};
+    for (var bi = 0; bi < contentWords.length - 1; bi++) {
+        var bg = contentWords[bi] + ' ' + contentWords[bi + 1];
+        bigrams[bg] = (bigrams[bg] || 0) + 1;
+    }
+    var repeatedBigrams = Object.values(bigrams).filter(function(c) { return c > 1; });
+    var bigramRepRate = Object.keys(bigrams).length > 0 ?
+        repeatedBigrams.reduce(function(a, b) { return a + b; }, 0) / Object.keys(bigrams).length : 0;
+
+    var ieiRaw =
+        lexicalDensity * 25 + Hnorm * 20 + avgNewInfo * 25 +
+        (1 - Math.min(fillerRatio * 5, 1)) * 15 +
+        (1 - Math.min(circIndex, 1)) * 15;
+    var iei = Math.max(0, Math.min(100, Math.round(ieiRaw)));
+
+    var funcWords = N - contentWords.length;
+    var fillerW = totalFillerWords;
+    var contentW = Math.max(contentWords.length - fillerW, 0);
+
+    analysisData = {
+        text: text, sentences: sentences, words: words, N: N, types: types,
+        contentWords: contentWords, lexicalDensity: lexicalDensity,
+        avgTTR: avgTTR, H: H, Hmax: Hmax, Hnorm: Hnorm,
+        fillersFound: fillersFound, totalFillerWords: totalFillerWords, fillerRatio: fillerRatio,
+        buzzFound: buzzFound, totalBuzzWords: totalBuzzWords,
+        avgNewInfo: avgNewInfo, newInfoRatios: newInfoRatios,
+        infoDrop: infoDrop, avgFirst: avgFirst, avgLast: avgLast,
+        avgSentLen: avgSentLen, sLens: sLens, avgSentDensity: avgSentDensity,
+        circIndex: circIndex, bigramRepRate: bigramRepRate,
+        iei: iei, context: selectedContext,
+        funcWords: funcWords, fillerW: fillerW, contentW: contentW
+    };
+    renderDashboard();
+}
+
+function renderDashboard() {
+    var d = analysisData;
+    var ctx = CONTEXT_REFS[d.context];
+    document.getElementById('results').style.display = 'block';
+
+    var ieiEl = document.getElementById('ieiValue');
+    var barEl = document.getElementById('ieiBar');
+    var verdictEl = document.getElementById('ieiVerdict');
+    ieiEl.textContent = d.iei;
+
+    var color, verdict;
+    if (d.iei >= 70) { color = 'var(--green)'; verdict = 'Texto con alta densidad informativa. Buena relacion contenido/extension.'; }
+    else if (d.iei >= 50) { color = 'var(--blue)'; verdict = 'Densidad informativa moderada. Hay espacio para mayor concision.'; }
+    else if (d.iei >= 35) { color = 'var(--amber)'; verdict = 'Baja eficiencia informativa. El texto podria transmitir lo mismo con menos palabras.'; }
+    else { color = 'var(--red)'; verdict = 'Eficiencia informativa muy baja. Alta proporcion de relleno respecto al contenido sustantivo.'; }
+
+    ieiEl.style.color = color; barEl.style.background = color;
+    verdictEl.style.color = color; verdictEl.textContent = verdict;
+    setTimeout(function() { barEl.style.width = d.iei + '%'; }, 100);
+    document.getElementById('contextNote').textContent = 'Analizado como texto ' + ctx.name.toLowerCase() + '. ' + ctx.ldNote;
+
+    document.getElementById('corpusBar').innerHTML =
+        chip(d.N.toLocaleString(), 'palabras') + chip(d.sLens.length, 'oraciones') +
+        chip(d.fillersFound.length, 'tipos de muletilla') + chip(d.totalFillerWords, 'pal. de relleno');
+
+    document.getElementById('metricsArea').innerHTML =
+        mCard((d.lexicalDensity*100).toFixed(1)+'%', 'Densidad Lexica',
+            d.lexicalDensity > ctx.ldExpected[1] ? 'var(--green)' : d.lexicalDensity > ctx.ldExpected[0] ? 'var(--blue)' : d.lexicalDensity > 0.35 ? 'var(--amber)' : 'var(--red)',
+            'Palabras de contenido / total. Ref '+ctx.name+': '+Math.round(ctx.ldExpected[0]*100)+'-'+Math.round(ctx.ldExpected[1]*100)+'%',
+            d.contentWords.length+' de '+d.N+' son contenido', d.lexicalDensity*100) +
+        mCard((d.avgNewInfo*100).toFixed(1)+'%', 'Info Nueva / Oracion',
+            d.avgNewInfo > 0.5 ? 'var(--green)' : d.avgNewInfo > 0.3 ? 'var(--amber)' : 'var(--red)',
+            'Conceptos nuevos por oracion. Bajo = texto que se repite.',
+            'Progresion tematica', d.avgNewInfo*100) +
+        mCard((d.fillerRatio*100).toFixed(1)+'%', 'Ratio de Relleno',
+            d.fillerRatio < ctx.fillerTolerance ? 'var(--green)' : d.fillerRatio < 0.08 ? 'var(--amber)' : 'var(--red)',
+            'Palabras en muletillas. Tolerancia '+ctx.name+': <'+Math.round(ctx.fillerTolerance*100)+'%.',
+            d.totalFillerWords+' palabras de relleno', Math.min(d.fillerRatio*500,100)) +
+        mCard(d.circIndex.toFixed(2), 'I. de Circunloquio',
+            d.circIndex < 0.35 ? 'var(--green)' : d.circIndex < 0.6 ? 'var(--amber)' : 'var(--red)',
+            'Baja densidad por oracion + longitud. Alto = muchas palabras, poca sustancia.',
+            'Densidad media/oracion: '+(d.avgSentDensity*100).toFixed(0)+'%', Math.min(d.circIndex*120,100)) +
+        mCard(d.Hnorm.toFixed(3), 'Entropia Normalizada',
+            d.Hnorm > 0.9 ? 'var(--green)' : d.Hnorm > 0.8 ? 'var(--amber)' : 'var(--red)',
+            'Diversidad lexica (Shannon, 1948). Baja = vocabulario repetitivo.',
+            'H='+d.H.toFixed(2)+' / Hmax='+d.Hmax.toFixed(2), d.Hnorm*100) +
+        mCard((d.bigramRepRate*100).toFixed(1)+'%', 'Bigramas Repetidos',
+            d.bigramRepRate < 0.15 ? 'var(--green)' : d.bigramRepRate < 0.3 ? 'var(--amber)' : 'var(--red)',
+            'Pares de contenido reciclados. Alto = mismas expresiones una y otra vez.',
+            'Redundancia expresiva', Math.min(d.bigramRepRate*200,100));
+
+    var totalComp = d.contentW + d.fillerW + d.funcWords;
+    function compPct(v) { return ((v/totalComp)*100).toFixed(1); }
+    document.getElementById('compChart').innerHTML =
+        hBar('Contenido', compPct(d.contentW), d.contentW, 'var(--green)') +
+        hBar('Funcionales', compPct(d.funcWords), d.funcWords, 'var(--blue)') +
+        hBar('Relleno', compPct(d.fillerW), d.fillerW, 'var(--red)');
+
+    var fhtml = '';
+    if (d.fillersFound.length === 0 && d.buzzFound.length === 0) {
+        fhtml = '<div class="filler-none">No se detectaron muletillas ni buzzwords.</div>';
+    } else {
+        d.fillersFound.forEach(function(f) {
+            fhtml += '<div class="filler-item"><span class="filler-phrase">"'+escapeHtml(f.phrase)+'"</span><span class="filler-count">x'+f.count+'</span></div>';
+        });
+        d.buzzFound.forEach(function(b) {
+            fhtml += '<div class="filler-item"><span class="filler-phrase" style="color:#a78bfa">'+escapeHtml(b.word)+' <span style="font-size:0.6rem;opacity:0.6">(buzzword)</span></span><span class="filler-count" style="background:rgba(167,139,250,0.12);color:#a78bfa">x'+b.count+'</span></div>';
+        });
+    }
+    document.getElementById('fillerList').innerHTML = fhtml;
+    renderInterpretation();
+    document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function renderInterpretation() {
+    var d = analysisData;
+    var ctx = CONTEXT_REFS[d.context];
+    var blocks = [];
+
+    var panColor, panText;
+    if (d.iei >= 70) { panColor = 'dot-green'; panText = 'El texto presenta una <strong>buena relacion entre extension y contenido</strong>. La mayoria de las palabras contribuyen a transmitir informacion sustantiva. Para el genero <strong>'+ctx.name.toLowerCase()+'</strong>, este nivel de eficiencia es adecuado.'; }
+    else if (d.iei >= 50) { panColor = 'dot-blue'; panText = 'El texto tiene una <strong>eficiencia moderada</strong>. Transmite informacion, pero hay secciones donde podria decirse lo mismo con menos palabras. En el contexto de un texto <strong>'+ctx.name.toLowerCase()+'</strong>, esto puede ser aceptable, aunque hay margen de mejora.'; }
+    else if (d.iei >= 35) { panColor = 'dot-amber'; panText = 'El texto muestra senales de <strong>baja eficiencia informativa</strong>. Una proporcion considerable de la extension no aporta contenido nuevo. Para un texto <strong>'+ctx.name.toLowerCase()+'</strong>, estos valores estan por debajo de lo esperado.'; }
+    else { panColor = 'dot-red'; panText = 'El texto presenta <strong>indicadores muy bajos de eficiencia informativa</strong>. Gran parte de la extension esta compuesta por palabras funcionales, formulas repetitivas o relleno discursivo. Es probable que el mensaje central pueda expresarse en una fraccion del espacio actual.'; }
+    blocks.push({ title: 'Panorama General', color: panColor, text: panText });
+
+    var ldPct = (d.lexicalDensity*100).toFixed(1);
+    var ldText;
+    if (d.lexicalDensity > ctx.ldExpected[1]) {
+        ldText = 'La densidad lexica es <strong>alta ('+ldPct+'%)</strong>, por encima del rango esperado para '+ctx.name.toLowerCase()+' ('+Math.round(ctx.ldExpected[0]*100)+'-'+Math.round(ctx.ldExpected[1]*100)+'%). Mas de la mitad de las palabras son de contenido. <strong>Cada linea aporta informacion sustantiva.</strong> Segun Halliday (1985), la densidad lexica es uno de los indicadores mas fiables de carga informativa.';
+    } else if (d.lexicalDensity >= ctx.ldExpected[0]) {
+        ldText = 'La densidad lexica esta en el <strong>rango esperado ('+ldPct+'%)</strong> para un texto '+ctx.name.toLowerCase()+' (ref: '+Math.round(ctx.ldExpected[0]*100)+'-'+Math.round(ctx.ldExpected[1]*100)+'%). Hay equilibrio entre palabras de contenido y funcionales. La conversacion oral tipica ronda el 35-40%, y la prosa academica densa supera el 50% (Halliday, 1985).';
+    } else if (d.lexicalDensity > 0.35) {
+        ldText = 'La densidad lexica es <strong>moderada-baja ('+ldPct+'%)</strong>, por debajo del rango para '+ctx.name.toLowerCase()+' ('+Math.round(ctx.ldExpected[0]*100)+'-'+Math.round(ctx.ldExpected[1]*100)+'%). Hay mas palabras funcionales de lo habitual. La prosa oral informal suele estar en este rango; la escrita formal deberia estar por encima (Halliday, 1985).';
+    } else {
+        ldText = 'La densidad lexica es <strong>baja ('+ldPct+'%)</strong>. Menos de un tercio de las palabras son de contenido real. Esto es mas propio de conversacion oral espontanea que de prosa escrita (Halliday, 1985; Ure, 1971).';
+    }
+    blocks.push({ title: 'Que tan densas son las palabras?', color: d.lexicalDensity >= ctx.ldExpected[0] ? 'dot-green' : d.lexicalDensity > 0.35 ? 'dot-amber' : 'dot-red', text: ldText });
+
+    var niText;
+    if (d.avgNewInfo > 0.55) {
+        niText = 'Cada oracion introduce un <strong>'+(d.avgNewInfo*100).toFixed(0)+'% de conceptos nuevos</strong>. El texto avanza con buen ritmo: cada frase aporta ideas nuevas. Segun la teoria de progresion tematica de Danes (1974), esto indica un desarrollo lineal saludable.';
+    } else if (d.avgNewInfo > 0.35) {
+        niText = 'Las oraciones introducen un <strong>'+(d.avgNewInfo*100).toFixed(0)+'% de conceptos nuevos</strong> en promedio. Hay progresion, pero tambien recurrencia. Algunas oraciones podrian estar reformulando ideas ya expresadas (Danes, 1974).';
+    } else {
+        niText = 'Solo un <strong>'+(d.avgNewInfo*100).toFixed(0)+'% de los conceptos por oracion son nuevos</strong>. Esto sugiere que el texto <strong>tiende a repetir las mismas ideas</strong> en diferentes formulaciones sin avanzar sustancialmente.';
+    }
+    if (d.infoDrop > 0.15 && d.sLens.length >= 6) {
+        niText += ' Ademas, la <strong>informacion nueva cae</strong> del primer tercio ('+(d.avgFirst*100).toFixed(0)+'%) al ultimo ('+(d.avgLast*100).toFixed(0)+'%), lo que puede indicar que el texto se agota tematicamente pero sigue anadiendo extension.';
+    } else if (d.infoDrop < -0.1 && d.sLens.length >= 6) {
+        niText += ' El ultimo tercio introduce <strong>mas conceptos nuevos</strong> que el primero, lo que puede indicar una introduccion innecesariamente larga.';
+    }
+    blocks.push({ title: 'Avanza el texto o repite ideas?', color: d.avgNewInfo > 0.45 ? 'dot-green' : d.avgNewInfo > 0.3 ? 'dot-amber' : 'dot-red', text: niText });
+
+    var ciText;
+    if (d.circIndex < 0.3) {
+        ciText = 'El indice de circunloquio es <strong>bajo ('+d.circIndex.toFixed(2)+')</strong>. Las oraciones contienen proporcion adecuada de contenido. El texto va al grano. '+ctx.circNote;
+    } else if (d.circIndex < 0.55) {
+        ciText = 'El indice de circunloquio es <strong>moderado ('+d.circIndex.toFixed(2)+')</strong>. Densidad media por oracion: <strong>'+(d.avgSentDensity*100).toFixed(0)+'%</strong> con longitud promedio de <strong>'+d.avgSentLen.toFixed(0)+' palabras</strong>. '+ctx.circNote;
+    } else {
+        ciText = 'El indice de circunloquio es <strong>alto ('+d.circIndex.toFixed(2)+')</strong>. Las oraciones tienen baja densidad de contenido (<strong>'+(d.avgSentDensity*100).toFixed(0)+'%</strong>) con longitud de <strong>'+d.avgSentLen.toFixed(0)+' palabras</strong>. Esta es la firma cuantitativa del "cantinfleo": <strong>muchas palabras para pocas ideas</strong>.';
+    }
+    blocks.push({ title: 'Da muchas vueltas para decir poco?', color: d.circIndex < 0.3 ? 'dot-green' : d.circIndex < 0.55 ? 'dot-amber' : 'dot-red', text: ciText });
+
+    var mulText;
+    if (d.fillersFound.length === 0 && d.buzzFound.length === 0) {
+        mulText = 'No se detectaron muletillas discursivas ni buzzwords frecuentes. <strong>Indicador positivo.</strong>';
+    } else {
+        var parts = [];
+        if (d.fillersFound.length > 0) {
+            parts.push('Se detectaron <strong>'+d.fillersFound.length+' tipos de muletillas</strong> que suman <strong>'+d.totalFillerWords+' palabras</strong> ('+(d.fillerRatio*100).toFixed(1)+'% del texto).');
+            if (d.fillersFound.length >= 3) {
+                parts.push('Las mas frecuentes: "'+d.fillersFound.slice(0,3).map(function(f){return f.phrase;}).join('", "')+'".');
+            }
+            parts.push('Estas expresiones rara vez aportan informacion nueva. Eliminarlas suele mejorar la claridad sin perder contenido.');
+        }
+        if (d.buzzFound.length > 0) {
+            parts.push('<strong>Nota sobre buzzwords</strong> ("'+d.buzzFound.slice(0,3).map(function(b){return b.word;}).join('", "')+'..."): no son incorrectos per se, pero su acumulacion puede crear apariencia de profundidad sin contenido operacional concreto.');
+        }
+        mulText = parts.join(' ');
+    }
+    blocks.push({ title: 'Cuanto relleno hay?', color: d.fillersFound.length === 0 ? 'dot-green' : d.fillerRatio > 0.05 ? 'dot-red' : 'dot-amber', text: mulText });
+
+    var redText;
+    if (d.bigramRepRate < 0.1) {
+        redText = 'El <strong>'+(d.bigramRepRate*100).toFixed(1)+'%</strong> de los pares de contenido se repiten. Esto es bajo: el texto varia sus formulaciones. Buen indicador de riqueza expresiva.';
+    } else if (d.bigramRepRate < 0.25) {
+        redText = 'Un <strong>'+(d.bigramRepRate*100).toFixed(1)+'%</strong> de los pares de contenido se repiten. Puede ser normal en textos tecnicos con terminologia especializada, pero si las repeticiones son de expresiones genericas, podrian indicar pobreza expresiva.';
+    } else {
+        redText = 'El <strong>'+(d.bigramRepRate*100).toFixed(1)+'%</strong> de los pares de contenido se repiten. El texto <strong>recicla las mismas combinaciones</strong> con frecuencia.';
+    }
+    blocks.push({ title: 'Recicla las mismas expresiones?', color: d.bigramRepRate < 0.1 ? 'dot-green' : d.bigramRepRate < 0.25 ? 'dot-amber' : 'dot-red', text: redText });
+
+    var html = '<h3>Que significan estos resultados?</h3>';
+    blocks.forEach(function(b) {
+        html += '<div class="interp-block"><h4><span class="'+b.color+'">&#9679;</span> '+b.title+'</h4><p>'+b.text+'</p></div>';
+    });
+    html += '<div class="interp-footer">'+
+        '<strong>Nota metodologica:</strong> El IEI combina densidad lexica (Halliday, 1985), '+
+        'entropia normalizada de Shannon (1948), analisis de progresion tematica (Danes, 1974), '+
+        'deteccion de muletillas discursivas y un indice de circunloquio. Los pesos del indice '+
+        'compuesto (25/20/25/15/15) no han sido calibrados empiricamente. Use los resultados como orientacion.<br><br>'+
+        '<strong>Referencias:</strong> Danes, F. (1974). Functional sentence perspective and the organization of the text. '+
+        '<em>Papers on Functional Sentence Perspective</em>. '+
+        'Halliday, M.A.K. (1985). <em>Spoken and Written Language</em>. Oxford University Press. '+
+        'Shannon, C.E. (1948). A mathematical theory of communication. <em>Bell System Technical Journal, 27</em>(3), 379-423. '+
+        'Ure, J. (1971). Lexical density and register differentiation. <em>Applications of Linguistics</em>. Cambridge University Press. '+
+        'Zipf, G.K. (1949). <em>Human Behavior and the Principle of Least Effort</em>. Addison-Wesley.'+
+        '</div>';
+    document.getElementById('interpSection').innerHTML = html;
+}
+
+function chip(v,l){return '<div class="corpus-chip"><b>'+v+'</b> '+l+'</div>';}
+function mCard(v,l,c,tip,sub,bar){
+    return '<div class="m-card"><div class="m-val" style="color:'+c+'">'+v+
+        '</div><div class="m-label">'+l+' <span class="tip" data-t="'+tip+'">?</span></div>'+
+        '<div class="m-bar"><div class="m-bar-fill" style="width:'+Math.min(bar,100)+'%;background:'+c+'"></div></div>'+
+        '<div class="m-sub">'+sub+'</div></div>';
+}
+function hBar(l,p,n,c){
+    return '<div class="h-bar-row"><span class="h-bar-label">'+l+
+        '</span><div class="h-bar-track"><div class="h-bar-fill" style="width:'+p+
+        '%;background:'+c+'">'+n+'</div></div><span class="h-bar-pct">'+p+'%</span></div>';
+}
+
+// ════════════════════════════════════════
+// PDF - TODO SANITIZADO
+// ════════════════════════════════════════
+downloadBtn.addEventListener('click', function() {
+    if (!analysisData) { alert('Primero analiza un texto.'); return; }
+    downloadBtn.disabled = true;
+    downloadBtn.innerHTML = 'Generando PDF...';
+    setTimeout(function() {
+        try { generatePDF(); } catch(e) { alert('Error: '+e.message); console.error(e); }
+        downloadBtn.disabled = false;
+        downloadBtn.innerHTML = '📥 Descargar Reporte PDF';
+    }, 100);
+});
+
+function generatePDF() {
+    var d = analysisData;
+    var ctx = CONTEXT_REFS[d.context];
+    var doc = new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
+    var W=210,margin=20,usable=W-margin*2;
+    var y=0;
+    var amberC=[245,158,11],dark=[26,26,46],gray=[100,116,139];
+    var lightBg=[248,250,252],green=[16,185,129],blueC=[59,130,246],red=[239,68,68];
+
+    function checkPage(n){if(y+n>275){pageFooter();doc.addPage();y=20;}}
+    function pageFooter(){
+        doc.setFontSize(6.5);doc.setTextColor(170,170,170);
+        doc.text(sanitize('Eficiencia Informativa - Bioestadistica Edu - Maicel Monzon Perez'),W/2,290,{align:'center'});
+    }
+    function sect(t){
+        checkPage(15);
+        doc.setFillColor(245,158,11);doc.rect(margin,y,3,7,'F');
+        doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor.apply(doc,dark);
+        doc.text(sanitize(t),margin+6,y+5.5);
+        doc.setDrawColor(226,232,240);doc.line(margin+6,y+8,margin+usable,y+8);
+        y+=12;
+    }
+    function writeP(text,fs,col,lh){
+        fs=fs||7.5;col=col||dark;lh=lh||4;
+        doc.setFont('helvetica','normal');doc.setFontSize(fs);doc.setTextColor.apply(doc,col);
+        var lines=doc.splitTextToSize(sanitize(text),usable);
+        lines.forEach(function(line){checkPage(lh+1);doc.text(line,margin,y);y+=lh;});
+    }
+
+    // PORTADA
+    doc.setFillColor(15,23,42);doc.rect(0,0,W,85,'F');
+    doc.setFillColor.apply(doc,amberC);doc.rect(0,85,W,2,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(26);doc.setTextColor(255,255,255);
+    doc.text('Eficiencia Informativa',W/2,35,{align:'center'});
+    doc.setFont('helvetica','normal');doc.setFontSize(11);doc.setTextColor(148,163,184);
+    doc.text('Reporte de Analisis Cuantitativo',W/2,45,{align:'center'});
+    doc.setFontSize(8.5);doc.setTextColor(100,116,139);
+    doc.text(sanitize('Contexto: '+ctx.name),W/2,56,{align:'center'});
+    var dateStr=new Date().toLocaleDateString('es-ES',{year:'numeric',month:'long',day:'numeric'});
+    doc.text(sanitize(dateStr),W/2,62,{align:'center'});
+    doc.text(d.N.toLocaleString()+' palabras - '+d.sLens.length+' oraciones - '+d.types.toLocaleString()+' tipos',W/2,68,{align:'center'});
+
+    var ieiColor=d.iei>=70?green:d.iei>=50?blueC:d.iei>=35?amberC:red;
+    doc.setFont('helvetica','bold');doc.setFontSize(36);doc.setTextColor.apply(doc,ieiColor);
+    doc.text(d.iei.toString(),W/2-8,79,{align:'center'});
+    doc.setFontSize(14);doc.setTextColor(148,163,184);doc.text('/ 100',W/2+10,79,{align:'center'});
+
+    y=97;
+    doc.setFillColor(255,251,235);doc.roundedRect(margin,y,usable,14,3,3,'F');
+    doc.setDrawColor(253,230,138);doc.roundedRect(margin,y,usable,14,3,3,'S');
+    doc.setFont('helvetica','normal');doc.setFontSize(6.5);doc.setTextColor(146,64,14);
+    doc.text('Herramienta de analisis linguistico cuantitativo. No evalua veracidad ni calidad cientifica.',margin+5,y+5);
+    doc.text('Basada en Halliday (1985), Shannon (1948), Danes (1974). Metricas descriptivas, no diagnosticas.',margin+5,y+10);
+
+    // METRICAS
+    y=120;
+    sect('METRICAS DE EFICIENCIA');
+    var metrics=[
+        {l:'DENSIDAD LEXICA',v:(d.lexicalDensity*100).toFixed(1)+'%',r:'Ref: '+Math.round(ctx.ldExpected[0]*100)+'-'+Math.round(ctx.ldExpected[1]*100)+'%',c:d.lexicalDensity>ctx.ldExpected[0]?green:d.lexicalDensity>0.35?amberC:red},
+        {l:'INFO NUEVA/ORAC.',v:(d.avgNewInfo*100).toFixed(1)+'%',r:'Mas alto = mejor',c:d.avgNewInfo>0.5?green:d.avgNewInfo>0.3?amberC:red},
+        {l:'RATIO DE RELLENO',v:(d.fillerRatio*100).toFixed(1)+'%',r:'<'+Math.round(ctx.fillerTolerance*100)+'% ideal',c:d.fillerRatio<ctx.fillerTolerance?green:d.fillerRatio<0.08?amberC:red},
+        {l:'I. CIRCUNLOQUIO',v:d.circIndex.toFixed(2),r:'Mas bajo = mejor',c:d.circIndex<0.35?green:d.circIndex<0.6?amberC:red},
+        {l:'ENTROPIA NORM.',v:d.Hnorm.toFixed(3),r:'>0.85 ideal',c:d.Hnorm>0.9?green:d.Hnorm>0.8?amberC:red},
+        {l:'BIGRAMAS REPET.',v:(d.bigramRepRate*100).toFixed(1)+'%',r:'<15% ideal',c:d.bigramRepRate<0.15?green:d.bigramRepRate<0.3?amberC:red}
+    ];
+    var cW=(usable-10)/3,cH=26;
+    metrics.forEach(function(m,i){
+        var col=i%3,row=Math.floor(i/3);
+        var x=margin+col*(cW+5),cy=y+row*(cH+5);
+        checkPage(cH+5);
+        doc.setFillColor.apply(doc,lightBg);doc.roundedRect(x,cy,cW,cH,2,2,'F');
+        doc.setFont('helvetica','bold');doc.setFontSize(14);doc.setTextColor.apply(doc,m.c);
+        doc.text(m.v,x+cW/2,cy+11,{align:'center'});
+        doc.setFont('helvetica','normal');doc.setFontSize(6.5);doc.setTextColor.apply(doc,gray);
+        doc.text(m.l,x+cW/2,cy+18,{align:'center'});
+        doc.setFontSize(5.5);doc.setTextColor(180,180,180);
+        doc.text(m.r,x+cW/2,cy+23,{align:'center'});
+    });
+    y+=Math.ceil(metrics.length/3)*(cH+5)+5;
+
+    // COMPOSICION
+    sect('COMPOSICION DEL TEXTO');
+    var totalComp=d.contentW+d.fillerW+d.funcWords;
+    var comp=[{l:'Contenido',n:d.contentW,c:green},{l:'Funcionales',n:d.funcWords,c:blueC},{l:'Relleno',n:d.fillerW,c:red}];
+    var maxComp=Math.max.apply(null,comp.map(function(c){return c.n;}));
+    comp.forEach(function(b){
+        checkPage(10);
+        doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor.apply(doc,dark);
+        doc.text(b.l,margin+35,y+4.5,{align:'right'});
+        doc.setFillColor(240,240,240);doc.roundedRect(margin+40,y,usable-60,6,1.5,1.5,'F');
+        var fw=maxComp>0?(b.n/maxComp)*(usable-60):0;
+        if(fw>0){doc.setFillColor.apply(doc,b.c);doc.roundedRect(margin+40,y,Math.max(fw,4),6,1.5,1.5,'F');}
+        doc.setFontSize(6.5);doc.setTextColor.apply(doc,gray);
+        doc.text(b.n+' ('+((b.n/totalComp)*100).toFixed(1)+'%)',margin+usable,y+4.5,{align:'right'});
+        y+=10;
+    });
+    y+=3;
+
+    // MULETILLAS
+    if(d.fillersFound.length>0||d.buzzFound.length>0){
+        sect('MULETILLAS Y BUZZWORDS');
+        var allF=d.fillersFound.concat(d.buzzFound.map(function(b){return{phrase:b.word+' (buzzword)',count:b.count};}));
+        allF.forEach(function(f,i){
+            checkPage(7);
+            if(i%2===0){doc.setFillColor(252,252,253);doc.rect(margin,y-1.5,usable,7,'F');}
+            doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor.apply(doc,dark);
+            doc.text(sanitize('"'+f.phrase+'"'),margin+3,y+3.5);
+            doc.setFont('helvetica','bold');doc.setTextColor.apply(doc,red);
+            doc.text('x'+f.count,margin+usable-5,y+3.5,{align:'right'});
+            y+=7;
+        });
+        y+=5;
+    }
+
+    // INTERPRETACION
+    sect('INTERPRETACION DE RESULTADOS');
+    var interpEl=document.getElementById('interpSection');
+    var interpBlocks=interpEl.querySelectorAll('.interp-block');
+    interpBlocks.forEach(function(block){
+        checkPage(12);
+        var title=block.querySelector('h4').textContent;
+        doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor.apply(doc,dark);
+        doc.text(sanitize(title),margin,y);y+=5;
+        var pText=block.querySelector('p').textContent;
+        writeP(pText,7,[80,80,100],3.6);
+        y+=4;
+    });
+
+    // METODOLOGIA Y REFERENCIAS
+    y+=3;
+    sect('NOTA METODOLOGICA Y REFERENCIAS');
+    writeP(
+        'El Indice de Eficiencia Informativa (IEI) combina cinco componentes: densidad lexica (Halliday, 1985), '+
+        'entropia normalizada de Shannon (1948), analisis de progresion tematica basado en conceptos nuevos por oracion '+
+        '(Danes, 1974), deteccion de muletillas discursivas, y un indice de circunloquio que relaciona la densidad '+
+        'de contenido por oracion con su longitud. Los pesos del indice compuesto (25/20/25/15/15) son proporcionales '+
+        'a la relevancia teorica de cada componente pero no han sido calibrados empiricamente contra juicio humano.',
+        7, [80,80,100], 3.5
+    );
+    y+=5;
+
+    doc.setFont('helvetica','bold');doc.setFontSize(7.5);doc.setTextColor.apply(doc,dark);
+    doc.text('Referencias',margin,y);y+=5;
+
+    var refs=[
+        'Danes, F. (1974). Functional sentence perspective and the organization of the text. En F. Danes (Ed.), Papers on Functional Sentence Perspective (pp. 106-128). Prague: Academia.',
+        'Halliday, M.A.K. (1985). Spoken and Written Language. Oxford: Oxford University Press.',
+        'Shannon, C.E. (1948). A mathematical theory of communication. Bell System Technical Journal, 27(3), 379-423.',
+        'Ure, J. (1971). Lexical density and register differentiation. En G. Perren & J.L.M. Trim (Eds.), Applications of Linguistics (pp. 443-452). Cambridge: Cambridge University Press.',
+        'Zipf, G.K. (1949). Human Behavior and the Principle of Least Effort. Cambridge, MA: Addison-Wesley.'
+    ];
+    refs.forEach(function(ref){
+        checkPage(10);
+        doc.setFont('helvetica','normal');doc.setFontSize(6.5);doc.setTextColor(100,100,120);
+        var lines=doc.splitTextToSize(sanitize('- '+ref),usable);
+        lines.forEach(function(line){checkPage(3.5);doc.text(line,margin,y);y+=3.3;});
+        y+=1;
+    });
+
+    pageFooter();
+    doc.save('eficiencia-informativa-'+new Date().toISOString().slice(0,10)+'.pdf');
+}
+
+// PDF Upload
+pdfInput.addEventListener('change',async function(e){
+    var file=e.target.files[0];if(!file)return;
+    analyzeBtn.disabled=true;analyzeBtn.textContent='Extrayendo...';
+    try{
+        var buf=await file.arrayBuffer();
+        var pdf=await pdfjsLib.getDocument(new Uint8Array(buf)).promise;
+        var txt='';
+        for(var i=1;i<=pdf.numPages;i++){
+            var pg=await pdf.getPage(i);var c=await pg.getTextContent();
+            txt+=c.items.map(function(it){return it.str;}).join(' ')+'\n';
+        }
+        inputText.value=txt.trim();
+    }catch(err){alert('Error: '+err.message);}
+    analyzeBtn.disabled=false;analyzeBtn.textContent='Analizar Eficiencia';
+});
+</script>
 </body>
 </html>

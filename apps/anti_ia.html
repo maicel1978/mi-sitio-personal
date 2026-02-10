@@ -3,229 +3,848 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bio-AI Forensic Pro - Bioestadística Edu</title>
+    <title>Estilometría Textual - Bioestadística Edu</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
-        :root { 
-            --bg: #020617; --panel: #0f172a; --accent: #f59e0b; --text: #f8fafc; 
-            --ai-red: #ef4444; --human-green: #22c55e; --warning: #f59e0b;
+        :root {
+            --bg: #0a0f1c;
+            --panel: #111827;
+            --border: #1e2736;
+            --accent: #6366f1;
+            --text: #e2e8f0;
+            --dim: #64748b;
+            --green: #10b981;
+            --amber: #f59e0b;
+            --red: #ef4444;
+            --blue: #3b82f6;
         }
-        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
-        
-        .container { max-width: 1000px; width: 100%; }
-        header { text-align: center; margin-bottom: 25px; }
-        
-        /* Panel de Evaluación Global */
-        .global-assessment { 
-            background: #1e293b; border-radius: 16px; padding: 20px; margin-bottom: 25px; 
-            display: flex; align-items: center; gap: 20px; border: 1px solid #334155;
-            animation: fadeIn 0.5s ease;
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--bg); color: var(--text);
+            min-height: 100vh;
+            display: flex; flex-direction: column; align-items: center;
+            padding: 25px 20px;
         }
-        .status-light { width: 50px; height: 50px; border-radius: 50%; background: #334155; flex-shrink: 0; border: 4px solid rgba(255,255,255,0.1); }
-        .assessment-text h2 { margin: 0; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; }
-        .assessment-text p { margin: 5px 0 0; font-size: 0.9rem; color: #94a3b8; }
+        .container { max-width: 900px; width: 100%; }
 
-        .main-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .box { background: var(--panel); border-radius: 16px; padding: 20px; border: 1px solid #1e293b; }
-        
-        textarea { width: 100%; height: 350px; background: #020617; color: #fff; border: 1px solid #334155; border-radius: 8px; padding: 15px; resize: none; outline: none; font-family: inherit; font-size: 0.95rem; line-height: 1.6; }
-        #viewer { width: 100%; height: 350px; background: #020617; border-radius: 8px; padding: 15px; overflow-y: auto; white-space: pre-wrap; line-height: 1.8; border: 1px solid #334155; box-sizing: border-box; }
-        
-        .high-risk { background-color: rgba(239, 68, 68, 0.2); border-bottom: 2px solid var(--ai-red); }
-        .medium-risk { background-color: rgba(245, 158, 11, 0.15); border-bottom: 2px solid var(--accent); }
+        header { text-align: center; margin-bottom: 30px; }
+        header h1 { font-size: 1.6rem; font-weight: 800; letter-spacing: -0.5px; }
+        header h1 .hl { color: var(--accent); }
+        header p { color: var(--dim); font-size: 0.85rem; margin-top: 6px; }
 
-        /* Métricas con Tooltips */
-        .metrics-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 25px; }
-        .metric-card { background: var(--panel); padding: 15px; border-radius: 12px; text-align: center; border: 1px solid #1e293b; position: relative; }
-        .metric-card b { display: block; font-size: 1.5rem; margin-bottom: 5px; }
-        .metric-card span { font-size: 0.65rem; color: #64748b; text-transform: uppercase; font-weight: bold; }
-        
-        .info-trigger { 
+        .disclaimer {
+            background: rgba(245,158,11,0.06);
+            border: 1px solid rgba(245,158,11,0.18);
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-bottom: 22px;
+            font-size: 0.76rem;
+            color: #b8923a;
+            line-height: 1.5;
+            display: flex; gap: 10px; align-items: flex-start;
+        }
+        .disclaimer strong { color: #f59e0b; }
+
+        .input-section {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 22px;
+        }
+        .input-row { display: flex; gap: 10px; margin-bottom: 12px; }
+
+        .btn {
+            padding: 10px 18px; border-radius: 8px; border: none;
+            font-weight: 700; font-size: 0.8rem; cursor: pointer; transition: 0.2s;
+        }
+        .btn:hover { filter: brightness(1.12); transform: translateY(-1px); }
+        .btn:active { transform: translateY(0); }
+        .btn-accent { background: var(--accent); color: #fff; flex: 1; }
+        .btn-ghost {
+            background: rgba(99,102,241,0.08);
+            border: 1px dashed rgba(99,102,241,0.3);
+            color: var(--accent);
+        }
+        .btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
+
+        textarea {
+            width: 100%; height: 180px;
+            background: var(--bg); color: var(--text);
+            border: 1px solid var(--border); border-radius: 8px;
+            padding: 14px; resize: vertical;
+            font-family: inherit; font-size: 0.85rem;
+            line-height: 1.6; outline: none;
+        }
+        textarea:focus { border-color: var(--accent); }
+        textarea::placeholder { color: #2a3444; }
+
+        #results { display: none; }
+
+        .corpus-bar { display: flex; gap: 6px; margin-bottom: 18px; flex-wrap: wrap; }
+        .corpus-chip {
+            background: var(--panel); border: 1px solid var(--border);
+            border-radius: 8px; padding: 8px 14px; font-size: 0.72rem;
+            color: var(--dim); display: flex; align-items: center; gap: 6px;
+        }
+        .corpus-chip b { color: var(--accent); font-size: 0.9rem; }
+
+        .metrics {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 12px; margin-bottom: 18px;
+        }
+        .m-card {
+            background: var(--panel); border: 1px solid var(--border);
+            border-radius: 12px; padding: 16px; text-align: center;
+            position: relative;
+        }
+        .m-card .m-val {
+            font-size: 1.7rem; font-weight: 800;
+            letter-spacing: -1px; margin-bottom: 4px;
+        }
+        .m-card .m-label {
+            font-size: 0.62rem; text-transform: uppercase;
+            letter-spacing: 1px; color: var(--dim); font-weight: 700;
+        }
+        .m-card .m-sub {
+            font-size: 0.66rem; color: var(--dim);
+            margin-top: 6px; line-height: 1.4;
+        }
+        .tip {
             display: inline-flex; align-items: center; justify-content: center;
-            width: 14px; height: 14px; background: #334155; border-radius: 50%; 
-            font-size: 10px; cursor: help; margin-left: 4px; color: #fff; vertical-align: middle;
+            width: 14px; height: 14px; background: var(--border); border-radius: 50%;
+            font-size: 8px; cursor: help; color: var(--dim); font-weight: 800;
+            margin-left: 3px; vertical-align: middle; position: relative;
         }
-        .info-trigger:hover::after {
-            content: attr(data-tooltip);
-            position: absolute; bottom: 110%; left: 50%; transform: translateX(-50%);
-            background: #000; color: #fff; padding: 8px; border-radius: 4px;
-            width: 180px; font-size: 11px; text-transform: none; font-weight: normal;
-            z-index: 100; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        .tip:hover::after {
+            content: attr(data-t);
+            position: absolute; bottom: calc(100% + 8px); left: 50%;
+            transform: translateX(-50%);
+            background: #000; color: #fff; padding: 8px 10px;
+            border-radius: 6px; font-size: 0.68rem;
+            width: 200px; line-height: 1.45;
+            font-weight: 400; text-transform: none; letter-spacing: 0;
+            z-index: 999; box-shadow: 0 6px 20px rgba(0,0,0,.5);
+            pointer-events: none;
         }
 
-        .btn { width: 100%; padding: 15px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 15px; font-size: 1rem; }
-        .btn-primary { background: var(--accent); color: #000; }
-        .btn-upload { background: #1e293b; color: white; border: 1px solid #334155; margin-bottom: 10px; }
+        .chart-row {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 12px; margin-bottom: 18px;
+        }
+        .chart-box {
+            background: var(--panel); border: 1px solid var(--border);
+            border-radius: 12px; padding: 16px;
+        }
+        .chart-box h4 {
+            font-size: 0.7rem; text-transform: uppercase;
+            letter-spacing: 1px; color: var(--dim); margin-bottom: 14px;
+        }
+        .h-bar-group { display: flex; flex-direction: column; gap: 8px; }
+        .h-bar-row { display: flex; align-items: center; gap: 8px; }
+        .h-bar-label {
+            font-size: 0.68rem; color: var(--dim); width: 65px;
+            text-align: right; flex-shrink: 0;
+        }
+        .h-bar-track {
+            flex: 1; height: 18px; background: rgba(255,255,255,0.03);
+            border-radius: 4px; overflow: hidden;
+        }
+        .h-bar-fill {
+            height: 100%; border-radius: 4px;
+            transition: width 0.7s cubic-bezier(.22,1,.36,1);
+            display: flex; align-items: center; justify-content: flex-end;
+            padding-right: 6px;
+            font-size: 0.6rem; font-weight: 700; color: rgba(255,255,255,0.9);
+            min-width: 28px;
+        }
 
-        footer { margin-top: 50px; padding: 30px; text-align: center; font-size: 0.8rem; color: #475569; border-top: 1px solid #1e293b; width: 100%; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .text-preview h4 {
+            font-size: 0.7rem; text-transform: uppercase;
+            letter-spacing: 1px; color: var(--dim); margin-bottom: 10px;
+        }
+        .preview-content {
+            font-size: 0.82rem; line-height: 1.75;
+            max-height: 160px; overflow: hidden;
+            position: relative; color: #94a3b8;
+        }
+        .preview-content::after {
+            content: ''; position: absolute;
+            bottom: 0; left: 0; right: 0; height: 50px;
+            background: linear-gradient(transparent, var(--panel));
+        }
+        .s-short { background: rgba(16,185,129,0.12); padding: 1px 2px; border-radius: 2px; }
+        .s-long { background: rgba(245,158,11,0.12); padding: 1px 2px; border-radius: 2px; }
+        .s-vlong { background: rgba(239,68,68,0.12); padding: 1px 2px; border-radius: 2px; }
+
+        .download-row {
+            display: flex; gap: 10px; margin-top: 18px; justify-content: center;
+        }
+        .btn-download {
+            padding: 12px 28px; border-radius: 10px;
+            border: 1px solid var(--accent);
+            background: rgba(99,102,241,0.08);
+            color: var(--accent); font-weight: 700; font-size: 0.82rem;
+            cursor: pointer; transition: 0.2s;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .btn-download:hover { background: var(--accent); color: #fff; }
+        .btn-download:disabled { opacity: 0.4; cursor: wait; }
+
+        footer {
+            margin-top: 40px; padding-top: 20px;
+            border-top: 1px solid var(--border);
+            text-align: center; font-size: 0.74rem;
+            color: var(--dim); line-height: 1.6;
+        }
+        footer strong { color: var(--text); }
+
+        @media (max-width: 700px) {
+            .metrics { grid-template-columns: repeat(2, 1fr); }
+            .chart-row { grid-template-columns: 1fr; }
+            .input-row { flex-direction: column; }
+        }
+        @media (max-width: 450px) {
+            .metrics { grid-template-columns: 1fr; }
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .anim { animation: fadeUp 0.35s ease forwards; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <header>
-        <h1 style="color:var(--text)">Bio-AI <span style="color:var(--accent)">Forensic Pro</span></h1>
-        <p style="color:#64748b">Auditoría Lingüística para Bioestadística y Academia</p>
+        <h1>Estilometría <span class="hl">Textual</span></h1>
+        <p>Métricas lingüísticas cuantitativas · Dashboard + Reporte PDF</p>
     </header>
 
-    <!-- Panel de Evaluación Global -->
-    <div class="global-assessment">
-        <div class="status-light" id="globalLight"></div>
-        <div class="assessment-text">
-            <h2 id="globalTitle">Esperando Análisis</h2>
-            <p id="globalDesc">Ingresa un texto o PDF para evaluar el riesgo de autoría por IA.</p>
-        </div>
+    <div class="disclaimer">
+        <span>⚠️</span>
+        <p><strong>Esto NO es un detector de IA.</strong>
+        Calcula métricas estilométricas estándar (descriptivas, no diagnósticas).
+        No emite juicios sobre el origen del texto.</p>
     </div>
 
-    <div class="main-layout">
-        <div class="box">
-            <button class="btn btn-upload" onclick="document.getElementById('pdfInput').click()">📄 SUBIR PDF CIENTÍFICO</button>
+    <div class="input-section">
+        <div class="input-row">
+            <button class="btn btn-ghost" onclick="document.getElementById('pdfInput').click()">📄 Cargar PDF</button>
             <input type="file" id="pdfInput" accept="application/pdf" style="display:none">
-            <textarea id="inputText" placeholder="Pega el texto aquí..."></textarea>
-            <button class="btn btn-primary" id="analyzeBtn">ANALIZAR ESTADÍSTICAS</button>
+            <button class="btn btn-accent" id="analyzeBtn">Analizar Estilometría</button>
         </div>
-        
-        <div class="box">
-            <div id="viewer">El mapa de calor aparecerá aquí...</div>
-        </div>
+        <textarea id="inputText" placeholder="Pega aquí el texto a analizar (mínimo 200 caracteres)..."></textarea>
     </div>
 
-    <div class="metrics-bar">
-        <div class="metric-card">
-            <b id="aiScore">0%</b>
-            <span>Probabilidad IA <span class="info-trigger" data-tooltip="Estimación combinada basada en la uniformidad y predictibilidad del texto.">?</span></span>
+    <div id="results">
+        <div class="corpus-bar anim" id="corpusBar"></div>
+        <div class="metrics anim" id="metricsArea"></div>
+        <div class="chart-row anim">
+            <div class="chart-box">
+                <h4>📊 Distribución de Oraciones por Longitud</h4>
+                <div class="h-bar-group" id="distChart"></div>
+            </div>
+            <div class="chart-box text-preview">
+                <h4>🔍 Vista Previa Estructural</h4>
+                <div class="preview-content" id="preview"></div>
+            </div>
         </div>
-        <div class="metric-card">
-            <b id="perplexityScore">0</b>
-            <span>Perplejidad <span class="info-trigger" data-tooltip="Mide qué tan predecible es el texto. La IA suele puntuar bajo (<60) al ser muy lineal.">?</span></span>
-        </div>
-        <div class="metric-card">
-            <b id="entropyScore">0</b>
-            <span>Entropía (H) <span class="info-trigger" data-tooltip="Entropía de Shannon. Mide la riqueza y desorden léxico. A mayor valor, más humano.">?</span></span>
-        </div>
-        <div class="metric-card">
-            <b id="burstinessScore">0</b>
-            <span>Burstiness <span class="info-trigger" data-tooltip="Varianza en la longitud de oraciones. Los humanos alternan frases cortas y largas.">?</span></span>
+        <div class="download-row anim">
+            <button class="btn-download" id="downloadBtn">
+                📥 Descargar Reporte PDF
+            </button>
         </div>
     </div>
 </div>
 
 <footer>
-    Autor: <strong>Maicel Monzón Pérez</strong> | Bioestadística Edu<br>
-    Este detector analiza patrones estadísticos. No debe usarse como prueba única de fraude.
+    <strong>Maicel Monzón Pérez</strong> · Bioestadística Edu<br>
+    Estilometría cuantitativa — No sustituye evaluación profesional
 </footer>
 
 <script>
-    const inputText = document.getElementById('inputText');
-    const analyzeBtn = document.getElementById('analyzeBtn');
-    const viewer = document.getElementById('viewer');
-    const pdfInput = document.getElementById('pdfInput');
+var pdfjsLib = window['pdfjs-dist/build/pdf'];
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+    'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
 
-    const CONNECTORS = ["además", "por lo tanto", "en conclusión", "asimismo", "sin embargo", "en consecuencia", "adicionalmente", "por consiguiente", "notablemente", "consecuentemente"];
+var jsPDF = window.jspdf.jsPDF;
 
-    analyzeBtn.onclick = () => {
-        const text = inputText.value.trim();
-        if (text.length < 150) return alert("Se requiere un texto más largo (mínimo 150 caracteres) para un análisis fiable.");
-        analyzeText(text);
+var inputText = document.getElementById('inputText');
+var analyzeBtn = document.getElementById('analyzeBtn');
+var pdfInput = document.getElementById('pdfInput');
+var downloadBtn = document.getElementById('downloadBtn');
+
+var CONNECTORS = [
+    "además","asimismo","igualmente","de igual modo","del mismo modo",
+    "por lo tanto","en consecuencia","por consiguiente","consecuentemente",
+    "sin embargo","no obstante","en cambio","por el contrario",
+    "en conclusión","en resumen","en definitiva","para concluir",
+    "en primer lugar","en segundo lugar","por otra parte","por un lado",
+    "adicionalmente","notablemente","cabe destacar","es importante señalar",
+    "dado que","debido a","a causa de","puesto que",
+    "de hecho","en efecto","ciertamente","evidentemente"
+];
+
+var analysisData = null;
+
+function splitSentences(text) {
+    var abbr = ['Dr','Dra','Sr','Sra','Prof','Ing','Lic','etc','vs',
+        'vol','fig','ed','eds','p','pp','pág','cap','dept','Ud','Uds'];
+    var t = text;
+    abbr.forEach(function(a) {
+        t = t.replace(new RegExp('\\b(' + a + ')\\.', 'gi'), '$1\u0000');
+    });
+    t = t.replace(/et\s+al\./gi, 'et al\u0000');
+    t = t.replace(/(\d)\./g, '$1\u0000');
+    var raw = t.match(/[^.!?]+[.!?]+/g) || [t];
+    return raw.map(function(s) {
+        return s.replace(/\u0000/g, '.').trim();
+    }).filter(function(s) { return s.length > 3; });
+}
+
+function tokenize(text) {
+    return text.toLowerCase().match(/[a-záéíóúüñ][a-záéíóúüñ\-]*[a-záéíóúüñ]|[a-záéíóúüñ]/g) || [];
+}
+
+function yulesK(freqMap, N) {
+    var spectrum = {};
+    Object.values(freqMap).forEach(function(f) { spectrum[f] = (spectrum[f]||0) + 1; });
+    var sum = 0;
+    Object.keys(spectrum).forEach(function(i) {
+        sum += Math.pow(Number(i), 2) * spectrum[i];
+    });
+    return Math.max(10000 * (sum - N) / (N * N), 0);
+}
+
+analyzeBtn.addEventListener('click', function() {
+    var text = inputText.value.trim();
+    if (text.length < 200) { alert("Se necesitan al menos 200 caracteres."); return; }
+    runAnalysis(text);
+});
+
+function runAnalysis(text) {
+    var sentences = splitSentences(text);
+    var words = tokenize(text);
+    var N = words.length;
+    if (N < 40 || sentences.length < 3) { alert("Texto muy corto."); return; }
+
+    var freq = {};
+    words.forEach(function(w) { freq[w] = (freq[w]||0) + 1; });
+    var types = Object.keys(freq).length;
+    var yK = yulesK(freq, N);
+
+    var H = 0;
+    Object.values(freq).forEach(function(c) {
+        var p = c / N; if (p > 0) H -= p * Math.log2(p);
+    });
+    var Hmax = Math.log2(types) || 1;
+    var Hnorm = H / Hmax;
+
+    var sLens = sentences.map(function(s) { return tokenize(s).length; }).filter(function(l) { return l > 0; });
+    var avg = sLens.reduce(function(a,b) { return a+b; }, 0) / sLens.length;
+    var std = Math.sqrt(sLens.reduce(function(s,l) { return s + Math.pow(l-avg,2); }, 0) / sLens.length);
+    var cv = avg > 0 ? std / avg : 0;
+
+    var hapaxCount = Object.values(freq).filter(function(c) { return c===1; }).length;
+    var hapaxR = hapaxCount / types;
+
+    var connCount = 0;
+    var tLow = text.toLowerCase();
+    CONNECTORS.forEach(function(c) {
+        var esc = c.replace(/[.*+?^${}()|[\]\\]/g,'\\$&').replace(/\s+/g,'\\s+');
+        var m = tLow.match(new RegExp('(?:^|[\\s,;:(])'+esc+'(?=[\\s,;:.!?)]|$)','gi'));
+        if (m) connCount += m.length;
+    });
+    var connP = (connCount / N) * 100;
+
+    var bins = { short: 0, medium: 0, long: 0, vlong: 0 };
+    sLens.forEach(function(l) {
+        if (l <= 8) bins.short++;
+        else if (l <= 20) bins.medium++;
+        else if (l <= 35) bins.long++;
+        else bins.vlong++;
+    });
+
+    analysisData = {
+        text: text, sentences: sentences, words: words,
+        N: N, types: types, freq: freq,
+        yK: yK, H: H, Hmax: Hmax, Hnorm: Hnorm,
+        sLens: sLens, avg: avg, std: std, cv: cv,
+        hapaxCount: hapaxCount, hapaxR: hapaxR,
+        connCount: connCount, connP: connP, bins: bins
     };
+    renderDashboard();
+}
 
-    function analyzeText(text) {
-        const sentences = text.match(/[^\.!\?]+[\.!\?]+/g) || [text];
-        const words = text.toLowerCase().match(/\b\w+\b/g);
-        if (!words) return;
+function escapeHtml(t) {
+    var d = document.createElement('div');
+    d.appendChild(document.createTextNode(t));
+    return d.innerHTML;
+}
 
-        // 1. Entropía y Perplejidad
-        const freqMap = {};
-        words.forEach(w => freqMap[w] = (freqMap[w] || 0) + 1);
-        let entropy = 0;
-        Object.values(freqMap).forEach(count => {
-            const p = count / words.length;
-            entropy -= p * Math.log2(p);
-        });
-        const perplexity = Math.pow(2, entropy);
+function renderDashboard() {
+    var d = analysisData;
+    document.getElementById('results').style.display = 'block';
 
-        // 2. Burstiness (Varianza longitud)
-        const lengths = sentences.map(s => s.trim().split(/\s+/).length);
-        const avgLen = lengths.reduce((a, b) => a + b) / lengths.length;
-        const variance = lengths.reduce((a, b) => a + Math.pow(b - avgLen, 2), 0) / lengths.length;
-        const burstiness = Math.sqrt(variance);
+    var fiab = d.N < 100 ? '⚠️ Muy corto' : d.N < 300 ? '⚠️ Breve' : '✓ Adecuado';
+    document.getElementById('corpusBar').innerHTML =
+        chip(d.N.toLocaleString(), 'palabras') +
+        chip(d.sLens.length, 'oraciones') +
+        chip(d.types.toLocaleString(), 'tipos únicos') +
+        chip(fiab, 'fiabilidad');
 
-        // 3. Procesamiento y Mapa de Calor
-        let aiConfidence = 0;
-        let highlightedHtml = "";
+    document.getElementById('metricsArea').innerHTML =
+        mCard(d.yK.toFixed(1), "Yule's K", 'var(--blue)',
+            'Riqueza léxica robusta al tamaño. Menor = más diverso.',
+            'Ref: 80-200 (Yule, 1944)') +
+        mCard(d.Hnorm.toFixed(3), 'H Normalizada', 'var(--accent)',
+            'Entropía / Entropía máx. Independiente del tamaño.',
+            'H=' + d.H.toFixed(2) + ' / Hmax=' + d.Hmax.toFixed(2)) +
+        mCard(d.cv.toFixed(2), 'CV Oracional', 'var(--green)',
+            'Variación en longitud de oraciones.',
+            'σ=' + d.std.toFixed(1) + ' · μ=' + d.avg.toFixed(1)) +
+        mCard(d.avg.toFixed(1), 'Media Oración', 'var(--amber)',
+            'Palabras por oración promedio.',
+            'Rango: ' + Math.min.apply(null, d.sLens) + ' – ' + Math.max.apply(null, d.sLens)) +
+        mCard((d.hapaxR*100).toFixed(1)+'%', 'Hapax Legomena', 'var(--red)',
+            'Palabras que aparecen solo 1 vez.',
+            d.hapaxCount + ' de ' + d.types + ' tipos') +
+        mCard(d.connP.toFixed(2), 'Conect./100', '#a78bfa',
+            'Marcadores discursivos por cada 100 palabras.',
+            d.connCount + ' detectados');
 
-        sentences.forEach(s => {
-            let sScore = 0;
-            if (perplexity < 60) sScore += 25;
-            if (burstiness < 6) sScore += 20;
-            CONNECTORS.forEach(c => { if (s.toLowerCase().includes(c)) sScore += 15; });
-            
-            aiConfidence += sScore;
-            let cls = (sScore > 40) ? "high-risk" : (sScore > 20) ? "medium-risk" : "";
-            highlightedHtml += `<span class="${cls}">${s}</span>`;
-        });
+    var total = d.sLens.length;
+    function pct(k) { return ((d.bins[k] / total) * 100).toFixed(1); }
+    document.getElementById('distChart').innerHTML =
+        hBar('1-8 pal.', pct('short'), d.bins.short, 'var(--green)') +
+        hBar('9-20 pal.', pct('medium'), d.bins.medium, 'var(--blue)') +
+        hBar('21-35 pal.', pct('long'), d.bins.long, 'var(--amber)') +
+        hBar('36+ pal.', pct('vlong'), d.bins.vlong, 'var(--red)');
 
-        // 4. Resultados Globales
-        const avgSentScore = aiConfidence / sentences.length;
-        const finalProb = Math.min(Math.round(avgSentScore + (100 - perplexity)), 100);
-
-        updateUI(finalProb, perplexity, entropy, burstiness, highlightedHtml);
+    var maxP = Math.min(d.sentences.length, 8);
+    var ph = '';
+    for (var i = 0; i < maxP; i++) {
+        var len = d.sLens[i] || 0;
+        var cls = '';
+        if (len <= 8) cls = 's-short';
+        else if (len > d.avg + 1.5 * d.std) cls = 's-vlong';
+        else if (len > d.avg + 0.7 * d.std) cls = 's-long';
+        ph += '<span class="' + cls + '">' + escapeHtml(d.sentences[i]) + '</span> ';
     }
+    if (d.sentences.length > maxP) {
+        ph += '<br><em style="color:var(--dim);font-size:0.75rem">...y ' +
+            (d.sentences.length - maxP) + ' oraciones más en el reporte PDF.</em>';
+    }
+    document.getElementById('preview').innerHTML = ph;
+    document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
 
-    function updateUI(prob, perp, entr, burst, html) {
-        document.getElementById('aiScore').innerText = prob + "%";
-        document.getElementById('perplexityScore').innerText = Math.round(perp);
-        document.getElementById('entropyScore').innerText = entr.toFixed(2);
-        document.getElementById('burstinessScore').innerText = Math.round(burst);
-        viewer.innerHTML = html;
+function chip(v, l) {
+    return '<div class="corpus-chip"><b>' + v + '</b> ' + l + '</div>';
+}
+function mCard(v, l, c, tip, sub) {
+    return '<div class="m-card"><div class="m-val" style="color:' + c + '">' + v +
+        '</div><div class="m-label">' + l + ' <span class="tip" data-t="' + tip +
+        '">?</span></div><div class="m-sub">' + sub + '</div></div>';
+}
+function hBar(l, p, n, c) {
+    return '<div class="h-bar-row"><span class="h-bar-label">' + l +
+        '</span><div class="h-bar-track"><div class="h-bar-fill" style="width:' + p +
+        '%;background:' + c + '">' + n + '</div></div><span style="font-size:0.65rem;color:var(--dim);width:35px">' +
+        p + '%</span></div>';
+}
 
-        const light = document.getElementById('globalLight');
-        const title = document.getElementById('globalTitle');
-        const desc = document.getElementById('globalDesc');
+// ══════════════════════════════════════
+// GENERADOR DE PDF
+// ══════════════════════════════════════
+downloadBtn.addEventListener('click', function() {
+    if (!analysisData) { alert('Primero analiza un texto.'); return; }
 
-        // Lógica de Semáforo Global
-        if (prob > 70 || (perp < 55 && burst < 5)) {
-            light.style.background = "var(--ai-red)";
-            light.style.boxShadow = "0 0 20px var(--ai-red)";
-            title.innerText = "ALTO RIESGO DE IA";
-            desc.innerText = "Patrones altamente predecibles y estructura uniforme. Típico de modelos GPT.";
-        } else if (prob > 40 || perp < 75) {
-            light.style.background = "var(--warning)";
-            light.style.boxShadow = "0 0 20px var(--warning)";
-            title.innerText = "RIESGO MODERADO";
-            desc.innerText = "El texto muestra algunos patrones de IA o podría haber sido editado por una.";
-        } else {
-            light.style.background = "var(--human-green)";
-            light.style.boxShadow = "0 0 20px var(--human-green)";
-            title.innerText = "AUTORÍA HUMANA PROBABLE";
-            desc.innerText = "Alta perplejidad y varianza natural en la estructura de las oraciones.";
+    downloadBtn.disabled = true;
+    downloadBtn.innerHTML = '⏳ Generando PDF...';
+
+    setTimeout(function() {
+        try {
+            generatePDF();
+        } catch(e) {
+            alert('Error generando PDF: ' + e.message);
+        }
+        downloadBtn.disabled = false;
+        downloadBtn.innerHTML = '📥 Descargar Reporte PDF';
+    }, 100);
+});
+
+function generatePDF() {
+    var d = analysisData;
+    var doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+    var W = 210, H = 297;
+    var margin = 20;
+    var usable = W - margin * 2;
+    var y = 0;
+
+    // ── Colores ──
+    var purple = [99, 102, 241];
+    var dark = [26, 26, 46];
+    var gray = [100, 116, 139];
+    var lightBg = [248, 250, 252];
+    var green = [16, 185, 129];
+    var blue = [59, 130, 246];
+    var amber = [245, 158, 11];
+    var red = [239, 68, 68];
+    var white = [255, 255, 255];
+
+    function checkPage(need) {
+        if (y + need > H - 25) {
+            // Footer de página
+            doc.setFontSize(7);
+            doc.setTextColor(160, 160, 160);
+            doc.text('Estilometría Textual · Bioestadística Edu · Maicel Monzón Pérez', W / 2, H - 10, { align: 'center' });
+            doc.addPage();
+            y = 20;
         }
     }
 
-    // PDF Handler
-    const pdfjsLib = window['pdfjs-dist/build/pdf'];
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+    // ══════════════════════════════════════
+    // PORTADA
+    // ══════════════════════════════════════
+    // Fondo superior
+    doc.setFillColor(15, 23, 42);
+    doc.rect(0, 0, W, 90, 'F');
 
-    pdfInput.onchange = async (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = async function() {
-            const typedarray = new Uint8Array(this.result);
-            const pdf = await pdfjsLib.getDocument(typedarray).promise;
-            let fullText = "";
-            for (let i = 1; i <= pdf.numPages; i++) {
-                const page = await pdf.getPage(i);
-                const content = await page.getTextContent();
-                fullText += content.items.map(item => item.str).join(" ") + " ";
-            }
-            inputText.value = fullText;
-            analyzeText(fullText);
-        };
-        reader.readAsArrayBuffer(file);
-    };
+    // Línea accent
+    doc.setFillColor.apply(doc, purple);
+    doc.rect(0, 90, W, 2, 'F');
+
+    // Título
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(28);
+    doc.setTextColor(255, 255, 255);
+    doc.text('Estilometría Textual', W / 2, 40, { align: 'center' });
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(12);
+    doc.setTextColor(148, 163, 184);
+    doc.text('Reporte de Análisis Cuantitativo', W / 2, 50, { align: 'center' });
+
+    // Fecha y stats
+    doc.setFontSize(9);
+    doc.setTextColor(100, 116, 139);
+    var dateStr = new Date().toLocaleDateString('es-ES', {
+        year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'
+    });
+    doc.text(dateStr, W / 2, 65, { align: 'center' });
+    doc.text(d.N.toLocaleString() + ' palabras  ·  ' + d.sLens.length + ' oraciones  ·  ' + d.types.toLocaleString() + ' tipos únicos', W / 2, 72, { align: 'center' });
+
+    // Disclaimer
+    y = 102;
+    doc.setFillColor(255, 251, 235);
+    doc.roundedRect(margin, y, usable, 18, 3, 3, 'F');
+    doc.setDrawColor(253, 230, 138);
+    doc.roundedRect(margin, y, usable, 18, 3, 3, 'S');
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(7.5);
+    doc.setTextColor(146, 64, 14);
+    doc.text('AVISO:', margin + 5, y + 6);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7);
+    doc.text('Este reporte presenta métricas estilométricas descriptivas. No es un diagnóstico de autoría artificial.', margin + 22, y + 6);
+    doc.text('Ninguna de estas métricas distingue por sí sola texto humano de texto generado por IA. Los rangos son orientativos.', margin + 5, y + 12);
+
+    // ══════════════════════════════════════
+    // MÉTRICAS PRINCIPALES
+    // ══════════════════════════════════════
+    y = 130;
+    sectionTitle(doc, 'MÉTRICAS PRINCIPALES', y);
+    y += 10;
+
+    var metrics = [
+        { label: "Yule's K", value: d.yK.toFixed(1), ref: "Ref: 80-200", color: blue },
+        { label: "H Normalizada", value: d.Hnorm.toFixed(3), ref: "Ref: 0.80-0.95", color: purple },
+        { label: "CV Oracional", value: d.cv.toFixed(2), ref: "Ref: 0.30-0.60", color: green },
+        { label: "Media Oración", value: d.avg.toFixed(1), ref: "Ref: 15-28 pal.", color: amber },
+        { label: "Hapax Legomena", value: (d.hapaxR * 100).toFixed(1) + "%", ref: "Ref: 40-60%", color: red },
+        { label: "Conect./100", value: d.connP.toFixed(2), ref: "Ref: 0.5-3.0", color: [167, 139, 250] }
+    ];
+
+    var cardW = (usable - 10) / 3;
+    var cardH = 28;
+
+    metrics.forEach(function(m, i) {
+        var col = i % 3;
+        var row = Math.floor(i / 3);
+        var x = margin + col * (cardW + 5);
+        var cy = y + row * (cardH + 5);
+
+        checkPage(cardH + 5);
+
+        // Card background
+        doc.setFillColor.apply(doc, lightBg);
+        doc.roundedRect(x, cy, cardW, cardH, 2, 2, 'F');
+
+        // Value
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(16);
+        doc.setTextColor.apply(doc, m.color);
+        doc.text(m.value, x + cardW / 2, cy + 12, { align: 'center' });
+
+        // Label
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(7);
+        doc.setTextColor.apply(doc, gray);
+        doc.text(m.label.toUpperCase(), x + cardW / 2, cy + 19, { align: 'center' });
+
+        // Ref
+        doc.setFontSize(6);
+        doc.setTextColor(180, 180, 180);
+        doc.text(m.ref, x + cardW / 2, cy + 24, { align: 'center' });
+    });
+
+    y += Math.ceil(metrics.length / 3) * (cardH + 5) + 10;
+
+    // ══════════════════════════════════════
+    // DISTRIBUCIÓN
+    // ══════════════════════════════════════
+    checkPage(55);
+    sectionTitle(doc, 'DISTRIBUCIÓN DE ORACIONES POR LONGITUD', y);
+    y += 10;
+
+    var total = d.sLens.length;
+    var distBars = [
+        { label: '1-8 palabras', count: d.bins.short, color: green },
+        { label: '9-20 palabras', count: d.bins.medium, color: blue },
+        { label: '21-35 palabras', count: d.bins.long, color: amber },
+        { label: '36+ palabras', count: d.bins.vlong, color: red }
+    ];
+    var maxCount = Math.max.apply(null, distBars.map(function(b) { return b.count; }));
+    var barMaxW = usable - 55;
+
+    distBars.forEach(function(b) {
+        checkPage(10);
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(7.5);
+        doc.setTextColor.apply(doc, dark);
+        doc.text(b.label, margin + 45, y + 5, { align: 'right' });
+
+        // Track
+        doc.setFillColor(240, 240, 240);
+        doc.roundedRect(margin + 50, y, barMaxW, 7, 1.5, 1.5, 'F');
+
+        // Fill
+        var fw = maxCount > 0 ? (b.count / maxCount) * barMaxW : 0;
+        if (fw > 0) {
+            doc.setFillColor.apply(doc, b.color);
+            doc.roundedRect(margin + 50, y, Math.max(fw, 5), 7, 1.5, 1.5, 'F');
+        }
+
+        // Count + %
+        var pctStr = ((b.count / total) * 100).toFixed(1) + '%';
+        doc.setFontSize(6.5);
+        doc.setTextColor.apply(doc, gray);
+        doc.text(b.count + ' (' + pctStr + ')', margin + 50 + barMaxW + 3, y + 5);
+
+        y += 11;
+    });
+
+    y += 5;
+
+    // ══════════════════════════════════════
+    // TABLA CONTEXTO
+    // ══════════════════════════════════════
+    checkPage(60);
+    sectionTitle(doc, 'CONTEXTO DE REFERENCIA', y);
+    y += 8;
+
+    var tableData = [
+        ["Yule's K", d.yK.toFixed(1), "80-200 (Yule, 1944)", d.yK<80?"Diversidad muy alta":d.yK<200?"Rango habitual":"Vocabulario repetitivo"],
+        ["Entropía Norm.", d.Hnorm.toFixed(3), "0.80-0.95 (Tweedie & Baayen)", d.Hnorm>0.95?"Distribución uniforme":d.Hnorm>0.80?"Rango típico":"Concentrada"],
+        ["CV Oracional", d.cv.toFixed(2), "0.30-0.60", d.cv<0.25?"Muy uniforme":d.cv<0.55?"Variación natural":"Muy irregular"],
+        ["Media Oración", d.avg.toFixed(1)+" pal.", "15-28 (académico)", d.avg>30?"Oraciones largas":d.avg<12?"Cortas":"Rango habitual"],
+        ["Hapax Legomena", (d.hapaxR*100).toFixed(1)+"%", "40-60% (Zipf, 1949)", d.hapaxR>0.65?"Alto":d.hapaxR>0.35?"Habitual":"Bajo"],
+        ["Conectores/100", d.connP.toFixed(2), "0.5-3.0", d.connP>4?"Densidad alta":d.connP>0.8?"Uso moderado":"Baja presencia"]
+    ];
+
+    var colWidths = [35, 22, 52, 52];
+    var colX = [margin, margin+37, margin+61, margin+115];
+    var headers = ['Métrica', 'Valor', 'Referencia', 'Observación'];
+
+    // Header
+    doc.setFillColor.apply(doc, lightBg);
+    doc.rect(margin, y, usable, 8, 'F');
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(6.5);
+    doc.setTextColor.apply(doc, gray);
+    headers.forEach(function(h, i) { doc.text(h.toUpperCase(), colX[i] + 2, y + 5.5); });
+    y += 10;
+
+    // Rows
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7.5);
+
+    tableData.forEach(function(row, ri) {
+        checkPage(10);
+        if (ri % 2 === 0) {
+            doc.setFillColor(252, 252, 253);
+            doc.rect(margin, y - 2, usable, 9, 'F');
+        }
+
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor.apply(doc, dark);
+        doc.text(row[0], colX[0] + 2, y + 4);
+
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor.apply(doc, purple);
+        doc.text(row[1], colX[1] + 2, y + 4);
+
+        doc.setTextColor.apply(doc, gray);
+        doc.setFontSize(7);
+        doc.text(row[2], colX[2] + 2, y + 4);
+
+        doc.setTextColor.apply(doc, dark);
+        doc.text(row[3], colX[3] + 2, y + 4);
+        doc.setFontSize(7.5);
+
+        y += 9;
+    });
+
+    y += 5;
+
+    // ══════════════════════════════════════
+    // DATOS DETALLADOS
+    // ══════════════════════════════════════
+    checkPage(55);
+    sectionTitle(doc, 'DATOS DETALLADOS', y);
+    y += 8;
+
+    var details = [
+        ['Total de palabras (tokens)', d.N.toLocaleString()],
+        ['Palabras únicas (tipos)', d.types.toLocaleString()],
+        ['TTR simple (referencia)', (d.types/d.N*100).toFixed(1) + '% — varía con longitud'],
+        ['Oraciones detectadas', d.sLens.length.toString()],
+        ['Oración más corta', Math.min.apply(null, d.sLens) + ' palabras'],
+        ['Oración más larga', Math.max.apply(null, d.sLens) + ' palabras'],
+        ['Desviación estándar oracional', d.std.toFixed(2)],
+        ['Entropía de Shannon (H)', d.H.toFixed(4) + ' bits'],
+        ['Entropía máxima (Hmax)', d.Hmax.toFixed(4) + ' bits'],
+        ['Hapax (frecuencia=1)', d.hapaxCount.toString()],
+        ['Conectores discursivos', d.connCount.toString()]
+    ];
+
+    details.forEach(function(row, i) {
+        checkPage(8);
+        if (i % 2 === 0) {
+            doc.setFillColor(252, 252, 253);
+            doc.rect(margin, y - 2, usable, 8, 'F');
+        }
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(7.5);
+        doc.setTextColor.apply(doc, gray);
+        doc.text(row[0], margin + 3, y + 4);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor.apply(doc, dark);
+        doc.text(row[1], margin + usable - 3, y + 4, { align: 'right' });
+        y += 8;
+    });
+
+    y += 8;
+
+    // ══════════════════════════════════════
+    // MAPA DE CALOR (texto completo con colores)
+    // ══════════════════════════════════════
+    checkPage(20);
+    sectionTitle(doc, 'MAPA DE CALOR ORACIONAL', y);
+    y += 4;
+
+    // Leyenda
+    doc.setFontSize(6);
+    doc.setTextColor.apply(doc, gray);
+
+    var legendItems = [
+        { label: 'Cortas (1-8)', color: green },
+        { label: 'Normales', color: gray },
+        { label: 'Largas', color: amber },
+        { label: 'Muy largas', color: red }
+    ];
+
+    var lx = margin;
+    legendItems.forEach(function(item) {
+        doc.setFillColor.apply(doc, item.color);
+        doc.circle(lx + 2, y + 2, 1.5, 'F');
+        doc.text(item.label, lx + 5, y + 3);
+        lx += 30;
+    });
+    y += 8;
+
+    // Texto coloreado oración por oración
+    doc.setFontSize(7);
+    var lineHeight = 3.8;
+
+    d.sentences.forEach(function(sent, i) {
+        var len = d.sLens[i] || 0;
+        var color = dark;
+        if (len <= 8) color = green;
+        else if (len > d.avg + 1.5 * d.std) color = red;
+        else if (len > d.avg + 0.7 * d.std) color = amber;
+
+        doc.setTextColor.apply(doc, color);
+
+        var lines = doc.splitTextToSize(sent.trim(), usable);
+        lines.forEach(function(line) {
+            checkPage(lineHeight + 2);
+            doc.text(line, margin, y);
+            y += lineHeight;
+        });
+        y += 0.5;
+    });
+
+    // ══════════════════════════════════════
+    // FOOTER FINAL
+    // ══════════════════════════════════════
+    doc.setFontSize(7);
+    doc.setTextColor(160, 160, 160);
+    doc.text('Estilometría Textual · Bioestadística Edu · Maicel Monzón Pérez', W / 2, H - 10, { align: 'center' });
+    doc.text('Herramienta de análisis cuantitativo — No diagnóstica', W / 2, H - 6, { align: 'center' });
+
+    // Guardar
+    var fileName = 'estilometria-' + new Date().toISOString().slice(0, 10) + '.pdf';
+    doc.save(fileName);
+}
+
+function sectionTitle(doc, text, y) {
+    doc.setFillColor(99, 102, 241);
+    doc.rect(20, y, 3, 7, 'F');
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(9);
+    doc.setTextColor(26, 26, 46);
+    doc.text(text, 27, y + 5.5);
+    doc.setDrawColor(226, 232, 240);
+    doc.line(27, y + 8, 190, y + 8);
+}
+
+// ── PDF Upload ──
+pdfInput.addEventListener('change', async function(e) {
+    var file = e.target.files[0];
+    if (!file) return;
+    analyzeBtn.disabled = true;
+    analyzeBtn.textContent = 'Extrayendo...';
+    try {
+        var buf = await file.arrayBuffer();
+        var pdf = await pdfjsLib.getDocument(new Uint8Array(buf)).promise;
+        var txt = '';
+        for (var i = 1; i <= pdf.numPages; i++) {
+            var pg = await pdf.getPage(i);
+            var c = await pg.getTextContent();
+            txt += c.items.map(function(it) { return it.str; }).join(' ') + '\n';
+        }
+        inputText.value = txt.trim();
+    } catch(err) { alert('Error: ' + err.message); }
+    analyzeBtn.disabled = false;
+    analyzeBtn.textContent = 'Analizar Estilometría';
+});
 </script>
-
 </body>
 </html>
