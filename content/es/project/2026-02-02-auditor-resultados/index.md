@@ -11,6 +11,6 @@ tags:
   - "Validación-de-Datos"
   - "calculadora-grim-test-free"
 # Configuración técnica y URL relativa
-external_link: "/apps/auditor-resultados.html"
+external_link: "/apps/calculadora-grim-test.html"
 ---
 

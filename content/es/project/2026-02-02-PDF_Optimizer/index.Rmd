@@ -1,6 +1,6 @@
 ---
 # Título con enfoque en eficiencia y arquitectura de datos
-title: "Optimizador de PDF"
+title: "Compresor de PDF"
 date: "2025-11-24" # Progresión: 2026-01-14 -> 2026-01-12
 # Estructura de agrupación solicitada por Maicel Monzón
 categories: ["proyectos"]
