@@ -1,0 +1,1849 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ThumbnailPro v2 — Editor Profesional</title>
+
+    <!-- Google Fonts preload -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;700;900&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;700&family=Montserrat:wght@400;600;700;800;900&family=Roboto+Slab:wght@400;700;900&family=Poppins:wght@400;600;700;800;900&family=Lora:ital,wght@0,400;0,700;1,400&family=Oswald:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        /*============================================
+          RESET & CUSTOM PROPERTIES
+        ============================================*/
+        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+        :root {
+            --bg-0: #08090d;
+            --bg-1: #0f1117;
+            --bg-2: #1a1d27;
+            --bg-3: #252836;
+            --bg-4: #2d3142;
+            --bg-5: #363a4f;
+            --accent: #7c6cf0;
+            --accent-h: #8f82f5;
+            --accent-bg: rgba(124,108,240,.12);
+            --accent-bg2: rgba(124,108,240,.22);
+            --tx-0: #eeeef4;
+            --tx-1: #b8b8d0;
+            --tx-2: #8888a4;
+            --tx-3: #5c5c78;
+            --green: #34d399;
+            --green-bg: rgba(52,211,153,.12);
+            --red: #f87171;
+            --red-bg: rgba(248,113,113,.12);
+            --yellow: #fbbf24;
+            --blue: #60a5fa;
+            --border: rgba(255,255,255,.06);
+            --border-h: rgba(255,255,255,.12);
+            --r: 8px;
+            --r-lg: 12px;
+            --shadow: 0 8px 32px rgba(0,0,0,.4);
+            --t: .15s ease;
+            --font: 'Inter', -apple-system, system-ui, sans-serif;
+        }
+
+        html, body {
+            font-family: var(--font);
+            background: var(--bg-0);
+            color: var(--tx-0);
+            height: 100%;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body { display: flex; flex-direction: column; }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--bg-4); border-radius: 3px; }
+        * { scrollbar-width: thin; scrollbar-color: var(--bg-4) transparent; }
+
+        /* Focus */
+        :focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        /*============================================
+          BUTTONS
+        ============================================*/
+        .btn {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 6px 14px;
+            border: 1px solid var(--border-h);
+            border-radius: var(--r);
+            background: var(--bg-3);
+            color: var(--tx-0);
+            font: 500 12px/1 var(--font);
+            cursor: pointer;
+            transition: var(--t);
+            white-space: nowrap;
+            user-select: none;
+        }
+        .btn:hover { background: var(--bg-4); border-color: var(--bg-5); }
+        .btn:active { transform: scale(.97); }
+
+        .btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+        .btn-primary:hover { background: var(--accent-h); border-color: var(--accent-h); }
+
+        .btn-success { background: var(--green); border-color: var(--green); color: #000; }
+        .btn-success:hover { opacity: .9; }
+
+        .btn-ghost { background: transparent; border-color: transparent; color: var(--tx-1); }
+        .btn-ghost:hover { background: var(--bg-3); color: var(--tx-0); }
+
+        .btn-danger-outline { background: transparent; border-color: var(--red); color: var(--red); }
+        .btn-danger-outline:hover { background: var(--red); color: #fff; }
+
+        .btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+        .btn-sm { padding: 5px 10px; font-size: 11px; }
+        .btn-sm svg { width: 13px; height: 13px; }
+
+        .btn-icon {
+            display: flex; align-items: center; justify-content: center;
+            width: 32px; height: 32px;
+            background: transparent; border: none; border-radius: var(--r);
+            color: var(--tx-2); cursor: pointer; transition: var(--t);
+        }
+        .btn-icon:hover { background: var(--bg-3); color: var(--tx-0); }
+        .btn-icon.active { background: var(--accent-bg); color: var(--accent); }
+        .btn-icon svg { width: 17px; height: 17px; }
+
+        /*============================================
+          SVG ICON SPRITE (reuse)
+        ============================================*/
+        .icon { width: 18px; height: 18px; flex-shrink: 0; }
+        .icon-sm { width: 14px; height: 14px; }
+        .icon-lg { width: 22px; height: 22px; }
+
+        /*============================================
+          TOP BAR
+        ============================================*/
+        .topbar {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 14px; height: 46px;
+            background: var(--bg-1);
+            border-bottom: 1px solid var(--border);
+            flex-shrink: 0; z-index: 100;
+        }
+
+        .topbar-left, .topbar-center, .topbar-right {
+            display: flex; align-items: center; gap: 6px;
+        }
+        .topbar-center { gap: 2px; }
+
+        .logo {
+            display: flex; align-items: center; gap: 8px;
+            font: 700 14px var(--font); margin-right: 12px;
+        }
+        .logo-icon {
+            width: 26px; height: 26px; border-radius: 6px;
+            background: linear-gradient(135deg, var(--accent), #a78bfa);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .logo-icon svg { width: 16px; height: 16px; color: #fff; }
+        .logo span { background: linear-gradient(135deg, var(--accent), #c4b5fd);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .divider-v { width: 1px; height: 20px; background: var(--border); margin: 0 4px; }
+
+        .select-mini {
+            background: var(--bg-3); color: var(--tx-0);
+            border: 1px solid var(--border-h);
+            padding: 5px 8px; border-radius: var(--r);
+            font: 500 11px var(--font); cursor: pointer;
+            appearance: none; -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238888a4'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 6px center;
+            padding-right: 22px;
+        }
+        .select-mini:focus { border-color: var(--accent); outline: none; }
+
+        .privacy-pill {
+            display: flex; align-items: center; gap: 4px;
+            padding: 3px 10px; border-radius: 20px;
+            background: var(--green-bg); border: 1px solid rgba(52,211,153,.2);
+            font: 600 10px var(--font); color: var(--green);
+            text-transform: uppercase; letter-spacing: .5px;
+        }
+        .privacy-pill svg { width: 12px; height: 12px; }
+
+        /*============================================
+          MAIN LAYOUT
+        ============================================*/
+        .app-layout { display: flex; flex: 1; overflow: hidden; }
+
+        /*============================================
+          LEFT TOOLS RAIL
+        ============================================*/
+        .rail {
+            width: 50px; background: var(--bg-1);
+            border-right: 1px solid var(--border);
+            display: flex; flex-direction: column; align-items: center;
+            padding: 6px 0; gap: 2px; flex-shrink: 0;
+            overflow-y: auto;
+        }
+
+        .rail-btn {
+            position: relative;
+            width: 38px; height: 38px;
+            display: flex; align-items: center; justify-content: center;
+            border: none; background: transparent;
+            color: var(--tx-2); cursor: pointer;
+            border-radius: var(--r); transition: var(--t);
+        }
+        .rail-btn:hover { background: var(--bg-3); color: var(--tx-0); }
+        .rail-btn.active { background: var(--accent-bg2); color: var(--accent); }
+        .rail-btn svg { width: 19px; height: 19px; }
+
+        .rail-btn[data-tip]::after {
+            content: attr(data-tip);
+            position: absolute; left: 48px; top: 50%; transform: translateY(-50%);
+            background: var(--bg-3); color: var(--tx-0);
+            padding: 4px 10px; border-radius: 4px;
+            font: 500 11px var(--font); white-space: nowrap;
+            opacity: 0; pointer-events: none; transition: opacity .12s;
+            border: 1px solid var(--border-h); z-index: 300;
+        }
+        .rail-btn:hover[data-tip]::after { opacity: 1; }
+
+        .rail-sep { width: 24px; height: 1px; background: var(--border); margin: 4px 0; }
+
+        /*============================================
+          LEFT PANEL (CONTEXT)
+        ============================================*/
+        .panel-l {
+            width: 0; overflow: hidden;
+            background: var(--bg-1);
+            border-right: 1px solid var(--border);
+            transition: width .2s ease;
+            flex-shrink: 0;
+        }
+        .panel-l.open { width: 272px; }
+        .panel-l-inner { width: 272px; height: 100%; overflow-y: auto; }
+
+        .panel-head {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 12px 14px; border-bottom: 1px solid var(--border);
+            font: 600 13px var(--font);
+        }
+
+        .panel-body { padding: 10px; }
+
+        .p-section { margin-bottom: 14px; }
+        .p-section:last-child { margin-bottom: 0; }
+
+        .p-title {
+            font: 600 10px var(--font);
+            text-transform: uppercase; letter-spacing: .6px;
+            color: var(--tx-3); margin-bottom: 8px;
+        }
+
+        /*============================================
+          CANVAS AREA
+        ============================================*/
+        .canvas-area {
+            flex: 1; position: relative; overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+            background: var(--bg-0);
+            background-image: radial-gradient(rgba(255,255,255,.02) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        .canvas-frame {
+            position: relative;
+            box-shadow: 0 0 0 1px rgba(255,255,255,.04), var(--shadow);
+            transition: transform .15s ease;
+        }
+
+        .canvas-frame canvas { display: block; }
+
+        /* Drop overlay */
+        .canvas-area.drag-over::before {
+            content: ''; position: absolute; inset: 0;
+            background: rgba(124,108,240,.08);
+            border: 2px dashed var(--accent);
+            border-radius: 8px; z-index: 50;
+            pointer-events: none;
+        }
+
+        /*============================================
+          RIGHT PANEL (PROPERTIES)
+        ============================================*/
+        .panel-r {
+            width: 256px; background: var(--bg-1);
+            border-left: 1px solid var(--border);
+            overflow-y: auto; flex-shrink: 0;
+        }
+
+        .pg { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+        .pg-title {
+            font: 600 10px var(--font);
+            text-transform: uppercase; letter-spacing: .6px;
+            color: var(--tx-3); margin-bottom: 8px;
+        }
+
+        .pr { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+        .pr:last-child { margin-bottom: 0; }
+
+        .pr-label { font: 500 11px var(--font); color: var(--tx-2); min-width: 38px; flex-shrink: 0; }
+
+        .input {
+            flex: 1; background: var(--bg-3); border: 1px solid var(--border-h);
+            color: var(--tx-0); padding: 5px 8px; border-radius: var(--r);
+            font: 400 12px var(--font); outline: none; transition: var(--t);
+        }
+        .input:focus { border-color: var(--accent); }
+        .input[type="color"] { padding: 2px; width: 34px; height: 28px; cursor: pointer; flex: 0 0 34px; }
+
+        .range {
+            -webkit-appearance: none; appearance: none; flex: 1;
+            height: 4px; background: var(--bg-4); border: none;
+            border-radius: 2px; outline: none; cursor: pointer;
+        }
+        .range::-webkit-slider-thumb {
+            -webkit-appearance: none; width: 14px; height: 14px;
+            border-radius: 50%; background: var(--accent); cursor: pointer;
+            border: 2px solid var(--bg-1);
+        }
+        .range::-moz-range-thumb {
+            width: 14px; height: 14px; border-radius: 50%;
+            background: var(--accent); cursor: pointer;
+            border: 2px solid var(--bg-1);
+        }
+
+        select.input {
+            cursor: pointer; appearance: none; -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238888a4'/%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 8px center;
+            padding-right: 24px;
+        }
+
+        /*============================================
+          STATUS BAR
+        ============================================*/
+        .statusbar {
+            height: 26px; background: var(--bg-1);
+            border-top: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 12px; font: 500 10px var(--font); color: var(--tx-3);
+            flex-shrink: 0;
+        }
+        .statusbar-g { display: flex; align-items: center; gap: 12px; }
+        .zoom-ctrl { display: flex; align-items: center; gap: 2px; }
+        .zoom-ctrl button {
+            background: none; border: none; color: var(--tx-2);
+            cursor: pointer; padding: 2px; display: flex; border-radius: 3px;
+        }
+        .zoom-ctrl button:hover { background: var(--bg-3); color: var(--tx-0); }
+        .zoom-ctrl svg { width: 13px; height: 13px; }
+
+        /*============================================
+          TEMPLATES GRID
+        ============================================*/
+        .tpl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+        .tpl-card {
+            background: var(--bg-3); border: 1px solid var(--border);
+            border-radius: var(--r); padding: 10px 8px;
+            cursor: pointer; transition: var(--t); text-align: center;
+        }
+        .tpl-card:hover { border-color: var(--accent); background: var(--accent-bg); }
+        .tpl-card .tpl-icon { font-size: 20px; margin-bottom: 3px; }
+        .tpl-card .tpl-name { font: 600 11px var(--font); color: var(--tx-1); }
+        .tpl-card .tpl-size { font: 400 9px var(--font); color: var(--tx-3); }
+
+        /*============================================
+          SHAPES GRID
+        ============================================*/
+        .shapes-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
+        .shape-btn {
+            aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+            background: var(--bg-3); border: 1px solid var(--border);
+            border-radius: var(--r); cursor: pointer; transition: var(--t); color: var(--tx-2);
+        }
+        .shape-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
+        .shape-btn svg { width: 20px; height: 20px; }
+
+        /*============================================
+          TEXT PRESETS
+        ============================================*/
+        .txt-list { display: flex; flex-direction: column; gap: 5px; }
+        .txt-preset {
+            padding: 8px 10px; background: var(--bg-3);
+            border: 1px solid var(--border); border-radius: var(--r);
+            cursor: pointer; transition: var(--t);
+        }
+        .txt-preset:hover { border-color: var(--accent); background: var(--accent-bg); }
+
+        /*============================================
+          UPLOAD AREA
+        ============================================*/
+        .upload-zone {
+            border: 2px dashed var(--border-h); border-radius: var(--r);
+            padding: 18px; text-align: center; cursor: pointer; transition: var(--t);
+        }
+        .upload-zone:hover { border-color: var(--accent); background: var(--accent-bg); }
+        .upload-zone svg { width: 28px; height: 28px; color: var(--tx-3); margin-bottom: 6px; }
+        .upload-zone p { font: 400 11px var(--font); color: var(--tx-2); }
+        .upload-zone .hint { font-size: 10px; color: var(--tx-3); margin-top: 3px; }
+
+        /*============================================
+          LAYERS
+        ============================================*/
+        .layer {
+            display: flex; align-items: center; gap: 7px;
+            padding: 6px 8px; background: var(--bg-3);
+            border: 1px solid var(--border); border-radius: var(--r);
+            margin-bottom: 3px; cursor: pointer; transition: var(--t); font-size: 11px;
+        }
+        .layer:hover { border-color: var(--border-h); }
+        .layer.sel { border-color: var(--accent); background: var(--accent-bg); }
+        .layer-thumb {
+            width: 26px; height: 26px; background: var(--bg-4);
+            border-radius: 4px; display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; overflow: hidden;
+        }
+        .layer-thumb svg { width: 14px; height: 14px; color: var(--tx-3); }
+        .layer-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .layer-acts { display: flex; gap: 1px; }
+        .layer-acts button {
+            background: none; border: none; color: var(--tx-3);
+            cursor: pointer; padding: 2px; border-radius: 3px; display: flex;
+        }
+        .layer-acts button:hover { color: var(--tx-0); background: var(--bg-4); }
+        .layer-acts svg { width: 13px; height: 13px; }
+
+        /*============================================
+          GRADIENT PRESETS
+        ============================================*/
+        .grad-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
+        .grad-sw {
+            height: 28px; border-radius: var(--r); cursor: pointer;
+            border: 2px solid transparent; transition: var(--t);
+        }
+        .grad-sw:hover { border-color: #fff; transform: scale(1.06); }
+
+        .clr-row { display: flex; gap: 5px; flex-wrap: wrap; }
+        .clr-sw {
+            width: 22px; height: 22px; border-radius: 50%;
+            border: 2px solid transparent; cursor: pointer; transition: var(--t);
+        }
+        .clr-sw:hover { border-color: #fff; transform: scale(1.12); }
+
+        /*============================================
+          FONT STYLE BUTTONS
+        ============================================*/
+        .fs-row { display: flex; gap: 3px; }
+        .fs-btn {
+            width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;
+            background: var(--bg-3); border: 1px solid var(--border);
+            border-radius: var(--r); cursor: pointer; color: var(--tx-2);
+            font: 600 12px var(--font); transition: var(--t);
+        }
+        .fs-btn:hover { border-color: var(--accent); color: var(--tx-0); }
+        .fs-btn.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+        /*============================================
+          MODAL
+        ============================================*/
+        .modal-bg {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,.55); backdrop-filter: blur(6px);
+            display: none; align-items: center; justify-content: center; z-index: 1000;
+        }
+        .modal-bg.show { display: flex; }
+        .modal {
+            background: var(--bg-2); border: 1px solid var(--border-h);
+            border-radius: var(--r-lg); padding: 22px;
+            min-width: 380px; max-width: 460px; box-shadow: var(--shadow);
+        }
+        .modal h3 { font: 700 15px var(--font); margin-bottom: 14px; }
+        .modal-body { margin-bottom: 18px; }
+        .modal-foot { display: flex; justify-content: flex-end; gap: 6px; }
+
+        /*============================================
+          LOADING
+        ============================================*/
+        .loader-bg {
+            position: fixed; inset: 0;
+            background: rgba(8,9,13,.88); backdrop-filter: blur(10px);
+            display: none; flex-direction: column; align-items: center;
+            justify-content: center; gap: 14px; z-index: 2000;
+        }
+        .loader-bg.show { display: flex; }
+        .spinner {
+            width: 40px; height: 40px;
+            border: 3px solid var(--bg-4); border-top-color: var(--accent);
+            border-radius: 50%; animation: spin .7s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loader-text { font: 500 13px var(--font); color: var(--tx-1); }
+        .prog-track { width: 220px; height: 3px; background: var(--bg-4); border-radius: 2px; overflow: hidden; }
+        .prog-bar { height: 100%; background: var(--accent); border-radius: 2px; transition: width .25s; width: 0; }
+
+        /*============================================
+          TOASTS
+        ============================================*/
+        .toasts {
+            position: fixed; bottom: 36px; right: 16px; z-index: 3000;
+            display: flex; flex-direction: column; gap: 6px;
+        }
+        .toast {
+            background: var(--bg-3); border: 1px solid var(--border-h);
+            border-radius: var(--r); padding: 8px 14px;
+            font: 500 12px var(--font); display: flex; align-items: center; gap: 7px;
+            box-shadow: var(--shadow); max-width: 300px;
+            animation: tIn .25s ease;
+        }
+        .toast.ok { border-left: 3px solid var(--green); }
+        .toast.err { border-left: 3px solid var(--red); }
+        .toast.inf { border-left: 3px solid var(--blue); }
+        @keyframes tIn { from { transform: translateX(100%); opacity:0; } to { transform: none; opacity:1; } }
+
+        /*============================================
+          MOBILE DRAWER (right panel)
+        ============================================*/
+        @media (max-width: 900px) {
+            .panel-r {
+                position: fixed; right: 0; top: 46px; bottom: 26px;
+                z-index: 90; transform: translateX(100%);
+                transition: transform .25s ease;
+                box-shadow: -4px 0 24px rgba(0,0,0,.4);
+            }
+            .panel-r.mobile-open { transform: translateX(0); }
+            .panel-l.open { width: 220px; }
+            .panel-l-inner { width: 220px; }
+            .mobile-prop-toggle { display: flex !important; }
+        }
+        @media (min-width: 901px) {
+            .mobile-prop-toggle { display: none !important; }
+        }
+
+        /*============================================
+          ACCESSIBILITY: reduced motion
+        ============================================*/
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        }
+
+        /* Info box */
+        .info-box {
+            padding: 8px 10px; background: var(--bg-3);
+            border-radius: var(--r); font: 400 11px var(--font);
+            color: var(--tx-2); line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ======== TOP BAR ======== -->
+<header class="topbar" role="banner">
+    <div class="topbar-left">
+        <div class="logo" aria-label="ThumbnailPro v2">
+            <div class="logo-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14h4l3-7 4 14 3-7h4"/></svg>
+            </div>
+            <span>ThumbnailPro</span>
+        </div>
+        <div class="divider-v"></div>
+        <select class="select-mini" id="presetSelect" aria-label="Formato del canvas">
+            <option value="">Formato…</option>
+            <optgroup label="LinkedIn"><option value="1200x627">Post (1200×627)</option><option value="1128x191">Banner (1128×191)</option><option value="1200x1200">Carrusel (1200×1200)</option><option value="800x800">Perfil (800×800)</option></optgroup>
+            <optgroup label="YouTube"><option value="1280x720" selected>Miniatura (1280×720)</option><option value="2560x1440">Banner (2560×1440)</option></optgroup>
+            <optgroup label="Presentación"><option value="1920x1080">Full HD (1920×1080)</option><option value="1080x1080">Cuadrado (1080×1080)</option><option value="1080x1350">Retrato (1080×1350)</option></optgroup>
+        </select>
+    </div>
+
+    <div class="topbar-center" role="toolbar" aria-label="Historial">
+        <button class="btn-icon" id="btnUndo" aria-label="Deshacer" title="Deshacer (Ctrl+Z)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+        </button>
+        <button class="btn-icon" id="btnRedo" aria-label="Rehacer" title="Rehacer (Ctrl+Y)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.13-9.36L23 10"/></svg>
+        </button>
+    </div>
+
+    <div class="topbar-right">
+        <div class="privacy-pill" aria-label="Procesamiento 100% local">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Local
+        </div>
+        <button class="btn-icon mobile-prop-toggle" id="btnMobileProp" aria-label="Propiedades">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/></svg>
+        </button>
+        <button class="btn btn-primary" id="btnExport" aria-label="Exportar imagen">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Exportar
+        </button>
+    </div>
+</header>
+
+<!-- ======== MAIN LAYOUT ======== -->
+<div class="app-layout">
+
+    <!-- Rail -->
+    <nav class="rail" role="toolbar" aria-label="Herramientas">
+        <button class="rail-btn active" data-tool="select" data-tip="Seleccionar (V)" aria-label="Seleccionar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51z"/></svg>
+        </button>
+        <button class="rail-btn" data-tool="templates" data-tip="Plantillas" aria-label="Plantillas">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        </button>
+        <button class="rail-btn" data-tool="text" data-tip="Texto (T)" aria-label="Texto">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+        </button>
+        <button class="rail-btn" data-tool="shapes" data-tip="Formas (S)" aria-label="Formas">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>
+        </button>
+        <button class="rail-btn" data-tool="image" data-tip="Imagen (I)" aria-label="Imagen">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        </button>
+        <div class="rail-sep"></div>
+        <button class="rail-btn" data-tool="background" data-tip="Fondo (B)" aria-label="Fondo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 3v18"/></svg>
+        </button>
+        <button class="rail-btn" data-tool="removebg" data-tip="Quitar fondo" aria-label="Quitar fondo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+        </button>
+        <div class="rail-sep"></div>
+        <button class="rail-btn" data-tool="layers" data-tip="Capas (L)" aria-label="Capas">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+        </button>
+    </nav>
+
+    <!-- Left Panel -->
+    <aside class="panel-l" id="panelL" role="complementary" aria-label="Panel de herramientas">
+        <div class="panel-l-inner" id="panelLInner"></div>
+    </aside>
+
+    <!-- Canvas -->
+    <main class="canvas-area" id="canvasArea" role="main" aria-label="Área de edición">
+        <div class="canvas-frame" id="canvasFrame">
+            <canvas id="c"></canvas>
+        </div>
+    </main>
+
+    <!-- Right Panel -->
+    <aside class="panel-r" id="panelR" role="complementary" aria-label="Propiedades">
+        <div class="pg">
+            <div class="pg-title">Propiedades</div>
+            <p id="propHint" style="font:400 11px var(--font);color:var(--tx-3)">Selecciona un objeto</p>
+        </div>
+        <div id="propContent"></div>
+    </aside>
+</div>
+
+<!-- Status Bar -->
+<footer class="statusbar" role="contentinfo">
+    <div class="statusbar-g">
+        <span id="sDim">1280 × 720</span>
+        <span id="sObj">0 objetos</span>
+        <span id="sSel">—</span>
+    </div>
+    <div class="statusbar-g">
+        <div class="zoom-ctrl">
+            <button id="zOut" aria-label="Alejar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+            <span id="zLvl">100%</span>
+            <button id="zIn" aria-label="Acercar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+            <button id="zFit" aria-label="Ajustar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></svg></button>
+        </div>
+    </div>
+</footer>
+
+<!-- Export Modal -->
+<div class="modal-bg" id="exportModal" role="dialog" aria-modal="true" aria-label="Exportar imagen">
+    <div class="modal">
+        <h3>📦 Exportar Imagen</h3>
+        <div class="modal-body">
+            <div class="pr"><span class="pr-label">Formato</span>
+                <select class="input" id="expFmt"><option value="png">PNG (transparencia)</option><option value="jpeg">JPG (menor tamaño)</option></select>
+            </div>
+            <div class="pr" style="margin-top:8px"><span class="pr-label">Escala</span>
+                <select class="input" id="expScale"><option value="1">1×</option><option value="2" selected>2× (recomendado)</option><option value="3">3×</option><option value="4">4×</option></select>
+            </div>
+            <div class="pr" style="margin-top:8px"><span class="pr-label">Calidad</span>
+                <input type="range" class="range" id="expQ" min="0.1" max="1" step="0.05" value="0.95">
+                <span id="expQV" style="font:500 11px var(--font);color:var(--tx-2);min-width:32px">95%</span>
+            </div>
+            <div class="info-box" style="margin-top:10px" id="expInfo">Resolución: 2560 × 1440 px</div>
+        </div>
+        <div class="modal-foot">
+            <button class="btn" id="expCancel">Cancelar</button>
+            <button class="btn btn-success" id="expDo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Descargar
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Loading -->
+<div class="loader-bg" id="loader" role="alert" aria-live="assertive">
+    <div class="spinner"></div>
+    <div class="loader-text" id="loaderTxt">Procesando…</div>
+    <div class="prog-track"><div class="prog-bar" id="progBar"></div></div>
+</div>
+
+<!-- Toasts -->
+<div class="toasts" id="toasts" aria-live="polite"></div>
+
+<!-- Hidden Inputs -->
+<input type="file" id="fiImg" accept="image/*" hidden>
+<input type="file" id="fiBgRm" accept="image/*" hidden>
+<input type="file" id="fiBgImg" accept="image/*" hidden>
+
+<!-- ======== FABRIC JS ======== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+
+<script>
+/**
+ * ThumbnailPro v2 — Modular Single-File Editor
+ * Fixes: architecture, perf, a11y, mobile, UX, icons, fonts, undo, bg-removal caching
+ */
+;(function() {
+    'use strict';
+
+    // ==========================================
+    //  MODULE: EventBus (decouple components)
+    // ==========================================
+    const Bus = {
+        _h: {},
+        on(e, fn) { (this._h[e] || (this._h[e] = [])).push(fn); },
+        off(e, fn) { this._h[e] = (this._h[e]||[]).filter(f => f !== fn); },
+        emit(e, ...a) { (this._h[e]||[]).forEach(fn => fn(...a)); }
+    };
+
+    // ==========================================
+    //  MODULE: State
+    // ==========================================
+    const State = {
+        canvasW: 1280,
+        canvasH: 720,
+        zoom: 1,
+        tool: 'select',
+        history: [],
+        histIdx: -1,
+        maxHist: 40,
+        clipboard: null,
+        _saveTimer: null,
+
+        pushHistory(json) {
+            this.history = this.history.slice(0, this.histIdx + 1);
+            this.history.push(json);
+            if (this.history.length > this.maxHist) this.history.shift();
+            this.histIdx = this.history.length - 1;
+        },
+
+        // Debounced save
+        requestSave() {
+            clearTimeout(this._saveTimer);
+            this._saveTimer = setTimeout(() => Bus.emit('save-state'), 80);
+        }
+    };
+
+    // ==========================================
+    //  MODULE: Canvas Manager
+    // ==========================================
+    const Canvas = {
+        fc: null,
+
+        init() {
+            this.fc = new fabric.Canvas('c', {
+                width: State.canvasW,
+                height: State.canvasH,
+                backgroundColor: '#1a1a2e',
+                preserveObjectStacking: true,
+                selection: true,
+            });
+
+            fabric.Object.prototype.set({
+                transparentCorners: false,
+                cornerColor: '#7c6cf0',
+                cornerStrokeColor: '#7c6cf0',
+                borderColor: '#7c6cf0',
+                cornerSize: 9,
+                cornerStyle: 'circle',
+                borderScaleFactor: 1.8,
+                padding: 4,
+            });
+
+            this.fc.on('selection:created', () => Bus.emit('selection'));
+            this.fc.on('selection:updated', () => Bus.emit('selection'));
+            this.fc.on('selection:cleared', () => Bus.emit('selection-clear'));
+            this.fc.on('object:modified', () => State.requestSave());
+            this.fc.on('object:added', () => { Bus.emit('objects-changed'); });
+            this.fc.on('object:removed', () => { Bus.emit('objects-changed'); });
+        },
+
+        resize(w, h) {
+            State.canvasW = w;
+            State.canvasH = h;
+            this.fc.setWidth(w);
+            this.fc.setHeight(h);
+            this.fc.renderAll();
+            Bus.emit('canvas-resized');
+        },
+
+        toJSON() {
+            return JSON.stringify(this.fc.toJSON(['customName']));
+        },
+
+        loadJSON(json, cb) {
+            this.fc.loadFromJSON(json, () => { this.fc.renderAll(); if (cb) cb(); });
+        },
+
+        active() { return this.fc.getActiveObject(); },
+        objects() { return this.fc.getObjects(); },
+        add(o) { this.fc.add(o); },
+        remove(o) { this.fc.remove(o); },
+        render() { this.fc.renderAll(); },
+        discard() { this.fc.discardActiveObject(); this.fc.renderAll(); },
+        setActive(o) { this.fc.setActiveObject(o); this.fc.renderAll(); },
+    };
+
+    // ==========================================
+    //  MODULE: History (undo/redo)
+    // ==========================================
+    const History = {
+        _restoring: false,
+
+        init() {
+            Bus.on('save-state', () => this.save());
+            this.save(); // initial
+        },
+
+        save() {
+            if (this._restoring) return;
+            State.pushHistory(Canvas.toJSON());
+            Bus.emit('objects-changed');
+        },
+
+        undo() {
+            if (State.histIdx <= 0) return;
+            State.histIdx--;
+            this._restore();
+        },
+
+        redo() {
+            if (State.histIdx >= State.history.length - 1) return;
+            State.histIdx++;
+            this._restore();
+        },
+
+        _restore() {
+            this._restoring = true;
+            Canvas.loadJSON(State.history[State.histIdx], () => {
+                this._restoring = false;
+                Bus.emit('objects-changed');
+            });
+        }
+    };
+
+    // ==========================================
+    //  MODULE: Zoom
+    // ==========================================
+    const Zoom = {
+        fit() {
+            const area = $('canvasArea');
+            const pad = 50;
+            const mw = area.clientWidth - pad * 2;
+            const mh = area.clientHeight - pad * 2;
+            State.zoom = Math.min(mw / State.canvasW, mh / State.canvasH, 1);
+            this._apply();
+        },
+
+        zin() { State.zoom = Math.min(State.zoom + 0.1, 4); this._apply(); },
+        zout() { State.zoom = Math.max(State.zoom - 0.1, 0.1); this._apply(); },
+
+        _apply() {
+            $('canvasFrame').style.transform = `scale(${State.zoom})`;
+            $('zLvl').textContent = Math.round(State.zoom * 100) + '%';
+        }
+    };
+
+    // ==========================================
+    //  MODULE: UI Helpers
+    // ==========================================
+    function $(id) { return document.getElementById(id); }
+    function qs(sel, ctx) { return (ctx || document).querySelector(sel); }
+    function qsa(sel, ctx) { return (ctx || document).querySelectorAll(sel); }
+
+    const UI = {
+        toast(msg, type = 'inf') {
+            const t = document.createElement('div');
+            t.className = 'toast ' + type;
+            t.setAttribute('role', 'status');
+            const icons = { ok: '✅', err: '❌', inf: 'ℹ️' };
+            t.textContent = (icons[type] || '') + ' ' + msg;
+            $('toasts').appendChild(t);
+            setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateX(100%)'; t.style.transition = '.25s'; setTimeout(() => t.remove(), 300); }, 3000);
+        },
+
+        showLoader(txt) {
+            $('loaderTxt').textContent = txt || 'Procesando…';
+            $('progBar').style.width = '0';
+            $('loader').classList.add('show');
+        },
+
+        hideLoader() { $('loader').classList.remove('show'); },
+
+        setLoaderTxt(t) { $('loaderTxt').textContent = t; },
+        setProgress(p) { $('progBar').style.width = Math.min(p, 100) + '%'; },
+
+        updateStatus() {
+            const n = Canvas.objects().length;
+            const a = Canvas.active();
+            $('sDim').textContent = State.canvasW + ' × ' + State.canvasH;
+            $('sObj').textContent = n + ' objeto' + (n !== 1 ? 's' : '');
+            $('sSel').textContent = a ? Helpers.typeName(a) : '—';
+        }
+    };
+
+    const Helpers = {
+        typeName(o) {
+            if (!o) return '—';
+            const m = { 'i-text':'Texto', textbox:'Texto', image:'Imagen', rect:'Rectángulo',
+                circle:'Círculo', ellipse:'Elipse', triangle:'Triángulo',
+                polygon:'Polígono', line:'Línea', path:'Forma', group:'Grupo' };
+            return o.customName || m[o.type] || o.type || 'Objeto';
+        },
+
+        typeIcon(o) {
+            const i = { 'i-text': 'T', textbox: 'T', image: '🖼', rect: '■', circle: '●',
+                ellipse: '⬮', triangle: '▲', polygon: '⬡', line: '━', path: '◇', group: '▤' };
+            return i[o.type] || '?';
+        },
+
+        scaleToFit(img, maxW, maxH) {
+            return Math.min(maxW / img.width, maxH / img.height, 1);
+        }
+    };
+
+    // ==========================================
+    //  MODULE: Font System
+    // ==========================================
+    const FONTS = [
+        'Inter', 'Montserrat', 'Poppins', 'Space Grotesk', 'Playfair Display',
+        'Oswald', 'Nunito', 'Lora', 'Roboto Slab', 'JetBrains Mono',
+        'Arial', 'Georgia', 'Verdana', 'Trebuchet MS', 'Helvetica',
+    ];
+
+    // ==========================================
+    //  MODULE: Templates
+    // ==========================================
+    const TEMPLATES = {
+        'li-post': { w:1200, h:627, bg:['#0a192f','#16213e'], items: [
+            { t:'text', txt:'Insights de Datos', x:100, y:180, sz:52, wt:'bold', clr:'#ffffff' },
+            { t:'text', txt:'Descubre las tendencias clave\nen bioestadística para 2025', x:100, y:260, sz:22, clr:'#74b9ff' },
+            { t:'rect', x:100, y:450, w:200, h:50, fill:'#7c6cf0', rx:10 },
+            { t:'text', txt:'LEER MÁS →', x:140, y:462, sz:16, wt:'bold', clr:'#fff' },
+        ]},
+        'li-profile': { w:1200, h:627, bg:['#1a1a2e','#533483'], items: [
+            { t:'circle', x:200, y:313, r:130, fill:'rgba(255,255,255,.08)' },
+            { t:'text', txt:'Tu Nombre', x:420, y:240, sz:48, wt:'bold', clr:'#fff' },
+            { t:'text', txt:'Bioestadístico | Data Scientist', x:420, y:310, sz:24, clr:'#a29bfe' },
+            { t:'text', txt:'Transformando datos en decisiones', x:420, y:370, sz:18, clr:'#dfe6e9' },
+        ]},
+        'li-banner': { w:1128, h:191, bg:['#0f3460','#1a1a2e'], items: [
+            { t:'text', txt:'BIOESTADÍSTICA & DATA SCIENCE', x:40, y:55, sz:28, wt:'bold', clr:'#fff' },
+            { t:'text', txt:'Análisis · Investigación · Innovación', x:40, y:105, sz:16, clr:'#74b9ff' },
+        ]},
+        'li-carousel': { w:1200, h:1200, bg:['#1a1a2e','#0f3460'], items: [
+            { t:'text', txt:'5 Claves\nen Bioestadística', x:100, y:350, sz:56, wt:'bold', clr:'#fff' },
+            { t:'text', txt:'Desliza para más →', x:100, y:540, sz:24, clr:'#fbbf24' },
+            { t:'rect', x:100, y:950, w:1000, h:5, fill:'#7c6cf0' },
+            { t:'text', txt:'1 / 5', x:100, y:1100, sz:18, clr:'#5c5c78' },
+        ]},
+        'bio-report': { w:1920, h:1080, bg:'#0a0a1a', items: [
+            { t:'rect', x:0, y:0, w:1920, h:110, fill:'#7c6cf0' },
+            { t:'text', txt:'INFORME DE RESULTADOS', x:40, y:35, sz:36, wt:'bold', clr:'#fff' },
+            { t:'text', txt:'p < 0.001', x:200, y:380, sz:72, wt:'900', clr:'#34d399' },
+            { t:'text', txt:'IC 95%: [1.23 — 4.56]', x:200, y:500, sz:28, clr:'#dfe6e9' },
+            { t:'text', txt:'n = 1 247', x:900, y:380, sz:48, wt:'bold', clr:'#fbbf24' },
+            { t:'text', txt:'Significancia estadística confirmada', x:200, y:680, sz:24, clr:'#60a5fa' },
+        ]},
+        'bio-poster': { w:1080, h:1350, bg:['#0c0c1d','#1a1a3e'], items: [
+            { t:'text', txt:'ESTUDIO\nCLÍNICO', x:80, y:200, sz:64, wt:'900', clr:'#fff' },
+            { t:'text', txt:'Resultados Preliminares', x:80, y:420, sz:28, clr:'#a29bfe' },
+            { t:'rect', x:80, y:510, w:920, h:3, fill:'#7c6cf0' },
+            { t:'text', txt:'HR = 0.73', x:80, y:580, sz:56, wt:'bold', clr:'#34d399' },
+            { t:'text', txt:'IC 95%: 0.58 — 0.92', x:80, y:670, sz:24, clr:'#dfe6e9' },
+            { t:'text', txt:'p = 0.008', x:80, y:780, sz:36, wt:'bold', clr:'#fbbf24' },
+        ]},
+        'bio-thumb': { w:1280, h:720, bg:['#0a192f','#1a1a2e'], items: [
+            { t:'text', txt:'BIOESTADÍSTICA', x:60, y:50, sz:16, wt:'bold', clr:'#fbbf24', cs:200 },
+            { t:'text', txt:'Regresión\nLogística', x:60, y:180, sz:64, wt:'900', clr:'#fff' },
+            { t:'text', txt:'Guía Completa 2025', x:60, y:440, sz:24, clr:'#60a5fa' },
+            { t:'rect', x:60, y:540, w:140, h:40, fill:'#f87171', rx:20 },
+            { t:'text', txt:'NUEVO', x:90, y:550, sz:14, wt:'bold', clr:'#fff' },
+        ]},
+        'bio-square': { w:1080, h:1080, bg:['#16213e','#1a1a2e'], items: [
+            { t:'text', txt:'¿SABÍAS QUE…?', x:80, y:100, sz:20, wt:'bold', clr:'#fbbf24', cs:150 },
+            { t:'text', txt:'87%', x:80, y:280, sz:120, wt:'900', clr:'#7c6cf0' },
+            { t:'text', txt:'de los estudios\nno replican', x:80, y:520, sz:36, clr:'#fff' },
+            { t:'text', txt:'Fuente: Nature, 2024', x:80, y:950, sz:16, clr:'#5c5c78' },
+        ]},
+        'yt-thumb': { w:1280, h:720, bg:['#e94560','#533483'], items: [
+            { t:'text', txt:'TÍTULO DEL\nVÍDEO', x:60, y:200, sz:72, wt:'900', clr:'#fff' },
+            { t:'rect', x:60, y:520, w:180, h:48, fill:'#fbbf24', rx:24 },
+            { t:'text', txt:'NUEVO', x:105, y:533, sz:18, wt:'bold', clr:'#000' },
+        ]},
+        'yt-bold': { w:1280, h:720, bg:'#000000', items: [
+            { t:'rect', x:0, y:0, w:1280, h:720, fill:'#dc2626' },
+            { t:'text', txt:'WOW!', x:200, y:180, sz:120, wt:'900', clr:'#fff' },
+            { t:'text', txt:'No creerás esto…', x:200, y:460, sz:36, clr:'#fff' },
+        ]},
+    };
+
+    function applyTemplate(key) {
+        const tpl = TEMPLATES[key];
+        if (!tpl) return;
+
+        Canvas.fc.clear();
+        Canvas.resize(tpl.w, tpl.h);
+
+        // Background
+        if (Array.isArray(tpl.bg)) {
+            const grad = new fabric.Gradient({
+                type: 'linear',
+                coords: { x1:0, y1:0, x2:tpl.w, y2:tpl.h },
+                colorStops: [ { offset:0, color:tpl.bg[0] }, { offset:1, color:tpl.bg[1] } ]
+            });
+            Canvas.fc.setBackgroundColor(grad, Canvas.render.bind(Canvas));
+        } else {
+            Canvas.fc.setBackgroundColor(tpl.bg, Canvas.render.bind(Canvas));
+        }
+
+        tpl.items.forEach(it => {
+            if (it.t === 'text') {
+                Canvas.add(new fabric.IText(it.txt, {
+                    left: it.x, top: it.y, fontSize: it.sz,
+                    fontWeight: it.wt || 'normal', fill: it.clr || '#fff',
+                    fontFamily: 'Inter', charSpacing: it.cs || 0,
+                }));
+            } else if (it.t === 'rect') {
+                Canvas.add(new fabric.Rect({
+                    left: it.x, top: it.y, width: it.w, height: it.h,
+                    fill: it.fill, rx: it.rx||0, ry: it.rx||0,
+                }));
+            } else if (it.t === 'circle') {
+                Canvas.add(new fabric.Circle({
+                    left: it.x, top: it.y, radius: it.r, fill: it.fill,
+                    originX:'center', originY:'center',
+                }));
+            }
+        });
+
+        Canvas.render();
+        Bus.emit('save-state');
+        Zoom.fit();
+        setTool('select');
+        UI.toast('Plantilla aplicada', 'ok');
+    }
+
+    // ==========================================
+    //  MODULE: Tool Panels
+    // ==========================================
+    const Panels = {
+        templates() {
+            const cats = [
+                { name:'LinkedIn', items: [
+                    { k:'li-post', icon:'📊', name:'Post Datos', sz:'1200×627' },
+                    { k:'li-profile', icon:'👤', name:'Perfil Pro', sz:'1200×627' },
+                    { k:'li-banner', icon:'🎯', name:'Banner', sz:'1128×191' },
+                    { k:'li-carousel', icon:'📑', name:'Carrusel', sz:'1200×1200' },
+                ]},
+                { name:'Bioestadística', items: [
+                    { k:'bio-report', icon:'📈', name:'Informe', sz:'1920×1080' },
+                    { k:'bio-poster', icon:'🧬', name:'Póster', sz:'1080×1350' },
+                    { k:'bio-thumb', icon:'🔬', name:'Miniatura', sz:'1280×720' },
+                    { k:'bio-square', icon:'📐', name:'Cuadrado', sz:'1080×1080' },
+                ]},
+                { name:'YouTube', items: [
+                    { k:'yt-thumb', icon:'🎬', name:'Miniatura', sz:'1280×720' },
+                    { k:'yt-bold', icon:'💥', name:'Impactante', sz:'1280×720' },
+                ]},
+            ];
+
+            let h = head('Plantillas');
+            cats.forEach(c => {
+                h += `<div class="p-section"><div class="p-title">${c.name}</div><div class="tpl-grid">`;
+                c.items.forEach(i => {
+                    h += `<div class="tpl-card" data-tpl="${i.k}"><div class="tpl-icon">${i.icon}</div><div class="tpl-name">${i.name}</div><div class="tpl-size">${i.sz}</div></div>`;
+                });
+                h += '</div></div>';
+            });
+            return h;
+        },
+
+        text() {
+            return head('Texto') + `
+            <div class="panel-body">
+                <div class="p-section">
+                    <div class="p-title">Estilos rápidos</div>
+                    <div class="txt-list">
+                        <div class="txt-preset" data-txstyle="heading"><div style="font:700 18px Inter;color:var(--tx-0)">Título Grande</div></div>
+                        <div class="txt-preset" data-txstyle="sub"><div style="font:600 14px Inter;color:var(--accent)">Subtítulo</div></div>
+                        <div class="txt-preset" data-txstyle="body"><div style="font:400 12px Inter;color:var(--tx-2)">Texto de cuerpo</div></div>
+                        <div class="txt-preset" data-txstyle="caption"><div style="font:700 10px Inter;color:var(--yellow);letter-spacing:1px;text-transform:uppercase">CAPTION</div></div>
+                        <div class="txt-preset" data-txstyle="stat"><div style="font:900 26px Inter;color:var(--accent)">95.7%</div></div>
+                        <div class="txt-preset" data-txstyle="quote"><div style="font:italic 13px Lora;color:var(--tx-1)">"Cita inspiradora…"</div></div>
+                    </div>
+                </div>
+                <div class="p-section">
+                    <div class="p-title">Texto libre</div>
+                    <textarea id="customTxt" class="input" rows="3" placeholder="Escribe aquí…" style="width:100%;resize:vertical;font-family:var(--font)"></textarea>
+                    <button class="btn btn-sm btn-primary" id="addCustomTxt" style="width:100%;margin-top:6px">Añadir texto</button>
+                </div>
+            </div>`;
+        },
+
+        shapes() {
+            const shapes = [
+                ['rect','Rectángulo','<rect x="3" y="3" width="18" height="18" rx="2"/>'],
+                ['roundRect','Redondeado','<rect x="3" y="3" width="18" height="18" rx="6"/>'],
+                ['circle','Círculo','<circle cx="12" cy="12" r="9"/>'],
+                ['ellipse','Elipse','<ellipse cx="12" cy="12" rx="10" ry="6"/>'],
+                ['triangle','Triángulo','<polygon points="12 3 22 21 2 21"/>'],
+                ['diamond','Diamante','<polygon points="12 2 22 12 12 22 2 12"/>'],
+                ['star','Estrella','<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>'],
+                ['line','Línea','<line x1="4" y1="20" x2="20" y2="4"/>'],
+                ['arrow','Flecha','<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>'],
+                ['divider','Separador','<line x1="2" y1="12" x2="22" y2="12"/>'],
+                ['frame','Marco','<rect x="3" y="3" width="18" height="18" stroke-dasharray="3 2" fill="none"/>'],
+                ['badge','Badge','<rect x="5" y="7" width="14" height="10" rx="5"/>'],
+            ];
+
+            let h = head('Formas') + '<div class="panel-body"><div class="p-section"><div class="p-title">Básicas & decoración</div><div class="shapes-grid">';
+            shapes.forEach(([k, name, path]) => {
+                h += `<div class="shape-btn" data-shape="${k}" title="${name}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${path}</svg></div>`;
+            });
+            h += '</div></div></div>';
+            return h;
+        },
+
+        image() {
+            return head('Imágenes') + `
+            <div class="panel-body">
+                <div class="p-section">
+                    <div class="upload-zone" id="uzImg">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                        <p>Clic o arrastra imagen</p>
+                        <p class="hint">PNG · JPG · SVG · WEBP</p>
+                    </div>
+                </div>
+                <div class="p-section">
+                    <div class="info-box">
+                        💡 Usa imágenes de alta resolución.<br>
+                        Arrastra al canvas directamente o usa el botón.
+                    </div>
+                </div>
+            </div>`;
+        },
+
+        background() {
+            const solids = ['#1a1a2e','#0a192f','#16213e','#0f3460','#533483','#e94560','#ffffff','#f8f9fa','#2d3436','#000000','#1b1b2f','#dfe6e9'];
+            const grads = [
+                ['#7c6cf0','#a78bfa'],['#0f3460','#16213e'],['#e94560','#533483'],['#34d399','#06b6d4'],
+                ['#f472b6','#ec4899'],['#fbbf24','#f59e0b'],['#60a5fa','#2563eb'],['#374151','#6b7280'],
+                ['#0c0c1d','#1a1a3e'],['#ef4444','#fbbf24'],['#a78bfa','#f472b6'],['#34d399','#67e8f9'],
+            ];
+
+            let h = head('Fondo') + '<div class="panel-body">';
+            h += '<div class="p-section"><div class="p-title">Color sólido</div><div class="clr-row">';
+            solids.forEach(c => h += `<div class="clr-sw" style="background:${c}" data-bgclr="${c}"></div>`);
+            h += `</div><div class="pr" style="margin-top:8px"><span class="pr-label">Custom</span><input type="color" class="input" id="bgCustomClr" value="#1a1a2e"></div></div>`;
+
+            h += '<div class="p-section"><div class="p-title">Gradientes</div><div class="grad-grid">';
+            grads.forEach(([a,b]) => h += `<div class="grad-sw" style="background:linear-gradient(135deg,${a},${b})" data-grad="${a}|${b}"></div>`);
+            h += '</div></div>';
+
+            h += `<div class="p-section"><div class="p-title">Imagen de fondo</div>
+                <button class="btn btn-sm" id="bgImgBtn" style="width:100%">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                    Cargar imagen
+                </button></div>`;
+
+            h += '</div>';
+            return h;
+        },
+
+        removebg() {
+            return head('Quitar Fondo') + `
+            <div class="panel-body">
+                <div class="p-section">
+                    <div class="upload-zone" id="uzBgRm">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+                        <p>Selecciona una foto</p>
+                        <p class="hint">El fondo se elimina automáticamente</p>
+                    </div>
+                    <button class="btn btn-sm btn-primary" id="rmSelBg" style="width:100%;margin-top:6px">
+                        Quitar fondo de selección
+                    </button>
+                </div>
+                <div class="p-section">
+                    <div class="info-box">
+                        🔒 100% en navegador (WASM/ONNX).<br>
+                        ⚡ El modelo se cachea tras la primera carga (~40 MB).<br>
+                        🖼 Ideal para fotos de perfil.
+                    </div>
+                </div>
+            </div>`;
+        },
+
+        layers() {
+            const objs = Canvas.objects().slice().reverse();
+            const active = Canvas.active();
+            let h = head('Capas (' + objs.length + ')') + '<div class="panel-body">';
+
+            if (objs.length === 0) {
+                h += '<div class="info-box" style="text-align:center">Sin capas aún</div>';
+            } else {
+                objs.forEach((o, i) => {
+                    const ri = objs.length - 1 - i;
+                    const sel = active === o;
+                    h += `<div class="layer ${sel?'sel':''}" data-lidx="${ri}">
+                        <div class="layer-thumb">${Helpers.typeIcon(o)}</div>
+                        <div class="layer-name">${Helpers.typeName(o)}</div>
+                        <div class="layer-acts">
+                            <button data-lact="up" data-lidx="${ri}" title="Subir"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg></button>
+                            <button data-lact="down" data-lidx="${ri}" title="Bajar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
+                            <button data-lact="del" data-lidx="${ri}" title="Eliminar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+                        </div>
+                    </div>`;
+                });
+            }
+            h += '</div>';
+            return h;
+        }
+    };
+
+    function head(title) {
+        return `<div class="panel-head"><span>${title}</span><button class="btn-icon" data-close-panel aria-label="Cerrar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>`;
+    }
+
+    // ==========================================
+    //  MODULE: Properties Panel
+    // ==========================================
+    function renderProps(obj) {
+        if (!obj) {
+            $('propHint').textContent = 'Selecciona un objeto';
+            $('propContent').innerHTML = '';
+            return;
+        }
+
+        $('propHint').textContent = Helpers.typeName(obj);
+
+        let h = '';
+
+        // Position & size
+        h += `<div class="pg"><div class="pg-title">Posición y Tamaño</div>
+            <div class="pr"><span class="pr-label">X</span><input type="number" class="input prop-in" data-p="left" value="${Math.round(obj.left)}">
+                <span class="pr-label">Y</span><input type="number" class="input prop-in" data-p="top" value="${Math.round(obj.top)}"></div>
+            <div class="pr"><span class="pr-label">W</span><input type="number" class="input prop-in" data-p="_w" value="${Math.round(obj.getScaledWidth())}">
+                <span class="pr-label">H</span><input type="number" class="input prop-in" data-p="_h" value="${Math.round(obj.getScaledHeight())}"></div>
+            <div class="pr"><span class="pr-label">Ángulo</span><input type="range" class="range prop-range" data-p="angle" min="0" max="360" value="${Math.round(obj.angle)}">
+                <span class="pr-val" style="min-width:28px;font:500 11px var(--font);color:var(--tx-2)">${Math.round(obj.angle)}°</span></div>
+        </div>`;
+
+        // Opacity
+        h += `<div class="pg"><div class="pg-title">Apariencia</div>
+            <div class="pr"><span class="pr-label">Opacidad</span><input type="range" class="range prop-range" data-p="opacity" min="0" max="1" step="0.05" value="${obj.opacity}">
+                <span class="pr-val" style="min-width:28px;font:500 11px var(--font);color:var(--tx-2)">${Math.round(obj.opacity*100)}%</span></div>
+        </div>`;
+
+        // Text props
+        if (obj.type === 'i-text' || obj.type === 'textbox') {
+            h += `<div class="pg"><div class="pg-title">Texto</div>
+                <div class="pr"><span class="pr-label">Fuente</span>
+                    <select class="input prop-in" data-p="fontFamily">${FONTS.map(f=>`<option value="${f}"${obj.fontFamily===f?' selected':''}>${f}</option>`).join('')}</select></div>
+                <div class="pr"><span class="pr-label">Tamaño</span><input type="number" class="input prop-in" data-p="fontSize" value="${obj.fontSize}" style="width:55px">
+                    <span class="pr-label">Color</span><input type="color" class="input prop-in" data-p="fill" value="${obj.fill||'#ffffff'}"></div>
+                <div class="pr"><span class="pr-label">Estilo</span>
+                    <div class="fs-row">
+                        <button class="fs-btn${obj.fontWeight==='bold'?' on':''}" data-toggle="bold" title="Negrita"><b>B</b></button>
+                        <button class="fs-btn${obj.fontStyle==='italic'?' on':''}" data-toggle="italic" title="Cursiva"><i>I</i></button>
+                        <button class="fs-btn${obj.underline?' on':''}" data-toggle="underline" title="Subrayado"><u>U</u></button>
+                    </div></div>
+                <div class="pr"><span class="pr-label">Alinear</span>
+                    <div class="fs-row">
+                        <button class="fs-btn${obj.textAlign==='left'?' on':''}" data-align="left">⬅</button>
+                        <button class="fs-btn${obj.textAlign==='center'?' on':''}" data-align="center">⬛</button>
+                        <button class="fs-btn${obj.textAlign==='right'?' on':''}" data-align="right">➡</button>
+                    </div></div>
+                <div class="pr"><span class="pr-label">Sombra</span>
+                    <input type="checkbox" class="prop-check" data-p="shadow" ${obj.shadow?'checked':''}></div>
+                <div class="pr"><span class="pr-label">Borde</span>
+                    <input type="number" class="input prop-in" data-p="strokeWidth" value="${obj.strokeWidth||0}" min="0" max="10" style="width:45px">
+                    <input type="color" class="input prop-in" data-p="stroke" value="${obj.stroke||'#000000'}"></div>
+            </div>`;
+        }
+
+        // Shape props
+        if (['rect','circle','ellipse','triangle','polygon','path','line'].includes(obj.type)) {
+            h += `<div class="pg"><div class="pg-title">Relleno y borde</div>
+                <div class="pr"><span class="pr-label">Relleno</span><input type="color" class="input prop-in" data-p="fill" value="${obj.fill||'#7c6cf0'}"></div>
+                <div class="pr"><span class="pr-label">Borde</span><input type="color" class="input prop-in" data-p="stroke" value="${obj.stroke||'#000000'}">
+                    <input type="number" class="input prop-in" data-p="strokeWidth" value="${obj.strokeWidth||0}" min="0" max="20" style="width:45px"></div>
+                ${obj.type==='rect'?`<div class="pr"><span class="pr-label">Radio</span><input type="range" class="range prop-range" data-p="rx" min="0" max="80" value="${obj.rx||0}">
+                    <span class="pr-val" style="min-width:24px;font:500 11px var(--font);color:var(--tx-2)">${obj.rx||0}</span></div>`:''}
+            </div>`;
+        }
+
+        // Actions
+        h += `<div class="pg"><div class="pg-title">Acciones</div>
+            <div style="display:flex;flex-direction:column;gap:4px">
+                <button class="btn btn-sm" data-act="dup">Duplicar</button>
+                <button class="btn btn-sm" data-act="front">Traer al frente</button>
+                <button class="btn btn-sm" data-act="back">Enviar atrás</button>
+                <button class="btn btn-sm" data-act="center">Centrar</button>
+                <button class="btn btn-sm btn-danger-outline" data-act="del">Eliminar</button>
+            </div></div>`;
+
+        $('propContent').innerHTML = h;
+    }
+
+    // ==========================================
+    //  MODULE: Object Creation
+    // ==========================================
+    function addText(style) {
+        const cx = State.canvasW / 2, cy = State.canvasH / 2;
+        const presets = {
+            heading: { txt:'Título Principal', sz:64, wt:'bold', clr:'#ffffff', name:'Título' },
+            sub: { txt:'Subtítulo del contenido', sz:36, wt:'600', clr:'#a78bfa', name:'Subtítulo' },
+            body: { txt:'Texto de cuerpo para\ndescripciones y contenido.', sz:20, clr:'#ffffff', name:'Cuerpo' },
+            caption: { txt:'ETIQUETA', sz:14, wt:'bold', clr:'#fbbf24', cs:200, name:'Caption' },
+            stat: { txt:'95.7%', sz:72, wt:'900', clr:'#7c6cf0', name:'Estadística' },
+            quote: { txt:'"Tu cita inspiradora aquí"', sz:28, fs:'italic', clr:'#dfe6e9', ff:'Lora', name:'Cita' },
+        };
+
+        const p = presets[style] || presets.body;
+        const t = new fabric.IText(p.txt, {
+            left: cx, top: cy, originX:'center', originY:'center',
+            fontFamily: p.ff || 'Inter', fontSize: p.sz, fontWeight: p.wt || 'normal',
+            fontStyle: p.fs || 'normal', fill: p.clr, charSpacing: p.cs || 0,
+            customName: p.name,
+        });
+        Canvas.add(t);
+        Canvas.setActive(t);
+        State.requestSave();
+        UI.toast('Texto añadido', 'ok');
+    }
+
+    function addShape(type) {
+        const cx = State.canvasW / 2, cy = State.canvasH / 2;
+        const fill = '#7c6cf0';
+        let shape;
+
+        const common = { left:cx, top:cy, originX:'center', originY:'center' };
+
+        switch (type) {
+            case 'rect': shape = new fabric.Rect({ ...common, width:200, height:140, fill, customName:'Rectángulo' }); break;
+            case 'roundRect': shape = new fabric.Rect({ ...common, width:200, height:140, fill, rx:20, ry:20, customName:'Rect. Redondeado' }); break;
+            case 'circle': shape = new fabric.Circle({ ...common, radius:80, fill, customName:'Círculo' }); break;
+            case 'ellipse': shape = new fabric.Ellipse({ ...common, rx:120, ry:70, fill, customName:'Elipse' }); break;
+            case 'triangle': shape = new fabric.Triangle({ ...common, width:160, height:140, fill, customName:'Triángulo' }); break;
+            case 'diamond': shape = new fabric.Rect({ ...common, width:110, height:110, fill, angle:45, customName:'Diamante' }); break;
+            case 'star': {
+                const pts = [];
+                let rot = Math.PI/2*3;
+                for (let i=0; i<5; i++) {
+                    pts.push({ x:Math.cos(rot)*80, y:Math.sin(rot)*80 }); rot+=Math.PI/5;
+                    pts.push({ x:Math.cos(rot)*35, y:Math.sin(rot)*35 }); rot+=Math.PI/5;
+                }
+                shape = new fabric.Polygon(pts, { ...common, fill:'#fbbf24', customName:'Estrella' });
+            } break;
+            case 'line': shape = new fabric.Line([0,0,250,0], { left:cx-125, top:cy, stroke:fill, strokeWidth:4, customName:'Línea' }); break;
+            case 'arrow': shape = new fabric.Path('M0 15L80 15L80 0L110 20L80 40L80 25L0 25Z', { ...common, fill, customName:'Flecha' }); break;
+            case 'divider': shape = new fabric.Line([0,0,400,0], { left:cx-200, top:cy, stroke:'#6b7280', strokeWidth:2, customName:'Separador' }); break;
+            case 'frame': shape = new fabric.Rect({ ...common, width:300, height:200, fill:'transparent', stroke:'#7c6cf0', strokeWidth:3, customName:'Marco' }); break;
+            case 'badge': shape = new fabric.Rect({ ...common, width:100, height:40, fill:'#ef4444', rx:20, ry:20, customName:'Badge' }); break;
+        }
+
+        if (shape) { Canvas.add(shape); Canvas.setActive(shape); State.requestSave(); UI.toast('Forma añadida', 'ok'); }
+    }
+
+    // ==========================================
+    //  MODULE: Image Upload
+    // ==========================================
+    function loadImage(file, opts = {}) {
+        const reader = new FileReader();
+        reader.onload = e => {
+            fabric.Image.fromURL(e.target.result, img => {
+                const s = Helpers.scaleToFit(img, State.canvasW * (opts.maxRatio || .6), State.canvasH * (opts.maxRatio || .6));
+                img.set({
+                    left: opts.left ?? State.canvasW/2, top: opts.top ?? State.canvasH/2,
+                    originX: opts.originX || 'center', originY: opts.originY || 'center',
+                    scaleX: opts.scaleX || s, scaleY: opts.scaleY || s,
+                    angle: opts.angle || 0,
+                    customName: opts.name || file.name?.substring(0,18) || 'Imagen',
+                });
+                Canvas.add(img);
+                if (opts.sendBack) img.sendToBack();
+                Canvas.setActive(img);
+                Canvas.render();
+                State.requestSave();
+                UI.toast('Imagen añadida', 'ok');
+            });
+        };
+        reader.readAsDataURL(file);
+    }
+
+    // ==========================================
+    //  MODULE: Background Removal (with cache)
+    // ==========================================
+    let bgRemovalFn = null;
+
+    async function removeBg(source, positioning) {
+        UI.showLoader('Cargando modelo de IA…');
+        UI.setProgress(5);
+
+        try {
+            if (!bgRemovalFn) {
+                UI.setProgress(15);
+                const mod = await import('https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.4.5/dist/index.js');
+                bgRemovalFn = mod.removeBackground;
+                UI.setProgress(35);
+            }
+
+            UI.setLoaderTxt('Eliminando fondo… puede tardar unos segundos');
+            UI.setProgress(40);
+
+            const blob = await bgRemovalFn(source, {
+                progress: (key, cur, tot) => {
+                    if (tot > 0) UI.setProgress(40 + (cur / tot) * 55);
+                }
+            });
+
+            UI.setProgress(98);
+            const url = URL.createObjectURL(blob);
+
+            return new Promise(resolve => {
+                fabric.Image.fromURL(url, img => {
+                    const s = positioning?.scaleX || Helpers.scaleToFit(img, State.canvasW*.5, State.canvasH*.7);
+                    img.set({
+                        left: positioning?.left ?? State.canvasW/2,
+                        top: positioning?.top ?? State.canvasH/2,
+                        originX: positioning?.originX || 'center',
+                        originY: positioning?.originY || 'center',
+                        scaleX: positioning?.scaleX || s,
+                        scaleY: positioning?.scaleY || s,
+                        angle: positioning?.angle || 0,
+                        customName: 'Foto (sin fondo)',
+                    });
+                    Canvas.add(img);
+                    Canvas.setActive(img);
+                    Canvas.render();
+                    State.requestSave();
+                    URL.revokeObjectURL(url);
+                    UI.hideLoader();
+                    UI.toast('¡Fondo eliminado!', 'ok');
+                    resolve(img);
+                });
+            });
+
+        } catch (err) {
+            UI.hideLoader();
+            console.error('BG removal error:', err);
+            UI.toast('Error: ' + err.message, 'err');
+            // Fallback: add as-is
+            if (source instanceof File) loadImage(source, { name:'Foto (original)' });
+        }
+    }
+
+    // ==========================================
+    //  MODULE: Background
+    // ==========================================
+    function setBgColor(c) {
+        Canvas.fc.setBackgroundImage(null, Canvas.render.bind(Canvas));
+        Canvas.fc.setBackgroundColor(c, Canvas.render.bind(Canvas));
+        State.requestSave();
+    }
+
+    function setBgGrad(a, b) {
+        Canvas.fc.setBackgroundImage(null, Canvas.render.bind(Canvas));
+        const g = new fabric.Gradient({
+            type:'linear', coords:{x1:0,y1:0,x2:State.canvasW,y2:State.canvasH},
+            colorStops:[{offset:0,color:a},{offset:1,color:b}]
+        });
+        Canvas.fc.setBackgroundColor(g, Canvas.render.bind(Canvas));
+        State.requestSave();
+    }
+
+    // ==========================================
+    //  MODULE: Export
+    // ==========================================
+    function updateExpInfo() {
+        const s = +$('expScale').value;
+        const fmt = $('expFmt').value;
+        $('expInfo').textContent = `Resolución: ${State.canvasW*s} × ${State.canvasH*s} px (${fmt.toUpperCase()})`;
+    }
+
+    function doExport() {
+        const fmt = $('expFmt').value;
+        const scale = +$('expScale').value;
+        const q = +$('expQ').value;
+
+        Canvas.discard();
+
+        const url = Canvas.fc.toDataURL({ format: fmt, quality: q, multiplier: scale });
+        const a = document.createElement('a');
+        a.download = `thumbnail_${State.canvasW}x${State.canvasH}_${scale}x.${fmt==='jpeg'?'jpg':'png'}`;
+        a.href = url;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+
+        $('exportModal').classList.remove('show');
+        UI.toast(`Exportado (${State.canvasW*scale}×${State.canvasH*scale})`, 'ok');
+    }
+
+    // ==========================================
+    //  TOOL SWITCHING
+    // ==========================================
+    function setTool(tool) {
+        State.tool = tool;
+
+        qsa('.rail-btn').forEach(b => b.classList.toggle('active', b.dataset.tool === tool));
+
+        const panel = $('panelL');
+        const inner = $('panelLInner');
+
+        if (tool === 'select') {
+            panel.classList.remove('open');
+            return;
+        }
+
+        const renderer = Panels[tool];
+        if (renderer) {
+            inner.innerHTML = renderer();
+            panel.classList.add('open');
+            bindPanelEvents(tool);
+        }
+    }
+
+    // ==========================================
+    //  EVENT BINDING (delegated, specific)
+    // ==========================================
+    function bindPanelEvents(tool) {
+        const inner = $('panelLInner');
+
+        // Close button
+        const closeBtn = qs('[data-close-panel]', inner);
+        if (closeBtn) closeBtn.onclick = () => setTool('select');
+
+        if (tool === 'templates') {
+            qsa('.tpl-card', inner).forEach(c => c.onclick = () => applyTemplate(c.dataset.tpl));
+        }
+
+        if (tool === 'text') {
+            qsa('.txt-preset', inner).forEach(p => p.onclick = () => addText(p.dataset.txstyle));
+            const btn = $('addCustomTxt');
+            if (btn) btn.onclick = () => {
+                const v = $('customTxt')?.value?.trim();
+                if (!v) return UI.toast('Escribe algo primero', 'err');
+                const t = new fabric.IText(v, {
+                    left: State.canvasW/2, top: State.canvasH/2, originX:'center', originY:'center',
+                    fontFamily:'Inter', fontSize:32, fill:'#fff', customName:'Texto libre',
+                });
+                Canvas.add(t); Canvas.setActive(t); State.requestSave();
+                $('customTxt').value = '';
+                UI.toast('Texto añadido', 'ok');
+            };
+        }
+
+        if (tool === 'shapes') {
+            qsa('.shape-btn', inner).forEach(b => b.onclick = () => addShape(b.dataset.shape));
+        }
+
+        if (tool === 'image') {
+            const uz = $('uzImg');
+            if (uz) uz.onclick = () => $('fiImg').click();
+        }
+
+        if (tool === 'background') {
+            qsa('.clr-sw', inner).forEach(s => s.onclick = () => setBgColor(s.dataset.bgclr));
+            qsa('.grad-sw', inner).forEach(s => {
+                s.onclick = () => { const [a,b] = s.dataset.grad.split('|'); setBgGrad(a,b); };
+            });
+            const cc = $('bgCustomClr');
+            if (cc) cc.onchange = () => setBgColor(cc.value);
+            const bi = $('bgImgBtn');
+            if (bi) bi.onclick = () => $('fiBgImg').click();
+        }
+
+        if (tool === 'removebg') {
+            const uz = $('uzBgRm');
+            if (uz) uz.onclick = () => $('fiBgRm').click();
+            const rb = $('rmSelBg');
+            if (rb) rb.onclick = async () => {
+                const obj = Canvas.active();
+                if (!obj || obj.type !== 'image') return UI.toast('Selecciona una imagen', 'err');
+                const dataURL = obj.toDataURL({ format:'png' });
+                const blob = await fetch(dataURL).then(r=>r.blob());
+                const file = new File([blob], 'img.png', { type:'image/png' });
+                const pos = { left:obj.left, top:obj.top, scaleX:obj.scaleX, scaleY:obj.scaleY, angle:obj.angle, originX:obj.originX, originY:obj.originY };
+                Canvas.remove(obj);
+                await removeBg(file, pos);
+            };
+        }
+
+        if (tool === 'layers') {
+            qsa('.layer[data-lidx]', inner).forEach(l => {
+                l.onclick = (e) => {
+                    if (e.target.closest('[data-lact]')) return;
+                    const i = +l.dataset.lidx;
+                    const objs = Canvas.objects();
+                    if (objs[i]) Canvas.setActive(objs[i]);
+                };
+            });
+            qsa('[data-lact]', inner).forEach(btn => {
+                btn.onclick = (e) => {
+                    e.stopPropagation();
+                    const i = +btn.dataset.lidx;
+                    const objs = Canvas.objects();
+                    if (!objs[i]) return;
+                    const act = btn.dataset.lact;
+                    if (act === 'up') objs[i].bringForward();
+                    else if (act === 'down') objs[i].sendBackwards();
+                    else if (act === 'del') Canvas.remove(objs[i]);
+                    Canvas.render(); State.requestSave();
+                    setTool('layers');
+                };
+            });
+        }
+    }
+
+    // Properties panel event delegation
+    function bindPropEvents() {
+        const panel = $('propContent');
+        panel.addEventListener('input', e => {
+            const obj = Canvas.active();
+            if (!obj) return;
+            const el = e.target;
+
+            if (el.classList.contains('prop-in')) {
+                const p = el.dataset.p;
+                let v = el.type === 'number' ? +el.value : el.value;
+                if (p === '_w') { obj.set('scaleX', v / (obj.width||1)); }
+                else if (p === '_h') { obj.set('scaleY', v / (obj.height||1)); }
+                else { obj.set(p, v); }
+                Canvas.render();
+                State.requestSave();
+            }
+
+            if (el.classList.contains('prop-range')) {
+                const p = el.dataset.p;
+                let v = +el.value;
+                obj.set(p, v);
+                if (p === 'rx') obj.set('ry', v);
+                Canvas.render();
+                State.requestSave();
+                const valSpan = el.nextElementSibling;
+                if (valSpan && valSpan.classList.contains('pr-val')) {
+                    if (p === 'angle') valSpan.textContent = Math.round(v) + '°';
+                    else if (p === 'opacity') valSpan.textContent = Math.round(v*100) + '%';
+                    else valSpan.textContent = Math.round(v);
+                }
+            }
+
+            if (el.classList.contains('prop-check')) {
+                const p = el.dataset.p;
+                if (p === 'shadow') {
+                    obj.set('shadow', el.checked ? new fabric.Shadow({ color:'rgba(0,0,0,.5)', blur:8, offsetX:3, offsetY:3 }) : null);
+                    Canvas.render();
+                    State.requestSave();
+                }
+            }
+        });
+
+        panel.addEventListener('click', e => {
+            const obj = Canvas.active();
+            if (!obj) return;
+
+            const toggle = e.target.closest('[data-toggle]');
+            if (toggle) {
+                const t = toggle.dataset.toggle;
+                if (t === 'bold') obj.set('fontWeight', obj.fontWeight === 'bold' ? 'normal' : 'bold');
+                else if (t === 'italic') obj.set('fontStyle', obj.fontStyle === 'italic' ? 'normal' : 'italic');
+                else if (t === 'underline') obj.set('underline', !obj.underline);
+                Canvas.render(); State.requestSave(); renderProps(obj);
+                return;
+            }
+
+            const align = e.target.closest('[data-align]');
+            if (align) {
+                obj.set('textAlign', align.dataset.align);
+                Canvas.render(); State.requestSave(); renderProps(obj);
+                return;
+            }
+
+            const act = e.target.closest('[data-act]');
+            if (act) {
+                const a = act.dataset.act;
+                if (a === 'dup') {
+                    obj.clone(c => { c.set({left:obj.left+20,top:obj.top+20}); Canvas.add(c); Canvas.setActive(c); State.requestSave(); });
+                }
+                else if (a === 'front') { obj.bringToFront(); Canvas.render(); State.requestSave(); }
+                else if (a === 'back') { obj.sendToBack(); Canvas.render(); State.requestSave(); }
+                else if (a === 'center') { obj.center(); obj.setCoords(); Canvas.render(); State.requestSave(); }
+                else if (a === 'del') { Canvas.remove(obj); Canvas.render(); State.requestSave(); }
+            }
+        });
+    }
+
+    // ==========================================
+    //  KEYBOARD (improved: respects HTML inputs)
+    // ==========================================
+    function isInput(el) {
+        if (!el) return false;
+        const tag = el.tagName;
+        return tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || el.isContentEditable;
+    }
+
+    function handleKeys(e) {
+        const active = Canvas.active();
+        const editing = active && active.isEditing;
+        const inInput = isInput(document.activeElement);
+
+        // Always allow these combos
+        if (e.ctrlKey || e.metaKey) {
+            const key = e.key.toLowerCase();
+            if (key === 'z') { e.preventDefault(); e.shiftKey ? History.redo() : History.undo(); return; }
+            if (key === 'y') { e.preventDefault(); History.redo(); return; }
+
+            if (!editing && !inInput) {
+                if (key === 'c') { e.preventDefault(); if (active) active.clone(c => { State.clipboard = c; }); return; }
+                if (key === 'v') {
+                    e.preventDefault();
+                    if (State.clipboard) State.clipboard.clone(c => { c.set({left:c.left+20,top:c.top+20}); Canvas.add(c); Canvas.setActive(c); State.requestSave(); });
+                    return;
+                }
+                if (key === 'd') { e.preventDefault(); if (active) active.clone(c => { c.set({left:active.left+20,top:active.top+20}); Canvas.add(c); Canvas.setActive(c); State.requestSave(); }); return; }
+                if (key === 's') { e.preventDefault(); $('exportModal').classList.add('show'); updateExpInfo(); return; }
+                if (key === '=' || key === '+') { e.preventDefault(); Zoom.zin(); return; }
+                if (key === '-') { e.preventDefault(); Zoom.zout(); return; }
+                if (key === '0') { e.preventDefault(); Zoom.fit(); return; }
+            }
+        }
+
+        // Only if NOT editing text or in input
+        if (!editing && !inInput) {
+            if (e.key === 'Delete' || e.key === 'Backspace') {
+                if (active) { e.preventDefault(); Canvas.remove(active); Canvas.render(); State.requestSave(); }
+            }
+            if (e.key === 'Escape') { Canvas.discard(); }
+
+            // Tool shortcuts
+            if (e.key === 'v' || e.key === 'V') setTool('select');
+            if (e.key === 't' || e.key === 'T') setTool('text');
+            if (e.key === 's' && !e.ctrlKey && !e.metaKey) setTool('shapes');
+            if (e.key === 'i' || e.key === 'I') setTool('image');
+            if (e.key === 'b' || e.key === 'B') setTool('background');
+            if (e.key === 'l' || e.key === 'L') setTool('layers');
+        }
+    }
+
+    // ==========================================
+    //  DRAG & DROP
+    // ==========================================
+    function setupDragDrop() {
+        const area = $('canvasArea');
+        let dragCount = 0;
+
+        area.addEventListener('dragenter', e => { e.preventDefault(); dragCount++; area.classList.add('drag-over'); });
+        area.addEventListener('dragleave', e => { e.preventDefault(); dragCount--; if (dragCount <= 0) { dragCount = 0; area.classList.remove('drag-over'); } });
+        area.addEventListener('dragover', e => e.preventDefault());
+        area.addEventListener('drop', e => {
+            e.preventDefault();
+            dragCount = 0;
+            area.classList.remove('drag-over');
+            const files = e.dataTransfer?.files;
+            if (files?.[0]?.type?.startsWith('image/')) {
+                loadImage(files[0]);
+            }
+        });
+    }
+
+    // ==========================================
+    //  INITIALIZATION
+    // ==========================================
+    function boot() {
+        Canvas.init();
+        History.init();
+        Zoom.fit();
+        UI.updateStatus();
+        bindPropEvents();
+        setupDragDrop();
+
+        // Rail buttons
+        qsa('.rail-btn').forEach(b => {
+            b.addEventListener('click', () => setTool(b.dataset.tool));
+        });
+
+        // Topbar
+        $('btnUndo').onclick = () => History.undo();
+        $('btnRedo').onclick = () => History.redo();
+        $('btnExport').onclick = () => { $('exportModal').classList.add('show'); updateExpInfo(); };
+        $('presetSelect').onchange = function() {
+            if (!this.value) return;
+            const [w,h] = this.value.split('x').map(Number);
+            Canvas.resize(w,h);
+            Zoom.fit();
+            UI.toast(`Canvas: ${w}×${h}`, 'inf');
+        };
+
+        // Mobile prop toggle
+        $('btnMobileProp').onclick = () => $('panelR').classList.toggle('mobile-open');
+
+        // Zoom
+        $('zIn').onclick = () => Zoom.zin();
+        $('zOut').onclick = () => Zoom.zout();
+        $('zFit').onclick = () => Zoom.fit();
+
+        // Export modal
+        $('expCancel').onclick = () => $('exportModal').classList.remove('show');
+        $('expDo').onclick = doExport;
+        $('expQ').oninput = function() { $('expQV').textContent = Math.round(this.value*100)+'%'; };
+        $('expScale').onchange = updateExpInfo;
+        $('expFmt').onchange = updateExpInfo;
+
+        // File inputs
+        $('fiImg').onchange = e => { if (e.target.files[0]) { loadImage(e.target.files[0]); e.target.value=''; } };
+        $('fiBgRm').onchange = async e => { if (e.target.files[0]) { await removeBg(e.target.files[0]); e.target.value=''; } };
+        $('fiBgImg').onchange = e => {
+            if (e.target.files[0]) {
+                loadImage(e.target.files[0], { maxRatio:1.2, sendBack:true, name:'Fondo' });
+                e.target.value = '';
+            }
+        };
+
+        // Bus events
+        Bus.on('selection', () => { renderProps(Canvas.active()); UI.updateStatus(); if (State.tool==='layers') setTool('layers'); });
+        Bus.on('selection-clear', () => { renderProps(null); UI.updateStatus(); if (State.tool==='layers') setTool('layers'); });
+        Bus.on('objects-changed', () => UI.updateStatus());
+        Bus.on('canvas-resized', () => UI.updateStatus());
+
+        // Keyboard
+        document.addEventListener('keydown', handleKeys);
+
+        // Resize
+        window.addEventListener('resize', () => Zoom.fit());
+
+        UI.toast('Editor listo — ¡a crear!', 'ok');
+    }
+
+    // Launch
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+    else boot();
+
+})();
+</script>
+</body>
+</html>

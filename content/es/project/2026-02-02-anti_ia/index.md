@@ -1,18 +1,14 @@
 ---
-title: "Bio-AI Forensic: Arquitectura de Detección y Auditoría Lingüística"
-subtitle: "Análisis de Integridad Textual y Discriminación de Contenido Sintético por IA"
-summary: "Protocolo de Bio-AI Forensic para la detección de textos generados por IA. Implementación de algoritmos de NLP por Maicel Monzón para garantizar la integridad científica."
+title: "Analizador de Estilo en Texto"
+subtitle: "Evaluación cuantitativa de la variabilidad léxica y estructural en documentos digitales"
+summary: "Calcula métricas estilométricas cuantitativas y ayuda a identificar posibles huellas de texto generado por inteligencia artificial."
 slug: "anti_ia"
-date: "2025-02-05"
+date: "2025-12-05"
 tags:
   - "herramientas"
   - "Auditoría Forense Digital"
   - "Análisis de Modelos de Lenguaje (LLM)"
   - "Integridad Académica"
-  - "NLP Forense"
 external_link: "/apps/anti_ia.html"
-image:
-  caption: ""
-  focal_point: "Smart"
 ---
 
