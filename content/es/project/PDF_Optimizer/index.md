@@ -1,7 +1,7 @@
 ---
 title: "Compresor de PDF"
 date: "2025-11-24" # Progresión: 2026-01-14 -> 2026-01-12
-categories: ["PDF"]
+categories: ["pdf"]
 tags:
   - "herramientas" # Tag agrupador principal
   - "File Engineering"

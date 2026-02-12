@@ -1,5 +1,5 @@
 ---
-title: "Caluladora del margen de no inferioridad"
+title: "Calculadora del margen de no inferioridad"
 date: "2024-12-28" # Progresión: 2025-12-27 -> 2025-12-25
 # Estructura de agrupación solicitada por Maicel Monzón
 categories: ["calculadoras"]
@@ -11,4 +11,8 @@ summary: "Calcula  margen de no inferioridad para ensayos clínicos."
 # Configuración técnica y URL relativa preservada
 slug: "margen-no-inferioridad"
 external_link: "/apps/margen-no-inferioridad.html"
+image:
+  caption: ""
+  focal_point: "Smart"
+  preview_only: false
 ---

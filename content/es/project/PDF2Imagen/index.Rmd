@@ -2,7 +2,7 @@
 title: "Conversor de PDF a Imagen"
 date: "2025-11-28"
 # Estructura de agrupación solicitada por Maicel Monzón
-categories: ["imagen"]
+categories: ["pdf"]
 tags:
   - "herramientas" # Tag agrupador principal
   - "File Engineering"

@@ -2,7 +2,7 @@
 title: "Organizador de páginas en un PDF (Bio-PDF Organizer ver 1.0)"
 date: "2025-11-26" 
 # Estructura de agrupación solicitada por Maicel Monzón
-categories: ["PDF"]
+categories: ["pdf"]
 tags:
   - "herramientas" # Tag agrupador principal
   - "File Engineering"

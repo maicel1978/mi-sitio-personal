@@ -100,7 +100,7 @@ es:
         weight: 42
         parent: projects
       - name: "PDF"
-        url: /categories/PDF/
+        url: /categories/pdf/
         weight: 43
         parent: projects        
       - name: "Imagen"
@@ -125,7 +125,7 @@ es:
         parent: projects
       - name: "Redes Sociales"
         url: /categories/redes-sociales/
-        weight: 48
+        weight: 49
         parent: projects        
       # - name: Conferencias
       #   url: /#talks
