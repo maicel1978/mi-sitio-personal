@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VideoTools — Herramientas de Video</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        :root {
+            --bg-dark: #0a0a12;
+            --bg-card: #12121e;
+            --bg-elevated: #1a1a2e;
+            --border: #252540;
+            --border-hover: #3a3a5c;
+            --text-primary: #e2e8f0;
+            --text-secondary: #7a819c;
+            --accent: #6366f1;
+            --accent-hover: #4f46e5;
+        }
+        body { background: var(--bg-dark); color: var(--text-primary); overflow-x: hidden; }
+
+        /* Cards */
+        .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; }
+        .card-elevated { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 12px; }
+
+        /* Buttons */
+        .btn { padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 500; transition: all .2s; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+        .btn-accent { background: var(--accent); color: #fff; }
+        .btn-accent:hover { background: var(--accent-hover); }
+        .btn-accent:disabled { opacity: .4; cursor: not-allowed; }
+        .btn-ghost { background: transparent; border: 1px solid var(--border); color: var(--text-primary); }
+        .btn-ghost:hover { border-color: var(--border-hover); background: rgba(255,255,255,.03); }
+        .btn-danger { background: rgba(239,68,68,.1); border: 1px solid rgba(239,68,68,.2); color: #f87171; }
+        .btn-danger:hover { background: rgba(239,68,68,.2); }
+
+        /* Drop zone */
+        .drop-zone { border: 2px dashed var(--border); border-radius: 16px; transition: all .3s; }
+        .drop-zone.dragover { border-color: var(--accent); background: rgba(99,102,241,.06); }
+
+        /* Timeline */
+        .timeline-track { background: rgba(99,102,241,.15); border-radius: 6px; position: relative; height: 52px; cursor: pointer; }
+        .timeline-selection { background: rgba(99,102,241,.3); position: absolute; top: 0; bottom: 0; border-radius: 6px; border: 1px solid rgba(99,102,241,.5); }
+        .handle { width: 14px; height: 100%; background: var(--accent); cursor: ew-resize; position: absolute; top: 0; z-index: 10; }
+        .handle:hover, .handle:active { background: #818cf8; box-shadow: 0 0 10px rgba(99,102,241,.5); }
+        .handle::after { content:''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 2px; height: 50%; background: rgba(255,255,255,.5); border-radius: 1px; }
+        .handle-left { left: 0; border-radius: 6px 2px 2px 6px; }
+        .handle-right { right: 0; border-radius: 2px 6px 6px 2px; }
+        .playhead { width: 2px; background: #ef4444; position: absolute; top: 0; bottom: 0; z-index: 20; pointer-events: none; }
+        .playhead::before { content:''; position: absolute; top: -6px; left: -5px; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 8px solid #ef4444; }
+
+        /* Waveform */
+        .waveform-bar { background: rgba(99,102,241,.4); border-radius: 1px; flex-shrink: 0; }
+
+        /* Frames */
+        .frame-thumb { border: 2px solid transparent; border-radius: 8px; overflow: hidden; cursor: pointer; transition: all .2s; }
+        .frame-thumb:hover { border-color: rgba(99,102,241,.4); }
+        .frame-thumb.selected { border-color: var(--accent); box-shadow: 0 0 12px rgba(99,102,241,.3); }
+
+        /* Tools */
+        .tool-btn { padding: 6px 10px; border-radius: 6px; font-size: 12px; background: rgba(255,255,255,.04); border: 1px solid transparent; transition: all .15s; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; }
+        .tool-btn:hover { background: rgba(99,102,241,.1); border-color: rgba(99,102,241,.2); }
+        .tool-btn.active { background: rgba(99,102,241,.2); border-color: var(--accent); }
+
+        /* Tabs */
+        .tab-btn { padding: 8px 12px; border-radius: 8px; font-size: 13px; transition: all .2s; cursor: pointer; display: flex; align-items: center; gap: 8px; width: 100%; border-left: 3px solid transparent; color: var(--text-secondary); }
+        .tab-btn:hover { background: rgba(99,102,241,.06); color: var(--text-primary); }
+        .tab-btn.active { background: rgba(99,102,241,.1); border-left-color: var(--accent); color: var(--text-primary); }
+
+        /* Range inputs */
+        input[type="range"] { -webkit-appearance: none; height: 4px; background: rgba(99,102,241,.15); border-radius: 2px; outline: none; }
+        input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; background: var(--accent); border-radius: 50%; cursor: pointer; }
+
+        /* Selects and text inputs */
+        .input { background: rgba(0,0,0,.3); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; font-size: 13px; color: var(--text-primary); outline: none; transition: border-color .2s; }
+        .input:focus { border-color: var(--accent); }
+
+        /* Notification */
+        .toast { animation: toastIn .3s ease; }
+        @keyframes toastIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+        /* Progress */
+        .progress { height: 4px; background: rgba(99,102,241,.12); border-radius: 2px; overflow: hidden; }
+        .progress-bar { height: 100%; background: var(--accent); border-radius: 2px; transition: width .3s; }
+
+        /* Modal */
+        .modal-bg { background: rgba(0,0,0,.6); backdrop-filter: blur(6px); }
+
+        /* Spinner */
+        .spin { border: 3px solid rgba(99,102,241,.15); border-top-color: var(--accent); border-radius: 50%; width: 24px; height: 24px; animation: rotate .7s linear infinite; }
+        @keyframes rotate { to { transform: rotate(360deg); } }
+
+        /* Scroll */
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+        /* Fade */
+        .fade-in { animation: fadeUp .3s ease; }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 768px) {
+            .handle { width: 22px !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- Header -->
+    <header class="border-b border-[var(--border)] px-4 md:px-6 py-3 flex items-center justify-between sticky top-0 z-50 bg-[var(--bg-dark)]/90 backdrop-blur-sm">
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-[var(--accent)] flex items-center justify-center">
+                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+            </div>
+            <div>
+                <h1 class="text-base font-bold text-white">VideoTools</h1>
+                <p class="text-[10px] text-[var(--text-secondary)] -mt-0.5">Herramientas de video en tu navegador</p>
+            </div>
+        </div>
+        <div class="flex items-center gap-2">
+            <div id="engineStatus" class="text-[11px] text-[var(--text-secondary)] flex items-center gap-1.5 mr-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                Listo — Canvas API
+            </div>
+            <button onclick="document.getElementById('helpModal').classList.remove('hidden')" class="btn btn-ghost text-xs py-1.5 px-2.5">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span class="hidden sm:inline">Ayuda</span>
+            </button>
+        </div>
+    </header>
+
+    <div class="flex h-[calc(100vh-53px)]">
+        <!-- Sidebar -->
+        <nav class="w-12 md:w-48 border-r border-[var(--border)] flex flex-col py-2 shrink-0 bg-[var(--bg-dark)]">
+            <div class="space-y-0.5 px-1 md:px-2">
+                <button onclick="switchTab('import')" class="tab-btn active" data-tab="import">
+                    <svg class="w-4 h-4 shrink-0 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+                    <span class="hidden md:inline">Importar</span>
+                </button>
+                <button onclick="switchTab('trim')" class="tab-btn" data-tab="trim">
+                    <svg class="w-4 h-4 shrink-0 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879M12 12L9.121 9.121m0 5.758a3 3 0 10-4.243 4.243 3 3 0 004.243-4.243zm0-5.758a3 3 0 10-4.243-4.243 3 3 0 004.243 4.243z"/></svg>
+                    <span class="hidden md:inline">Recortar</span>
+                </button>
+                <button onclick="switchTab('frames')" class="tab-btn" data-tab="frames">
+                    <svg class="w-4 h-4 shrink-0 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    <span class="hidden md:inline">Fotogramas</span>
+                </button>
+                <button onclick="switchTab('erase')" class="tab-btn" data-tab="erase">
+                    <svg class="w-4 h-4 shrink-0 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                    <span class="hidden md:inline">Borrado Suave</span>
+                </button>
+            </div>
+            <div class="mt-auto px-2 hidden md:block">
+                <div class="text-[10px] text-[var(--text-secondary)] text-center py-2 border-t border-[var(--border)]">
+                    v3.0 · Sin dependencias externas
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto p-4 md:p-6">
+
+            <!-- IMPORT -->
+            <section id="tab-import" class="tab-content fade-in">
+                <div class="max-w-3xl mx-auto">
+                    <h2 class="text-xl font-bold mb-1">Importar Video</h2>
+                    <p class="text-sm text-[var(--text-secondary)] mb-5">Arrastra un archivo o haz clic para seleccionar</p>
+                    <div id="dropZone" class="drop-zone p-10 md:p-14 text-center cursor-pointer" onclick="document.getElementById('fileInput').click()">
+                        <svg class="w-10 h-10 mx-auto mb-3 text-[var(--text-secondary)] opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+                        <p class="font-medium mb-1">Arrastra tu video aquí</p>
+                        <p class="text-xs text-[var(--text-secondary)] mb-4">MP4, WebM, MOV — procesado 100% en tu navegador</p>
+                        <span class="btn btn-accent text-xs">Seleccionar Archivo</span>
+                        <input type="file" id="fileInput" accept="video/*" class="hidden" onchange="loadVideo(this.files[0])">
+                    </div>
+
+                    <div id="videoInfo" class="hidden mt-5 card p-4 fade-in">
+                        <div class="flex flex-col md:flex-row gap-4">
+                            <div class="flex-1">
+                                <video id="videoPlayer" class="w-full rounded-lg bg-black max-h-[300px]" controls></video>
+                            </div>
+                            <div class="w-full md:w-48 space-y-2">
+                                <h3 class="font-semibold text-sm">Detalles</h3>
+                                <div class="space-y-1.5 text-xs">
+                                    <div class="flex justify-between"><span class="text-[var(--text-secondary)]">Nombre</span><span id="infoName" class="truncate ml-2 max-w-[120px] text-right">—</span></div>
+                                    <div class="flex justify-between"><span class="text-[var(--text-secondary)]">Tamaño</span><span id="infoSize">—</span></div>
+                                    <div class="flex justify-between"><span class="text-[var(--text-secondary)]">Duración</span><span id="infoDuration">—</span></div>
+                                    <div class="flex justify-between"><span class="text-[var(--text-secondary)]">Resolución</span><span id="infoRes">—</span></div>
+                                </div>
+                                <div class="pt-2 flex gap-2">
+                                    <button onclick="switchTab('trim')" class="btn btn-accent text-xs flex-1">Editar</button>
+                                    <button onclick="removeVideo()" class="btn btn-danger text-xs px-2" title="Eliminar">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TRIM -->
+            <section id="tab-trim" class="tab-content hidden fade-in">
+                <div class="max-w-4xl mx-auto">
+                    <h2 class="text-xl font-bold mb-1">Recortar Video</h2>
+                    <p class="text-sm text-[var(--text-secondary)] mb-5">Selecciona inicio y fin, luego descarga el fragmento</p>
+
+                    <div id="trimEmpty" class="text-center py-14 text-[var(--text-secondary)]">
+                        <svg class="w-10 h-10 mx-auto mb-2 opacity-25" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                        <p class="text-sm">Importa un video primero</p>
+                        <button onclick="switchTab('import')" class="btn btn-accent text-xs mt-3">Importar</button>
+                    </div>
+
+                    <div id="trimEditor" class="hidden space-y-4">
+                        <div class="card p-3">
+                            <video id="trimVideo" class="w-full rounded-lg bg-black max-h-[320px] mx-auto block" controls></video>
+                        </div>
+
+                        <div class="card p-4">
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-3 gap-2">
+                                <h3 class="font-semibold text-sm">Línea de Tiempo</h3>
+                                <div class="flex items-center gap-2 text-xs flex-wrap">
+                                    <div class="flex items-center gap-1">
+                                        <span class="text-[var(--text-secondary)]">Inicio:</span>
+                                        <input type="text" id="trimStartInput" value="00:00.000" class="input w-22 text-center text-[11px] font-mono py-1 px-2" onchange="parseTrimInputs()">
+                                    </div>
+                                    <div class="flex items-center gap-1">
+                                        <span class="text-[var(--text-secondary)]">Fin:</span>
+                                        <input type="text" id="trimEndInput" value="00:00.000" class="input w-22 text-center text-[11px] font-mono py-1 px-2" onchange="parseTrimInputs()">
+                                    </div>
+                                    <span id="trimDurationBadge" class="text-[11px] font-mono text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded">0.0s</span>
+                                </div>
+                            </div>
+
+                            <!-- Waveform -->
+                            <div id="waveformBox" class="h-10 bg-black/20 rounded-lg overflow-hidden flex items-end gap-px px-1 mb-2"></div>
+
+                            <!-- Timeline -->
+                            <div class="relative h-14 bg-black/20 rounded-lg" id="timelineBox">
+                                <div id="selection" class="timeline-selection">
+                                    <div class="handle handle-left" id="hLeft"></div>
+                                    <div class="handle handle-right" id="hRight"></div>
+                                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                        <span id="selLabel" class="text-[10px] text-white/40 font-mono">—</span>
+                                    </div>
+                                </div>
+                                <div id="playhead" class="playhead" style="left:0%"></div>
+                            </div>
+                            <div class="flex justify-between text-[10px] text-[var(--text-secondary)] mt-1 font-mono">
+                                <span>0:00</span>
+                                <span id="totalDurLabel">0:00</span>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-2 flex-wrap">
+                            <button onclick="previewTrim()" class="btn btn-ghost text-xs">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/></svg>
+                                Previsualizar
+                            </button>
+                            <button onclick="exportTrim()" class="btn btn-accent text-xs" id="btnExportTrim">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                                Recortar y Descargar
+                            </button>
+                        </div>
+
+                        <div class="card p-3 border-amber-500/15">
+                            <div class="flex items-start gap-2">
+                                <svg class="w-4 h-4 text-amber-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                <p class="text-[11px] text-[var(--text-secondary)]">El recorte usa <strong>MediaRecorder API</strong> nativa del navegador. Funciona sin dependencias externas. El video se re-codifica en WebM/VP8. Para archivos grandes puede tardar — el video se reproduce internamente a velocidad acelerada para capturar el segmento.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FRAMES -->
+            <section id="tab-frames" class="tab-content hidden fade-in">
+                <div class="max-w-5xl mx-auto">
+                    <h2 class="text-xl font-bold mb-1">Editor de Fotogramas</h2>
+                    <p class="text-sm text-[var(--text-secondary)] mb-5">Extrae fotogramas, edítalos visualmente y descárgalos</p>
+
+                    <div id="framesEmpty" class="text-center py-14 text-[var(--text-secondary)]">
+                        <svg class="w-10 h-10 mx-auto mb-2 opacity-25" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        <p class="text-sm">Importa un video primero</p>
+                        <button onclick="switchTab('import')" class="btn btn-accent text-xs mt-3">Importar</button>
+                    </div>
+
+                    <div id="framesEditor" class="hidden">
+                        <div class="card p-4 mb-4">
+                            <div class="flex items-end gap-3 flex-wrap">
+                                <div>
+                                    <label class="text-[11px] text-[var(--text-secondary)] block mb-1">Desde (seg)</label>
+                                    <input type="number" id="frameFrom" value="0" min="0" step="0.5" class="input w-20 text-xs py-1.5">
+                                </div>
+                                <div>
+                                    <label class="text-[11px] text-[var(--text-secondary)] block mb-1">Cantidad</label>
+                                    <select id="frameQty" class="input text-xs py-1.5">
+                                        <option value="1">1</option>
+                                        <option value="5">5</option>
+                                        <option value="10" selected>10</option>
+                                        <option value="20">20</option>
+                                    </select>
+                                </div>
+                                <button onclick="extractFrames()" class="btn btn-accent text-xs">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                    Extraer Fotogramas
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="framesGrid" class="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-8 lg:grid-cols-10 gap-2 mb-4"></div>
+
+                        <div id="frameEditorPanel" class="hidden">
+                            <div class="card p-4">
+                                <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
+                                    <h3 class="font-semibold text-sm">Editando fotograma <span id="frameLabel" class="text-[var(--text-secondary)] text-xs"></span></h3>
+                                    <div class="flex items-center gap-1 flex-wrap">
+                                        <button onclick="addText()" class="tool-btn" title="Texto">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                                            <span class="hidden sm:inline">Texto</span>
+                                        </button>
+                                        <button onclick="addRect()" class="tool-btn" title="Rectángulo">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="1" stroke-width="2"/></svg>
+                                            <span class="hidden sm:inline">Rect</span>
+                                        </button>
+                                        <button onclick="addCircle()" class="tool-btn" title="Círculo">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="2"/></svg>
+                                            <span class="hidden sm:inline">Círculo</span>
+                                        </button>
+                                        <button onclick="document.getElementById('imgOverlayInput').click()" class="tool-btn" title="Imagen">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                            <span class="hidden sm:inline">Img</span>
+                                        </button>
+                                        <button onclick="toggleDraw()" class="tool-btn" id="btnDraw" title="Dibujar">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                                            <span class="hidden sm:inline">Pincel</span>
+                                        </button>
+                                        <input type="color" id="toolColor" value="#ff0000" class="w-6 h-6 rounded cursor-pointer border-0">
+                                        <div class="w-px h-4 bg-[var(--border)] mx-0.5"></div>
+                                        <button onclick="undo()" class="tool-btn" title="Deshacer (Ctrl+Z)">↶</button>
+                                        <button onclick="redo()" class="tool-btn" title="Rehacer (Ctrl+Y)">↷</button>
+                                        <button onclick="delSelected()" class="tool-btn text-red-400" title="Eliminar selección">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                                        </button>
+                                        <div class="w-px h-4 bg-[var(--border)] mx-0.5"></div>
+                                        <button onclick="saveFrame()" class="btn btn-accent text-[11px] py-1 px-2.5">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                            Guardar
+                                        </button>
+                                        <button onclick="downloadFrame()" class="btn btn-ghost text-[11px] py-1 px-2">↓ PNG</button>
+                                    </div>
+                                </div>
+                                <div class="flex justify-center overflow-auto bg-black/20 rounded-lg p-2">
+                                    <canvas id="fabricCanvas"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ERASE (Inpaint) -->
+            <section id="tab-erase" class="tab-content hidden fade-in">
+                <div class="max-w-4xl mx-auto">
+                    <h2 class="text-xl font-bold mb-1">Borrado Suave</h2>
+                    <p class="text-sm text-[var(--text-secondary)] mb-5">Pinta sobre áreas para difuminar y borrar objetos</p>
+
+                    <div class="card p-3 mb-4 border-amber-500/15">
+                        <div class="flex items-start gap-2">
+                            <svg class="w-4 h-4 text-amber-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <p class="text-[11px] text-[var(--text-secondary)]"><strong>Esto NO es IA.</strong> Usa interpolación de píxeles vecinos para difuminar áreas pintadas. Es útil para difuminar texto, marcas de agua simples o detalles pequeños. No genera contenido nuevo como lo haría un modelo de inpainting real.</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                        <div class="card p-4">
+                            <h3 class="font-semibold text-sm mb-2">Original — Pinta las áreas</h3>
+                            <div class="relative bg-black/20 rounded-lg overflow-hidden flex items-center justify-center min-h-[180px]">
+                                <canvas id="eraseCanvas" class="max-w-full cursor-crosshair"></canvas>
+                                <div id="erasePlaceholder" class="absolute inset-0 flex items-center justify-center text-[var(--text-secondary)] text-xs">Carga una imagen para empezar</div>
+                            </div>
+                            <div class="mt-2 flex items-center gap-2 flex-wrap">
+                                <button onclick="document.getElementById('eraseInput').click()" class="btn btn-ghost text-[11px] py-1">Cargar Imagen</button>
+                                <input type="file" id="eraseInput" accept="image/*" class="hidden" onchange="loadEraseImage(event)">
+                                <button onclick="captureForErase()" class="btn btn-ghost text-[11px] py-1">Desde Video</button>
+                                <div class="flex items-center gap-1.5 ml-auto">
+                                    <span class="text-[10px] text-[var(--text-secondary)]">Pincel:</span>
+                                    <input type="range" id="eraseBrush" min="3" max="80" value="20" class="w-16" oninput="document.getElementById('eraseBrushVal').textContent=this.value+'px'">
+                                    <span id="eraseBrushVal" class="text-[10px] text-[var(--text-secondary)] w-8">20px</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card p-4">
+                            <h3 class="font-semibold text-sm mb-2">Resultado</h3>
+                            <div class="relative bg-black/20 rounded-lg overflow-hidden flex items-center justify-center min-h-[180px]">
+                                <canvas id="eraseResult" class="max-w-full"></canvas>
+                                <div id="resultPlaceholder" class="absolute inset-0 flex items-center justify-center text-[var(--text-secondary)] text-xs">El resultado aparecerá aquí</div>
+                            </div>
+                            <div class="mt-2 flex gap-2 flex-wrap">
+                                <button onclick="applyErase()" class="btn btn-accent text-[11px] py-1">
+                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                                    Aplicar Borrado
+                                </button>
+                                <button onclick="clearEraseMask()" class="btn btn-ghost text-[11px] py-1">Limpiar</button>
+                                <button onclick="downloadEraseResult()" class="btn btn-ghost text-[11px] py-1 ml-auto">↓ Descargar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Processing Modal -->
+    <div id="processingModal" class="fixed inset-0 modal-bg z-50 hidden flex items-center justify-center">
+        <div class="card p-6 max-w-sm w-full mx-4 text-center">
+            <div class="spin mx-auto mb-3"></div>
+            <h3 class="font-semibold text-sm mb-1" id="procTitle">Procesando...</h3>
+            <p class="text-xs text-[var(--text-secondary)] mb-3" id="procText">Esto puede tardar unos momentos</p>
+            <div class="progress mb-3"><div class="progress-bar" id="procBar" style="width:0%"></div></div>
+            <button onclick="cancelProc()" class="btn btn-danger text-[11px] py-1">Cancelar</button>
+        </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div id="helpModal" class="fixed inset-0 modal-bg z-50 hidden flex items-center justify-center" onclick="if(event.target===this)this.classList.add('hidden')">
+        <div class="card p-5 max-w-lg w-full mx-4 max-h-[80vh] overflow-y-auto">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-lg font-bold">Guía de Uso</h2>
+                <button onclick="document.getElementById('helpModal').classList.add('hidden')" class="text-[var(--text-secondary)] hover:text-white">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <div class="space-y-2 text-xs">
+                <div class="p-3 bg-black/20 rounded-lg">
+                    <h3 class="font-semibold text-indigo-400 mb-1">📥 Importar</h3>
+                    <p class="text-[var(--text-secondary)]">Arrastra o selecciona un video. Se procesa 100% en tu navegador — nada se sube a ningún servidor.</p>
+                </div>
+                <div class="p-3 bg-black/20 rounded-lg">
+                    <h3 class="font-semibold text-green-400 mb-1">✂️ Recortar</h3>
+                    <p class="text-[var(--text-secondary)]">Arrastra los handles en la timeline para seleccionar el rango. Usa MediaRecorder API nativa — funciona sin FFmpeg ni dependencias externas. Se exporta como WebM.</p>
+                </div>
+                <div class="p-3 bg-black/20 rounded-lg">
+                    <h3 class="font-semibold text-purple-400 mb-1">🖼️ Fotogramas</h3>
+                    <p class="text-[var(--text-secondary)]">Extrae fotogramas del video y edítalos con texto, formas, imágenes o dibujo libre usando Fabric.js. Descarga como PNG.</p>
+                </div>
+                <div class="p-3 bg-black/20 rounded-lg">
+                    <h3 class="font-semibold text-amber-400 mb-1">🧹 Borrado Suave</h3>
+                    <p class="text-[var(--text-secondary)]">Pinta sobre áreas para difuminarlas usando interpolación de píxeles. <strong>No es IA</strong> — es un algoritmo de difuminado multi-pasada. Útil para borrar texto simple o marcas pequeñas.</p>
+                </div>
+                <div class="p-3 bg-green-500/5 rounded-lg border border-green-500/15">
+                    <h3 class="font-semibold text-green-400 mb-1">✅ Sin dependencias frágiles</h3>
+                    <p class="text-[var(--text-secondary)]">Esta versión NO depende de FFmpeg.wasm, SharedArrayBuffer ni headers especiales. Todo funciona abriendo el archivo HTML directamente en cualquier navegador moderno.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notifications -->
+    <div id="toasts" class="fixed top-16 right-4 z-50 space-y-2 max-w-xs"></div>
+
+    <!-- Hidden inputs -->
+    <input type="file" id="imgOverlayInput" accept="image/*" class="hidden" onchange="addImgOverlay(event)">
+
+    <script>
+    // ============================================================
+    //  STATE
+    // ============================================================
+    let videoFile = null, videoURL = null, videoDuration = 0;
+    let trimStart = 0, trimEnd = 0;
+    let fabricCanv = null;
+    let frames = [], selFrameIdx = -1;
+    let eraseCtx = null, eraseOriginal = null, eraseMask = null;
+    let history = [], historyIdx = -1;
+    let cancelled = false;
+
+    // ============================================================
+    //  NOTIFICATIONS
+    // ============================================================
+    function toast(msg, type='info') {
+        const colors = { info:'border-indigo-500/40', success:'border-green-500/40', error:'border-red-500/40', warning:'border-amber-500/40' };
+        const icons = { info:'💡', success:'✅', error:'❌', warning:'⚠️' };
+        const el = document.createElement('div');
+        el.className = `toast card ${colors[type]} border-l-4 px-3 py-2 text-xs cursor-pointer flex items-start gap-2`;
+        el.innerHTML = `<span>${icons[type]}</span><span class="flex-1">${msg}</span>`;
+        el.onclick = () => el.remove();
+        document.getElementById('toasts').appendChild(el);
+        setTimeout(() => { if (el.parentNode) el.remove(); }, 5000);
+    }
+
+    // ============================================================
+    //  TABS
+    // ============================================================
+    function switchTab(id) {
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+        const sec = document.getElementById('tab-' + id);
+        if (sec) { sec.classList.remove('hidden'); sec.classList.add('fade-in'); }
+        const btn = document.querySelector(`[data-tab="${id}"]`);
+        if (btn) btn.classList.add('active');
+        if (videoFile) {
+            ['trimEmpty','framesEmpty'].forEach(x => document.getElementById(x)?.classList.add('hidden'));
+            ['trimEditor','framesEditor'].forEach(x => document.getElementById(x)?.classList.remove('hidden'));
+        }
+    }
+
+    // ============================================================
+    //  VIDEO IMPORT
+    // ============================================================
+    const dz = document.getElementById('dropZone');
+    dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('dragover'); });
+    dz.addEventListener('dragleave', () => dz.classList.remove('dragover'));
+    dz.addEventListener('drop', e => { e.preventDefault(); dz.classList.remove('dragover'); if(e.dataTransfer.files.length) loadVideo(e.dataTransfer.files[0]); });
+
+    function loadVideo(file) {
+        if (!file) return;
+        videoFile = file;
+        if (videoURL) URL.revokeObjectURL(videoURL);
+        videoURL = URL.createObjectURL(file);
+
+        const v = document.getElementById('videoPlayer');
+        v.src = videoURL;
+        v.onloadedmetadata = () => {
+            videoDuration = v.duration;
+            trimStart = 0;
+            trimEnd = videoDuration;
+
+            document.getElementById('infoName').textContent = file.name;
+            document.getElementById('infoSize').textContent = fmtSize(file.size);
+            document.getElementById('infoDuration').textContent = fmtTime(v.duration);
+            document.getElementById('infoRes').textContent = v.videoWidth + '×' + v.videoHeight;
+            document.getElementById('videoInfo').classList.remove('hidden');
+
+            document.getElementById('trimVideo').src = videoURL;
+            document.getElementById('trimStartInput').value = fmtTimeInput(0);
+            document.getElementById('trimEndInput').value = fmtTimeInput(videoDuration);
+            document.getElementById('totalDurLabel').textContent = fmtTime(videoDuration);
+            updateTrimUI();
+            initTimeline();
+            buildWaveform();
+
+            toast('Video cargado: ' + file.name, 'success');
+        };
+    }
+
+    function removeVideo() {
+        videoFile = null;
+        if (videoURL) URL.revokeObjectURL(videoURL);
+        videoURL = null;
+        document.getElementById('videoInfo').classList.add('hidden');
+        document.getElementById('videoPlayer').src = '';
+        document.getElementById('trimVideo').src = '';
+        frames = [];
+        document.getElementById('framesGrid').innerHTML = '';
+        document.getElementById('frameEditorPanel')?.classList.add('hidden');
+        toast('Video eliminado', 'info');
+    }
+
+    function fmtSize(b) {
+        if (b < 1024) return b + ' B';
+        if (b < 1048576) return (b/1024).toFixed(1) + ' KB';
+        if (b < 1073741824) return (b/1048576).toFixed(1) + ' MB';
+        return (b/1073741824).toFixed(2) + ' GB';
+    }
+    function fmtTime(s) { const m = Math.floor(s/60), sc = Math.floor(s%60); return m + ':' + String(sc).padStart(2,'0'); }
+    function fmtTimeInput(s) { const m = Math.floor(s/60), sc = (s%60).toFixed(3); return String(m).padStart(2,'0') + ':' + String(sc).padStart(6,'0'); }
+    function parseTime(str) { const p = str.split(':'); return p.length === 2 ? parseFloat(p[0])*60+parseFloat(p[1]) : parseFloat(str)||0; }
+
+    // ============================================================
+    //  WAVEFORM (Canvas API — real audio analysis)
+    // ============================================================
+    async function buildWaveform() {
+        const box = document.getElementById('waveformBox');
+        box.innerHTML = '<div class="flex items-center justify-center w-full h-full text-[10px] text-[var(--text-secondary)]"><div class="spin mr-2" style="width:12px;height:12px;border-width:2px"></div>Analizando audio...</div>';
+        try {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const buf = await (await fetch(videoURL)).arrayBuffer();
+            const audio = await ctx.decodeAudioData(buf);
+            const raw = audio.getChannelData(0);
+            const bars = Math.min(180, Math.floor(box.clientWidth / 3));
+            const block = Math.floor(raw.length / bars);
+            const vals = [];
+            for (let i = 0; i < bars; i++) {
+                let sum = 0;
+                for (let j = 0; j < block; j++) sum += Math.abs(raw[i * block + j]);
+                vals.push(sum / block);
+            }
+            const mx = Math.max(...vals) || 1;
+            box.innerHTML = '';
+            vals.forEach(v => {
+                const d = document.createElement('div');
+                d.className = 'waveform-bar';
+                d.style.cssText = `width:2px;height:${Math.max(2, (v/mx)*36)}px`;
+                box.appendChild(d);
+            });
+            ctx.close();
+        } catch (e) {
+            box.innerHTML = '<div class="flex items-center justify-center w-full h-full text-[10px] text-[var(--text-secondary)] opacity-40">Sin forma de onda</div>';
+        }
+    }
+
+    // ============================================================
+    //  TIMELINE
+    // ============================================================
+    let tlInited = false;
+    function initTimeline() {
+        const box = document.getElementById('timelineBox');
+        const sel = document.getElementById('selection');
+        const hL = document.getElementById('hLeft');
+        const hR = document.getElementById('hRight');
+        const tv = document.getElementById('trimVideo');
+
+        // Clone handles to kill old listeners
+        if (tlInited) {
+            const nL = hL.cloneNode(true), nR = hR.cloneNode(true);
+            hL.replaceWith(nL); hR.replaceWith(nR);
+            attachHandles(box, nL, nR, sel, tv);
+        } else {
+            attachHandles(box, hL, hR, sel, tv);
+        }
+        tlInited = true;
+        updateTrimUI();
+
+        tv.ontimeupdate = () => {
+            if (videoDuration > 0) document.getElementById('playhead').style.left = (tv.currentTime / videoDuration * 100) + '%';
+        };
+    }
+
+    function attachHandles(box, hL, hR, sel, tv) {
+        let drag = null;
+        function onMove(e) {
+            if (!drag) return;
+            e.preventDefault();
+            const r = box.getBoundingClientRect();
+            const cx = e.touches ? e.touches[0].clientX : e.clientX;
+            const x = Math.max(0, Math.min(1, (cx - r.left) / r.width));
+            const t = x * videoDuration;
+            if (drag === 'L') trimStart = Math.max(0, Math.min(t, trimEnd - 0.1));
+            else trimEnd = Math.min(videoDuration, Math.max(t, trimStart + 0.1));
+            updateTrimUI();
+        }
+        function onEnd() { drag = null; document.removeEventListener('mousemove', onMove); document.removeEventListener('mouseup', onEnd); document.removeEventListener('touchmove', onMove); document.removeEventListener('touchend', onEnd); }
+        hL.addEventListener('mousedown', e => { e.stopPropagation(); drag='L'; document.addEventListener('mousemove',onMove); document.addEventListener('mouseup',onEnd); });
+        hR.addEventListener('mousedown', e => { e.stopPropagation(); drag='R'; document.addEventListener('mousemove',onMove); document.addEventListener('mouseup',onEnd); });
+        hL.addEventListener('touchstart', e => { e.stopPropagation(); e.preventDefault(); drag='L'; document.addEventListener('touchmove',onMove,{passive:false}); document.addEventListener('touchend',onEnd); });
+        hR.addEventListener('touchstart', e => { e.stopPropagation(); e.preventDefault(); drag='R'; document.addEventListener('touchmove',onMove,{passive:false}); document.addEventListener('touchend',onEnd); });
+        box.addEventListener('click', e => { if (drag) return; const r = box.getBoundingClientRect(); tv.currentTime = ((e.clientX - r.left) / r.width) * videoDuration; });
+    }
+
+    function updateTrimUI() {
+        const sel = document.getElementById('selection');
+        sel.style.left = (trimStart / videoDuration * 100) + '%';
+        sel.style.right = ((videoDuration - trimEnd) / videoDuration * 100) + '%';
+        document.getElementById('trimStartInput').value = fmtTimeInput(trimStart);
+        document.getElementById('trimEndInput').value = fmtTimeInput(trimEnd);
+        const d = trimEnd - trimStart;
+        document.getElementById('trimDurationBadge').textContent = d.toFixed(1) + 's';
+        document.getElementById('selLabel').textContent = d.toFixed(1) + 's';
+    }
+
+    function parseTrimInputs() {
+        trimStart = Math.max(0, Math.min(parseTime(document.getElementById('trimStartInput').value), videoDuration));
+        trimEnd = Math.max(trimStart + 0.1, Math.min(parseTime(document.getElementById('trimEndInput').value), videoDuration));
+        updateTrimUI();
+    }
+
+    function previewTrim() {
+        if (!videoFile) return;
+        const v = document.getElementById('trimVideo');
+        v.currentTime = trimStart;
+        v.play();
+        const chk = () => { if (v.currentTime >= trimEnd) { v.pause(); v.removeEventListener('timeupdate', chk); } };
+        v.addEventListener('timeupdate', chk);
+    }
+
+    // ============================================================
+    //  TRIM EXPORT (MediaRecorder API — NO FFmpeg needed!)
+    // ============================================================
+    async function exportTrim() {
+        if (!videoFile) return toast('No hay video', 'error');
+        const dur = trimEnd - trimStart;
+        if (dur < 0.1) return toast('Selección demasiado corta', 'warning');
+
+        showProc('Recortando Video', `Capturando ${dur.toFixed(1)}s de video...`);
+
+        try {
+            // Create an offscreen video element
+            const vid = document.createElement('video');
+            vid.src = videoURL;
+            vid.muted = false;
+            vid.crossOrigin = 'anonymous';
+
+            await new Promise((res, rej) => { vid.onloadedmetadata = res; vid.onerror = rej; });
+
+            // Create a canvas to capture frames
+            const canvas = document.createElement('canvas');
+            canvas.width = vid.videoWidth;
+            canvas.height = vid.videoHeight;
+            const ctx = canvas.getContext('2d');
+
+            // Capture stream from canvas + audio from video
+            const canvasStream = canvas.captureStream(30);
+            let combinedStream;
+
+            // Try to capture audio from the video element
+            try {
+                const audioCtx = new AudioContext();
+                const source = audioCtx.createMediaElementSource(vid);
+                const dest = audioCtx.createMediaStreamDestination();
+                source.connect(dest);
+                source.connect(audioCtx.destination); // also play to speakers so MediaRecorder gets it
+
+                combinedStream = new MediaStream([
+                    ...canvasStream.getVideoTracks(),
+                    ...dest.stream.getAudioTracks()
+                ]);
+            } catch(e) {
+                console.warn('Could not capture audio stream, exporting video only:', e);
+                combinedStream = canvasStream;
+            }
+
+            // Setup MediaRecorder
+            const mimeTypes = [
+                'video/webm;codecs=vp9,opus',
+                'video/webm;codecs=vp8,opus',
+                'video/webm;codecs=vp9',
+                'video/webm;codecs=vp8',
+                'video/webm',
+                'video/mp4',
+            ];
+            let mimeType = '';
+            for (const mt of mimeTypes) {
+                if (MediaRecorder.isTypeSupported(mt)) { mimeType = mt; break; }
+            }
+            if (!mimeType) { toast('Tu navegador no soporta grabación de video', 'error'); hideProc(); return; }
+
+            const chunks = [];
+            const recorder = new MediaRecorder(combinedStream, { mimeType, videoBitsPerSecond: 5000000 });
+            recorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
+
+            const donePromise = new Promise(res => { recorder.onstop = res; });
+
+            // Seek to start
+            vid.currentTime = trimStart;
+            await new Promise(res => { vid.onseeked = res; });
+
+            // Start recording
+            recorder.start(100);
+            vid.play();
+
+            // Draw frames to canvas and track progress
+            const drawFrame = () => {
+                if (cancelled || vid.currentTime >= trimEnd || vid.ended) {
+                    vid.pause();
+                    recorder.stop();
+                    return;
+                }
+                ctx.drawImage(vid, 0, 0);
+                const pct = Math.min(100, ((vid.currentTime - trimStart) / dur) * 100);
+                document.getElementById('procBar').style.width = pct + '%';
+                requestAnimationFrame(drawFrame);
+            };
+            drawFrame();
+
+            await donePromise;
+
+            if (cancelled) { hideProc(); return; }
+
+            const ext = mimeType.includes('mp4') ? 'mp4' : 'webm';
+            const blob = new Blob(chunks, { type: mimeType });
+            downloadBlob(blob, 'recortado_' + videoFile.name.replace(/\.[^.]+$/, '.' + ext));
+            toast('Video recortado exitosamente (' + fmtSize(blob.size) + ')', 'success');
+        } catch (e) {
+            console.error('Export error:', e);
+            toast('Error al recortar: ' + e.message, 'error');
+        }
+        hideProc();
+    }
+
+    // ============================================================
+    //  PROCESSING MODAL
+    // ============================================================
+    function showProc(title, text) {
+        cancelled = false;
+        document.getElementById('procTitle').textContent = title;
+        document.getElementById('procText').textContent = text;
+        document.getElementById('procBar').style.width = '0%';
+        document.getElementById('processingModal').classList.remove('hidden');
+    }
+    function hideProc() { document.getElementById('processingModal').classList.add('hidden'); }
+    function cancelProc() { cancelled = true; hideProc(); toast('Cancelado', 'warning'); }
+
+    function downloadBlob(blob, name) {
+        const u = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href = u; a.download = name; a.click();
+        setTimeout(() => URL.revokeObjectURL(u), 5000);
+    }
+
+    // ============================================================
+    //  FRAMES EXTRACTION (Canvas API — no FFmpeg)
+    // ============================================================
+    function extractFrames() {
+        if (!videoFile) return toast('No hay video', 'error');
+        const qty = parseInt(document.getElementById('frameQty').value);
+        const from = parseFloat(document.getElementById('frameFrom').value) || 0;
+        const vid = document.createElement('video');
+        vid.src = videoURL; vid.muted = true;
+
+        frames = [];
+        const grid = document.getElementById('framesGrid');
+        grid.innerHTML = '<div class="col-span-full text-center py-4"><div class="spin mx-auto mb-1"></div><p class="text-[11px] text-[var(--text-secondary)]">Extrayendo...</p></div>';
+
+        vid.onloadedmetadata = () => {
+            const interval = Math.max(1/30, (vid.duration - from) / qty);
+            let n = 0, t = from;
+            const c = document.createElement('canvas');
+            c.width = vid.videoWidth; c.height = vid.videoHeight;
+            const cx = c.getContext('2d');
+
+            function grab() {
+                if (n >= qty || t > vid.duration) { renderGrid(); return; }
+                vid.currentTime = Math.min(t, vid.duration - 0.01);
+                vid.onseeked = () => {
+                    cx.drawImage(vid, 0, 0);
+                    frames.push({ url: c.toDataURL('image/png'), time: t, w: vid.videoWidth, h: vid.videoHeight, edited: false });
+                    n++; t += interval;
+                    grab();
+                };
+            }
+            grab();
+        };
+        vid.load();
+    }
+
+    function renderGrid() {
+        const grid = document.getElementById('framesGrid');
+        grid.innerHTML = '';
+        frames.forEach((f, i) => {
+            const d = document.createElement('div');
+            d.className = 'frame-thumb relative' + (i === selFrameIdx ? ' selected' : '');
+            d.onclick = () => selectFrame(i);
+            d.innerHTML = `<img src="${f.url}" class="w-full h-auto rounded-md"><div class="absolute bottom-0 inset-x-0 bg-black/70 text-[9px] text-center py-0.5 font-mono rounded-b-md">${fmtTime(f.time)}${f.edited ? ' ✏️' : ''}</div>`;
+            grid.appendChild(d);
+        });
+        toast(frames.length + ' fotogramas extraídos', 'success');
+    }
+
+    // ============================================================
+    //  FRAME EDITOR (Fabric.js)
+    // ============================================================
+    function selectFrame(idx) {
+        selFrameIdx = idx;
+        document.querySelectorAll('.frame-thumb').forEach((el, i) => el.classList.toggle('selected', i === idx));
+        document.getElementById('frameEditorPanel').classList.remove('hidden');
+        document.getElementById('frameLabel').textContent = '— ' + fmtTime(frames[idx].time);
+
+        if (fabricCanv) fabricCanv.dispose();
+        const f = frames[idx];
+        const ce = document.getElementById('fabricCanvas');
+        const maxW = Math.min(780, window.innerWidth - 100);
+        const sc = Math.min(maxW / f.w, 420 / f.h);
+        const w = Math.floor(f.w * sc), h = Math.floor(f.h * sc);
+        ce.width = w; ce.height = h;
+
+        fabricCanv = new fabric.Canvas('fabricCanvas', { width: w, height: h, backgroundColor: '#000' });
+
+        fabric.Image.fromURL(f.url, img => {
+            img.scaleToWidth(w); img.scaleToHeight(h);
+            img.set({ selectable: false, evented: false });
+            fabricCanv.setBackgroundImage(img, fabricCanv.renderAll.bind(fabricCanv));
+        });
+
+        history = []; historyIdx = -1;
+        fabricCanv.on('object:added', saveHist);
+        fabricCanv.on('object:modified', saveHist);
+        fabricCanv.on('object:removed', saveHist);
+    }
+
+    function saveHist() {
+        if (historyIdx < history.length - 1) history = history.slice(0, historyIdx + 1);
+        history.push(fabricCanv.toJSON());
+        historyIdx = history.length - 1;
+    }
+
+    function undo() {
+        if (!fabricCanv || historyIdx <= 0) return;
+        historyIdx--;
+        fabricCanv.loadFromJSON(history[historyIdx], () => {
+            fabricCanv.renderAll();
+            const f = frames[selFrameIdx];
+            fabric.Image.fromURL(f.url, img => {
+                img.scaleToWidth(fabricCanv.width); img.scaleToHeight(fabricCanv.height);
+                img.set({ selectable: false, evented: false });
+                fabricCanv.setBackgroundImage(img, fabricCanv.renderAll.bind(fabricCanv));
+            });
+        });
+    }
+    function redo() {
+        if (!fabricCanv || historyIdx >= history.length - 1) return;
+        historyIdx++;
+        fabricCanv.loadFromJSON(history[historyIdx], () => fabricCanv.renderAll());
+    }
+
+    function addText() {
+        if (!fabricCanv) return;
+        const t = new fabric.IText('Tu texto', { left:50, top:50, fill: document.getElementById('toolColor').value, fontSize:26, fontFamily:'Inter', fontWeight:'bold', shadow: new fabric.Shadow({color:'rgba(0,0,0,.6)',blur:4,offsetX:2,offsetY:2}) });
+        fabricCanv.add(t); fabricCanv.setActiveObject(t);
+    }
+    function addRect() {
+        if (!fabricCanv) return;
+        fabricCanv.add(new fabric.Rect({ left:50, top:50, width:180, height:90, fill: document.getElementById('toolColor').value, opacity:.7, rx:4, ry:4 }));
+    }
+    function addCircle() {
+        if (!fabricCanv) return;
+        fabricCanv.add(new fabric.Circle({ left:80, top:80, radius:45, fill: document.getElementById('toolColor').value, opacity:.7 }));
+    }
+    function addImgOverlay(e) {
+        const file = e.target.files[0]; if (!file || !fabricCanv) return;
+        const r = new FileReader();
+        r.onload = ev => {
+            fabric.Image.fromURL(ev.target.result, img => { img.scaleToWidth(180); img.set({left:50,top:50}); fabricCanv.add(img); fabricCanv.setActiveObject(img); });
+        };
+        r.readAsDataURL(file); e.target.value = '';
+    }
+    function toggleDraw() {
+        if (!fabricCanv) return;
+        fabricCanv.isDrawingMode = !fabricCanv.isDrawingMode;
+        fabricCanv.freeDrawingBrush.color = document.getElementById('toolColor').value;
+        fabricCanv.freeDrawingBrush.width = 3;
+        document.getElementById('btnDraw').classList.toggle('active', fabricCanv.isDrawingMode);
+    }
+    function delSelected() {
+        if (!fabricCanv) return;
+        fabricCanv.getActiveObjects().forEach(o => fabricCanv.remove(o));
+        fabricCanv.discardActiveObject();
+    }
+    function saveFrame() {
+        if (!fabricCanv || selFrameIdx < 0) return;
+        frames[selFrameIdx].url = fabricCanv.toDataURL({ format:'png', quality:1 });
+        frames[selFrameIdx].edited = true;
+        renderGrid();
+        toast('Fotograma guardado', 'success');
+    }
+    function downloadFrame() {
+        if (!fabricCanv) return;
+        const a = document.createElement('a');
+        a.download = `fotograma_${selFrameIdx}.png`;
+        a.href = fabricCanv.toDataURL({ format:'png', quality:1 });
+        a.click();
+    }
+
+    // ============================================================
+    //  ERASE (Soft Blur Inpainting — HONEST naming)
+    // ============================================================
+    function loadEraseImage(e) {
+        const file = e.target.files[0]; if (!file) return;
+        const img = new Image();
+        img.onload = () => setupErase(img);
+        img.src = URL.createObjectURL(file);
+        e.target.value = '';
+    }
+
+    function captureForErase() {
+        if (!videoURL) return toast('No hay video', 'error');
+        const v = document.getElementById('trimVideo').src ? document.getElementById('trimVideo') : document.getElementById('videoPlayer');
+        if (!v.videoWidth) return toast('Carga un video primero', 'error');
+        const c = document.createElement('canvas');
+        c.width = v.videoWidth; c.height = v.videoHeight;
+        c.getContext('2d').drawImage(v, 0, 0);
+        const img = new Image();
+        img.onload = () => setupErase(img);
+        img.src = c.toDataURL();
+    }
+
+    function setupErase(img) {
+        const canvas = document.getElementById('eraseCanvas');
+        const pw = canvas.parentElement.clientWidth - 16;
+        const sc = Math.min(pw / img.width, 380 / img.height, 1);
+        canvas.width = Math.floor(img.width * sc);
+        canvas.height = Math.floor(img.height * sc);
+
+        eraseCtx = canvas.getContext('2d');
+        eraseCtx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        eraseOriginal = eraseCtx.getImageData(0, 0, canvas.width, canvas.height);
+        eraseMask = new Uint8Array(canvas.width * canvas.height);
+
+        const rc = document.getElementById('eraseResult');
+        rc.width = canvas.width; rc.height = canvas.height;
+        rc.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+
+        document.getElementById('erasePlaceholder').classList.add('hidden');
+        document.getElementById('resultPlaceholder').classList.add('hidden');
+        setupEraseBrush(canvas);
+        toast('Imagen cargada. Pinta las áreas a borrar.', 'info');
+    }
+
+    function setupEraseBrush(canvas) {
+        let drawing = false;
+        function paint(e) {
+            if (!drawing || !eraseMask) return;
+            const rect = canvas.getBoundingClientRect();
+            const sx = canvas.width / rect.width, sy = canvas.height / rect.height;
+            const x = ((e.clientX || e.pageX) - rect.left) * sx;
+            const y = ((e.clientY || e.pageY) - rect.top) * sy;
+            const r = parseInt(document.getElementById('eraseBrush').value);
+
+            eraseCtx.fillStyle = 'rgba(255,60,120,0.4)';
+            eraseCtx.beginPath(); eraseCtx.arc(x, y, r, 0, Math.PI*2); eraseCtx.fill();
+
+            for (let dy = -r; dy <= r; dy++) {
+                for (let dx = -r; dx <= r; dx++) {
+                    if (dx*dx + dy*dy <= r*r) {
+                        const px = Math.floor(x+dx), py = Math.floor(y+dy);
+                        if (px >= 0 && px < canvas.width && py >= 0 && py < canvas.height)
+                            eraseMask[py * canvas.width + px] = 1;
+                    }
+                }
+            }
+        }
+        canvas.onmousedown = e => { drawing = true; paint(e); };
+        canvas.onmousemove = e => { if(drawing) paint(e); };
+        canvas.onmouseup = () => drawing = false;
+        canvas.onmouseleave = () => drawing = false;
+        canvas.ontouchstart = e => { e.preventDefault(); drawing = true; paint(e.touches[0]); };
+        canvas.ontouchmove = e => { e.preventDefault(); if(drawing) paint(e.touches[0]); };
+        canvas.ontouchend = () => drawing = false;
+    }
+
+    function clearEraseMask() {
+        if (!eraseOriginal || !eraseCtx) return;
+        eraseCtx.putImageData(eraseOriginal, 0, 0);
+        eraseMask = new Uint8Array(eraseOriginal.width * eraseOriginal.height);
+    }
+
+    function applyErase() {
+        if (!eraseOriginal || !eraseMask) return toast('Carga una imagen primero', 'error');
+        if (!eraseMask.some(v => v === 1)) return toast('Pinta sobre la imagen primero', 'warning');
+
+        showProc('Aplicando Borrado', 'Interpolando píxeles (30 pasadas)...');
+
+        // Use setTimeout to not block UI
+        setTimeout(() => {
+            const w = eraseOriginal.width, h = eraseOriginal.height;
+            const result = new ImageData(new Uint8ClampedArray(eraseOriginal.data), w, h);
+            const masked = new Uint8Array(eraseMask);
+            const passes = 30;
+
+            for (let pass = 0; pass < passes; pass++) {
+                let changed = false;
+                const yStart = pass % 2 === 0 ? 1 : h - 2;
+                const yEnd = pass % 2 === 0 ? h - 1 : 0;
+                const yStep = pass % 2 === 0 ? 1 : -1;
+
+                for (let y = yStart; pass%2===0 ? y<yEnd : y>yEnd; y += yStep) {
+                    for (let x = 1; x < w - 1; x++) {
+                        const idx = y * w + x;
+                        if (!masked[idx]) continue;
+                        let r=0, g=0, b=0, cnt=0;
+                        const offsets = [[-1,-1],[0,-1],[1,-1],[-1,0],[1,0],[-1,1],[0,1],[1,1],[-2,0],[2,0],[0,-2],[0,2]];
+                        for (const [dx,dy] of offsets) {
+                            const nx = x+dx, ny = y+dy;
+                            if (nx>=0 && nx<w && ny>=0 && ny<h) {
+                                const ni = ny*w+nx;
+                                if (!masked[ni]) {
+                                    const wt = 1/(Math.abs(dx)+Math.abs(dy));
+                                    const pi = ni*4;
+                                    r += result.data[pi]*wt; g += result.data[pi+1]*wt; b += result.data[pi+2]*wt;
+                                    cnt += wt;
+                                }
+                            }
+                        }
+                        if (cnt > 0) {
+                            const pi = idx*4;
+                            result.data[pi] = Math.round(r/cnt);
+                            result.data[pi+1] = Math.round(g/cnt);
+                            result.data[pi+2] = Math.round(b/cnt);
+                            result.data[pi+3] = 255;
+                            changed = true;
+                        }
+                    }
+                }
+
+                if (pass > passes * 0.3) {
+                    for (let y = 1; y < h-1; y++) {
+                        for (let x = 1; x < w-1; x++) {
+                            const idx = y*w+x;
+                            if (masked[idx]) {
+                                for (const [dx,dy] of [[-1,0],[1,0],[0,-1],[0,1]]) {
+                                    if (!masked[(y+dy)*w+(x+dx)]) { masked[idx]=0; break; }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (!changed) break;
+                document.getElementById('procBar').style.width = Math.round((pass/passes)*100) + '%';
+            }
+
+            document.getElementById('eraseResult').getContext('2d').putImageData(result, 0, 0);
+            hideProc();
+            toast('Borrado completado', 'success');
+        }, 50);
+    }
+
+    function downloadEraseResult() {
+        const c = document.getElementById('eraseResult');
+        if (!c.width) return;
+        const a = document.createElement('a');
+        a.download = 'borrado.png'; a.href = c.toDataURL('image/png'); a.click();
+    }
+
+    // ============================================================
+    //  KEYBOARD SHORTCUTS
+    // ============================================================
+    document.addEventListener('keydown', e => {
+        if (e.ctrlKey && e.key === 'z') { e.preventDefault(); undo(); }
+        if (e.ctrlKey && e.key === 'y') { e.preventDefault(); redo(); }
+        if (e.key === 'Delete' && fabricCanv) delSelected();
+    });
+    </script>
+</body>
+</html>
