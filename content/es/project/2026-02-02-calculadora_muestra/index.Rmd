@@ -1,8 +1,8 @@
 ---
 title: "Calculadora de Tamaño de Muestra para Diseño de Ensayos Clínicos"
-summary: "Herramienta desarrollada por Maicel Monzón para la determinación del tamaño muestral en Ensayos Clínicos."
+summary: "Herramienta para la determinación del tamaño muestral en Ensayos Clínicos."
 slug: "calculadora-tamaño-muestra-ensayos-clinicos"
-date: "2024-12-03" # Fecha reducida en dos días respecto al anterior
+date: "2024-12-30" # Fecha reducida en dos días respecto al anterior
 categories: ["proyectos"]
 tags:
   - "herramientas" # Tag agrupador principal

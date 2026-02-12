@@ -16,6 +16,11 @@ blogdown:::check_site()  # Verifica errores.
 blogdown:::serve_site()                               # preview.
 
 
+# ortros comandos
+
+blogdown::hugo_cmd("list all") Lista todo el contenido de tu sitio en formato tabla:
+
+
 ## Git (Para Netlify Deploy):
 `git add content/post/nuevo-post.md` # Añade cambios.
 `git commit -m "Mensaje descriptivo"` # Commit.
@@ -318,4 +323,62 @@ Mastodon
 - Markdown Reference: https://docs.hugoblox.com/reference/markdown/
 
 ---
+
+# organizacion de las herraminetas por categorias y fechas
+
+- texto  (2025-12-31)
+texto2voz.html OK (2025-12-29)
+anti_ia.html (2025-12-05)
+
+#PDF (2025-11-30)
+PDF2Imagen.html OK (2025-11-28)
+PDF_Organizer.html OK (2025-11-26)
+PDF_Optimizer.html OK (2025-11-24)
+
+#imagen (2025-10-31)
+smart_lens.html OK (2025-10-28)
+Imagen2PDF.html OK (2025-10-26)
+imagen_reduce.html  (2025-10-24)
+Scan_Smart.html  (2025-10-22)
+editor-imagenes.html (2025-10-20)
+carousel_converter.html (2025-10-18)
+
+#audio (2025-09-30)
+Scribe_Pro.html (2025-09-29)
+trascriptor.html OK (2025-09-28)
+
+
+
+#video (2025-08-30)
+editor-video.html
+
+
+
+
+# calculadoras (2024-12-31)
+calculadora_muestra.html (2024-12-30)
+calculadora-grim-test.html (2024-12-29)
+margen-no-inferioridad.html (2024-12-28)
+monitor-bayesiano.html  mejorar (2024-12-26)
+conversor-medidas-efecto.html mejorar (2024-12-24)
+
+# ejercicios docentes
+pinocho-tool.html (2024-12-31) 
+
+
+potencia-posthoc.html No mejorar
+
+eficiencia-informativa.html (2025-12-27)
+
+
+
+# redes sociales (2024-11-30)
+LinkedIn01.html (2024-11-28)
+LinkedIn02.html (2024-11-27)
+GIF_Optimizer.html (2024-11-25)
+
+
+Archivos faltantes (no están en tu otra lista):
+
+LinkedIn03.html
 

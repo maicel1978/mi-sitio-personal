@@ -87,9 +87,46 @@ es:
       - name: Publicaciones
         url: /#papers
         weight: 30
-      - name: Proyectos
+      - name: Herramientas
         url: /projects/
-        weight: 40        
+        weight: 40
+        identifier: projects  # Identificador único para el padre
+      - name: "Ver Todas" # ¡NUEVO HIJO!
+        url: /projects/ # Este enlace SIEMPRE funcionará
+        weight: 41 # Aparece primero en el submenú
+        parent: projects
+      - name: "Texto"
+        url: /categories/texto/
+        weight: 42
+        parent: projects
+      - name: "PDF"
+        url: /categories/PDF/
+        weight: 43
+        parent: projects        
+      - name: "Imagen"
+        url: /categories/imagen/
+        weight: 44
+        parent: projects
+      - name: "Audio"
+        url: /categories/audio/
+        weight: 45
+        parent: projects
+      - name: "Video"
+        url: /categories/video/
+        weight: 46
+        parent: projects
+      - name: "Calculadoras"
+        url: /categories/calculadoras/
+        weight: 47
+        parent: projects
+      - name: "Docentes"
+        url: /categories/ejercicios-docentes/
+        weight: 48
+        parent: projects
+      - name: "Redes Sociales"
+        url: /categories/redes-sociales/
+        weight: 48
+        parent: projects        
       # - name: Conferencias
       #   url: /#talks
       #   weight: 50

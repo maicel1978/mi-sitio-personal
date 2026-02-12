@@ -9,11 +9,11 @@ sections:
       folders:
       - project
     text: Me gusta crear cosas. Aquí les muestro una selección de los proyectos en los que he trabajado a lo largo de los años.
-    title: Proyectos seleccionados
+    title: Herramientas
   design:
     columns: 3
     fill_image: false
     view: article-grid
-title: Projects
+title: Herramientas
 type: landing
 ---
