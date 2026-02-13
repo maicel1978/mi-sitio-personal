@@ -7,10 +7,13 @@ date: "2025-12-29"
 categories: ["texto"]
 tags:
   - "herramientas" # Tag agrupador principal
-  - "Inteligencia Lingüística"
+  - "NLP"
   - "Procesamiento de Audio Digital"
   - "Procesamiento de Texto"
 # Configuración técnica preservada
 external_link: "/apps/texto2voz.html"
+image:
+  caption: ""
+  focal_point: "Smart"
 ---
 

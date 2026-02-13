@@ -12,5 +12,8 @@ summary: "Captura inteligente para la transformación de registros analógicos e
 # Configuración técnica y URL relativa preservada
 slug: "scan_smart"
 external_link: "/apps/scan_smart.html"
+image:
+  caption: ""
+  focal_point: "Smart"
 ---
 

@@ -5,7 +5,7 @@ date: "2024-12-06" # Progresión: 2026-01-08 -> 2026-01-06
 categories: ["calculadoras"]
 tags:
   - "herramientas" # Tag agrupador principal
-  - "Bioestadística de Alta Precisión"
+  - "calculadoras"
   - "Inferencia Estadística"
   - "Integridad Científica"
 # Sumario optimizado para Google Index (Enfoque en interpretación crítica)
@@ -13,5 +13,8 @@ summary: "Herramienta para el análisis de la potencia observada. Facilita la in
 # Configuración técnica y URL relativa preservada
 slug: "potencia-posthoc"
 external_link: "/apps/potencia-posthoc.html"
+image:
+  caption: ""
+  focal_point: "Smart"
 ---
 
