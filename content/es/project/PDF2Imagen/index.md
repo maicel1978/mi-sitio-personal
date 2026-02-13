@@ -14,4 +14,7 @@ summary: "Herramienta  para la extracción optimizada de gráficos y páginas de
 # Configuración técnica y URL relativa preservada
 slug: "pdf2imagen"
 external_link: "/apps/pdf2imagen.html"
+image:
+  caption: ""
+  focal_point: "Smart"
 ---

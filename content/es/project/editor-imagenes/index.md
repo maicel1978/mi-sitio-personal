@@ -7,7 +7,7 @@ tags:
   - "herramientas" # Tag agrupador principal
   - "file engineering"
 # Sumario optimizado para Google Index (Enfoque en precisión y flujo de trabajo)
-summary: "Editor de imégenes espcializado en miniaturas y portadas para redes sociales."
+summary: "Editor de imágenes espcializado en miniaturas y portadas para redes sociales."
 # Configuración técnica y URL relativa preservada
 slug: "editor-imagenes"
 external_link: "/apps/editor-imagenes.html"

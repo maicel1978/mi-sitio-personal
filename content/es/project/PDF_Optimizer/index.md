@@ -6,7 +6,6 @@ tags:
   - "herramientas" # Tag agrupador principal
   - "file engineering"
   - "pdf"
-  - "Gestión Documental"
 summary: "Optimiza la estructura de archivos PDF sin pérdida de legibilidad técnica, procesando los datos localmente para garantizar la máxima privacidad."
 # Configuración técnica y URL relativa preservada
 slug: "pdf_optimizer"

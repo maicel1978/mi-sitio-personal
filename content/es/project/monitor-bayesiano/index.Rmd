@@ -4,7 +4,6 @@ date: "2024-12-16"
 categories: ["calculadoras"]
 tags:
   - "herramientas" # Tag agrupador principal
-  - "Bioestadística"   
   - "calculadoras" 
   - "Estadística Bayesiana"
   - "Diseños Adaptativos"
