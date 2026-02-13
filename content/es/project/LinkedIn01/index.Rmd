@@ -5,13 +5,16 @@ date: "2024-11-28" # Progresión: 2026-01-24 -> 2026-01-22
 categories: ["redes-sociales"]
 tags:
   - "herramientas" # Tag agrupador principal
-  - "Data Storytelling"
+  - "Ingeniería de Archivos"
   - "Branding para Científicos"
   - "Comunicación de Impacto"
 # Sumario optimizado para Google Index (Enfoque en autoridad y síntesis)
 summary: "Conversor de Texto a LinkedIn Carousel en PDF para LinkedIn."
 # Configuración técnica y URL relativa preservada
-slug: "LinkedIn01"
-external_link: "/apps/LinkedIn01.html"
+slug: "linkedin01"
+external_link: "/apps/linkedin01.html"
+image:
+  caption: ""
+  focal_point: "Smart"
 ---
 

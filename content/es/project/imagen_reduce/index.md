@@ -6,11 +6,13 @@ date: "2025-10-24" # Progresión: 2026-01-30 -> 2026-01-28
 categories: ["imagen"]
 tags:
   - "herramientas" # Tag agrupador principal
-  - "File Engineering"
+  - "file engineering"
   - "Optimización de Rendimiento"
-  - "Gestión de Activos Digitales"
 # Configuración técnica y URL relativa preservada
 slug: "imagen_reduce"
 external_link: "/apps/imagen_reduce.html"
+image:
+  caption: ""
+  focal_point: "Smart"
 ---
 

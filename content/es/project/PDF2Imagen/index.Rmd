@@ -5,13 +5,13 @@ date: "2025-11-28"
 categories: ["pdf"]
 tags:
   - "herramientas" # Tag agrupador principal
-  - "File Engineering"
-  - "Comunicación Científica"
+  - "file engineering"
+  - "pdf"  
   - "Gestión Documental"
   - "Visualización de Datos"
 # Sumario optimizado para Google Index (Enfoque en integridad visual)
 summary: "Herramienta  para la extracción optimizada de gráficos y páginas desde documentos PDF. Garantiza la máxima resolución para su integración en soportes de divulgación científica."
 # Configuración técnica y URL relativa preservada
-slug: "PDF2Imagen"
-external_link: "/apps/PDF2Imagen.html"
+slug: "pdf2imagen"
+external_link: "/apps/pdf2imagen.html"
 ---

@@ -6,7 +6,8 @@ summary: "Herramienta de auditoria para detectar anomalías en protocolo e infor
 date: "2024-02-05"
 categories: ["calculadoras"]
 tags:
-  - "herramientas" 
+  - "herramientas"
+  - "calculadoras" 
   - "Estadística-Forense"
   - "Validación-de-Datos"
 # Configuración técnica y URL relativa

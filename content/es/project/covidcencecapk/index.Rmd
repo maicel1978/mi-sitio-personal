@@ -4,13 +4,16 @@ authors: "admin"
 date: "2023-02-28"
 slug: covidcencecapk
 summary: "COVIDCENCEC, es un modelo predictivo diseñado para estimar y clasificar el riesgo de muerte por COVID-19. Este proyecto es parte de su tesis titulada Modelos predictivos para estimar y clasificar el riesgo de muerte por COVID-19."
-translationKey: "covidcencecapk"
+# translationKey: "covidcencecapk"
 categories: ["calculadoras"] 
 tags:
-  - herramientas
-  - machine learning
-  - CovidCencecAPK
+  - "herramientas"
+  - "NLP"
+  - "CovidCencecAPK"
 external_link: "https://www.researchgate.net/publication/383411191_COVIDCENCEC_MODEL?channel=doi&linkId=66cbb05b920e05672e504719&showFulltext=true"
+image:
+  caption: ""
+  focal_point: "Smart"
 ---
 
 

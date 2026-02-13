@@ -5,6 +5,8 @@ date: "2024-12-28" # Progresión: 2025-12-27 -> 2025-12-25
 categories: ["calculadoras"]
 tags:
   - "herramientas" # Tag agrupador principal
+  - "Bioestadística"
+  - "calculadoras" # Tag agrupador principal
   - "margen de no inferioridad"
 # Sumario optimizado para Google Index (Enfoque en precisión y flujo de trabajo)
 summary: "Calcula  margen de no inferioridad para ensayos clínicos."
