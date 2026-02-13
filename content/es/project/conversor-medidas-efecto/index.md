@@ -1,5 +1,5 @@
 ---
-title: "Conversor de tamaño del efecto ensayos clínicos"
+title: "Conversor de medidas de efecto en ensayos clínicos"
 date: "2024-12-24" 
 categories: ["calculadoras"]
 tags:

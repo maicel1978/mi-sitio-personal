@@ -12,5 +12,8 @@ tags:
   - "Validación-de-Datos"
 # Configuración técnica y URL relativa
 external_link: "/apps/statforensics.html"
+image:
+  caption: ""
+  focal_point: "Smart"
 ---
 

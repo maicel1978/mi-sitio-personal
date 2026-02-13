@@ -5,7 +5,7 @@ date: "2024-11-28" # Progresión: 2026-01-24 -> 2026-01-22
 categories: ["redes-sociales"]
 tags:
   - "herramientas" # Tag agrupador principal
-  - "Ingeniería de Archivos"
+  - "file engineering"
   - "Branding para Científicos"
   - "Comunicación de Impacto"
 # Sumario optimizado para Google Index (Enfoque en autoridad y síntesis)

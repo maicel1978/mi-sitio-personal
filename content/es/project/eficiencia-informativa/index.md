@@ -1,5 +1,5 @@
 ---
-title: "Calculadora de Eficiencia Informativa"
+title: "Analizador de Eficiencia Informativa"
 date: "2024-12-04" # Progresión: 2025-12-27 -> 2025-12-25
 # Estructura de agrupación solicitada por Maicel Monzón
 categories: ["calculadoras"]
