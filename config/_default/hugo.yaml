@@ -1,8 +1,4 @@
 # Configuration of Hugo
-# Guide: https://docs.hugoblox.com/tutorial/
-# Hugo Documentation: https://gohugo.io/getting-started/configuration/#all-configuration-settings
-# This file is formatted using YAML syntax - learn more at https://learnxinyminutes.com/docs/yaml/
-# Configuration of Hugo
 # Website name
 title: Bioestadisticaedu
 # Website URL
@@ -77,7 +73,7 @@ cascade:
     show_breadcrumb: true
     header:
       navbar:
-        enable: true
+        enable: false
 
 ############################
 ## CUSTOM OUTPUTS (SOLUCIÓN AL ERROR)
@@ -89,5 +85,3 @@ outputFormats:
     isHTML: true
     noUgly: true
     layout: reveal
-
-    

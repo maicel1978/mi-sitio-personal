@@ -1,9 +1,6 @@
 # SITE SETUP
 # Guide: https://docs.hugoblox.com/tutorial/
 # Documentation: https://docs.hugoblox.com/
-# This file is formatted using YAML syntax - learn more at https://learnxinyminutes.com/docs/yaml/
-
-# show_author: true #esto lo agregue yo
 
 # Appearance
 appearance:
@@ -15,9 +12,12 @@ marketing:
   seo:
     site_type: Person
     local_business_type: ''
-    org_name: ''
-    description: 'The highly-customizable Hugo Academic theme powered by Hugo Blox Builder. Easily create your personal academic website.'
-    twitter: 'GetResearchDev'
+    org_name: 'BioestadísticaEdu'
+    description: >
+      Sitio de Maicel Monzón. Bioestadística aplicada a ensayos clínicos,
+      evaluación regulatoria y metodología de investigación en salud.
+      Herramientas, tutoriales y análisis crítico.
+    twitter: ''
   analytics:
     google_analytics: 'G-VN0YPKYGX4'
     baidu_tongji: ''
@@ -37,13 +37,13 @@ header:
     show_search: true
     show_theme_chooser: true
     logo:
-      text: "BiestadisticaEdu"
-      filename: ""  # Deja vacío si no usas ícono
+      text: "BioestadísticaEdu"
+      filename: ""
 
 # Site footer
 footer:
   copyright:
-    notice: '© {year} Me. This work is licensed under {license}'
+    notice: '© {year} Maicel Monzón. This work is licensed under {license}'
     license:
       enable: true
       allow_derivatives: false
@@ -52,19 +52,16 @@ footer:
 
 # Localization
 locale:
-  date_format: 'Jan 2, 2006'
-  time_format: '3:04 PM'
+  date_format: '2 January 2006'
+  time_format: '15:04'
 
 # Site features
 features:
- # # Agrega esta sección para slides
- #  slides:
- #    enable: true
   math:
-    enable: false
+    enable: true
   privacy_pack:
-    enable: false
-  comment: #cambi e comment
+    enable: true
+  comment:
     provider: giscus
     giscus:
       repo: "maicel1978/mi-sitio-personal"
@@ -73,11 +70,6 @@ features:
       category_id: "DIC_kwDON3SOus4CrXLh"
       theme: "preferred_color_scheme"
       mapping: "pathname"
-      
-# posts: 
-#   enable: true  # Activa la sección
-#   rss: true     # Feed RSS para blog
-#   paginate: 10  # Posts por página
 
 extensions:
   academicons:
