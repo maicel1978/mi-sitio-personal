@@ -12,7 +12,7 @@ tags:
   - "datos-faltantes"
   - "simulacion-R"
 slug: "er-01"
-featured: true
+featured: false
 draft: false
 share: true
 commentable: true

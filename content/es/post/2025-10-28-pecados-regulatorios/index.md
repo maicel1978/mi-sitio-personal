@@ -15,7 +15,7 @@ tags:
   - "errores que detienen aprobaciones EMA FDA"
   - "guía validación regulatoria para evaluadores"
 slug: siete-pecados-protocolos-clinicos
-featured: true  # Destacar en la página principal
+featured: false  # Destacar en la página principal
 # translationKey: "pecados"
 # languages:
 #   es: "/es/siete-pecados-protocolo-plan-estadistico-regulador"

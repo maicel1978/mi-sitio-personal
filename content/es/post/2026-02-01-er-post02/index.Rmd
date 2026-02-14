@@ -12,7 +12,7 @@ tags:
   - "hipotesis"
   - "simulacion-R"
 slug: "er-02"
-featured: true
+featured: false
 draft: false
 share: true
 commentable: true

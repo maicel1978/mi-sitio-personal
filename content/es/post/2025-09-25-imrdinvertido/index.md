@@ -13,7 +13,7 @@ tags:
   - "guía para redacción ética en publicaciones"
   - "errores éticos en reporting de resultados salud"
 summary: "IMRyD es el estándar de publicación, pero no tiene por qué ser el de redacción. Este post argumenta a favor de una estrategia de escritura 'inversa' —de los hallazgos hacia la introducción— como un método para aumentar la honestidad y claridad, distinguiéndolo del HARKing y alineando la narrativa con el verdadero descubrimiento científico."
-featured: true  # Destacar en la página principal
+featured: false  # Destacar en la página principal
 languages:
   es: "/es/imryd-redaccion-inversa"
   en: "/en/imryd-redaccion-inversa"

@@ -11,7 +11,7 @@ tags:
   - "bioestadística"
   - "pensamiento crítico"
 slug: "rituales-metodologicos-00"
-featured: true
+featured: false
 draft: false
 share: true
 commentable: true

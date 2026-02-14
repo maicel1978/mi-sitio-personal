@@ -14,7 +14,7 @@ languages:
   es: "/es/trampas-correlacion"
   en: "/en/trampas-correlacion-en"
 summary:  "Ejemplos curiosos, cápsulas de rigor y un checklist práctico para no confundir correlación con causalidad en investigación científica."
-featured: true  # Destacar en la página principal
+featured: false  # Destacar en la página principal
 draft: false 
 commentable: true
 type: post
