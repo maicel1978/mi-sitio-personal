@@ -14,7 +14,7 @@ languages:
   es: "/es/experimento-aula-estudiantes"
   en: "/en/experimento-aula-estudiantes-en"
 summary: "Pedí a mis residentes que inventaran datos de hemoglobina en 60 segundos. Usé seis técnicas forenses para atraparlos. Spoiler: La estadística siempre gana."
-featured: true
+featured: false
 commentable: true  # Solo si tienes Disqus o similar configurado
 draft: false# True para un borrador
 show_related: true

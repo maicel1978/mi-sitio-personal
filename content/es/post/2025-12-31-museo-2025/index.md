@@ -10,7 +10,7 @@ tags:
   - "IA"
 slug: museo-2025
 summary: "Crítica humorística a publicaciones científicas de 2025, con referencias reales y lecciones para investigadores."
-featured: true
+featured: false
 draft: false # True para un borrador
 share: true
 commentable: true

@@ -11,7 +11,7 @@ tags:
   - "intervalos de confianza"
   - "estadística bayesiana"
 date: "2025-08-10T15:30:00Z" # Asegúrate de que la fecha y hora sean correctas
-featured: true # Cambia a true si quieres destacarlo en la página principal
+featured: false # Cambia a true si quieres destacarlo en la página principal
 draft: false # Cambia a true si aún estás trabajando en él
 commentable: true
 bibliography: references.bib

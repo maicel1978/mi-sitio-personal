@@ -14,7 +14,7 @@ languages:
   es: "/es/experimento-aula-ia"
   en: "/en/experimento-aula-ia-en"
 summary: "Secuela del experimento 'Miéntele al Profesor'. Puse a prueba a los colosos de silicio ante correlaciones absurdas. Ninguna detectó el sinsentido, revelando un 'horror vacui' algorítmico que amenaza la integridad científica."
-featured: true
+featured: false
 draft: false # True para un borrador
 share: true
 commentable: true  # Solo si tienes Disqus o similar configurado
