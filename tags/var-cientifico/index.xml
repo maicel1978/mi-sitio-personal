@@ -1,4 +1,124 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>VAR-Científico | Bioestadística edu</title><link>https://bioestadisticaedu.com/tags/var-cientifico/</link><atom:link href="https://bioestadisticaedu.com/tags/var-cientifico/index.xml" rel="self" type="application/rss+xml"/><description>VAR-Científico</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Fri, 12 Dec 2025 00:00:00 +0000</lastBuildDate><image><url>https://bioestadisticaedu.com/media/icon_hu_551fbaee136b383e.png</url><title>VAR-Científico</title><link>https://bioestadisticaedu.com/tags/var-cientifico/</link></image><item><title>VAR Científico: El arte de mover la portería</title><link>https://bioestadisticaedu.com/post/var-caso01/</link><pubDate>Fri, 12 Dec 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/var-caso01/</guid><description>&lt;p>&lt;em>Por Maicel Monzon&lt;/em>&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>VAR-Científico | Bioestadística edu</title><link>https://bioestadisticaedu.com/tags/var-cientifico/</link><atom:link href="https://bioestadisticaedu.com/tags/var-cientifico/index.xml" rel="self" type="application/rss+xml"/><description>VAR-Científico</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Fri, 13 Feb 2026 00:00:00 +0000</lastBuildDate><image><url>https://bioestadisticaedu.com/media/icon_hu_551fbaee136b383e.png</url><title>VAR-Científico</title><link>https://bioestadisticaedu.com/tags/var-cientifico/</link></image><item><title>VAR Científico: Rescate ético y suicidio estadístico</title><link>https://bioestadisticaedu.com/post/var-caso02/</link><pubDate>Fri, 13 Feb 2026 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/var-caso02/</guid><description>&lt;p>&lt;em>Por Maicel Monzon&lt;/em>&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;em>Cualquier parecido con la realidad es pura coincidencia.&lt;br>
+Este caso podría ocurrir en cualquier ensayo, en cualquier comité, en cualquier país.&lt;/em>&lt;/p>&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="1-el-grupo-control-especie-en-peligro-de-extinción">1. El grupo control: especie en peligro de extinción&lt;/h2>
+&lt;p>El grupo control es frágil, delicado y fundamental para la supervivencia del ensayo clínico.&lt;/p>
+&lt;ul>
+&lt;li>Nace de la aleatorización.&lt;/li>
+&lt;li>Se alimenta de comparabilidad.&lt;/li>
+&lt;li>Respira validez interna.&lt;/li>
+&lt;/ul>
+&lt;p>Y aun así, muchos estudios lo exterminan… con &lt;strong>buenas intenciones&lt;/strong>.&lt;/p>
+&lt;hr>
+&lt;h2 id="2-el-escenario-hipotético">2. El escenario hipotético&lt;/h2>
+&lt;p>Imaginemos un ensayo aleatorizado:&lt;/p>
+&lt;ul>
+&lt;li>Dos brazos: control vs tratamiento experimental.&lt;/li>
+&lt;li>Medidas periódicas a lo largo del tiempo (t₀, tiempo intermedio t*, tiempo final T).&lt;/li>
+&lt;li>Outcome continuo (por ejemplo, un score clínico).&lt;/li>
+&lt;/ul>
+&lt;p>El objetivo declarado:&lt;/p>
+&lt;blockquote>
+&lt;p>Determinar si el tratamiento experimental es mejor que el control al final del estudio.&lt;/p>&lt;/blockquote>
+&lt;p>Hasta aquí, todo correcto.&lt;/p>
+&lt;hr>
+&lt;h2 id="3-la-buena-intención-que-lo-cambia-todo">3. La “buena intención” que lo cambia todo&lt;/h2>
+&lt;p>En algún momento intermedio, los investigadores deciden:&lt;/p>
+&lt;blockquote>
+&lt;p>Si un paciente en el grupo control no mejora lo suficiente, vamos a cambiarlo al tratamiento experimental, porque sería éticamente cuestionable dejarlo sin ayuda.&lt;/p>&lt;/blockquote>
+&lt;p>Parece noble.&lt;br>
+Parece humano.&lt;br>
+Suena bien en comité ético.&lt;/p>
+&lt;p>Pero estadísticamente, esto es una &lt;strong>bomba de relojería&lt;/strong>.&lt;/p>
+&lt;hr>
+&lt;h2 id="4-qué-pasa-realmente">4. Qué pasa realmente&lt;/h2>
+&lt;p>Después del cambio:&lt;/p>
+&lt;ul>
+&lt;li>El grupo control deja de representar a la población original que recibiría solo control.&lt;/li>
+&lt;li>Los que “sobreviven” en control son los respondedores tempranos.&lt;/li>
+&lt;li>El experimental se llena de pacientes originalmente control que tenían peor pronóstico.&lt;/li>
+&lt;/ul>
+&lt;p>El resultado:&lt;/p>
+&lt;ul>
+&lt;li>La diferencia entre grupos se achica artificialmente.&lt;/li>
+&lt;li>La conclusión a final del estudio se vuelve engañosa.&lt;/li>
+&lt;li>El grupo control deja de ser un contrafactual válido.&lt;/li>
+&lt;/ul>
+&lt;p>Es lo que podríamos llamar un &lt;strong>suicidio estadístico&lt;/strong>.&lt;/p>
+&lt;hr>
+&lt;h2 id="5-varias-ventanas-temporales">5. Varias ventanas temporales&lt;/h2>
+&lt;p>Esto no depende del momento exacto:&lt;/p>
+&lt;ul>
+&lt;li>Cambios a las 4 semanas, 8 semanas, 12 semanas, 6 meses…&lt;/li>
+&lt;li>Cambios basados en biomarcadores, progresión clínica o decisión del médico.&lt;/li>
+&lt;/ul>
+&lt;p>La estructura causal sigue siendo la misma:&lt;br>
+Cuando el tratamiento depende de un resultado intermedio, la comparación directa ya no refleja el efecto verdadero del tratamiento experimental frente al control original.&lt;/p>
+&lt;hr>
+&lt;h2 id="6-simulación-conceptual">6. Simulación conceptual&lt;/h2>
+&lt;p>Podemos demostrarlo con un ejemplo simple:&lt;/p>
+&lt;img src="https://bioestadisticaedu.com/post/var-caso02/index_files/figure-html/unnamed-chunk-1-1.png" width="672" />
+&lt;h3 id="-qué-muestra-el-gráfico">🔹 Qué muestra el gráfico&lt;/h3>
+&lt;ul>
+&lt;li>El grupo control mejora artificialmente después del cambio.&lt;/li>
+&lt;li>El grupo experimental incluye pacientes que originalmente eran peores.&lt;/li>
+&lt;li>La diferencia observada se reduce, y cualquier conclusión directa sería engañosa.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="7-la-lección-conceptual">7. La lección conceptual&lt;/h2>
+&lt;ul>
+&lt;li>El grupo control no murió por razones clínicas.&lt;/li>
+&lt;li>Murió porque dejó de ser comparable.&lt;/li>
+&lt;li>La inferencia causal requiere &lt;strong>control como contrafactual válido&lt;/strong>.&lt;/li>
+&lt;li>Cambiar tratamientos basados en resultados intermedios sin un diseño adaptativo preespecificado destruye la comparabilidad y sesga la estimación.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="8-cómo-hacerlo-bien">8. ¿Cómo hacerlo bien?&lt;/h2>
+&lt;p>Si se espera que algunos pacientes cambien de tratamiento:&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Preespecificar el switching en el protocolo.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Redefinir claramente el estimando (Efecto de estrategia, hypothetical, while-on-treatment…).&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Aplicar métodos apropiados:&lt;/p>
+&lt;ul>
+&lt;li>Inverse Probability Weighting (IPCW)&lt;/li>
+&lt;li>Marginal Structural Models&lt;/li>
+&lt;li>RPSFTM&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;p>Sin esto, el análisis simple es &lt;strong>conceptualmente inválido&lt;/strong>.&lt;/p>
+&lt;hr>
+&lt;h2 id="9-conclusión">9. Conclusión&lt;/h2>
+&lt;p>La ética y la estadística no siempre son amigas íntimas.
+Puedes rescatar a un paciente y, al mismo tiempo, &lt;strong>destruir el valor informativo del estudio&lt;/strong>.&lt;/p>
+&lt;p>El grupo control sigue siendo una especie en peligro de extinción.
+Y no lo protegerás solo con buenas intenciones.&lt;/p>
+&lt;hr>
+&lt;h1 id="bibliografía">Bibliografía&lt;/h1>
+&lt;ul>
+&lt;li>
+&lt;p>Robins JM, Hernán MA, Brumback B. Marginal structural models and causal inference in epidemiology. &lt;em>Epidemiology&lt;/em>. 2000;11(5):550–560. PMID: 10955408.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Latimer NR et al. Adjusting for treatment switching in randomised controlled trials. &lt;em>Stat Med&lt;/em>. 2014;33(26):4489–4505. PMID: 25237052.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Hernán MA, Robins JM. &lt;em>Causal Inference: What If&lt;/em>. Chapman &amp;amp; Hall/CRC, 2020.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>ICH E9(R1) Addendum on Estimands and Sensitivity Analysis in Clinical Trials. EMA, 2019.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Schulz KF et al. CONSORT 2010 Statement. &lt;em>BMJ&lt;/em>. 2010;340:c332. PMID: 20332509.&lt;/p>
+&lt;/li>
+&lt;/ul></description></item><item><title>VAR Científico: El arte de mover la portería</title><link>https://bioestadisticaedu.com/post/var-caso01/</link><pubDate>Fri, 12 Dec 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/var-caso01/</guid><description>&lt;p>&lt;em>Por Maicel Monzon&lt;/em>&lt;/p>
 &lt;p>En el fútbol, si el balón sale por la banda, no puedes mover la portería para que entre.
 En la literatura médica, a veces, los postes tienen ruedas.
 Bienvenidos al VAR Científico. Aquí revisamos el partido completo: comparamos lo que prometieron en el protocolo con lo que celebraron en el paper. Si hubo mano, fuera de juego o portería relocalizada, el monitor no miente.&lt;/p>
