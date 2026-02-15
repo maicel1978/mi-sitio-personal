@@ -1,0 +1,65 @@
+
+/* ══════════════════════════════════════════════════════
+   ESTILO "CUADERNO DEL INVESTIGADOR"
+   BioestadísticaEdu — Maicel Monzón
+   ══════════════════════════════════════════════════════ */
+
+/* ── CARDS — Estilo papel/cuaderno ── */
+.card {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  background: #fafaf8;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+/* ── BLOQUES DE CÓDIGO — Estilo notebook ── */
+pre {
+  background: #f5f5f0;
+  border-left: 3px solid #3d3d5c;
+  border-radius: 0 6px 6px 0;
+  padding: 1.2rem 1.5rem;
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
+p code, li code {
+  background: #f0f0eb;
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  font-size: 0.85em;
+  color: #3d3d5c;
+}
+
+/* ── CITAS — Estilo académico ── */
+blockquote {
+  border-left: 3px solid #3d3d5c;
+  background: #f8f8f5;
+  padding: 1rem 1.5rem;
+  border-radius: 0 6px 6px 0;
+  font-style: italic;
+  color: #3d3d5c;
+}
+
+/* ── NAVBAR ── */
+.navbar {
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* ── SCROLL SUAVE ── */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ── SEPARADORES ── */
+hr {
+  border-color: rgba(0, 0, 0, 0.06);
+}
+
