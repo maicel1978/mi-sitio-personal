@@ -4,26 +4,24 @@
    BioestadísticaEdu — Maicel Monzón
    ══════════════════════════════════════════════════════ */
 
-/* ── CARDS — Estilo papel/cuaderno ── */
+/* ── CARDS ── */
 .card {
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 8px;
-  background: #fafaf8;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 10px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-  border-color: rgba(0, 0, 0, 0.12);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
 }
 
-/* ── BLOQUES DE CÓDIGO — Estilo notebook ── */
+/* ── CÓDIGO ── */
 pre {
-  background: #f5f5f0;
-  border-left: 3px solid #3d3d5c;
-  border-radius: 0 6px 6px 0;
+  background: #f7f7f5;
+  border-left: 3px solid #4a90d9;
+  border-radius: 0 8px 8px 0;
   padding: 1.2rem 1.5rem;
   font-size: 0.88rem;
   line-height: 1.7;
@@ -37,23 +35,17 @@ p code, li code {
   color: #3d3d5c;
 }
 
-/* ── CITAS — Estilo académico ── */
+/* ── CITAS ── */
 blockquote {
-  border-left: 3px solid #3d3d5c;
-  background: #f8f8f5;
+  border-left: 3px solid #4a90d9;
+  background: #f8f9fc;
   padding: 1rem 1.5rem;
-  border-radius: 0 6px 6px 0;
+  border-radius: 0 8px 8px 0;
   font-style: italic;
   color: #3d3d5c;
 }
 
-/* ── NAVBAR ── */
-.navbar {
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-}
-
-/* ── SCROLL SUAVE ── */
+/* ── SCROLL ── */
 html {
   scroll-behavior: smooth;
 }

@@ -22,129 +22,209 @@ type: post
 *Por Maicel Monzon*
 
 > *Cualquier parecido con la realidad es pura coincidencia.  
-Este caso podría ocurrir en cualquier ensayo, en cualquier comité, en cualquier país.*
+> Aunque, curiosamente, estas coincidencias suelen tener protocolo aprobado.*
 
 ---
 
-## 1. El grupo control: especie en peligro de extinción
+## 1. El grupo control: ese gran incomprendido
 
-El grupo control es frágil, delicado y fundamental para la supervivencia del ensayo clínico.  
+El grupo control no es un trámite regulatorio.  
+No está ahí para completar la tabla 1 ni para tranquilizar a un comité.
 
-- Nace de la aleatorización.  
-- Se alimenta de comparabilidad.  
-- Respira validez interna.  
+Está ahí para responder una pregunta fundamental:
 
-Y aun así, muchos estudios lo exterminan… con **buenas intenciones**.
+> ¿Qué habría ocurrido si estos pacientes no hubieran recibido el tratamiento experimental?
 
----
+Eso es el **contrafactual**.
 
-## 2. El escenario hipotético
+Nace de la aleatorización.  
+Vive de la comparabilidad.  
+Y desaparece cuando modificamos el experimento sin redefinir la inferencia.
 
-Imaginemos un ensayo aleatorizado:
-
-- Dos brazos: control vs tratamiento experimental.  
-- Medidas periódicas a lo largo del tiempo (t₀, tiempo intermedio t\*, tiempo final T).  
-- Outcome continuo (por ejemplo, un score clínico).
-
-El objetivo declarado:  
-
-> Determinar si el tratamiento experimental es mejor que el control al final del estudio.
-
-Hasta aquí, todo correcto.  
+Sin contrafactual válido, no hay evidencia.  
+Hay narrativa.
 
 ---
 
-## 3. La “buena intención” que lo cambia todo
+## 2. El experimento bien portado
 
-En algún momento intermedio, los investigadores deciden:
+Imaginemos un ensayo clásico:
 
-> Si un paciente en el grupo control no mejora lo suficiente, vamos a cambiarlo al tratamiento experimental, porque sería éticamente cuestionable dejarlo sin ayuda.
+- Asignación 1:1  
+- Medición basal  
+- Medición intermedia  
+- Medición final  
+- Objetivo: comparar resultados al final  
 
-Parece noble.  
-Parece humano.  
-Suena bien en comité ético.  
+Mientras cada paciente permanece en el grupo asignado:
 
-Pero estadísticamente, esto es una **bomba de relojería**.
+- La aleatorización protege la comparabilidad.
+- El análisis ITT tiene interpretación causal clara.
+- El efecto estimado responde a la pregunta original.
 
----
-
-## 4. Qué pasa realmente
-
-Después del cambio:
-
-- El grupo control deja de representar a la población original que recibiría solo control.  
-- Los que “sobreviven” en control son los respondedores tempranos.  
-- El experimental se llena de pacientes originalmente control que tenían peor pronóstico.
-
-El resultado:
-
-- La diferencia entre grupos se achica artificialmente.  
-- La conclusión a final del estudio se vuelve engañosa.  
-- El grupo control deja de ser un contrafactual válido.
-
-Es lo que podríamos llamar un **suicidio estadístico**.  
+La arquitectura es coherente.  
+Y la inferencia también.
 
 ---
 
-## 5. Varias ventanas temporales
+## 3. El momento aparentemente razonable
 
-Esto no depende del momento exacto:
+En algún punto intermedio ocurre algo:
 
-- Cambios a las 4 semanas, 8 semanas, 12 semanas, 6 meses…  
-- Cambios basados en biomarcadores, progresión clínica o decisión del médico.  
+> Los pacientes del grupo control que no responden suficientemente reciben el tratamiento experimental.
 
-La estructura causal sigue siendo la misma:  
-Cuando el tratamiento depende de un resultado intermedio, la comparación directa ya no refleja el efecto verdadero del tratamiento experimental frente al control original.
+Puede suceder en cualquier momento del seguimiento.
 
----
+El calendario es secundario.  
+Lo relevante es que el tratamiento futuro pasa a depender de la evolución previa.
 
-## 6. Simulación conceptual
+Y esa evolución fue influenciada por la asignación inicial.
 
-Podemos demostrarlo con un ejemplo simple:
-
-
-<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-1-1.png" width="672" />
-
-### 🔹 Qué muestra el gráfico
-
-* El grupo control mejora artificialmente después del cambio.
-* El grupo experimental incluye pacientes que originalmente eran peores.
-* La diferencia observada se reduce, y cualquier conclusión directa sería engañosa.
+Ahí cambia la estructura del experimento.
 
 ---
 
-## 7. La lección conceptual
+## 4. Qué cambia realmente
 
-* El grupo control no murió por razones clínicas.
-* Murió porque dejó de ser comparable.
-* La inferencia causal requiere **control como contrafactual válido**.
-* Cambiar tratamientos basados en resultados intermedios sin un diseño adaptativo preespecificado destruye la comparabilidad y sesga la estimación.
+Antes:
 
----
+- El tratamiento depende solo de la aleatorización.
 
-## 8. ¿Cómo hacerlo bien?
+Después:
 
-Si se espera que algunos pacientes cambien de tratamiento:
+- El tratamiento depende de la respuesta intermedia.
+- Y la respuesta intermedia depende del tratamiento inicial.
 
-1. Preespecificar el switching en el protocolo.
-2. Redefinir claramente el estimando (Efecto de estrategia, hypothetical, while-on-treatment…).
-3. Aplicar métodos apropiados:
+Eso introduce un circuito causal.
 
-   * Inverse Probability Weighting (IPCW)
-   * Marginal Structural Models
-   * RPSFTM
-
-Sin esto, el análisis simple es **conceptualmente inválido**.
+Comprensible desde la ética.  
+Metodológicamente delicado desde la inferencia.
 
 ---
 
-## 9. Conclusión
+## 5. Qué ocurre en términos simples
 
-La ética y la estadística no siempre son amigas íntimas.
-Puedes rescatar a un paciente y, al mismo tiempo, **destruir el valor informativo del estudio**.
+Tras permitir el cambio:
 
-El grupo control sigue siendo una especie en peligro de extinción.
-Y no lo protegerás solo con buenas intenciones.
+- En el grupo control permanecen, en promedio, quienes iban mejor.
+- Los que evolucionaban peor pasan al experimental.
+- El experimental incorpora pacientes con peor pronóstico intermedio.
+
+El resultado visible:
+
+La diferencia entre grupos al final puede reducirse.
+
+El resultado menos visible —y más importante—:
+
+La pregunta que estamos respondiendo ya no es exactamente la misma.
+
+---
+
+## 6. El problema no es el resultado. Es su significado.
+
+La diferencia puede reducirse.
+
+La estimación puede cambiar.
+
+Incluso el intervalo de confianza puede desplazarse.
+
+Pero nada de eso es el núcleo del problema.
+
+El verdadero problema es que ya no sabemos con precisión qué efecto estamos estimando.
+
+¿Es el efecto del tratamiento experimental frente a control puro?
+
+¿O es el efecto de una estrategia que permite cambiar de tratamiento si no hay respuesta?
+
+Si la pregunta cambia y no lo declaramos, el número final pierde interpretación.
+
+La estadística no consiste en producir números.  
+Consiste en saber qué significan.
+
+---
+
+## 7. Qué muestra la simulación
+
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-1-1.png" width="768" />
+
+El gráfico no solo ilustra una reducción de diferencias.
+
+Muestra algo más profundo:
+
+El grupo “control” ya no representa la evolución sin tratamiento experimental.
+
+Representa la evolución de quienes respondieron mejor al inicio.
+
+Eso no es un detalle estadístico.  
+Es una alteración del contrafactual.
+
+Y cuando el contrafactual cambia, la validez interna cambia con él.
+
+---
+
+## 8. Una aclaración necesaria
+
+El análisis ITT no se vuelve incorrecto.
+
+Se vuelve insuficientemente interpretado.
+
+Ahora estima el efecto de una **estrategia clínica adaptativa**:
+
+> “Asignar control, pero permitir cambio si no hay respuesta.”
+
+Esa puede ser una pregunta válida.
+
+Pero no es lo mismo que comparar tratamiento experimental versus control puro.
+
+Si no redefinimos explícitamente el estimando, generamos ambigüedad científica.
+
+Y la ambigüedad rara vez favorece decisiones sólidas.
+
+---
+
+## 9. El problema no es ético. Es estructural.
+
+Rescatar pacientes puede ser correcto.
+
+Lo problemático es:
+
+- No anticiparlo en el diseño.
+- No redefinir la pregunta científica.
+- No usar métodos apropiados.
+- Pretender que nada cambió.
+
+La estadística no es una ceremonia para obtener aprobación regulatoria.
+
+Es el mecanismo que preserva el significado de nuestras comparaciones.
+
+---
+
+## 10. Conclusión
+
+Cuando el tratamiento cambia en función de la respuesta intermedia:
+
+No estamos comparando tratamientos.
+
+Estamos comparando estrategias.
+
+Si eso se define, se modela y se analiza correctamente, es ciencia.
+
+Si no, es una ilusión estadística con buenas intenciones.
+
+Y la ilusión nunca ha sido un sustituto sólido de la evidencia.
+
+---
+
+## 🔎 Para debatir
+
+Cuando un ensayo permite cambiar de tratamiento a los no respondedores:
+
+> ¿Deberíamos seguir hablando de “eficacia del fármaco”  
+> o de “eficacia de la estrategia terapéutica”?
+
+La diferencia no es semántica.  
+Es metodológica.  
+Y también regulatoria.
 
 ---
 

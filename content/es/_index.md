@@ -13,7 +13,7 @@ sections:
       username: admin
     design:
       background:
-        color: black
+        color: "#0f1729"
         image:
           filename: stacked-peaks.svg
           filters:
@@ -97,3 +97,4 @@ sections:
 title: ""
 type: landing
 ---
+
