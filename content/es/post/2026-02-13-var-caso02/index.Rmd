@@ -2,7 +2,7 @@
 title: "VAR Científico: Rescate ético y suicidio estadístico"
 subtitle: "Caso 1: Rescate ético y suicidio estadístico"
 author: "admin"
-date: 2026-12-13
+date: 2026-02-13
 categories: ["Reflexiones Críticas"]
 tags:
   - "evaluación-regulatoria"
