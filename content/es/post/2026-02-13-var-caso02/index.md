@@ -1,5 +1,5 @@
 ---
-title: "VAR Científico: El arte de mover la portería para que entre el balón"
+title: "VAR Científico: Rescate ético y suicidio estadístico"
 subtitle: "Caso 1: Rescate ético y suicidio estadístico"
 author: "admin"
 date: 2026-12-14
