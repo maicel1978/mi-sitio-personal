@@ -2,7 +2,7 @@
 title: "Sobre este blog: estadística, salud y pensamiento crítico"
 subtitle: "Estadística, investigación clínica y pensamiento crítico sin concesiones"
 author: "admin"
-date: "2026-12-14"
+date: "2026-02-14"
 categories: ["Metodología de Investigación"]
 tags:
   - "bioestadística"
