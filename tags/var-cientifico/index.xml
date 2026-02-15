@@ -1,105 +1,136 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>VAR-Científico | Bioestadística edu</title><link>https://bioestadisticaedu.com/tags/var-cientifico/</link><atom:link href="https://bioestadisticaedu.com/tags/var-cientifico/index.xml" rel="self" type="application/rss+xml"/><description>VAR-Científico</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Fri, 13 Feb 2026 00:00:00 +0000</lastBuildDate><image><url>https://bioestadisticaedu.com/media/icon_hu_551fbaee136b383e.png</url><title>VAR-Científico</title><link>https://bioestadisticaedu.com/tags/var-cientifico/</link></image><item><title>VAR Científico: Rescate ético y suicidio estadístico</title><link>https://bioestadisticaedu.com/post/var-caso02/</link><pubDate>Fri, 13 Feb 2026 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/var-caso02/</guid><description>&lt;p>&lt;em>Por Maicel Monzon&lt;/em>&lt;/p>
 &lt;blockquote>
 &lt;p>&lt;em>Cualquier parecido con la realidad es pura coincidencia.&lt;br>
-Este caso podría ocurrir en cualquier ensayo, en cualquier comité, en cualquier país.&lt;/em>&lt;/p>&lt;/blockquote>
+Aunque, curiosamente, estas coincidencias suelen tener protocolo aprobado.&lt;/em>&lt;/p>&lt;/blockquote>
 &lt;hr>
-&lt;h2 id="1-el-grupo-control-especie-en-peligro-de-extinción">1. El grupo control: especie en peligro de extinción&lt;/h2>
-&lt;p>El grupo control es frágil, delicado y fundamental para la supervivencia del ensayo clínico.&lt;/p>
-&lt;ul>
-&lt;li>Nace de la aleatorización.&lt;/li>
-&lt;li>Se alimenta de comparabilidad.&lt;/li>
-&lt;li>Respira validez interna.&lt;/li>
-&lt;/ul>
-&lt;p>Y aun así, muchos estudios lo exterminan… con &lt;strong>buenas intenciones&lt;/strong>.&lt;/p>
-&lt;hr>
-&lt;h2 id="2-el-escenario-hipotético">2. El escenario hipotético&lt;/h2>
-&lt;p>Imaginemos un ensayo aleatorizado:&lt;/p>
-&lt;ul>
-&lt;li>Dos brazos: control vs tratamiento experimental.&lt;/li>
-&lt;li>Medidas periódicas a lo largo del tiempo (t₀, tiempo intermedio t*, tiempo final T).&lt;/li>
-&lt;li>Outcome continuo (por ejemplo, un score clínico).&lt;/li>
-&lt;/ul>
-&lt;p>El objetivo declarado:&lt;/p>
+&lt;h2 id="1-el-grupo-control-ese-gran-incomprendido">1. El grupo control: ese gran incomprendido&lt;/h2>
+&lt;p>El grupo control no es un trámite regulatorio.&lt;br>
+No está ahí para completar la tabla 1 ni para tranquilizar a un comité.&lt;/p>
+&lt;p>Está ahí para responder una pregunta fundamental:&lt;/p>
 &lt;blockquote>
-&lt;p>Determinar si el tratamiento experimental es mejor que el control al final del estudio.&lt;/p>&lt;/blockquote>
-&lt;p>Hasta aquí, todo correcto.&lt;/p>
+&lt;p>¿Qué habría ocurrido si estos pacientes no hubieran recibido el tratamiento experimental?&lt;/p>&lt;/blockquote>
+&lt;p>Eso es el &lt;strong>contrafactual&lt;/strong>.&lt;/p>
+&lt;p>Nace de la aleatorización.&lt;br>
+Vive de la comparabilidad.&lt;br>
+Y desaparece cuando modificamos el experimento sin redefinir la inferencia.&lt;/p>
+&lt;p>Sin contrafactual válido, no hay evidencia.&lt;br>
+Hay narrativa.&lt;/p>
 &lt;hr>
-&lt;h2 id="3-la-buena-intención-que-lo-cambia-todo">3. La “buena intención” que lo cambia todo&lt;/h2>
-&lt;p>En algún momento intermedio, los investigadores deciden:&lt;/p>
+&lt;h2 id="2-el-experimento-bien-portado">2. El experimento bien portado&lt;/h2>
+&lt;p>Imaginemos un ensayo clásico:&lt;/p>
+&lt;ul>
+&lt;li>Asignación 1:1&lt;/li>
+&lt;li>Medición basal&lt;/li>
+&lt;li>Medición intermedia&lt;/li>
+&lt;li>Medición final&lt;/li>
+&lt;li>Objetivo: comparar resultados al final&lt;/li>
+&lt;/ul>
+&lt;p>Mientras cada paciente permanece en el grupo asignado:&lt;/p>
+&lt;ul>
+&lt;li>La aleatorización protege la comparabilidad.&lt;/li>
+&lt;li>El análisis ITT tiene interpretación causal clara.&lt;/li>
+&lt;li>El efecto estimado responde a la pregunta original.&lt;/li>
+&lt;/ul>
+&lt;p>La arquitectura es coherente.&lt;br>
+Y la inferencia también.&lt;/p>
+&lt;hr>
+&lt;h2 id="3-el-momento-aparentemente-razonable">3. El momento aparentemente razonable&lt;/h2>
+&lt;p>En algún punto intermedio ocurre algo:&lt;/p>
 &lt;blockquote>
-&lt;p>Si un paciente en el grupo control no mejora lo suficiente, vamos a cambiarlo al tratamiento experimental, porque sería éticamente cuestionable dejarlo sin ayuda.&lt;/p>&lt;/blockquote>
-&lt;p>Parece noble.&lt;br>
-Parece humano.&lt;br>
-Suena bien en comité ético.&lt;/p>
-&lt;p>Pero estadísticamente, esto es una &lt;strong>bomba de relojería&lt;/strong>.&lt;/p>
+&lt;p>Los pacientes del grupo control que no responden suficientemente reciben el tratamiento experimental.&lt;/p>&lt;/blockquote>
+&lt;p>Puede suceder en cualquier momento del seguimiento.&lt;/p>
+&lt;p>El calendario es secundario.&lt;br>
+Lo relevante es que el tratamiento futuro pasa a depender de la evolución previa.&lt;/p>
+&lt;p>Y esa evolución fue influenciada por la asignación inicial.&lt;/p>
+&lt;p>Ahí cambia la estructura del experimento.&lt;/p>
 &lt;hr>
-&lt;h2 id="4-qué-pasa-realmente">4. Qué pasa realmente&lt;/h2>
-&lt;p>Después del cambio:&lt;/p>
+&lt;h2 id="4-qué-cambia-realmente">4. Qué cambia realmente&lt;/h2>
+&lt;p>Antes:&lt;/p>
 &lt;ul>
-&lt;li>El grupo control deja de representar a la población original que recibiría solo control.&lt;/li>
-&lt;li>Los que “sobreviven” en control son los respondedores tempranos.&lt;/li>
-&lt;li>El experimental se llena de pacientes originalmente control que tenían peor pronóstico.&lt;/li>
+&lt;li>El tratamiento depende solo de la aleatorización.&lt;/li>
 &lt;/ul>
-&lt;p>El resultado:&lt;/p>
+&lt;p>Después:&lt;/p>
 &lt;ul>
-&lt;li>La diferencia entre grupos se achica artificialmente.&lt;/li>
-&lt;li>La conclusión a final del estudio se vuelve engañosa.&lt;/li>
-&lt;li>El grupo control deja de ser un contrafactual válido.&lt;/li>
+&lt;li>El tratamiento depende de la respuesta intermedia.&lt;/li>
+&lt;li>Y la respuesta intermedia depende del tratamiento inicial.&lt;/li>
 &lt;/ul>
-&lt;p>Es lo que podríamos llamar un &lt;strong>suicidio estadístico&lt;/strong>.&lt;/p>
+&lt;p>Eso introduce un circuito causal.&lt;/p>
+&lt;p>Comprensible desde la ética.&lt;br>
+Metodológicamente delicado desde la inferencia.&lt;/p>
 &lt;hr>
-&lt;h2 id="5-varias-ventanas-temporales">5. Varias ventanas temporales&lt;/h2>
-&lt;p>Esto no depende del momento exacto:&lt;/p>
+&lt;h2 id="5-qué-ocurre-en-términos-simples">5. Qué ocurre en términos simples&lt;/h2>
+&lt;p>Tras permitir el cambio:&lt;/p>
 &lt;ul>
-&lt;li>Cambios a las 4 semanas, 8 semanas, 12 semanas, 6 meses…&lt;/li>
-&lt;li>Cambios basados en biomarcadores, progresión clínica o decisión del médico.&lt;/li>
+&lt;li>En el grupo control permanecen, en promedio, quienes iban mejor.&lt;/li>
+&lt;li>Los que evolucionaban peor pasan al experimental.&lt;/li>
+&lt;li>El experimental incorpora pacientes con peor pronóstico intermedio.&lt;/li>
 &lt;/ul>
-&lt;p>La estructura causal sigue siendo la misma:&lt;br>
-Cuando el tratamiento depende de un resultado intermedio, la comparación directa ya no refleja el efecto verdadero del tratamiento experimental frente al control original.&lt;/p>
+&lt;p>El resultado visible:&lt;/p>
+&lt;p>La diferencia entre grupos al final puede reducirse.&lt;/p>
+&lt;p>El resultado menos visible —y más importante—:&lt;/p>
+&lt;p>La pregunta que estamos respondiendo ya no es exactamente la misma.&lt;/p>
 &lt;hr>
-&lt;h2 id="6-simulación-conceptual">6. Simulación conceptual&lt;/h2>
-&lt;p>Podemos demostrarlo con un ejemplo simple:&lt;/p>
-&lt;img src="https://bioestadisticaedu.com/post/var-caso02/index_files/figure-html/unnamed-chunk-1-1.png" width="672" />
-&lt;h3 id="-qué-muestra-el-gráfico">🔹 Qué muestra el gráfico&lt;/h3>
+&lt;h2 id="6-el-problema-no-es-el-resultado-es-su-significado">6. El problema no es el resultado. Es su significado.&lt;/h2>
+&lt;p>La diferencia puede reducirse.&lt;/p>
+&lt;p>La estimación puede cambiar.&lt;/p>
+&lt;p>Incluso el intervalo de confianza puede desplazarse.&lt;/p>
+&lt;p>Pero nada de eso es el núcleo del problema.&lt;/p>
+&lt;p>El verdadero problema es que ya no sabemos con precisión qué efecto estamos estimando.&lt;/p>
+&lt;p>¿Es el efecto del tratamiento experimental frente a control puro?&lt;/p>
+&lt;p>¿O es el efecto de una estrategia que permite cambiar de tratamiento si no hay respuesta?&lt;/p>
+&lt;p>Si la pregunta cambia y no lo declaramos, el número final pierde interpretación.&lt;/p>
+&lt;p>La estadística no consiste en producir números.&lt;br>
+Consiste en saber qué significan.&lt;/p>
+&lt;hr>
+&lt;h2 id="7-qué-muestra-la-simulación">7. Qué muestra la simulación&lt;/h2>
+&lt;img src="https://bioestadisticaedu.com/post/var-caso02/index_files/figure-html/unnamed-chunk-1-1.png" width="768" />
+&lt;p>El gráfico no solo ilustra una reducción de diferencias.&lt;/p>
+&lt;p>Muestra algo más profundo:&lt;/p>
+&lt;p>El grupo “control” ya no representa la evolución sin tratamiento experimental.&lt;/p>
+&lt;p>Representa la evolución de quienes respondieron mejor al inicio.&lt;/p>
+&lt;p>Eso no es un detalle estadístico.&lt;br>
+Es una alteración del contrafactual.&lt;/p>
+&lt;p>Y cuando el contrafactual cambia, la validez interna cambia con él.&lt;/p>
+&lt;hr>
+&lt;h2 id="8-una-aclaración-necesaria">8. Una aclaración necesaria&lt;/h2>
+&lt;p>El análisis ITT no se vuelve incorrecto.&lt;/p>
+&lt;p>Se vuelve insuficientemente interpretado.&lt;/p>
+&lt;p>Ahora estima el efecto de una &lt;strong>estrategia clínica adaptativa&lt;/strong>:&lt;/p>
+&lt;blockquote>
+&lt;p>“Asignar control, pero permitir cambio si no hay respuesta.”&lt;/p>&lt;/blockquote>
+&lt;p>Esa puede ser una pregunta válida.&lt;/p>
+&lt;p>Pero no es lo mismo que comparar tratamiento experimental versus control puro.&lt;/p>
+&lt;p>Si no redefinimos explícitamente el estimando, generamos ambigüedad científica.&lt;/p>
+&lt;p>Y la ambigüedad rara vez favorece decisiones sólidas.&lt;/p>
+&lt;hr>
+&lt;h2 id="9-el-problema-no-es-ético-es-estructural">9. El problema no es ético. Es estructural.&lt;/h2>
+&lt;p>Rescatar pacientes puede ser correcto.&lt;/p>
+&lt;p>Lo problemático es:&lt;/p>
 &lt;ul>
-&lt;li>El grupo control mejora artificialmente después del cambio.&lt;/li>
-&lt;li>El grupo experimental incluye pacientes que originalmente eran peores.&lt;/li>
-&lt;li>La diferencia observada se reduce, y cualquier conclusión directa sería engañosa.&lt;/li>
+&lt;li>No anticiparlo en el diseño.&lt;/li>
+&lt;li>No redefinir la pregunta científica.&lt;/li>
+&lt;li>No usar métodos apropiados.&lt;/li>
+&lt;li>Pretender que nada cambió.&lt;/li>
 &lt;/ul>
+&lt;p>La estadística no es una ceremonia para obtener aprobación regulatoria.&lt;/p>
+&lt;p>Es el mecanismo que preserva el significado de nuestras comparaciones.&lt;/p>
 &lt;hr>
-&lt;h2 id="7-la-lección-conceptual">7. La lección conceptual&lt;/h2>
-&lt;ul>
-&lt;li>El grupo control no murió por razones clínicas.&lt;/li>
-&lt;li>Murió porque dejó de ser comparable.&lt;/li>
-&lt;li>La inferencia causal requiere &lt;strong>control como contrafactual válido&lt;/strong>.&lt;/li>
-&lt;li>Cambiar tratamientos basados en resultados intermedios sin un diseño adaptativo preespecificado destruye la comparabilidad y sesga la estimación.&lt;/li>
-&lt;/ul>
+&lt;h2 id="10-conclusión">10. Conclusión&lt;/h2>
+&lt;p>Cuando el tratamiento cambia en función de la respuesta intermedia:&lt;/p>
+&lt;p>No estamos comparando tratamientos.&lt;/p>
+&lt;p>Estamos comparando estrategias.&lt;/p>
+&lt;p>Si eso se define, se modela y se analiza correctamente, es ciencia.&lt;/p>
+&lt;p>Si no, es una ilusión estadística con buenas intenciones.&lt;/p>
+&lt;p>Y la ilusión nunca ha sido un sustituto sólido de la evidencia.&lt;/p>
 &lt;hr>
-&lt;h2 id="8-cómo-hacerlo-bien">8. ¿Cómo hacerlo bien?&lt;/h2>
-&lt;p>Si se espera que algunos pacientes cambien de tratamiento:&lt;/p>
-&lt;ol>
-&lt;li>
-&lt;p>Preespecificar el switching en el protocolo.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Redefinir claramente el estimando (Efecto de estrategia, hypothetical, while-on-treatment…).&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Aplicar métodos apropiados:&lt;/p>
-&lt;ul>
-&lt;li>Inverse Probability Weighting (IPCW)&lt;/li>
-&lt;li>Marginal Structural Models&lt;/li>
-&lt;li>RPSFTM&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ol>
-&lt;p>Sin esto, el análisis simple es &lt;strong>conceptualmente inválido&lt;/strong>.&lt;/p>
-&lt;hr>
-&lt;h2 id="9-conclusión">9. Conclusión&lt;/h2>
-&lt;p>La ética y la estadística no siempre son amigas íntimas.
-Puedes rescatar a un paciente y, al mismo tiempo, &lt;strong>destruir el valor informativo del estudio&lt;/strong>.&lt;/p>
-&lt;p>El grupo control sigue siendo una especie en peligro de extinción.
-Y no lo protegerás solo con buenas intenciones.&lt;/p>
+&lt;h2 id="-para-debatir">🔎 Para debatir&lt;/h2>
+&lt;p>Cuando un ensayo permite cambiar de tratamiento a los no respondedores:&lt;/p>
+&lt;blockquote>
+&lt;p>¿Deberíamos seguir hablando de “eficacia del fármaco”&lt;br>
+o de “eficacia de la estrategia terapéutica”?&lt;/p>&lt;/blockquote>
+&lt;p>La diferencia no es semántica.&lt;br>
+Es metodológica.&lt;br>
+Y también regulatoria.&lt;/p>
 &lt;hr>
 &lt;h1 id="bibliografía">Bibliografía&lt;/h1>
 &lt;ul>

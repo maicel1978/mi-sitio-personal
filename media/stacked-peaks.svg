@@ -1,1 +1,37 @@
-<svg id="visual" viewBox="0 0 960 540" width="960" height="540" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"><path d="M0 104L87 158L175 125L262 131L349 163L436 163L524 168L611 174L698 136L785 104L873 125L960 147L960 0L873 0L785 0L698 0L611 0L524 0L436 0L349 0L262 0L175 0L87 0L0 0Z" fill="#003223"></path><path d="M0 185L87 195L175 212L262 217L349 206L436 239L524 233L611 222L698 185L785 147L873 190L960 190L960 145L873 123L785 102L698 134L611 172L524 166L436 161L349 161L262 129L175 123L87 156L0 102Z" fill="#013b2d"></path><path d="M0 228L87 249L175 287L262 309L349 303L436 336L524 298L611 282L698 260L785 255L873 287L960 255L960 188L873 188L785 145L698 183L611 220L524 231L436 237L349 204L262 215L175 210L87 193L0 183Z" fill="#014537"></path><path d="M0 357L87 395L175 347L262 368L349 428L436 449L524 363L611 390L698 352L785 379L873 368L960 401L960 253L873 285L785 253L698 258L611 280L524 296L436 334L349 301L262 307L175 285L87 247L0 226Z" fill="#024f42"></path><path d="M0 541L87 541L175 541L262 541L349 541L436 541L524 541L611 541L698 541L785 541L873 541L960 541L960 399L873 366L785 377L698 350L611 388L524 361L436 447L349 426L262 366L175 345L87 393L0 355Z" fill="#02594e"></path></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 400">
+  <rect width="1440" height="400" fill="#0f1729"/>
+  <path d="M0,200 L200,150 L400,220 L600,120 L800,180 L1000,100 L1200,170 L1440,130" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  <path d="M0,300 L180,260 L360,310 L540,240 L720,280 L900,210 L1080,270 L1260,230 L1440,260" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <path d="M0,100 L240,140 L480,80 L720,160 L960,90 L1200,140 L1440,100" fill="none" stroke="rgba(255,255,255,0.09)" stroke-width="1"/>
+  <circle cx="200" cy="150" r="4" fill="rgba(255,255,255,0.15)"/>
+  <circle cx="400" cy="220" r="4" fill="rgba(255,255,255,0.15)"/>
+  <circle cx="600" cy="120" r="4" fill="rgba(255,255,255,0.15)"/>
+  <circle cx="800" cy="180" r="4" fill="rgba(255,255,255,0.15)"/>
+  <circle cx="1000" cy="100" r="4" fill="rgba(255,255,255,0.15)"/>
+  <circle cx="1200" cy="170" r="4" fill="rgba(255,255,255,0.15)"/>
+  <circle cx="180" cy="260" r="3.5" fill="rgba(255,255,255,0.12)"/>
+  <circle cx="360" cy="310" r="3.5" fill="rgba(255,255,255,0.12)"/>
+  <circle cx="540" cy="240" r="3.5" fill="rgba(255,255,255,0.12)"/>
+  <circle cx="720" cy="280" r="3.5" fill="rgba(255,255,255,0.12)"/>
+  <circle cx="900" cy="210" r="3.5" fill="rgba(255,255,255,0.12)"/>
+  <circle cx="1080" cy="270" r="3.5" fill="rgba(255,255,255,0.12)"/>
+  <circle cx="1260" cy="230" r="3.5" fill="rgba(255,255,255,0.12)"/>
+  <circle cx="240" cy="140" r="3" fill="rgba(255,255,255,0.1)"/>
+  <circle cx="480" cy="80" r="3" fill="rgba(255,255,255,0.1)"/>
+  <circle cx="720" cy="160" r="3" fill="rgba(255,255,255,0.1)"/>
+  <circle cx="960" cy="90" r="3" fill="rgba(255,255,255,0.1)"/>
+  <circle cx="1200" cy="140" r="3" fill="rgba(255,255,255,0.1)"/>
+  <line x1="200" y1="150" x2="180" y2="260" stroke="rgba(255,255,255,0.06)" stroke-width="0.7"/>
+  <line x1="400" y1="220" x2="360" y2="310" stroke="rgba(255,255,255,0.06)" stroke-width="0.7"/>
+  <line x1="600" y1="120" x2="540" y2="240" stroke="rgba(255,255,255,0.06)" stroke-width="0.7"/>
+  <line x1="800" y1="180" x2="720" y2="280" stroke="rgba(255,255,255,0.06)" stroke-width="0.7"/>
+  <line x1="1000" y1="100" x2="900" y2="210" stroke="rgba(255,255,255,0.06)" stroke-width="0.7"/>
+  <line x1="1200" y1="170" x2="1080" y2="270" stroke="rgba(255,255,255,0.06)" stroke-width="0.7"/>
+  <line x1="200" y1="150" x2="240" y2="140" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>
+  <line x1="600" y1="120" x2="480" y2="80" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>
+  <line x1="800" y1="180" x2="720" y2="160" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>
+  <line x1="1000" y1="100" x2="960" y2="90" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>
+  <line x1="1200" y1="170" x2="1200" y2="140" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>
+  <path d="M0,370 C360,355 720,340 1080,350 C1260,355 1380,360 1440,365 L1440,400 L0,400Z" fill="rgba(255,255,255,0.04)"/>
+</svg>
