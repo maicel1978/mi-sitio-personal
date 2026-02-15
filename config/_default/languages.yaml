@@ -24,6 +24,46 @@ en:
       # - name: News
       #   url: /#news
         # weight: 13
+      # - name: Projects
+      #   url: /projects/
+      #   weight: 40
+      #   identifier: projects
+      # - name: "See All"
+      #   url: /projects/
+      #   weight: 41
+      #   parent: projects
+      # - name: "Text"
+      #   url: /categories/texto/
+      #   weight: 42
+      #   parent: projects
+      # - name: "PDF"
+      #   url: /categories/pdf/
+      #   weight: 43
+      #   parent: projects
+      # - name: "Image"
+      #   url: /categories/imagen/
+      #   weight: 44
+      #   parent: projects
+      # - name: "Audio"
+      #   url: /categories/audio/
+      #   weight: 45
+      #   parent: projects
+      # - name: "Video"
+      #   url: /categories/video/
+      #   weight: 46
+      #   parent: projects
+      # - name: "Calculators"
+      #   url: /categories/calculadoras/
+      #   weight: 47
+      #   parent: projects
+      # - name: "Teaching Tools"
+      #   url: /categories/ejercicios-docentes/
+      #   weight: 48
+      #   parent: projects
+      # - name: "Social Media"
+      #   url: /categories/redes-sociales/
+      #   weight: 49
+      #   parent: projects
       - name: Projects
         url: /projects/
         weight: 40
