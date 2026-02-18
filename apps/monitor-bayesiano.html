@@ -1,132 +1,1117 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Monitor Adaptativo Bayesiano - BioestadisticaEdu</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; background: transparent; padding: 10px; }
-        .card { background: #f0f7ff; border: 1px solid #bee3f8; border-radius: 12px; padding: 25px; max-width: 550px; margin: auto; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        h2 { color: #2b6cb0; font-size: 1.3rem; margin-top: 0; text-align: center; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
-        label { display: block; font-size: 0.8rem; font-weight: 600; color: #2c5282; margin-bottom: 5px; }
-        input, select { width: 100%; padding: 10px; border: 1px solid #90cdf4; border-radius: 6px; box-sizing: border-box; }
-        button { width: 100%; background: #2b6cb0; color: white; border: none; padding: 14px; border-radius: 6px; cursor: pointer; font-weight: bold; }
-        #results { margin-top: 20px; padding: 20px; border-radius: 8px; display: none; background: white; border: 2px solid #2b6cb0; text-align: center; }
-        .prob-val { font-size: 3rem; font-weight: bold; color: #2b6cb0; margin: 10px 0; }
-        .decision { padding: 10px; border-radius: 6px; font-weight: bold; margin-top: 10px; }
-        .success { background: #f0fff4; color: #2f855a; }
-        .futility { background: #fff5f5; color: #c53030; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Suite completa de herramientas bayesianas para ensayos cl&iacute;nicos adaptativos. Monitor interino, fronteras de parada, rec&aacute;lculo de N, probabilidad predictiva, sensibilidad al prior y simulador de caracter&iacute;sticas operativas.">
+<title>BayesAdapt Suite - Ensayos Cl&iacute;nicos Adaptativos | BioestadisticaEdu</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+--p:#1a56db;--pd:#1e3a8a;--pl:#dbeafe;
+--ok:#059669;--okl:#d1fae5;
+--er:#dc2626;--erl:#fee2e2;
+--w:#d97706;--wl:#fef3c7;
+--v:#7c3aed;--vl:#ede9fe;
+--g0:#f9fafb;--g1:#f3f4f6;--g2:#e5e7eb;--g3:#d1d5db;
+--g4:#9ca3af;--g5:#6b7280;--g6:#4b5563;--g7:#374151;--g8:#1f2937;
+--r:8px;--rl:12px;
+--s1:0 1px 3px rgba(0,0,0,.06);--s2:0 4px 14px rgba(0,0,0,.07);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:transparent;color:var(--g8);line-height:1.6;padding:8px}
+#app{max-width:860px;margin:0 auto}
+.hd{text-align:center;padding:16px 0 6px}
+.hd h1{font-size:1.55rem;font-weight:800;color:var(--pd);letter-spacing:-.5px}
+.hd h1 b{color:var(--p)}
+.hd p{font-size:.8rem;color:var(--g5);margin-top:3px}
+.tabs{display:flex;gap:3px;overflow-x:auto;padding:5px;background:var(--g1);border-radius:var(--rl);margin:12px 0 20px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tb{flex-shrink:0;padding:9px 14px;border:none;background:0;border-radius:var(--r);cursor:pointer;font-size:.72rem;font-weight:600;color:var(--g5);transition:.15s;white-space:nowrap;font-family:inherit}
+.tb:hover{color:var(--g7);background:rgba(255,255,255,.5)}
+.tb.on{color:var(--p);background:#fff;box-shadow:var(--s1)}
+.md{display:none;animation:fu .3s ease}.md.on{display:block}
+@keyframes fu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.cd{background:#fff;border-radius:var(--rl);padding:24px;box-shadow:var(--s2);margin-bottom:16px}
+.cd h2{font-size:1.15rem;color:var(--pd);margin-bottom:3px}
+.cd .ds{font-size:.8rem;color:var(--g5);margin-bottom:18px;line-height:1.5}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+@media(max-width:520px){.fg{grid-template-columns:1fr}.cd{padding:16px}}
+.fi{margin-bottom:12px}
+.fi label{display:block;font-size:.75rem;font-weight:600;color:var(--g7);margin-bottom:4px}
+.fi input,.fi select{width:100%;padding:9px 11px;border:1.5px solid var(--g2);border-radius:var(--r);font-size:.9rem;font-family:inherit;transition:.15s;background:#fff}
+.fi input:focus,.fi select:focus{outline:0;border-color:var(--p);box-shadow:0 0 0 3px rgba(26,86,219,.08)}
+.fi input.bd{border-color:var(--er)}
+.fi .em{color:var(--er);font-size:.7rem;margin-top:2px;min-height:.9em}
+.tp{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;background:var(--g2);color:var(--g5);font-size:.58rem;font-weight:700;cursor:help;margin-left:3px;position:relative}
+.tp:hover::after{content:attr(data-t);position:absolute;bottom:calc(100% + 7px);left:50%;transform:translateX(-50%);background:var(--g8);color:#fff;padding:7px 11px;border-radius:var(--r);font-size:.7rem;font-weight:400;width:210px;text-align:left;z-index:30;line-height:1.4;pointer-events:none}
+.tp:hover::before{content:'';position:absolute;bottom:calc(100% + 2px);left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--g8);z-index:30}
+.bt{padding:11px 18px;border:none;border-radius:var(--r);font-weight:600;font-size:.85rem;cursor:pointer;transition:.12s;font-family:inherit}
+.b1{background:var(--p);color:#fff;width:100%}.b1:hover{background:var(--pd)}.b1:active{transform:scale(.98)}
+.b2{background:var(--g1);color:var(--g7);font-size:.75rem;padding:7px 12px}.b2:hover{background:var(--g2)}
+.rp{margin-top:20px;max-height:0;overflow:hidden;opacity:0;transition:max-height .5s,opacity .4s}.rp.vs{max-height:8000px;opacity:1}
+.mg{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-bottom:14px}
+.mc{background:var(--g0);border-radius:var(--r);padding:12px;text-align:center;border:1px solid var(--g2)}
+.mc .ml{font-size:.62rem;font-weight:600;color:var(--g5);text-transform:uppercase;letter-spacing:.4px}
+.mc .mv{font-size:1.45rem;font-weight:700;color:var(--p);margin:3px 0;line-height:1.2}
+.mc .mi{font-size:.68rem;color:var(--g4)}
+.cc{margin:14px 0;text-align:center;overflow-x:auto}
+.cc canvas{max-width:100%;border-radius:var(--r);border:1px solid var(--g2)}
+.ip{border-left:4px solid var(--p);border-radius:0 var(--r) var(--r) 0;padding:14px 16px;margin:14px 0;font-size:.8rem;color:var(--g7);line-height:1.65}
+.ip.ok{border-color:var(--ok);background:var(--okl)}
+.ip.er{border-color:var(--er);background:var(--erl)}
+.ip.w{border-color:var(--w);background:var(--wl)}
+.ip.n{border-color:var(--p);background:var(--pl)}
+.bg{display:inline-block;padding:7px 16px;border-radius:20px;font-weight:700;font-size:.8rem}
+.bg.ok{background:var(--okl);color:var(--ok)}
+.bg.er{background:var(--erl);color:var(--er)}
+.bg.w{background:var(--wl);color:var(--w)}
+.bg.ne{background:var(--g1);color:var(--g6)}
+.bg.vi{background:var(--vl);color:var(--v)}
+.ax{display:flex;gap:6px;justify-content:center;margin-top:14px;flex-wrap:wrap}
+.sp{height:1px;background:var(--g2);margin:16px 0}
+.tl{width:100%;border-collapse:collapse;font-size:.78rem;margin:10px 0}
+.tl th,.tl td{padding:8px 10px;border:1px solid var(--g2);text-align:center}
+.tl th{background:var(--g0);font-weight:600;color:var(--g7);font-size:.72rem;text-transform:uppercase}
+.ft{text-align:center;margin-top:28px;padding:14px 0;border-top:1px solid var(--g2);font-size:.7rem;color:var(--g4)}
+.ft a{color:var(--p);text-decoration:none}
+.dr{display:flex;gap:8px;align-items:end;margin-bottom:8px}
+.dr .fi{flex:1;margin-bottom:0}
+.dr .rb{padding:9px 12px;border:none;background:var(--erl);color:var(--er);border-radius:var(--r);cursor:pointer;font-size:.75rem;font-weight:600;font-family:inherit;flex-shrink:0}
+.ab{padding:8px 14px;border:1px dashed var(--g3);background:var(--g0);color:var(--g5);border-radius:var(--r);cursor:pointer;font-size:.75rem;font-weight:600;font-family:inherit;width:100%;margin-bottom:14px;transition:.15s}
+.ab:hover{border-color:var(--p);color:var(--p);background:var(--pl)}
+</style>
 </head>
 <body>
+<div id="app">
+<header class="hd">
+<h1>Bayes<b>Adapt</b> Suite</h1>
+<p>Herramientas estad&iacute;sticas para ensayos cl&iacute;nicos adaptativos</p>
+</header>
 
-<div class="card">
-    <h2>馃 Monitor Adaptativo Bayesiano</h2>
-    <p style="font-size: 0.8rem; text-align: center; color: #4a5568; margin-bottom: 20px;">
-        Actualizaci贸n de probabilidad posterior basada en datos interinos.
-    </p>
+<nav class="tabs" role="tablist">
+<button class="tb on" onclick="sw(0,this)" role="tab">&#x1F52C; Monitor Interino</button>
+<button class="tb" onclick="sw(1,this)" role="tab">&#x1F6A7; Fronteras Parada</button>
+<button class="tb" onclick="sw(2,this)" role="tab">&#x1F4CF; Rec&aacute;lculo N</button>
+<button class="tb" onclick="sw(3,this)" role="tab">&#x1F3AF; Prob. Predictiva</button>
+<button class="tb" onclick="sw(4,this)" role="tab">&#x1F50D; Sensibilidad Prior</button>
+<button class="tb" onclick="sw(5,this)" role="tab">&#x2699;&#xFE0F; Simulador OC</button>
+</nav>
 
-    <div class="grid">
-        <div>
-            <label>脡xitos (Tratamiento)</label>
-            <input type="number" id="e_t" value="25">
-        </div>
-        <div>
-            <label>N actual (Tratamiento)</label>
-            <input type="number" id="n_t" value="40">
-        </div>
-        <div>
-            <label>脡xitos (Control)</label>
-            <input type="number" id="e_c" value="15">
-        </div>
-        <div>
-            <label>N actual (Control)</label>
-            <input type="number" id="n_c" value="40">
-        </div>
-    </div>
+<!-- ===== M0: MONITOR INTERINO ===== -->
+<section class="md on" id="m0">
+<div class="cd">
+<h2>Monitor Bayesiano Adaptativo Multi-Interino</h2>
+<p class="ds">Registre m&uacute;ltiples an&aacute;lisis interinos. Calcula la evoluci&oacute;n de la probabilidad posterior, fracci&oacute;n de informaci&oacute;n y probabilidad predictiva de &eacute;xito.</p>
+<form id="f0" novalidate>
+<div class="fi"><label for="m0np">N planeado por grupo <span class="tp" data-t="Tama&ntilde;o muestral final planeado en cada brazo del ensayo.">?</span></label><input type="number" id="m0np" value="100" min="2"></div>
+<div class="fi"><label for="m0pr">Prior</label>
+<select id="m0pr"><option value="u">No informativa Beta(1,1)</option><option value="j">Jeffreys Beta(0.5,0.5)</option><option value="s">Esc&eacute;ptica Beta(1,3)</option><option value="o">Optimista Beta(3,1)</option></select></div>
+<div style="font-size:.75rem;font-weight:600;color:var(--g7);margin-bottom:6px">An&aacute;lisis interinos:</div>
+<div id="m0rows"></div>
+<button type="button" class="ab" onclick="addLook()">+ A&ntilde;adir an&aacute;lisis interino</button>
+<button type="submit" class="bt b1">Analizar Monitor Adaptativo</button>
+</form>
+<div class="rp" id="r0">
+<div class="sp"></div>
+<div class="mg" id="g0"></div>
+<div style="text-align:center;margin:10px 0" id="d0"></div>
+<div class="cc"><canvas id="c0" width="580" height="320"></canvas></div>
+<div class="cc"><canvas id="c0b" width="580" height="260"></canvas></div>
+<div class="ip n" id="i0"></div>
+<div class="ax"><button class="bt b2" onclick="cp(0)">&#x1F4CB; Copiar</button><button class="bt b2" onclick="dl('c0')">&#x1F4E5; Posteriors</button><button class="bt b2" onclick="dl('c0b')">&#x1F4E5; Evoluci&oacute;n</button></div>
+</div>
+</div>
+</section>
 
-    <div class="input-group" style="margin-bottom: 20px;">
-        <label>Prior (Informaci贸n previa)</label>
-        <select id="prior">
-            <option value="uninf">No informativa (Neutral)</option>
-            <option value="skeptic">Esc茅ptica (Duda del f谩rmaco)</option>
-            <option value="optimist">Optimista (Cree en el f谩rmaco)</option>
-        </select>
-    </div>
+<!-- ===== M1: FRONTERAS DE PARADA ===== -->
+<section class="md" id="m1">
+<div class="cd">
+<h2>Fronteras de Parada (Group Sequential)</h2>
+<p class="ds">Calcula las fronteras de eficacia y futilidad para an&aacute;lisis interinos planificados usando funciones de gasto alfa (alpha spending).</p>
+<form id="f1" novalidate>
+<div class="fg">
+<div class="fi"><label for="m1k">N&uacute;mero de an&aacute;lisis (K) <span class="tp" data-t="Total de an&aacute;lisis planificados incluyendo el final. Ej: K=3 significa 2 interinos + 1 final.">?</span></label>
+<select id="m1k"><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option></select></div>
+<div class="fi"><label for="m1a">Alfa global (bilateral)</label>
+<select id="m1a"><option value="0.05">0.05</option><option value="0.025">0.025</option><option value="0.01">0.01</option></select></div>
+</div>
+<div class="fg">
+<div class="fi"><label for="m1sf">Funci&oacute;n de gasto (eficacia) <span class="tp" data-t="O'Brien-Fleming: conservadora al inicio, liberal al final. Pocock: gasto uniforme. HSD: familia param&eacute;trica flexible.">?</span></label>
+<select id="m1sf"><option value="obf">O'Brien-Fleming</option><option value="poc">Pocock</option><option value="hsd">Hwang-Shih-DeCani (&gamma;)</option></select></div>
+<div class="fi"><label for="m1g">&gamma; (solo HSD) <span class="tp" data-t="&gamma;=-4: muy conservador (como OBF). &gamma;=0: lineal. &gamma;=4: agresivo (como Pocock).">?</span></label><input type="number" id="m1g" value="-2" step="0.5"></div>
+</div>
+<div class="fi"><label><input type="checkbox" id="m1fut" checked style="width:auto;margin-right:6px">Incluir fronteras de futilidad (beta spending)</label></div>
+<div class="fi"><label for="m1pw">Potencia (1&minus;&beta;)</label>
+<select id="m1pw"><option value="0.80">80%</option><option value="0.90" selected>90%</option><option value="0.95">95%</option></select></div>
+<button type="submit" class="bt b1">Calcular Fronteras</button>
+</form>
+<div class="rp" id="r1">
+<div class="sp"></div>
+<div id="t1"></div>
+<div class="cc"><canvas id="c1" width="580" height="320"></canvas></div>
+<div class="ip n" id="i1"></div>
+<div class="ax"><button class="bt b2" onclick="cp(1)">&#x1F4CB; Copiar</button><button class="bt b2" onclick="dl('c1')">&#x1F4E5; Gr&aacute;fico</button></div>
+</div>
+</div>
+</section>
 
-    <button onclick="updatePosterior()">Calcular Probabilidad de Superioridad</button>
+<!-- ===== M2: RECALCULO DE N ===== -->
+<section class="md" id="m2">
+<div class="cd">
+<h2>Rec&aacute;lculo del Tama&ntilde;o de Muestra (SSR)</h2>
+<p class="ds">Calcula la potencia condicional y potencia predictiva bayesiana para evaluar si el tama&ntilde;o muestral planeado es suficiente. Implementa el enfoque de &ldquo;Promising Zone&rdquo; (Mehta &amp; Pocock).</p>
+<form id="f2" novalidate>
+<fieldset style="border:1px solid var(--g2);border-radius:var(--r);padding:14px;margin-bottom:14px">
+<legend style="font-size:.75rem;font-weight:600;color:var(--p);padding:0 6px">Datos interinos actuales</legend>
+<div class="fg">
+<div class="fi"><label for="m2et">&Eacute;xitos Tratamiento</label><input type="number" id="m2et" value="18" min="0"><div class="em"></div></div>
+<div class="fi"><label for="m2nt">N actual Tratamiento</label><input type="number" id="m2nt" value="50" min="1"><div class="em"></div></div>
+<div class="fi"><label for="m2ec">&Eacute;xitos Control</label><input type="number" id="m2ec" value="12" min="0"><div class="em"></div></div>
+<div class="fi"><label for="m2nc">N actual Control</label><input type="number" id="m2nc" value="50" min="1"><div class="em"></div></div>
+</div>
+</fieldset>
+<fieldset style="border:1px solid var(--g2);border-radius:var(--r);padding:14px;margin-bottom:14px">
+<legend style="font-size:.75rem;font-weight:600;color:var(--p);padding:0 6px">Dise&ntilde;o original</legend>
+<div class="fg">
+<div class="fi"><label for="m2no">N planeado por grupo</label><input type="number" id="m2no" value="100" min="2"><div class="em"></div></div>
+<div class="fi"><label for="m2d0">Diferencia dise&ntilde;o (p<sub>T</sub>&minus;p<sub>C</sub>)</label><input type="number" id="m2d0" value="0.15" step="0.01" min="0.01" max="0.99"><div class="em"></div></div>
+</div>
+<div class="fg">
+<div class="fi"><label for="m2al">Alfa</label><select id="m2al"><option value="0.05">0.05</option><option value="0.025">0.025</option><option value="0.01">0.01</option></select></div>
+<div class="fi"><label for="m2pw">Potencia objetivo</label><select id="m2pw"><option value="0.80">80%</option><option value="0.90" selected>90%</option></select></div>
+</div>
+</fieldset>
+<button type="submit" class="bt b1">Calcular Rec&aacute;lculo de N</button>
+</form>
+<div class="rp" id="r2">
+<div class="sp"></div>
+<div class="mg" id="g2"></div>
+<div style="text-align:center;margin:10px 0" id="d2"></div>
+<div class="cc"><canvas id="c2" width="580" height="300"></canvas></div>
+<div class="ip n" id="i2"></div>
+<div class="ax"><button class="bt b2" onclick="cp(2)">&#x1F4CB; Copiar</button><button class="bt b2" onclick="dl('c2')">&#x1F4E5; Gr&aacute;fico</button></div>
+</div>
+</div>
+</section>
 
-    <div id="results">
-        <div style="font-size: 0.9rem; font-weight: 600;">Probabilidad Posterior de que T > C:</div>
-        <div class="prob-val" id="prob-display">0%</div>
-        <div id="decision-box" class="decision"></div>
-        <p style="font-size: 0.7rem; color: #a0aec0; margin-top: 15px;">
-            Simulaci贸n mediante distribuci贸n Beta-Binomial. <br>
-            BioestadisticaEdu 漏 2025 - Mohsen Ebrahimi
-        </p>
-    </div>
+<!-- ===== M3: PROBABILIDAD PREDICTIVA ===== -->
+<section class="md" id="m3">
+<div class="cd">
+<h2>Probabilidad Predictiva de &Eacute;xito (PPoS)</h2>
+<p class="ds">Calcula la probabilidad bayesiana de que el ensayo demuestre superioridad al completar el reclutamiento, dada la informaci&oacute;n interina actual. Eval&uacute;a PPoS bajo diferentes tama&ntilde;os muestrales finales.</p>
+<form id="f3" novalidate>
+<div class="fg">
+<div class="fi"><label for="m3et">&Eacute;xitos T</label><input type="number" id="m3et" value="22" min="0"><div class="em"></div></div>
+<div class="fi"><label for="m3nt">N actual T</label><input type="number" id="m3nt" value="50" min="1"><div class="em"></div></div>
+<div class="fi"><label for="m3ec">&Eacute;xitos C</label><input type="number" id="m3ec" value="14" min="0"><div class="em"></div></div>
+<div class="fi"><label for="m3nc">N actual C</label><input type="number" id="m3nc" value="50" min="1"><div class="em"></div></div>
+</div>
+<div class="fg">
+<div class="fi"><label for="m3nmin">N final m&iacute;nimo (por grupo)</label><input type="number" id="m3nmin" value="60" min="2"><div class="em"></div></div>
+<div class="fi"><label for="m3nmax">N final m&aacute;ximo (por grupo)</label><input type="number" id="m3nmax" value="200" min="2"><div class="em"></div></div>
+</div>
+<div class="fg">
+<div class="fi"><label for="m3al">Alfa (umbral significancia final)</label><select id="m3al"><option value="0.05">0.05</option><option value="0.025">0.025</option><option value="0.01">0.01</option></select></div>
+<div class="fi"><label for="m3cr">Criterio bayesiano <span class="tp" data-t="Umbral de P(T>C) para declarar &eacute;xito al final del estudio. T&iacute;picamente 0.975 o 0.95.">?</span></label><select id="m3cr"><option value="0.975">P(T&gt;C) &gt; 97.5%</option><option value="0.95">P(T&gt;C) &gt; 95%</option><option value="0.99">P(T&gt;C) &gt; 99%</option></select></div>
+</div>
+<button type="submit" class="bt b1">Calcular PPoS</button>
+</form>
+<div class="rp" id="r3">
+<div class="sp"></div>
+<div class="mg" id="g3"></div>
+<div class="cc"><canvas id="c3" width="580" height="300"></canvas></div>
+<div class="ip n" id="i3"></div>
+<div class="ax"><button class="bt b2" onclick="cp(3)">&#x1F4CB; Copiar</button><button class="bt b2" onclick="dl('c3')">&#x1F4E5; Gr&aacute;fico</button></div>
+</div>
+</div>
+</section>
+
+<!-- ===== M4: SENSIBILIDAD AL PRIOR ===== -->
+<section class="md" id="m4">
+<div class="cd">
+<h2>An&aacute;lisis de Sensibilidad al Prior</h2>
+<p class="ds">Eval&uacute;a la robustez de las conclusiones bajo m&uacute;ltiples distribuciones a priori. Detecta conflicto prior-datos y calcula el tama&ntilde;o muestral efectivo del prior.</p>
+<form id="f4" novalidate>
+<div class="fg">
+<div class="fi"><label for="m4et">&Eacute;xitos T</label><input type="number" id="m4et" value="28" min="0"><div class="em"></div></div>
+<div class="fi"><label for="m4nt">N Tratamiento</label><input type="number" id="m4nt" value="45" min="1"><div class="em"></div></div>
+<div class="fi"><label for="m4ec">&Eacute;xitos C</label><input type="number" id="m4ec" value="16" min="0"><div class="em"></div></div>
+<div class="fi"><label for="m4nc">N Control</label><input type="number" id="m4nc" value="45" min="1"><div class="em"></div></div>
+</div>
+<button type="submit" class="bt b1">Analizar Sensibilidad</button>
+</form>
+<div class="rp" id="r4">
+<div class="sp"></div>
+<div id="t4"></div>
+<div class="cc"><canvas id="c4" width="580" height="320"></canvas></div>
+<div class="ip n" id="i4"></div>
+<div class="ax"><button class="bt b2" onclick="cp(4)">&#x1F4CB; Copiar</button><button class="bt b2" onclick="dl('c4')">&#x1F4E5; Gr&aacute;fico</button></div>
+</div>
+</div>
+</section>
+
+<!-- ===== M5: SIMULADOR OC ===== -->
+<section class="md" id="m5">
+<div class="cd">
+<h2>Simulador de Caracter&iacute;sticas Operativas (OC)</h2>
+<p class="ds">Simula ensayos completos bajo diferentes efectos verdaderos para estimar error tipo I, potencia, N esperado y probabilidad de parada temprana.</p>
+<form id="f5" novalidate>
+<div class="fg">
+<div class="fi"><label for="m5n">N m&aacute;ximo por grupo</label><input type="number" id="m5n" value="100" min="10"><div class="em"></div></div>
+<div class="fi"><label for="m5k">N&uacute;mero de an&aacute;lisis</label><select id="m5k"><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option></select></div>
+</div>
+<div class="fg">
+<div class="fi"><label for="m5pc">Proporci&oacute;n control (p<sub>C</sub>)</label><input type="number" id="m5pc" value="0.30" step="0.01" min="0.01" max="0.99"><div class="em"></div></div>
+<div class="fi"><label for="m5al">Alfa global</label><select id="m5al"><option value="0.05">0.05</option><option value="0.025">0.025</option></select></div>
+</div>
+<div class="fi"><label for="m5sf">Spending eficacia</label><select id="m5sf"><option value="obf">O'Brien-Fleming</option><option value="poc">Pocock</option></select></div>
+<div class="fi"><label for="m5ns">Simulaciones por escenario <span class="tp" data-t="M&aacute;s simulaciones = m&aacute;s precisi&oacute;n pero m&aacute;s tiempo. 5000 es un buen balance.">?</span></label><select id="m5ns"><option value="2000">2,000 (r&aacute;pido)</option><option value="5000" selected>5,000 (balanceado)</option><option value="10000">10,000 (preciso)</option></select></div>
+<button type="submit" class="bt b1" id="m5btn">Ejecutar Simulaci&oacute;n</button>
+</form>
+<div class="rp" id="r5">
+<div class="sp"></div>
+<div id="t5"></div>
+<div class="cc"><canvas id="c5" width="580" height="300"></canvas></div>
+<div class="cc"><canvas id="c5b" width="580" height="260"></canvas></div>
+<div class="ip n" id="i5"></div>
+<div class="ax"><button class="bt b2" onclick="cp(5)">&#x1F4CB; Copiar</button><button class="bt b2" onclick="dl('c5')">&#x1F4E5; Potencia</button><button class="bt b2" onclick="dl('c5b')">&#x1F4E5; N esperado</button></div>
+</div>
+</div>
+</section>
+
+<footer class="ft">BayesAdapt Suite &copy; 2025 &mdash; <a href="https://bioestadisticaedu.com">BioestadisticaEdu</a> &mdash; Maicel Monzón<br>Resultados orientativos. Valide con su equipo de bioestad&iacute;stica y comit&eacute; de monitoreo (DSMB).</footer>
 </div>
 
 <script>
-// Funci贸n para simular la posterior usando aproximaci贸n (Beta-Binomial)
-function updatePosterior() {
-    const et = parseInt(document.getElementById('e_t').value);
-    const nt = parseInt(document.getElementById('n_t').value);
-    const ec = parseInt(document.getElementById('e_c').value);
-    const nc = parseInt(document.getElementById('n_c').value);
-    const priorType = document.getElementById('prior').value;
+(function(){'use strict';
 
-    // Par谩metros de la Beta Prior (Alpha, Beta)
-    let at = 1, bt = 1, ac = 1, bc = 1;
-    if (priorType === 'skeptic') { at = 1; bt = 2; }
-    if (priorType === 'optimist') { at = 2; bt = 1; }
+/* ============ NAVIGATION ============ */
+window.sw=function(i,b){
+document.querySelectorAll('.md').forEach(m=>m.classList.remove('on'));
+document.querySelectorAll('.tb').forEach(t=>t.classList.remove('on'));
+document.getElementById('m'+i).classList.add('on');b.classList.add('on');
+};
 
-    // Actualizaci贸n Bayesiana (Posterior)
-    const post_at = at + et;
-    const post_bt = bt + (nt - et);
-    const post_ac = ac + ec;
-    const post_bc = bc + (nc - ec);
+/* ============ MATH LIBRARY ============ */
+function lnG(z){
+if(z<.5)return Math.log(Math.PI/Math.sin(Math.PI*z))-lnG(1-z);
+z--;const c=[.9999999999998099,676.5203681218851,-1259.1392167224028,771.3234287776531,-176.6150291621406,12.507343278686905,-.13857109526572012,9.984369578019572e-6,1.5056327351493116e-7];
+let x=c[0];for(let i=1;i<9;i++)x+=c[i]/(z+i);
+const t=z+7.5;return .5*Math.log(2*Math.PI)+(z+.5)*Math.log(t)-t+Math.log(x);
+}
+function betaPDF(x,a,b){if(x<=0||x>=1)return 0;return Math.exp((a-1)*Math.log(x)+(b-1)*Math.log(1-x)-lnG(a)-lnG(b)+lnG(a+b))}
+function randn(){const u=Math.random(),v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)}
+function rG(s){if(s<=0)return 0;if(s<1)return rG(s+1)*Math.pow(Math.random(),1/s);const d=s-1/3,c=1/Math.sqrt(9*d);for(;;){let x,v;do{x=randn();v=1+c*x}while(v<=0);v=v*v*v;const u=Math.random();if(u<1-.0331*x*x*x*x)return d*v;if(Math.log(u)<.5*x*x+d*(1-v+Math.log(v)))return d*v}}
+function rB(a,b){const x=rG(a),y=rG(b);return(x+y===0)?.5:x/(x+y)}
+function rBinom(n,p){let s=0;for(let i=0;i<n;i++)if(Math.random()<p)s++;return s}
+function phi(x){const a=[.254829592,-.284496736,1.421413741,-1.453152027,1.061405429],p=.3275911,s=x<0?-1:1;x=Math.abs(x)/Math.SQRT2;const t=1/(1+p*x);let y=((((a[4]*t+a[3])*t+a[2])*t+a[1])*t+a[0])*t*Math.exp(-x*x);return .5*(1+s*(1-y))}
+function phiInv(p){if(p<=0)return-Infinity;if(p>=1)return Infinity;if(p<.5)return-phiInv(1-p);const a=[-39.69683028665376,220.9460984245205,-275.9285104469687,138.3577518672690,-30.66479806614716,2.506628277459239],b=[-54.47609879822406,161.5858368580409,-155.6989798598866,66.80131188771972,-13.28068155288572],c=[-.007784894002430293,-.3223964580411365,-2.400758277161838,-2.549732539343734,-4.374664141464968,-2.938163982698783],d=[.007784695709041462,.3224671290700398,2.445134137142996,3.754408661907416],pl=.02425;if(p<1-pl){const q=Math.sqrt(-2*Math.log(p));return(((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])/((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1)}const q=p-.5,r=q*q;return(((((a[0]*r+a[1])*r+a[2])*r+a[3])*r+a[4])*r+a[5])*q/(((((b[0]*r+b[1])*r+b[2])*r+b[3])*r+b[4])*r+1)}
 
-    // Simulaci贸n Monte Carlo simple (10,000 iteraciones) para comparar proporciones
-    let superiorCount = 0;
-    for (let i = 0; i < 10000; i++) {
-        if (sampleBeta(post_at, post_bt) > sampleBeta(post_ac, post_bc)) {
-            superiorCount++;
-        }
-    }
+/* ============ SPENDING FUNCTIONS ============ */
+function spendOBF(t,alpha){return Math.max(0,Math.min(alpha,2-2*phi(phiInv(1-alpha/2)/Math.sqrt(t))))}
+function spendPoc(t,alpha){return Math.max(0,Math.min(alpha,alpha*Math.log(1+(Math.E-1)*t)))}
+function spendHSD(t,alpha,gamma){if(Math.abs(gamma)<.001)return alpha*t;return Math.max(0,Math.min(alpha,alpha*(1-Math.exp(-gamma*t))/(1-Math.exp(-gamma))))}
 
-    const prob = (superiorCount / 10000);
-    const probPct = (prob * 100).toFixed(1);
-
-    document.getElementById('results').style.display = 'block';
-    document.getElementById('prob-display').innerText = probPct + "%";
-
-    const dBox = document.getElementById('decision-box');
-    if (prob > 0.95) {
-        dBox.innerText = "ALTA PROBABILIDAD DE 脡XITO: Considerar parada temprana.";
-        dBox.className = "decision success";
-    } else if (prob < 0.10) {
-        dBox.innerText = "FUTILIDAD: Probabilidad muy baja de 茅xito final.";
-        dBox.className = "decision futility";
-    } else {
-        dBox.innerText = "CONTINUAR: Seguir reclutando seg煤n protocolo.";
-        dBox.className = "decision";
-        dBox.style.background = "#edf2f7";
-    }
+/* ============ CANVAS UTILITIES ============ */
+function mkC(id,w,h){const cv=document.getElementById(id),dp=window.devicePixelRatio||1;cv.width=w*dp;cv.height=h*dp;cv.style.width=w+'px';cv.style.height=h+'px';const c=cv.getContext('2d');c.scale(dp,dp);c.clearRect(0,0,w,h);c.fillStyle='#fff';c.fillRect(0,0,w,h);return c}
+function txf(v,a,b,l,r){return l+(v-a)/(b-a)*(r-l)}
+function tyf(v,a,b,t,bo){return bo-(v-a)/(b-a)*(bo-t)}
+function axes(c,m,W,H,xl,yl){c.strokeStyle='#d1d5db';c.lineWidth=1;c.beginPath();c.moveTo(m.l,m.t);c.lineTo(m.l,H-m.b);c.lineTo(W-m.r,H-m.b);c.stroke();c.fillStyle='#6b7280';c.font='600 10px Inter,sans-serif';c.textAlign='center';c.fillText(xl,(m.l+W-m.r)/2,H-3);c.save();c.translate(10,(m.t+H-m.b)/2);c.rotate(-Math.PI/2);c.fillText(yl,0,0);c.restore()}
+function grid(c,m,W,H,nx,ny,xMin,xMax,yMin,yMax){
+c.strokeStyle='#f3f4f6';c.lineWidth=1;c.fillStyle='#9ca3af';c.font='10px Inter';
+for(let i=0;i<=ny;i++){const v=yMin+(yMax-yMin)*i/ny,y=tyf(v,yMin,yMax,m.t,H-m.b);c.beginPath();c.moveTo(m.l,y);c.lineTo(W-m.r,y);c.stroke();c.textAlign='right';c.fillText(Number.isInteger(v)?v.toString():v.toFixed(1),m.l-5,y+3)}
+for(let i=0;i<=nx;i++){const v=xMin+(xMax-xMin)*i/nx,x=txf(v,xMin,xMax,m.l,W-m.r);c.textAlign='center';c.fillText(Number.isInteger(v)?v.toString():v.toFixed(2),x,H-m.b+14)}
 }
 
-// Generador de muestras Beta (Marsaglia)
-function sampleBeta(alpha, beta) {
-    function rgamma(a) {
-        let x = 0;
-        for (let i = 0; i < a; i++) x -= Math.log(Math.random());
-        return x;
-    }
-    const x = rgamma(alpha);
-    const y = rgamma(beta);
-    return x / (x + y);
+/* ============ UI HELPERS ============ */
+function met(id,a){document.getElementById('g'+id).innerHTML=a.map(m=>'<div class="mc"><div class="ml">'+m.l+'</div><div class="mv" style="color:'+(m.c||'var(--p)')+';font-size:'+(m.s||'1.45rem')+'">'+m.v+'</div>'+(m.i?'<div class="mi">'+m.i+'</div>':'')+'</div>').join('')}
+function shR(id){document.getElementById('r'+id).classList.add('vs')}
+window.cp=function(id){navigator.clipboard.writeText(document.getElementById('r'+id).innerText).then(()=>alert('Copiado'))};
+window.dl=function(id){const a=document.createElement('a');a.download='bayesadapt-'+id+'.png';a.href=document.getElementById(id).toDataURL('image/png');a.click()};
+function vI(id,mn,mx){const el=document.getElementById(id),v=parseInt(el.value,10),e=el.parentElement.querySelector('.em');if(isNaN(v)){if(e)e.textContent='Inv\u00e1lido';el.classList.add('bd');return null}if(v<mn){if(e)e.textContent='M\u00edn: '+mn;el.classList.add('bd');return null}if(mx!==undefined&&v>mx){if(e)e.textContent='M\u00e1x: '+mx;el.classList.add('bd');return null}el.classList.remove('bd');if(e)e.textContent='';return v}
+function vF(id,mn,mx){const el=document.getElementById(id),v=parseFloat(el.value),e=el.parentElement.querySelector('.em');if(isNaN(v)){if(e)e.textContent='Inv\u00e1lido';el.classList.add('bd');return null}if(v<mn||v>mx){if(e)e.textContent=mn+' - '+mx;el.classList.add('bd');return null}el.classList.remove('bd');if(e)e.textContent='';return v}
+function clE(fid){document.querySelectorAll('#'+fid+' .em').forEach(e=>e.textContent='');document.querySelectorAll('#'+fid+' input').forEach(e=>e.classList.remove('bd'))}
+
+const PRIORS={u:{a:1,b:1,n:'No informativa Beta(1,1)'},j:{a:.5,b:.5,n:'Jeffreys Beta(0.5,0.5)'},s:{a:1,b:3,n:'Esc\u00e9ptica Beta(1,3)'},o:{a:3,b:1,n:'Optimista Beta(3,1)'}};
+const MC=100000;
+
+/* ============ M0: MONITOR MULTI-INTERINO ============ */
+let looks=[];
+function addLook(et,nt,ec,nc){
+const idx=looks.length;
+looks.push({et:et||'',nt:nt||'',ec:ec||'',nc:nc||''});
+renderLooks();
 }
+function removeLook(i){looks.splice(i,1);renderLooks()}
+function renderLooks(){
+const c=document.getElementById('m0rows');
+c.innerHTML=looks.map((l,i)=>'<div class="dr"><div class="fi"><label>Look '+(i+1)+': &Eacute;xitos T</label><input type="number" min="0" value="'+l.et+'" onchange="looks['+i+'].et=this.value"></div><div class="fi"><label>N T</label><input type="number" min="1" value="'+l.nt+'" onchange="looks['+i+'].nt=this.value"></div><div class="fi"><label>&Eacute;x C</label><input type="number" min="0" value="'+l.ec+'" onchange="looks['+i+'].ec=this.value"></div><div class="fi"><label>N C</label><input type="number" min="1" value="'+l.nc+'" onchange="looks['+i+'].nc=this.value"></div><button type="button" class="rb" onclick="removeLook('+i+')">&times;</button></div>').join('');
+}
+window.addLook=addLook;window.removeLook=removeLook;
+// Default data
+addLook(8,20,5,20);addLook(18,40,11,40);addLook(30,60,18,60);
+
+document.getElementById('f0').addEventListener('submit',function(e){
+e.preventDefault();
+const nplan=parseInt(document.getElementById('m0np').value,10);
+const pr=PRIORS[document.getElementById('m0pr').value];
+if(isNaN(nplan)||nplan<2)return;
+// Validate looks
+const validLooks=[];
+for(const l of looks){
+  const et=parseInt(l.et),nt=parseInt(l.nt),ec=parseInt(l.ec),nc=parseInt(l.nc);
+  if(isNaN(et)||isNaN(nt)||isNaN(ec)||isNaN(nc)||et<0||ec<0||nt<1||nc<1||et>nt||ec>nc)continue;
+  validLooks.push({et,nt,ec,nc});
+}
+if(validLooks.length===0){alert('Agregue al menos un an\u00e1lisis v\u00e1lido');return}
+// Sort by nt
+validLooks.sort((a,b)=>a.nt-b.nt);
+
+// Analyze each look
+const results=[];
+for(const lk of validLooks){
+  const aT=pr.a+lk.et,bT=pr.b+(lk.nt-lk.et);
+  const aC=pr.a+lk.ec,bC=pr.b+(lk.nc-lk.ec);
+  let sup=0,ds=0;
+  for(let i=0;i<MC;i++){const pt=rB(aT,bT),pc=rB(aC,bC);if(pt>pc)sup++;ds+=pt-pc}
+  const prob=sup/MC,md=ds/MC;
+  const infoFrac=Math.min((lk.nt+lk.nc)/(2*nplan),1);
+  // PPoS
+  let ppos=0;const PPoS_MC=20000;
+  for(let i=0;i<PPoS_MC;i++){
+    const tt=rB(aT,bT),tc=rB(aC,bC);
+    let fe=lk.et,fc=lk.ec;
+    for(let j=lk.nt;j<nplan;j++)if(Math.random()<tt)fe++;
+    for(let j=lk.nc;j<nplan;j++)if(Math.random()<tc)fc++;
+    const fa=pr.a+fe,fb=pr.b+(nplan-fe),ga=pr.a+fc,gb=pr.b+(nplan-fc);
+    const fm=fa/(fa+fb),gm=ga/(ga+gb);
+    const fv=fa*fb/((fa+fb)*(fa+fb)*(fa+fb+1));
+    const gv=ga*gb/((ga+gb)*(ga+gb)*(ga+gb+1));
+    if(phi((fm-gm)/Math.sqrt(fv+gv))>.975)ppos++;
+  }
+  results.push({...lk,prob,md,infoFrac,ppos:ppos/PPoS_MC,aT,bT,aC,bC});
+}
+
+const last=results[results.length-1];
+met(0,[
+  {l:'P(T > C) actual',v:(last.prob*100).toFixed(1)+'%',c:last.prob>.95?'var(--ok)':last.prob<.1?'var(--er)':'var(--p)'},
+  {l:'Dif. media',v:(last.md>0?'+':'')+(last.md*100).toFixed(1)+'pp',s:'1.2rem',c:'var(--g7)'},
+  {l:'Info. fracci\u00f3n',v:(last.infoFrac*100).toFixed(0)+'%',c:'var(--v)',s:'1.2rem',i:last.nt+'+'+last.nc+' de '+2*nplan},
+  {l:'PPoS',v:(last.ppos*100).toFixed(1)+'%',c:last.ppos>.6?'var(--ok)':last.ppos<.2?'var(--er)':'var(--w)',i:'al N='+nplan},
+  {l:'Looks',v:results.length.toString(),c:'var(--g6)',s:'1.2rem'},
+  {l:'Prior',v:pr.n,c:'var(--g6)',s:'.72rem'}
+]);
+
+const dec=document.getElementById('d0');
+if(last.prob>.975)dec.innerHTML='<span class="bg ok">EFICACIA: Considerar parada temprana (P>97.5%)</span>';
+else if(last.prob>.95)dec.innerHTML='<span class="bg ok">PROBABLE SUPERIORIDAD (P>95%)</span>';
+else if(last.prob<.05)dec.innerHTML='<span class="bg er">FUTILIDAD: Muy baja probabilidad</span>';
+else if(last.ppos<.1)dec.innerHTML='<span class="bg w">FUTILIDAD PREDICTIVA: PPoS < 10%</span>';
+else if(last.prob<.2)dec.innerHTML='<span class="bg w">BAJA PROBABILIDAD: Evaluar futilidad</span>';
+else dec.innerHTML='<span class="bg ne">CONTINUAR: Evidencia insuficiente</span>';
+
+// Chart 1: Posteriors
+const W=580,H=320,m={t:28,r:20,b:45,l:50};
+let ctx=mkC('c0',W,H);
+const N=250;let yMx=0;const pts=[];
+for(let i=0;i<=N;i++){const x=i/N;const yT=betaPDF(x,last.aT,last.bT),yC=betaPDF(x,last.aC,last.bC);pts.push({x,yT,yC});yMx=Math.max(yMx,yT,yC)}
+yMx*=1.15;
+axes(ctx,m,W,H,'Proporci\u00f3n','Densidad');grid(ctx,m,W,H,10,5,0,1,0,yMx);
+// Fill T
+ctx.fillStyle='rgba(26,86,219,.1)';ctx.beginPath();ctx.moveTo(txf(0,0,1,m.l,W-m.r),tyf(0,0,yMx,m.t,H-m.b));
+pts.forEach(p=>ctx.lineTo(txf(p.x,0,1,m.l,W-m.r),tyf(Math.min(p.yT,yMx),0,yMx,m.t,H-m.b)));
+ctx.lineTo(txf(1,0,1,m.l,W-m.r),tyf(0,0,yMx,m.t,H-m.b));ctx.fill();
+ctx.strokeStyle='#1a56db';ctx.lineWidth=2.5;ctx.beginPath();
+pts.forEach((p,i)=>{const px=txf(p.x,0,1,m.l,W-m.r),py=tyf(Math.min(p.yT,yMx),0,yMx,m.t,H-m.b);i===0?ctx.moveTo(px,py):ctx.lineTo(px,py)});ctx.stroke();
+// Fill C
+ctx.fillStyle='rgba(220,38,38,.08)';ctx.beginPath();ctx.moveTo(txf(0,0,1,m.l,W-m.r),tyf(0,0,yMx,m.t,H-m.b));
+pts.forEach(p=>ctx.lineTo(txf(p.x,0,1,m.l,W-m.r),tyf(Math.min(p.yC,yMx),0,yMx,m.t,H-m.b)));
+ctx.lineTo(txf(1,0,1,m.l,W-m.r),tyf(0,0,yMx,m.t,H-m.b));ctx.fill();
+ctx.strokeStyle='#dc2626';ctx.lineWidth=2.5;ctx.beginPath();
+pts.forEach((p,i)=>{const px=txf(p.x,0,1,m.l,W-m.r),py=tyf(Math.min(p.yC,yMx),0,yMx,m.t,H-m.b);i===0?ctx.moveTo(px,py):ctx.lineTo(px,py)});ctx.stroke();
+// Legend
+ctx.fillStyle='rgba(255,255,255,.9)';ctx.fillRect(W-m.r-150,m.t+5,140,42);ctx.strokeStyle='#e5e7eb';ctx.lineWidth=1;ctx.strokeRect(W-m.r-150,m.t+5,140,42);
+ctx.strokeStyle='#1a56db';ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(W-m.r-142,m.t+18);ctx.lineTo(W-m.r-122,m.t+18);ctx.stroke();
+ctx.fillStyle='#1a56db';ctx.font='600 10px Inter';ctx.textAlign='left';ctx.fillText('Post. Tratamiento',W-m.r-118,m.t+22);
+ctx.strokeStyle='#dc2626';ctx.beginPath();ctx.moveTo(W-m.r-142,m.t+34);ctx.lineTo(W-m.r-122,m.t+34);ctx.stroke();
+ctx.fillStyle='#dc2626';ctx.fillText('Post. Control',W-m.r-118,m.t+38);
+
+// Chart 2: Evolution
+const W2=580,H2=260,m2={t:28,r:30,b:45,l:50};
+ctx=mkC('c0b',W2,H2);
+axes(ctx,m2,W2,H2,'Fracci\u00f3n de informaci\u00f3n','P(T > C) %');grid(ctx,m2,W2,H2,5,5,0,1,0,100);
+// Reference lines
+ctx.setLineDash([4,4]);ctx.strokeStyle='rgba(5,150,105,.3)';ctx.lineWidth=1;
+[95,97.5].forEach(v=>{const y=tyf(v,0,100,m2.t,H2-m2.b);ctx.beginPath();ctx.moveTo(m2.l,y);ctx.lineTo(W2-m2.r,y);ctx.stroke()});
+ctx.strokeStyle='rgba(220,38,38,.3)';
+[5,10].forEach(v=>{const y=tyf(v,0,100,m2.t,H2-m2.b);ctx.beginPath();ctx.moveTo(m2.l,y);ctx.lineTo(W2-m2.r,y);ctx.stroke()});
+ctx.setLineDash([]);
+// Plot evolution
+ctx.strokeStyle='var(--p)';ctx.lineWidth=2.5;ctx.beginPath();
+results.forEach((r,i)=>{const px=txf(r.infoFrac,0,1,m2.l,W2-m2.r),py=tyf(r.prob*100,0,100,m2.t,H2-m2.b);i===0?ctx.moveTo(px,py):ctx.lineTo(px,py)});ctx.stroke();
+results.forEach(r=>{const px=txf(r.infoFrac,0,1,m2.l,W2-m2.r),py=tyf(r.prob*100,0,100,m2.t,H2-m2.b);
+ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(px,py,5,0,Math.PI*2);ctx.fill();
+ctx.fillStyle='var(--p)';ctx.beginPath();ctx.arc(px,py,4,0,Math.PI*2);ctx.fill();
+ctx.font='600 9px Inter';ctx.textAlign='center';ctx.fillText((r.prob*100).toFixed(1)+'%',px,py-10);
+});
+// PPoS line
+ctx.strokeStyle='var(--v)';ctx.lineWidth=1.5;ctx.setLineDash([3,3]);ctx.beginPath();
+results.forEach((r,i)=>{const px=txf(r.infoFrac,0,1,m2.l,W2-m2.r),py=tyf(r.ppos*100,0,100,m2.t,H2-m2.b);i===0?ctx.moveTo(px,py):ctx.lineTo(px,py)});ctx.stroke();ctx.setLineDash([]);
+results.forEach(r=>{const px=txf(r.infoFrac,0,1,m2.l,W2-m2.r),py=tyf(r.ppos*100,0,100,m2.t,H2-m2.b);
+ctx.fillStyle='var(--v)';ctx.beginPath();ctx.arc(px,py,3,0,Math.PI*2);ctx.fill()});
+// Legend
+ctx.fillStyle='rgba(255,255,255,.9)';ctx.fillRect(m2.l+8,m2.t+5,125,42);ctx.strokeStyle='#e5e7eb';ctx.lineWidth=1;ctx.strokeRect(m2.l+8,m2.t+5,125,42);
+ctx.strokeStyle='var(--p)';ctx.setLineDash([]);ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(m2.l+14,m2.t+18);ctx.lineTo(m2.l+34,m2.t+18);ctx.stroke();
+ctx.fillStyle='var(--p)';ctx.font='600 10px Inter';ctx.textAlign='left';ctx.fillText('P(T>C)',m2.l+38,m2.t+22);
+ctx.strokeStyle='var(--v)';ctx.lineWidth=1.5;ctx.setLineDash([3,3]);ctx.beginPath();ctx.moveTo(m2.l+14,m2.t+34);ctx.lineTo(m2.l+34,m2.t+34);ctx.stroke();ctx.setLineDash([]);
+ctx.fillStyle='var(--v)';ctx.fillText('PPoS',m2.l+38,m2.t+38);
+
+// Interpretation
+const i0=document.getElementById('i0');
+let cls='n';if(last.prob>.95)cls='ok';else if(last.prob<.1||last.ppos<.1)cls='er';else if(last.prob<.3)cls='w';
+i0.className='ip '+cls;
+i0.innerHTML='<strong>Interpretaci\u00f3n:</strong> Tras '+results.length+' an\u00e1lisis interino(s), con '+(last.nt+last.nc)+' pacientes de '+2*nplan+' planeados (fracci\u00f3n de informaci\u00f3n: '+(last.infoFrac*100).toFixed(0)+'%), la probabilidad posterior de superioridad del tratamiento es <strong>'+(last.prob*100).toFixed(1)+'%</strong>. '+
+'La diferencia media estimada es <strong>'+(last.md>0?'+':'')+(last.md*100).toFixed(1)+' pp</strong>. '+
+'La probabilidad predictiva de \u00e9xito al completar N='+nplan+' por grupo es <strong>'+(last.ppos*100).toFixed(1)+'%</strong>. '+
+(last.ppos<.1?'<br><br><strong>\u26a0 Futilidad predictiva:</strong> Con PPoS < 10%, la probabilidad de revertir el resultado actual es muy baja. Considere parada por futilidad.':'')+
+(last.prob>.975?'<br><br><strong>\u2705 Eficacia:</strong> La evidencia posterior excede el umbral del 97.5%. Considere parada temprana por eficacia tras consultar con el DSMB.':'');
+shR(0);
+});
+
+/* ============ M1: STOPPING BOUNDARIES ============ */
+function computeBounds(K,alpha,sfn,sfnFut,beta){
+const tf=[];for(let k=1;k<=K;k++)tf.push(k/K);
+// Spending
+const spEff=[],spFut=[];
+for(let k=0;k<K;k++){
+  const prev=k===0?0:sfn(tf[k-1],alpha);
+  spEff.push(sfn(tf[k],alpha)-prev);
+  const prevB=k===0?0:sfnFut(tf[k-1],beta);
+  spFut.push(sfnFut(tf[k],beta)-prevB);
+}
+// Compute boundaries via grid recursion
+const M=401,zMax=5.5,dz=2*zMax/M;
+let f=new Float64Array(M);
+for(let j=0;j<M;j++){const z=-zMax+(j+.5)*dz;f[j]=Math.exp(-z*z/2)/Math.sqrt(2*Math.PI)*dz}
+const effB=[],futB=[];
+for(let k=0;k<K;k++){
+  if(k>0){
+    const rho=Math.sqrt(tf[k-1]/tf[k]),sig=Math.sqrt(1-rho*rho);
+    const fn=new Float64Array(M);
+    for(let j=0;j<M;j++){const zk=-zMax+(j+.5)*dz;let s=0;for(let i=0;i<M;i++){const zi=-zMax+(i+.5)*dz;s+=f[i]*Math.exp(-(zk-rho*zi)*(zk-rho*zi)/(2*sig*sig))/(sig*Math.sqrt(2*Math.PI))}fn[j]=s*dz}
+    f=fn;
+  }
+  // Efficacy: find c such that P(|Z|>c, survived) = spEff[k]
+  let lo=0,hi=zMax;
+  for(let it=0;it<60;it++){const c=(lo+hi)/2;let p=0;for(let j=0;j<M;j++){const z=-zMax+(j+.5)*dz;if(Math.abs(z)>c)p+=f[j]}if(p>spEff[k])lo=c;else hi=c}
+  effB.push((lo+hi)/2);
+  // Futility: find c such that P(|Z|<c, survived) = spFut[k] - only for non-final
+  if(k<K-1){
+    lo=0;hi=zMax;
+    for(let it=0;it<60;it++){const c=(lo+hi)/2;let p=0;for(let j=0;j<M;j++){const z=-zMax+(j+.5)*dz;if(Math.abs(z)<c)p+=f[j]}if(p>spFut[k])hi=c;else lo=c}
+    futB.push((lo+hi)/2);
+  }else futB.push(0);
+  // Remove those crossing efficacy boundary
+  for(let j=0;j<M;j++){const z=-zMax+(j+.5)*dz;if(Math.abs(z)>effB[k])f[j]=0}
+  // Remove those crossing futility boundary (only non-final)
+  if(k<K-1)for(let j=0;j<M;j++){const z=-zMax+(j+.5)*dz;if(Math.abs(z)<futB[k])f[j]=0}
+}
+return{tf,effB,futB,spEff,spFut};
+}
+
+document.getElementById('f1').addEventListener('submit',function(e){
+e.preventDefault();
+const K=parseInt(document.getElementById('m1k').value);
+const alpha=parseFloat(document.getElementById('m1a').value);
+const sfType=document.getElementById('m1sf').value;
+const gamma=parseFloat(document.getElementById('m1g').value);
+const inclFut=document.getElementById('m1fut').checked;
+const power=parseFloat(document.getElementById('m1pw').value);
+const beta=1-power;
+
+let sfn;
+if(sfType==='obf')sfn=spendOBF;
+else if(sfType==='poc')sfn=spendPoc;
+else sfn=(t,a)=>spendHSD(t,a,gamma);
+
+const sfnFut=spendOBF; // Use OBF for futility beta spending
+const res=computeBounds(K,alpha,sfn,sfnFut,beta);
+
+// Table
+let html='<table class="tl"><tr><th>Look</th><th>Info frac.</th><th>Z eficacia</th><th>p nominal</th>';
+if(inclFut)html+='<th>Z futilidad</th>';
+html+='<th>Gasto &alpha;</th></tr>';
+for(let k=0;k<K;k++){
+  html+='<tr><td>'+(k+1)+'</td><td>'+(res.tf[k]*100).toFixed(0)+'%</td><td>'+res.effB[k].toFixed(4)+'</td><td>'+(2*(1-phi(res.effB[k]))).toFixed(5)+'</td>';
+  if(inclFut)html+='<td>'+(k<K-1?res.futB[k].toFixed(4):'\u2014')+'</td>';
+  html+='<td>'+res.spEff[k].toFixed(5)+'</td></tr>';
+}
+html+='</table>';
+document.getElementById('t1').innerHTML=html;
+
+// Chart
+const W=580,H=320,mg={t:30,r:30,b:45,l:50};
+const ctx=mkC('c1',W,H);
+axes(ctx,mg,W,H,'Fracci\u00f3n de informaci\u00f3n','Estad\u00edstico Z');
+const yMin=inclFut?-0.5:0,yMax2=Math.max(...res.effB)*1.15;
+grid(ctx,mg,W,H,K,5,0,1,yMin,yMax2);
+
+// Efficacy boundary
+ctx.strokeStyle='#059669';ctx.lineWidth=2.5;ctx.beginPath();
+res.tf.forEach((t,k)=>{const x=txf(t,0,1,mg.l,W-mg.r),y=tyf(res.effB[k],yMin,yMax2,mg.t,H-mg.b);k===0?ctx.moveTo(x,y):ctx.lineTo(x,y)});ctx.stroke();
+res.tf.forEach((t,k)=>{const x=txf(t,0,1,mg.l,W-mg.r),y=tyf(res.effB[k],yMin,yMax2,mg.t,H-mg.b);
+ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(x,y,5,0,Math.PI*2);ctx.fill();
+ctx.fillStyle='#059669';ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);ctx.fill();
+ctx.font='600 9px Inter';ctx.textAlign='center';ctx.fillText(res.effB[k].toFixed(2),x,y-10)});
+
+// Efficacy fill
+ctx.fillStyle='rgba(5,150,105,.06)';ctx.beginPath();
+ctx.moveTo(txf(res.tf[0],0,1,mg.l,W-mg.r),tyf(yMax2,yMin,yMax2,mg.t,H-mg.b));
+res.tf.forEach((t,k)=>ctx.lineTo(txf(t,0,1,mg.l,W-mg.r),tyf(res.effB[k],yMin,yMax2,mg.t,H-mg.b)));
+ctx.lineTo(txf(res.tf[K-1],0,1,mg.l,W-mg.r),tyf(yMax2,yMin,yMax2,mg.t,H-mg.b));ctx.fill();
+
+// Futility boundary
+if(inclFut){
+ctx.strokeStyle='#dc2626';ctx.lineWidth=2;ctx.setLineDash([4,4]);ctx.beginPath();
+for(let k=0;k<K-1;k++){const x=txf(res.tf[k],0,1,mg.l,W-mg.r),y=tyf(res.futB[k],yMin,yMax2,mg.t,H-mg.b);k===0?ctx.moveTo(x,y):ctx.lineTo(x,y)}
+ctx.stroke();ctx.setLineDash([]);
+for(let k=0;k<K-1;k++){const x=txf(res.tf[k],0,1,mg.l,W-mg.r),y=tyf(res.futB[k],yMin,yMax2,mg.t,H-mg.b);
+ctx.fillStyle='#dc2626';ctx.beginPath();ctx.arc(x,y,3,0,Math.PI*2);ctx.fill();
+ctx.font='600 9px Inter';ctx.fillText(res.futB[k].toFixed(2),x,y+14)}
+// Fill futility
+ctx.fillStyle='rgba(220,38,38,.04)';ctx.beginPath();
+ctx.moveTo(txf(res.tf[0],0,1,mg.l,W-mg.r),tyf(yMin,yMin,yMax2,mg.t,H-mg.b));
+for(let k=0;k<K-1;k++)ctx.lineTo(txf(res.tf[k],0,1,mg.l,W-mg.r),tyf(res.futB[k],yMin,yMax2,mg.t,H-mg.b));
+ctx.lineTo(txf(res.tf[K-2],0,1,mg.l,W-mg.r),tyf(yMin,yMin,yMax2,mg.t,H-mg.b));ctx.fill();
+}
+
+// Legend
+const lx=W-mg.r-150,ly=mg.t+6;
+ctx.fillStyle='rgba(255,255,255,.92)';ctx.fillRect(lx-6,ly-2,148,inclFut?42:24);ctx.strokeStyle='#e5e7eb';ctx.lineWidth=1;ctx.strokeRect(lx-6,ly-2,148,inclFut?42:24);
+ctx.strokeStyle='#059669';ctx.lineWidth=2.5;ctx.setLineDash([]);ctx.beginPath();ctx.moveTo(lx,ly+8);ctx.lineTo(lx+20,ly+8);ctx.stroke();
+ctx.fillStyle='#059669';ctx.font='600 10px Inter';ctx.textAlign='left';ctx.fillText('Frontera eficacia',lx+24,ly+12);
+if(inclFut){ctx.strokeStyle='#dc2626';ctx.lineWidth=2;ctx.setLineDash([4,4]);ctx.beginPath();ctx.moveTo(lx,ly+26);ctx.lineTo(lx+20,ly+26);ctx.stroke();ctx.setLineDash([]);
+ctx.fillStyle='#dc2626';ctx.fillText('Frontera futilidad',lx+24,ly+30)}
+ctx.fillStyle='#6b7280';ctx.font='600 10px Inter';ctx.textAlign='center';ctx.fillText('Fronteras de parada - '+(sfType==='obf'?"O'Brien-Fleming":sfType==='poc'?'Pocock':'HSD(\u03b3='+gamma+')'),W/2,15);
+
+// Interpretation
+const i1=document.getElementById('i1');
+i1.className='ip n';
+i1.innerHTML='<strong>Interpretaci\u00f3n:</strong> Con '+K+' an\u00e1lisis planificados ('+
+(K-1)+' interinos + 1 final) y \u03b1 global='+alpha+', la funci\u00f3n de gasto '+(sfType==='obf'?"O'Brien-Fleming":sfType==='poc'?'Pocock':'HSD(\u03b3='+gamma+')')+
+' distribuye el error tipo I de la siguiente manera:<br><br>'+
+res.tf.map((t,k)=>'<strong>Look '+(k+1)+'</strong> (info='+(t*100).toFixed(0)+'%): frontera z='+res.effB[k].toFixed(3)+', p nominal='+(2*(1-phi(res.effB[k]))).toFixed(5)+
+(inclFut&&k<K-1?', futilidad z='+res.futB[k].toFixed(3):'')).join('<br>')+
+'<br><br>'+
+(sfType==='obf'?'La frontera O\'Brien-Fleming es muy conservadora en los an\u00e1lisis tempranos (exige evidencia muy fuerte) y se relaja hacia el an\u00e1lisis final, preservando casi toda la potencia del dise\u00f1o.':
+sfType==='poc'?'La frontera Pocock usa umbrales casi id\u00e9nticos en cada an\u00e1lisis, gastando alfa de manera uniforme. Esto facilita la parada temprana pero reduce ligeramente la potencia en el an\u00e1lisis final.':
+'La familia HSD con \u03b3='+gamma+(gamma<0?' es conservadora (similar a OBF)':gamma>0?' es m\u00e1s agresiva (similar a Pocock)':' gasta alfa linealmente')+'.');
+shR(1);
+});
+
+/* ============ M2: SAMPLE SIZE RE-ESTIMATION ============ */
+document.getElementById('f2').addEventListener('submit',function(e){
+e.preventDefault();clE('f2');
+const et=vI('m2et',0),nt=vI('m2nt',1),ec=vI('m2ec',0),nc=vI('m2nc',1);
+const no=vI('m2no',2),d0=vF('m2d0',.001,.99);
+if([et,nt,ec,nc,no,d0].some(v=>v===null))return;
+if(et>nt||ec>nc){alert('\u00c9xitos no pueden superar N');return}
+const alpha=parseFloat(document.getElementById('m2al').value);
+const targetPow=parseFloat(document.getElementById('m2pw').value);
+const za=phiInv(1-alpha/2);
+const pT=et/nt,pC=ec/nc,dObs=pT-pC;
+const tFrac=(nt+nc)/(2*no);
+
+// Conditional power under observed effect
+function condPow(nNew,delta){
+  const zCurr=dObs/Math.sqrt(pT*(1-pT)/nt+pC*(1-pC)/nc);
+  const rem=nNew-nt;if(rem<=0)return dObs>0&&zCurr>za?1:0;
+  const info1=1/(pT*(1-pT)/nt+pC*(1-pC)/nc);
+  const pTf=(pC+delta),pCf=pC;
+  const info2=1/(pTf*(1-pTf)/rem+pCf*(1-pCf)/rem);
+  const infoT=info1+info2;
+  const drift=delta*Math.sqrt(infoT);
+  const bound=za;
+  const zShift=(zCurr*Math.sqrt(info1)+delta*Math.sqrt(info2)*Math.sqrt(info2/infoT)*Math.sqrt(infoT))/Math.sqrt(infoT);
+  // Simplified: CP ≈ Φ(Z_curr * √(t) + δ*√(N_new*(1-t)) / SE - z_α * √?)
+  // Use the standard formula: CP = 1 - Φ(z_α*√(N/N_new) - Z_interim*√(n_interim/N_new) - δ*√(N_remaining)/SE)
+  // More practical: direct MC estimate
+  let success=0;const SIM=20000;
+  for(let i=0;i<SIM;i++){
+    const remT=rem,remC=rem;
+    let fET=et,fEC=ec;
+    const trueT=pC+delta,trueC=pC;
+    for(let j=0;j<remT;j++)if(Math.random()<trueT)fET++;
+    for(let j=0;j<remC;j++)if(Math.random()<trueC)fEC++;
+    const fPT=fET/(nt+remT),fPC=fEC/(nc+remC);
+    const fSE=Math.sqrt(fPT*(1-fPT)/(nt+remT)+fPC*(1-fPC)/(nc+remC));
+    if(fSE>0&&(fPT-fPC)/fSE>za)success++;
+  }
+  return success/SIM;
+}
+
+const cpObs=condPow(no,dObs);
+const cpPlan=condPow(no,d0);
+
+// Bayesian predictive power (PPoS)
+let ppos=0;const PM=30000;
+const aT=1+et,bT=1+(nt-et),aC=1+ec,bC=1+(nc-ec);
+for(let i=0;i<PM;i++){
+  const thetaT=rB(aT,bT),thetaC=rB(aC,bC);
+  const rem=no-nt;if(rem<=0)continue;
+  let fET=et,fEC=ec;
+  for(let j=0;j<rem;j++){if(Math.random()<thetaT)fET++;if(Math.random()<thetaC)fEC++}
+  const fPT=fET/(nt+rem),fPC=fEC/(nc+rem);
+  const fSE=Math.sqrt(fPT*(1-fPT)/(nt+rem)+fPC*(1-fPC)/(nc+rem));
+  if(fSE>0&&(fPT-fPC)/fSE>za)ppos++;
+}
+ppos/=PM;
+
+// Promising zone analysis (Mehta & Pocock)
+let zone='',zoneClass='ne';
+if(cpObs>.8){zone='Zona favorable: potencia condicional alta. N original suficiente.';zoneClass='ok'}
+else if(cpObs>.36){zone='Zona prometedora: considerar aumentar N para alcanzar potencia objetivo.';zoneClass='w'}
+else if(cpObs>.1){zone='Zona desfavorable: aumento de N requerido ser\u00eda muy grande.';zoneClass='w'}
+else{zone='Zona de futilidad: muy baja probabilidad de \u00e9xito.';zoneClass='er'}
+
+// Find N for target power under observed effect
+let nTarget=no;
+if(cpObs<targetPow&&cpObs>.05){
+  for(let n=nt+10;n<=no*4;n+=5){const cp=condPow(n,dObs);if(cp>=targetPow){nTarget=n;break}}
+  if(nTarget===no&&cpObs<targetPow)nTarget=no*4;
+}
+
+met(2,[
+  {l:'PC observada (efecto obs.)',v:(cpObs*100).toFixed(1)+'%',c:cpObs>.8?'var(--ok)':cpObs>.36?'var(--w)':'var(--er)'},
+  {l:'PC (efecto dise\u00f1o)',v:(cpPlan*100).toFixed(1)+'%',c:cpPlan>.8?'var(--ok)':'var(--w)',i:'\u03b4\u2080 = '+d0.toFixed(2)},
+  {l:'PPoS bayesiana',v:(ppos*100).toFixed(1)+'%',c:ppos>.6?'var(--ok)':ppos>.2?'var(--w)':'var(--er)'},
+  {l:'Efecto observado',v:(dObs>0?'+':'')+dObs.toFixed(3),c:'var(--g7)',s:'1.1rem',i:pT.toFixed(3)+' vs '+pC.toFixed(3)},
+  {l:'Info. fracci\u00f3n',v:(tFrac*100).toFixed(0)+'%',c:'var(--v)',s:'1.1rem'},
+  {l:'N recomendado/grupo',v:nTarget>no*3.5?'>'+no*4:nTarget.toString(),c:'var(--p)',s:'1.3rem',i:cpObs>=targetPow?'N original suficiente':'Para PC \u2265 '+(targetPow*100)+'%'}
+]);
+
+const d2=document.getElementById('d2');
+d2.innerHTML='<span class="bg '+zoneClass+'">'+zone+'</span>';
+
+// Chart: CP vs N
+const W=580,H=300,mg={t:28,r:25,b:45,l:50};
+const ctx=mkC('c2',W,H);
+axes(ctx,mg,W,H,'N por grupo','Potencia condicional (%)');
+const nMin=nt,nMax=Math.max(no*2,nTarget*1.3,nt+20);
+grid(ctx,mg,W,H,5,5,nMin,nMax,0,100);
+
+// Reference lines
+ctx.setLineDash([4,4]);ctx.strokeStyle='rgba(217,119,6,.4)';ctx.lineWidth=1;
+[80,90].forEach(v=>{const y=tyf(v,0,100,mg.t,H-mg.b);ctx.beginPath();ctx.moveTo(mg.l,y);ctx.lineTo(W-mg.r,y);ctx.stroke();
+ctx.fillStyle='#d97706';ctx.font='600 9px Inter';ctx.textAlign='left';ctx.fillText(v+'%',W-mg.r+3,y+3)});
+ctx.setLineDash([]);
+
+// Promising zone fill
+const z36y=tyf(36,0,100,mg.t,H-mg.b),z80y=tyf(80,0,100,mg.t,H-mg.b);
+ctx.fillStyle='rgba(217,119,6,.06)';ctx.fillRect(mg.l,z80y,W-mg.l-mg.r,z36y-z80y);
+ctx.fillStyle='#d97706';ctx.font='600 9px Inter';ctx.textAlign='left';ctx.fillText('Zona prometedora',mg.l+5,z36y-4);
+
+// CP curve (observed effect)
+const steps=40;
+ctx.strokeStyle='var(--p)';ctx.lineWidth=2.5;ctx.beginPath();
+for(let i=0;i<=steps;i++){
+  const n=nMin+(nMax-nMin)*i/steps;
+  const cp=condPow(Math.round(n),dObs)*100;
+  const x=txf(n,nMin,nMax,mg.l,W-mg.r),y=tyf(Math.min(cp,100),0,100,mg.t,H-mg.b);
+  i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+}ctx.stroke();
+
+// CP curve (design effect)
+ctx.strokeStyle='var(--v)';ctx.lineWidth=1.8;ctx.setLineDash([5,5]);ctx.beginPath();
+for(let i=0;i<=steps;i++){
+  const n=nMin+(nMax-nMin)*i/steps;
+  const cp=condPow(Math.round(n),d0)*100;
+  const x=txf(n,nMin,nMax,mg.l,W-mg.r),y=tyf(Math.min(cp,100),0,100,mg.t,H-mg.b);
+  i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+}ctx.stroke();ctx.setLineDash([]);
+
+// Current N marker
+const xN=txf(no,nMin,nMax,mg.l,W-mg.r);
+ctx.strokeStyle='rgba(26,86,219,.3)';ctx.setLineDash([3,3]);ctx.lineWidth=1;
+ctx.beginPath();ctx.moveTo(xN,mg.t);ctx.lineTo(xN,H-mg.b);ctx.stroke();ctx.setLineDash([]);
+ctx.fillStyle='var(--p)';ctx.beginPath();ctx.arc(xN,tyf(cpObs*100,0,100,mg.t,H-mg.b),5,0,Math.PI*2);ctx.fill();
+ctx.font='700 10px Inter';ctx.textAlign='center';ctx.fillText('N='+no,xN,H-mg.b+30);
+
+// Legend
+ctx.fillStyle='rgba(255,255,255,.9)';ctx.fillRect(W-mg.r-170,mg.t+5,162,42);ctx.strokeStyle='#e5e7eb';ctx.lineWidth=1;ctx.strokeRect(W-mg.r-170,mg.t+5,162,42);
+ctx.setLineDash([]);ctx.strokeStyle='var(--p)';ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(W-mg.r-162,mg.t+18);ctx.lineTo(W-mg.r-142,mg.t+18);ctx.stroke();
+ctx.fillStyle='var(--p)';ctx.font='600 9px Inter';ctx.textAlign='left';ctx.fillText('CP (efecto observado)',W-mg.r-138,mg.t+22);
+ctx.setLineDash([5,5]);ctx.strokeStyle='var(--v)';ctx.lineWidth=1.8;ctx.beginPath();ctx.moveTo(W-mg.r-162,mg.t+34);ctx.lineTo(W-mg.r-142,mg.t+34);ctx.stroke();ctx.setLineDash([]);
+ctx.fillStyle='var(--v)';ctx.fillText('CP (efecto dise\u00f1o)',W-mg.r-138,mg.t+38);
+
+const i2=document.getElementById('i2');
+i2.className='ip '+(zoneClass==='ok'?'ok':zoneClass==='er'?'er':'w');
+i2.innerHTML='<strong>An\u00e1lisis de rec\u00e1lculo:</strong> Con '+nt+' pacientes por grupo reclutados (fracci\u00f3n: '+(tFrac*100).toFixed(0)+'%), el efecto observado es '+(dObs>0?'+':'')+dObs.toFixed(3)+' vs el efecto de dise\u00f1o de '+d0.toFixed(3)+'. '+
+'<br><br><strong>Potencia condicional:</strong> Bajo el efecto observado, la PC es <strong>'+(cpObs*100).toFixed(1)+'%</strong>. Bajo el efecto de dise\u00f1o, es <strong>'+(cpPlan*100).toFixed(1)+'%</strong>. '+
+'La PPoS bayesiana es <strong>'+(ppos*100).toFixed(1)+'%</strong>.'+
+'<br><br><strong>Zona Mehta-Pocock:</strong> '+zone+
+(cpObs<targetPow&&cpObs>.1?' Se necesitar\u00edan aproximadamente <strong>'+(nTarget>no*3.5?'m\u00e1s de '+no*4:nTarget)+' pacientes por grupo</strong> para alcanzar '+(targetPow*100)+'% de potencia condicional bajo el efecto observado.':'')+
+(cpObs<=.1?'<br><br>\u26a0 <strong>Considerar parada por futilidad.</strong> El aumento de N requerido ser\u00eda impracticable.':'');
+shR(2);
+});
+
+/* ============ M3: PREDICTIVE PROBABILITY ============ */
+document.getElementById('f3').addEventListener('submit',function(e){
+e.preventDefault();clE('f3');
+const et=vI('m3et',0),nt=vI('m3nt',1),ec=vI('m3ec',0),nc=vI('m3nc',1);
+const nmin=vI('m3nmin',2),nmax=vI('m3nmax',2);
+if([et,nt,ec,nc,nmin,nmax].some(v=>v===null))return;
+if(et>nt||ec>nc){alert('\u00c9xitos > N');return}
+if(nmin<nt||nmin<nc){alert('N m\u00edn debe ser \u2265 N actual');return}
+const thresh=parseFloat(document.getElementById('m3cr').value);
+const alpha=parseFloat(document.getElementById('m3al').value);
+const za=phiInv(1-alpha/2);
+
+const aT=1+et,bT=1+(nt-et),aC=1+ec,bC=1+(nc-ec);
+const SIM=25000;
+
+// PPoS at different N values
+const nSteps=30;
+const nVals=[],pposVals=[];
+for(let s=0;s<=nSteps;s++){
+  const nf=Math.round(nmin+(nmax-nmin)*s/nSteps);
+  nVals.push(nf);
+  let success=0;
+  for(let i=0;i<SIM;i++){
+    const thetaT=rB(aT,bT),thetaC=rB(aC,bC);
+    const remT=nf-nt,remC=nf-nc;
+    let fET=et+rBinom(Math.max(0,remT),thetaT);
+    let fEC=ec+rBinom(Math.max(0,remC),thetaC);
+    const faT=1+fET,fbT=1+(nf-fET),faC=1+fEC,fbC=1+(nf-fEC);
+    // Check Bayesian criterion P(T>C) > threshold
+    let sup=0;const innerMC=500;
+    for(let j=0;j<innerMC;j++)if(rB(faT,fbT)>rB(faC,fbC))sup++;
+    if(sup/innerMC>thresh)success++;
+  }
+  pposVals.push(success/SIM);
+}
+
+// Find N where PPoS crosses key thresholds
+let n80=null,n60=null,n40=null;
+for(let s=0;s<nVals.length;s++){
+  if(!n40&&pposVals[s]>=.4)n40=nVals[s];
+  if(!n60&&pposVals[s]>=.6)n60=nVals[s];
+  if(!n80&&pposVals[s]>=.8)n80=nVals[s];
+}
+
+const midIdx=Math.round(nSteps/2);
+const pposMid=pposVals[midIdx];
+const ppMax=Math.max(...pposVals);
+
+met(3,[
+  {l:'PPoS m\u00e1xima',v:(ppMax*100).toFixed(1)+'%',c:ppMax>.6?'var(--ok)':ppMax>.3?'var(--w)':'var(--er)',i:'en N='+nVals[pposVals.indexOf(ppMax)]},
+  {l:'PPoS en N='+nVals[midIdx],v:(pposMid*100).toFixed(1)+'%',c:pposMid>.6?'var(--ok)':pposMid>.3?'var(--w)':'var(--er)'},
+  {l:'N para PPoS\u226580%',v:n80?n80.toString():'> '+nmax,c:n80?'var(--ok)':'var(--er)',s:'1.2rem'},
+  {l:'N para PPoS\u226560%',v:n60?n60.toString():'> '+nmax,c:n60?'var(--ok)':'var(--w)',s:'1.2rem'},
+  {l:'Criterio',v:'P(T>C) > '+(thresh*100).toFixed(1)+'%',c:'var(--g6)',s:'.85rem'},
+  {l:'Datos actuales',v:et+'/'+nt+' vs '+ec+'/'+nc,c:'var(--g6)',s:'.85rem'}
+]);
+
+// Chart
+const W=580,H=300,mg={t:28,r:25,b:45,l:50};
+const ctx=mkC('c3',W,H);
+axes(ctx,mg,W,H,'N final por grupo','PPoS (%)');
+grid(ctx,mg,W,H,5,5,nmin,nmax,0,100);
+
+// Reference lines
+ctx.setLineDash([4,4]);ctx.lineWidth=1;
+[{v:80,c:'#059669'},{v:60,c:'#d97706'},{v:40,c:'#dc2626'}].forEach(r=>{
+  ctx.strokeStyle=r.c+'66';const y=tyf(r.v,0,100,mg.t,H-mg.b);
+  ctx.beginPath();ctx.moveTo(mg.l,y);ctx.lineTo(W-mg.r,y);ctx.stroke();
+  ctx.fillStyle=r.c;ctx.font='600 9px Inter';ctx.textAlign='left';ctx.fillText(r.v+'%',W-mg.r+3,y+3)
+});ctx.setLineDash([]);
+
+// Fill under curve
+ctx.fillStyle='rgba(26,86,219,.08)';ctx.beginPath();
+ctx.moveTo(txf(nVals[0],nmin,nmax,mg.l,W-mg.r),tyf(0,0,100,mg.t,H-mg.b));
+nVals.forEach((n,i)=>ctx.lineTo(txf(n,nmin,nmax,mg.l,W-mg.r),tyf(pposVals[i]*100,0,100,mg.t,H-mg.b)));
+ctx.lineTo(txf(nVals[nVals.length-1],nmin,nmax,mg.l,W-mg.r),tyf(0,0,100,mg.t,H-mg.b));ctx.fill();
+
+// PPoS curve
+ctx.strokeStyle='var(--p)';ctx.lineWidth=2.5;ctx.beginPath();
+nVals.forEach((n,i)=>{const x=txf(n,nmin,nmax,mg.l,W-mg.r),y=tyf(pposVals[i]*100,0,100,mg.t,H-mg.b);i===0?ctx.moveTo(x,y):ctx.lineTo(x,y)});ctx.stroke();
+
+// Dots
+nVals.forEach((n,i)=>{if(i%5===0||i===nVals.length-1){
+const x=txf(n,nmin,nmax,mg.l,W-mg.r),y=tyf(pposVals[i]*100,0,100,mg.t,H-mg.b);
+ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);ctx.fill();
+ctx.fillStyle='var(--p)';ctx.beginPath();ctx.arc(x,y,3,0,Math.PI*2);ctx.fill()}});
+
+ctx.fillStyle='#6b7280';ctx.font='600 10px Inter';ctx.textAlign='center';
+ctx.fillText('PPoS vs Tama\u00f1o muestral final (criterio: P(T>C) > '+(thresh*100)+'%)',W/2,15);
+
+const i3=document.getElementById('i3');
+const maxPPoS=ppMax;
+i3.className='ip '+(maxPPoS>.6?'ok':maxPPoS>.3?'w':'er');
+i3.innerHTML='<strong>An\u00e1lisis de probabilidad predictiva:</strong> Con los datos actuales ('+et+'/'+nt+' vs '+ec+'/'+nc+'), se evalu\u00f3 la probabilidad de que el estudio demuestre superioridad (P(T>C) > '+(thresh*100)+'%) bajo diferentes tama\u00f1os muestrales finales.'+
+'<br><br>La PPoS m\u00e1xima alcanzable es <strong>'+(maxPPoS*100).toFixed(1)+'%</strong> en N='+nVals[pposVals.indexOf(maxPPoS)]+' por grupo. '+
+(n80?'Se necesitan al menos <strong>'+n80+' pacientes por grupo</strong> para alcanzar PPoS \u2265 80%. ':'No se alcanza PPoS \u2265 80% en el rango evaluado. ')+
+(maxPPoS<.2?'<br><br>\u26a0 <strong>Alerta de futilidad:</strong> La PPoS es consistentemente baja. La informaci\u00f3n actual sugiere que es improbable demostrar superioridad independientemente del tama\u00f1o muestral.':
+maxPPoS<.5?'<br><br>\u26a0 Se recomienda precauci\u00f3n. La PPoS moderada-baja sugiere que el efecto observado puede ser insuficiente.':'');
+shR(3);
+});
+
+/* ============ M4: PRIOR SENSITIVITY ============ */
+const SENS_PRIORS=[
+{a:1,b:1,ac:1,bc:1,n:'No informativa Beta(1,1)',col:'#1a56db'},
+{a:.5,b:.5,ac:.5,bc:.5,n:'Jeffreys Beta(0.5,0.5)',col:'#7c3aed'},
+{a:1,b:3,ac:1,bc:1,n:'Esc\u00e9ptica leve Beta(1,3)',col:'#d97706'},
+{a:1,b:5,ac:1,bc:1,n:'Esc\u00e9ptica fuerte Beta(1,5)',col:'#dc2626'},
+{a:3,b:1,ac:1,bc:1,n:'Optimista Beta(3,1)',col:'#059669'},
+{a:5,b:5,ac:5,bc:5,n:'Informativa centrada Beta(5,5)',col:'#0891b2'}
+];
+
+document.getElementById('f4').addEventListener('submit',function(e){
+e.preventDefault();clE('f4');
+const et=vI('m4et',0),nt=vI('m4nt',1),ec=vI('m4ec',0),nc=vI('m4nc',1);
+if([et,nt,ec,nc].some(v=>v===null))return;
+if(et>nt||ec>nc){alert('\u00c9xitos > N');return}
+
+const results=[];
+for(const pr of SENS_PRIORS){
+  const aT=pr.a+et,bT=pr.b+(nt-et);
+  const aC=pr.ac+ec,bC=pr.bc+(nc-ec);
+  let sup=0,ds=0,diffs=[];
+  for(let i=0;i<MC;i++){const pt=rB(aT,bT),pc=rB(aC,bC);const d=pt-pc;ds+=d;diffs.push(d);if(pt>pc)sup++}
+  diffs.sort((a,b)=>a-b);
+  const prob=sup/MC,md=ds/MC;
+  const ci025=diffs[Math.floor(MC*.025)],ci975=diffs[Math.floor(MC*.975)];
+  // Effective prior sample size
+  const ess=pr.a+pr.b;
+  results.push({...pr,aT,bT,aC,bC,prob,md,ci025,ci975,ess});
+}
+
+// Table
+let html='<table class="tl"><tr><th>Prior</th><th>ESS</th><th>P(T&gt;C)</th><th>Dif. media</th><th>IC 95% cre\u00edble</th></tr>';
+results.forEach(r=>{
+  html+='<tr><td style="text-align:left;font-size:.72rem"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:'+r.col+';margin-right:5px"></span>'+r.n+'</td><td>'+r.ess+'</td><td style="font-weight:700;color:'+(r.prob>.95?'var(--ok)':r.prob<.1?'var(--er)':'var(--p)')+'">'+(r.prob*100).toFixed(1)+'%</td><td>'+(r.md>0?'+':'')+(r.md*100).toFixed(1)+'pp</td><td>['+(r.ci025*100).toFixed(1)+', '+(r.ci975*100).toFixed(1)+']</td></tr>';
+});
+html+='</table>';
+document.getElementById('t4').innerHTML=html;
+
+// Robustness assessment
+const probs=results.map(r=>r.prob);
+const probRange=Math.max(...probs)-Math.min(...probs);
+const allAgree=probs.every(p=>p>.95)||probs.every(p=>p<.05);
+const robust=probRange<.1;
+
+// Chart: Overlay of posterior densities for treatment effect (difference)
+const W=580,H=320,mg={t:28,r:20,b:45,l:50};
+const ctx=mkC('c4',W,H);
+// Generate PDFs of treatment proportion under each prior
+const N=250;let yMx=0;
+const allPts=results.map(r=>{
+  const pts=[];for(let i=0;i<=N;i++){const x=i/N;const y=betaPDF(x,r.aT,r.bT);pts.push({x,y});yMx=Math.max(yMx,y)}return pts;
+});
+yMx*=1.15;
+axes(ctx,mg,W,H,'Proporci\u00f3n tratamiento','Densidad posterior');grid(ctx,mg,W,H,10,5,0,1,0,yMx);
+
+allPts.forEach((pts,idx)=>{
+  ctx.strokeStyle=results[idx].col;ctx.lineWidth=2;ctx.globalAlpha=.8;ctx.beginPath();
+  pts.forEach((p,i)=>{const px=txf(p.x,0,1,mg.l,W-mg.r),py=tyf(Math.min(p.y,yMx),0,yMx,mg.t,H-mg.b);i===0?ctx.moveTo(px,py):ctx.lineTo(px,py)});
+  ctx.stroke();ctx.globalAlpha=1;
+});
+
+// Legend
+const lx=W-mg.r-185,ly=mg.t+5;
+ctx.fillStyle='rgba(255,255,255,.94)';ctx.fillRect(lx-6,ly-2,183,results.length*14+8);ctx.strokeStyle='#e5e7eb';ctx.lineWidth=1;ctx.strokeRect(lx-6,ly-2,183,results.length*14+8);
+results.forEach((r,i)=>{
+  ctx.strokeStyle=r.col;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(lx,ly+i*14+8);ctx.lineTo(lx+16,ly+i*14+8);ctx.stroke();
+  ctx.fillStyle=r.col;ctx.font='600 8.5px Inter';ctx.textAlign='left';ctx.fillText(r.n,lx+20,ly+i*14+11);
+});
+
+const i4=document.getElementById('i4');
+i4.className='ip '+(allAgree&&robust?'ok':robust?'n':'w');
+i4.innerHTML='<strong>An\u00e1lisis de sensibilidad al prior:</strong> Se evalu\u00f3 la posterior bajo '+results.length+' distribuciones a priori diferentes, desde no informativas hasta fuertemente esc\u00e9pticas.'+
+'<br><br>El rango de P(T>C) va de <strong>'+(Math.min(...probs)*100).toFixed(1)+'%</strong> a <strong>'+(Math.max(...probs)*100).toFixed(1)+'%</strong> (amplitud: '+(probRange*100).toFixed(1)+' pp).'+
+'<br><br>'+(robust?'<strong>\u2705 Las conclusiones son robustas.</strong> La elecci\u00f3n del prior tiene un impacto m\u00ednimo ('+(probRange*100).toFixed(1)+' pp de variaci\u00f3n). Esto sugiere que los datos dominan la inferencia.':
+'<strong>\u26a0 Las conclusiones son sensibles al prior.</strong> La variaci\u00f3n de '+(probRange*100).toFixed(1)+' pp indica que los datos no son suficientes para dominar la informaci\u00f3n a priori. Se recomienda reclutar m\u00e1s pacientes o justificar la elecci\u00f3n del prior.')+
+'<br><br>El tama\u00f1o muestral efectivo del prior (ESS) indica cu\u00e1ntos pacientes "virtuales" aporta cada prior. Con N='+nt+', priors con ESS \u2264 '+(Math.round(nt*.1))+' son efectivamente no informativas.';
+shR(4);
+});
+
+/* ============ M5: OC SIMULATOR ============ */
+document.getElementById('f5').addEventListener('submit',function(e){
+e.preventDefault();clE('f5');
+const nMax=vI('m5n',10);const K=parseInt(document.getElementById('m5k').value);
+const pC=vF('m5pc',.01,.99);const alpha=parseFloat(document.getElementById('m5al').value);
+const sfType=document.getElementById('m5sf').value;const NSIM=parseInt(document.getElementById('m5ns').value);
+if(nMax===null||pC===null)return;
+
+document.getElementById('m5btn').textContent='Simulando...';document.getElementById('m5btn').disabled=true;
+
+setTimeout(function(){
+const sfn=sfType==='obf'?spendOBF:spendPoc;
+
+// Compute boundaries
+const tf=[];for(let k=1;k<=K;k++)tf.push(k/K);
+const sp=[];for(let k=0;k<K;k++){const prev=k===0?0:sfn(tf[k-1],alpha);sp.push(sfn(tf[k],alpha)-prev)}
+// Simplified boundaries (OBF approx)
+const bounds=[];
+if(sfType==='obf'){const c=phiInv(1-alpha/2);for(let k=0;k<K;k++)bounds.push(c/Math.sqrt(tf[k]))}
+else{// Pocock: equal boundaries, use first spending approximation
+  // Solve via bisection for constant c
+  let lo=1,hi=5;
+  for(let it=0;it<50;it++){const c=(lo+hi)/2;let totAlpha=0;for(let k=0;k<K;k++)totAlpha+=2*(1-phi(c));if(totAlpha>alpha)lo=c;else hi=c}
+  const c=(lo+hi)/2;for(let k=0;k<K;k++)bounds.push(c);
+}
+
+// Scenarios: delta from -0.05 to 0.30
+const deltas=[];for(let d=-5;d<=30;d+=2.5)deltas.push(d/100);
+const ocResults=[];
+
+for(const delta of deltas){
+  const pT=Math.max(.001,Math.min(.999,pC+delta));
+  let nReject=0,nFutile=0,sumN=0,nEarlyEff=0;
+  
+  for(let sim=0;sim<NSIM;sim++){
+    let stopped=false,rejected=false;
+    let eT=0,eC=0;
+    
+    for(let k=0;k<K;k++){
+      const nk=Math.round(nMax*tf[k]);
+      const prevN=k===0?0:Math.round(nMax*tf[k-1]);
+      const newPats=nk-prevN;
+      
+      // Generate new data
+      for(let j=0;j<newPats;j++){if(Math.random()<pT)eT++;if(Math.random()<pC)eC++}
+      
+      // Test statistic
+      const pThat=eT/nk,pChat=eC/nk;
+      const pPool=(eT+eC)/(2*nk);
+      const se=Math.sqrt(2*pPool*(1-pPool)/nk);
+      const z=se>0?(pThat-pChat)/se:0;
+      
+      if(Math.abs(z)>bounds[k]){
+        stopped=true;rejected=true;nEarlyEff+=(k<K-1)?1:0;
+        sumN+=2*nk;break;
+      }
+      
+      // Futility check (non-binding): CP < 5%
+      if(k<K-1){
+        const rem=nMax-nk;
+        const drift=delta*Math.sqrt(2*nMax);
+        const cp=1-phi((bounds[K-1]*Math.sqrt(2*nMax)-z*Math.sqrt(2*nk)-drift*Math.sqrt(rem/nMax)*0)/Math.sqrt(2*rem));
+        // Simplified: just check if z is very negative
+        if(z<0&&Math.abs(z)>1){stopped=true;nFutile++;sumN+=2*nk;break}
+      }
+    }
+    if(!stopped){sumN+=2*nMax;if(rejected)nReject++}
+    else if(rejected)nReject++;
+  }
+  
+  ocResults.push({
+    delta,pT,
+    power:nReject/NSIM,
+    expN:sumN/NSIM,
+    pEarlyEff:nEarlyEff/NSIM,
+    pEarlyFut:nFutile/NSIM
+  });
+}
+
+// Find type I error (delta=0)
+const nullResult=ocResults.find(r=>Math.abs(r.delta)<.001);
+
+// Table
+let html='<table class="tl"><tr><th>&delta;</th><th>p<sub>T</sub></th><th>Potencia</th><th>E[N]</th><th>P(parada efic.)</th><th>P(parada fut.)</th></tr>';
+ocResults.forEach(r=>{
+  const isNull=Math.abs(r.delta)<.001;
+  html+='<tr'+(isNull?' style="background:var(--pl)"':'')+'><td>'+(r.delta>=0?'+':'')+r.delta.toFixed(3)+'</td><td>'+r.pT.toFixed(3)+'</td><td style="font-weight:700;color:'+(isNull?(r.power>alpha*1.5?'var(--er)':'var(--ok)'):(r.power>.8?'var(--ok)':'var(--g6)'))+'">'+
+  (r.power*100).toFixed(1)+'%</td><td>'+Math.round(r.expN)+'</td><td>'+(r.pEarlyEff*100).toFixed(1)+'%</td><td>'+(r.pEarlyFut*100).toFixed(1)+'%</td></tr>';
+});
+html+='</table>';
+document.getElementById('t5').innerHTML=html;
+
+// Chart 1: Power curve
+const W=580,H=300,mg={t:28,r:25,b:45,l:50};
+let ctx=mkC('c5',W,H);
+const dMin=deltas[0],dMax=deltas[deltas.length-1];
+axes(ctx,mg,W,H,'Efecto verdadero (\u03b4 = p_T - p_C)','Potencia (%)');grid(ctx,mg,W,H,7,5,dMin,dMax,0,100);
+
+// Alpha line
+ctx.setLineDash([4,4]);ctx.strokeStyle='rgba(220,38,38,.4)';ctx.lineWidth=1;
+const yAlpha=tyf(alpha*100,0,100,mg.t,H-mg.b);
+ctx.beginPath();ctx.moveTo(mg.l,yAlpha);ctx.lineTo(W-mg.r,yAlpha);ctx.stroke();
+ctx.fillStyle='#dc2626';ctx.font='600 9px Inter';ctx.textAlign='left';ctx.fillText('\u03b1='+alpha,W-mg.r+3,yAlpha+3);
+// 80% line
+const y80=tyf(80,0,100,mg.t,H-mg.b);
+ctx.strokeStyle='rgba(217,119,6,.4)';ctx.beginPath();ctx.moveTo(mg.l,y80);ctx.lineTo(W-mg.r,y80);ctx.stroke();
+ctx.fillStyle='#d97706';ctx.fillText('80%',W-mg.r+3,y80+3);
+ctx.setLineDash([]);
+
+// Null line
+const xNull=txf(0,dMin,dMax,mg.l,W-mg.r);
+ctx.strokeStyle='rgba(107,114,128,.2)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(xNull,mg.t);ctx.lineTo(xNull,H-mg.b);ctx.stroke();
+
+// Fill under curve
+ctx.fillStyle='rgba(26,86,219,.08)';ctx.beginPath();
+ctx.moveTo(txf(dMin,dMin,dMax,mg.l,W-mg.r),tyf(0,0,100,mg.t,H-mg.b));
+ocResults.forEach(r=>ctx.lineTo(txf(r.delta,dMin,dMax,mg.l,W-mg.r),tyf(r.power*100,0,100,mg.t,H-mg.b)));
+ctx.lineTo(txf(dMax,dMin,dMax,mg.l,W-mg.r),tyf(0,0,100,mg.t,H-mg.b));ctx.fill();
+
+// Power curve
+ctx.strokeStyle='var(--p)';ctx.lineWidth=2.5;ctx.beginPath();
+ocResults.forEach((r,i)=>{const x=txf(r.delta,dMin,dMax,mg.l,W-mg.r),y=tyf(r.power*100,0,100,mg.t,H-mg.b);i===0?ctx.moveTo(x,y):ctx.lineTo(x,y)});ctx.stroke();
+
+ocResults.forEach((r,i)=>{if(i%2===0){const x=txf(r.delta,dMin,dMax,mg.l,W-mg.r),y=tyf(r.power*100,0,100,mg.t,H-mg.b);
+ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);ctx.fill();
+ctx.fillStyle='var(--p)';ctx.beginPath();ctx.arc(x,y,3,0,Math.PI*2);ctx.fill()}});
+
+ctx.fillStyle='#6b7280';ctx.font='600 10px Inter';ctx.textAlign='center';
+ctx.fillText('Curva de potencia - '+NSIM+' simulaciones por escenario',W/2,15);
+
+// Chart 2: Expected N
+const W2=580,H2=260,m2={t:28,r:25,b:45,l:55};
+ctx=mkC('c5b',W2,H2);
+const maxExpN=Math.max(...ocResults.map(r=>r.expN))*1.1;
+axes(ctx,m2,W2,H2,'Efecto verdadero (\u03b4)','E[N] total');grid(ctx,m2,W2,H2,7,5,dMin,dMax,0,maxExpN);
+
+// Fixed N reference
+ctx.setLineDash([4,4]);ctx.strokeStyle='rgba(107,114,128,.4)';ctx.lineWidth=1;
+const yFixed=tyf(2*nMax,0,maxExpN,m2.t,H2-m2.b);
+ctx.beginPath();ctx.moveTo(m2.l,yFixed);ctx.lineTo(W2-m2.r,yFixed);ctx.stroke();
+ctx.fillStyle='#6b7280';ctx.font='600 9px Inter';ctx.textAlign='left';ctx.fillText('N fijo='+2*nMax,W2-m2.r+3,yFixed+3);
+ctx.setLineDash([]);
+
+ctx.fillStyle='rgba(124,58,237,.08)';ctx.beginPath();
+ctx.moveTo(txf(dMin,dMin,dMax,m2.l,W2-m2.r),tyf(0,0,maxExpN,m2.t,H2-m2.b));
+ocResults.forEach(r=>ctx.lineTo(txf(r.delta,dMin,dMax,m2.l,W2-m2.r),tyf(r.expN,0,maxExpN,m2.t,H2-m2.b)));
+ctx.lineTo(txf(dMax,dMin,dMax,m2.l,W2-m2.r),tyf(0,0,maxExpN,m2.t,H2-m2.b));ctx.fill();
+
+ctx.strokeStyle='var(--v)';ctx.lineWidth=2.5;ctx.beginPath();
+ocResults.forEach((r,i)=>{const x=txf(r.delta,dMin,dMax,m2.l,W2-m2.r),y=tyf(r.expN,0,maxExpN,m2.t,H2-m2.b);i===0?ctx.moveTo(x,y):ctx.lineTo(x,y)});ctx.stroke();
+
+ocResults.forEach((r,i)=>{if(i%2===0){const x=txf(r.delta,dMin,dMax,m2.l,W2-m2.r),y=tyf(r.expN,0,maxExpN,m2.t,H2-m2.b);
+ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);ctx.fill();
+ctx.fillStyle='var(--v)';ctx.beginPath();ctx.arc(x,y,3,0,Math.PI*2);ctx.fill()}});
+
+ctx.fillStyle='#6b7280';ctx.font='600 10px Inter';ctx.textAlign='center';
+ctx.fillText('Tama\u00f1o muestral esperado (adaptativo vs fijo)',W2/2,15);
+
+// Interpretation
+const i5=document.getElementById('i5');
+const typeI=nullResult?nullResult.power:0;
+const typeIOk=typeI<=alpha*1.2;
+i5.className='ip '+(typeIOk?'ok':'er');
+i5.innerHTML='<strong>Caracter\u00edsticas operativas del dise\u00f1o:</strong> Se simularon '+NSIM+' ensayos bajo cada escenario con N m\u00e1ximo='+nMax+' por grupo, '+K+' an\u00e1lisis y fronteras '+(sfType==='obf'?"O'Brien-Fleming":'Pocock')+'.'+
+'<br><br><strong>Error tipo I:</strong> '+(typeI*100).toFixed(1)+'% (nominal: '+(alpha*100)+'%). '+(typeIOk?'\u2705 Controlado correctamente.':'\u26a0 Posible inflaci\u00f3n del error tipo I.')+
+'<br><br><strong>Ahorro muestral:</strong> El dise\u00f1o adaptativo permite ahorrar pacientes cuando el efecto es grande (parada temprana por eficacia) o nulo (parada por futilidad). '+
+'El E[N] bajo H0 es <strong>'+(nullResult?Math.round(nullResult.expN):'-')+'</strong> vs '+2*nMax+' fijo ('+(nullResult?((1-nullResult.expN/(2*nMax))*100).toFixed(0):'-')+'% ahorro potencial).'+
+'<br><br><strong>Potencia:</strong> '+ocResults.filter(r=>r.delta>.05).map(r=>'\u03b4='+r.delta.toFixed(2)+': '+(r.power*100).toFixed(0)+'%').join(' | ');
+
+document.getElementById('m5btn').textContent='Ejecutar Simulaci\u00f3n';
+document.getElementById('m5btn').disabled=false;
+shR(5);
+},50);
+});
+
+})();
 </script>
 </body>
 </html>

@@ -1,0 +1,1870 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ClinTrialSuite">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#1e3a5f">
+    <meta name="description" content="Suite educativa de evaluación estadística de ensayos clínicos. Auditoría, sensibilidad y metodología.">
+    <title>ClinTrialSuite — Evaluación de Ensayos Clínicos</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
+    <link rel="apple-touch-icon" href="icon.svg">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', system-ui, sans-serif; }
+        body { background: #f0f4f8; }
+
+        .tab-btn { transition: all 0.2s ease; position: relative; }
+        .tab-btn.active { color: #1e40af; border-bottom: 3px solid #1e40af; background: #eff6ff; }
+        .tab-btn:hover:not(.active) { background: #f8fafc; color: #3b82f6; }
+        .tab-content { display: none; animation: fadeIn 0.3s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+        .alert { border-radius: 8px; padding: 12px 16px; margin-bottom: 8px; display: flex; align-items: flex-start; gap: 10px; font-size: 0.875rem; line-height: 1.5; }
+        .alert-error { background: #fef2f2; border-left: 4px solid #ef4444; color: #991b1b; }
+        .alert-warning { background: #fffbeb; border-left: 4px solid #f59e0b; color: #92400e; }
+        .alert-success { background: #f0fdf4; border-left: 4px solid #22c55e; color: #166534; }
+        .alert-info { background: #eff6ff; border-left: 4px solid #3b82f6; color: #1e40af; }
+
+        .hm-cell {
+            width: 56px; height: 40px; text-align: center; font-size: 0.7rem;
+            font-weight: 600; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s;
+            border-radius: 4px; line-height: 40px; position: relative;
+        }
+        .hm-cell:hover { transform: scale(1.18); box-shadow: 0 4px 14px rgba(0,0,0,0.25); z-index: 10; }
+
+        .tooltip-container { position: relative; }
+        .tooltip-box {
+            display: none; position: absolute; bottom: 115%; left: 50%; transform: translateX(-50%);
+            background: #1e293b; color: white; padding: 8px 12px; border-radius: 8px;
+            font-size: 0.75rem; white-space: nowrap; z-index: 100; pointer-events: none;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+        }
+        .tooltip-box::after {
+            content: ''; position: absolute; top: 100%; left: 50%; margin-left: -5px;
+            border-width: 5px; border-style: solid; border-color: #1e293b transparent transparent transparent;
+        }
+        .hm-cell:hover .tooltip-box { display: block; }
+
+        .input-field {
+            border: 1.5px solid #cbd5e1; border-radius: 8px; padding: 8px 12px;
+            font-size: 0.875rem; transition: border-color 0.2s, box-shadow 0.2s; width: 100%;
+            background: white;
+        }
+        .input-field:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.15); }
+        .input-field.invalid { border-color: #ef4444; box-shadow: 0 0 0 3px rgba(239,68,68,0.12); }
+
+        .card {
+            background: white; border-radius: 12px; padding: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+            border: 1px solid #e2e8f0;
+        }
+
+        .metric-badge {
+            display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px;
+            border-radius: 20px; font-size: 0.85rem; font-weight: 600;
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none; width: 100%; height: 6px; border-radius: 3px;
+            background: #e2e8f0; outline: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%;
+            background: #3b82f6; cursor: pointer; box-shadow: 0 2px 6px rgba(59,130,246,0.4);
+        }
+
+        .audit-table { width: 100%; border-collapse: separate; border-spacing: 0; }
+        .audit-table th { background: #f1f5f9; font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; color: #475569; }
+        .audit-table th, .audit-table td { padding: 10px 14px; text-align: center; border-bottom: 1px solid #e2e8f0; }
+        .audit-table tr:hover td { background: #f8fafc; }
+
+        .csv-area {
+            font-family: 'Courier New', monospace; font-size: 0.85rem;
+            border: 1.5px solid #cbd5e1; border-radius: 8px; padding: 12px;
+            width: 100%; min-height: 120px; resize: vertical; background: #f8fafc;
+        }
+        .csv-area:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.15); }
+
+        .method-note {
+            background: #fefce8; border: 1px solid #fde68a; border-radius: 8px;
+            padding: 10px 14px; font-size: 0.78rem; color: #713f12; margin-top: 8px;
+        }
+
+        @media print { .no-print { display: none !important; } }
+
+        @media (max-width: 768px) {
+            .hm-cell { width: 38px; height: 32px; font-size: 0.55rem; line-height: 32px; }
+            .tab-btn { font-size: 0.68rem; padding: 10px 6px; }
+            .card { padding: 16px; }
+            .manual-content h2 { font-size: 1.2rem; }
+            body { padding-bottom: env(safe-area-inset-bottom, 0); }
+        }
+
+        @media (max-width: 480px) {
+            .hm-cell { width: 30px; height: 28px; font-size: 0.5rem; line-height: 28px; }
+            .tab-btn { font-size: 0.62rem; padding: 8px 4px; letter-spacing: -0.02em; }
+            .card { padding: 12px; border-radius: 10px; }
+            .metric-badge { font-size: 0.75rem; padding: 4px 10px; }
+            .audit-table th, .audit-table td { padding: 6px 8px; font-size: 0.7rem; }
+        }
+
+        /* PWA Animations */
+        @keyframes slideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes slideDown {
+            from { transform: translateY(0); opacity: 1; }
+            to { transform: translateY(100%); opacity: 0; }
+        }
+        @keyframes slideDown2 {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translate(-50%, 10px); }
+            to { opacity: 1; transform: translate(-50%, 0); }
+        }
+        @keyframes fadeOutDown {
+            from { opacity: 1; transform: translate(-50%, 0); }
+            to { opacity: 0; transform: translate(-50%, 10px); }
+        }
+
+        /* Standalone mode (installed PWA) */
+        @media (display-mode: standalone) {
+            header { padding-top: env(safe-area-inset-top, 0); }
+            body { -webkit-user-select: none; user-select: none; }
+            .card, .input-field, .csv-area, .audit-table td { -webkit-user-select: text; user-select: text; }
+        }
+
+        /* Touch improvements */
+        @media (hover: none) and (pointer: coarse) {
+            .tab-btn { min-height: 48px; }
+            button { min-height: 44px; }
+            .input-field { min-height: 44px; font-size: 16px !important; }
+            select.input-field { min-height: 44px; font-size: 16px !important; }
+            input[type="range"] { height: 8px; }
+            input[type="range"]::-webkit-slider-thumb { width: 26px; height: 26px; }
+            .hm-cell { min-width: 36px; min-height: 36px; }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- HEADER -->
+    <header class="bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center text-xl font-bold shadow" aria-hidden="true">CT</div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight">ClinTrialSuite</h1>
+                    <p class="text-blue-300 text-xs font-medium">Suite de Evaluación de Ensayos Clínicos v3.0</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 text-xs">
+                <span class="bg-amber-500/20 text-amber-300 px-3 py-1.5 rounded-full font-medium border border-amber-500/30">
+                    Herramienta educativa
+                </span>
+                <a href="manual.html" target="_blank" class="no-print bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 px-3 py-1.5 rounded-lg transition font-medium border border-blue-500/30" aria-label="Abrir manual de usuario">
+                    Manual de Usuario
+                </a>
+                <button onclick="exportAllCSV()" class="no-print bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition font-medium" aria-label="Exportar resultados a CSV">
+                    Exportar CSV
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Disclaimer -->
+    <div class="bg-amber-50 border-b border-amber-200 no-print" role="alert">
+        <div class="max-w-7xl mx-auto px-4 py-2 text-xs text-amber-800">
+            <strong>Aviso regulatorio:</strong> Herramienta exclusivamente educativa. No sustituye revisión completa de datos clínicos para decisiones regulatorias (FDA, EMA, ANVISA). Cálculos basados en aproximaciones asintóticas — validar con software certificado (SAS, R, Stata).
+        </div>
+    </div>
+
+    <!-- TABS -->
+    <nav class="max-w-7xl mx-auto px-4 mt-6 no-print" aria-label="Módulos de análisis">
+        <div class="flex border-b border-gray-200 bg-white rounded-t-xl overflow-hidden shadow-sm">
+            <button class="tab-btn active flex-1 py-3.5 px-4 font-semibold text-sm" onclick="switchTab('module1', this)" aria-selected="true" role="tab">
+                Módulo 1: Auditoría Estadística
+            </button>
+            <button class="tab-btn flex-1 py-3.5 px-4 font-semibold text-sm" onclick="switchTab('module2', this)" aria-selected="false" role="tab">
+                Módulo 2: Sensibilidad Inferencial
+            </button>
+            <button class="tab-btn flex-1 py-3.5 px-4 font-semibold text-sm" onclick="switchTab('module3', this)" aria-selected="false" role="tab">
+                Módulo 3: Metodología y Limitaciones
+            </button>
+        </div>
+    </nav>
+
+    <!-- ===== MODULE 1: STATFORENSICS ===== -->
+    <div id="module1" class="tab-content active">
+        <div class="max-w-7xl mx-auto px-4 py-6 space-y-6">
+
+            <div class="card">
+                <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-5">
+                    <div>
+                        <h2 class="text-lg font-bold text-slate-800">Datos del Ensayo Clínico</h2>
+                        <p class="text-sm text-slate-500 mt-1">Ingrese datos reportados para verificar consistencia estadística</p>
+                    </div>
+                    <div class="flex gap-2 no-print">
+                        <button onclick="setInputMode('form')" id="btn-form" class="px-4 py-2 text-xs font-semibold rounded-lg bg-blue-100 text-blue-700 border border-blue-200 transition hover:bg-blue-200">Formulario</button>
+                        <button onclick="setInputMode('csv')" id="btn-csv" class="px-4 py-2 text-xs font-semibold rounded-lg bg-gray-100 text-gray-600 border border-gray-200 transition hover:bg-gray-200">CSV / Texto</button>
+                    </div>
+                </div>
+
+                <!-- Outcome type -->
+                <div class="flex flex-wrap gap-4 mb-5">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="outcomeType" value="binary" checked onchange="toggleOutcomeType()" class="accent-blue-600">
+                        <span class="text-sm font-medium text-slate-700">Desenlace Binario (proporciones)</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="outcomeType" value="continuous" onchange="toggleOutcomeType()" class="accent-blue-600">
+                        <span class="text-sm font-medium text-slate-700">Desenlace Continuo (medias)</span>
+                    </label>
+                </div>
+
+                <!-- FORM -->
+                <div id="input-form">
+                    <!-- Binary inputs -->
+                    <div id="binary-inputs">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+                            <div class="bg-blue-50 rounded-xl p-4 border border-blue-100">
+                                <h3 class="font-semibold text-blue-800 text-sm mb-3">Brazo Tratamiento</h3>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div>
+                                        <label class="text-xs font-medium text-slate-600 mb-1 block">Nombre</label>
+                                        <input type="text" id="arm1_name" value="Tratamiento A" class="input-field text-sm">
+                                    </div>
+                                    <div>
+                                        <label class="text-xs font-medium text-slate-600 mb-1 block">n (tamaño)</label>
+                                        <input type="number" id="arm1_n" value="50" min="1" class="input-field text-sm" oninput="validateInputs()">
+                                    </div>
+                                    <div>
+                                        <label class="text-xs font-medium text-slate-600 mb-1 block">Eventos</label>
+                                        <input type="number" id="arm1_events" value="30" min="0" class="input-field text-sm" oninput="validateInputs()">
+                                    </div>
+                                    <div>
+                                        <label class="text-xs font-medium text-slate-600 mb-1 block">Proporción</label>
+                                        <input type="text" id="arm1_prop" value="" class="input-field text-sm bg-gray-50" placeholder="auto" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-emerald-50 rounded-xl p-4 border border-emerald-100">
+                                <h3 class="font-semibold text-emerald-800 text-sm mb-3">Brazo Control</h3>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div>
+                                        <label class="text-xs font-medium text-slate-600 mb-1 block">Nombre</label>
+                                        <input type="text" id="arm2_name" value="Control" class="input-field text-sm">
+                                    </div>
+                                    <div>
+                                        <label class="text-xs font-medium text-slate-600 mb-1 block">n (tamaño)</label>
+                                        <input type="number" id="arm2_n" value="50" min="1" class="input-field text-sm" oninput="validateInputs()">
+                                    </div>
+                                    <div>
+                                        <label class="text-xs font-medium text-slate-600 mb-1 block">Eventos</label>
+                                        <input type="number" id="arm2_events" value="20" min="0" class="input-field text-sm" oninput="validateInputs()">
+                                    </div>
+                                    <div>
+                                        <label class="text-xs font-medium text-slate-600 mb-1 block">Proporción</label>
+                                        <input type="text" id="arm2_prop" value="" class="input-field text-sm bg-gray-50" placeholder="auto" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Continuous inputs -->
+                    <div id="continuous-inputs" style="display:none;">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+                            <div class="bg-blue-50 rounded-xl p-4 border border-blue-100">
+                                <h3 class="font-semibold text-blue-800 text-sm mb-3">Brazo Tratamiento</h3>
+                                <div class="grid grid-cols-3 gap-3">
+                                    <div><label class="text-xs font-medium text-slate-600 mb-1 block">n</label><input type="number" id="arm1c_n" value="50" min="2" class="input-field text-sm"></div>
+                                    <div><label class="text-xs font-medium text-slate-600 mb-1 block">Media</label><input type="number" id="arm1c_mean" value="12.5" step="0.1" class="input-field text-sm"></div>
+                                    <div><label class="text-xs font-medium text-slate-600 mb-1 block">DE (SD)</label><input type="number" id="arm1c_sd" value="4.2" step="0.1" min="0.01" class="input-field text-sm"></div>
+                                </div>
+                            </div>
+                            <div class="bg-emerald-50 rounded-xl p-4 border border-emerald-100">
+                                <h3 class="font-semibold text-emerald-800 text-sm mb-3">Brazo Control</h3>
+                                <div class="grid grid-cols-3 gap-3">
+                                    <div><label class="text-xs font-medium text-slate-600 mb-1 block">n</label><input type="number" id="arm2c_n" value="50" min="2" class="input-field text-sm"></div>
+                                    <div><label class="text-xs font-medium text-slate-600 mb-1 block">Media</label><input type="number" id="arm2c_mean" value="10.8" step="0.1" class="input-field text-sm"></div>
+                                    <div><label class="text-xs font-medium text-slate-600 mb-1 block">DE (SD)</label><input type="number" id="arm2c_sd" value="3.9" step="0.1" min="0.01" class="input-field text-sm"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reported values -->
+                    <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 mb-4">
+                        <h3 class="font-semibold text-slate-700 text-sm mb-3">Valores Reportados en la Publicación</h3>
+                        <div id="reported-binary" class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                            <div>
+                                <label class="text-xs font-medium text-slate-600 mb-1 block">OR reportado</label>
+                                <input type="number" id="rep_or" value="1.5" step="0.01" class="input-field text-sm">
+                            </div>
+                            <div>
+                                <label class="text-xs font-medium text-slate-600 mb-1 block">IC 95% Inferior</label>
+                                <input type="number" id="rep_ci_low" value="1.1" step="0.01" class="input-field text-sm" oninput="validateCIOrder()">
+                            </div>
+                            <div>
+                                <label class="text-xs font-medium text-slate-600 mb-1 block">IC 95% Superior</label>
+                                <input type="number" id="rep_ci_high" value="1.9" step="0.01" class="input-field text-sm" oninput="validateCIOrder()">
+                            </div>
+                            <div>
+                                <label class="text-xs font-medium text-slate-600 mb-1 block">p-valor reportado</label>
+                                <input type="number" id="rep_pval" value="0.045" step="0.001" min="0" max="1" class="input-field text-sm">
+                            </div>
+                        </div>
+                        <div id="reported-continuous" style="display:none;" class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                            <div>
+                                <label class="text-xs font-medium text-slate-600 mb-1 block">Dif. medias reportada</label>
+                                <input type="number" id="rep_meandiff" value="1.7" step="0.1" class="input-field text-sm">
+                            </div>
+                            <div>
+                                <label class="text-xs font-medium text-slate-600 mb-1 block">IC 95% Inferior</label>
+                                <input type="number" id="rep_ci_low_c" value="0.1" step="0.1" class="input-field text-sm">
+                            </div>
+                            <div>
+                                <label class="text-xs font-medium text-slate-600 mb-1 block">IC 95% Superior</label>
+                                <input type="number" id="rep_ci_high_c" value="3.3" step="0.1" class="input-field text-sm">
+                            </div>
+                            <div>
+                                <label class="text-xs font-medium text-slate-600 mb-1 block">p-valor reportado</label>
+                                <input type="number" id="rep_pval_c" value="0.038" step="0.001" min="0" max="1" class="input-field text-sm">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chi-square method -->
+                    <div class="mb-4">
+                        <label class="flex items-center gap-2 text-xs text-slate-600">
+                            <input type="checkbox" id="useYates" class="accent-blue-600">
+                            <span>Aplicar corrección de continuidad de Yates (recomendado para n &lt; 40 por celda)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- CSV -->
+                <div id="input-csv" style="display:none;">
+                    <div class="mb-4">
+                        <label class="text-xs font-medium text-slate-600 mb-2 block">Pegue datos CSV (acepta headers en español o inglés):</label>
+                        <textarea id="csv-input" class="csv-area" placeholder="brazo,n,eventos,OR_reportado,IC_low,IC_high,p_valor
+Tratamiento,50,30,1.5,1.1,1.9,0.045
+Control,50,20,,,,">brazo,n,eventos,OR_reportado,IC_low,IC_high,p_valor
+Tratamiento,50,30,1.5,1.1,1.9,0.045
+Control,50,20,,,,</textarea>
+                        <button onclick="parseCSVInput()" class="mt-2 px-4 py-2 bg-blue-600 text-white text-xs font-semibold rounded-lg hover:bg-blue-700 transition">
+                            Importar CSV
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Validation messages -->
+                <div id="validation-msg" class="mb-3"></div>
+
+                <!-- Actions -->
+                <div class="flex flex-wrap gap-3 no-print">
+                    <button onclick="runAudit()" id="btn-audit" class="px-6 py-2.5 bg-blue-600 text-white font-semibold text-sm rounded-xl hover:bg-blue-700 transition shadow-md shadow-blue-200">
+                        Ejecutar Auditoría
+                    </button>
+                    <button onclick="loadBinaryExample()" class="px-4 py-2.5 bg-slate-100 text-slate-700 font-medium text-sm rounded-xl hover:bg-slate-200 transition border border-slate-200">
+                        Ejemplo Binario
+                    </button>
+                    <button onclick="loadContinuousExample()" class="px-4 py-2.5 bg-slate-100 text-slate-700 font-medium text-sm rounded-xl hover:bg-slate-200 transition border border-slate-200">
+                        Ejemplo Continuo
+                    </button>
+                    <button onclick="clearAudit()" class="px-4 py-2.5 bg-red-50 text-red-600 font-medium text-sm rounded-xl hover:bg-red-100 transition border border-red-200">
+                        Limpiar
+                    </button>
+                </div>
+            </div>
+
+            <!-- RESULTS -->
+            <div id="audit-results" style="display:none;">
+                <div id="audit-alerts" class="space-y-2 mb-6"></div>
+
+                <!-- Metrics -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                    <div class="card text-center" id="metric-or">
+                        <p class="text-xs text-slate-500 font-medium uppercase tracking-wide mb-1">Odds Ratio Calculado</p>
+                        <p class="text-3xl font-bold text-slate-800" id="val-or">—</p>
+                        <p class="text-xs text-slate-400 mt-1" id="sub-or"></p>
+                    </div>
+                    <div class="card text-center" id="metric-ci">
+                        <p class="text-xs text-slate-500 font-medium uppercase tracking-wide mb-1">IC 95% Calculado</p>
+                        <p class="text-3xl font-bold text-slate-800" id="val-ci">—</p>
+                        <p class="text-xs text-slate-400 mt-1" id="sub-ci"></p>
+                    </div>
+                    <div class="card text-center" id="metric-pval">
+                        <p class="text-xs text-slate-500 font-medium uppercase tracking-wide mb-1">p-valor Calculado</p>
+                        <p class="text-3xl font-bold text-slate-800" id="val-pval">—</p>
+                        <p class="text-xs text-slate-400 mt-1" id="sub-pval"></p>
+                    </div>
+                    <div class="card text-center">
+                        <p class="text-xs text-slate-500 font-medium uppercase tracking-wide mb-1">NNT</p>
+                        <p class="text-3xl font-bold text-indigo-600" id="val-nnt">—</p>
+                        <p class="text-xs text-slate-400 mt-1" id="sub-nnt">Número necesario a tratar</p>
+                    </div>
+                    <div class="card text-center">
+                        <p class="text-xs text-slate-500 font-medium uppercase tracking-wide mb-1">Potencia Post-Hoc</p>
+                        <p class="text-3xl font-bold text-purple-600" id="val-power">—</p>
+                        <p class="text-xs text-amber-600 mt-1 font-medium" id="sub-power">Precaución: ver nota metodológica</p>
+                    </div>
+                    <div class="card text-center">
+                        <p class="text-xs text-slate-500 font-medium uppercase tracking-wide mb-1">Índice de Fragilidad</p>
+                        <p class="text-3xl font-bold text-amber-600" id="val-fragility">—</p>
+                        <p class="text-xs text-slate-400 mt-1">Eventos para perder significancia</p>
+                    </div>
+                </div>
+
+                <!-- Post-hoc power warning -->
+                <div class="method-note mb-4 no-print" id="posthoc-warning" style="display:none;">
+                    <strong>Nota sobre potencia post-hoc:</strong> La potencia calculada a partir del efecto observado es una transformación directa del p-valor y no aporta información independiente (Hoenig & Heisey, 2001). Un p-valor significativo siempre producirá potencia >50%. Para planificación de estudios futuros, use cálculos de potencia a priori con el efecto mínimo clínicamente relevante.
+                </div>
+
+                <!-- Comparison Table -->
+                <div class="card mb-6">
+                    <h3 class="font-bold text-slate-800 mb-4">Comparación: Reportado vs Calculado</h3>
+                    <div class="overflow-x-auto">
+                        <table class="audit-table">
+                            <thead>
+                                <tr><th>Parámetro</th><th>Reportado</th><th>Calculado</th><th>Diferencia</th><th>Tolerancia</th><th>Estado</th></tr>
+                            </thead>
+                            <tbody id="comparison-tbody"></tbody>
+                        </table>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-3 italic">Tolerancias: OR ±15% relativo | IC ±0.3 absoluto | p-valor ±0.5 en escala log₁₀. Umbrales basados en variabilidad esperada entre métodos de cálculo (Wald vs exacto vs perfil).</p>
+                </div>
+
+                <!-- Charts: separated correctly -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <div class="card">
+                        <h3 class="font-bold text-slate-800 mb-2">Efecto: Reportado vs Calculado</h3>
+                        <p class="text-xs text-slate-500 mb-3">Medida de efecto e intervalos de confianza (escalas separadas)</p>
+                        <canvas id="effectCompareChart" height="280"></canvas>
+                    </div>
+                    <div class="card">
+                        <h3 class="font-bold text-slate-800 mb-2">Diagrama de Efecto con IC 95%</h3>
+                        <p class="text-xs text-slate-500 mb-3">Línea punteada roja = nulidad (OR=1 o Dif=0)</p>
+                        <canvas id="forestChart" height="280"></canvas>
+                    </div>
+                </div>
+
+                <!-- p-value chart separated -->
+                <div class="card mb-6">
+                    <h3 class="font-bold text-slate-800 mb-2">p-valores: Reportado vs Calculado</h3>
+                    <p class="text-xs text-slate-500 mb-3">Escala propia — línea roja = α = 0.05</p>
+                    <div style="max-width:500px; margin:0 auto;">
+                        <canvas id="pvalCompareChart" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MODULE 2: SENSITIVITY ===== -->
+    <div id="module2" class="tab-content">
+        <div class="max-w-7xl mx-auto px-4 py-6 space-y-6">
+
+            <div class="card">
+                <div class="mb-5">
+                    <h2 class="text-lg font-bold text-slate-800">Parámetros del Análisis de Sensibilidad</h2>
+                    <p class="text-sm text-slate-500 mt-1">Explore la robustez de la conclusión bajo diferentes supuestos</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div>
+                        <label class="text-xs font-semibold text-slate-600 mb-2 block">Riesgo Relativo (RR) observado</label>
+                        <input type="range" id="sens_rr" min="0.5" max="3.0" step="0.05" value="1.5" oninput="debouncedSensitivity(this)">
+                        <div class="flex justify-between text-xs text-slate-400 mt-1">
+                            <span>0.5</span><span class="font-bold text-blue-600 text-sm" id="lbl_rr">1.50</span><span>3.0</span>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-xs font-semibold text-slate-600 mb-2 block">Riesgo basal (control)</label>
+                        <input type="range" id="sens_p0" min="0.05" max="0.80" step="0.01" value="0.20" oninput="debouncedSensitivity(this)">
+                        <div class="flex justify-between text-xs text-slate-400 mt-1">
+                            <span>5%</span><span class="font-bold text-blue-600 text-sm" id="lbl_p0">0.20</span><span>80%</span>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-xs font-semibold text-slate-600 mb-2 block">Nivel α (significancia)</label>
+                        <select id="sens_alpha" class="input-field text-sm" onchange="runSensitivityIfVisible()">
+                            <option value="0.01">0.01 (estricto)</option>
+                            <option value="0.025">0.025 (unilateral)</option>
+                            <option value="0.05" selected>0.05 (convencional)</option>
+                            <option value="0.10">0.10 (exploratorio)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-xs font-semibold text-slate-600 mb-2 block">Tipo de análisis</label>
+                        <select id="sens_analysis" class="input-field text-sm" onchange="runSensitivityIfVisible()">
+                            <option value="ITT">Intención de tratar (ITT)</option>
+                            <option value="PP">Por protocolo (PP)</option>
+                        </select>
+                        <p class="text-xs text-slate-400 mt-1">ITT diluye efecto por factor ajustable | PP usa efecto completo</p>
+                    </div>
+                    <div>
+                        <label class="text-xs font-semibold text-slate-600 mb-2 block">Framework de prueba</label>
+                        <select id="sens_framework" class="input-field text-sm" onchange="runSensitivityIfVisible()">
+                            <option value="superiority">Superioridad (p bilateral)</option>
+                            <option value="noninferiority">No-inferioridad (IC vs δ)</option>
+                        </select>
+                        <p class="text-xs text-slate-400 mt-1">Superioridad: ¿es mejor? | NI: ¿no es peor que δ?</p>
+                    </div>
+                    <div>
+                        <label class="text-xs font-semibold text-slate-600 mb-2 block">Factor dilución ITT</label>
+                        <input type="range" id="sens_dilution" min="0.50" max="1.00" step="0.05" value="0.85" oninput="debouncedSensitivity(this)">
+                        <div class="flex justify-between text-xs text-slate-400 mt-1">
+                            <span>50%</span><span class="font-bold text-blue-600 text-sm" id="lbl_dilution">0.85</span><span>100%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-5 flex flex-wrap gap-3 no-print">
+                    <button onclick="runSensitivity()" class="px-6 py-2.5 bg-indigo-600 text-white font-semibold text-sm rounded-xl hover:bg-indigo-700 transition shadow-md shadow-indigo-200">
+                        Generar Análisis
+                    </button>
+                    <button onclick="loadSensitivityExample()" class="px-4 py-2.5 bg-slate-100 text-slate-700 font-medium text-sm rounded-xl hover:bg-slate-200 transition border border-slate-200">
+                        Cargar Ejemplo
+                    </button>
+                </div>
+            </div>
+
+            <!-- Results — hidden until user runs analysis -->
+            <div id="sens-results" style="display:none;">
+                <!-- Heatmap -->
+                <div class="card mb-6">
+                    <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-4 gap-2">
+                        <div>
+                            <h3 class="font-bold text-slate-800" id="heatmap-title">Mapa de Robustez</h3>
+                            <p class="text-xs text-slate-500 mt-1" id="heatmap-subtitle"></p>
+                        </div>
+                        <div class="flex gap-3 text-xs">
+                            <span class="flex items-center gap-1"><span class="w-3 h-3 rounded bg-emerald-500 inline-block"></span> Favorable</span>
+                            <span class="flex items-center gap-1"><span class="w-3 h-3 rounded bg-amber-400 inline-block"></span> Borderline</span>
+                            <span class="flex items-center gap-1"><span class="w-3 h-3 rounded bg-red-500 inline-block"></span> No favorable</span>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto"><div id="heatmap-container"></div></div>
+                    <div id="heatmap-summary" class="mt-4 text-sm text-slate-600"></div>
+                </div>
+
+                <!-- Charts -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <div class="card">
+                        <h3 class="font-bold text-slate-800 mb-2">Curva de Potencia (a priori)</h3>
+                        <p class="text-xs text-slate-500 mb-3">Potencia para detectar el efecto especificado — NO es post-hoc</p>
+                        <canvas id="powerCurveChart" height="300"></canvas>
+                    </div>
+                    <div class="card">
+                        <h3 class="font-bold text-slate-800 mb-2" id="sensCurveTitle">Conclusión vs Tamaño de Muestra</h3>
+                        <p class="text-xs text-slate-500 mb-3" id="sensCurveSubtitle"></p>
+                        <canvas id="sensCurveChart" height="300"></canvas>
+                    </div>
+                </div>
+
+                <!-- Interpretation -->
+                <div class="card">
+                    <h3 class="font-bold text-slate-800 mb-3">Interpretación del Análisis de Sensibilidad</h3>
+                    <div id="sens-interpretation" class="text-sm text-slate-600 space-y-2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MODULE 3: METHODOLOGY ===== -->
+    <div id="module3" class="tab-content">
+        <div class="max-w-7xl mx-auto px-4 py-6 space-y-6">
+            <div class="card">
+                <h2 class="text-lg font-bold text-slate-800 mb-4">Metodología, Fórmulas y Limitaciones</h2>
+                <p class="text-sm text-slate-500 mb-6">Transparencia completa sobre lo que hace y NO hace esta herramienta.</p>
+
+                <div class="space-y-6">
+                    <!-- Formulas -->
+                    <div class="bg-slate-50 rounded-xl p-5 border border-slate-200">
+                        <h3 class="font-bold text-slate-700 text-sm mb-3">Fórmulas Utilizadas (Módulo 1)</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-slate-600">
+                            <div>
+                                <p class="font-semibold mb-1">Odds Ratio (OR)</p>
+                                <p class="font-mono bg-white p-2 rounded border text-xs">OR = (a × d) / (b × c)</p>
+                                <p class="mt-1">Tabla 2×2: a=eventos_tto, b=no-eventos_tto, c=eventos_ctrl, d=no-eventos_ctrl</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold mb-1">SE del ln(OR) — Método de Woolf</p>
+                                <p class="font-mono bg-white p-2 rounded border text-xs">SE = √(1/a + 1/b + 1/c + 1/d)</p>
+                                <p class="mt-1">Con corrección de Haldane (+0.5) si alguna celda = 0.</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold mb-1">IC 95% del OR (Wald)</p>
+                                <p class="font-mono bg-white p-2 rounded border text-xs">IC = exp(ln(OR) ± 1.96 × SE)</p>
+                                <p class="mt-1">Aproximación normal en escala logarítmica.</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold mb-1">p-valor (Chi-cuadrado, 1 gl)</p>
+                                <p class="font-mono bg-white p-2 rounded border text-xs">χ² = N(ad-bc)² / [(a+b)(c+d)(a+c)(b+d)]</p>
+                                <p class="mt-1">Opción de corrección de Yates disponible.</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold mb-1">NNT</p>
+                                <p class="font-mono bg-white p-2 rounded border text-xs">NNT = 1 / |p₁ - p₂|</p>
+                                <p class="mt-1">Con signo: NNT positivo = beneficio, NNTH = daño.</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold mb-1">Índice de Fragilidad</p>
+                                <p class="font-mono bg-white p-2 rounded border text-xs">Iterativo: reclasificar eventos hasta p ≥ 0.05</p>
+                                <p class="mt-1">Basado en Walsh et al. (2014). Usa el mismo test seleccionado.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Limitations -->
+                    <div class="bg-red-50 rounded-xl p-5 border border-red-200">
+                        <h3 class="font-bold text-red-800 text-sm mb-3">Limitaciones Conocidas</h3>
+                        <ul class="text-xs text-red-700 space-y-2 list-disc pl-5">
+                            <li><strong>Solo 2 brazos:</strong> No soporta ensayos multi-brazo, factoriales ni crossover. Los ensayos adaptativos requieren métodos especiales no implementados.</li>
+                            <li><strong>Sin corrección por multiplicidad:</strong> No ajusta por comparaciones múltiples (Bonferroni, Holm, FDR).</li>
+                            <li><strong>IC Wald:</strong> Los intervalos de Wald para OR tienen cobertura sub-óptima con muestras pequeñas (n &lt; 30) o proporciones extremas (&lt;5% o &gt;95%). Preferir perfil de verosimilitud o exacto en esos casos.</li>
+                            <li><strong>Aproximación normal:</strong> Todos los cálculos usan distribución normal asintótica. Para muestras muy pequeñas, usar test exacto de Fisher.</li>
+                            <li><strong>Potencia post-hoc:</strong> La potencia calculada en Módulo 1 es una función directa del p-valor observado (Hoenig & Heisey, 2001). NO la use para justificar resultados negativos. La curva de Módulo 2 usa el efecto especificado por el usuario (a priori).</li>
+                            <li><strong>Sin time-to-event:</strong> No soporta Hazard Ratios, Kaplan-Meier ni análisis de sobrevida.</li>
+                            <li><strong>Sin análisis bayesiano:</strong> Todo el framework es frecuentista.</li>
+                            <li><strong>Fragilidad simplificada:</strong> Solo reclasifica en una dirección. La versión completa debería considerar ambas direcciones (añadir Y quitar eventos).</li>
+                        </ul>
+                    </div>
+
+                    <!-- When NOT to use -->
+                    <div class="bg-amber-50 rounded-xl p-5 border border-amber-200">
+                        <h3 class="font-bold text-amber-800 text-sm mb-3">Cuándo NO Usar Esta Herramienta</h3>
+                        <ul class="text-xs text-amber-700 space-y-2 list-disc pl-5">
+                            <li>Para tomar decisiones regulatorias de aprobación de medicamentos</li>
+                            <li>Como único método de verificación de integridad de datos</li>
+                            <li>Para análisis de datos con estructura compleja (cluster, longitudinal, jerárquico)</li>
+                            <li>Como sustituto de auditorías estadísticas formales con acceso a datos individuales (IPD)</li>
+                            <li>Para meta-análisis (requiere modelos de efectos fijos/aleatorios, I², etc.)</li>
+                        </ul>
+                    </div>
+
+                    <!-- References -->
+                    <div class="bg-blue-50 rounded-xl p-5 border border-blue-200">
+                        <h3 class="font-bold text-blue-800 text-sm mb-3">Referencias</h3>
+                        <ul class="text-xs text-blue-700 space-y-1 list-disc pl-5">
+                            <li>Walsh M, et al. (2014). The statistical significance of randomized controlled trial results is frequently fragile. <em>J Clin Epidemiol</em>.</li>
+                            <li>Hoenig JM, Heisey DM (2001). The abuse of power: the pervasive fallacy of power calculations for data analysis. <em>Am Stat</em>.</li>
+                            <li>Agresti A (2002). <em>Categorical Data Analysis</em>. Wiley.</li>
+                            <li>Altman DG (1998). Confidence intervals for the number needed to treat. <em>BMJ</em>.</li>
+                            <li>Abramowitz M, Stegun IA (1964). <em>Handbook of Mathematical Functions</em>. NBS. [Algoritmo normalCDF]</li>
+                        </ul>
+                    </div>
+
+                    <!-- Changelog -->
+                    <div class="bg-slate-50 rounded-xl p-5 border border-slate-200">
+                        <h3 class="font-bold text-slate-700 text-sm mb-3">Changelog v2.0 → v3.0</h3>
+                        <ul class="text-xs text-slate-600 space-y-1 list-disc pl-5">
+                            <li>Corregido: gráfico "p-valor vs δ" ahora varía correctamente según framework (superioridad/NI)</li>
+                            <li>Corregido: el "Forest Plot" renombrado a "Diagrama de Efecto" (no es un forest plot real)</li>
+                            <li>Corregido: p-valor separado en su propio gráfico (ya no se mezcla con medidas de efecto)</li>
+                            <li>Añadido: validación de inputs en tiempo real con feedback visual</li>
+                            <li>Añadido: advertencia explícita sobre potencia post-hoc</li>
+                            <li>Añadido: corrección de Yates opcional para Chi-cuadrado</li>
+                            <li>Añadido: debouncing en sliders del Módulo 2</li>
+                            <li>Añadido: framework de prueba configurable (superioridad vs no-inferioridad)</li>
+                            <li>Añadido: Módulo 3 con documentación de fórmulas y limitaciones</li>
+                            <li>Añadido: tolerancias explicadas en tabla de comparación</li>
+                            <li>Añadido: NNT con dirección (beneficio vs daño)</li>
+                            <li>Añadido: atributos ARIA básicos para accesibilidad</li>
+                            <li>Mejorado: CSV export incluye datos del Módulo 2</li>
+                            <li>Eliminado: exceso de emojis (profesionalización de la UI)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-800 text-slate-400 text-xs py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-2">
+            <p>ClinTrialSuite v3.0 — Herramienta educativa para evaluación de ensayos clínicos</p>
+            <p class="text-slate-500">No sustituye revisión regulatoria. Cálculos asintóticos — validar con software certificado.</p>
+            <a href="manual.html" target="_blank" class="inline-block mt-2 text-blue-400 hover:text-blue-300 transition font-medium no-print">
+                Consultar Manual de Usuario →
+            </a>
+        </div>
+    </footer>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+    // ===========================================
+    // MATH UTILITIES
+    // ===========================================
+
+    /** Normal CDF — Abramowitz & Stegun approximation (error < 1.5e-7) */
+    function normalCDF(x) {
+        if (x < -8) return 0;
+        if (x > 8) return 1;
+        const a1 = 0.254829592, a2 = -0.284496736, a3 = 1.421413741;
+        const a4 = -1.453152027, a5 = 1.061405429, p = 0.3275911;
+        const sign = x < 0 ? -1 : 1;
+        const ax = Math.abs(x) / Math.sqrt(2);
+        const t = 1.0 / (1.0 + p * ax);
+        const y = 1.0 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-ax * ax);
+        return 0.5 * (1.0 + sign * y);
+    }
+
+    /** z-score to two-sided p-value */
+    function zToP(z) { return 2 * (1 - normalCDF(Math.abs(z))); }
+
+    /** Inverse normal (quantile) — Rational approximation */
+    function normalQuantile(p) {
+        if (p <= 0) return -8; if (p >= 1) return 8; if (p === 0.5) return 0;
+        const a = [-3.969683028665376e+01,2.209460984245205e+02,-2.759285104469687e+02,1.383577518672690e+02,-3.066479806614716e+01,2.506628277459239e+00];
+        const b = [-5.447609879822406e+01,1.615858368580409e+02,-1.556989798598866e+02,6.680131188771972e+01,-1.328068155288572e+01];
+        const c = [-7.784894002430293e-03,-3.223964580411365e-01,-2.400758277161838e+00,-2.549732539343734e+00,4.374664141464968e+00,2.938163982698783e+00];
+        const d = [7.784695709041462e-03,3.224671290700398e-01,2.445134137142996e+00,3.754408661907416e+00];
+        const pLow = 0.02425, pHigh = 1 - pLow;
+        let q, r;
+        if (p < pLow) { q = Math.sqrt(-2*Math.log(p)); return (((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5]) / ((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1); }
+        else if (p <= pHigh) { q = p - 0.5; r = q*q; return (((((a[0]*r+a[1])*r+a[2])*r+a[3])*r+a[4])*r+a[5])*q / (((((b[0]*r+b[1])*r+b[2])*r+b[3])*r+b[4])*r+1); }
+        else { q = Math.sqrt(-2*Math.log(1-p)); return -(((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5]) / ((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1); }
+    }
+
+    /** Chi-square p-value (1 df), with optional Yates correction */
+    function chiSquarePValue(a, b, c, d, yates = false) {
+        const n = a + b + c + d;
+        const denom = (a+b)*(c+d)*(a+c)*(b+d);
+        if (denom === 0) return 1;
+        let numer = Math.abs(a*d - b*c);
+        if (yates) numer = Math.max(0, numer - n/2);
+        const chi2 = (n * numer * numer) / denom;
+        return 1 - (2 * normalCDF(Math.sqrt(chi2)) - 1);
+    }
+
+    /** Round to n decimals */
+    function rd(val, dec = 4) { return Math.round(val * Math.pow(10, dec)) / Math.pow(10, dec); }
+
+    // ===========================================
+    // MODULE 1: STATFORENSICS
+    // ===========================================
+
+    let effectCompareChart = null, forestChart = null, pvalCompareChart = null;
+
+    function calculateOR(a, b, c, d) { return (b === 0 || c === 0) ? Infinity : (a*d)/(b*c); }
+
+    function seLnOR(a, b, c, d) {
+        const aa = a||0.5, bb = b||0.5, cc = c||0.5, dd = d||0.5;
+        return Math.sqrt(1/aa + 1/bb + 1/cc + 1/dd);
+    }
+
+    function ciOR(or, se) {
+        const ln = Math.log(or);
+        return [Math.exp(ln - 1.96*se), Math.exp(ln + 1.96*se)];
+    }
+
+    function calculateRR(a, b, c, d) {
+        const p1 = a/(a+b), p2 = c/(c+d);
+        return p2 === 0 ? Infinity : p1/p2;
+    }
+
+    function calculateNNT(p1, p2) {
+        const ard = p1 - p2;
+        if (Math.abs(ard) < 1e-10) return { value: Infinity, label: '∞' };
+        const nnt = 1 / ard;
+        // Positive NNT = benefit (treatment better), negative = harm
+        if (nnt > 0) return { value: rd(nnt, 1), label: `${rd(nnt,1)} (beneficio)` };
+        return { value: rd(Math.abs(nnt), 1), label: `${rd(Math.abs(nnt),1)} (daño — NNTH)` };
+    }
+
+    /** Post-hoc power — with explicit warning that this is a function of the p-value */
+    function estimatePower(p1, p2, n1, n2, alpha = 0.05) {
+        const zAlpha = -normalQuantile(alpha/2);
+        const pBar = (n1*p1 + n2*p2)/(n1+n2);
+        const se0 = Math.sqrt(pBar*(1-pBar)*(1/n1 + 1/n2));
+        const se1 = Math.sqrt(p1*(1-p1)/n1 + p2*(1-p2)/n2);
+        if (se1 === 0) return 1;
+        return normalCDF((Math.abs(p1-p2) - zAlpha*se0) / se1);
+    }
+
+    /** A priori power — for a SPECIFIED effect size, not observed */
+    function aPrioriPower(effectRR, p0, n, alpha = 0.05) {
+        const p1 = Math.min(p0 * effectRR, 0.999);
+        return estimatePower(p1, p0, n, n, alpha);
+    }
+
+    function estimatePowerContinuous(mean1, sd1, n1, mean2, sd2, n2, alpha = 0.05) {
+        const se = Math.sqrt(sd1*sd1/n1 + sd2*sd2/n2);
+        if (se === 0) return 1;
+        return normalCDF((Math.abs(mean1-mean2)/se) - (-normalQuantile(alpha/2)));
+    }
+
+    /** Fragility Index — iterative event reclassification until p >= alpha */
+    function calculateFragilityIndex(a, b, c, d) {
+        const yates = document.getElementById('useYates')?.checked || false;
+        let pVal = chiSquarePValue(a, b, c, d, yates);
+        if (pVal >= 0.05) return 0;
+        const p1 = a/(a+b), p2 = c/(c+d);
+        let fi = 0, aa = a, bb = b, cc = c, dd = d;
+        while (pVal < 0.05 && fi < 500) {
+            if (p1 > p2) { if (aa > 0) { aa--; bb++; } else break; }
+            else { if (cc > 0) { cc--; dd++; } else break; }
+            fi++;
+            pVal = chiSquarePValue(aa, bb, cc, dd, yates);
+        }
+        return fi;
+    }
+
+    // --- INPUT VALIDATION ---
+
+    function validateInputs() {
+        const n1 = parseInt(document.getElementById('arm1_n').value) || 0;
+        const ev1 = parseInt(document.getElementById('arm1_events').value) || 0;
+        const n2 = parseInt(document.getElementById('arm2_n').value) || 0;
+        const ev2 = parseInt(document.getElementById('arm2_events').value) || 0;
+        const msgs = [];
+
+        const f1ev = document.getElementById('arm1_events');
+        const f2ev = document.getElementById('arm2_events');
+        const f1n = document.getElementById('arm1_n');
+        const f2n = document.getElementById('arm2_n');
+
+        [f1ev, f2ev, f1n, f2n].forEach(f => f.classList.remove('invalid'));
+
+        if (ev1 > n1) { msgs.push('Eventos del brazo tratamiento exceden n.'); f1ev.classList.add('invalid'); }
+        if (ev2 > n2) { msgs.push('Eventos del brazo control exceden n.'); f2ev.classList.add('invalid'); }
+        if (ev1 < 0) { msgs.push('Eventos no pueden ser negativos.'); f1ev.classList.add('invalid'); }
+        if (ev2 < 0) { msgs.push('Eventos no pueden ser negativos.'); f2ev.classList.add('invalid'); }
+        if (n1 < 1) { msgs.push('n debe ser ≥ 1.'); f1n.classList.add('invalid'); }
+        if (n2 < 1) { msgs.push('n debe ser ≥ 1.'); f2n.classList.add('invalid'); }
+
+        // Update proportions live
+        if (n1 > 0) document.getElementById('arm1_prop').value = ((ev1/n1)*100).toFixed(1) + '%';
+        if (n2 > 0) document.getElementById('arm2_prop').value = ((ev2/n2)*100).toFixed(1) + '%';
+
+        const container = document.getElementById('validation-msg');
+        container.innerHTML = msgs.length > 0
+            ? `<div class="alert alert-error"><span>${msgs.join(' ')}</span></div>`
+            : '';
+
+        document.getElementById('btn-audit').disabled = msgs.length > 0;
+        return msgs.length === 0;
+    }
+
+    function validateCIOrder() {
+        const lo = parseFloat(document.getElementById('rep_ci_low').value);
+        const hi = parseFloat(document.getElementById('rep_ci_high').value);
+        const fLo = document.getElementById('rep_ci_low');
+        const fHi = document.getElementById('rep_ci_high');
+        fLo.classList.remove('invalid'); fHi.classList.remove('invalid');
+        if (!isNaN(lo) && !isNaN(hi) && lo > hi) {
+            fLo.classList.add('invalid'); fHi.classList.add('invalid');
+        }
+    }
+
+    // --- MAIN AUDIT ---
+
+    function runAudit() {
+        const outcomeType = document.querySelector('input[name="outcomeType"]:checked').value;
+        if (outcomeType === 'binary' && !validateInputs()) return;
+
+        const alerts = [], metrics = {}, comparison = [];
+
+        if (outcomeType === 'binary') runBinaryAudit(alerts, metrics, comparison);
+        else runContinuousAudit(alerts, metrics, comparison);
+
+        document.getElementById('audit-results').style.display = 'block';
+        document.getElementById('posthoc-warning').style.display = 'block';
+        renderAlerts(alerts);
+        renderMetrics(metrics, outcomeType);
+        renderComparisonTable(comparison);
+        renderAuditCharts(metrics, outcomeType);
+        document.getElementById('audit-results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function runBinaryAudit(alerts, metrics, comparison) {
+        const n1 = parseInt(document.getElementById('arm1_n').value);
+        const ev1 = parseInt(document.getElementById('arm1_events').value);
+        const n2 = parseInt(document.getElementById('arm2_n').value);
+        const ev2 = parseInt(document.getElementById('arm2_events').value);
+        const repOR = parseFloat(document.getElementById('rep_or').value);
+        const repCIL = parseFloat(document.getElementById('rep_ci_low').value);
+        const repCIH = parseFloat(document.getElementById('rep_ci_high').value);
+        const repP = parseFloat(document.getElementById('rep_pval').value);
+        const yates = document.getElementById('useYates').checked;
+
+        const a = ev1, b = n1 - ev1, c = ev2, d = n2 - ev2;
+        const p1 = a/n1, p2 = c/n2;
+
+        document.getElementById('arm1_prop').value = (p1*100).toFixed(1) + '%';
+        document.getElementById('arm2_prop').value = (p2*100).toFixed(1) + '%';
+
+        const calcOR = calculateOR(a,b,c,d);
+        const se = seLnOR(a,b,c,d);
+        const [calcCIL, calcCIH] = ciOR(calcOR, se);
+        const calcP = chiSquarePValue(a,b,c,d, yates);
+        const calcRR = calculateRR(a,b,c,d);
+        const nnt = calculateNNT(p1, p2);
+        const power = estimatePower(p1, p2, n1, n2);
+        const fragility = calculateFragilityIndex(a,b,c,d);
+
+        // Small sample warning
+        const minCell = Math.min(a,b,c,d);
+        if (minCell < 5) {
+            alerts.push({ type: 'warning', msg: `Celda mínima en tabla 2×2 = ${minCell}. Con celdas < 5, las aproximaciones asintóticas (χ², IC Wald) son poco fiables. Considere test exacto de Fisher y IC de perfil de verosimilitud.` });
+        }
+        if (yates) {
+            alerts.push({ type: 'info', msg: 'Se aplicó corrección de continuidad de Yates al χ². Esto produce p-valores más conservadores.' });
+        }
+
+        Object.assign(metrics, {
+            calcOR: rd(calcOR,3), calcCIL: rd(calcCIL,3), calcCIH: rd(calcCIH,3),
+            calcP: rd(calcP,4), calcRR: rd(calcRR,3), nnt, power: rd(power,3),
+            fragility, p1: rd(p1,4), p2: rd(p2,4),
+            repOR, repCIL, repCIH, repP, se: rd(se,4)
+        });
+
+        // 1. OR check — tolerance: ±15% relative
+        const orDiff = Math.abs(calcOR - repOR) / repOR;
+        const orTolerance = '±15% relativo';
+        comparison.push({ param: 'Odds Ratio', reported: repOR, calculated: rd(calcOR,3), diff: (orDiff*100).toFixed(1)+'%', tolerance: orTolerance, ok: orDiff < 0.15 });
+        if (orDiff >= 0.15) {
+            alerts.push({ type: 'error', msg: `OR reportado (${repOR}) difiere del calculado (${rd(calcOR,3)}) en ${(orDiff*100).toFixed(1)}%. Supera tolerancia de ${orTolerance}.` });
+        } else {
+            alerts.push({ type: 'success', msg: `OR consistente: ${repOR} vs ${rd(calcOR,3)} (dif. ${(orDiff*100).toFixed(1)}%).` });
+        }
+
+        // 2. CI — tolerance: ±0.3 absolute (same for both bounds)
+        const ciTolerance = '±0.3 absoluto';
+        const ciLDiff = Math.abs(calcCIL - repCIL);
+        const ciHDiff = Math.abs(calcCIH - repCIH);
+        comparison.push({ param: 'IC 95% Inferior', reported: repCIL, calculated: rd(calcCIL,3), diff: rd(ciLDiff,3), tolerance: ciTolerance, ok: ciLDiff < 0.3 });
+        comparison.push({ param: 'IC 95% Superior', reported: repCIH, calculated: rd(calcCIH,3), diff: rd(ciHDiff,3), tolerance: ciTolerance, ok: ciHDiff < 0.3 });
+        if (ciLDiff >= 0.3 || ciHDiff >= 0.3) {
+            alerts.push({ type: 'warning', msg: `IC 95% reportado [${repCIL}–${repCIH}] difiere del calculado [${rd(calcCIL,3)}–${rd(calcCIH,3)}]. Diferencia puede deberse a método distinto (Wald vs exacto vs perfil de verosimilitud).` });
+        }
+
+        // 3. p-value — tolerance: ±0.5 on log10 scale
+        const pTolerance = '±0.5 escala log₁₀';
+        const pDiffRatio = Math.abs(Math.log10(calcP+1e-10) - Math.log10(repP+1e-10));
+        comparison.push({ param: 'p-valor', reported: repP, calculated: rd(calcP,4), diff: rd(Math.abs(calcP-repP),4), tolerance: pTolerance, ok: pDiffRatio < 0.5 });
+
+        const repSig = repP < 0.05, calcSig = calcP < 0.05;
+        if (repSig !== calcSig) {
+            alerts.push({ type: 'error', msg: `ALERTA CRÍTICA: Significancia difiere. Reportado p=${repP} (${repSig?'sig':'no sig'}) vs calculado p=${rd(calcP,4)} (${calcSig?'sig':'no sig'}) con α=0.05.` });
+        } else if (pDiffRatio >= 0.5) {
+            alerts.push({ type: 'warning', msg: `p-valor reportado (${repP}) difiere del calculado (${rd(calcP,4)}) en escala log, aunque ambos ${repSig?'son':'no son'} significativos. Verifique test estadístico.` });
+        } else {
+            alerts.push({ type: 'success', msg: `p-valor consistente: ${repP} vs ${rd(calcP,4)}.` });
+        }
+
+        // 4. Additional
+        if (fragility <= 3 && calcSig) {
+            alerts.push({ type: 'warning', msg: `Índice de fragilidad bajo (${fragility}): bastan ${fragility} evento(s) reclasificado(s) para perder significancia. Resultado estadísticamente frágil.` });
+        }
+
+        // RR vs OR confusion detection
+        if (orDiff >= 0.10 && Math.abs(calcRR - repOR)/repOR < 0.05) {
+            alerts.push({ type: 'warning', msg: `El OR reportado (${repOR}) coincide mejor con el RR calculado (${rd(calcRR,3)}). Posible confusión OR/RR — error frecuente en publicaciones.` });
+        }
+    }
+
+    function runContinuousAudit(alerts, metrics, comparison) {
+        const n1 = parseInt(document.getElementById('arm1c_n').value);
+        const mean1 = parseFloat(document.getElementById('arm1c_mean').value);
+        const sd1 = parseFloat(document.getElementById('arm1c_sd').value);
+        const n2 = parseInt(document.getElementById('arm2c_n').value);
+        const mean2 = parseFloat(document.getElementById('arm2c_mean').value);
+        const sd2 = parseFloat(document.getElementById('arm2c_sd').value);
+        const repDiff = parseFloat(document.getElementById('rep_meandiff').value);
+        const repCIL = parseFloat(document.getElementById('rep_ci_low_c').value);
+        const repCIH = parseFloat(document.getElementById('rep_ci_high_c').value);
+        const repP = parseFloat(document.getElementById('rep_pval_c').value);
+
+        const calcDiff = rd(mean1-mean2, 3);
+        const se = Math.sqrt(sd1*sd1/n1 + sd2*sd2/n2);
+        const calcCIL = rd(calcDiff - 1.96*se, 3);
+        const calcCIH = rd(calcDiff + 1.96*se, 3);
+        const calcP = rd(zToP(calcDiff/se), 4);
+        const cohenD = rd(calcDiff / Math.sqrt((sd1*sd1+sd2*sd2)/2), 3);
+        const power = rd(estimatePowerContinuous(mean1,sd1,n1,mean2,sd2,n2), 3);
+
+        const tolerance = '±0.3 absoluto';
+        const pTolerance = '±0.02 absoluto';
+
+        Object.assign(metrics, {
+            calcOR: calcDiff, calcCIL, calcCIH, calcP,
+            repOR: repDiff, repCIL, repCIH, repP,
+            cohenD, power, se: rd(se,4), nnt: { value: '—', label: '—' }, fragility: '—',
+            isContinuous: true
+        });
+
+        const diffCheck = Math.abs(calcDiff - repDiff);
+        comparison.push({ param: 'Dif. Medias', reported: repDiff, calculated: calcDiff, diff: rd(diffCheck,3), tolerance, ok: diffCheck < 0.3 });
+        if (diffCheck >= 0.3) alerts.push({ type: 'error', msg: `Diferencia de medias reportada (${repDiff}) no coincide con la calculada (${calcDiff}).` });
+        else alerts.push({ type: 'success', msg: `Diferencia de medias consistente: ${repDiff} vs ${calcDiff}.` });
+
+        comparison.push({ param: 'IC 95% Inferior', reported: repCIL, calculated: calcCIL, diff: rd(Math.abs(calcCIL-repCIL),3), tolerance, ok: Math.abs(calcCIL-repCIL) < 0.3 });
+        comparison.push({ param: 'IC 95% Superior', reported: repCIH, calculated: calcCIH, diff: rd(Math.abs(calcCIH-repCIH),3), tolerance, ok: Math.abs(calcCIH-repCIH) < 0.3 });
+        if (Math.abs(calcCIL-repCIL) >= 0.3 || Math.abs(calcCIH-repCIH) >= 0.3) {
+            alerts.push({ type: 'warning', msg: `IC 95% reportado [${repCIL}, ${repCIH}] difiere del calculado [${calcCIL}, ${calcCIH}].` });
+        }
+
+        comparison.push({ param: 'p-valor', reported: repP, calculated: calcP, diff: rd(Math.abs(calcP-repP),4), tolerance: pTolerance, ok: Math.abs(calcP-repP) < 0.02 });
+        const repSig = repP < 0.05, calcSig = calcP < 0.05;
+        if (repSig !== calcSig) alerts.push({ type: 'error', msg: `Significancia difiere. Reportado p=${repP} vs calculado p=${calcP}.` });
+
+        alerts.push({ type: 'info', msg: `Cohen's d = ${cohenD} (${Math.abs(cohenD)<0.2?'pequeño':Math.abs(cohenD)<0.5?'pequeño-medio':Math.abs(cohenD)<0.8?'medio':'grande'}).` });
+    }
+
+    // --- RENDERING ---
+
+    function renderAlerts(alerts) {
+        document.getElementById('audit-alerts').innerHTML = alerts.map(a =>
+            `<div class="alert alert-${a.type}"><span>${a.msg}</span></div>`
+        ).join('');
+    }
+
+    function renderMetrics(m, type) {
+        if (type === 'binary') {
+            document.getElementById('metric-or').querySelector('p:first-child').textContent = 'Odds Ratio Calculado';
+            document.getElementById('val-or').textContent = m.calcOR;
+            document.getElementById('sub-or').textContent = `RR = ${m.calcRR} | Reportado: ${m.repOR}`;
+            document.getElementById('val-ci').textContent = `[${m.calcCIL} – ${m.calcCIH}]`;
+            document.getElementById('sub-ci').textContent = `Reportado: [${m.repCIL} – ${m.repCIH}]`;
+        } else {
+            document.getElementById('metric-or').querySelector('p:first-child').textContent = 'Diferencia de Medias';
+            document.getElementById('val-or').textContent = m.calcOR;
+            document.getElementById('sub-or').textContent = `Cohen's d = ${m.cohenD} | Reportado: ${m.repOR}`;
+            document.getElementById('val-ci').textContent = `[${m.calcCIL} – ${m.calcCIH}]`;
+            document.getElementById('sub-ci').textContent = `Reportado: [${m.repCIL} – ${m.repCIH}]`;
+        }
+        document.getElementById('val-pval').textContent = m.calcP;
+        document.getElementById('sub-pval').textContent = `Reportado: ${m.repP} | ${m.calcP < 0.05 ? 'Significativo' : 'No significativo'}`;
+        document.getElementById('val-pval').className = `text-3xl font-bold ${m.calcP < 0.05 ? 'text-emerald-600' : 'text-red-600'}`;
+
+        document.getElementById('val-nnt').textContent = typeof m.nnt === 'object' ? m.nnt.value : m.nnt;
+        document.getElementById('sub-nnt').textContent = typeof m.nnt === 'object' ? m.nnt.label : 'Número necesario a tratar';
+
+        document.getElementById('val-power').textContent = typeof m.power === 'number' ? (m.power*100).toFixed(1)+'%' : m.power;
+        document.getElementById('val-fragility').textContent = m.fragility;
+
+        if (typeof m.fragility === 'number') {
+            document.getElementById('val-fragility').className = `text-3xl font-bold ${m.fragility <= 3 ? 'text-red-600' : m.fragility <= 8 ? 'text-amber-600' : 'text-emerald-600'}`;
+        }
+    }
+
+    function renderComparisonTable(comparison) {
+        document.getElementById('comparison-tbody').innerHTML = comparison.map(c => `
+            <tr>
+                <td class="font-medium text-slate-700 text-left">${c.param}</td>
+                <td>${c.reported}</td>
+                <td class="font-semibold">${c.calculated}</td>
+                <td>${c.diff}</td>
+                <td class="text-xs text-slate-500">${c.tolerance}</td>
+                <td><span class="metric-badge ${c.ok ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700'}">${c.ok ? 'Consistente' : 'Inconsistente'}</span></td>
+            </tr>
+        `).join('');
+    }
+
+    /** Charts — FIXED: p-value separated from effect measures */
+    function renderAuditCharts(m, type) {
+        if (effectCompareChart) effectCompareChart.destroy();
+        if (forestChart) forestChart.destroy();
+        if (pvalCompareChart) pvalCompareChart.destroy();
+
+        const effectLabel = type === 'binary' ? 'OR' : 'Dif. Medias';
+
+        // 1. Effect comparison (WITHOUT p-values mixed in!)
+        effectCompareChart = new Chart(document.getElementById('effectCompareChart'), {
+            type: 'bar',
+            data: {
+                labels: [effectLabel, 'IC Inferior', 'IC Superior'],
+                datasets: [
+                    { label: 'Reportado', data: [m.repOR, m.repCIL, m.repCIH], backgroundColor: 'rgba(59,130,246,0.6)', borderColor: 'rgba(59,130,246,1)', borderWidth: 1.5, borderRadius: 6 },
+                    { label: 'Calculado', data: [m.calcOR, m.calcCIL, m.calcCIH], backgroundColor: 'rgba(245,158,11,0.6)', borderColor: 'rgba(245,158,11,1)', borderWidth: 1.5, borderRadius: 6 }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { position: 'top', labels: { font: { family: 'Inter', weight: '600' } } } },
+                scales: { y: { beginAtZero: type !== 'binary', grid: { color: '#f1f5f9' } }, x: { grid: { display: false } } }
+            }
+        });
+
+        // 2. Effect diagram with CI lines — two separate datasets so bars don't overlap
+        forestChart = new Chart(document.getElementById('forestChart'), {
+            type: 'bar',
+            data: {
+                labels: [effectLabel],
+                datasets: [
+                    {
+                        label: 'Reportado',
+                        data: [m.repOR],
+                        backgroundColor: 'rgba(59,130,246,0.7)',
+                        borderColor: 'rgba(59,130,246,1)',
+                        borderWidth: 2, borderRadius: 8,
+                        barPercentage: 0.5, categoryPercentage: 0.8
+                    },
+                    {
+                        label: 'Calculado',
+                        data: [m.calcOR],
+                        backgroundColor: 'rgba(245,158,11,0.7)',
+                        borderColor: 'rgba(245,158,11,1)',
+                        borderWidth: 2, borderRadius: 8,
+                        barPercentage: 0.5, categoryPercentage: 0.8
+                    }
+                ]
+            },
+            options: {
+                indexAxis: 'y', responsive: true,
+                plugins: {
+                    legend: { position: 'top', labels: { font: { family: 'Inter', weight: '600', size: 12 }, padding: 16 } },
+                    tooltip: { callbacks: { afterLabel: ctx => ctx.datasetIndex === 0 ? `IC: [${m.repCIL} – ${m.repCIH}]` : `IC: [${m.calcCIL} – ${m.calcCIH}]` } }
+                },
+                scales: {
+                    x: { beginAtZero: type !== 'binary', grid: { color: '#f1f5f9' }, title: { display: true, text: effectLabel, font: { family: 'Inter', weight: '600' } } },
+                    y: { grid: { display: false }, ticks: { font: { family: 'Inter', weight: '600', size: 13 } } }
+                }
+            },
+            plugins: [{
+                id: 'ciLines',
+                afterDraw(chart) {
+                    const ctx = chart.ctx, xScale = chart.scales.x;
+                    const datasets = [
+                        { meta: chart.getDatasetMeta(0), ciL: m.repCIL, ciH: m.repCIH, color: 'rgba(59,130,246,0.9)' },
+                        { meta: chart.getDatasetMeta(1), ciL: m.calcCIL, ciH: m.calcCIH, color: 'rgba(245,158,11,0.9)' }
+                    ];
+                    datasets.forEach(ds => {
+                        if (!ds.meta.data[0]) return;
+                        const y = ds.meta.data[0].y;
+                        const x1 = xScale.getPixelForValue(ds.ciL);
+                        const x2 = xScale.getPixelForValue(ds.ciH);
+                        ctx.save(); ctx.strokeStyle = ds.color; ctx.lineWidth = 2.5;
+                        ctx.beginPath(); ctx.moveTo(x1, y); ctx.lineTo(x2, y); ctx.stroke();
+                        ctx.beginPath(); ctx.moveTo(x1, y-7); ctx.lineTo(x1, y+7); ctx.stroke();
+                        ctx.beginPath(); ctx.moveTo(x2, y-7); ctx.lineTo(x2, y+7); ctx.stroke();
+                        // Diamond marker at point estimate
+                        const xPt = xScale.getPixelForValue(ds.meta.data[0].$context.raw);
+                        ctx.fillStyle = ds.color;
+                        ctx.beginPath(); ctx.moveTo(xPt, y-6); ctx.lineTo(xPt+5, y); ctx.lineTo(xPt, y+6); ctx.lineTo(xPt-5, y); ctx.closePath(); ctx.fill();
+                        ctx.restore();
+                    });
+                    // Null reference line
+                    const nullVal = type === 'binary' ? 1 : 0;
+                    const xNull = xScale.getPixelForValue(nullVal);
+                    ctx.save(); ctx.strokeStyle = '#ef4444'; ctx.lineWidth = 1.5; ctx.setLineDash([5,3]);
+                    ctx.beginPath(); ctx.moveTo(xNull, chart.chartArea.top); ctx.lineTo(xNull, chart.chartArea.bottom); ctx.stroke();
+                    ctx.restore();
+                }
+            }]
+        });
+
+        // 3. p-value chart — SEPARATE, on its own scale
+        pvalCompareChart = new Chart(document.getElementById('pvalCompareChart'), {
+            type: 'bar',
+            data: {
+                labels: ['p-valor Reportado', 'p-valor Calculado'],
+                datasets: [{
+                    data: [m.repP, m.calcP],
+                    backgroundColor: [
+                        m.repP < 0.05 ? 'rgba(34,197,94,0.6)' : 'rgba(239,68,68,0.6)',
+                        m.calcP < 0.05 ? 'rgba(34,197,94,0.6)' : 'rgba(239,68,68,0.6)'
+                    ],
+                    borderColor: [
+                        m.repP < 0.05 ? 'rgba(34,197,94,1)' : 'rgba(239,68,68,1)',
+                        m.calcP < 0.05 ? 'rgba(34,197,94,1)' : 'rgba(239,68,68,1)'
+                    ],
+                    borderWidth: 2, borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => `p = ${ctx.raw}` } } },
+                scales: { y: { min: 0, max: Math.max(m.repP, m.calcP, 0.1) * 1.3, grid: { color: '#f1f5f9' }, title: { display: true, text: 'p-valor', font: { family: 'Inter', weight: '600' } } }, x: { grid: { display: false } } }
+            },
+            plugins: [{
+                id: 'alphaLine',
+                afterDraw(chart) {
+                    const yScale = chart.scales.y;
+                    const y05 = yScale.getPixelForValue(0.05);
+                    const ctx = chart.ctx;
+                    ctx.save(); ctx.strokeStyle = '#ef4444'; ctx.lineWidth = 1.5; ctx.setLineDash([6,4]);
+                    ctx.beginPath(); ctx.moveTo(chart.chartArea.left, y05); ctx.lineTo(chart.chartArea.right, y05); ctx.stroke();
+                    ctx.fillStyle = '#ef4444'; ctx.font = '11px Inter'; ctx.fillText('α = 0.05', chart.chartArea.right - 55, y05 - 6);
+                    ctx.restore();
+                }
+            }]
+        });
+    }
+
+    // ===========================================
+    // MODULE 2: SENSITIVITY — FIXED
+    // ===========================================
+
+    let powerCurveChart = null, sensCurveChart = null;
+    let sensDebounceTimer = null;
+
+    /** Only re-run if results are already visible */
+    function runSensitivityIfVisible() {
+        if (document.getElementById('sens-results').style.display !== 'none') {
+            runSensitivity();
+        }
+    }
+
+    /** Debounced sensitivity runner — prevents lag on slider drag */
+    function debouncedSensitivity(el) {
+        // Update label immediately
+        const labelMap = { sens_rr: 'lbl_rr', sens_p0: 'lbl_p0', sens_dilution: 'lbl_dilution' };
+        const lbl = labelMap[el.id];
+        if (lbl) document.getElementById(lbl).textContent = parseFloat(el.value).toFixed(2);
+        // Only re-run if results are already visible
+        if (document.getElementById('sens-results').style.display === 'none') return;
+        // Debounce the heavy computation
+        clearTimeout(sensDebounceTimer);
+        sensDebounceTimer = setTimeout(runSensitivity, 120);
+    }
+
+    function runSensitivity() {
+        // Show results container on first run
+        document.getElementById('sens-results').style.display = 'block';
+        const rr = parseFloat(document.getElementById('sens_rr').value);
+        const p0 = parseFloat(document.getElementById('sens_p0').value);
+        const alpha = parseFloat(document.getElementById('sens_alpha').value);
+        const analysisType = document.getElementById('sens_analysis').value;
+        const framework = document.getElementById('sens_framework').value;
+        const dilution = parseFloat(document.getElementById('sens_dilution').value);
+
+        const effectiveRR = analysisType === 'ITT' ? 1 + (rr - 1) * dilution : rr;
+        const p1 = Math.min(p0 * effectiveRR, 0.999);
+
+        // Heatmap ranges
+        const deltas = [1.0, 1.1, 1.15, 1.2, 1.25, 1.3, 1.4, 1.5, 1.6, 1.8, 2.0];
+        const sampleSizes = [30, 50, 75, 100, 150, 200, 300, 500];
+
+        // Update titles based on framework
+        if (framework === 'superiority') {
+            document.getElementById('heatmap-title').textContent = 'Mapa de Robustez — Superioridad: N vs δ (efecto mínimo detectable)';
+            document.getElementById('heatmap-subtitle').textContent = 'Cada celda: p-valor de superioridad bilateral. Verde = p < α.';
+            document.getElementById('sensCurveTitle').textContent = 'p-valor de Superioridad vs N';
+            document.getElementById('sensCurveSubtitle').textContent = 'Cómo varía el p-valor al cambiar el tamaño muestral';
+        } else {
+            document.getElementById('heatmap-title').textContent = 'Mapa de Robustez — No-Inferioridad: N vs δ (margen NI)';
+            document.getElementById('heatmap-subtitle').textContent = 'Cada celda: ¿IC superior del RR < δ? Verde = no-inferior.';
+            document.getElementById('sensCurveTitle').textContent = 'Límite Superior IC vs Margen δ';
+            document.getElementById('sensCurveSubtitle').textContent = 'Para n=100: ¿cuándo el IC superior cruza el margen?';
+        }
+
+        const heatmapData = [];
+        let stableCount = 0, totalCells = 0;
+
+        for (const n of sampleSizes) {
+            const row = [];
+            for (const delta of deltas) {
+                totalCells++;
+                const result = evaluateCell(p1, p0, n, alpha, delta, framework, effectiveRR);
+                if (result.favorable) stableCount++;
+                row.push(result);
+            }
+            heatmapData.push(row);
+        }
+
+        renderHeatmap(deltas, sampleSizes, heatmapData);
+
+        const stability = ((stableCount / totalCells) * 100).toFixed(0);
+        document.getElementById('heatmap-summary').innerHTML = `
+            <div class="flex flex-wrap gap-4 items-center">
+                <span class="metric-badge ${stability > 60 ? 'bg-emerald-100 text-emerald-700' : stability > 30 ? 'bg-amber-100 text-amber-700' : 'bg-red-100 text-red-700'}">
+                    Estabilidad global: ${stability}%
+                </span>
+                <span class="text-xs text-slate-500">
+                    ${stableCount}/${totalCells} celdas favorables | RR efectivo: ${rd(effectiveRR,3)} | ${analysisType} | ${framework}
+                </span>
+            </div>
+        `;
+
+        renderPowerCurve(effectiveRR, p0, alpha);
+        renderSensCurve(p1, p0, alpha, framework, effectiveRR, deltas);
+        renderInterpretation(stability, effectiveRR, analysisType, framework, alpha);
+    }
+
+    /**
+     * Evaluates a single heatmap cell.
+     * FIXED: Now correctly handles both superiority and non-inferiority frameworks separately.
+     */
+    function evaluateCell(p1, p0, n, alpha, delta, framework, effectiveRR) {
+        // Standard error for log(RR)
+        const seLnRR = Math.sqrt((1-p1)/(n*p1) + (1-p0)/(n*p0));
+        const power = estimatePower(p1, p0, n, n, alpha);
+
+        if (framework === 'superiority') {
+            // Superiority test: H0: RR=1, test statistic = ln(RR)/SE
+            const z = Math.log(effectiveRR) / seLnRR;
+            const pSup = zToP(z);
+            const favorable = pSup < alpha;
+            const borderline = !favorable && pSup < alpha * 2;
+            const color = favorable ? '#10b981' : borderline ? '#f59e0b' : '#ef4444';
+            const label = favorable ? 'Sig' : borderline ? 'Bord' : 'NS';
+            const tooltip = `n=${n}, δ=${delta}\np_sup=${rd(pSup,4)}\nPot=${(power*100).toFixed(0)}%\n${favorable ? 'Significativo' : 'No significativo'}`;
+            return { favorable, color, label, tooltip, pValue: pSup, power };
+        } else {
+            // Non-inferiority: favorable if upper CI of RR < delta
+            const upperRR = Math.exp(Math.log(effectiveRR) + 1.96 * seLnRR);
+            const lowerRR = Math.exp(Math.log(effectiveRR) - 1.96 * seLnRR);
+            const favorable = upperRR < delta;
+            const borderline = !favorable && upperRR < delta * 1.1;
+            const color = favorable ? '#10b981' : borderline ? '#f59e0b' : '#ef4444';
+            const label = favorable ? 'NI' : borderline ? 'Bord' : 'Falla';
+            const tooltip = `n=${n}, δ=${delta}\nRR_sup=${rd(upperRR,3)}\nIC=[${rd(lowerRR,2)}, ${rd(upperRR,2)}]\n${favorable ? 'No-inferior ✓' : 'No cumple NI'}`;
+            return { favorable, color, label, tooltip, upperRR: rd(upperRR,3), power };
+        }
+    }
+
+    function renderHeatmap(deltas, sampleSizes, data) {
+        let html = '<table class="w-full" style="border-collapse:separate; border-spacing:4px;">';
+        html += '<tr><td class="text-xs font-bold text-slate-500 p-2">n \\ δ</td>';
+        for (const d of deltas) html += `<td class="text-center text-xs font-semibold text-slate-600 p-1">${d}</td>`;
+        html += '</tr>';
+        for (let i = 0; i < sampleSizes.length; i++) {
+            html += `<tr><td class="text-xs font-bold text-slate-600 p-2 text-right pr-3">${sampleSizes[i]}</td>`;
+            for (let j = 0; j < deltas.length; j++) {
+                const cell = data[i][j];
+                html += `<td class="p-0"><div class="hm-cell tooltip-container" style="background:${cell.color}; color:white;">
+                    ${cell.label}<div class="tooltip-box">${cell.tooltip.replace(/\n/g, '<br>')}</div></div></td>`;
+            }
+            html += '</tr>';
+        }
+        html += '</table>';
+        document.getElementById('heatmap-container').innerHTML = html;
+    }
+
+    /** Power curve — a priori, NOT post-hoc */
+    function renderPowerCurve(effectiveRR, p0, alpha) {
+        if (powerCurveChart) powerCurveChart.destroy();
+        const ns = [20,30,40,50,60,75,100,125,150,200,250,300,400,500];
+        const powers = ns.map(n => rd(aPrioriPower(effectiveRR, p0, n, alpha) * 100, 1));
+
+        powerCurveChart = new Chart(document.getElementById('powerCurveChart'), {
+            type: 'line',
+            data: { labels: ns, datasets: [{ label: 'Potencia (%)', data: powers, borderColor: '#6366f1', backgroundColor: 'rgba(99,102,241,0.1)', fill: true, tension: 0.4, pointRadius: 4, pointHoverRadius: 7, borderWidth: 2.5 }] },
+            options: {
+                responsive: true,
+                plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => `Potencia: ${ctx.raw}%` } } },
+                scales: {
+                    x: { title: { display: true, text: 'n por brazo', font: { family: 'Inter', weight: '600' } }, grid: { color: '#f1f5f9' } },
+                    y: { min: 0, max: 100, title: { display: true, text: 'Potencia (%)', font: { family: 'Inter', weight: '600' } }, grid: { color: '#f1f5f9' } }
+                }
+            },
+            plugins: [{ id: 'p80', afterDraw(chart) {
+                const y80 = chart.scales.y.getPixelForValue(80), ctx = chart.ctx;
+                ctx.save(); ctx.strokeStyle = '#ef4444'; ctx.lineWidth = 1.5; ctx.setLineDash([6,4]);
+                ctx.beginPath(); ctx.moveTo(chart.chartArea.left, y80); ctx.lineTo(chart.chartArea.right, y80); ctx.stroke();
+                ctx.fillStyle = '#ef4444'; ctx.font = '11px Inter'; ctx.fillText('80%', chart.chartArea.right + 4, y80 + 4);
+                ctx.restore();
+            }}]
+        });
+    }
+
+    /**
+     * FIXED: Second chart now correctly varies based on the framework.
+     * Superiority: shows p-value vs n for fixed delta
+     * Non-inferiority: shows upper CI bound vs delta for fixed n
+     */
+    function renderSensCurve(p1, p0, alpha, framework, effectiveRR, deltas) {
+        if (sensCurveChart) sensCurveChart.destroy();
+
+        if (framework === 'superiority') {
+            // p-value vs sample size
+            const ns = [20,30,40,50,60,75,100,125,150,200,250,300,400,500];
+            const pvals = ns.map(n => {
+                const seLnRR = Math.sqrt((1-p1)/(n*p1) + (1-p0)/(n*p0));
+                return rd(zToP(Math.log(effectiveRR)/seLnRR), 4);
+            });
+
+            sensCurveChart = new Chart(document.getElementById('sensCurveChart'), {
+                type: 'line',
+                data: { labels: ns, datasets: [{ label: 'p-valor', data: pvals, borderColor: '#f59e0b', backgroundColor: 'rgba(245,158,11,0.1)', fill: true, tension: 0.3, pointRadius: 3, pointHoverRadius: 6, borderWidth: 2.5 }] },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => `p = ${ctx.raw}` } } },
+                    scales: {
+                        x: { title: { display: true, text: 'n por brazo', font: { family: 'Inter', weight: '600' } }, grid: { color: '#f1f5f9' } },
+                        y: { min: 0, max: 1, title: { display: true, text: 'p-valor (superioridad)', font: { family: 'Inter', weight: '600' } }, grid: { color: '#f1f5f9' } }
+                    }
+                },
+                plugins: [{ id: 'aLine', afterDraw(chart) {
+                    const yA = chart.scales.y.getPixelForValue(alpha), ctx = chart.ctx;
+                    ctx.save(); ctx.strokeStyle = '#ef4444'; ctx.lineWidth = 1.5; ctx.setLineDash([6,4]);
+                    ctx.beginPath(); ctx.moveTo(chart.chartArea.left, yA); ctx.lineTo(chart.chartArea.right, yA); ctx.stroke();
+                    ctx.fillStyle = '#ef4444'; ctx.font = '11px Inter'; ctx.fillText(`α=${alpha}`, chart.chartArea.right + 4, yA + 4);
+                    ctx.restore();
+                }}]
+            });
+        } else {
+            // NI: upper CI bound vs delta, for n=100
+            const n = 100;
+            const seLnRR = Math.sqrt((1-p1)/(n*p1) + (1-p0)/(n*p0));
+            const upperRR = Math.exp(Math.log(effectiveRR) + 1.96 * seLnRR);
+            const fineDeltas = [];
+            for (let d = 1.0; d <= 2.01; d += 0.05) fineDeltas.push(rd(d,2));
+
+            // Show a horizontal line at the upper CI bound, and the delta values on x-axis
+            // Favorable when upperRR < delta => below the diagonal
+            const upperLine = fineDeltas.map(() => rd(upperRR, 3));
+            const diag = fineDeltas.map(d => d); // y = x line
+
+            sensCurveChart = new Chart(document.getElementById('sensCurveChart'), {
+                type: 'line',
+                data: {
+                    labels: fineDeltas,
+                    datasets: [
+                        { label: 'Límite sup. IC 95% del RR', data: upperLine, borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.1)', fill: false, tension: 0, pointRadius: 0, borderWidth: 3, borderDash: [] },
+                        { label: 'Margen δ (umbral NI)', data: diag, borderColor: '#ef4444', backgroundColor: 'rgba(239,68,68,0.05)', fill: false, tension: 0, pointRadius: 0, borderWidth: 2, borderDash: [6,4] }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'top', labels: { font: { family: 'Inter', size: 11, weight: '500' } } },
+                        tooltip: { callbacks: { label: ctx => `${ctx.dataset.label}: ${ctx.raw}` } }
+                    },
+                    scales: {
+                        x: { title: { display: true, text: 'Margen δ', font: { family: 'Inter', weight: '600' } }, grid: { color: '#f1f5f9' } },
+                        y: { title: { display: true, text: 'RR', font: { family: 'Inter', weight: '600' } }, grid: { color: '#f1f5f9' } }
+                    }
+                }
+            });
+        }
+    }
+
+    function renderInterpretation(stability, effectiveRR, analysisType, framework, alpha) {
+        const container = document.getElementById('sens-interpretation');
+        let level, levelClass;
+        if (stability > 70) { level = 'ALTA'; levelClass = 'text-emerald-700 bg-emerald-50'; }
+        else if (stability > 40) { level = 'MODERADA'; levelClass = 'text-amber-700 bg-amber-50'; }
+        else { level = 'BAJA'; levelClass = 'text-red-700 bg-red-50'; }
+
+        container.innerHTML = `
+            <div class="alert alert-info">
+                <div>
+                    <strong>Resumen:</strong> Estabilidad
+                    <span class="font-bold px-2 py-0.5 rounded ${levelClass}">${level} (${stability}%)</span>
+                    frente a variaciones en n y δ.
+                    Framework: <strong>${framework === 'superiority' ? 'Superioridad' : 'No-Inferioridad'}</strong>.
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3">
+                <div class="bg-slate-50 rounded-lg p-3 border border-slate-200">
+                    <p class="font-semibold text-slate-700 text-xs mb-1">Análisis: ${analysisType}</p>
+                    <p class="text-xs text-slate-500">${analysisType === 'ITT' ? 'Dilución por no-adherencia aplicada. Efecto real podría ser mayor.' : 'Efecto completo (PP). Posible sesgo por exclusión.'}</p>
+                </div>
+                <div class="bg-slate-50 rounded-lg p-3 border border-slate-200">
+                    <p class="font-semibold text-slate-700 text-xs mb-1">Framework: ${framework === 'superiority' ? 'Superioridad' : 'No-Inferioridad'}</p>
+                    <p class="text-xs text-slate-500">${framework === 'superiority' ? 'H₀: sin diferencia. Se busca p < α.' : 'H₀: inferior. Se busca IC superior < δ.'}</p>
+                </div>
+            </div>
+            <div class="mt-3">
+                <p class="text-xs text-slate-500 italic">
+                    <strong>Interpretación:</strong> Estabilidad ≥70% sugiere resultado robusto. <40% = resultado frágil ante cambios de supuestos.
+                    La curva de potencia usa el efecto ESPECIFICADO (a priori), no el observado.
+                </p>
+            </div>
+        `;
+    }
+
+    // ===========================================
+    // UI: TABS, INPUT MODES, EXAMPLES, EXPORT
+    // ===========================================
+
+    function switchTab(tabId, btn) {
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(el => { el.classList.remove('active'); el.setAttribute('aria-selected', 'false'); });
+        document.getElementById(tabId).classList.add('active');
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+    }
+
+    function setInputMode(mode) {
+        document.getElementById('input-form').style.display = mode === 'form' ? 'block' : 'none';
+        document.getElementById('input-csv').style.display = mode === 'csv' ? 'block' : 'none';
+        document.getElementById('btn-form').className = `px-4 py-2 text-xs font-semibold rounded-lg transition ${mode === 'form' ? 'bg-blue-100 text-blue-700 border border-blue-200' : 'bg-gray-100 text-gray-600 border border-gray-200'}`;
+        document.getElementById('btn-csv').className = `px-4 py-2 text-xs font-semibold rounded-lg transition ${mode === 'csv' ? 'bg-blue-100 text-blue-700 border border-blue-200' : 'bg-gray-100 text-gray-600 border border-gray-200'}`;
+    }
+
+    function toggleOutcomeType() {
+        const type = document.querySelector('input[name="outcomeType"]:checked').value;
+        document.getElementById('binary-inputs').style.display = type === 'binary' ? 'block' : 'none';
+        document.getElementById('continuous-inputs').style.display = type === 'continuous' ? 'block' : 'none';
+        document.getElementById('reported-binary').style.display = type === 'binary' ? 'grid' : 'none';
+        document.getElementById('reported-continuous').style.display = type === 'continuous' ? 'grid' : 'none';
+    }
+
+    function parseCSVInput() {
+        try {
+            const text = document.getElementById('csv-input').value.trim();
+            const lines = text.split('\n').map(l => l.trim()).filter(l => l && !l.startsWith('#'));
+            if (lines.length < 2) { alert('Se necesitan al menos 2 líneas de datos.'); return; }
+            const header = lines[0].toLowerCase().split(',').map(h => h.trim());
+            const rows = lines.slice(1).map(l => l.split(',').map(v => v.trim()));
+
+            if (rows.length >= 2) {
+                // Support both Spanish and English headers
+                const iN = Math.max(header.indexOf('n'), header.indexOf('sample_size'));
+                const iEv = Math.max(header.indexOf('eventos'), header.indexOf('events'));
+                const iOR = Math.max(header.indexOf('or_reportado'), header.indexOf('reported_or'));
+                const iCIL = Math.max(header.indexOf('ic_low'), header.indexOf('ci_low'));
+                const iCIH = Math.max(header.indexOf('ic_high'), header.indexOf('ci_high'));
+                const iP = Math.max(header.indexOf('p_valor'), header.indexOf('p_value'));
+
+                if (iN >= 0) document.getElementById('arm1_n').value = rows[0][iN];
+                if (iEv >= 0) document.getElementById('arm1_events').value = rows[0][iEv];
+                if (iN >= 0) document.getElementById('arm2_n').value = rows[1][iN];
+                if (iEv >= 0) document.getElementById('arm2_events').value = rows[1][iEv];
+                if (iOR >= 0 && rows[0][iOR]) document.getElementById('rep_or').value = rows[0][iOR];
+                if (iCIL >= 0 && rows[0][iCIL]) document.getElementById('rep_ci_low').value = rows[0][iCIL];
+                if (iCIH >= 0 && rows[0][iCIH]) document.getElementById('rep_ci_high').value = rows[0][iCIH];
+                if (iP >= 0 && rows[0][iP]) document.getElementById('rep_pval').value = rows[0][iP];
+
+                document.querySelector('input[name="outcomeType"][value="binary"]').checked = true;
+                toggleOutcomeType();
+                setInputMode('form');
+                validateInputs();
+                alert('Datos CSV importados correctamente.');
+            }
+        } catch (e) { alert('Error al parsear CSV: ' + e.message); }
+    }
+
+    function loadBinaryExample() {
+        document.querySelector('input[name="outcomeType"][value="binary"]').checked = true;
+        toggleOutcomeType();
+        document.getElementById('arm1_name').value = 'Tratamiento A';
+        document.getElementById('arm1_n').value = 50;
+        document.getElementById('arm1_events').value = 30;
+        document.getElementById('arm2_name').value = 'Control';
+        document.getElementById('arm2_n').value = 50;
+        document.getElementById('arm2_events').value = 20;
+        document.getElementById('rep_or').value = 1.5;
+        document.getElementById('rep_ci_low').value = 1.1;
+        document.getElementById('rep_ci_high').value = 1.9;
+        document.getElementById('rep_pval').value = 0.045;
+        setInputMode('form');
+        validateInputs();
+    }
+
+    function loadContinuousExample() {
+        document.querySelector('input[name="outcomeType"][value="continuous"]').checked = true;
+        toggleOutcomeType();
+        document.getElementById('arm1c_n').value = 50;
+        document.getElementById('arm1c_mean').value = 12.5;
+        document.getElementById('arm1c_sd').value = 4.2;
+        document.getElementById('arm2c_n').value = 50;
+        document.getElementById('arm2c_mean').value = 10.8;
+        document.getElementById('arm2c_sd').value = 3.9;
+        document.getElementById('rep_meandiff').value = 1.7;
+        document.getElementById('rep_ci_low_c').value = 0.1;
+        document.getElementById('rep_ci_high_c').value = 3.3;
+        document.getElementById('rep_pval_c').value = 0.038;
+        setInputMode('form');
+    }
+
+    function clearAudit() {
+        document.getElementById('audit-results').style.display = 'none';
+        document.getElementById('audit-alerts').innerHTML = '';
+        document.getElementById('comparison-tbody').innerHTML = '';
+        if (effectCompareChart) { effectCompareChart.destroy(); effectCompareChart = null; }
+        if (forestChart) { forestChart.destroy(); forestChart = null; }
+        if (pvalCompareChart) { pvalCompareChart.destroy(); pvalCompareChart = null; }
+    }
+
+    function loadSensitivityExample() {
+        document.getElementById('sens_rr').value = 1.5;
+        document.getElementById('lbl_rr').textContent = '1.50';
+        document.getElementById('sens_p0').value = 0.20;
+        document.getElementById('lbl_p0').textContent = '0.20';
+        document.getElementById('sens_alpha').value = '0.05';
+        document.getElementById('sens_analysis').value = 'ITT';
+        document.getElementById('sens_framework').value = 'superiority';
+        document.getElementById('sens_dilution').value = 0.85;
+        document.getElementById('lbl_dilution').textContent = '0.85';
+        runSensitivity();
+    }
+
+    /** CSV Export — FIXED: now includes Module 2 data */
+    function exportAllCSV() {
+        let csv = 'ClinTrialSuite v3.0 - Exportación\n';
+        csv += 'Generado,' + new Date().toLocaleString('es') + '\n\n';
+
+        // Module 1
+        const rows = document.querySelectorAll('#comparison-tbody tr');
+        if (rows.length > 0) {
+            csv += 'MÓDULO 1: AUDITORÍA ESTADÍSTICA\n';
+            csv += 'Parámetro,Reportado,Calculado,Diferencia,Tolerancia,Estado\n';
+            rows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                csv += Array.from(cells).map(c => c.textContent.trim().replace(/,/g, ';')).join(',') + '\n';
+            });
+            csv += '\n';
+            csv += 'NNT,' + (document.getElementById('val-nnt')?.textContent || '') + '\n';
+            csv += 'Potencia Post-Hoc,' + (document.getElementById('val-power')?.textContent || '') + '\n';
+            csv += 'Fragilidad,' + (document.getElementById('val-fragility')?.textContent || '') + '\n\n';
+        }
+
+        // Module 2
+        const summaryEl = document.getElementById('heatmap-summary');
+        if (summaryEl && summaryEl.textContent.trim()) {
+            csv += 'MÓDULO 2: SENSIBILIDAD INFERENCIAL\n';
+            csv += summaryEl.textContent.trim().replace(/\s+/g, ' ') + '\n';
+            csv += 'RR,' + document.getElementById('sens_rr').value + '\n';
+            csv += 'Riesgo basal,' + document.getElementById('sens_p0').value + '\n';
+            csv += 'Alpha,' + document.getElementById('sens_alpha').value + '\n';
+            csv += 'Análisis,' + document.getElementById('sens_analysis').value + '\n';
+            csv += 'Framework,' + document.getElementById('sens_framework').value + '\n';
+            csv += 'Dilución ITT,' + document.getElementById('sens_dilution').value + '\n';
+        }
+
+        const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'ClinTrialSuite_v3_resultados.csv';
+        link.click();
+    }
+
+    // ===========================================
+    // INIT — No auto-run: results only appear when user clicks "Ejecutar"
+    // ===========================================
+    document.addEventListener('DOMContentLoaded', () => {
+        validateInputs();
+        // Do NOT run audits automatically — keep the UI clean on load
+    });
+
+    // ===========================================
+    // PWA: Service Worker Registration + Install
+    // ===========================================
+    
+    let deferredPrompt = null;
+    let swRegistration = null;
+
+    // Register Service Worker
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', async () => {
+            try {
+                swRegistration = await navigator.serviceWorker.register('./sw.js');
+                console.log('[PWA] Service Worker registrado:', swRegistration.scope);
+
+                // Check for updates
+                swRegistration.addEventListener('updatefound', () => {
+                    const newWorker = swRegistration.installing;
+                    newWorker.addEventListener('statechange', () => {
+                        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                            showUpdateBanner();
+                        }
+                    });
+                });
+            } catch (err) {
+                console.warn('[PWA] Error registrando SW:', err);
+            }
+        });
+    }
+
+    // Capture install prompt
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        showInstallBanner();
+    });
+
+    // Show install banner
+    function showInstallBanner() {
+        // Don't show if already installed
+        if (window.matchMedia('(display-mode: standalone)').matches) return;
+        
+        const existing = document.getElementById('pwa-install-banner');
+        if (existing) return;
+
+        const banner = document.createElement('div');
+        banner.id = 'pwa-install-banner';
+        banner.className = 'no-print';
+        banner.style.cssText = 'position:fixed;bottom:0;left:0;right:0;z-index:9999;padding:0;animation:slideUp 0.4s ease;';
+        banner.innerHTML = `
+            <div style="max-width:640px;margin:0 auto 16px;background:linear-gradient(135deg,#1e3a5f,#0f172a);color:white;border-radius:16px;padding:16px 20px;box-shadow:0 8px 32px rgba(0,0,0,0.3);display:flex;align-items:center;gap:14px;margin-left:16px;margin-right:16px;">
+                <div style="width:44px;height:44px;background:#3b82f6;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;flex-shrink:0;">CT</div>
+                <div style="flex:1;min-width:0;">
+                    <p style="font-weight:700;font-size:0.9rem;margin:0;">Instalar ClinTrialSuite</p>
+                    <p style="font-size:0.75rem;color:#94a3b8;margin:2px 0 0;">Funciona sin conexión · Acceso directo</p>
+                </div>
+                <button onclick="installPWA()" style="background:#3b82f6;color:white;border:none;padding:8px 18px;border-radius:10px;font-weight:700;font-size:0.82rem;cursor:pointer;white-space:nowrap;flex-shrink:0;">Instalar</button>
+                <button onclick="dismissInstallBanner()" style="background:transparent;border:none;color:#64748b;font-size:1.3rem;cursor:pointer;padding:4px 8px;flex-shrink:0;" aria-label="Cerrar">✕</button>
+            </div>
+        `;
+        document.body.appendChild(banner);
+    }
+
+    async function installPWA() {
+        if (!deferredPrompt) return;
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log('[PWA] Resultado de instalación:', outcome);
+        deferredPrompt = null;
+        dismissInstallBanner();
+        if (outcome === 'accepted') {
+            showToast('App instalada correctamente');
+        }
+    }
+
+    function dismissInstallBanner() {
+        const banner = document.getElementById('pwa-install-banner');
+        if (banner) {
+            banner.style.animation = 'slideDown 0.3s ease forwards';
+            setTimeout(() => banner.remove(), 300);
+        }
+    }
+
+    // Show update banner
+    function showUpdateBanner() {
+        const banner = document.createElement('div');
+        banner.id = 'pwa-update-banner';
+        banner.className = 'no-print';
+        banner.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:9999;background:#059669;color:white;padding:10px 20px;text-align:center;font-size:0.85rem;font-weight:600;animation:slideDown2 0.3s ease;display:flex;align-items:center;justify-content:center;gap:12px;';
+        banner.innerHTML = `
+            <span>Nueva versión disponible</span>
+            <button onclick="applyUpdate()" style="background:white;color:#059669;border:none;padding:5px 14px;border-radius:8px;font-weight:700;font-size:0.8rem;cursor:pointer;">Actualizar</button>
+            <button onclick="this.parentElement.remove()" style="background:transparent;border:none;color:rgba(255,255,255,0.7);font-size:1.1rem;cursor:pointer;">✕</button>
+        `;
+        document.body.appendChild(banner);
+    }
+
+    function applyUpdate() {
+        if (swRegistration && swRegistration.waiting) {
+            swRegistration.waiting.postMessage('SKIP_WAITING');
+        }
+        window.location.reload();
+    }
+
+    // Offline/Online indicator
+    function updateOnlineStatus() {
+        const indicator = document.getElementById('offline-indicator');
+        if (!navigator.onLine) {
+            if (!indicator) {
+                const div = document.createElement('div');
+                div.id = 'offline-indicator';
+                div.className = 'no-print';
+                div.style.cssText = 'position:fixed;top:60px;right:16px;z-index:9998;background:#f59e0b;color:#78350f;padding:6px 14px;border-radius:10px;font-size:0.78rem;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,0.15);display:flex;align-items:center;gap:6px;';
+                div.innerHTML = '<span style="width:8px;height:8px;background:#ef4444;border-radius:50%;display:inline-block;"></span> Sin conexión — modo offline';
+                document.body.appendChild(div);
+            }
+        } else {
+            if (indicator) indicator.remove();
+        }
+    }
+
+    window.addEventListener('online', updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
+    window.addEventListener('load', updateOnlineStatus);
+
+    // Toast notification
+    function showToast(message) {
+        const toast = document.createElement('div');
+        toast.style.cssText = 'position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#1e293b;color:white;padding:10px 24px;border-radius:12px;font-size:0.85rem;font-weight:600;z-index:10000;box-shadow:0 8px 24px rgba(0,0,0,0.25);animation:fadeInUp 0.3s ease;';
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        setTimeout(() => {
+            toast.style.animation = 'fadeOutDown 0.3s ease forwards';
+            setTimeout(() => toast.remove(), 300);
+        }, 2500);
+    }
+
+    // Standalone detection
+    window.addEventListener('appinstalled', () => {
+        console.log('[PWA] App instalada exitosamente');
+        deferredPrompt = null;
+    });
+
+    // Generate PNG icons dynamically (needed for iOS/Android install)
+    function generateIcon(size) {
+        const canvas = document.createElement('canvas');
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext('2d');
+        // Background
+        const grad = ctx.createLinearGradient(0, 0, size, size);
+        grad.addColorStop(0, '#1e3a5f');
+        grad.addColorStop(1, '#0f172a');
+        const r = size * 0.21;
+        ctx.beginPath();
+        ctx.moveTo(r, 0); ctx.lineTo(size-r, 0); ctx.quadraticCurveTo(size, 0, size, r);
+        ctx.lineTo(size, size-r); ctx.quadraticCurveTo(size, size, size-r, size);
+        ctx.lineTo(r, size); ctx.quadraticCurveTo(0, size, 0, size-r);
+        ctx.lineTo(0, r); ctx.quadraticCurveTo(0, 0, r, 0);
+        ctx.closePath();
+        ctx.fillStyle = grad;
+        ctx.fill();
+        // Bars
+        const bars = [{x:0.16,y:0.51,w:0.09,h:0.25,o:0.5},{x:0.29,y:0.43,w:0.09,h:0.33,o:0.65},{x:0.42,y:0.35,w:0.09,h:0.41,o:0.8},{x:0.56,y:0.47,w:0.09,h:0.29,o:0.7},{x:0.69,y:0.39,w:0.09,h:0.37,o:0.85}];
+        bars.forEach((b,i) => {
+            ctx.globalAlpha = b.o;
+            ctx.fillStyle = i < 3 ? '#3b82f6' : '#22c55e';
+            const br = size * 0.015;
+            ctx.beginPath();
+            ctx.moveTo(b.x*size+br, b.y*size); ctx.lineTo((b.x+b.w)*size-br, b.y*size);
+            ctx.quadraticCurveTo((b.x+b.w)*size, b.y*size, (b.x+b.w)*size, b.y*size+br);
+            ctx.lineTo((b.x+b.w)*size, (b.y+b.h)*size-br);
+            ctx.quadraticCurveTo((b.x+b.w)*size, (b.y+b.h)*size, (b.x+b.w)*size-br, (b.y+b.h)*size);
+            ctx.lineTo(b.x*size+br, (b.y+b.h)*size);
+            ctx.quadraticCurveTo(b.x*size, (b.y+b.h)*size, b.x*size, (b.y+b.h)*size-br);
+            ctx.lineTo(b.x*size, b.y*size+br);
+            ctx.quadraticCurveTo(b.x*size, b.y*size, b.x*size+br, b.y*size);
+            ctx.closePath();
+            ctx.fill();
+        });
+        ctx.globalAlpha = 1;
+        // CT text
+        ctx.fillStyle = 'white';
+        ctx.font = `800 ${size*0.19}px system-ui, -apple-system, sans-serif`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('CT', size*0.5, size*0.24);
+        // Checkmark circle
+        ctx.fillStyle = '#3b82f6';
+        ctx.beginPath();
+        ctx.arc(size*0.82, size*0.19, size*0.082, 0, Math.PI*2);
+        ctx.fill();
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = size*0.016;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.beginPath();
+        ctx.moveTo(size*0.785, size*0.19);
+        ctx.lineTo(size*0.81, size*0.215);
+        ctx.lineTo(size*0.855, size*0.168);
+        ctx.stroke();
+        return canvas.toDataURL('image/png');
+    }
+
+    // Cache generated icons on first load
+    if ('caches' in window) {
+        window.addEventListener('load', async () => {
+            try {
+                const cache = await caches.open('clintrialsuite-v3.1');
+                const icon192 = generateIcon(192);
+                const icon512 = generateIcon(512);
+                // Convert data URLs to blobs and cache them
+                const blob192 = await (await fetch(icon192)).blob();
+                const blob512 = await (await fetch(icon512)).blob();
+                await cache.put(new Request('./icon-192.png'), new Response(blob192, { headers: { 'Content-Type': 'image/png' } }));
+                await cache.put(new Request('./icon-512.png'), new Response(blob512, { headers: { 'Content-Type': 'image/png' } }));
+                console.log('[PWA] Iconos PNG generados y cacheados');
+            } catch(e) { console.warn('[PWA] No se pudieron cachear iconos:', e); }
+        });
+    }
+    </script>
+</body>
+</html>

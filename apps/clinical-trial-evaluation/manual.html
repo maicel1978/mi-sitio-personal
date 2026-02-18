@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
+    <title>Manual de Usuario — ClinTrialSuite v3.0</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', system-ui, sans-serif; }
+        body { background: #f8fafc; color: #1e293b; }
+
+        /* Smooth scrolling */
+        html { scroll-behavior: smooth; }
+
+        /* TOC sidebar */
+        .toc-link { 
+            display: block; padding: 6px 12px; font-size: 0.8rem; color: #64748b; 
+            border-left: 2px solid transparent; transition: all 0.2s;
+            text-decoration: none;
+        }
+        .toc-link:hover { color: #3b82f6; border-left-color: #3b82f6; background: #eff6ff; }
+        .toc-link.active { color: #1e40af; border-left-color: #1e40af; font-weight: 600; background: #eff6ff; }
+        .toc-link.sub { padding-left: 24px; font-size: 0.75rem; }
+
+        /* Content styles */
+        .manual-content h2 { 
+            font-size: 1.5rem; font-weight: 800; color: #0f172a; margin-top: 3rem; 
+            margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e2e8f0;
+            scroll-margin-top: 80px;
+        }
+        .manual-content h3 { 
+            font-size: 1.15rem; font-weight: 700; color: #1e293b; margin-top: 2rem; 
+            margin-bottom: 0.75rem; scroll-margin-top: 80px;
+        }
+        .manual-content h4 { 
+            font-size: 1rem; font-weight: 600; color: #334155; margin-top: 1.5rem; 
+            margin-bottom: 0.5rem; scroll-margin-top: 80px;
+        }
+        .manual-content p { font-size: 0.9rem; line-height: 1.7; color: #475569; margin-bottom: 0.75rem; }
+        .manual-content ul, .manual-content ol { margin-bottom: 1rem; padding-left: 1.5rem; }
+        .manual-content li { font-size: 0.875rem; line-height: 1.6; color: #475569; margin-bottom: 0.35rem; }
+        .manual-content strong { color: #1e293b; }
+        .manual-content em { color: #64748b; }
+
+        .manual-content table { 
+            width: 100%; border-collapse: separate; border-spacing: 0; margin: 1rem 0 1.5rem; 
+            border-radius: 8px; overflow: hidden; border: 1px solid #e2e8f0;
+        }
+        .manual-content th { 
+            background: #f1f5f9; font-weight: 600; font-size: 0.8rem; text-align: left; 
+            padding: 10px 14px; color: #475569; border-bottom: 1px solid #e2e8f0;
+        }
+        .manual-content td { 
+            padding: 10px 14px; font-size: 0.85rem; color: #475569; 
+            border-bottom: 1px solid #f1f5f9; vertical-align: top;
+        }
+        .manual-content tr:last-child td { border-bottom: none; }
+        .manual-content tr:hover td { background: #f8fafc; }
+
+        .manual-content code { 
+            background: #f1f5f9; padding: 2px 6px; border-radius: 4px; 
+            font-family: 'Courier New', monospace; font-size: 0.82rem; color: #c026d3;
+        }
+        .manual-content pre { 
+            background: #1e293b; color: #e2e8f0; padding: 16px 20px; border-radius: 10px; 
+            overflow-x: auto; margin: 1rem 0 1.5rem; font-size: 0.82rem; line-height: 1.6;
+        }
+        .manual-content pre code { background: none; color: inherit; padding: 0; }
+
+        .manual-content blockquote { 
+            border-left: 4px solid #f59e0b; background: #fffbeb; padding: 12px 16px; 
+            border-radius: 0 8px 8px 0; margin: 1rem 0; font-size: 0.85rem; color: #92400e;
+        }
+
+        .info-box { 
+            background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px; 
+            padding: 16px 20px; margin: 1rem 0 1.5rem;
+        }
+        .info-box p { color: #1e40af; }
+        
+        .warning-box { 
+            background: #fef2f2; border: 1px solid #fecaca; border-radius: 10px; 
+            padding: 16px 20px; margin: 1rem 0 1.5rem;
+        }
+        .warning-box p { color: #991b1b; }
+
+        .success-box { 
+            background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; 
+            padding: 16px 20px; margin: 1rem 0 1.5rem;
+        }
+        .success-box p { color: #166534; }
+
+        /* Print */
+        @media print { 
+            .no-print { display: none !important; } 
+            .manual-content h2 { page-break-before: always; }
+            body { background: white; }
+        }
+
+        /* Sticky header */
+        .top-bar {
+            position: sticky; top: 0; z-index: 50; 
+            background: rgba(15, 23, 42, 0.97); backdrop-filter: blur(8px);
+        }
+
+        /* Sidebar sticky */
+        @media (min-width: 1024px) {
+            .toc-sidebar { position: sticky; top: 80px; max-height: calc(100vh - 100px); overflow-y: auto; }
+        }
+
+        /* Scrollbar for TOC */
+        .toc-sidebar::-webkit-scrollbar { width: 4px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 2px; }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- TOP BAR -->
+    <div class="top-bar text-white shadow-lg no-print">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <a href="index.html" class="flex items-center gap-2 hover:opacity-80 transition" title="Volver a ClinTrialSuite">
+                    <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center text-sm font-bold shadow">CT</div>
+                    <span class="text-sm font-semibold">ClinTrialSuite</span>
+                </a>
+                <span class="text-slate-500 mx-2">›</span>
+                <span class="text-blue-300 text-sm font-medium">Manual de Usuario</span>
+            </div>
+            <div class="flex items-center gap-3 text-xs">
+                <span class="text-slate-400">v3.0</span>
+                <a href="index.html" class="bg-blue-600 hover:bg-blue-700 px-3 py-1.5 rounded-lg transition font-medium text-white">
+                    ← Volver a la App
+                </a>
+                <button onclick="window.print()" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition font-medium">
+                    Imprimir
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- LAYOUT -->
+    <div class="max-w-7xl mx-auto px-4 py-8 flex gap-8">
+
+        <!-- SIDEBAR TOC -->
+        <aside class="hidden lg:block w-64 flex-shrink-0 no-print">
+            <nav class="toc-sidebar bg-white rounded-xl border border-slate-200 shadow-sm p-4">
+                <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3 px-3">Contenidos</p>
+                <a href="#sec1" class="toc-link">1. Introducción</a>
+                <a href="#sec2" class="toc-link">2. Requisitos del Sistema</a>
+                <a href="#sec3" class="toc-link">3. Interfaz General</a>
+                <a href="#sec4" class="toc-link">4. Módulo 1: Auditoría</a>
+                <a href="#sec4-1" class="toc-link sub">4.1 Tipo de desenlace</a>
+                <a href="#sec4-2" class="toc-link sub">4.2 Ingreso — Formulario</a>
+                <a href="#sec4-3" class="toc-link sub">4.3 Ingreso — CSV</a>
+                <a href="#sec4-4" class="toc-link sub">4.4 Valores reportados</a>
+                <a href="#sec4-5" class="toc-link sub">4.5 Opciones de cálculo</a>
+                <a href="#sec4-6" class="toc-link sub">4.6 Ejecución y resultados</a>
+                <a href="#sec4-7" class="toc-link sub">4.7 Métricas calculadas</a>
+                <a href="#sec4-8" class="toc-link sub">4.8 Tabla de comparación</a>
+                <a href="#sec4-9" class="toc-link sub">4.9 Gráficos</a>
+                <a href="#sec4-10" class="toc-link sub">4.10 Alertas</a>
+                <a href="#sec5" class="toc-link">5. Módulo 2: Sensibilidad</a>
+                <a href="#sec5-1" class="toc-link sub">5.1 Parámetros</a>
+                <a href="#sec5-2" class="toc-link sub">5.2 Mapa de robustez</a>
+                <a href="#sec5-3" class="toc-link sub">5.3 Curva de potencia</a>
+                <a href="#sec5-4" class="toc-link sub">5.4 Gráfico conclusión vs N</a>
+                <a href="#sec5-5" class="toc-link sub">5.5 Interpretación</a>
+                <a href="#sec6" class="toc-link">6. Módulo 3: Metodología</a>
+                <a href="#sec7" class="toc-link">7. Exportación</a>
+                <a href="#sec8" class="toc-link">8. Ejemplos paso a paso</a>
+                <a href="#sec9" class="toc-link">9. Glosario</a>
+                <a href="#sec10" class="toc-link">10. FAQ</a>
+                <a href="#sec11" class="toc-link">11. Limitaciones</a>
+                <a href="#sec12" class="toc-link">12. Referencias</a>
+                <a href="#sec13" class="toc-link">13. Aviso Legal</a>
+            </nav>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="flex-1 min-w-0">
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-8 md:p-12 manual-content">
+
+                <!-- Title -->
+                <div class="text-center mb-10 pb-8 border-b-2 border-slate-100">
+                    <div class="inline-flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center text-xl font-bold text-white shadow-lg">CT</div>
+                    </div>
+                    <h1 class="text-3xl font-extrabold text-slate-900 mb-2">Manual de Usuario</h1>
+                    <p class="text-lg text-blue-600 font-semibold">ClinTrialSuite v3.0</p>
+                    <p class="text-sm text-slate-400 mt-2">Suite de Evaluación de Ensayos Clínicos</p>
+                </div>
+
+                <!-- ==================== SECTION 1 ==================== -->
+                <h2 id="sec1">1. Introducción</h2>
+                
+                <p><strong>ClinTrialSuite v3.0</strong> es una herramienta educativa interactiva diseñada para la evaluación rápida de resultados publicados de ensayos clínicos. Permite:</p>
+                
+                <ul>
+                    <li><strong>Verificar la consistencia estadística</strong> entre los datos crudos y las métricas reportadas en una publicación (Módulo 1).</li>
+                    <li><strong>Explorar la robustez de las conclusiones</strong> bajo diferentes supuestos metodológicos (Módulo 2).</li>
+                    <li><strong>Consultar las fórmulas, limitaciones y referencias</strong> que sustentan los cálculos (Módulo 3).</li>
+                </ul>
+
+                <h3>¿Para quién es esta herramienta?</h3>
+
+                <table>
+                    <thead><tr><th>Perfil</th><th>Uso principal</th></tr></thead>
+                    <tbody>
+                        <tr><td>Estudiantes de bioestadística</td><td>Aprender cómo se calculan OR, IC, p-valores, NNT</td></tr>
+                        <tr><td>Revisores de artículos</td><td>Verificar rápidamente si los números reportados son coherentes</td></tr>
+                        <tr><td>Profesionales de asuntos regulatorios</td><td>Screening inicial de consistencia antes de revisión profunda</td></tr>
+                        <tr><td>Investigadores clínicos</td><td>Explorar sensibilidad de resultados a cambios de supuestos</td></tr>
+                    </tbody>
+                </table>
+
+                <blockquote>
+                    <strong>⚠️ Aviso importante:</strong> Esta herramienta es exclusivamente educativa. No sustituye la revisión completa de datos clínicos individuales (IPD) para decisiones regulatorias ante FDA, EMA, ANVISA u otros organismos.
+                </blockquote>
+
+                <!-- ==================== SECTION 2 ==================== -->
+                <h2 id="sec2">2. Requisitos del Sistema</h2>
+
+                <table>
+                    <thead><tr><th>Requisito</th><th>Detalle</th></tr></thead>
+                    <tbody>
+                        <tr><td>Navegador</td><td>Chrome 90+, Firefox 88+, Safari 14+, Edge 90+</td></tr>
+                        <tr><td>Conexión a internet</td><td>Necesaria para cargar librerías CDN (Tailwind CSS, Chart.js, Google Fonts)</td></tr>
+                        <tr><td>Resolución mínima</td><td>360px de ancho (responsive, se adapta a móvil)</td></tr>
+                        <tr><td>Instalación</td><td>No requiere. Abrir el archivo <code>index.html</code> directamente en el navegador</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>Librerías externas utilizadas (vía CDN)</h3>
+                <ul>
+                    <li><strong>Tailwind CSS v4</strong> — Framework de estilos</li>
+                    <li><strong>Chart.js v4.4.7</strong> — Gráficos interactivos</li>
+                    <li><strong>Google Fonts (Inter)</strong> — Tipografía</li>
+                </ul>
+
+                <!-- ==================== SECTION 3 ==================== -->
+                <h2 id="sec3">3. Interfaz General</h2>
+
+                <h3>Cabecera (Header)</h3>
+                <ul>
+                    <li><strong>Logo y nombre:</strong> ClinTrialSuite con versión actual</li>
+                    <li><strong>Etiqueta "Herramienta educativa":</strong> Recordatorio permanente del carácter no regulatorio</li>
+                    <li><strong>Botón "Manual de Usuario":</strong> Abre esta documentación en una nueva pestaña</li>
+                    <li><strong>Botón "Exportar CSV":</strong> Descarga todos los resultados calculados en formato CSV</li>
+                </ul>
+
+                <h3>Pestañas de navegación</h3>
+                <table>
+                    <thead><tr><th>Pestaña</th><th>Contenido</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Módulo 1: Auditoría Estadística</strong></td><td>Ingreso de datos y verificación de consistencia</td></tr>
+                        <tr><td><strong>Módulo 2: Sensibilidad Inferencial</strong></td><td>Exploración de robustez bajo diferentes supuestos</td></tr>
+                        <tr><td><strong>Módulo 3: Metodología y Limitaciones</strong></td><td>Documentación de fórmulas, limitaciones y referencias</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>Comportamiento inicial</h3>
+                <ul>
+                    <li>La aplicación <strong>no ejecuta ningún análisis automáticamente</strong> al cargar</li>
+                    <li>Se muestra únicamente el formulario de entrada de datos, limpio y sin resultados</li>
+                    <li>Los resultados aparecen solo después de presionar los botones de ejecución</li>
+                </ul>
+
+                <!-- ==================== SECTION 4 ==================== -->
+                <h2 id="sec4">4. Módulo 1: Auditoría Estadística</h2>
+                <p>Este módulo permite ingresar los datos de un ensayo clínico de dos brazos y comparar los valores reportados en la publicación con los valores calculados a partir de los datos crudos.</p>
+
+                <h3 id="sec4-1">4.1 Selección del tipo de desenlace</h3>
+                
+                <h4>Desenlace Binario (proporciones)</h4>
+                <p>Apropiado cuando el resultado se mide como evento/no-evento: respuesta al tratamiento (sí/no), mortalidad (sí/no), evento adverso grave (sí/no).</p>
+
+                <h4>Desenlace Continuo (medias)</h4>
+                <p>Apropiado cuando el resultado es una medición numérica: presión arterial (mmHg), puntuación de dolor (escala 0–10), nivel de hemoglobina (g/dL).</p>
+
+                <blockquote>Al cambiar el tipo de desenlace, los campos del formulario se actualizan automáticamente.</blockquote>
+
+                <h3 id="sec4-2">4.2 Ingreso de datos — Formulario</h3>
+
+                <h4>Para desenlace binario</h4>
+                <p>Se presentan dos paneles:</p>
+
+                <p><strong>Brazo Tratamiento (azul):</strong></p>
+                <table>
+                    <thead><tr><th>Campo</th><th>Descripción</th><th>Ejemplo</th></tr></thead>
+                    <tbody>
+                        <tr><td>Nombre</td><td>Nombre identificador del brazo</td><td>"Tratamiento A"</td></tr>
+                        <tr><td>n (tamaño)</td><td>Número total de participantes</td><td>50</td></tr>
+                        <tr><td>Eventos</td><td>Número de participantes con el evento</td><td>30</td></tr>
+                        <tr><td>Proporción</td><td>Se calcula automáticamente (solo lectura)</td><td>60.0%</td></tr>
+                    </tbody>
+                </table>
+
+                <p><strong>Brazo Control (verde):</strong></p>
+                <table>
+                    <thead><tr><th>Campo</th><th>Descripción</th><th>Ejemplo</th></tr></thead>
+                    <tbody>
+                        <tr><td>Nombre</td><td>Nombre identificador del brazo</td><td>"Control"</td></tr>
+                        <tr><td>n (tamaño)</td><td>Número total de participantes</td><td>50</td></tr>
+                        <tr><td>Eventos</td><td>Número de participantes con el evento</td><td>20</td></tr>
+                        <tr><td>Proporción</td><td>Se calcula automáticamente (solo lectura)</td><td>40.0%</td></tr>
+                    </tbody>
+                </table>
+
+                <h4>Para desenlace continuo</h4>
+                <table>
+                    <thead><tr><th>Campo</th><th>Brazo Tto</th><th>Brazo Control</th></tr></thead>
+                    <tbody>
+                        <tr><td>n</td><td>50</td><td>50</td></tr>
+                        <tr><td>Media</td><td>12.5</td><td>10.8</td></tr>
+                        <tr><td>DE (SD)</td><td>4.2</td><td>3.9</td></tr>
+                    </tbody>
+                </table>
+
+                <h4>Validación en tiempo real</h4>
+                <ul>
+                    <li><strong>Borde rojo:</strong> el valor ingresado es inválido (eventos > n, valores negativos)</li>
+                    <li>Los mensajes de error aparecen debajo de los campos</li>
+                    <li>El botón "Ejecutar Auditoría" se desactiva si hay errores de validación</li>
+                </ul>
+
+                <h3 id="sec4-3">4.3 Ingreso de datos — CSV</h3>
+
+                <p>Alternativamente, puede pegar datos en formato CSV:</p>
+                <ol>
+                    <li>Haga clic en el botón <strong>"CSV / Texto"</strong> en la esquina superior derecha del formulario</li>
+                    <li>Pegue sus datos en el área de texto</li>
+                    <li>Haga clic en <strong>"Importar CSV"</strong></li>
+                </ol>
+
+                <h4>Formato esperado</h4>
+                <pre><code>brazo,n,eventos,OR_reportado,IC_low,IC_high,p_valor
+Tratamiento,50,30,1.5,1.1,1.9,0.045
+Control,50,20,,,,</code></pre>
+
+                <h4>Headers aceptados</h4>
+                <table>
+                    <thead><tr><th>Español</th><th>Inglés</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>n</code></td><td><code>sample_size</code></td></tr>
+                        <tr><td><code>eventos</code></td><td><code>events</code></td></tr>
+                        <tr><td><code>or_reportado</code></td><td><code>reported_or</code></td></tr>
+                        <tr><td><code>ic_low</code></td><td><code>ci_low</code></td></tr>
+                        <tr><td><code>ic_high</code></td><td><code>ci_high</code></td></tr>
+                        <tr><td><code>p_valor</code></td><td><code>p_value</code></td></tr>
+                    </tbody>
+                </table>
+
+                <h3 id="sec4-4">4.4 Valores reportados en la publicación</h3>
+
+                <h4>Para desenlace binario</h4>
+                <table>
+                    <thead><tr><th>Campo</th><th>Descripción</th><th>Ejemplo</th></tr></thead>
+                    <tbody>
+                        <tr><td>OR reportado</td><td>Odds Ratio reportado por los autores</td><td>1.5</td></tr>
+                        <tr><td>IC 95% Inferior</td><td>Límite inferior del intervalo de confianza</td><td>1.1</td></tr>
+                        <tr><td>IC 95% Superior</td><td>Límite superior del intervalo de confianza</td><td>1.9</td></tr>
+                        <tr><td>p-valor reportado</td><td>p-valor reportado</td><td>0.045</td></tr>
+                    </tbody>
+                </table>
+
+                <h4>Para desenlace continuo</h4>
+                <table>
+                    <thead><tr><th>Campo</th><th>Descripción</th><th>Ejemplo</th></tr></thead>
+                    <tbody>
+                        <tr><td>Dif. medias reportada</td><td>Diferencia de medias entre brazos</td><td>1.7</td></tr>
+                        <tr><td>IC 95% Inferior</td><td>Límite inferior del IC</td><td>0.1</td></tr>
+                        <tr><td>IC 95% Superior</td><td>Límite superior del IC</td><td>3.3</td></tr>
+                        <tr><td>p-valor reportado</td><td>p-valor reportado</td><td>0.038</td></tr>
+                    </tbody>
+                </table>
+
+                <h3 id="sec4-5">4.5 Opciones de cálculo</h3>
+
+                <h4>Corrección de Yates</h4>
+                <ul>
+                    <li><strong>Casilla de verificación:</strong> "Aplicar corrección de continuidad de Yates"</li>
+                    <li><strong>Cuándo activarla:</strong> Cuando alguna celda de la tabla 2×2 tiene menos de 40 observaciones</li>
+                    <li><strong>Efecto:</strong> Produce p-valores más conservadores (más grandes)</li>
+                    <li><strong>Referencia:</strong> Se aplica tanto al χ² principal como al cálculo del índice de fragilidad</li>
+                </ul>
+
+                <h3 id="sec4-6">4.6 Ejecución y resultados</h3>
+
+                <h4>Botones disponibles</h4>
+                <table>
+                    <thead><tr><th>Botón</th><th>Función</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Ejecutar Auditoría</strong></td><td>Calcula todas las métricas y muestra resultados</td></tr>
+                        <tr><td><strong>Ejemplo Binario</strong></td><td>Carga datos de ejemplo para desenlace binario</td></tr>
+                        <tr><td><strong>Ejemplo Continuo</strong></td><td>Carga datos de ejemplo para desenlace continuo</td></tr>
+                        <tr><td><strong>Limpiar</strong></td><td>Oculta todos los resultados y gráficos</td></tr>
+                    </tbody>
+                </table>
+
+                <h4>Flujo de trabajo recomendado</h4>
+                <ol>
+                    <li>Seleccione el tipo de desenlace</li>
+                    <li>Ingrese los datos del ensayo (o cargue un ejemplo)</li>
+                    <li>Ingrese los valores reportados en la publicación</li>
+                    <li>(Opcional) Active la corrección de Yates si aplica</li>
+                    <li>Haga clic en <strong>"Ejecutar Auditoría"</strong></li>
+                    <li>Revise las alertas, métricas, tabla de comparación y gráficos</li>
+                    <li>(Opcional) Exporte los resultados a CSV</li>
+                </ol>
+
+                <h3 id="sec4-7">4.7 Métricas calculadas</h3>
+                <p>Al ejecutar la auditoría, se muestran 6 tarjetas de métricas:</p>
+
+                <h4>1. Odds Ratio Calculado / Diferencia de Medias</h4>
+                <ul>
+                    <li><strong>Fórmula binaria:</strong> <code>OR = (a × d) / (b × c)</code></li>
+                    <li><strong>Fórmula continua:</strong> <code>Dif = media₁ - media₂</code></li>
+                    <li>También muestra el RR calculado (binario) o Cohen's d (continuo)</li>
+                </ul>
+
+                <h4>2. IC 95% Calculado</h4>
+                <ul>
+                    <li><strong>Método:</strong> Wald (aproximación normal en escala logarítmica)</li>
+                    <li><strong>Fórmula binaria:</strong> <code>IC = exp(ln(OR) ± 1.96 × SE)</code></li>
+                    <li><strong>SE:</strong> <code>SE = √(1/a + 1/b + 1/c + 1/d)</code> (método de Woolf)</li>
+                    <li>Corrección de Haldane (+0.5) si alguna celda = 0</li>
+                </ul>
+
+                <h4>3. p-valor Calculado</h4>
+                <ul>
+                    <li><strong>Método binario:</strong> Chi-cuadrado con 1 grado de libertad</li>
+                    <li><code>χ² = N(ad-bc)² / [(a+b)(c+d)(a+c)(b+d)]</code></li>
+                    <li>Color verde si p < 0.05, rojo si p ≥ 0.05</li>
+                </ul>
+
+                <h4>4. NNT (Número Necesario a Tratar)</h4>
+                <ul>
+                    <li><strong>Fórmula:</strong> <code>NNT = 1 / |p₁ - p₂|</code></li>
+                    <li>NNT positivo = <strong>beneficio</strong> | NNT negativo = <strong>daño</strong> (NNTH)</li>
+                </ul>
+
+                <h4>5. Potencia Post-Hoc</h4>
+                <div class="warning-box">
+                    <p><strong>⚠️ ADVERTENCIA:</strong> Esta métrica es una transformación directa del p-valor observado (Hoenig & Heisey, 2001). Un p-valor significativo <strong>siempre</strong> producirá potencia > 50%. No aporta información independiente. Para planificación de estudios futuros, use la curva de potencia a priori del Módulo 2.</p>
+                </div>
+
+                <h4>6. Índice de Fragilidad</h4>
+                <ul>
+                    <li><strong>Método:</strong> Iterativo — reclasifica eventos uno a uno hasta que p ≥ 0.05</li>
+                    <li><strong>Rojo (≤ 3):</strong> Resultado muy frágil</li>
+                    <li><strong>Ámbar (4–8):</strong> Resultado moderadamente frágil</li>
+                    <li><strong>Verde (> 8):</strong> Resultado relativamente robusto</li>
+                </ul>
+
+                <h3 id="sec4-8">4.8 Tabla de comparación</h3>
+
+                <table>
+                    <thead><tr><th>Columna</th><th>Descripción</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Parámetro</strong></td><td>Nombre de la métrica</td></tr>
+                        <tr><td><strong>Reportado</strong></td><td>Valor según la publicación</td></tr>
+                        <tr><td><strong>Calculado</strong></td><td>Valor recalculado por la herramienta</td></tr>
+                        <tr><td><strong>Diferencia</strong></td><td>Diferencia absoluta o relativa</td></tr>
+                        <tr><td><strong>Tolerancia</strong></td><td>Umbral de variabilidad aceptable</td></tr>
+                        <tr><td><strong>Estado</strong></td><td>"Consistente" (verde) o "Inconsistente" (rojo)</td></tr>
+                    </tbody>
+                </table>
+
+                <h4>Tolerancias aplicadas</h4>
+                <table>
+                    <thead><tr><th>Parámetro</th><th>Tolerancia</th><th>Justificación</th></tr></thead>
+                    <tbody>
+                        <tr><td>OR</td><td>±15% relativo</td><td>Variabilidad entre métodos (Wald, exacto, perfil)</td></tr>
+                        <tr><td>IC 95%</td><td>±0.3 absoluto</td><td>Diferencias entre métodos de cálculo del IC</td></tr>
+                        <tr><td>p-valor (binario)</td><td>±0.5 en escala log₁₀</td><td>Sensibilidad a métodos diferentes</td></tr>
+                        <tr><td>p-valor (continuo)</td><td>±0.02 absoluto</td><td>Diferencias t-test vs z-test</td></tr>
+                    </tbody>
+                </table>
+
+                <h3 id="sec4-9">4.9 Gráficos generados</h3>
+
+                <h4>Gráfico 1: Efecto — Reportado vs Calculado</h4>
+                <p>Barras agrupadas verticales con tres pares: medida de efecto, IC inferior, IC superior. Azul = reportado, Naranja = calculado.</p>
+
+                <h4>Gráfico 2: Diagrama de Efecto con IC 95%</h4>
+                <p>Barras horizontales separadas (no superpuestas) con líneas de error, marcadores de diamante y línea roja punteada de nulidad (OR=1 o Dif=0).</p>
+
+                <h4>Gráfico 3: p-valores — Reportado vs Calculado</h4>
+                <p>Barras verticales en escala propia con línea roja punteada en α = 0.05. Verde si significativo, rojo si no.</p>
+
+                <h3 id="sec4-10">4.10 Alertas e interpretación</h3>
+
+                <table>
+                    <thead><tr><th>Tipo</th><th>Color</th><th>Significado</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Error</strong></td><td>Rojo</td><td>Inconsistencia grave</td></tr>
+                        <tr><td><strong>Advertencia</strong></td><td>Ámbar</td><td>Posible inconsistencia o limitación</td></tr>
+                        <tr><td><strong>Éxito</strong></td><td>Verde</td><td>Valor consistente</td></tr>
+                        <tr><td><strong>Información</strong></td><td>Azul</td><td>Nota contextual</td></tr>
+                    </tbody>
+                </table>
+
+                <h4>Detecciones automáticas</h4>
+                <ol>
+                    <li><strong>Discrepancia OR/RR:</strong> Detecta si el OR reportado coincide mejor con el RR calculado</li>
+                    <li><strong>Cambio de significancia:</strong> Si reportado y calculado caen en lados opuestos de α = 0.05</li>
+                    <li><strong>Muestras pequeñas:</strong> Advierte cuando celdas < 5</li>
+                    <li><strong>Fragilidad alta:</strong> Resultados que pierden significancia con ≤ 3 reclasificaciones</li>
+                    <li><strong>Corrección de Yates:</strong> Informa cuando se aplica</li>
+                </ol>
+
+                <!-- ==================== SECTION 5 ==================== -->
+                <h2 id="sec5">5. Módulo 2: Sensibilidad Inferencial</h2>
+                <p>Permite explorar cómo cambia la conclusión del ensayo bajo diferentes supuestos metodológicos y tamaños de muestra.</p>
+
+                <h3 id="sec5-1">5.1 Parámetros configurables</h3>
+
+                <h4>Sliders (controles deslizantes)</h4>
+                <table>
+                    <thead><tr><th>Parámetro</th><th>Rango</th><th>Default</th><th>Descripción</th></tr></thead>
+                    <tbody>
+                        <tr><td>RR observado</td><td>0.5 – 3.0</td><td>1.50</td><td>Efecto del tratamiento</td></tr>
+                        <tr><td>Riesgo basal</td><td>5% – 80%</td><td>0.20</td><td>Proporción eventos en control</td></tr>
+                        <tr><td>Factor dilución ITT</td><td>50% – 100%</td><td>0.85</td><td>Reducción por no-adherencia</td></tr>
+                    </tbody>
+                </table>
+
+                <h4>Selectores</h4>
+                <table>
+                    <thead><tr><th>Parámetro</th><th>Opciones</th><th>Default</th></tr></thead>
+                    <tbody>
+                        <tr><td>Nivel α</td><td>0.01, 0.025, 0.05, 0.10</td><td>0.05</td></tr>
+                        <tr><td>Tipo de análisis</td><td>ITT, PP</td><td>ITT</td></tr>
+                        <tr><td>Framework</td><td>Superioridad, No-inferioridad</td><td>Superioridad</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box">
+                    <p><strong>Comportamiento inteligente:</strong> Los sliders y selectores solo actualizan los gráficos si ya se ejecutó un análisis previo. Mover los controles antes de presionar "Generar Análisis" no dispara cálculos. Además, los sliders tienen debouncing de 120ms para evitar lag.</p>
+                </div>
+
+                <h3 id="sec5-2">5.2 Mapa de Robustez (Heatmap)</h3>
+
+                <h4>Estructura</h4>
+                <ul>
+                    <li><strong>Filas:</strong> Tamaños de muestra (30, 50, 75, 100, 150, 200, 300, 500)</li>
+                    <li><strong>Columnas:</strong> Valores de δ (1.0 a 2.0)</li>
+                    <li><strong>Total:</strong> 88 combinaciones evaluadas</li>
+                </ul>
+
+                <h4>Código de colores</h4>
+                <table>
+                    <thead><tr><th>Color</th><th>Etiqueta</th><th>Significado</th></tr></thead>
+                    <tbody>
+                        <tr><td style="background:#10b981;color:white;text-align:center;border-radius:4px;">Verde</td><td>"Sig" / "NI"</td><td>Resultado favorable</td></tr>
+                        <tr><td style="background:#f59e0b;color:white;text-align:center;border-radius:4px;">Ámbar</td><td>"Bord"</td><td>Resultado borderline</td></tr>
+                        <tr><td style="background:#ef4444;color:white;text-align:center;border-radius:4px;">Rojo</td><td>"NS" / "Falla"</td><td>Resultado no favorable</td></tr>
+                    </tbody>
+                </table>
+
+                <h4>Tooltips interactivos</h4>
+                <p>Pase el cursor sobre cualquier celda para ver detalles como n, δ, p-valor/IC, potencia, y estado.</p>
+
+                <h3 id="sec5-3">5.3 Curva de Potencia</h3>
+                <ul>
+                    <li><strong>Tipo:</strong> Gráfico de línea con área sombreada</li>
+                    <li><strong>Eje X:</strong> Tamaño de muestra por brazo (20 a 500)</li>
+                    <li><strong>Eje Y:</strong> Potencia estadística (0% a 100%)</li>
+                    <li><strong>Línea roja punteada:</strong> Umbral del 80%</li>
+                </ul>
+                
+                <div class="info-box">
+                    <p><strong>IMPORTANTE:</strong> Esta es potencia <strong>a priori</strong> — usa el efecto ESPECIFICADO por el usuario, NO el efecto observado. Es la potencia correcta para planificación de estudios.</p>
+                </div>
+
+                <h3 id="sec5-4">5.4 Gráfico de Conclusión vs Tamaño Muestral</h3>
+                
+                <h4>Framework: Superioridad</h4>
+                <p>Muestra p-valor vs N. El punto donde la curva cruza α hacia abajo es el n mínimo para significancia.</p>
+
+                <h4>Framework: No-Inferioridad</h4>
+                <p>Muestra límite superior del IC 95% del RR (línea azul) vs margen δ (línea roja diagonal). La no-inferioridad se demuestra cuando la línea azul está por debajo de la roja.</p>
+
+                <h3 id="sec5-5">5.5 Interpretación del Análisis</h3>
+                <ul>
+                    <li><strong>ALTA (>70%):</strong> Resultado robusto ante variaciones de supuestos</li>
+                    <li><strong>MODERADA (40–70%):</strong> Resultado sensible a algunos cambios</li>
+                    <li><strong>BAJA (<40%):</strong> Resultado frágil ante cambios de supuestos</li>
+                </ul>
+
+                <!-- ==================== SECTION 6 ==================== -->
+                <h2 id="sec6">6. Módulo 3: Metodología y Limitaciones</h2>
+                
+                <p>Documentación completa incluida directamente en la aplicación:</p>
+                <ul>
+                    <li><strong>Fórmulas utilizadas:</strong> OR, SE, IC, χ², NNT, Fragilidad</li>
+                    <li><strong>Limitaciones conocidas:</strong> Solo 2 brazos, sin multiplicidad, IC Wald, etc.</li>
+                    <li><strong>Cuándo NO usar:</strong> Decisiones regulatorias, auditorías formales, meta-análisis</li>
+                    <li><strong>Referencias bibliográficas:</strong> Walsh, Hoenig, Agresti, Altman, Abramowitz</li>
+                    <li><strong>Changelog v2.0 → v3.0:</strong> Historial detallado de correcciones y mejoras</li>
+                </ul>
+
+                <!-- ==================== SECTION 7 ==================== -->
+                <h2 id="sec7">7. Exportación de Resultados</h2>
+                
+                <p>El botón <strong>"Exportar CSV"</strong> en la cabecera genera un archivo <code>ClinTrialSuite_v3_resultados.csv</code> que incluye:</p>
+                
+                <ul>
+                    <li>Fecha y hora de generación</li>
+                    <li>Tabla de comparación completa del Módulo 1</li>
+                    <li>Métricas adicionales: NNT, Potencia, Fragilidad</li>
+                    <li>Parámetros y resumen del Módulo 2 (si fue ejecutado)</li>
+                </ul>
+
+                <div class="info-box">
+                    <p><strong>Nota:</strong> El archivo usa codificación UTF-8 con BOM para compatibilidad con Excel en español. Los gráficos no se exportan (solo datos numéricos). Ningún dato sale de su computadora — todo el procesamiento es local.</p>
+                </div>
+
+                <!-- ==================== SECTION 8 ==================== -->
+                <h2 id="sec8">8. Ejemplos de Uso Paso a Paso</h2>
+
+                <h3>Ejemplo 1: Auditoría de ensayo con desenlace binario</h3>
+                <p><strong>Escenario:</strong> Un artículo publica un ensayo de dos brazos comparando un nuevo fármaco vs placebo para prevención de eventos cardiovasculares.</p>
+                
+                <table>
+                    <thead><tr><th>Dato</th><th>Tratamiento</th><th>Control</th></tr></thead>
+                    <tbody>
+                        <tr><td>n</td><td>50</td><td>50</td></tr>
+                        <tr><td>Eventos</td><td>30</td><td>20</td></tr>
+                        <tr><td colspan="3">OR reportado: 1.5, IC [1.1–1.9], p = 0.045</td></tr>
+                    </tbody>
+                </table>
+                
+                <p><strong>Pasos:</strong> Seleccione "Desenlace Binario" → Ingrese los datos → Ingrese valores reportados → Ejecutar Auditoría. <strong>Atajo:</strong> clic en "Ejemplo Binario".</p>
+
+                <h3>Ejemplo 2: Auditoría de ensayo con desenlace continuo</h3>
+                <p><strong>Escenario:</strong> Ensayo que compara un analgésico vs placebo, midiendo reducción del dolor en escala numérica.</p>
+                <p>Tratamiento: n=50, media=12.5, DE=4.2 | Control: n=50, media=10.8, DE=3.9 | Dif reportada: 1.7, IC [0.1–3.3], p=0.038.</p>
+                <p><strong>Atajo:</strong> clic en "Ejemplo Continuo".</p>
+
+                <h3>Ejemplo 3: Análisis de sensibilidad de superioridad</h3>
+                <p>En Módulo 2: configure RR=1.50, Riesgo basal=0.20, α=0.05, Framework=Superioridad, ITT, Dilución=0.85. Observe heatmap, curva de potencia y gráfico p vs n. <strong>Atajo:</strong> clic en "Cargar Ejemplo".</p>
+
+                <h3>Ejemplo 4: Análisis de no-inferioridad</h3>
+                <p>En Módulo 2: cambie Framework a "No-inferioridad". Ajuste RR cerca de 1.0. Observe celdas verdes ("NI") y el gráfico IC superior vs δ.</p>
+
+                <!-- ==================== SECTION 9 ==================== -->
+                <h2 id="sec9">9. Glosario de Términos</h2>
+
+                <table>
+                    <thead><tr><th>Término</th><th>Definición</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>α (alfa)</strong></td><td>Probabilidad de error tipo I. Umbral para significancia. Convencionalmente 0.05.</td></tr>
+                        <tr><td><strong>ARD</strong></td><td>Absolute Risk Difference. Diferencia absoluta de riesgos: p₁ - p₂.</td></tr>
+                        <tr><td><strong>χ² (Chi-cuadrado)</strong></td><td>Test para asociación en tablas de contingencia. Aquí con 1 gl.</td></tr>
+                        <tr><td><strong>Cohen's d</strong></td><td>Tamaño de efecto estandarizado. Pequeño (<0.2), medio (0.5), grande (>0.8).</td></tr>
+                        <tr><td><strong>Haldane</strong></td><td>Corrección +0.5 a celdas con 0 para permitir cálculo del OR.</td></tr>
+                        <tr><td><strong>Yates</strong></td><td>Corrección de continuidad para χ². Produce p-valores más conservadores.</td></tr>
+                        <tr><td><strong>DE / SD</strong></td><td>Desviación Estándar.</td></tr>
+                        <tr><td><strong>δ (delta)</strong></td><td>Margen de no-inferioridad.</td></tr>
+                        <tr><td><strong>IC 95%</strong></td><td>Intervalo de Confianza al 95%.</td></tr>
+                        <tr><td><strong>Fragilidad</strong></td><td>Mínimo de eventos reclasificados para perder significancia. ≤3 = frágil.</td></tr>
+                        <tr><td><strong>IPD</strong></td><td>Individual Patient Data. Datos individuales de cada participante.</td></tr>
+                        <tr><td><strong>ITT</strong></td><td>Intention-to-Treat. Incluye todos los aleatorizados.</td></tr>
+                        <tr><td><strong>NI</strong></td><td>No-Inferioridad. Demostrar que no es peor por más que un margen δ.</td></tr>
+                        <tr><td><strong>NNT</strong></td><td>Number Needed to Treat. Pacientes para prevenir un evento adicional.</td></tr>
+                        <tr><td><strong>NNTH</strong></td><td>Number Needed to Harm. NNT negativo.</td></tr>
+                        <tr><td><strong>OR</strong></td><td>Odds Ratio. Cociente de odds entre dos grupos.</td></tr>
+                        <tr><td><strong>PP</strong></td><td>Per Protocol. Solo participantes que completaron el protocolo.</td></tr>
+                        <tr><td><strong>Potencia (1-β)</strong></td><td>Probabilidad de detectar efecto real. Estándar ≥ 80%.</td></tr>
+                        <tr><td><strong>Potencia post-hoc</strong></td><td>Función directa del p-valor. No aporta información independiente.</td></tr>
+                        <tr><td><strong>RR</strong></td><td>Risk Ratio (Riesgo Relativo).</td></tr>
+                        <tr><td><strong>SE</strong></td><td>Standard Error (Error Estándar).</td></tr>
+                        <tr><td><strong>Wald</strong></td><td>Método de aproximación para IC basado en distribución normal asintótica.</td></tr>
+                    </tbody>
+                </table>
+
+                <!-- ==================== SECTION 10 ==================== -->
+                <h2 id="sec10">10. Preguntas Frecuentes (FAQ)</h2>
+
+                <h4>¿Por qué el OR que calcula no coincide con el de mi artículo?</h4>
+                <p>Posibles razones: (1) método diferente — la herramienta usa OR crudo, los artículos frecuentemente usan OR ajustado por covariables; (2) confusión OR/RR — error frecuente que la herramienta detecta automáticamente; (3) datos incompletos o exclusiones diferentes; (4) diferente definición del evento.</p>
+
+                <h4>¿Cuándo debo activar la corrección de Yates?</h4>
+                <p>Cuando alguna celda de la tabla 2×2 tenga menos de 5 observaciones. Con muestras muy pequeñas, es preferible usar el test exacto de Fisher (no disponible en esta herramienta).</p>
+
+                <h4>¿La potencia post-hoc del Módulo 1 es útil?</h4>
+                <p><strong>No para tomar decisiones.</strong> Es una transformación directa del p-valor: si p < 0.05, la potencia será > 50%. Se incluye solo como indicador pedagógico con advertencia explícita.</p>
+
+                <h4>¿Qué diferencia hay entre la potencia del Módulo 1 y la del Módulo 2?</h4>
+                <table>
+                    <thead><tr><th></th><th>Módulo 1</th><th>Módulo 2</th></tr></thead>
+                    <tbody>
+                        <tr><td>Tipo</td><td>Post-hoc</td><td>A priori</td></tr>
+                        <tr><td>Basada en</td><td>Efecto observado</td><td>Efecto especificado</td></tr>
+                        <tr><td>Útil para</td><td>Nada (es falacia)</td><td>Planificación futura</td></tr>
+                    </tbody>
+                </table>
+
+                <h4>¿Puedo usar esto para meta-análisis?</h4>
+                <p><strong>No.</strong> Analiza un solo estudio. Meta-análisis requiere modelos de efectos fijos/aleatorios, I², Q de Cochran, funnel plots. Use RevMan, R/metafor o Stata.</p>
+
+                <h4>¿Los datos se envían a algún servidor?</h4>
+                <p><strong>No.</strong> Todo es local en su navegador. Ningún dato sale de su computadora.</p>
+
+                <!-- ==================== SECTION 11 ==================== -->
+                <h2 id="sec11">11. Limitaciones Conocidas</h2>
+
+                <h3>Limitaciones estadísticas</h3>
+                <table>
+                    <thead><tr><th>Limitación</th><th>Impacto</th><th>Alternativa</th></tr></thead>
+                    <tbody>
+                        <tr><td>Solo 2 brazos</td><td>No soporta multi-brazo, factorial, crossover</td><td>SAS, R</td></tr>
+                        <tr><td>Sin corrección por multiplicidad</td><td>No ajusta Bonferroni, Holm, FDR</td><td>Aplicar manualmente</td></tr>
+                        <tr><td>IC Wald</td><td>Cobertura sub-óptima con n < 30</td><td>IC perfil verosimilitud</td></tr>
+                        <tr><td>Aproximación normal</td><td>Inexacta para n muy pequeño</td><td>Fisher exacto</td></tr>
+                        <tr><td>Sin time-to-event</td><td>No soporta HR, KM, sobrevida</td><td>R/survival</td></tr>
+                        <tr><td>Sin bayesiano</td><td>Todo frecuentista</td><td>R/brms, Stan</td></tr>
+                        <tr><td>Fragilidad unidireccional</td><td>Solo una dirección</td><td>Implementación bidireccional</td></tr>
+                        <tr><td>Sin ajuste por covariables</td><td>OR/RR crudos</td><td>Regresión logística/lineal</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>Limitaciones técnicas</h3>
+                <table>
+                    <thead><tr><th>Limitación</th><th>Detalle</th></tr></thead>
+                    <tbody>
+                        <tr><td>Requiere internet</td><td>Para CDN de Tailwind, Chart.js, Fonts</td></tr>
+                        <tr><td>Sin persistencia</td><td>Datos se pierden al cerrar/recargar</td></tr>
+                        <tr><td>Export limitado</td><td>Solo CSV, no PDF ni imágenes</td></tr>
+                        <tr><td>Precisión numérica</td><td>JavaScript IEEE 754 double (15-16 dígitos)</td></tr>
+                    </tbody>
+                </table>
+
+                <!-- ==================== SECTION 12 ==================== -->
+                <h2 id="sec12">12. Referencias Bibliográficas</h2>
+
+                <ol>
+                    <li><strong>Walsh M, et al. (2014).</strong> The statistical significance of randomized controlled trial results is frequently fragile: a case for a Fragility Index. <em>Journal of Clinical Epidemiology</em>, 67(6), 622-628.</li>
+                    <li><strong>Hoenig JM, Heisey DM (2001).</strong> The abuse of power: the pervasive fallacy of power calculations for data analysis. <em>The American Statistician</em>, 55(1), 19-24.</li>
+                    <li><strong>Agresti A (2002).</strong> <em>Categorical Data Analysis</em>. 2nd ed. Wiley.</li>
+                    <li><strong>Altman DG (1998).</strong> Confidence intervals for the number needed to treat. <em>BMJ</em>, 317(7168), 1309-1312.</li>
+                    <li><strong>Abramowitz M, Stegun IA (1964).</strong> <em>Handbook of Mathematical Functions</em>. NBS. [Algoritmo normalCDF]</li>
+                    <li><strong>Woolf B (1955).</strong> On estimating the relation between blood group and disease. <em>Annals of Human Genetics</em>, 19(4), 251-253.</li>
+                    <li><strong>ICH E9 (1998).</strong> Statistical Principles for Clinical Trials.</li>
+                    <li><strong>FDA Guidance (2016).</strong> Non-Inferiority Clinical Trials to Establish Effectiveness.</li>
+                </ol>
+
+                <!-- ==================== SECTION 13 ==================== -->
+                <h2 id="sec13">13. Aviso Legal y Regulatorio</h2>
+
+                <div class="warning-box">
+                    <p><strong>ClinTrialSuite v3.0</strong> es una herramienta de carácter exclusivamente <strong>educativo y exploratorio</strong>.</p>
+                </div>
+
+                <h4>No debe utilizarse para:</h4>
+                <ul>
+                    <li>Tomar decisiones regulatorias de aprobación, rechazo o modificación de medicamentos</li>
+                    <li>Sustituir revisiones estadísticas formales con acceso a datos individuales (IPD)</li>
+                    <li>Reemplazar software certificado y validado (SAS, R validado, Stata)</li>
+                    <li>Emitir juicios definitivos sobre integridad de datos</li>
+                    <li>Realizar auditorías regulatorias oficiales</li>
+                </ul>
+
+                <h4>Puede utilizarse para:</h4>
+                <div class="success-box">
+                    <p>
+                        ✅ Formación en bioestadística y lectura crítica<br>
+                        ✅ Screening rápido de consistencia<br>
+                        ✅ Exploración pedagógica de conceptos (fragilidad, potencia, NNT)<br>
+                        ✅ Sensibilización sobre robustez de conclusiones<br>
+                        ✅ Preparación de preguntas para comités de revisión
+                    </p>
+                </div>
+
+                <p>Todos los cálculos están basados en <strong>aproximaciones asintóticas</strong> (distribución normal). Para decisiones críticas, validar con software certificado y métodos exactos.</p>
+
+                <!-- Footer -->
+                <div class="mt-12 pt-6 border-t-2 border-slate-100 text-center">
+                    <p class="text-sm text-slate-400">Manual actualizado para ClinTrialSuite v3.0 — Última revisión: 2025</p>
+                    <a href="index.html" class="inline-block mt-3 px-6 py-2 bg-blue-600 text-white text-sm font-semibold rounded-lg hover:bg-blue-700 transition no-print">
+                        ← Volver a la Aplicación
+                    </a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scroll spy for TOC -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const tocLinks = document.querySelectorAll('.toc-link');
+        const sections = [];
+        tocLinks.forEach(link => {
+            const id = link.getAttribute('href')?.replace('#', '');
+            if (id) {
+                const el = document.getElementById(id);
+                if (el) sections.push({ id, el, link });
+            }
+        });
+
+        function updateActiveToc() {
+            let current = '';
+            for (const sec of sections) {
+                const rect = sec.el.getBoundingClientRect();
+                if (rect.top <= 120) current = sec.id;
+            }
+            tocLinks.forEach(l => l.classList.remove('active'));
+            if (current) {
+                const activeLink = document.querySelector(`.toc-link[href="#${current}"]`);
+                if (activeLink) activeLink.classList.add('active');
+            }
+        }
+
+        window.addEventListener('scroll', updateActiveToc, { passive: true });
+        updateActiveToc();
+    });
+    </script>
+</body>
+</html>
