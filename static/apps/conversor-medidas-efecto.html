@@ -1,101 +1,1685 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conversor de Medidas de Efecto - BioestadisticaEdu</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; background: transparent; padding: 10px; }
-        .card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 25px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); max-width: 550px; margin: auto; }
-        h2 { color: #2d3748; font-size: 1.3rem; margin-bottom: 5px; text-align: center; }
-        p.subtitle { text-align: center; color: #718096; font-size: 0.85rem; margin-bottom: 20px; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
-        label { display: block; font-size: 0.8rem; color: #4a5568; font-weight: 600; margin-bottom: 5px; }
-        input { width: 100%; padding: 10px; border: 1px solid #cbd5e0; border-radius: 6px; box-sizing: border-box; }
-        button { width: 100%; background: #4a5568; color: white; border: none; padding: 14px; border-radius: 6px; font-weight: 600; cursor: pointer; transition: 0.2s; }
-        button:hover { background: #2d3748; }
-        #results { margin-top: 25px; padding: 20px; border-radius: 8px; display: none; background: #f8fafc; border: 1px solid #e2e8f0; }
-        .nnt-box { text-align: center; margin: 15px 0; padding: 15px; background: #ebf8ff; border-radius: 10px; }
-        .nnt-val { font-size: 2.5rem; font-weight: bold; color: #2b6cb0; }
-        .metric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; font-size: 0.9rem; }
-        .metric-item { background: white; padding: 10px; border-radius: 6px; border: 1px solid #edf2f7; display: flex; justify-content: space-between; }
-        .footer-note { font-size: 0.7rem; color: #a0aec0; margin-top: 15px; text-align: center; line-height: 1.4; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora Crítica de Impacto Clínico</title>
+<style>
+/* ============================================================
+   ESTILOS GENERALES
+   ============================================================ */
+:root {
+  --bg: #f4f6f8;
+  --surface: #ffffff;
+  --primary: #1a5276;
+  --primary-light: #2980b9;
+  --accent: #16a085;
+  --danger: #c0392b;
+  --warning: #e67e22;
+  --neutral: #7f8c8d;
+  --text: #2c3e50;
+  --text-light: #596275;
+  --border: #dce1e6;
+  --radius: 10px;
+  --shadow: 0 2px 12px rgba(0,0,0,0.07);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ============================================================
+   LAYOUT PRINCIPAL
+   ============================================================ */
+.app-header {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  color: white;
+  padding: 2rem 1.5rem 1.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.app-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent), var(--warning), var(--danger));
+}
+.app-header h1 { font-size: 1.7rem; font-weight: 700; margin-bottom: 0.3rem; }
+.app-header p { font-size: 0.95rem; opacity: 0.85; max-width: 700px; margin: 0 auto; }
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--border);
+}
+.card-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.card-title .icon { font-size: 1.3rem; }
+
+/* ============================================================
+   TABLA 2×2
+   ============================================================ */
+.table-2x2 {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+.table-2x2 th, .table-2x2 td {
+  padding: 0.7rem 0.8rem;
+  text-align: center;
+  border: 1px solid var(--border);
+}
+.table-2x2 th {
+  background: var(--primary);
+  color: white;
+  font-weight: 600;
+}
+.table-2x2 th.corner { background: #16384e; }
+.table-2x2 td.row-label {
+  background: #eaf2f8;
+  font-weight: 600;
+  text-align: left;
+  color: var(--primary);
+}
+.table-2x2 input[type="number"] {
+  width: 90px;
+  padding: 0.45rem 0.5rem;
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  font-size: 1rem;
+  text-align: center;
+  transition: border-color 0.2s;
+  -moz-appearance: textfield;
+}
+.table-2x2 input[type="number"]:focus {
+  outline: none;
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 3px rgba(41,128,185,0.15);
+}
+.table-2x2 input[type="number"]::-webkit-outer-spin-button,
+.table-2x2 input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+/* ============================================================
+   BOTONES
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.65rem 1.4rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-primary {
+  background: var(--primary);
+  color: white;
+}
+.btn-primary:hover { background: var(--primary-light); transform: translateY(-1px); }
+.btn-accent {
+  background: var(--accent);
+  color: white;
+}
+.btn-accent:hover { background: #1abc9c; transform: translateY(-1px); }
+.btn-warning {
+  background: var(--warning);
+  color: white;
+}
+.btn-warning:hover { background: #f39c12; }
+.btn-outline {
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+.btn-outline:hover { background: var(--primary); color: white; }
+.btn-sm { padding: 0.4rem 0.9rem; font-size: 0.85rem; }
+
+.btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 1rem;
+}
+
+/* ============================================================
+   RESULTADOS
+   ============================================================ */
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+.result-item {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 1rem;
+  border-left: 4px solid var(--primary-light);
+  transition: transform 0.15s;
+}
+.result-item:hover { transform: translateY(-2px); }
+.result-item.benefit { border-left-color: var(--accent); }
+.result-item.harm { border-left-color: var(--danger); }
+.result-item.neutral { border-left-color: var(--neutral); }
+.result-item.warn { border-left-color: var(--warning); }
+
+.result-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-light);
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+.result-value {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.result-ci {
+  font-size: 0.82rem;
+  color: var(--text-light);
+  margin-top: 0.15rem;
+}
+.result-note {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  margin-top: 0.3rem;
+  font-style: italic;
+}
+
+/* ============================================================
+   INTERPRETACIÓN CLÍNICA
+   ============================================================ */
+.interpretation-box {
+  border-radius: 8px;
+  padding: 1.1rem 1.3rem;
+  margin-top: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  line-height: 1.5;
+}
+.interpretation-box .interp-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 0.1rem; }
+.interp-benefit {
+  background: #e8f8f5;
+  border: 1px solid #a3e4d7;
+  color: #0e6655;
+}
+.interp-harm {
+  background: #fdedec;
+  border: 1px solid #f5b7b1;
+  color: #922b21;
+}
+.interp-neutral {
+  background: #fef9e7;
+  border: 1px solid #f9e79f;
+  color: #7d6608;
+}
+
+/* ============================================================
+   ADVERTENCIAS METODOLÓGICAS
+   ============================================================ */
+.warnings-panel {
+  background: #fdf2e9;
+  border: 1px solid #f0c27a;
+  border-radius: 8px;
+  padding: 1rem 1.2rem;
+  margin-top: 1rem;
+}
+.warnings-panel h4 {
+  color: #b7570a;
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.warnings-panel ul {
+  list-style: none;
+  padding: 0;
+}
+.warnings-panel li {
+  padding: 0.35rem 0;
+  padding-left: 1.4rem;
+  position: relative;
+  font-size: 0.88rem;
+  color: #784212;
+}
+.warnings-panel li::before {
+  content: '⚠';
+  position: absolute;
+  left: 0;
+}
+
+/* ============================================================
+   MODO CRÍTICO
+   ============================================================ */
+.critical-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  user-select: none;
+  font-weight: 600;
+  color: var(--primary);
+  font-size: 0.95rem;
+}
+.critical-toggle input { display: none; }
+.toggle-track {
+  width: 44px;
+  height: 24px;
+  background: var(--border);
+  border-radius: 12px;
+  position: relative;
+  transition: background 0.3s;
+  flex-shrink: 0;
+}
+.toggle-track::after {
+  content: '';
+  position: absolute;
+  width: 20px; height: 20px;
+  background: white;
+  border-radius: 50%;
+  top: 2px; left: 2px;
+  transition: transform 0.3s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.critical-toggle input:checked + .toggle-track {
+  background: var(--warning);
+}
+.critical-toggle input:checked + .toggle-track::after {
+  transform: translateX(20px);
+}
+
+.critical-section {
+  display: none;
+  margin-top: 1rem;
+}
+.critical-section.visible { display: block; }
+.critical-card {
+  background: #fef9e7;
+  border: 1px solid #f9e79f;
+  border-radius: 8px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 0.8rem;
+}
+.critical-card h4 {
+  color: #7d6608;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+.critical-card p, .critical-card li {
+  font-size: 0.88rem;
+  color: #6e5b04;
+  line-height: 1.55;
+}
+.critical-card ul { padding-left: 1.2rem; margin-top: 0.3rem; }
+
+/* ============================================================
+   SIMULACIÓN BOOTSTRAP
+   ============================================================ */
+.sim-canvas-wrap {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  margin-top: 0.8rem;
+}
+canvas#simCanvas {
+  width: 100%;
+  max-width: 700px;
+  height: 280px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+.sim-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 0.8rem;
+}
+.sim-stat {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+}
+.sim-stat strong { color: var(--primary); }
+
+/* ============================================================
+   ERRORES
+   ============================================================ */
+.error-box {
+  background: #fdedec;
+  border: 1px solid #f5b7b1;
+  border-radius: 8px;
+  padding: 0.9rem 1.1rem;
+  color: #922b21;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  display: none;
+}
+.error-box.visible { display: flex; align-items: center; gap: 0.5rem; }
+
+/* ============================================================
+   EJEMPLOS PRECARGADOS
+   ============================================================ */
+.examples-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+/* ============================================================
+   DISCLAIMER FINAL
+   ============================================================ */
+.disclaimer {
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 0.82rem;
+  color: var(--neutral);
+  border-top: 1px solid var(--border);
+  margin-top: 1rem;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 640px) {
+  .app-header h1 { font-size: 1.3rem; }
+  .results-grid { grid-template-columns: 1fr; }
+  .table-2x2 input[type="number"] { width: 70px; font-size: 0.9rem; }
+  .container { padding: 1rem; }
+}
+
+/* Animación de aparición */
+.fade-in {
+  animation: fadeIn 0.4s ease-out;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Tooltip sencillo */
+.info-tip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px; height: 18px;
+  background: var(--primary-light);
+  color: white;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  font-weight: 700;
+  cursor: help;
+  position: relative;
+}
+.info-tip:hover::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: 130%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--text);
+  color: white;
+  padding: 0.5rem 0.7rem;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 400;
+  width: 240px;
+  text-align: left;
+  line-height: 1.4;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+</style>
 </head>
 <body>
 
-<div class="card">
-    <h2>🔄 Conversor de Medidas de Efecto</h2>
-    <p class="subtitle">De la estadística a la utilidad clínica real</p>
-    
-    <div class="grid">
-        <div>
-            <label>Eventos (Tratamiento)</label>
-            <input type="number" id="e_exp" value="10">
-        </div>
-        <div>
-            <label>Total (Tratamiento)</label>
-            <input type="number" id="n_exp" value="100">
-        </div>
-        <div>
-            <label>Eventos (Control)</label>
-            <input type="number" id="e_ctrl" value="20">
-        </div>
-        <div>
-            <label>Total (Control)</label>
-            <input type="number" id="n_ctrl" value="100">
-        </div>
+<!-- ============================================================
+     CABECERA
+     ============================================================ -->
+<header class="app-header">
+  <h1>🔬 Calculadora Crítica de Impacto Clínico</h1>
+  <p>Herramienta pedagógica para evaluar magnitud del efecto, incertidumbre y fragilidad de las conclusiones en ensayos clínicos</p>
+</header>
+
+<div class="container">
+
+  <!-- ============================================================
+       ENTRADA DE DATOS — TABLA 2×2
+       ============================================================ -->
+  <div class="card fade-in">
+    <div class="card-title">
+      <span class="icon">📊</span> Datos del estudio (tabla 2×2)
     </div>
 
-    <button onclick="calculateMetrics()">Calcular Impacto Clínico</button>
-
-    <div id="results">
-        <div class="nnt-box">
-            <span style="font-size: 0.9rem; color: #2c5282; font-weight: 600;">NNT (Número Necesario a Tratar)</span><br>
-            <span class="nnt-val" id="nnt-display">0</span>
-            <p id="nnt-text" style="font-size: 0.85rem; color: #4a5568; margin-top: 5px;"></p>
-        </div>
-
-        <div class="metric-grid">
-            <div class="metric-item"><span>Riesgo Relativo:</span> <strong id="rr-val">0</strong></div>
-            <div class="metric-item"><span>Odds Ratio:</span> <strong id="or-val">0</strong></div>
-            <div class="metric-item"><span>Reducción Absoluta:</span> <strong id="arr-val">0%</strong></div>
-            <div class="metric-item"><span>Reducción Relativa:</span> <strong id="rrr-val">0%</strong></div>
-        </div>
-
-        <p class="footer-note">
-            El NNT indica cuántos pacientes deben recibir el tratamiento para evitar un evento adicional en comparación con el control. <br>
-            <strong>BioestadisticaEdu © 2025 - Maicel Monzon</strong>
-        </p>
+    <!-- Ejemplos precargados -->
+    <div class="examples-bar">
+      <span style="font-size:0.85rem;font-weight:600;color:var(--text-light);align-self:center;">Ejemplos:</span>
+      <button class="btn btn-outline btn-sm" onclick="loadExample('classic')">Ensayo clásico</button>
+      <button class="btn btn-outline btn-sm" onclick="loadExample('small')">Muestra pequeña</button>
+      <button class="btn btn-outline btn-sm" onclick="loadExample('nodiff')">Sin diferencia</button>
+      <button class="btn btn-outline btn-sm" onclick="loadExample('harm')">Posible daño</button>
+      <button class="btn btn-outline btn-sm" onclick="loadExample('rare')">Evento raro</button>
     </div>
-</div>
 
+    <table class="table-2x2">
+      <thead>
+        <tr>
+          <th class="corner">Grupo</th>
+          <th>Eventos
+            <span class="info-tip" data-tip="Número de pacientes que presentaron el desenlace (ej. muerte, infarto, curación).">?</span>
+          </th>
+          <th>Total (n)
+            <span class="info-tip" data-tip="Número total de pacientes asignados al grupo (incluye eventos y no-eventos).">?</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="row-label">💊 Tratamiento (experimental)</td>
+          <td><input type="number" id="evTx" min="0" placeholder="ej. 15"></td>
+          <td><input type="number" id="nTx" min="1" placeholder="ej. 200"></td>
+        </tr>
+        <tr>
+          <td class="row-label">🔘 Control (referencia)</td>
+          <td><input type="number" id="evCtrl" min="0" placeholder="ej. 30"></td>
+          <td><input type="number" id="nCtrl" min="1" placeholder="ej. 200"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="error-box" id="errorBox">
+      <span>❌</span> <span id="errorMsg"></span>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn btn-primary" onclick="calculate()">📐 Calcular todo</button>
+      <button class="btn btn-accent" onclick="runSimulation()">🎲 Simulación bootstrap (1 000 rep.)</button>
+      <button class="btn btn-outline" onclick="clearAll()">🗑 Limpiar</button>
+    </div>
+
+    <div style="margin-top:1rem;">
+      <label class="critical-toggle">
+        <input type="checkbox" id="criticalMode" onchange="toggleCriticalMode()">
+        <span class="toggle-track"></span>
+        🧠 Modo crítico — explicaciones pedagógicas avanzadas
+      </label>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       RESULTADOS
+       ============================================================ -->
+  <div id="resultsSection" style="display:none;">
+
+    <!-- Medidas de efecto -->
+    <div class="card fade-in">
+      <div class="card-title"><span class="icon">📈</span> Medidas de efecto</div>
+      <div class="results-grid" id="resultsGrid">
+        <!-- Se llena dinámicamente -->
+      </div>
+    </div>
+
+    <!-- Interpretación clínica automática -->
+    <div class="card fade-in">
+      <div class="card-title"><span class="icon">🩺</span> Interpretación clínica automática</div>
+      <div id="interpretationArea"></div>
+    </div>
+
+    <!-- Advertencias metodológicas -->
+    <div class="card fade-in">
+      <div class="card-title"><span class="icon">⚠️</span> Advertencias metodológicas</div>
+      <div id="warningsArea"></div>
+    </div>
+
+    <!-- Modo crítico -->
+    <div class="critical-section" id="criticalSection">
+      <div class="card fade-in">
+        <div class="card-title"><span class="icon">🧠</span> Análisis crítico pedagógico</div>
+        <div id="criticalContent"></div>
+      </div>
+    </div>
+
+    <!-- Simulación bootstrap -->
+    <div class="card fade-in" id="simSection" style="display:none;">
+      <div class="card-title"><span class="icon">🎲</span> Simulación Bootstrap — variabilidad del RR</div>
+      <p style="font-size:0.88rem;color:var(--text-light);margin-bottom:0.5rem;">
+        Cada repetición genera datos simulados con la misma probabilidad estimada de evento.
+        La dispersión muestra cuán <strong>inestable</strong> es la estimación puntual.
+      </p>
+      <div class="sim-canvas-wrap">
+        <canvas id="simCanvas" width="700" height="280"></canvas>
+        <div class="sim-stats" id="simStats"></div>
+      </div>
+      <div id="simMessages" style="margin-top:0.8rem;"></div>
+    </div>
+
+  </div><!-- /resultsSection -->
+
+  <!-- ============================================================
+       DISCLAIMER
+       ============================================================ -->
+  <div class="disclaimer">
+    <strong>⚕️ Aviso:</strong> Esta herramienta es exclusivamente educativa y de apoyo a la docencia en bioestadística.<br>
+    No debe utilizarse para tomar decisiones clínicas reales. Los cálculos asumen independencia, muestreo aleatorio y ausencia de sesgos.<br>
+    © 2024 — Calculadora Crítica de Impacto Clínico · Herramienta pedagógica de código abierto
+  </div>
+
+</div><!-- /container -->
+
+
+<!-- ============================================================
+     JAVASCRIPT — TODA LA LÓGICA
+     ============================================================ -->
 <script>
-function calculateMetrics() {
-    const e1 = parseInt(document.getElementById('e_exp').value);
-    const n1 = parseInt(document.getElementById('n_exp').value);
-    const e2 = parseInt(document.getElementById('e_ctrl').value);
-    const n2 = parseInt(document.getElementById('n_ctrl').value);
+/* ==============================================================
+   SECCIÓN 1: UTILIDADES MATEMÁTICAS Y ESTADÍSTICAS
+   ==============================================================
+   Funciones puras para cálculos estadísticos.
+   Se documentan los supuestos y fórmulas.
+   ============================================================== */
 
-    const r1 = e1 / n1; // Riesgo expuesto
-    const r2 = e2 / n2; // Riesgo control
-
-    const rr = r1 / r2;
-    const or = (e1 / (n1 - e1)) / (e2 / (n2 - e2));
-    const arr = Math.abs(r1 - r2);
-    const rrr = arr / r2;
-    const nnt = Math.ceil(1 / arr);
-
-    document.getElementById('results').style.display = 'block';
-    document.getElementById('nnt-display').innerText = isFinite(nnt) ? nnt : "∞";
-    document.getElementById('rr-val').innerText = rr.toFixed(2);
-    document.getElementById('or-val').innerText = or.toFixed(2);
-    document.getElementById('arr-val').innerText = (arr * 100).toFixed(1) + "%";
-    document.getElementById('rrr-val').innerText = (rrr * 100).toFixed(1) + "%";
-    
-    document.getElementById('nnt-text').innerText = `Es necesario tratar a ${nnt} pacientes para prevenir 1 evento.`;
+/**
+ * Aproximación a la función de distribución acumulada normal estándar (Φ).
+ * Usamos la aproximación de Abramowitz & Stegun (fórmula 26.2.17).
+ * Necesaria para calcular valores p y cuantiles.
+ */
+function normalCDF(z) {
+  if (z < -8) return 0;
+  if (z >  8) return 1;
+  const a1 = 0.254829592, a2 = -0.284496736, a3 = 1.421413741;
+  const a4 = -1.453152027, a5 = 1.061405429, p = 0.3275911;
+  const sign = z < 0 ? -1 : 1;
+  const x = Math.abs(z) / Math.SQRT2;
+  const t = 1.0 / (1.0 + p * x);
+  const y = 1.0 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-x * x);
+  return 0.5 * (1.0 + sign * y);
 }
+
+/**
+ * Cuantil de la distribución normal estándar (Φ⁻¹).
+ * Aproximación racional de Peter Acklam.
+ */
+function normalQuantile(p) {
+  if (p <= 0) return -Infinity;
+  if (p >= 1) return Infinity;
+  if (p === 0.5) return 0;
+  // Coeficientes
+  const a = [-3.969683028665376e+01, 2.209460984245205e+02,
+             -2.759285104469687e+02, 1.383577518672690e+02,
+             -3.066479806614716e+01, 2.506628277459239e+00];
+  const b = [-5.447609879822406e+01, 1.615858368580409e+02,
+             -1.556989798598866e+02, 6.680131188771972e+01,
+             -1.328068155288572e+01];
+  const c = [-7.784894002430293e-03, -3.223964580411365e-01,
+             -2.400758277161838e+00, -2.549732539343734e+00,
+              4.374664141464968e+00, 2.938163982698783e+00];
+  const d = [7.784695709041462e-03, 3.224671290700398e-01,
+             2.445134137142996e+00, 3.754408661907416e+00];
+  const pLow = 0.02425, pHigh = 1 - pLow;
+  let q, r;
+  if (p < pLow) {
+    q = Math.sqrt(-2 * Math.log(p));
+    return (((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5]) /
+           ((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1);
+  } else if (p <= pHigh) {
+    q = p - 0.5;
+    r = q * q;
+    return (((((a[0]*r+a[1])*r+a[2])*r+a[3])*r+a[4])*r+a[5]) * q /
+           (((((b[0]*r+b[1])*r+b[2])*r+b[3])*r+b[4])*r+1);
+  } else {
+    q = Math.sqrt(-2 * Math.log(1 - p));
+    return -(((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5]) /
+            ((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1);
+  }
+}
+
+/** z crítico para IC 95% (bilateral) */
+const Z95 = 1.959964;
+
+/**
+ * Formatear número con decimales, manejando Infinity y NaN.
+ */
+function fmt(val, decimals = 4) {
+  if (val === undefined || val === null || isNaN(val)) return '—';
+  if (!isFinite(val)) return val > 0 ? '+∞' : '−∞';
+  return val.toFixed(decimals);
+}
+function pct(val, decimals = 2) {
+  if (val === undefined || val === null || isNaN(val)) return '—';
+  return (val * 100).toFixed(decimals) + '%';
+}
+
+
+/* ==============================================================
+   SECCIÓN 2: CÁLCULOS PRINCIPALES
+   ==============================================================
+   Calcula todas las medidas de efecto a partir de la tabla 2×2.
+   
+   Nomenclatura:
+     a = eventos en tratamiento
+     b = no-eventos en tratamiento  (nTx - a)
+     c = eventos en control
+     d = no-eventos en control      (nCtrl - c)
+   
+   Riesgo = eventos / total del grupo
+   RR = riesgoTx / riesgoCtrl
+   OR = (a*d) / (b*c)
+   ARR = riesgoCtrl - riesgoTx      (positivo = beneficio)
+   RRR = ARR / riesgoCtrl
+   NNT = 1 / |ARR|                  (NNT si beneficia, NNH si daña)
+   ============================================================== */
+
+function computeAll(evTx, nTx, evCtrl, nCtrl) {
+  const a = evTx;
+  const b = nTx - evTx;
+  const c = evCtrl;
+  const d = nCtrl - evCtrl;
+
+  const rTx   = a / nTx;
+  const rCtrl = c / nCtrl;
+
+  const result = {
+    a, b, c, d,
+    nTx, nCtrl,
+    rTx, rCtrl,
+    RR: null, RR_lo: null, RR_hi: null,
+    OR: null, OR_lo: null, OR_hi: null,
+    ARR: null, ARR_lo: null, ARR_hi: null,
+    RRR: null,
+    NNT: null, NNT_lo: null, NNT_hi: null,
+    NNT_label: 'NNT',
+    flags: [],   // advertencias específicas
+    edgeCases: []
+  };
+
+  // --- Detección de casos límite ---
+  if (a === 0 && c === 0) result.edgeCases.push('zero_both');
+  if (a === 0 || c === 0) result.edgeCases.push('zero_cell');
+  if (a === nTx)  result.edgeCases.push('all_events_tx');
+  if (c === nCtrl) result.edgeCases.push('all_events_ctrl');
+  if (nTx < 30 || nCtrl < 30) result.flags.push('small_sample');
+  if (a < 5 || b < 5 || c < 5 || d < 5) result.flags.push('sparse_cells');
+
+  // --- ARR (reducción absoluta del riesgo) ---
+  // ARR = riesgoCtrl − riesgoTx
+  // ARR > 0 → tratamiento reduce el riesgo (beneficia)
+  // ARR < 0 → tratamiento aumenta el riesgo (daña)
+  result.ARR = rCtrl - rTx;
+
+  // IC 95% para ARR usando el método de Wald (diferencia de proporciones)
+  // SE(ARR) = sqrt[ rTx(1−rTx)/nTx + rCtrl(1−rCtrl)/nCtrl ]
+  const seARR = Math.sqrt(
+    (rTx * (1 - rTx)) / nTx + (rCtrl * (1 - rCtrl)) / nCtrl
+  );
+  result.ARR_lo = result.ARR - Z95 * seARR;
+  result.ARR_hi = result.ARR + Z95 * seARR;
+  result.seARR = seARR;
+
+  // --- RRR (reducción relativa del riesgo) ---
+  if (rCtrl !== 0) {
+    result.RRR = result.ARR / rCtrl;
+  }
+
+  // --- RR (riesgo relativo) ---
+  // Método de Katz (log-lineal): ln(RR) ± z * SE(ln RR)
+  // SE(ln RR) = sqrt[ (1−rTx)/(a) + (1−rCtrl)/(c) ]  (cuando a,c > 0)
+  if (rCtrl > 0) {
+    result.RR = rTx / rCtrl;
+    if (a > 0 && c > 0) {
+      const seLnRR = Math.sqrt((1 / a) - (1 / nTx) + (1 / c) - (1 / nCtrl));
+      const lnRR = Math.log(result.RR);
+      result.RR_lo = Math.exp(lnRR - Z95 * seLnRR);
+      result.RR_hi = Math.exp(lnRR + Z95 * seLnRR);
+    } else if (a === 0) {
+      // Si no hay eventos en tratamiento, RR = 0
+      // Usamos corrección de continuidad +0.5 para estimar IC
+      const a2 = a + 0.5, b2 = b + 0.5, c2 = c + 0.5, d2 = d + 0.5;
+      const rTx2 = a2 / (nTx + 1), rCtrl2 = c2 / (nCtrl + 1);
+      const RR2 = rTx2 / rCtrl2;
+      const seLn2 = Math.sqrt(1/a2 - 1/(nTx+1) + 1/c2 - 1/(nCtrl+1));
+      result.RR_lo = Math.exp(Math.log(RR2) - Z95 * seLn2);
+      result.RR_hi = Math.exp(Math.log(RR2) + Z95 * seLn2);
+      result.flags.push('continuity_correction');
+    }
+  } else {
+    // rCtrl = 0 → RR indefinido
+    result.edgeCases.push('rCtrl_zero');
+  }
+
+  // --- OR (odds ratio) ---
+  // ln(OR) ± z * SE(ln OR)
+  // SE(ln OR) = sqrt(1/a + 1/b + 1/c + 1/d)
+  if (a > 0 && b > 0 && c > 0 && d > 0) {
+    result.OR = (a * d) / (b * c);
+    const seLnOR = Math.sqrt(1/a + 1/b + 1/c + 1/d);
+    const lnOR = Math.log(result.OR);
+    result.OR_lo = Math.exp(lnOR - Z95 * seLnOR);
+    result.OR_hi = Math.exp(lnOR + Z95 * seLnOR);
+  } else {
+    // Corrección de Haldane (+0.5 a todas las celdas)
+    const a2 = a+0.5, b2 = b+0.5, c2 = c+0.5, d2 = d+0.5;
+    result.OR = (a2 * d2) / (b2 * c2);
+    const seLnOR = Math.sqrt(1/a2 + 1/b2 + 1/c2 + 1/d2);
+    const lnOR = Math.log(result.OR);
+    result.OR_lo = Math.exp(lnOR - Z95 * seLnOR);
+    result.OR_hi = Math.exp(lnOR + Z95 * seLnOR);
+    result.flags.push('haldane_correction');
+  }
+
+  // --- NNT / NNH ---
+  // NNT = 1 / ARR (si ARR > 0 → NNT; si ARR < 0 → NNH)
+  if (result.ARR !== 0) {
+    result.NNT = 1 / Math.abs(result.ARR);
+    result.NNT_label = result.ARR > 0 ? 'NNT' : 'NNH';
+
+    // IC del NNT derivado del IC del ARR
+    // La inversión del IC es no trivial: si el IC del ARR cruza 0,
+    // el NNT tiene un "hueco" (va de −∞ a +∞). Señalamos esto.
+    const arrLo = result.ARR_lo;
+    const arrHi = result.ARR_hi;
+
+    if (arrLo > 0) {
+      // Todo el IC es positivo → beneficio consistente
+      result.NNT_lo = 1 / arrHi; // menor ARR → mayor NNT
+      result.NNT_hi = 1 / arrLo; // mayor ARR → menor NNT
+    } else if (arrHi < 0) {
+      // Todo el IC es negativo → daño consistente
+      result.NNT_lo = 1 / Math.abs(arrLo);
+      result.NNT_hi = 1 / Math.abs(arrHi);
+    } else {
+      // El IC cruza 0 → NNT es inestable
+      result.NNT_lo = null;
+      result.NNT_hi = null;
+      result.flags.push('nnt_unstable');
+    }
+  } else {
+    result.NNT = Infinity;
+    result.NNT_label = 'NNT';
+    result.flags.push('arr_zero');
+  }
+
+  return result;
+}
+
+
+/* ==============================================================
+   SECCIÓN 3: VALIDACIÓN DE ENTRADAS
+   ============================================================== */
+
+function validateInputs() {
+  const fields = ['evTx', 'nTx', 'evCtrl', 'nCtrl'];
+  const vals = {};
+  for (const f of fields) {
+    const el = document.getElementById(f);
+    const v = el.value.trim();
+    if (v === '') return showError(`El campo "${el.closest('tr').querySelector('.row-label').textContent.trim()} → ${f.includes('ev') ? 'Eventos' : 'Total'}" está vacío.`);
+    const n = parseInt(v, 10);
+    if (isNaN(n)) return showError(`"${v}" no es un número entero válido.`);
+    if (n < 0) return showError('No se permiten valores negativos.');
+    vals[f] = n;
+  }
+  if (vals.nTx < 1)    return showError('El total de tratamiento debe ser ≥ 1.');
+  if (vals.nCtrl < 1)  return showError('El total de control debe ser ≥ 1.');
+  if (vals.evTx > vals.nTx)   return showError('Eventos en tratamiento no puede exceder el total del grupo.');
+  if (vals.evCtrl > vals.nCtrl) return showError('Eventos en control no puede exceder el total del grupo.');
+  hideError();
+  return vals;
+}
+
+function showError(msg) {
+  const box = document.getElementById('errorBox');
+  document.getElementById('errorMsg').textContent = msg;
+  box.classList.add('visible');
+  return null;
+}
+function hideError() {
+  document.getElementById('errorBox').classList.remove('visible');
+}
+
+
+/* ==============================================================
+   SECCIÓN 4: RENDERIZADO DE RESULTADOS
+   ============================================================== */
+
+function calculate() {
+  const vals = validateInputs();
+  if (!vals) return;
+
+  const r = computeAll(vals.evTx, vals.nTx, vals.evCtrl, vals.nCtrl);
+  renderResults(r);
+  renderInterpretation(r);
+  renderWarnings(r);
+  renderCriticalMode(r);
+
+  document.getElementById('resultsSection').style.display = 'block';
+  document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function renderResults(r) {
+  const grid = document.getElementById('resultsGrid');
+
+  // Determinar clase según dirección del efecto
+  const benefitClass = r.ARR > 0 ? 'benefit' : r.ARR < 0 ? 'harm' : 'neutral';
+
+  // Construir items
+  let html = '';
+
+  // Riesgo en cada grupo
+  html += resultItem('Riesgo en Tratamiento', pct(r.rTx), null,
+    `${r.a} eventos de ${r.nTx} pacientes`, 'neutral');
+  html += resultItem('Riesgo en Control', pct(r.rCtrl), null,
+    `${r.c} eventos de ${r.nCtrl} pacientes`, 'neutral');
+
+  // RR
+  const rrCI = (r.RR_lo !== null && r.RR_hi !== null)
+    ? `IC 95%: [${fmt(r.RR_lo)} — ${fmt(r.RR_hi)}]` : 'IC no calculable';
+  const rrClass = r.RR !== null ? (r.RR < 1 ? 'benefit' : r.RR > 1 ? 'harm' : 'neutral') : 'neutral';
+  html += resultItem('Riesgo Relativo (RR)',
+    r.RR !== null ? fmt(r.RR) : '—', rrCI,
+    r.RR !== null ? (r.RR < 1 ? 'RR < 1 → menor riesgo con tratamiento' :
+      r.RR > 1 ? 'RR > 1 → mayor riesgo con tratamiento' : 'RR = 1 → sin diferencia') : 'No calculable (riesgo control = 0)',
+    rrClass);
+
+  // OR
+  const orCI = (r.OR_lo !== null && r.OR_hi !== null)
+    ? `IC 95%: [${fmt(r.OR_lo)} — ${fmt(r.OR_hi)}]` : 'IC no calculable';
+  const orClass = r.OR !== null ? (r.OR < 1 ? 'benefit' : r.OR > 1 ? 'harm' : 'neutral') : 'neutral';
+  html += resultItem('Odds Ratio (OR)',
+    r.OR !== null ? fmt(r.OR) : '—', orCI,
+    r.flags.includes('haldane_correction') ? 'Calculado con corrección de Haldane (+0.5)' : null,
+    orClass);
+
+  // ARR
+  const arrCI = `IC 95%: [${pct(r.ARR_lo)} — ${pct(r.ARR_hi)}]`;
+  html += resultItem('Reducción Absoluta del Riesgo (ARR)',
+    pct(r.ARR), arrCI,
+    r.ARR > 0 ? 'Positivo = el tratamiento reduce el riesgo' :
+    r.ARR < 0 ? 'Negativo = el tratamiento aumenta el riesgo' :
+    'Cero = sin diferencia observada',
+    benefitClass);
+
+  // RRR
+  html += resultItem('Reducción Relativa del Riesgo (RRR)',
+    r.RRR !== null ? pct(r.RRR) : '—', null,
+    'Proporción del riesgo basal que se reduce. Puede exagerar el efecto si el riesgo basal es bajo.',
+    benefitClass === 'benefit' ? 'benefit' : benefitClass === 'harm' ? 'warn' : 'neutral');
+
+  // NNT / NNH
+  let nntNote = '';
+  if (r.flags.includes('nnt_unstable')) {
+    nntNote = '⚠ El IC del ARR cruza el 0: este NNT es inestable y estadísticamente no significativo.';
+  } else if (r.flags.includes('arr_zero')) {
+    nntNote = 'ARR = 0 → NNT infinito (no hay efecto).';
+  }
+  const nntCI = (r.NNT_lo !== null && r.NNT_hi !== null)
+    ? `IC 95%: [${fmt(r.NNT_lo, 1)} — ${fmt(r.NNT_hi, 1)}]` : (r.flags.includes('nnt_unstable') ? 'IC: discontinuo (cruza el ∞)' : '');
+  const nntClass = r.NNT_label === 'NNT' ? (r.ARR > 0 ? 'benefit' : 'neutral') : 'harm';
+  html += resultItem(
+    r.NNT_label === 'NNH' ? 'NNH (Número Necesario para Dañar)' : 'NNT (Número Necesario para Tratar)',
+    isFinite(r.NNT) ? fmt(r.NNT, 1) : '∞',
+    nntCI, nntNote || null, nntClass
+  );
+
+  grid.innerHTML = html;
+}
+
+function resultItem(label, value, ci, note, cls) {
+  return `<div class="result-item ${cls || ''}">
+    <div class="result-label">${label}</div>
+    <div class="result-value">${value}</div>
+    ${ci ? `<div class="result-ci">${ci}</div>` : ''}
+    ${note ? `<div class="result-note">${note}</div>` : ''}
+  </div>`;
+}
+
+
+/* ==============================================================
+   SECCIÓN 5: INTERPRETACIÓN CLÍNICA AUTOMÁTICA
+   ============================================================== */
+
+function renderInterpretation(r) {
+  const area = document.getElementById('interpretationArea');
+  let html = '';
+
+  // Decisión basada en el IC del ARR
+  const arrLo = r.ARR_lo;
+  const arrHi = r.ARR_hi;
+  const arrPoint = r.ARR;
+
+  if (arrLo > 0) {
+    // Todo el IC positivo → beneficio estadísticamente significativo
+    html += interpBox('benefit',
+      '✅',
+      `<strong>El tratamiento BENEFICIA:</strong> reduce el riesgo del evento en ${pct(Math.abs(arrPoint))} 
+       (IC 95%: ${pct(arrLo)} a ${pct(arrHi)}). El intervalo de confianza no incluye el 0, lo que 
+       sugiere un efecto estadísticamente significativo al nivel α = 0.05.`);
+    if (r.NNT && isFinite(r.NNT)) {
+      html += interpBox('benefit', '📊',
+        `Se necesitaría tratar a <strong>${Math.ceil(r.NNT)} pacientes</strong> (NNT) para evitar un evento adicional.`);
+    }
+  } else if (arrHi < 0) {
+    // Todo el IC negativo → daño estadísticamente significativo
+    html += interpBox('harm',
+      '🚨',
+      `<strong>Posible DAÑO:</strong> el tratamiento AUMENTA el riesgo del evento en ${pct(Math.abs(arrPoint))} 
+       (IC 95%: ${pct(Math.abs(arrHi))} a ${pct(Math.abs(arrLo))}). El intervalo de confianza no incluye el 0.`);
+    if (r.NNT && isFinite(r.NNT)) {
+      html += interpBox('harm', '⚠',
+        `Por cada <strong>${Math.ceil(r.NNT)} pacientes</strong> tratados, se causaría un evento adverso adicional (NNH).`);
+    }
+  } else {
+    // El IC cruza el 0 → no se puede descartar ausencia de efecto
+    html += interpBox('neutral',
+      '⚖️',
+      `<strong>No hay efecto claro:</strong> la diferencia observada (ARR = ${pct(arrPoint)}) es compatible 
+       con ausencia de efecto real. El IC 95% cruza el 0 (${pct(arrLo)} a ${pct(arrHi)}), lo que significa 
+       que no se puede descartar que el tratamiento no tenga efecto, beneficie o incluso dañe.`);
+    html += interpBox('neutral', '💡',
+      `<em>"Este resultado es compatible con ausencia de efecto."</em> — 
+       La estimación puntual puede ser engañosa si se presenta sin su intervalo de confianza.`);
+  }
+
+  // Advertencia sobre RRR vs ARR
+  if (r.RRR !== null && Math.abs(r.RRR) > 0.3 && Math.abs(r.ARR) < 0.02) {
+    html += interpBox('neutral', '🔍',
+      `<strong>Atención:</strong> la reducción relativa del riesgo (RRR = ${pct(r.RRR)}) parece impresionante, 
+       pero la reducción absoluta (ARR = ${pct(r.ARR)}) es muy pequeña. Esto ocurre cuando el riesgo basal 
+       es bajo. Las medidas relativas pueden exagerar la percepción del beneficio.`);
+  }
+
+  area.innerHTML = html;
+}
+
+function interpBox(type, icon, text) {
+  return `<div class="interpretation-box interp-${type}">
+    <span class="interp-icon">${icon}</span>
+    <div>${text}</div>
+  </div>`;
+}
+
+
+/* ==============================================================
+   SECCIÓN 6: ADVERTENCIAS METODOLÓGICAS
+   ============================================================== */
+
+function renderWarnings(r) {
+  const area = document.getElementById('warningsArea');
+  const warnings = [];
+
+  // Advertencias siempre presentes (supuestos fundamentales)
+  warnings.push('Estos cálculos asumen que los grupos son <strong>comparables</strong> al inicio (aleatorización adecuada, sin diferencias basales relevantes). Sin esta condición, las estimaciones están sesgadas.');
+  warnings.push('No se controla por <strong>variables confusoras</strong>. Un análisis crudo como este puede sobreestimar o subestimar el efecto real del tratamiento.');
+  warnings.push('El NNT y la ARR dependen directamente del <strong>riesgo basal</strong> del grupo control. En poblaciones con diferente riesgo, estos valores cambiarán sustancialmente.');
+  warnings.push('Los intervalos de confianza se basan en <strong>aproximación normal (Wald)</strong>. Con muestras pequeñas o proporciones extremas, pueden ser imprecisos.');
+
+  // Advertencias condicionales
+  if (r.flags.includes('small_sample')) {
+    warnings.push('⚡ <strong>Muestra pequeña</strong> (n < 30 en algún grupo): los intervalos de confianza asintóticos pueden ser poco fiables. Considere métodos exactos.');
+  }
+  if (r.flags.includes('sparse_cells')) {
+    warnings.push('⚡ <strong>Celdas dispersas</strong> (< 5 eventos en alguna celda): las aproximaciones normales son inadecuadas. Los resultados deben interpretarse con extrema cautela.');
+  }
+  if (r.flags.includes('haldane_correction')) {
+    warnings.push('Se aplicó <strong>corrección de Haldane</strong> (+0.5) para calcular el OR debido a celdas con valor 0.');
+  }
+  if (r.flags.includes('continuity_correction')) {
+    warnings.push('Se aplicó <strong>corrección de continuidad</strong> (+0.5) para estimar el IC del RR debido a celdas con 0 eventos.');
+  }
+
+  let html = `<div class="warnings-panel">
+    <h4>⚠️ Supuestos y limitaciones metodológicas</h4>
+    <ul>`;
+  for (const w of warnings) {
+    html += `<li>${w}</li>`;
+  }
+  html += `</ul></div>`;
+  area.innerHTML = html;
+}
+
+
+/* ==============================================================
+   SECCIÓN 7: MODO CRÍTICO — EXPLICACIONES PEDAGÓGICAS
+   ============================================================== */
+
+function toggleCriticalMode() {
+  const section = document.getElementById('criticalSection');
+  const checked = document.getElementById('criticalMode').checked;
+  section.classList.toggle('visible', checked);
+}
+
+function renderCriticalMode(r) {
+  const content = document.getElementById('criticalContent');
+  let html = '';
+
+  // 1. ¿Por qué OR y RR difieren?
+  html += `<div class="critical-card">
+    <h4>📐 ¿Por qué el OR (${fmt(r.OR)}) y el RR (${r.RR !== null ? fmt(r.RR) : '—'}) son diferentes?</h4>
+    <p>El <strong>Riesgo Relativo (RR)</strong> compara directamente las probabilidades de evento: 
+    RR = P(evento|Tx) / P(evento|Ctrl) = ${pct(r.rTx)} / ${pct(r.rCtrl)}${r.RR !== null ? ' = ' + fmt(r.RR) : ''}.</p>
+    <p>El <strong>Odds Ratio (OR)</strong> compara las <em>odds</em> (razón evento/no-evento): 
+    OR = (a×d)/(b×c) = (${r.a}×${r.d})/(${r.b}×${r.c})${r.OR !== null ? ' = ' + fmt(r.OR) : ''}.</p>
+    <ul>
+      <li>Cuando el evento es <strong>raro</strong> (< 10%), OR ≈ RR (aproximación de caso raro).</li>
+      <li>Cuando el evento es <strong>frecuente</strong>, el OR <em>exagera</em> la magnitud del efecto respecto al RR.</li>
+      <li>El riesgo en el grupo control es ${pct(r.rCtrl)}${r.rCtrl > 0.1 ? ' — <strong>no es raro</strong>, por lo que OR y RR divergen significativamente.' : ' — es bajo, por lo que OR ≈ RR.'}</li>
+      <li>En estudios de <strong>casos y controles</strong>, solo el OR es válido (no se puede calcular RR directamente).</li>
+    </ul>
+  </div>`;
+
+  // 2. ¿Por qué el NNT depende del riesgo basal?
+  html += `<div class="critical-card">
+    <h4>📊 ¿Por qué el NNT depende del riesgo basal?</h4>
+    <p>El NNT = 1/ARR = 1/(Riesgo_Control − Riesgo_Tx). Si el riesgo basal cambia, el ARR cambia proporcionalmente 
+    (asumiendo RRR constante), y por tanto el NNT cambia drásticamente.</p>
+    <p><strong>Ejemplo con los datos actuales:</strong></p>
+    <ul>
+      <li>Riesgo basal actual (control): ${pct(r.rCtrl)} → NNT = ${isFinite(r.NNT) ? fmt(r.NNT, 1) : '∞'}</li>`;
+  
+  // Simular con riesgos basales diferentes (manteniendo RRR constante)
+  if (r.RRR !== null && r.rCtrl > 0) {
+    const basales = [0.05, 0.10, 0.20, 0.40];
+    for (const rb of basales) {
+      if (Math.abs(rb - r.rCtrl) < 0.005) continue;
+      const arrSim = rb * Math.abs(r.RRR);
+      const nntSim = arrSim > 0 ? 1 / arrSim : Infinity;
+      html += `<li>Si riesgo basal fuera ${pct(rb)}: ARR ≈ ${pct(arrSim)}, NNT ≈ ${isFinite(nntSim) ? fmt(nntSim, 1) : '∞'}</li>`;
+    }
+  }
+  html += `</ul>
+    <p>Esto demuestra que <strong>comunicar solo el NNT sin el riesgo basal es engañoso</strong>. 
+    Un NNT de 20 en una población de alto riesgo se convierte en NNT de 200 en una de bajo riesgo.</p>
+  </div>`;
+
+  // 3. ¿Por qué el resultado puede ser inestable?
+  html += `<div class="critical-card">
+    <h4>🎲 ¿Por qué el resultado puede ser inestable (frágil)?</h4>
+    <p>La <strong>fragilidad</strong> de un resultado se refiere a cuántos eventos necesitarían cambiar de grupo 
+    para que la conclusión estadística se invierta.</p>
+    <ul>`;
+  
+  // Cálculo simple de índice de fragilidad (Fragility Index)
+  // Simulamos añadir eventos al grupo de menor riesgo hasta que p > 0.05
+  if (r.ARR !== 0) {
+    const fi = calcFragilityIndex(r.a, r.nTx, r.c, r.nCtrl);
+    if (fi !== null) {
+      html += `<li><strong>Índice de fragilidad estimado: ${fi} evento(s)</strong> — bastaría cambiar ${fi} evento(s) 
+        para que el resultado deje de ser estadísticamente significativo (p > 0.05, test de Fisher).</li>`;
+      if (fi <= 3) {
+        html += `<li>🚨 <strong>Fragilidad extrema:</strong> el resultado es muy sensible a cambios mínimos en los datos. 
+          Con solo ${fi} evento(s) diferente(s), la conclusión cambiaría.</li>`;
+      }
+    } else {
+      html += `<li>El resultado ya no es estadísticamente significativo (IC cruza el 0), por lo que el índice de fragilidad no aplica directamente.</li>`;
+    }
+  }
+
+  html += `<li>La simulación bootstrap (botón 🎲) le permite visualizar esta inestabilidad directamente.</li>
+    </ul>
+    <p><em>"Este NNT es inestable"</em> aparece cuando el IC del ARR cruza el cero, lo que significa que 
+    el NNT podría ser cualquier valor entre 1 e infinito, e incluso transformarse en NNH.</p>
+  </div>`;
+
+  // 4. Diferencia entre significancia estadística y relevancia clínica
+  html += `<div class="critical-card">
+    <h4>🎯 Significancia estadística ≠ Relevancia clínica</h4>
+    <p>Un resultado puede ser:</p>
+    <ul>
+      <li><strong>Estadísticamente significativo pero clínicamente irrelevante:</strong> muestras enormes pueden detectar diferencias reales pero triviales (ej. ARR = 0.1%).</li>
+      <li><strong>Clínicamente importante pero estadísticamente no significativo:</strong> muestras insuficientes pueden fallar en detectar beneficios reales (error tipo II).</li>
+    </ul>
+    <p>La ARR actual es ${pct(r.ARR)}. Evalúe si esta diferencia tiene impacto real en la práctica clínica, 
+    independientemente de si es o no estadísticamente significativa.</p>
+  </div>`;
+
+  content.innerHTML = html;
+}
+
+
+/* ==============================================================
+   SECCIÓN 8: ÍNDICE DE FRAGILIDAD (FRAGILITY INDEX)
+   ==============================================================
+   Método: partimos de la tabla original. Si el resultado es 
+   significativo (p < 0.05 por test exacto de Fisher), vamos 
+   añadiendo un evento al grupo con menos riesgo (y quitando 
+   un no-evento) hasta que p ≥ 0.05. El número de cambios 
+   necesarios es el índice de fragilidad.
+   ============================================================== */
+
+function calcFragilityIndex(a, nTx, c, nCtrl) {
+  // Primero verificar si es significativo
+  let pVal = fisherExactP(a, nTx - a, c, nCtrl - c);
+  if (pVal >= 0.05) return null; // ya no es significativo
+
+  // Determinar dirección: añadir eventos al grupo con menor tasa
+  let fi = 0;
+  let aa = a, bb = nTx - a, cc = c, dd = nCtrl - c;
+
+  // Si rTx < rCtrl, añadimos eventos a tratamiento
+  // Si rTx > rCtrl, añadimos eventos a control
+  const addToTx = (a / nTx) < (c / nCtrl);
+
+  for (let i = 0; i < 200; i++) {
+    if (addToTx) {
+      if (bb <= 0) break;
+      aa++; bb--;
+    } else {
+      if (dd <= 0) break;
+      cc++; dd--;
+    }
+    fi++;
+    pVal = fisherExactP(aa, bb, cc, dd);
+    if (pVal >= 0.05) return fi;
+  }
+  return fi; // máximo alcanzado
+}
+
+/**
+ * Test exacto de Fisher (bilateral simplificado).
+ * Calcula el p-valor bilateral usando la suma de probabilidades
+ * hipergeométricas ≤ la probabilidad observada.
+ * Para tablas grandes usamos la aproximación chi-cuadrado.
+ */
+function fisherExactP(a, b, c, d) {
+  const n = a + b + c + d;
+  // Para tablas grandes, usar chi-cuadrado como aproximación
+  if (n > 300) {
+    return chiSqP(a, b, c, d);
+  }
+  
+  const r1 = a + b, r2 = c + d, c1 = a + c, c2 = b + d;
+  
+  // log de la probabilidad hipergeométrica
+  function logHyper(aa) {
+    const bb = r1 - aa;
+    const cc = c1 - aa;
+    const dd = r2 - cc;
+    if (bb < 0 || cc < 0 || dd < 0) return -Infinity;
+    return logFactorial(r1) + logFactorial(r2) + logFactorial(c1) + logFactorial(c2)
+         - logFactorial(aa) - logFactorial(bb) - logFactorial(cc) - logFactorial(dd) - logFactorial(n);
+  }
+  
+  const pObs = logHyper(a);
+  let pValue = 0;
+  const lo = Math.max(0, c1 - r2);
+  const hi = Math.min(r1, c1);
+  
+  for (let i = lo; i <= hi; i++) {
+    const lp = logHyper(i);
+    if (lp <= pObs + 1e-10) {
+      pValue += Math.exp(lp);
+    }
+  }
+  return Math.min(pValue, 1);
+}
+
+function chiSqP(a, b, c, d) {
+  const n = a + b + c + d;
+  const r1 = a + b, r2 = c + d, c1 = a + c, c2 = b + d;
+  // Chi-cuadrado con corrección de Yates
+  const num = n * Math.pow(Math.abs(a * d - b * c) - n / 2, 2);
+  const den = r1 * r2 * c1 * c2;
+  if (den === 0) return 1;
+  const chi2 = num / den;
+  // p-valor con 1 gl: P(X² > chi2) ≈ 1 - Φ(sqrt(chi2))²... usar complemento
+  // Usamos la relación: para 1 gl, p = 2*(1 - Φ(sqrt(chi2)))
+  return 2 * (1 - normalCDF(Math.sqrt(chi2)));
+}
+
+// Cache de log factoriales
+const _lfCache = [0, 0];
+function logFactorial(n) {
+  if (n < 0) return 0;
+  if (n < _lfCache.length) return _lfCache[n];
+  for (let i = _lfCache.length; i <= n; i++) {
+    _lfCache[i] = _lfCache[i - 1] + Math.log(i);
+  }
+  return _lfCache[n];
+}
+
+
+/* ==============================================================
+   SECCIÓN 9: SIMULACIÓN BOOTSTRAP
+   ==============================================================
+   Simula B = 1000 repeticiones del experimento usando las 
+   probabilidades estimadas de evento en cada grupo.
+   En cada repetición:
+   1. Genera nTx eventos Bernoulli con p = rTx estimado
+   2. Genera nCtrl eventos Bernoulli con p = rCtrl estimado
+   3. Calcula RR simulado
+   Muestra la distribución de RR simulados como histograma.
+   ============================================================== */
+
+function runSimulation() {
+  const vals = validateInputs();
+  if (!vals) return;
+
+  // Primero calcular para tener resultados
+  const r = computeAll(vals.evTx, vals.nTx, vals.evCtrl, vals.nCtrl);
+  
+  // Si no hay resultados visibles, calcular todo
+  if (document.getElementById('resultsSection').style.display === 'none') {
+    renderResults(r);
+    renderInterpretation(r);
+    renderWarnings(r);
+    renderCriticalMode(r);
+    document.getElementById('resultsSection').style.display = 'block';
+  }
+
+  const B = 1000;
+  const pTx = r.rTx;
+  const pCtrl = r.rCtrl;
+  const nTx = r.nTx;
+  const nCtrl = r.nCtrl;
+
+  const rrSamples = [];
+  const nntSamples = [];
+
+  // Generador de binomiales por suma de Bernoulli
+  // (simple y transparente para fines pedagógicos)
+  function simBinom(n, p) {
+    let count = 0;
+    for (let i = 0; i < n; i++) {
+      if (Math.random() < p) count++;
+    }
+    return count;
+  }
+
+  for (let i = 0; i < B; i++) {
+    const eTx = simBinom(nTx, pTx);
+    const eCtrl = simBinom(nCtrl, pCtrl);
+    const rTxSim = eTx / nTx;
+    const rCtrlSim = eCtrl / nCtrl;
+
+    // RR simulado (evitar 0/0)
+    if (rCtrlSim > 0) {
+      rrSamples.push(rTxSim / rCtrlSim);
+    }
+    // NNT simulado
+    const arrSim = rCtrlSim - rTxSim;
+    if (arrSim !== 0) {
+      nntSamples.push(1 / arrSim); // puede ser negativo (= NNH)
+    }
+  }
+
+  // Estadísticas de la simulación
+  rrSamples.sort((a, b) => a - b);
+  const rrMean = rrSamples.reduce((s, v) => s + v, 0) / rrSamples.length;
+  const rrMedian = rrSamples[Math.floor(rrSamples.length / 2)];
+  const rrP25 = rrSamples[Math.floor(rrSamples.length * 0.025)];
+  const rrP975 = rrSamples[Math.floor(rrSamples.length * 0.975)];
+  const rrSD = Math.sqrt(rrSamples.reduce((s, v) => s + (v - rrMean) ** 2, 0) / rrSamples.length);
+
+  // Proporción de simulaciones donde RR >= 1 (sin beneficio)
+  const propNoEffect = rrSamples.filter(v => v >= 1).length / rrSamples.length;
+
+  // Dibujar histograma
+  drawHistogram(rrSamples, r.RR);
+
+  // Mostrar estadísticas
+  const statsDiv = document.getElementById('simStats');
+  statsDiv.innerHTML = `
+    <div class="sim-stat"><strong>Media RR:</strong> ${fmt(rrMean)}</div>
+    <div class="sim-stat"><strong>Mediana RR:</strong> ${fmt(rrMedian)}</div>
+    <div class="sim-stat"><strong>DE:</strong> ${fmt(rrSD)}</div>
+    <div class="sim-stat"><strong>IC 95% bootstrap:</strong> [${fmt(rrP25)} — ${fmt(rrP975)}]</div>
+    <div class="sim-stat"><strong>P(RR ≥ 1):</strong> ${pct(propNoEffect)}</div>
+  `;
+
+  // Mensajes interpretativos
+  const msgDiv = document.getElementById('simMessages');
+  let msgs = '';
+  if (rrSD > 0.5 * Math.abs(rrMean)) {
+    msgs += interpBox('neutral', '🎲',
+      `<strong>Alta variabilidad:</strong> la desviación estándar del RR simulado (${fmt(rrSD)}) es grande 
+       respecto a la media (${fmt(rrMean)}). El resultado es <em>inestable</em> — repeticiones del estudio 
+       darían resultados muy diferentes.`);
+  }
+  if (propNoEffect > 0.15 && r.ARR > 0) {
+    msgs += interpBox('neutral', '⚖️',
+      `En el <strong>${pct(propNoEffect)}</strong> de las simulaciones, el RR fue ≥ 1 (sin beneficio o daño). 
+       <em>"Este resultado es compatible con ausencia de efecto"</em> en una proporción no trivial de escenarios.`);
+  }
+  if (r.flags.includes('nnt_unstable')) {
+    msgs += interpBox('harm', '⚠',
+      `<em>"Este NNT es inestable"</em> — en las simulaciones, el NNT fluctúa entre valores positivos (beneficio) 
+       y negativos (daño), pasando por el infinito. No es posible dar una estimación fiable.`);
+  }
+
+  // Proporción que cruza 1
+  const crossesOne = rrP25 < 1 && rrP975 > 1;
+  if (crossesOne) {
+    msgs += interpBox('neutral', '📊',
+      `El intervalo bootstrap del RR [${fmt(rrP25)} — ${fmt(rrP975)}] <strong>incluye el 1</strong>, 
+       confirmando que el efecto observado es compatible con la hipótesis nula.`);
+  }
+
+  msgDiv.innerHTML = msgs;
+
+  // Mostrar sección
+  document.getElementById('simSection').style.display = 'block';
+  document.getElementById('simSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+
+/* ==============================================================
+   SECCIÓN 10: DIBUJO DEL HISTOGRAMA EN CANVAS
+   ============================================================== */
+
+function drawHistogram(data, observedRR) {
+  const canvas = document.getElementById('simCanvas');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width;
+  const H = canvas.height;
+  const dpr = window.devicePixelRatio || 1;
+
+  // Ajustar para alta resolución
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  canvas.style.width = W + 'px';
+  canvas.style.height = H + 'px';
+  ctx.scale(dpr, dpr);
+
+  ctx.clearRect(0, 0, W, H);
+
+  // Márgenes
+  const margin = { top: 25, right: 20, bottom: 45, left: 55 };
+  const plotW = W - margin.left - margin.right;
+  const plotH = H - margin.top - margin.bottom;
+
+  // Calcular bins
+  const nBins = 35;
+  // Filtrar outliers extremos para mejor visualización
+  const p2 = data[Math.floor(data.length * 0.01)];
+  const p98 = data[Math.floor(data.length * 0.99)];
+  const rangeMin = Math.min(p2, 0);
+  const rangeMax = p98 * 1.05;
+  const binWidth = (rangeMax - rangeMin) / nBins;
+  
+  const bins = new Array(nBins).fill(0);
+  for (const v of data) {
+    if (v < rangeMin || v >= rangeMax) continue;
+    const idx = Math.min(Math.floor((v - rangeMin) / binWidth), nBins - 1);
+    bins[idx]++;
+  }
+  const maxBin = Math.max(...bins);
+
+  // Fondo
+  ctx.fillStyle = '#fafbfc';
+  ctx.fillRect(margin.left, margin.top, plotW, plotH);
+
+  // Gridlines horizontales
+  ctx.strokeStyle = '#e8e8e8';
+  ctx.lineWidth = 0.5;
+  for (let i = 0; i <= 4; i++) {
+    const y = margin.top + plotH - (i / 4) * plotH;
+    ctx.beginPath();
+    ctx.moveTo(margin.left, y);
+    ctx.lineTo(margin.left + plotW, y);
+    ctx.stroke();
+  }
+
+  // Barras
+  const barW = plotW / nBins;
+  for (let i = 0; i < nBins; i++) {
+    const barH = (bins[i] / maxBin) * plotH;
+    const x = margin.left + i * barW;
+    const y = margin.top + plotH - barH;
+
+    // Color según si está por encima o debajo de 1
+    const binCenter = rangeMin + (i + 0.5) * binWidth;
+    ctx.fillStyle = binCenter < 1 ? 'rgba(22, 160, 133, 0.7)' : 'rgba(192, 57, 43, 0.5)';
+    ctx.fillRect(x + 1, y, barW - 2, barH);
+
+    ctx.strokeStyle = binCenter < 1 ? 'rgba(22, 160, 133, 0.9)' : 'rgba(192, 57, 43, 0.7)';
+    ctx.lineWidth = 0.5;
+    ctx.strokeRect(x + 1, y, barW - 2, barH);
+  }
+
+  // Línea vertical en RR = 1 (nulo)
+  const x1 = margin.left + ((1 - rangeMin) / (rangeMax - rangeMin)) * plotW;
+  if (x1 > margin.left && x1 < margin.left + plotW) {
+    ctx.strokeStyle = '#e74c3c';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([6, 3]);
+    ctx.beginPath();
+    ctx.moveTo(x1, margin.top);
+    ctx.lineTo(x1, margin.top + plotH);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    
+    ctx.fillStyle = '#e74c3c';
+    ctx.font = 'bold 11px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('RR=1 (nulo)', x1, margin.top - 5);
+  }
+
+  // Línea vertical en RR observado
+  if (observedRR !== null && isFinite(observedRR)) {
+    const xObs = margin.left + ((observedRR - rangeMin) / (rangeMax - rangeMin)) * plotW;
+    if (xObs > margin.left && xObs < margin.left + plotW) {
+      ctx.strokeStyle = '#1a5276';
+      ctx.lineWidth = 2.5;
+      ctx.setLineDash([4, 2]);
+      ctx.beginPath();
+      ctx.moveTo(xObs, margin.top);
+      ctx.lineTo(xObs, margin.top + plotH);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      ctx.fillStyle = '#1a5276';
+      ctx.font = 'bold 11px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(`RR obs=${fmt(observedRR, 2)}`, xObs, margin.top + plotH + 32);
+    }
+  }
+
+  // Ejes
+  ctx.strokeStyle = '#333';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(margin.left, margin.top);
+  ctx.lineTo(margin.left, margin.top + plotH);
+  ctx.lineTo(margin.left + plotW, margin.top + plotH);
+  ctx.stroke();
+
+  // Etiquetas eje X
+  ctx.fillStyle = '#555';
+  ctx.font = '10px sans-serif';
+  ctx.textAlign = 'center';
+  const nLabels = 7;
+  for (let i = 0; i <= nLabels; i++) {
+    const val = rangeMin + (i / nLabels) * (rangeMax - rangeMin);
+    const x = margin.left + (i / nLabels) * plotW;
+    ctx.fillText(val.toFixed(2), x, margin.top + plotH + 15);
+  }
+
+  // Etiqueta eje X
+  ctx.fillStyle = '#333';
+  ctx.font = 'bold 12px sans-serif';
+  ctx.fillText('Riesgo Relativo (RR)', margin.left + plotW / 2, margin.top + plotH + 38);
+
+  // Etiquetas eje Y
+  ctx.textAlign = 'right';
+  ctx.font = '10px sans-serif';
+  ctx.fillStyle = '#555';
+  for (let i = 0; i <= 4; i++) {
+    const val = Math.round((i / 4) * maxBin);
+    const y = margin.top + plotH - (i / 4) * plotH;
+    ctx.fillText(val, margin.left - 8, y + 4);
+  }
+
+  // Etiqueta eje Y
+  ctx.save();
+  ctx.translate(15, margin.top + plotH / 2);
+  ctx.rotate(-Math.PI / 2);
+  ctx.fillStyle = '#333';
+  ctx.font = 'bold 12px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('Frecuencia', 0, 0);
+  ctx.restore();
+
+  // Leyenda
+  ctx.fillStyle = 'rgba(22,160,133,0.7)';
+  ctx.fillRect(margin.left + plotW - 145, margin.top + 8, 12, 12);
+  ctx.fillStyle = '#333';
+  ctx.font = '10px sans-serif';
+  ctx.textAlign = 'left';
+  ctx.fillText('RR < 1 (beneficio)', margin.left + plotW - 130, margin.top + 18);
+
+  ctx.fillStyle = 'rgba(192,57,43,0.5)';
+  ctx.fillRect(margin.left + plotW - 145, margin.top + 26, 12, 12);
+  ctx.fillStyle = '#333';
+  ctx.fillText('RR ≥ 1 (daño/nulo)', margin.left + plotW - 130, margin.top + 36);
+}
+
+
+/* ==============================================================
+   SECCIÓN 11: EJEMPLOS PRECARGADOS
+   ============================================================== */
+
+function loadExample(name) {
+  const examples = {
+    classic: { evTx: 15, nTx: 200, evCtrl: 30, nCtrl: 200,
+      desc: 'Ensayo clásico con efecto moderado' },
+    small: { evTx: 2, nTx: 25, evCtrl: 7, nCtrl: 25,
+      desc: 'Muestra pequeña — resultados inestables' },
+    nodiff: { evTx: 20, nTx: 150, evCtrl: 22, nCtrl: 150,
+      desc: 'Sin diferencia relevante entre grupos' },
+    harm: { evTx: 35, nTx: 200, evCtrl: 20, nCtrl: 200,
+      desc: 'El tratamiento parece aumentar el riesgo' },
+    rare: { evTx: 1, nTx: 500, evCtrl: 8, nCtrl: 500,
+      desc: 'Evento raro — gran reducción relativa, mínima absoluta' }
+  };
+  const ex = examples[name];
+  if (!ex) return;
+
+  document.getElementById('evTx').value = ex.evTx;
+  document.getElementById('nTx').value = ex.nTx;
+  document.getElementById('evCtrl').value = ex.evCtrl;
+  document.getElementById('nCtrl').value = ex.nCtrl;
+  hideError();
+
+  // Auto-calcular
+  calculate();
+}
+
+
+/* ==============================================================
+   SECCIÓN 12: UTILIDADES DE INTERFAZ
+   ============================================================== */
+
+function clearAll() {
+  document.getElementById('evTx').value = '';
+  document.getElementById('nTx').value = '';
+  document.getElementById('evCtrl').value = '';
+  document.getElementById('nCtrl').value = '';
+  document.getElementById('resultsSection').style.display = 'none';
+  document.getElementById('simSection').style.display = 'none';
+  hideError();
+}
+
+// Permitir calcular con Enter
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    const active = document.activeElement;
+    if (active && active.type === 'number') {
+      calculate();
+    }
+  }
+});
 </script>
+
+<!--
+============================================================
+EXPLICACIÓN FINAL: CÓMO ESTA APP EVITA INTERPRETACIONES ENGAÑOSAS
+============================================================
+
+1. TRANSPARENCIA EN LA INCERTIDUMBRE:
+   Todos los resultados se presentan con intervalos de confianza al 95%.
+   No se muestra solo la estimación puntual, lo que evitaría la falsa
+   certidumbre que los números aislados transmiten.
+
+2. DOBLE ESCALA (ABSOLUTA Y RELATIVA):
+   Se muestran siempre ARR y RRR juntos. Esto evita el sesgo de
+   comunicación donde se usa solo la medida que "suena mejor" (ej.
+   "reduce el riesgo un 50%" vs "reduce el riesgo un 0.5%").
+
+3. ADVERTENCIAS AUTOMÁTICAS:
+   Cuando la RRR es grande pero la ARR es pequeña, aparece una
+   advertencia explícita sobre la discrepancia y el riesgo de
+   sobreinterpretar medidas relativas.
+
+4. NNT CON CONTEXTO:
+   El NNT se presenta siempre con su IC y con la advertencia de
+   que depende del riesgo basal. El modo crítico muestra cómo
+   cambiaría el NNT en diferentes poblaciones.
+
+5. DETECCIÓN DE INESTABILIDAD:
+   - El índice de fragilidad muestra cuántos eventos separan la
+     significancia de la no-significancia.
+   - La simulación bootstrap visualiza la dispersión real del RR.
+   - Mensajes como "Este NNT es inestable" alertan cuando el IC
+     del ARR cruza el cero.
+
+6. MODO CRÍTICO PEDAGÓGICO:
+   Explica activamente por qué OR ≠ RR, por qué el NNT es
+   dependiente del contexto, y por qué la significancia estadística
+   no implica relevancia clínica.
+
+7. ADVERTENCIAS METODOLÓGICAS PERMANENTES:
+   Siempre se muestran los supuestos (comparabilidad, ausencia de
+   confusión, aproximación normal), sin importar el resultado.
+   Esto recuerda que ningún cálculo crudo reemplaza un análisis
+   riguroso con control de sesgos.
+
+8. EJEMPLOS DELIBERADAMENTE VARIADOS:
+   Los ejemplos precargados incluyen escenarios donde el tratamiento
+   daña, donde no hay diferencia, y donde hay muestras pequeñas,
+   entrenando al usuario a no asumir que todo resultado es "positivo".
+
+En resumen: la app combate la sobreinterpretación, el cherry-picking
+de medidas, y la falsa precisión, que son los tres errores más
+comunes en la comunicación de resultados de ensayos clínicos.
+============================================================
+-->
+
 </body>
 </html>

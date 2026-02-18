@@ -1,12 +1,12 @@
 ---
-title: "Calculadora Muestral (SampleSize Pro ver 4.0)"
-date: "2024-12-30" # Fecha reducida en dos días respecto al anterior
+title: "Calculadora Muestral (SampleSize ver 4.0)"
+date: "2024-12-31" # Fecha reducida en dos días respecto al anterior
 categories: ["calculadoras"]
 tags:
   - "herramientas" 
   - "calculadoras" 
   - "tamaño de muestra"
-summary: "Calculadora para determinar el número de participantes con Desarrollo Matemático para adaptar en Protocolos de Ensayos Clínicos."
+summary: "Calculadora para determinar el tamaño de nuestra en Ensayos Clínicos."
 slug: "calculadora_muestra"
 external_link: "/apps/calculadora_muestra.html"
 image:

@@ -1,93 +1,1185 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Margen Delta - BioestadisticaEdu</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; background: transparent; padding: 10px; }
-        .card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 25px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); max-width: 550px; margin: auto; }
-        h2 { color: #2d3748; font-size: 1.3rem; margin-bottom: 5px; text-align: center; }
-        p.subtitle { text-align: center; color: #718096; font-size: 0.85rem; margin-bottom: 20px; }
-        .input-group { margin-bottom: 15px; }
-        label { display: block; font-size: 0.85rem; color: #4a5568; font-weight: 600; margin-bottom: 5px; }
-        input { width: 100%; padding: 10px; border: 1px solid #cbd5e0; border-radius: 6px; box-sizing: border-box; }
-        .config-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        button { width: 100%; background: #2c5282; color: white; border: none; padding: 14px; border-radius: 6px; font-weight: 600; cursor: pointer; margin-top: 10px; }
-        #results { margin-top: 25px; padding: 20px; border-radius: 8px; display: none; border: 1px dashed #cbd5e0; }
-        .delta-box { text-align: center; margin: 15px 0; }
-        .delta-val { font-size: 2rem; font-weight: bold; color: #2b6cb0; }
-        .warning { font-size: 0.85rem; color: #744210; background: #fffff0; padding: 10px; border-radius: 5px; margin-top: 10px; border-left: 4px solid #ecc94b; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NI-Margin Tool · Derivación de Márgenes de No-Inferioridad</title>
+<style>
+/* ========== RESET & BASE ========== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,-apple-system,BlinkMacSystemFont,sans-serif;background:#eef2f7;color:#1e293b;line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* ========== LAYOUT ========== */
+.container{max-width:880px;margin:0 auto;padding:0 20px}
+@media(min-width:1024px){.container{max-width:920px;padding:0 32px}}
+
+/* ========== HEADER ========== */
+.site-header{background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 100%);color:#fff;padding:32px 0 28px;border-bottom:3px solid #3b82f6}
+.site-header .container{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px}
+.site-header h1{font-size:1.65rem;font-weight:800;letter-spacing:-.5px}
+.site-header .subtitle{font-size:.88rem;color:#94a3b8;max-width:420px}
+.site-header .badge{display:inline-block;margin-top:8px;padding:4px 14px;border-radius:20px;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;background:rgba(251,191,36,.15);color:#fbbf24;border:1px solid rgba(251,191,36,.3)}
+
+/* ========== STEP INDICATOR ========== */
+.steps-bar{background:#fff;border-bottom:1px solid #e2e8f0;padding:14px 0;position:sticky;top:0;z-index:50;box-shadow:0 1px 6px rgba(0,0,0,.06)}
+.steps-list{display:flex;justify-content:center;gap:6px;list-style:none;flex-wrap:wrap}
+.steps-list li{display:flex;align-items:center;gap:6px;font-size:.78rem;font-weight:600;color:#94a3b8;transition:color .2s}
+.steps-list li .step-num{width:24px;height:24px;border-radius:50%;background:#e2e8f0;color:#64748b;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;transition:all .2s}
+.steps-list li.active{color:#1e40af}
+.steps-list li.active .step-num{background:#1e40af;color:#fff}
+.steps-list li.done{color:#059669}
+.steps-list li.done .step-num{background:#059669;color:#fff}
+.steps-list li+li::before{content:'›';color:#cbd5e1;font-size:1rem;margin-right:2px}
+@media(max-width:600px){.steps-list li span:not(.step-num){display:none}.steps-list li+li::before{content:'—';font-size:.7rem}}
+
+/* ========== CARDS ========== */
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:28px 28px 24px;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.04);transition:box-shadow .2s}
+.card:hover{box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.card-header{display:flex;align-items:center;gap:10px;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid #f1f5f9}
+.card-header .step-badge{width:32px;height:32px;border-radius:50%;background:#eff6ff;color:#1e40af;display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:800;flex-shrink:0}
+.card-header h2{font-size:1.08rem;font-weight:700;color:#1e293b;margin:0}
+.card-header .card-hint{font-size:.75rem;color:#94a3b8;font-weight:400;display:block;margin-top:1px}
+@media(max-width:600px){.card{padding:20px 18px 18px}}
+
+/* ========== FORM ELEMENTS ========== */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 24px}
+@media(max-width:600px){.form-grid{grid-template-columns:1fr;gap:14px}}
+.form-group{display:flex;flex-direction:column}
+.form-group.full{grid-column:1/-1}
+.form-group label{font-weight:600;color:#374151;margin-bottom:5px;font-size:.84rem;display:flex;align-items:center;gap:4px}
+.form-group .helper{font-size:.73rem;color:#94a3b8;margin-top:3px;line-height:1.4}
+select,input[type="number"]{border:1.5px solid #d1d5db;border-radius:8px;padding:10px 14px;font-size:.92rem;width:100%;background:#fff;color:#1e293b;transition:border .2s,box-shadow .2s;font-family:inherit}
+select:focus,input[type="number"]:focus{outline:none;border-color:#3b82f6;box-shadow:0 0 0 3px rgba(59,130,246,.1)}
+select{cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:34px}
+
+/* ========== SLIDER ========== */
+.slider-wrap{display:flex;flex-direction:column;align-items:center;gap:8px}
+.slider-row{display:flex;align-items:center;gap:12px;width:100%}
+.slider-row .range-label{font-size:.75rem;font-weight:700;color:#94a3b8;white-space:nowrap;min-width:32px;text-align:center}
+input[type="range"]{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:3px;background:#e2e8f0;outline:none;cursor:pointer;transition:background .2s}
+input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:#1e40af;cursor:pointer;border:3px solid #fff;box-shadow:0 1px 6px rgba(0,0,0,.2);transition:transform .1s}
+input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.15)}
+input[type="range"]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:#1e40af;cursor:pointer;border:3px solid #fff;box-shadow:0 1px 6px rgba(0,0,0,.2)}
+.slider-value{font-size:2.4rem;font-weight:800;color:#1e40af;font-variant-numeric:tabular-nums;line-height:1}
+.slider-hint{font-size:.78rem;color:#64748b;text-align:center}
+.preset-group{display:flex;gap:8px;justify-content:center;margin-top:6px}
+.preset-btn{padding:7px 20px;border-radius:20px;border:1.5px solid #c7d2e0;background:#fff;cursor:pointer;font-size:.8rem;color:#475569;font-weight:700;transition:all .15s}
+.preset-btn:hover,.preset-btn.active{background:#1e40af;color:#fff;border-color:#1e40af;transform:translateY(-1px)}
+
+/* ========== PRIMARY ACTION ========== */
+.action-row{text-align:center;padding:8px 0 28px}
+.btn-primary{background:linear-gradient(135deg,#1e40af,#2563eb);color:#fff;padding:14px 42px;border-radius:10px;font-weight:700;border:none;cursor:pointer;font-size:1rem;transition:all .15s;display:inline-flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(30,64,175,.3);letter-spacing:.2px}
+.btn-primary:hover{background:linear-gradient(135deg,#1e3a8a,#1e40af);transform:translateY(-1px);box-shadow:0 4px 14px rgba(30,64,175,.35)}
+.btn-primary:active{transform:translateY(0)}
+.btn-primary.loading{opacity:.7;pointer-events:none}
+#validationErrors{max-width:600px;margin:12px auto 0}
+
+/* ========== RESULTS GRID ========== */
+.results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:700px){.results-grid{grid-template-columns:1fr}.results-grid .method-card{display:flex;align-items:center;gap:16px;text-align:left;padding:16px 20px}.results-grid .method-card .m-value{font-size:1.5rem;margin:0;order:2;margin-left:auto}}
+.method-card{background:#f8fafc;border:1.5px solid #d1d5db;border-radius:10px;padding:22px 16px;text-align:center;transition:all .2s;position:relative;overflow:hidden}
+.method-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:#cbd5e1;transition:background .2s}
+.method-card.recommended{border-color:#1e40af;box-shadow:0 0 0 1px rgba(30,64,175,.1)}
+.method-card.recommended::before{background:#1e40af}
+.method-card .m-tag{position:absolute;top:8px;right:8px;padding:2px 8px;border-radius:10px;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.3px;background:#dbeafe;color:#1e40af}
+.method-card .m-label{font-size:.76rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.4px;margin-bottom:10px}
+.method-card .m-value{font-size:1.85rem;font-weight:800;color:#1e40af;margin-bottom:6px;font-variant-numeric:tabular-nums;transition:color .2s}
+.method-card .m-sub{font-size:.74rem;color:#94a3b8}
+.method-card.na{opacity:.4;pointer-events:none}
+.method-card.na::before{background:#cbd5e1}
+.method-card.na .m-value{color:#94a3b8}
+
+/* ========== METRICS ========== */
+.metrics-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:700px){.metrics-grid{grid-template-columns:1fr}}
+.metric-box{background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:10px;padding:20px 16px;text-align:center;transition:border-color .2s}
+.metric-box:hover{border-color:#cbd5e1}
+.metric-box .metric-icon{font-size:1.4rem;margin-bottom:6px}
+.metric-box .metric-label{font-size:.74rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.3px;margin-bottom:8px}
+.metric-box .metric-value{font-size:1.7rem;font-weight:800;font-variant-numeric:tabular-nums;line-height:1}
+.metric-box .metric-value.low{color:#059669}
+.metric-box .metric-value.medium{color:#d97706}
+.metric-box .metric-value.high{color:#dc2626}
+.metric-box .metric-value.neutral{color:#1e40af}
+.metric-box .metric-hint{font-size:.72rem;color:#94a3b8;margin-top:6px;line-height:1.4}
+
+/* ========== SENSITIVITY ========== */
+.btn-sens{padding:11px 28px;border-radius:8px;font-weight:700;border:1.5px solid #1e40af;cursor:pointer;font-size:.88rem;background:#eff6ff;color:#1e40af;transition:all .15s;display:inline-flex;align-items:center;gap:8px}
+.btn-sens:hover{background:#1e40af;color:#fff;transform:translateY(-1px)}
+.sens-table{width:100%;border-collapse:separate;border-spacing:0;font-size:.86rem;border-radius:8px;overflow:hidden;border:1px solid #e2e8f0}
+.sens-table th,.sens-table td{padding:11px 16px;text-align:center}
+.sens-table th{background:#f1f5f9;font-weight:700;color:#475569;font-size:.76rem;text-transform:uppercase;letter-spacing:.4px;border-bottom:2px solid #e2e8f0}
+.sens-table td{color:#334155;border-bottom:1px solid #f1f5f9}
+.sens-table tbody tr:last-child td{border-bottom:none}
+.sens-table tbody tr:hover td{background:#f8fafc}
+.sens-table .highlight-row td{background:#eff6ff;font-weight:700;color:#1e40af}
+#sensChart{width:100%;border:1px solid #e2e8f0;border-radius:8px;background:#fff}
+
+/* ========== INTERPRETATION ========== */
+.interp-block{background:#f8fafc;border-left:4px solid #3b82f6;padding:18px 22px;border-radius:0 10px 10px 0;margin-bottom:14px;font-size:.88rem;line-height:1.7;color:#334155}
+.interp-block.critical{border-left-color:#f59e0b;background:#fffbeb}
+.interp-block.warning-block{border-left-color:#ef4444;background:#fef2f2}
+.interp-block strong{color:#1e293b}
+.warning-box{background:#fef3c7;border-left:4px solid #f59e0b;padding:14px 18px;border-radius:0 8px 8px 0;margin-top:10px;font-size:.84rem;color:#92400e;line-height:1.6}
+.danger-box{background:#fee2e2;border-left:4px solid #ef4444;padding:14px 18px;border-radius:0 8px 8px 0;margin-top:10px;font-size:.84rem;color:#991b1b;line-height:1.6}
+
+/* ========== EXPORT ========== */
+.export-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.btn-export{padding:11px 24px;border-radius:8px;font-weight:600;border:1.5px solid #334155;cursor:pointer;font-size:.86rem;background:#fff;color:#334155;transition:all .15s;display:inline-flex;align-items:center;gap:8px}
+.btn-export:hover{background:#1e293b;color:#fff;transform:translateY(-1px)}
+
+/* ========== EDUCATIONAL ========== */
+.edu-section{margin-top:8px}
+.edu-master-toggle{display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 24px;border-radius:8px;border:1.5px solid #cbd5e1;background:#f8fafc;cursor:pointer;font-size:.86rem;font-weight:600;color:#475569;transition:all .15s;margin:0 auto 16px;width:fit-content}
+.edu-master-toggle:hover{background:#eff6ff;border-color:#93c5fd;color:#1e40af}
+.edu-items{display:none}
+.edu-items.open{display:block}
+.edu-item{border:1px solid #e2e8f0;border-radius:10px;margin-bottom:10px;overflow:hidden;transition:border-color .2s}
+.edu-item:hover{border-color:#cbd5e1}
+.edu-toggle{padding:14px 20px;background:#fafbfc;cursor:pointer;user-select:none;display:flex;align-items:center;gap:10px;font-weight:600;font-size:.9rem;color:#334155;transition:background .15s}
+.edu-toggle:hover{background:#f1f5f9}
+.edu-toggle .toggle-icon{font-size:.65rem;color:#94a3b8;transition:transform .2s;width:12px}
+.edu-content{display:none;padding:18px 20px;font-size:.86rem;line-height:1.75;color:#475569;border-top:1px solid #e2e8f0;background:#fff}
+.edu-content.open{display:block}
+.edu-content h4{font-weight:700;color:#1e293b;margin:12px 0 4px;font-size:.86rem}
+.edu-content h4:first-child{margin-top:0}
+.edu-content p{margin-bottom:8px}
+
+/* ========== RESULTS NOTE ========== */
+.results-note{font-size:.8rem;color:#64748b;text-align:center;padding:12px 16px;background:#f8fafc;border-radius:8px;margin-top:16px;line-height:1.5;border:1px solid #f1f5f9}
+
+/* ========== FRAGILITY NOTE ========== */
+.fragility-note{font-size:.8rem;color:#64748b;text-align:center;margin-top:12px;padding:10px 16px;background:#f8fafc;border-radius:8px;line-height:1.5}
+
+/* ========== UTILITY ========== */
+.hidden{display:none!important}
+.text-center{text-align:center}
+.mt-3{margin-top:12px}
+.mt-4{margin-top:16px}
+.mb-4{margin-bottom:16px}
+.mb-5{margin-bottom:20px}
+
+/* ========== ANIMATION ========== */
+@keyframes fadeSlideIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.animate-in{animation:fadeSlideIn .35s ease-out}
+
+/* ========== FOOTER ========== */
+.site-footer{background:#0f172a;color:#94a3b8;padding:28px 20px;text-align:center;font-size:.76rem;line-height:1.8;margin-top:32px;border-top:3px solid #1e3a5f}
+.site-footer strong{color:#cbd5e1}
+.site-footer .footer-inner{max-width:660px;margin:0 auto}
+
+/* ========== DIVIDER ========== */
+.section-divider{height:1px;background:linear-gradient(to right,transparent,#cbd5e1,transparent);margin:8px 0 20px}
+</style>
 </head>
 <body>
 
-<div class="card">
-    <h2>📐 Margen de No-Inferioridad ($\delta$)</h2>
-    <p class="subtitle">Justificación técnica basada en evidencia histórica</p>
-    
-    <div class="input-group">
-        <label>Efecto Histórico del Estándar vs Placebo (OR/RR)</label>
-        <input type="number" id="hist_effect" value="1.50" step="0.01" placeholder="Ej: 1.50">
-        <small style="color: #a0aec0;">El límite inferior del IC95% del estudio de referencia.</small>
-    </div>
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+<div class="container">
+<h1>NI-Margin Tool</h1>
+<p class="subtitle">Asistente metodológico para derivación de márgenes de no-inferioridad en ensayos clínicos</p>
+<span class="badge">⚠ Herramienta de apoyo — No sustituye juicio clínico</span>
+</div>
+</header>
 
-    <div class="config-row">
-        <div class="input-group">
-            <label>% de Efecto a Preservar</label>
-            <input type="number" id="preserve" value="50" min="1" max="99">
-        </div>
-        <div class="input-group">
-            <label>Escala del Endpoint</label>
-            <select id="scale" style="width:100%; padding:10px; border-radius:6px; border:1px solid #cbd5e0;">
-                <option value="diff">Diferencia Riesgos</option>
-                <option value="ratio">Ratio (RR/OR)</option>
-            </select>
-        </div>
-    </div>
+<!-- ===== STEP BAR ===== -->
+<nav class="steps-bar">
+<div class="container">
+<ul class="steps-list" id="stepsList">
+<li class="active" data-step="1"><span class="step-num">1</span><span>Evidencia</span></li>
+<li data-step="2"><span class="step-num">2</span><span>Preservación</span></li>
+<li data-step="3"><span class="step-num">3</span><span>Resultados</span></li>
+<li data-step="4"><span class="step-num">4</span><span>Sensibilidad</span></li>
+<li data-step="5"><span class="step-num">5</span><span>Interpretación</span></li>
+</ul>
+</div>
+</nav>
 
-    <button onclick="calculateDelta()">Calcular Margen Aceptable</button>
+<!-- ===== MAIN ===== -->
+<main class="container" style="padding-top:28px;padding-bottom:16px">
 
-    <div id="results">
-        <div class="delta-box">
-            <span style="font-size: 0.9rem; color: #4a5568;">Margen $\delta$ sugerido:</span><br>
-            <span class="delta-val" id="delta-display">0.00</span>
-        </div>
-        <div id="interpretation" style="font-size: 0.9rem; color: #2d3748; line-height: 1.4;"></div>
-        <div class="warning">
-            <strong>Nota Regulatoria:</strong> Este margen asegura que el nuevo tratamiento retiene al menos una fracción del beneficio del comparador activo.
-        </div>
-        <p style="font-size: 0.7rem; color: #a0aec0; margin-top: 15px; text-align: center;">
-            BioestadisticaEdu © 2025 - Maicel Monzon
-        </p>
-    </div>
+<!-- ===== STEP 1: EVIDENCIA + CONTEXTO ===== -->
+<div class="card" id="evidenceCard">
+<div class="card-header">
+<span class="step-badge">1</span>
+<div>
+<h2>Evidencia Histórica y Contexto Clínico</h2>
+<span class="card-hint">Ingrese los datos del efecto del control activo sobre placebo</span>
+</div>
+</div>
+<div class="form-grid">
+<div class="form-group">
+<label for="scale">Escala de medición</label>
+<select id="scale">
+<option value="ratio">Razón (RR / OR / HR)</option>
+<option value="absolute">Diferencia absoluta de riesgo</option>
+</select>
+<span class="helper">Determine la escala del efecto reportado en la evidencia histórica</span>
+</div>
+<div class="form-group">
+<label for="source">Fuente de evidencia</label>
+<select id="source">
+<option value="meta">Meta-análisis</option>
+<option value="single">Ensayo único</option>
+</select>
+<span class="helper">El tipo de fuente influye en la incertidumbre del estimador</span>
+</div>
+<div class="form-group">
+<label id="peLabel" for="pointEstimate">Estimación puntual (RR u OR)</label>
+<input type="number" id="pointEstimate" step="0.01" value="0.70" min="0.01" max="0.99">
+<span class="helper" id="peHelper">Valores < 1 indican efecto protector del control activo</span>
+</div>
+<div class="form-group">
+<label id="ciLabel" for="cibound">Límite inferior IC 95%</label>
+<input type="number" id="cibound" step="0.01" value="0.55" min="0.01" max="0.99">
+<span class="helper" id="ciHelper">Límite inferior del intervalo de confianza al 95%</span>
+</div>
+<div class="form-group full">
+<label for="endpoint">Tipo de endpoint primario</label>
+<select id="endpoint">
+<option value="mortality">Mortalidad</option>
+<option value="major">Evento clínico mayor (ej. MACE, recurrencia cáncer)</option>
+<option value="surrogate">Variable intermedia (surrogado validado)</option>
+<option value="biomarker">Biomarcador</option>
+</select>
+<span class="helper">El tipo de endpoint condiciona la justificación regulatoria del margen seleccionado</span>
+</div>
+</div>
 </div>
 
-<script>
-function calculateDelta() {
-    const m1 = parseFloat(document.getElementById('hist_effect').value);
-    const preserve = parseFloat(document.getElementById('preserve').value) / 100;
-    const scale = document.getElementById('scale').value;
-    
-    let delta;
-    let text;
+<!-- ===== STEP 2: PRESERVACIÓN ===== -->
+<div class="card" id="preservationCard">
+<div class="card-header">
+<span class="step-badge">2</span>
+<div>
+<h2>Preservación del Efecto</h2>
+<span class="card-hint">Fracción del efecto histórico que el nuevo ensayo debe conservar</span>
+</div>
+</div>
+<div class="slider-wrap">
+<div class="slider-row">
+<span class="range-label">30%</span>
+<input type="range" id="preservation" min="30" max="90" value="50" step="1">
+<span class="range-label">90%</span>
+</div>
+<div class="slider-value" id="preservationValue">50%</div>
+<div class="slider-hint">A mayor preservación → margen más estricto → tamaño muestral mayor</div>
+<div class="preset-group">
+<button class="preset-btn" data-value="50" onclick="App.setPreservation(50)">50%</button>
+<button class="preset-btn" data-value="67" onclick="App.setPreservation(67)">67%</button>
+<button class="preset-btn" data-value="80" onclick="App.setPreservation(80)">80%</button>
+</div>
+</div>
+</div>
 
-    if (scale === 'ratio') {
-        // Para Ratios, el margen se calcula a menudo logarítmicamente o como fracción del efecto
-        // Delta = 1 + (M1 - 1) * (1 - preserve)
-        delta = 1 + (m1 - 1) * (1 - preserve);
-        text = `Para no ser inferior, el límite superior del IC95% de su estudio no debe superar un RR/OR de <strong>${delta.toFixed(3)}</strong>.`;
-    } else {
-        // Para diferencias absolutas
-        delta = m1 * (1 - preserve);
-        text = `El margen de no-inferioridad clínico aceptable es una diferencia de <strong>${delta.toFixed(3)}</strong>.`;
+<!-- ===== CALCULATE ===== -->
+<div class="action-row">
+<button class="btn-primary" id="calculateBtn">
+⚙️ Calcular Margen de No-Inferioridad
+</button>
+<div id="validationErrors"></div>
+</div>
+
+<!-- ===== OUTPUT SECTION ===== -->
+<div id="outputSection" class="hidden">
+
+<!-- ===== STEP 3: RESULTADOS ===== -->
+<div class="card animate-in" id="resultsCard">
+<div class="card-header">
+<span class="step-badge">3</span>
+<div>
+<h2>Resultados: Márgenes Derivados (δ)</h2>
+<span class="card-hint">Comparación simultánea de los tres métodos de derivación</span>
+</div>
+</div>
+<div class="results-grid" id="resultsGrid">
+<div class="method-card recommended" id="m1Card">
+<span class="m-tag" id="m1Tag">Principal</span>
+<div class="m-label" id="m1Label">Punto estimado (lineal)</div>
+<div class="m-value" id="m1Value">—</div>
+<div class="m-sub">Método 1</div>
+</div>
+<div class="method-card" id="m2Card">
+<div class="m-label" id="m2Label">Lím. inf. IC95% (lineal)</div>
+<div class="m-value" id="m2Value">—</div>
+<div class="m-sub">Método 2 · Conservador</div>
+</div>
+<div class="method-card" id="m3Card">
+<div class="m-label" id="m3Label">Logarítmico</div>
+<div class="m-value" id="m3Value">—</div>
+<div class="m-sub">Método 3 · Solo razón</div>
+</div>
+</div>
+<div id="resultsNote" class="results-note"></div>
+</div>
+
+<!-- ===== METRICS ===== -->
+<div class="card animate-in">
+<div class="card-header">
+<span class="step-badge" style="background:#f0fdf4;color:#059669">⚖</span>
+<div>
+<h2>Métricas Derivadas</h2>
+<span class="card-hint">Indicadores calculados automáticamente a partir del margen seleccionado</span>
+</div>
+</div>
+<div class="metrics-grid">
+<div class="metric-box">
+<div class="metric-icon">✅</div>
+<div class="metric-label">Efecto preservado</div>
+<div class="metric-value neutral" id="metPreserved">—</div>
+<div class="metric-hint">Fracción del efecto original garantizada</div>
+</div>
+<div class="metric-box">
+<div class="metric-icon">📉</div>
+<div class="metric-label">Pérdida máxima permitida</div>
+<div class="metric-value" id="metMaxLoss" style="color:#d97706">—</div>
+<div class="metric-hint">Máxima pérdida aceptable del beneficio clínico</div>
+</div>
+<div class="metric-box">
+<div class="metric-icon">🔬</div>
+<div class="metric-label">Índice de fragilidad</div>
+<div class="metric-value" id="metFragility">—</div>
+<div class="metric-hint">Sensibilidad del margen a cambios en supuestos</div>
+</div>
+</div>
+<div id="fragilityNote" class="fragility-note"></div>
+</div>
+
+<!-- ===== SENSITIVITY TOGGLE ===== -->
+<div class="text-center mb-4">
+<button class="btn-sens" id="sensitivityBtn">📊 Explorar sensibilidad del margen</button>
+</div>
+
+<!-- ===== STEP 4: SENSITIVITY ===== -->
+<div class="card hidden animate-in" id="sensitivityCard">
+<div class="card-header">
+<span class="step-badge" style="background:#fef3c7;color:#d97706">4</span>
+<div>
+<h2>Análisis de Sensibilidad</h2>
+<span class="card-hint">Margen δ para diferentes niveles de preservación y fuentes del estimador</span>
+</div>
+</div>
+<div id="sensTable" class="mb-5" style="overflow-x:auto"></div>
+<div class="mb-4">
+<canvas id="sensChart" height="360"></canvas>
+</div>
+<p style="font-size:.76rem;color:#94a3b8;text-align:center">La línea vertical punteada indica el nivel de preservación seleccionado actualmente.</p>
+</div>
+
+<!-- ===== STEP 5: INTERPRETATION ===== -->
+<div class="card animate-in">
+<div class="card-header">
+<span class="step-badge" style="background:#fef2f2;color:#dc2626">5</span>
+<div>
+<h2>Interpretación Automática</h2>
+<span class="card-hint">Texto generado para documentación regulatoria y protocolos</span>
+</div>
+</div>
+<div id="interpJustification" class="interp-block"></div>
+<div id="interpClinical" class="interp-block"></div>
+<div id="interpCritical" class="interp-block critical"></div>
+<div id="interpWarnings"></div>
+</div>
+
+<!-- ===== EXPORT ===== -->
+<div class="card animate-in">
+<div class="card-header">
+<span class="step-badge" style="background:#f0fdf4;color:#059669">💾</span>
+<div>
+<h2>Exportación de Resultados</h2>
+<span class="card-hint">Documentación reproducible para anexos de protocolo y SAP</span>
+</div>
+</div>
+<div class="export-row">
+<button class="btn-export" id="exportCSVBtn">
+📄 Descargar CSV (datos tabulares)
+</button>
+<button class="btn-export" id="exportTXTBtn">
+📝 Descargar TXT (informe completo)
+</button>
+</div>
+<p style="font-size:.76rem;color:#94a3b8;text-align:center;margin-top:14px;line-height:1.5">Incluye parámetros, resultados, sensibilidad e interpretación para documentación reproducible.</p>
+</div>
+
+</div><!-- /outputSection -->
+
+<!-- ===== EDUCATIONAL ===== -->
+<div class="section-divider"></div>
+<div class="edu-section">
+<button class="edu-master-toggle" id="eduMasterToggle" onclick="App.toggleEduSection()">
+📘 Sección Educativa · Métodos de Derivación <span id="eduToggleIcon" style="font-size:.65rem;color:#94a3b8">▶</span>
+</button>
+<div class="edu-items" id="eduItems">
+<div class="edu-item">
+<div class="edu-toggle" onclick="App.toggleEdu(this)">
+<span class="toggle-icon">▶</span>
+<span>Método 1 — Punto estimado (escala lineal)</span>
+</div>
+<div class="edu-content">
+<h4>Descripción</h4>
+<p>Deriva el margen de no-inferioridad (δ) a partir de la estimación puntual del efecto histórico, aplicando una transformación lineal en la escala original del estimador.</p>
+<p><strong>Para razón (RR/OR):</strong> δ = (1 − f) / RR + f, donde f es la fracción de preservación y RR es la estimación puntual.</p>
+<p><strong>Para diferencia absoluta:</strong> δ = (1 − f) × Δ, donde Δ es la diferencia absoluta observada.</p>
+<h4>Cuándo usarlo</h4>
+<p>Cuando se dispone de una estimación puntual confiable proveniente de un meta-análisis robusto o un ensayo clínico grande y bien conducido. Es el método más intuitivo y directo.</p>
+<h4>Limitaciones</h4>
+<p>Asume que la estimación puntual representa fielmente el verdadero efecto del tratamiento activo. No incorpora la incertidumbre estadística del estimador. Para razones (RR/OR), la transformación lineal puede no reflejar adecuadamente la naturaleza multiplicativa del efecto.</p>
+</div>
+</div>
+<div class="edu-item">
+<div class="edu-toggle" onclick="App.toggleEdu(this)">
+<span class="toggle-icon">▶</span>
+<span>Método 2 — Conservador (límite inferior IC95%)</span>
+</div>
+<div class="edu-content">
+<h4>Descripción</h4>
+<p>Utiliza el límite inferior del intervalo de confianza al 95% del efecto histórico en lugar de la estimación puntual. La misma fórmula lineal se aplica, pero con un valor de entrada más conservador.</p>
+<p><strong>Nota para razón (RR/OR < 1):</strong> El límite inferior del IC95% del RR es más alejado de 1, lo que indica un efecto más grande. Para un análisis verdaderamente conservador con ratios, considere usar el límite superior del IC (más cercano a 1).</p>
+<p><strong>Para diferencia absoluta:</strong> El límite inferior del IC representa un efecto menor, generando un margen más pequeño (más conservador).</p>
+<h4>Cuándo usarlo</h4>
+<p>Cuando se desea incorporar la incertidumbre del estimador. Particularmente útil cuando la evidencia proviene de un ensayo único con intervalo de confianza amplio, o cuando el endpoint es crítico (mortalidad).</p>
+<h4>Limitaciones</h4>
+<p>La interpretación del "conservadurismo" depende de la dirección del efecto y la escala utilizada. El IC95% refleja incertidumbre estadística pero no sesgo ni heterogeneidad clínica.</p>
+</div>
+</div>
+<div class="edu-item">
+<div class="edu-toggle" onclick="App.toggleEdu(this)">
+<span class="toggle-icon">▶</span>
+<span>Método 3 — Logarítmico (solo para razón)</span>
+</div>
+<div class="edu-content">
+<h4>Descripción</h4>
+<p>Opera en la escala logarítmica, derivando el margen como una fracción del log-efecto histórico. Produce un margen multiplicativamente consistente.</p>
+<p><strong>Fórmula:</strong> δ = RR<sup>−(1−f)</sup> = exp[(1 − f) × |ln(RR)|]</p>
+<p>Genera márgenes ligeramente más conservadores que el método lineal para valores intermedios de preservación, debido a la concavidad de la función exponencial.</p>
+<h4>Cuándo usarlo</h4>
+<p>Preferido para endpoints expresados como razones (RR, OR, HR) donde los efectos son multiplicativos por naturaleza. Recomendado cuando se espera que la relación entre tratamientos sea proporcional en diferentes subgrupos.</p>
+<h4>Limitaciones</h4>
+<p>Solo aplicable a medidas de razón. No se puede usar con diferencias absolutas. La interpretación clínica puede ser menos intuitiva para audiencias no estadísticas.</p>
+</div>
+</div>
+</div>
+</div>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+<div class="footer-inner">
+<p><strong>⚠️ Aviso legal:</strong> Esta herramienta es solo de apoyo metodológico. No sustituye un plan estadístico formal ni la aprobación de un comité de ética. El usuario es responsable del diseño final del estudio y de la justificación del margen ante las autoridades regulatorias.</p>
+<p style="margin-top:10px;color:#64748b">NI-Margin Tool · v2.0 · Herramienta de código abierto para investigación clínica</p>
+</div>
+</footer>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+const App = (function() {
+    'use strict';
+    let results = null;
+    let sensData = null;
+    let chartData = null;
+
+    /* ===== INIT ===== */
+    function init() {
+        document.getElementById('scale').addEventListener('change', onScaleChange);
+        document.getElementById('preservation').addEventListener('input', onSliderChange);
+        document.getElementById('calculateBtn').addEventListener('click', runAnalysis);
+        document.getElementById('sensitivityBtn').addEventListener('click', toggleSensitivity);
+        document.getElementById('exportCSVBtn').addEventListener('click', exportCSV);
+        document.getElementById('exportTXTBtn').addEventListener('click', exportTXT);
+
+        // Track focus for step indicator
+        document.querySelectorAll('#evidenceCard select, #evidenceCard input').forEach(el => {
+            el.addEventListener('focus', () => updateStep(1));
+        });
+        document.getElementById('preservation').addEventListener('focus', () => updateStep(2));
+
+        onScaleChange();
+        onSliderChange();
     }
 
-    document.getElementById('results').style.display = 'block';
-    document.getElementById('delta-display').innerText = delta.toFixed(3);
-    document.getElementById('interpretation').innerHTML = text;
-}
+    /* ===== STEP INDICATOR ===== */
+    function updateStep(n) {
+        document.querySelectorAll('#stepsList li').forEach(li => {
+            const s = parseInt(li.dataset.step);
+            li.className = s < n ? 'done' : s === n ? 'active' : '';
+        });
+    }
+
+    /* ===== SCALE CHANGE ===== */
+    function onScaleChange() {
+        const s = document.getElementById('scale').value;
+        const pe = document.getElementById('pointEstimate');
+        const ci = document.getElementById('cibound');
+        if (s === 'ratio') {
+            document.getElementById('peLabel').textContent = 'Estimación puntual (RR u OR)';
+            document.getElementById('peHelper').textContent = 'Valores < 1 indican efecto protector del control activo';
+            document.getElementById('ciLabel').textContent = 'Límite inferior IC 95%';
+            document.getElementById('ciHelper').textContent = 'Límite inferior del IC95% del RR/OR';
+            pe.value = '0.70'; pe.step = '0.01'; pe.min = '0.01'; pe.max = '0.99';
+            ci.value = '0.55'; ci.step = '0.01'; ci.min = '0.01'; ci.max = '0.99';
+        } else {
+            document.getElementById('peLabel').textContent = 'Diferencia absoluta (estimación puntual)';
+            document.getElementById('peHelper').textContent = 'Valores positivos indican beneficio del tratamiento activo';
+            document.getElementById('ciLabel').textContent = 'Límite inferior IC 95%';
+            document.getElementById('ciHelper').textContent = 'Límite inferior del IC95% de la diferencia absoluta';
+            pe.value = '0.15'; pe.step = '0.001'; pe.min = '0.001'; pe.max = '1';
+            ci.value = '0.08'; ci.step = '0.001'; ci.min = '0.001'; ci.max = '1';
+        }
+        document.getElementById('outputSection').classList.add('hidden');
+    }
+
+    /* ===== SLIDER ===== */
+    function onSliderChange() {
+        const v = document.getElementById('preservation').value;
+        document.getElementById('preservationValue').textContent = v + '%';
+        document.querySelectorAll('.preset-btn').forEach(b => {
+            b.classList.toggle('active', b.dataset.value === v);
+        });
+        // Update range track color
+        const pct = ((v - 30) / 60) * 100;
+        const el = document.getElementById('preservation');
+        el.style.background = 'linear-gradient(to right, #1e40af 0%, #3b82f6 ' + pct + '%, #e2e8f0 ' + pct + '%, #e2e8f0 100%)';
+    }
+
+    function setPreservation(val) {
+        document.getElementById('preservation').value = val;
+        onSliderChange();
+        updateStep(2);
+    }
+
+    /* ===== MARGIN CALCULATION ===== */
+    function calcMargin(effect, f, scale, method) {
+        if (scale === 'ratio') {
+            if (effect <= 0 || effect >= 1) return null;
+            if (method === 'linear') return (1 - f) / effect + f;
+            if (method === 'log') return Math.pow(effect, -(1 - f));
+        } else {
+            if (effect <= 0) return null;
+            if (method === 'log') return null;
+            return (1 - f) * effect;
+        }
+        return null;
+    }
+
+    /* ===== VALIDATION ===== */
+    function validate() {
+        const scale = document.getElementById('scale').value;
+        const pe = parseFloat(document.getElementById('pointEstimate').value);
+        const ci = parseFloat(document.getElementById('cibound').value);
+        const errs = [];
+        if (isNaN(pe)) errs.push('La estimación puntual debe ser un número válido.');
+        if (isNaN(ci)) errs.push('El límite IC95% debe ser un número válido.');
+        if (!isNaN(pe) && !isNaN(ci)) {
+            if (scale === 'ratio') {
+                if (pe >= 1) errs.push('Para escala de razón, el RR/OR debe ser < 1 (efecto protector).');
+                if (pe <= 0) errs.push('El RR/OR debe ser > 0.');
+                if (ci <= 0) errs.push('El límite IC95% debe ser > 0.');
+                if (ci >= pe) errs.push('El límite inferior IC95% debe ser menor que la estimación puntual.');
+            } else {
+                if (pe <= 0) errs.push('La diferencia absoluta debe ser > 0.');
+                if (ci <= 0) errs.push('El límite IC95% debe ser > 0.');
+                if (ci >= pe) errs.push('El límite inferior IC95% debe ser menor que la estimación puntual.');
+            }
+        }
+        return errs;
+    }
+
+    /* ===== RUN ANALYSIS ===== */
+    function runAnalysis() {
+        const btn = document.getElementById('calculateBtn');
+        const errs = validate();
+        const errDiv = document.getElementById('validationErrors');
+        if (errs.length > 0) {
+            errDiv.innerHTML = '<div class="danger-box">' + errs.map(e => '<p>⚠ ' + e + '</p>').join('') + '</div>';
+            document.getElementById('outputSection').classList.add('hidden');
+            return;
+        }
+        errDiv.innerHTML = '';
+
+        // Brief loading state
+        btn.classList.add('loading');
+        btn.innerHTML = '⏳ Calculando…';
+
+        setTimeout(() => {
+            const scale = document.getElementById('scale').value;
+            const pe = parseFloat(document.getElementById('pointEstimate').value);
+            const ci = parseFloat(document.getElementById('cibound').value);
+            const f = parseInt(document.getElementById('preservation').value) / 100;
+            const source = document.getElementById('source').value;
+            const endpoint = document.getElementById('endpoint').value;
+
+            const m1 = calcMargin(pe, f, scale, 'linear');
+            const m2 = calcMargin(ci, f, scale, 'linear');
+            const m3 = calcMargin(pe, f, scale, 'log');
+
+            results = { m1, m2, m3, pe, ci, f, scale, source, endpoint };
+
+            displayResults(results);
+            const metrics = calculateMetrics(results);
+            displayMetrics(metrics);
+            sensData = calculateSensitivity(results);
+            displaySensitivityTable(sensData);
+            chartData = calculateChartData(results);
+            generateAndDisplayInterpretation(results, metrics);
+            showWarnings(results);
+
+            updateStep(3);
+
+            document.getElementById('outputSection').classList.remove('hidden');
+            document.getElementById('sensitivityCard').classList.add('hidden');
+
+            btn.classList.remove('loading');
+            btn.innerHTML = '⚙️ Calcular Margen de No-Inferioridad';
+
+            setTimeout(() => {
+                document.getElementById('resultsCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 80);
+        }, 300);
+    }
+
+    /* ===== DISPLAY RESULTS ===== */
+    function displayResults(r) {
+        const fmt = v => v !== null ? v.toFixed(4) : 'N/A';
+        document.getElementById('m1Value').textContent = fmt(r.m1);
+        document.getElementById('m2Value').textContent = fmt(r.m2);
+        document.getElementById('m3Value').textContent = fmt(r.m3);
+
+        if (r.scale === 'ratio') {
+            document.getElementById('m1Label').textContent = 'Punto estimado (lineal)';
+            document.getElementById('m2Label').textContent = 'Lím. inf. IC95% (lineal)';
+            document.getElementById('m3Label').textContent = 'Logarítmico';
+            document.getElementById('m3Card').classList.remove('na');
+            document.getElementById('m1Tag').textContent = r.source === 'meta' ? 'Principal' : 'Referencia';
+            document.getElementById('resultsNote').innerHTML = 'El margen δ se expresa como <strong>razón máxima aceptable</strong> (tratamiento nuevo / control activo). Valores > 1 permiten que el nuevo tratamiento sea marginalmente inferior al control.';
+        } else {
+            document.getElementById('m1Label').textContent = 'Punto estimado';
+            document.getElementById('m2Label').textContent = 'Lím. inf. IC95%';
+            document.getElementById('m3Label').textContent = 'Logarítmico';
+            document.getElementById('m3Card').classList.add('na');
+            document.getElementById('m1Tag').textContent = 'Principal';
+            document.getElementById('resultsNote').innerHTML = 'El margen δ se expresa como la <strong>máxima diferencia absoluta aceptable</strong> en la dirección desfavorable al nuevo tratamiento.';
+        }
+
+        // Highlight recommended
+        document.querySelectorAll('.method-card').forEach(c => c.classList.remove('recommended'));
+        if (r.source === 'single') {
+            document.getElementById('m2Card').classList.add('recommended');
+            document.getElementById('m1Card').querySelector('.m-tag').textContent = '';
+            const tag2 = document.getElementById('m2Card').querySelector('.m-tag');
+            if (!tag2) {
+                const sp = document.createElement('span');
+                sp.className = 'm-tag';
+                sp.textContent = 'Recomendado';
+                document.getElementById('m2Card').appendChild(sp);
+            }
+        } else {
+            document.getElementById('m1Card').classList.add('recommended');
+            document.getElementById('m1Card').querySelector('.m-tag').textContent = 'Principal';
+        }
+    }
+
+    /* ===== METRICS ===== */
+    function calculateMetrics(r) {
+        const m = { preservedPct: r.f * 100, maxLossPct: (1 - r.f) * 100, fragility: 0 };
+        const deltas = [r.m1, r.m2, r.m3].filter(d => d !== null);
+        if (deltas.length >= 2) {
+            const mean = deltas.reduce((a, b) => a + b, 0) / deltas.length;
+            const mx = Math.max(...deltas);
+            const mn = Math.min(...deltas);
+            m.fragility = mean > 0 ? ((mx - mn) / mean * 100) : 0;
+        }
+        return m;
+    }
+
+    function displayMetrics(m) {
+        document.getElementById('metPreserved').textContent = m.preservedPct.toFixed(1) + '%';
+        document.getElementById('metMaxLoss').textContent = m.maxLossPct.toFixed(1) + '%';
+        const fragEl = document.getElementById('metFragility');
+        fragEl.textContent = m.fragility.toFixed(1) + '%';
+        fragEl.className = 'metric-value ' + (m.fragility > 30 ? 'high' : m.fragility > 15 ? 'medium' : 'low');
+
+        let note = '';
+        if (m.fragility > 30) note = '⚠ Alta sensibilidad: el margen varía sustancialmente según método y fuente. Justifique cuidadosamente la elección.';
+        else if (m.fragility > 15) note = '⚡ Sensibilidad moderada: diferencias apreciables entre métodos. Documente la razón de la selección.';
+        else note = '✓ Baja sensibilidad: los métodos producen márgenes consistentes. Mayor robustez de la derivación.';
+        document.getElementById('fragilityNote').textContent = note;
+    }
+
+    /* ===== SENSITIVITY ===== */
+    function calculateSensitivity(r) {
+        return [50, 67, 80].map(p => {
+            const f = p / 100;
+            return {
+                p,
+                m1: calcMargin(r.pe, f, r.scale, 'linear'),
+                m2: calcMargin(r.ci, f, r.scale, 'linear'),
+                m3: calcMargin(r.pe, f, r.scale, 'log'),
+                m4: calcMargin(r.ci, f, r.scale, 'log')
+            };
+        });
+    }
+
+    function calculateChartData(r) {
+        const pts = [];
+        for (let p = 30; p <= 90; p++) {
+            const f = p / 100;
+            pts.push({
+                p,
+                m1: calcMargin(r.pe, f, r.scale, 'linear'),
+                m2: calcMargin(r.ci, f, r.scale, 'linear'),
+                m3: calcMargin(r.pe, f, r.scale, 'log'),
+                m4: calcMargin(r.ci, f, r.scale, 'log')
+            });
+        }
+        return pts;
+    }
+
+    function displaySensitivityTable(data) {
+        const isR = results.scale === 'ratio';
+        const curP = parseInt(document.getElementById('preservation').value);
+        const fmt = v => v !== null ? v.toFixed(4) : '—';
+        let h = '<table class="sens-table"><thead><tr><th>Preservación</th><th>PE (Lineal)</th><th>IC95% (Lineal)</th>';
+        if (isR) h += '<th>PE (Log)</th><th>IC95% (Log)</th>';
+        h += '</tr></thead><tbody>';
+        data.forEach(row => {
+            const hl = row.p === curP ? ' class="highlight-row"' : '';
+            h += '<tr' + hl + '><td><strong>' + row.p + '%</strong></td>';
+            h += '<td>' + fmt(row.m1) + '</td><td>' + fmt(row.m2) + '</td>';
+            if (isR) h += '<td>' + fmt(row.m3) + '</td><td>' + fmt(row.m4) + '</td>';
+            h += '</tr>';
+        });
+        h += '</tbody></table>';
+        document.getElementById('sensTable').innerHTML = h;
+    }
+
+    /* ===== CHART ===== */
+    function drawChart() {
+        if (!chartData || !results) return;
+        const canvas = document.getElementById('sensChart');
+        const container = canvas.parentElement;
+        const cssW = container.clientWidth;
+        const cssH = 360;
+        const dpr = window.devicePixelRatio || 1;
+        canvas.width = cssW * dpr;
+        canvas.height = cssH * dpr;
+        canvas.style.width = cssW + 'px';
+        canvas.style.height = cssH + 'px';
+        const ctx = canvas.getContext('2d');
+        ctx.scale(dpr, dpr);
+
+        const pad = { t: 35, r: 150, b: 50, l: 65 };
+        if (cssW < 600) { pad.r = 20; pad.l = 50; }
+        const pW = cssW - pad.l - pad.r;
+        const pH = cssH - pad.t - pad.b;
+
+        const isR = results.scale === 'ratio';
+        const keys = isR ? ['m1','m2','m3','m4'] : ['m1','m2'];
+        const colors = ['#1e40af','#dc2626','#059669','#7c3aed'];
+        const labels = isR
+            ? ['PE (Lineal)','IC95% (Lineal)','PE (Log)','IC95% (Log)']
+            : ['PE (Lineal)','IC95% (Lineal)'];
+
+        let allVals = [];
+        chartData.forEach(d => keys.forEach(k => { if (d[k] !== null) allVals.push(d[k]); }));
+        let minD = Math.min(...allVals);
+        let maxD = Math.max(...allVals);
+        let rng = maxD - minD;
+        if (rng < 0.001) rng = 0.1;
+        minD -= rng * 0.08;
+        maxD += rng * 0.08;
+
+        const xS = p => pad.l + (p - 30) / 60 * pW;
+        const yS = d => pad.t + pH - (d - minD) / (maxD - minD) * pH;
+
+        ctx.clearRect(0, 0, cssW, cssH);
+        ctx.fillStyle = '#fff';
+        ctx.fillRect(0, 0, cssW, cssH);
+
+        // Grid
+        ctx.strokeStyle = '#f1f5f9';
+        ctx.lineWidth = 1;
+        for (let i = 0; i <= 6; i++) {
+            const y = pad.t + (pH / 6) * i;
+            ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(pad.l + pW, y); ctx.stroke();
+        }
+        for (let p = 30; p <= 90; p += 10) {
+            const x = xS(p);
+            ctx.beginPath(); ctx.moveTo(x, pad.t); ctx.lineTo(x, pad.t + pH); ctx.stroke();
+        }
+
+        // Axes
+        ctx.strokeStyle = '#94a3b8';
+        ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        ctx.moveTo(pad.l, pad.t);
+        ctx.lineTo(pad.l, pad.t + pH);
+        ctx.lineTo(pad.l + pW, pad.t + pH);
+        ctx.stroke();
+
+        // X labels
+        ctx.fillStyle = '#475569';
+        ctx.font = '11px system-ui, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'top';
+        for (let p = 30; p <= 90; p += 10) {
+            ctx.fillText(p + '%', xS(p), pad.t + pH + 8);
+        }
+        ctx.font = 'bold 11px system-ui, sans-serif';
+        ctx.fillText('Preservación del efecto (%)', pad.l + pW / 2, cssH - 10);
+
+        // Y labels
+        ctx.textAlign = 'right';
+        ctx.textBaseline = 'middle';
+        ctx.font = '10px system-ui, sans-serif';
+        ctx.fillStyle = '#64748b';
+        for (let i = 0; i <= 6; i++) {
+            const val = maxD - (maxD - minD) * i / 6;
+            ctx.fillText(val.toFixed(3), pad.l - 8, pad.t + (pH / 6) * i);
+        }
+        ctx.save();
+        ctx.translate(14, pad.t + pH / 2);
+        ctx.rotate(-Math.PI / 2);
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'bottom';
+        ctx.font = 'bold 11px system-ui, sans-serif';
+        ctx.fillStyle = '#475569';
+        ctx.fillText('Margen (δ)', 0, 0);
+        ctx.restore();
+
+        // Lines
+        const dashes = [[], [], [6, 3], [6, 3]];
+        keys.forEach((k, idx) => {
+            const pts = chartData.filter(d => d[k] !== null);
+            if (pts.length === 0) return;
+            ctx.strokeStyle = colors[idx];
+            ctx.lineWidth = 2.5;
+            ctx.setLineDash(dashes[idx] || []);
+            ctx.beginPath();
+            pts.forEach((d, i) => {
+                const x = xS(d.p), y = yS(d[k]);
+                i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+            });
+            ctx.stroke();
+            ctx.setLineDash([]);
+        });
+
+        // Dots at 50, 67, 80
+        [50, 67, 80].forEach(p => {
+            const row = chartData.find(d => d.p === p);
+            if (!row) return;
+            keys.forEach((k, idx) => {
+                if (row[k] === null) return;
+                ctx.fillStyle = colors[idx];
+                ctx.beginPath();
+                ctx.arc(xS(p), yS(row[k]), 5, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.strokeStyle = '#fff'; ctx.lineWidth = 2;
+                ctx.stroke();
+            });
+        });
+
+        // Current preservation line
+        const curP = parseInt(document.getElementById('preservation').value);
+        ctx.setLineDash([5, 4]);
+        ctx.strokeStyle = '#475569';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(xS(curP), pad.t);
+        ctx.lineTo(xS(curP), pad.t + pH);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = '#1e293b';
+        ctx.font = 'bold 10px system-ui, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'bottom';
+        ctx.fillText('▼ ' + curP + '%', xS(curP), pad.t - 2);
+
+        // Legend (only on wider screens)
+        if (cssW >= 600) {
+            const legX = pad.l + pW + 18;
+            let legY = pad.t + 8;
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'middle';
+            keys.forEach((k, idx) => {
+                if (!chartData.some(d => d[k] !== null)) return;
+                ctx.fillStyle = colors[idx];
+                ctx.setLineDash(dashes[idx] || []);
+                ctx.strokeStyle = colors[idx];
+                ctx.lineWidth = 2.5;
+                ctx.beginPath(); ctx.moveTo(legX, legY + 7); ctx.lineTo(legX + 22, legY + 7); ctx.stroke();
+                ctx.setLineDash([]);
+                ctx.beginPath(); ctx.arc(legX + 11, legY + 7, 3.5, 0, Math.PI * 2); ctx.fill();
+                ctx.fillStyle = '#334155';
+                ctx.font = '11px system-ui, sans-serif';
+                ctx.fillText(labels[idx], legX + 28, legY + 8);
+                legY += 26;
+            });
+        }
+    }
+
+    function toggleSensitivity() {
+        const card = document.getElementById('sensitivityCard');
+        const wasHidden = card.classList.contains('hidden');
+        card.classList.toggle('hidden');
+        if (wasHidden) {
+            updateStep(4);
+            setTimeout(() => {
+                drawChart();
+                card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 50);
+        }
+    }
+
+    /* ===== INTERPRETATION ===== */
+    function getEndpointLabel(ep) {
+        return { mortality: 'mortalidad', major: 'evento clínico mayor', surrogate: 'variable intermedia (surrogado)', biomarker: 'biomarcador' }[ep] || ep;
+    }
+    function getSourceLabel(src) { return src === 'meta' ? 'meta-análisis' : 'ensayo único'; }
+    function getScaleLabel(sc) { return sc === 'ratio' ? 'razón (RR/OR)' : 'diferencia absoluta'; }
+
+    function generateAndDisplayInterpretation(r, m) {
+        updateStep(5);
+        const pctStr = (r.f * 100).toFixed(0);
+        const scaleL = getScaleLabel(r.scale);
+        const srcL = getSourceLabel(r.source);
+        const epL = getEndpointLabel(r.endpoint);
+
+        let just = '<strong>Justificación metodológica:</strong> ';
+        just += 'El margen de no-inferioridad se derivó preservando el <strong>' + pctStr + '%</strong> del efecto histórico del control activo, ';
+        just += 'estimado como <strong>' + r.pe + '</strong> (' + scaleL + ') a partir de ' + srcL + '. ';
+        if (r.scale === 'ratio') {
+            just += 'Usando el método lineal con la estimación puntual, el margen resultante es δ = <strong>' + r.m1.toFixed(4) + '</strong>';
+            just += r.m3 !== null ? ', y con el método logarítmico δ = <strong>' + r.m3.toFixed(4) + '</strong>.' : '.';
+        } else {
+            just += 'El margen resultante es δ = <strong>' + r.m1.toFixed(4) + '</strong>.';
+        }
+        just += ' El endpoint evaluado es <strong>' + epL + '</strong>.';
+        document.getElementById('interpJustification').innerHTML = just;
+
+        let clin = '<strong>Interpretación clínica:</strong> ';
+        clin += 'Este margen implica aceptar una posible pérdida de hasta el <strong>' + m.maxLossPct.toFixed(0) + '%</strong> del beneficio clínico demostrado por el control activo. ';
+        if (r.scale === 'ratio') {
+            clin += 'En términos de razón, se permite que el nuevo tratamiento tenga hasta un ';
+            clin += '<strong>' + ((r.m1 - 1) * 100).toFixed(1) + '%</strong> más de riesgo relativo comparado con el control activo. ';
+        } else {
+            clin += 'En términos absolutos, se permite una diferencia de hasta <strong>' + r.m1.toFixed(4) + '</strong> en la dirección desfavorable. ';
+        }
+        if (r.endpoint === 'mortality') {
+            clin += 'Dado que el endpoint es mortalidad, este nivel de pérdida requiere una justificación clínica sólida y evaluación por el comité de ética.';
+        } else if (r.endpoint === 'major') {
+            clin += 'Para eventos clínicos mayores, la aceptabilidad debe evaluarse considerando beneficios secundarios del nuevo tratamiento (seguridad, tolerabilidad, conveniencia).';
+        }
+        document.getElementById('interpClinical').innerHTML = clin;
+
+        let crit = '<strong>Nota crítica:</strong> ';
+        crit += 'Este resultado depende de asumir <strong>constancia del efecto</strong> del control activo en el nuevo ensayo ';
+        crit += 'y <strong>ausencia de sesgo relevante</strong> en la evidencia histórica utilizada. ';
+        if (r.source === 'single') {
+            crit += 'Al basarse en un ensayo único, existe mayor incertidumbre sobre la reproducibilidad del efecto. Se recomienda un análisis de sensibilidad amplio.';
+        } else {
+            crit += 'La heterogeneidad entre estudios del meta-análisis debe evaluarse cuidadosamente (I², análisis de subgrupos, funnel plot).';
+        }
+        document.getElementById('interpCritical').innerHTML = crit;
+    }
+
+    function showWarnings(r) {
+        let html = '';
+        if (r.f < 0.5) {
+            html += '<div class="danger-box"><strong>⚠ Preservación baja (< 50%):</strong> Implica aceptar que más de la mitad del efecto del control activo puede perderse. Difícil de justificar ante reguladores (FDA/EMA) para la mayoría de endpoints clínicos.</div>';
+        }
+        if (r.scale === 'ratio' && r.pe > 0.90) {
+            html += '<div class="danger-box"><strong>⚠ Efecto histórico pequeño (RR/OR ≈ 1):</strong> El efecto clínico es marginal y el margen derivado puede carecer de significancia clínica. Verifique que la evidencia sustenta un efecto relevante.</div>';
+        }
+        if (r.scale === 'absolute' && r.pe < 0.03) {
+            html += '<div class="warning-box"><strong>⚠ Efecto absoluto pequeño (< 3%):</strong> Diferencias absolutas muy pequeñas generan márgenes que requieren tamaños muestrales muy grandes para ser detectados.</div>';
+        }
+        if (r.endpoint === 'surrogate') {
+            html += '<div class="warning-box"><strong>⚠ Variable intermedia:</strong> El uso de surrogados requiere validación sólida de la relación surrogado→desenlace clínico. FDA y EMA exigen evidencia de predicción razonable del beneficio clínico.</div>';
+        }
+        if (r.endpoint === 'biomarker') {
+            html += '<div class="warning-box"><strong>⚠ Biomarcador:</strong> Generalmente inaceptable como endpoint primario de NI para aprobación regulatoria. Considere un endpoint clínico o surrogado validado.</div>';
+        }
+        if (r.source === 'single') {
+            html += '<div class="warning-box"><strong>ℹ Ensayo único:</strong> Mayor incertidumbre sobre la magnitud real del efecto. Se recomienda el método conservador (lím. inf. IC95%) y mayor preservación.</div>';
+        }
+        document.getElementById('interpWarnings').innerHTML = html;
+    }
+
+    /* ===== EXPORT CSV ===== */
+    function exportCSV() {
+        if (!results) return;
+        const r = results;
+        const lines = [];
+        lines.push('Parámetro,Valor');
+        lines.push('Escala,' + getScaleLabel(r.scale));
+        lines.push('Estimación puntual,' + r.pe);
+        lines.push('Límite IC95%,' + r.ci);
+        lines.push('Fuente,' + getSourceLabel(r.source));
+        lines.push('Endpoint,' + getEndpointLabel(r.endpoint));
+        lines.push('Preservación (%),' + (r.f * 100).toFixed(0));
+        lines.push('');
+        lines.push('Método,Margen δ');
+        lines.push('Punto estimado (lineal),' + (r.m1 !== null ? r.m1.toFixed(6) : 'N/A'));
+        lines.push('Lím. inf. IC95% (lineal),' + (r.m2 !== null ? r.m2.toFixed(6) : 'N/A'));
+        lines.push('Logarítmico,' + (r.m3 !== null ? r.m3.toFixed(6) : 'N/A'));
+        lines.push('');
+        const isR = r.scale === 'ratio';
+        let sensHeader = 'Preservación (%),PE (Lineal),IC95% (Lineal)';
+        if (isR) sensHeader += ',PE (Log),IC95% (Log)';
+        lines.push(sensHeader);
+        if (sensData) {
+            sensData.forEach(row => {
+                let line = row.p + ',' + (row.m1 !== null ? row.m1.toFixed(6) : '') + ',' + (row.m2 !== null ? row.m2.toFixed(6) : '');
+                if (isR) line += ',' + (row.m3 !== null ? row.m3.toFixed(6) : '') + ',' + (row.m4 !== null ? row.m4.toFixed(6) : '');
+                lines.push(line);
+            });
+        }
+        lines.push('');
+        const m = calculateMetrics(r);
+        lines.push('Métrica,Valor');
+        lines.push('Efecto preservado (%),' + m.preservedPct.toFixed(1));
+        lines.push('Pérdida máxima (%),' + m.maxLossPct.toFixed(1));
+        lines.push('Índice de fragilidad (%),' + m.fragility.toFixed(1));
+        downloadFile('\uFEFF' + lines.join('\n'), 'ni_margin_analysis.csv', 'text/csv;charset=utf-8;');
+    }
+
+    /* ===== EXPORT TXT ===== */
+    function exportTXT() {
+        if (!results) return;
+        const r = results;
+        const m = calculateMetrics(r);
+        const sep = '='.repeat(65);
+        const sep2 = '-'.repeat(50);
+        const now = new Date();
+        const dateStr = now.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+        const fmt = v => v !== null ? v.toFixed(4) : 'N/A';
+
+        let t = '';
+        t += sep + '\n';
+        t += '  DERIVACIÓN DE MARGEN DE NO-INFERIORIDAD\n';
+        t += '  Generado por NI-Margin Tool v2.0\n';
+        t += '  Fecha: ' + dateStr + '\n';
+        t += sep + '\n\n';
+
+        t += 'PARÁMETROS DE ENTRADA\n' + sep2 + '\n';
+        t += '  Escala:              ' + getScaleLabel(r.scale) + '\n';
+        t += '  Estimación puntual:  ' + r.pe + '\n';
+        t += '  Límite IC95%:        ' + r.ci + '\n';
+        t += '  Fuente:              ' + getSourceLabel(r.source) + '\n';
+        t += '  Endpoint:            ' + getEndpointLabel(r.endpoint) + '\n';
+        t += '  Preservación:        ' + (r.f * 100).toFixed(0) + '%\n\n';
+
+        t += 'RESULTADOS: MÁRGENES DE NO-INFERIORIDAD (δ)\n' + sep2 + '\n';
+        t += '  Método 1 - Punto estimado (lineal):  ' + fmt(r.m1) + '\n';
+        t += '  Método 2 - Lím. inf. IC95% (lineal): ' + fmt(r.m2) + '\n';
+        t += '  Método 3 - Logarítmico:              ' + fmt(r.m3) + '\n\n';
+
+        t += 'MÉTRICAS DERIVADAS\n' + sep2 + '\n';
+        t += '  Efecto preservado:            ' + m.preservedPct.toFixed(1) + '%\n';
+        t += '  Pérdida máxima permitida:      ' + m.maxLossPct.toFixed(1) + '%\n';
+        t += '  Índice de fragilidad (margen): ' + m.fragility.toFixed(1) + '%\n\n';
+
+        t += 'ANÁLISIS DE SENSIBILIDAD\n' + sep2 + '\n';
+        const isR = r.scale === 'ratio';
+        if (isR) {
+            t += '  Preserv.  PE(Lin)   IC(Lin)   PE(Log)   IC(Log)\n';
+            t += '  ' + '-'.repeat(48) + '\n';
+        } else {
+            t += '  Preserv.  PE(Lin)   IC(Lin)\n';
+            t += '  ' + '-'.repeat(30) + '\n';
+        }
+        if (sensData) {
+            sensData.forEach(row => {
+                let line = '  ' + (row.p + '%').padEnd(10) + fmt(row.m1).padEnd(10) + fmt(row.m2).padEnd(10);
+                if (isR) line += fmt(row.m3).padEnd(10) + fmt(row.m4);
+                t += line + '\n';
+            });
+        }
+        t += '\n';
+
+        t += 'JUSTIFICACIÓN METODOLÓGICA\n' + sep2 + '\n';
+        t += '  El margen de no-inferioridad se derivó preservando el ' + (r.f * 100).toFixed(0) + '% del\n';
+        t += '  efecto histórico del control activo, estimado como ' + r.pe + '\n';
+        t += '  (' + getScaleLabel(r.scale) + ') a partir de ' + getSourceLabel(r.source) + '.\n';
+        t += '  Usando el método lineal con la estimación puntual, el margen\n';
+        t += '  resultante es δ = ' + fmt(r.m1) + '.\n';
+        if (r.m3 !== null) t += '  Con el método logarítmico, δ = ' + fmt(r.m3) + '.\n';
+        t += '  El endpoint evaluado es: ' + getEndpointLabel(r.endpoint) + '.\n\n';
+
+        t += 'INTERPRETACIÓN CLÍNICA\n' + sep2 + '\n';
+        t += '  Este margen implica aceptar una posible pérdida de hasta el\n';
+        t += '  ' + m.maxLossPct.toFixed(0) + '% del beneficio clínico demostrado por el control activo.\n\n';
+
+        t += 'NOTA CRÍTICA\n' + sep2 + '\n';
+        t += '  Este resultado depende de asumir constancia del efecto del\n';
+        t += '  control activo y ausencia de sesgo relevante en la evidencia\n';
+        t += '  histórica utilizada.\n\n';
+
+        let warnings = [];
+        if (r.f < 0.5) warnings.push('Preservación < 50%: difícil de justificar ante reguladores.');
+        if (r.scale === 'ratio' && r.pe > 0.90) warnings.push('Efecto histórico pequeño (RR/OR cercano a 1).');
+        if (r.endpoint === 'surrogate') warnings.push('Endpoint es variable intermedia: requiere validación.');
+        if (r.endpoint === 'biomarker') warnings.push('Biomarcador como endpoint: generalmente inaceptable para reguladores.');
+        if (r.source === 'single') warnings.push('Evidencia basada en ensayo único: mayor incertidumbre.');
+        if (warnings.length > 0) {
+            t += 'ADVERTENCIAS\n' + sep2 + '\n';
+            warnings.forEach(w => { t += '  ⚠ ' + w + '\n'; });
+            t += '\n';
+        }
+
+        t += sep + '\n';
+        t += 'AVISO LEGAL: Esta herramienta es solo de apoyo metodológico.\n';
+        t += 'No sustituye un plan estadístico formal ni la aprobación de un\n';
+        t += 'comité de ética. El usuario es responsable del diseño final del\n';
+        t += 'estudio y de la justificación del margen ante las autoridades\n';
+        t += 'regulatorias.\n';
+        t += sep + '\n';
+
+        downloadFile(t, 'ni_margin_report.txt', 'text/plain;charset=utf-8;');
+    }
+
+    function downloadFile(content, filename, mime) {
+        const blob = new Blob([content], { type: mime });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(url), 5000);
+    }
+
+    /* ===== EDUCATION TOGGLE ===== */
+    function toggleEduSection() {
+        const items = document.getElementById('eduItems');
+        const icon = document.getElementById('eduToggleIcon');
+        items.classList.toggle('open');
+        icon.textContent = items.classList.contains('open') ? '▼' : '▶';
+    }
+
+    function toggleEdu(el) {
+        const content = el.nextElementSibling;
+        const icon = el.querySelector('.toggle-icon');
+        content.classList.toggle('open');
+        icon.textContent = content.classList.contains('open') ? '▼' : '▶';
+    }
+
+    /* ===== RESIZE ===== */
+    window.addEventListener('resize', () => {
+        if (!document.getElementById('sensitivityCard').classList.contains('hidden')) {
+            drawChart();
+        }
+    });
+
+    /* ===== BOOT ===== */
+    document.addEventListener('DOMContentLoaded', init);
+
+    return { setPreservation, toggleEdu, toggleEduSection };
+})();
 </script>
 </body>
 </html>

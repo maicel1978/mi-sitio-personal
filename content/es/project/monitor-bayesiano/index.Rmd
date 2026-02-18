@@ -1,5 +1,5 @@
 ---
-title: "Calculadora Bayesiana"
+title: "Calculadora para Ensayos Clínicos Adaptativos (BayesAdapt Suite ver 1.0)"
 date: "2024-12-16"
 categories: ["calculadoras"]
 tags:
@@ -7,7 +7,7 @@ tags:
   - "calculadoras" 
   - "Estadística Bayesiana"
   - "Diseños Adaptativos"
-summary: "Permite la actualización continua de la probabilidad posterior a partir de datos interinos para optimizar la toma de decisiones clínicas."
+summary: "Herramientas estadísticas para ensayos clínicos adaptativos"
 slug: "monitor-bayesiano"
 external_link: "/apps/monitor-bayesiano.html"
 image:

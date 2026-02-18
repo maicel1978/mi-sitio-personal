@@ -55,3 +55,11 @@ hr {
   border-color: rgba(0, 0, 0, 0.06);
 }
 
+
+/* ── LOGO — Edu en azul ── */
+.navbar-brand {
+  font-weight: 700 !important;
+  font-size: 1.25rem !important;
+  letter-spacing: -0.02em;
+}
+

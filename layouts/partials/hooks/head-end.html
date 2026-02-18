@@ -1,1 +1,8 @@
-<!-- Custom head - BioestadisticaEdu -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var brand = document.querySelector(".navbar-brand");
+  if (brand && brand.textContent.includes("Edu")) {
+    brand.innerHTML = "<span style=\"color:#1a1a2e;\">Bioestadística</span><span style=\"color:#4a90d9;font-weight:800;\">Edu</span>";
+  }
+});
+</script>
