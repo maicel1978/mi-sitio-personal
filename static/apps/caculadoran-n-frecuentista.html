@@ -1,0 +1,2964 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="Cálculo de Muestra Frecuentista para Estudios Epidemiológicos - PWA">
+    <meta name="theme-color" content="#1e3a5f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Cálculo de Muestra Epidemiológica</title>
+
+    <!-- TailwindCSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { 50:'#e8eef5',100:'#c5d5e8',200:'#9fb8d8',300:'#789bc8',400:'#5a85bc',500:'#3d6fb0',600:'#1e3a5f',700:'#182e4d',800:'#12223b',900:'#0c1629' },
+                        accent: { 400:'#4ade80',500:'#22c55e',600:'#16a34a' },
+                        warn: { 400:'#fbbf24',500:'#f59e0b',600:'#d97706' },
+                        err: { 400:'#f87171',500:'#ef4444',600:'#dc2626' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Manifest embebido como data URI -->
+    <link rel="manifest" href="data:application/json;charset=utf-8,%7B%22name%22%3A%22C%C3%A1lculo%20de%20Muestra%20Epidemiol%C3%B3gica%22%2C%22short_name%22%3A%22MuestraEpi%22%2C%22description%22%3A%22Calculadora%20de%20tama%C3%B1o%20de%20muestra%20frecuentista%20para%20estudios%20epidemiol%C3%B3gicos%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%231e3a5f%22%2C%22theme_color%22%3A%22%231e3a5f%22%2C%22orientation%22%3A%22portrait-primary%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+PHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHJ4PSI2NCIgZmlsbD0iIzFlM2E1ZiIvPjx0ZXh0IHg9IjI1NiIgeT0iMjgwIiBmb250LWZhbWlseT0ic2VyaWYiIGZvbnQtc2l6ZT0iMjAwIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9ImNlbnRyYWwiPm7wnZCiPC90ZXh0Pjwvc3ZnPg%3D%3D%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D">
+
+    <style>
+        /* ===== Estilos base y utilidades ===== */
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+
+        /* Ocultar scrollbar pero permitir scroll */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Transiciones suaves para secciones colapsables */
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, opacity 0.3s ease;
+            opacity: 0;
+        }
+        .collapsible-content.open {
+            max-height: 5000px;
+            opacity: 1;
+            transition: max-height 0.6s ease-in, opacity 0.3s ease;
+        }
+
+        /* Estilos para sliders */
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            border-radius: 3px;
+            background: #c5d5e8;
+            outline: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #1e3a5f;
+            cursor: pointer;
+            border: 2px solid white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #1e3a5f;
+            cursor: pointer;
+            border: 2px solid white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+
+        /* Animación de entrada para pasos */
+        .step-enter {
+            animation: slideIn 0.35s ease-out;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Indicador de paso activo */
+        .step-indicator {
+            transition: all 0.3s ease;
+        }
+        .step-indicator.active {
+            background-color: #1e3a5f;
+            color: white;
+            transform: scale(1.1);
+        }
+        .step-indicator.completed {
+            background-color: #22c55e;
+            color: white;
+        }
+
+        /* Tarjeta de estudio seleccionable */
+        .study-card {
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        .study-card:hover {
+            border-color: #3d6fb0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(30,58,95,0.15);
+        }
+        .study-card.selected {
+            border-color: #1e3a5f;
+            background-color: #e8eef5;
+            box-shadow: 0 4px 12px rgba(30,58,95,0.2);
+        }
+
+        /* Tooltip personalizado */
+        .tooltip-trigger { position: relative; }
+        .tooltip-box {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            z-index: 50;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0c1629;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            max-width: 250px;
+            white-space: normal;
+            transition: opacity 0.2s;
+            pointer-events: none;
+        }
+        .tooltip-trigger:hover .tooltip-box {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Canvas de sensibilidad */
+        .sensitivity-canvas {
+            border: 1px solid #c5d5e8;
+            border-radius: 8px;
+            background: white;
+        }
+
+        /* Advertencia pulsante */
+        .pulse-warn {
+            animation: pulseWarn 2s infinite;
+        }
+        @keyframes pulseWarn {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Print styles */
+        @media print {
+            .no-print { display: none !important; }
+            body { font-size: 11pt; }
+        }
+
+        /* Badge de offline/online */
+        .status-badge {
+            position: fixed;
+            top: 8px;
+            right: 8px;
+            z-index: 100;
+            font-size: 0.65rem;
+            padding: 2px 8px;
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+
+        /* Fórmula MathML fallback con estilo */
+        .formula-block {
+            background: #f8fafc;
+            border-left: 3px solid #1e3a5f;
+            padding: 12px 16px;
+            margin: 8px 0;
+            border-radius: 0 6px 6px 0;
+            font-family: 'Cambria Math', 'Latin Modern Math', Georgia, serif;
+            font-size: 1.05em;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen hide-scrollbar">
+
+    <!-- ===== Indicador de estado de conexión ===== -->
+    <div id="statusBadge" class="status-badge bg-green-500 text-white">● En línea</div>
+
+    <!-- ===== Encabezado principal ===== -->
+    <header class="bg-primary-600 text-white py-4 px-4 shadow-lg no-print">
+        <div class="max-w-4xl mx-auto">
+            <div class="flex items-center gap-3">
+                <!-- Icono SVG inline -->
+                <svg class="w-10 h-10 flex-shrink-0" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="48" height="48" rx="10" fill="rgba(255,255,255,0.15)"/>
+                    <text x="24" y="30" font-family="serif" font-size="22" fill="white" text-anchor="middle" dominant-baseline="central" font-style="italic">n</text>
+                    <circle cx="36" cy="12" r="5" fill="#4ade80" opacity="0.9"/>
+                </svg>
+                <div>
+                    <h1 class="text-lg font-bold leading-tight">Cálculo de Muestra Frecuentista</h1>
+                    <p class="text-primary-100 text-xs">Estudios Epidemiológicos · Herramienta Docente</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== Indicador de pasos ===== -->
+    <nav class="bg-white shadow-sm py-3 px-4 no-print sticky top-0 z-40" id="stepNav">
+        <div class="max-w-4xl mx-auto flex items-center justify-center gap-2">
+            <button onclick="APP.goToStep(1)" class="step-indicator active w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold bg-gray-200 text-gray-500" data-step="1">1</button>
+            <div class="w-8 h-0.5 bg-gray-200" data-line="1"></div>
+            <button onclick="APP.goToStep(2)" class="step-indicator w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold bg-gray-200 text-gray-500" data-step="2">2</button>
+            <div class="w-8 h-0.5 bg-gray-200" data-line="2"></div>
+            <button onclick="APP.goToStep(3)" class="step-indicator w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold bg-gray-200 text-gray-500" data-step="3">3</button>
+            <div class="w-8 h-0.5 bg-gray-200" data-line="3"></div>
+            <button onclick="APP.goToStep(4)" class="step-indicator w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold bg-gray-200 text-gray-500" data-step="4">4</button>
+            <div class="w-8 h-0.5 bg-gray-200" data-line="4"></div>
+            <button onclick="APP.goToStep(5)" class="step-indicator w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold bg-gray-200 text-gray-500" data-step="5">5</button>
+        </div>
+        <div class="max-w-4xl mx-auto flex justify-center mt-1">
+            <span id="stepLabel" class="text-xs text-gray-500">Paso 1: Tipo de estudio</span>
+        </div>
+    </nav>
+
+    <!-- ===== Contenedor principal ===== -->
+    <main class="max-w-4xl mx-auto px-4 py-6 pb-24">
+
+        <!-- ════════════════════════════════════════ -->
+        <!-- PASO 1: SELECCIÓN DEL TIPO DE ESTUDIO   -->
+        <!-- ════════════════════════════════════════ -->
+        <section id="step1" class="step-panel step-enter">
+            <h2 class="text-xl font-bold text-primary-600 mb-1">Selección del tipo de estudio</h2>
+            <p class="text-sm text-gray-500 mb-4">Seleccione el diseño epidemiológico y el objetivo de su estudio.</p>
+
+            <!-- Botón de fundamento -->
+            <button onclick="APP.toggleCollapsible('fund1')" class="text-xs text-primary-500 hover:text-primary-700 mb-4 flex items-center gap-1">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20 10 10 0 000-20z"/></svg>
+                Ver fundamento conceptual
+            </button>
+            <div id="fund1" class="collapsible-content mb-4">
+                <div class="bg-blue-50 rounded-lg p-4 text-sm text-gray-700 space-y-2">
+                    <p><strong>Fundamento:</strong> La fórmula de tamaño de muestra depende críticamente del diseño del estudio. Cada diseño tiene supuestos distintos sobre la medida de asociación (OR, RR, diferencia de proporciones) y la estructura de la comparación.</p>
+                    <p><strong>Transversal:</strong> Mide prevalencia en un punto del tiempo. Puede estimar una proporción o comparar grupos.</p>
+                    <p><strong>Casos y controles:</strong> Parte de la enfermedad para investigar exposición retrospectivamente. La medida natural es el Odds Ratio.</p>
+                    <p><strong>Cohorte:</strong> Sigue grupos expuestos y no expuestos en el tiempo. La medida natural es el Riesgo Relativo.</p>
+                </div>
+            </div>
+
+            <!-- A. Estudio Transversal -->
+            <div class="mb-4">
+                <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-2">A. Estudio Transversal</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div class="study-card bg-white rounded-lg p-4 shadow-sm" data-study="trans_prop" onclick="studySelector.select('trans_prop', this)">
+                        <div class="font-semibold text-primary-600 text-sm">Estimación de proporción</div>
+                        <div class="text-xs text-gray-500 mt-1">Prevalencia de una condición en la población</div>
+                    </div>
+                    <div class="study-card bg-white rounded-lg p-4 shadow-sm" data-study="trans_mean" onclick="studySelector.select('trans_mean', this)">
+                        <div class="font-semibold text-primary-600 text-sm">Estimación de media</div>
+                        <div class="text-xs text-gray-500 mt-1">Media de una variable continua en la población</div>
+                    </div>
+                    <div class="study-card bg-white rounded-lg p-4 shadow-sm" data-study="trans_comp_prop" onclick="studySelector.select('trans_comp_prop', this)">
+                        <div class="font-semibold text-primary-600 text-sm">Comparación de proporciones</div>
+                        <div class="text-xs text-gray-500 mt-1">Diferencia de prevalencias entre dos grupos</div>
+                    </div>
+                    <div class="study-card bg-white rounded-lg p-4 shadow-sm" data-study="trans_comp_mean" onclick="studySelector.select('trans_comp_mean', this)">
+                        <div class="font-semibold text-primary-600 text-sm">Comparación de medias</div>
+                        <div class="text-xs text-gray-500 mt-1">Diferencia de medias entre dos grupos</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- B. Estudio de Casos y Controles -->
+            <div class="mb-4">
+                <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-2">B. Estudio de Casos y Controles</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div class="study-card bg-white rounded-lg p-4 shadow-sm" data-study="cc_or" onclick="studySelector.select('cc_or', this)">
+                        <div class="font-semibold text-primary-600 text-sm">Cálculo basado en OR</div>
+                        <div class="text-xs text-gray-500 mt-1">Odds Ratio esperado, proporción de exposición en controles</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- C. Estudio de Cohortes -->
+            <div class="mb-4">
+                <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-2">C. Estudio de Cohortes</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div class="study-card bg-white rounded-lg p-4 shadow-sm" data-study="cohort_rr" onclick="studySelector.select('cohort_rr', this)">
+                        <div class="font-semibold text-primary-600 text-sm">Cálculo basado en RR</div>
+                        <div class="text-xs text-gray-500 mt-1">Riesgo Relativo esperado, incidencia en no expuestos</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="step1Error" class="text-err-500 text-sm mt-2 hidden">Seleccione un tipo de estudio para continuar.</div>
+
+            <div class="flex justify-end mt-6">
+                <button onclick="APP.nextStep()" class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2.5 rounded-lg text-sm font-semibold shadow transition">
+                    Siguiente →
+                </button>
+            </div>
+        </section>
+
+        <!-- ════════════════════════════════════════ -->
+        <!-- PASO 2: PARÁMETROS DEL ESTUDIO          -->
+        <!-- ════════════════════════════════════════ -->
+        <section id="step2" class="step-panel hidden">
+            <h2 class="text-xl font-bold text-primary-600 mb-1">Parámetros del estudio</h2>
+            <p class="text-sm text-gray-500 mb-4" id="step2Subtitle">Ingrese los parámetros requeridos para el cálculo.</p>
+
+            <button onclick="APP.toggleCollapsible('fund2')" class="text-xs text-primary-500 hover:text-primary-700 mb-4 flex items-center gap-1">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20 10 10 0 000-20z"/></svg>
+                Ver fundamento matemático
+            </button>
+            <div id="fund2" class="collapsible-content mb-4">
+                <div id="fund2Content" class="bg-blue-50 rounded-lg p-4 text-sm text-gray-700 space-y-2">
+                    <!-- Se llena dinámicamente -->
+                </div>
+            </div>
+
+            <!-- Contenedor dinámico de campos -->
+            <div id="paramsContainer" class="space-y-4 bg-white rounded-lg p-5 shadow-sm">
+                <!-- Se llena dinámicamente según el estudio seleccionado -->
+            </div>
+
+            <!-- Advertencias del validador -->
+            <div id="validationWarnings" class="mt-3 space-y-2 hidden"></div>
+
+            <div class="flex justify-between mt-6">
+                <button onclick="APP.prevStep()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-5 py-2.5 rounded-lg text-sm font-semibold transition">
+                    ← Anterior
+                </button>
+                <button onclick="APP.nextStep()" class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2.5 rounded-lg text-sm font-semibold shadow transition">
+                    Calcular →
+                </button>
+            </div>
+        </section>
+
+        <!-- ════════════════════════════════════════ -->
+        <!-- PASO 3: RESULTADOS                      -->
+        <!-- ════════════════════════════════════════ -->
+        <section id="step3" class="step-panel hidden">
+            <h2 class="text-xl font-bold text-primary-600 mb-1">Resultados del cálculo</h2>
+            <p class="text-sm text-gray-500 mb-4">Tamaño de muestra calculado según los parámetros ingresados.</p>
+
+            <button onclick="APP.toggleCollapsible('fund3')" class="text-xs text-primary-500 hover:text-primary-700 mb-4 flex items-center gap-1">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20 10 10 0 000-20z"/></svg>
+                Ver fórmulas utilizadas
+            </button>
+            <div id="fund3" class="collapsible-content mb-4">
+                <div id="fund3Content" class="bg-blue-50 rounded-lg p-4 text-sm text-gray-700 space-y-2">
+                    <!-- Se llena dinámicamente -->
+                </div>
+            </div>
+
+            <!-- Resultados principales -->
+            <div id="resultsContainer" class="space-y-4">
+                <!-- Enfoque clásico -->
+                <div class="bg-white rounded-lg p-5 shadow-sm">
+                    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-3">Enfoque Clásico (Hipótesis)</h3>
+                    <div id="classicalResults" class="space-y-3">
+                        <!-- Se llena dinámicamente -->
+                    </div>
+                </div>
+
+                <!-- Enfoque de precisión -->
+                <div class="bg-white rounded-lg p-5 shadow-sm">
+                    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-3">Enfoque de Precisión</h3>
+                    <div id="precisionResults" class="space-y-3">
+                        <!-- Se llena dinámicamente -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-between mt-6">
+                <button onclick="APP.prevStep()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-5 py-2.5 rounded-lg text-sm font-semibold transition">
+                    ← Modificar parámetros
+                </button>
+                <button onclick="APP.nextStep()" class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2.5 rounded-lg text-sm font-semibold shadow transition">
+                    Ajuste por diseño →
+                </button>
+            </div>
+        </section>
+
+        <!-- ════════════════════════════════════════ -->
+        <!-- PASO 4: AJUSTE POR DISEÑO Y SENSIBILIDAD -->
+        <!-- ════════════════════════════════════════ -->
+        <section id="step4" class="step-panel hidden">
+            <h2 class="text-xl font-bold text-primary-600 mb-1">Ajustes y Análisis de Sensibilidad</h2>
+            <p class="text-sm text-gray-500 mb-4">Ajuste por diseño de conglomerados y explore la sensibilidad de los resultados.</p>
+
+            <!-- Ajuste por conglomerados -->
+            <div class="bg-white rounded-lg p-5 shadow-sm mb-4">
+                <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-3">Ajuste por Diseño de Conglomerados</h3>
+
+                <button onclick="APP.toggleCollapsible('fundCluster')" class="text-xs text-primary-500 hover:text-primary-700 mb-3 flex items-center gap-1">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20 10 10 0 000-20z"/></svg>
+                    Ver fundamento
+                </button>
+                <div id="fundCluster" class="collapsible-content mb-3">
+                    <div class="bg-blue-50 rounded-lg p-4 text-sm text-gray-700 space-y-2">
+                        <p><strong>Efecto de diseño (deff):</strong> Cuando se muestrea por conglomerados (escuelas, comunidades, centros de salud), las observaciones dentro de cada conglomerado están correlacionadas. Esto reduce la información efectiva de cada observación.</p>
+                        <div class="formula-block">deff = 1 + (m − 1) × ρ</div>
+                        <p>Donde <strong>m</strong> = tamaño promedio del conglomerado y <strong>ρ</strong> (rho) = coeficiente de correlación intraclase (ICC).</p>
+                        <p><strong>n ajustado = n × deff</strong></p>
+                        <p><em>Valores típicos de ICC:</em> 0.01–0.02 (variables biológicas), 0.05–0.15 (comportamientos), 0.15–0.30 (variables comunitarias).</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                            ICC (ρ)
+                            <span class="tooltip-trigger text-primary-400 cursor-help">ⓘ
+                                <span class="tooltip-box">Coeficiente de correlación intraclase. Valores típicos: 0.01-0.05 para variables biológicas, hasta 0.30 para variables comunitarias.</span>
+                            </span>
+                        </label>
+                        <input type="number" id="icc" value="0.02" min="0" max="1" step="0.01" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-300 focus:border-primary-500" oninput="clusterAdjustment.update()">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                            Tamaño promedio de conglomerado (m)
+                        </label>
+                        <input type="number" id="clusterSize" value="20" min="2" max="1000" step="1" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-300 focus:border-primary-500" oninput="clusterAdjustment.update()">
+                    </div>
+                </div>
+
+                <div id="clusterResults" class="mt-4 p-4 bg-gray-50 rounded-lg">
+                    <!-- Se llena dinámicamente -->
+                </div>
+            </div>
+
+            <!-- Análisis de sensibilidad -->
+            <div class="bg-white rounded-lg p-5 shadow-sm mb-4">
+                <div class="flex items-center justify-between mb-3">
+                    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide">Análisis de Sensibilidad</h3>
+                    <button onclick="APP.toggleCollapsible('sensitivityPanel')" class="text-xs bg-primary-100 text-primary-700 px-3 py-1 rounded-full hover:bg-primary-200 transition" id="toggleSensBtn">
+                        Mostrar ▼
+                    </button>
+                </div>
+
+                <div id="sensitivityPanel" class="collapsible-content">
+                    <button onclick="APP.toggleCollapsible('fundSens')" class="text-xs text-primary-500 hover:text-primary-700 mb-3 flex items-center gap-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20 10 10 0 000-20z"/></svg>
+                        Ver fundamento
+                    </button>
+                    <div id="fundSens" class="collapsible-content mb-3">
+                        <div class="bg-blue-50 rounded-lg p-4 text-sm text-gray-700 space-y-2">
+                            <p><strong>Análisis de sensibilidad:</strong> Evalúa cómo varía el tamaño de muestra requerido cuando cambian los supuestos del investigador. Es fundamental para decisiones robustas sobre el dimensionamiento del estudio.</p>
+                            <p>Use los controles deslizantes para variar un parámetro a la vez y observe el impacto en n.</p>
+                        </div>
+                    </div>
+
+                    <div id="sensitivityControls" class="space-y-4">
+                        <!-- Se llena dinámicamente -->
+                    </div>
+
+                    <div class="mt-4">
+                        <canvas id="sensitivityCanvas" class="sensitivity-canvas w-full" height="280"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-between mt-6">
+                <button onclick="APP.prevStep()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-5 py-2.5 rounded-lg text-sm font-semibold transition">
+                    ← Resultados
+                </button>
+                <button onclick="APP.nextStep()" class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2.5 rounded-lg text-sm font-semibold shadow transition">
+                    Generar reporte →
+                </button>
+            </div>
+        </section>
+
+        <!-- ════════════════════════════════════════ -->
+        <!-- PASO 5: REPORTE FINAL                   -->
+        <!-- ════════════════════════════════════════ -->
+        <section id="step5" class="step-panel hidden">
+            <h2 class="text-xl font-bold text-primary-600 mb-1">Reporte Final</h2>
+            <p class="text-sm text-gray-500 mb-4">Revise y descargue el reporte completo de su cálculo de muestra.</p>
+
+            <div id="reportPreview" class="bg-white rounded-lg p-6 shadow-sm mb-4 text-sm">
+                <!-- Se llena dinámicamente -->
+            </div>
+
+            <div class="flex flex-wrap gap-3 mt-6">
+                <button onclick="APP.prevStep()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-5 py-2.5 rounded-lg text-sm font-semibold transition">
+                    ← Ajustes
+                </button>
+                <button onclick="reportGenerator.downloadHTML()" class="bg-accent-600 hover:bg-accent-500 text-white px-6 py-2.5 rounded-lg text-sm font-semibold shadow transition flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17v3a2 2 0 002 2h14a2 2 0 002-2v-3"/></svg>
+                    Descargar reporte HTML
+                </button>
+                <button onclick="APP.restart()" class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2.5 rounded-lg text-sm font-semibold shadow transition">
+                    Nuevo cálculo
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== Footer ===== -->
+    <footer class="bg-primary-800 text-primary-200 text-center py-3 text-xs no-print fixed bottom-0 w-full">
+        Herramienta docente · No reemplaza asesoría estadística profesional · v1.0
+    </footer>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- JAVASCRIPT — Módulos internos                                  -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <script>
+    "use strict";
+
+    // ================================================================
+    // MÓDULO: Utilidades matemáticas (funciones puras)
+    // ================================================================
+    /**
+     * Módulo de funciones estadísticas básicas.
+     * Implementa cálculo de z crítico, distribución normal y utilidades.
+     * NO usa librerías externas.
+     */
+    const MathUtils = {
+        /**
+         * Función de distribución acumulada de la normal estándar.
+         * Usa la aproximación de Abramowitz & Stegun (fórmula 26.2.17)
+         * con precisión de ~7.5 × 10⁻⁸.
+         * @param {number} x - Valor z
+         * @returns {number} P(Z ≤ x)
+         */
+        normalCDF(x) {
+            // Constantes de la aproximación
+            const a1 = 0.254829592;
+            const a2 = -0.284496736;
+            const a3 = 1.421413741;
+            const a4 = -1.453152027;
+            const a5 = 1.061405429;
+            const p = 0.3275911;
+
+            const sign = x < 0 ? -1 : 1;
+            const absX = Math.abs(x);
+            const t = 1.0 / (1.0 + p * absX);
+            const t2 = t * t;
+            const t3 = t2 * t;
+            const t4 = t3 * t;
+            const t5 = t4 * t;
+            const y = 1.0 - (a1*t + a2*t2 + a3*t3 + a4*t4 + a5*t5) * Math.exp(-absX * absX / 2);
+
+            return 0.5 * (1.0 + sign * y);
+        },
+
+        /**
+         * Inversa de la distribución normal estándar (cuantil).
+         * Usa la aproximación racional de Peter Acklam (2004).
+         * Precisión relativa de ~1.15 × 10⁻⁹.
+         * @param {number} p - Probabilidad (0 < p < 1)
+         * @returns {number} Valor z tal que P(Z ≤ z) = p
+         */
+        normalQuantile(p) {
+            // Validación
+            if (p <= 0) return -Infinity;
+            if (p >= 1) return Infinity;
+            if (p === 0.5) return 0;
+
+            // Coeficientes para la región central
+            const a = [
+                -3.969683028665376e+01,
+                 2.209460984245205e+02,
+                -2.759285104469687e+02,
+                 1.383577518672690e+02,
+                -3.066479806614716e+01,
+                 2.506628277459239e+00
+            ];
+            const b = [
+                -5.447609879822406e+01,
+                 1.615858368580409e+02,
+                -1.556989798598866e+02,
+                 6.680131188771972e+01,
+                -1.328068155288572e+01
+            ];
+            const c = [
+                -7.784894002430293e-03,
+                -3.223964580411365e-01,
+                -2.400758277161838e+00,
+                -2.549732539343734e+00,
+                 4.374664141464968e+00,
+                 2.938163982698783e+00
+            ];
+            const d = [
+                 7.784695709041462e-03,
+                 3.224671290700398e-01,
+                 2.445134137142996e+00,
+                 3.754408661907416e+00
+            ];
+
+            const pLow = 0.02425;
+            const pHigh = 1 - pLow;
+
+            let q, r;
+
+            if (p < pLow) {
+                // Aproximación para cola inferior
+                q = Math.sqrt(-2 * Math.log(p));
+                return (((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5]) /
+                       ((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1);
+            } else if (p <= pHigh) {
+                // Aproximación para región central
+                q = p - 0.5;
+                r = q * q;
+                return (((((a[0]*r+a[1])*r+a[2])*r+a[3])*r+a[4])*r+a[5]) * q /
+                       (((((b[0]*r+b[1])*r+b[2])*r+b[3])*r+b[4])*r+1);
+            } else {
+                // Aproximación para cola superior
+                q = Math.sqrt(-2 * Math.log(1 - p));
+                return -(((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5]) /
+                        ((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1);
+            }
+        },
+
+        /**
+         * Obtiene el valor z para un nivel de significación α bilateral.
+         * @param {number} alpha - Nivel de significación (ej. 0.05)
+         * @returns {number} z_α/2
+         */
+        zAlpha(alpha) {
+            return this.normalQuantile(1 - alpha / 2);
+        },
+
+        /**
+         * Obtiene el valor z para la potencia estadística.
+         * @param {number} power - Potencia (ej. 0.80)
+         * @returns {number} z_β
+         */
+        zBeta(power) {
+            return this.normalQuantile(power);
+        },
+
+        /**
+         * Redondea hacia arriba (ceiling) al entero más cercano.
+         * @param {number} n - Valor a redondear
+         * @returns {number} Entero redondeado hacia arriba
+         */
+        ceil(n) {
+            return Math.ceil(n);
+        },
+
+        /**
+         * Genera un hash SHA-256 simple para verificación de parámetros.
+         * Implementación simplificada usando operaciones de bits.
+         * Para verificación básica, no criptográfica.
+         * @param {string} str - String a hashear
+         * @returns {string} Hash hexadecimal
+         */
+        async sha256(str) {
+            // Usar SubtleCrypto si está disponible (funciona offline)
+            if (typeof crypto !== 'undefined' && crypto.subtle) {
+                try {
+                    const buffer = new TextEncoder().encode(str);
+                    const hashBuffer = await crypto.subtle.digest('SHA-256', buffer);
+                    const hashArray = Array.from(new Uint8Array(hashBuffer));
+                    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+                } catch (e) {
+                    // Fallback si SubtleCrypto falla
+                    return this.simpleFNVHash(str);
+                }
+            }
+            return this.simpleFNVHash(str);
+        },
+
+        /**
+         * FNV-1a hash como fallback.
+         * @param {string} str
+         * @returns {string}
+         */
+        simpleFNVHash(str) {
+            let hash = 0x811c9dc5;
+            for (let i = 0; i < str.length; i++) {
+                hash ^= str.charCodeAt(i);
+                hash = Math.imul(hash, 0x01000193);
+            }
+            return ('00000000' + (hash >>> 0).toString(16)).slice(-8).repeat(8);
+        }
+    };
+
+
+    // ================================================================
+    // MÓDULO: studySelector — Selección del tipo de estudio
+    // ================================================================
+    /**
+     * Gestiona la selección del tipo de estudio epidemiológico.
+     * Almacena la selección y genera la configuración de campos.
+     */
+    const studySelector = {
+        /** Tipo de estudio seleccionado actualmente */
+        current: null,
+
+        /** Metadatos de cada tipo de estudio */
+        studies: {
+            trans_prop: {
+                name: 'Transversal — Estimación de proporción',
+                shortName: 'Proporción (transversal)',
+                category: 'transversal',
+                type: 'estimation',
+                measure: 'proportion'
+            },
+            trans_mean: {
+                name: 'Transversal — Estimación de media',
+                shortName: 'Media (transversal)',
+                category: 'transversal',
+                type: 'estimation',
+                measure: 'mean'
+            },
+            trans_comp_prop: {
+                name: 'Transversal — Comparación de proporciones',
+                shortName: 'Comparación proporciones',
+                category: 'transversal',
+                type: 'comparison',
+                measure: 'proportion'
+            },
+            trans_comp_mean: {
+                name: 'Transversal — Comparación de medias',
+                shortName: 'Comparación medias',
+                category: 'transversal',
+                type: 'comparison',
+                measure: 'mean'
+            },
+            cc_or: {
+                name: 'Casos y Controles — basado en OR',
+                shortName: 'Casos/Controles (OR)',
+                category: 'case_control',
+                type: 'comparison',
+                measure: 'or'
+            },
+            cohort_rr: {
+                name: 'Cohorte — basado en RR',
+                shortName: 'Cohorte (RR)',
+                category: 'cohort',
+                type: 'comparison',
+                measure: 'rr'
+            }
+        },
+
+        /**
+         * Selecciona un tipo de estudio y marca visualmente la tarjeta.
+         * @param {string} studyType - Clave del tipo de estudio
+         * @param {HTMLElement} card - Elemento DOM de la tarjeta
+         */
+        select(studyType, card) {
+            // Desmarcar todas las tarjetas
+            document.querySelectorAll('.study-card').forEach(c => c.classList.remove('selected'));
+            // Marcar la seleccionada
+            card.classList.add('selected');
+            this.current = studyType;
+            // Limpiar error si existía
+            document.getElementById('step1Error').classList.add('hidden');
+        },
+
+        /**
+         * Verifica si hay un estudio seleccionado.
+         * @returns {boolean}
+         */
+        isValid() {
+            if (!this.current) {
+                document.getElementById('step1Error').classList.remove('hidden');
+                return false;
+            }
+            return true;
+        },
+
+        /**
+         * Retorna la configuración del estudio actual.
+         * @returns {object|null}
+         */
+        getConfig() {
+            return this.current ? this.studies[this.current] : null;
+        }
+    };
+
+
+    // ================================================================
+    // MÓDULO: validator — Validación de parámetros
+    // ================================================================
+    /**
+     * Valida los parámetros ingresados y genera advertencias metodológicas.
+     * No bloquea el cálculo pero informa al usuario.
+     */
+    const validator = {
+        /** Lista de advertencias generadas */
+        warnings: [],
+
+        /**
+         * Valida todos los parámetros actuales.
+         * @param {object} params - Parámetros del estudio
+         * @param {string} studyType - Tipo de estudio
+         * @returns {object} { valid: boolean, warnings: string[], errors: string[] }
+         */
+        validate(params, studyType) {
+            this.warnings = [];
+            const errors = [];
+
+            // Validación de alpha
+            if (params.alpha !== undefined) {
+                if (params.alpha <= 0 || params.alpha >= 1) {
+                    errors.push('El nivel de significación α debe estar entre 0 y 1 (exclusivo).');
+                }
+                if (params.alpha > 0.10) {
+                    this.warnings.push('⚠️ Un α > 0.10 es inusualmente permisivo. Considere usar 0.05 o menor.');
+                }
+            }
+
+            // Validación de potencia
+            if (params.power !== undefined) {
+                if (params.power <= 0 || params.power >= 1) {
+                    errors.push('La potencia debe estar entre 0 y 1 (exclusivo).');
+                }
+                if (params.power < 0.70) {
+                    this.warnings.push('⚠️ Una potencia < 70% puede resultar en un estudio sub-dimensionado.');
+                }
+            }
+
+            // Validación de proporciones
+            if (params.p1 !== undefined) {
+                if (params.p1 <= 0 || params.p1 >= 1) {
+                    errors.push('La proporción p₁ debe estar entre 0 y 1 (exclusivo).');
+                }
+            }
+            if (params.p2 !== undefined) {
+                if (params.p2 <= 0 || params.p2 >= 1) {
+                    errors.push('La proporción p₂ debe estar entre 0 y 1 (exclusivo).');
+                }
+            }
+            if (params.p !== undefined) {
+                if (params.p <= 0 || params.p >= 1) {
+                    errors.push('La proporción esperada debe estar entre 0 y 1 (exclusivo).');
+                }
+            }
+
+            // Validación de OR
+            if (params.or !== undefined) {
+                if (params.or <= 0) {
+                    errors.push('El Odds Ratio debe ser positivo.');
+                }
+                if (params.or === 1) {
+                    errors.push('Un OR = 1 implica ausencia de asociación. No se puede calcular muestra para detectar diferencias.');
+                }
+                if (params.or > 10 || (params.or > 0 && params.or < 0.1)) {
+                    this.warnings.push('⚠️ El OR planteado es muy extremo. Verifique que sea un valor realista basado en literatura previa.');
+                }
+            }
+
+            // Validación de RR
+            if (params.rr !== undefined) {
+                if (params.rr <= 0) {
+                    errors.push('El Riesgo Relativo debe ser positivo.');
+                }
+                if (params.rr === 1) {
+                    errors.push('Un RR = 1 implica ausencia de efecto. No se puede calcular muestra para detectar diferencias.');
+                }
+                if (params.rr > 10 || (params.rr > 0 && params.rr < 0.1)) {
+                    this.warnings.push('⚠️ El RR planteado es muy extremo. Verifique que sea un valor realista.');
+                }
+            }
+
+            // Validación de pérdidas
+            if (params.losses !== undefined) {
+                if (params.losses < 0 || params.losses >= 1) {
+                    errors.push('Las pérdidas esperadas deben estar entre 0% y 99%.');
+                }
+                if (params.losses > 0.40) {
+                    this.warnings.push('⚠️ Pérdidas > 40% son inusualmente altas. Considere estrategias para mejorar la retención.');
+                }
+                if (params.losses > 0.25) {
+                    this.warnings.push('⚠️ Pérdidas > 25% requieren justificación metodológica.');
+                }
+            }
+
+            // Validación de desviación estándar
+            if (params.sd !== undefined) {
+                if (params.sd <= 0) {
+                    errors.push('La desviación estándar debe ser positiva.');
+                }
+            }
+
+            // Validación de razón de grupos
+            if (params.ratio !== undefined) {
+                if (params.ratio <= 0) {
+                    errors.push('La razón de grupos debe ser positiva.');
+                }
+                if (params.ratio > 4) {
+                    this.warnings.push('⚠️ Ratios mayores a 4:1 suelen ser poco eficientes estadísticamente.');
+                }
+            }
+
+            // Validación de población finita
+            if (params.N !== undefined && params.N !== '' && params.N !== null) {
+                const N = Number(params.N);
+                if (N <= 0) {
+                    errors.push('El tamaño de población debe ser positivo.');
+                }
+                if (N < 100) {
+                    this.warnings.push('⚠️ Poblaciones < 100 pueden requerir métodos especiales (exactos).');
+                }
+            }
+
+            // Validación de margen de error
+            if (params.marginError !== undefined) {
+                if (params.marginError <= 0 || params.marginError >= 0.5) {
+                    errors.push('El margen de error debe ser mayor que 0 y menor que 0.5.');
+                }
+            }
+
+            // Diferencia de proporciones muy pequeña
+            if (params.p1 !== undefined && params.p2 !== undefined) {
+                const diff = Math.abs(params.p1 - params.p2);
+                if (diff < 0.02 && diff > 0) {
+                    this.warnings.push('⚠️ Una diferencia de proporciones < 2% requerirá muestras muy grandes.');
+                }
+            }
+
+            // Efecto realista para OR/RR
+            if (studyType === 'cc_or' && params.or !== undefined && params.pControl !== undefined) {
+                const pCase = (params.or * params.pControl) / (1 + params.pControl * (params.or - 1));
+                if (pCase > 0.95) {
+                    this.warnings.push('⚠️ La combinación de OR y proporción de exposición en controles implica una proporción de exposición en casos > 95%, lo cual es inusual.');
+                }
+            }
+
+            return {
+                valid: errors.length === 0,
+                warnings: this.warnings,
+                errors: errors
+            };
+        },
+
+        /**
+         * Muestra las advertencias y errores en la interfaz.
+         * @param {object} result - Resultado de validate()
+         */
+        display(result) {
+            const container = document.getElementById('validationWarnings');
+            container.innerHTML = '';
+
+            if (result.errors.length === 0 && result.warnings.length === 0) {
+                container.classList.add('hidden');
+                return;
+            }
+
+            container.classList.remove('hidden');
+
+            // Mostrar errores
+            result.errors.forEach(err => {
+                const div = document.createElement('div');
+                div.className = 'bg-red-50 border-l-4 border-err-500 p-3 rounded-r text-sm text-red-800';
+                div.innerHTML = `<strong>Error:</strong> ${err}`;
+                container.appendChild(div);
+            });
+
+            // Mostrar advertencias
+            result.warnings.forEach(warn => {
+                const div = document.createElement('div');
+                div.className = 'bg-yellow-50 border-l-4 border-warn-500 p-3 rounded-r text-sm text-yellow-800';
+                div.textContent = warn;
+                container.appendChild(div);
+            });
+        }
+    };
+
+
+    // ================================================================
+    // MÓDULO: classicalEngine — Motor de cálculo clásico (hipótesis)
+    // ================================================================
+    /**
+     * Implementa las fórmulas estándar de cálculo de tamaño de muestra
+     * basadas en pruebas de hipótesis (enfoque frecuentista clásico).
+     * Todas las fórmulas están comentadas con su referencia.
+     */
+    const classicalEngine = {
+        /**
+         * Almacena el último resultado calculado para uso posterior.
+         */
+        lastResult: null,
+
+        /**
+         * Estimación de proporción (estudio transversal).
+         * Fórmula: n = z²_α/2 × p(1-p) / d²
+         * Donde d = margen de error (semiancho del IC).
+         * Ref: Cochran (1977), Lwanga & Lemeshow (1991)
+         *
+         * @param {object} params - { p, marginError, alpha, N?, losses }
+         * @returns {object} Resultado con n, n_adjusted, formula, assumptions
+         */
+        estimateProportion(params) {
+            const { p, marginError, alpha = 0.05, N = null, losses = 0 } = params;
+            const za = MathUtils.zAlpha(alpha);
+
+            // Fórmula base: n₀ = z²_{α/2} × p(1-p) / d²
+            const n0 = (za * za * p * (1 - p)) / (marginError * marginError);
+            let n = MathUtils.ceil(n0);
+
+            // Corrección por población finita si se especifica N
+            let nFinite = n;
+            if (N && N > 0) {
+                // n_corr = n₀ / (1 + (n₀ - 1)/N)
+                nFinite = MathUtils.ceil(n0 / (1 + (n0 - 1) / N));
+                n = nFinite;
+            }
+
+            // Ajuste por pérdidas esperadas: n_final = n / (1 - L)
+            const nFinal = MathUtils.ceil(n / (1 - losses));
+
+            this.lastResult = {
+                type: 'trans_prop',
+                nBase: MathUtils.ceil(n0),
+                nFinite: nFinite,
+                nLossAdjusted: nFinal,
+                nPerGroup: nFinal,
+                nTotal: nFinal,
+                groups: 1,
+                formula: `n = z²_{α/2} × p(1-p) / d²`,
+                formulaDetail: `n = ${za.toFixed(4)}² × ${p}×${(1-p).toFixed(4)} / ${marginError}² = ${n0.toFixed(1)}`,
+                assumptions: [
+                    `Proporción esperada (p): ${p}`,
+                    `Margen de error (d): ${marginError}`,
+                    `Nivel de confianza: ${((1-alpha)*100).toFixed(0)}% (z = ${za.toFixed(4)})`,
+                    N ? `Población finita (N): ${N}` : 'Población infinita (sin corrección)',
+                    `Pérdidas esperadas: ${(losses*100).toFixed(0)}%`
+                ],
+                params: params
+            };
+
+            return this.lastResult;
+        },
+
+        /**
+         * Estimación de media (estudio transversal).
+         * Fórmula: n = z²_{α/2} × σ² / d²
+         * Donde d = margen de error y σ = desviación estándar estimada.
+         * Ref: Cochran (1977)
+         *
+         * @param {object} params - { sd, marginError, alpha, N?, losses }
+         * @returns {object} Resultado
+         */
+        estimateMean(params) {
+            const { sd, marginError, alpha = 0.05, N = null, losses = 0 } = params;
+            const za = MathUtils.zAlpha(alpha);
+
+            // n₀ = z²_{α/2} × σ² / d²
+            const n0 = (za * za * sd * sd) / (marginError * marginError);
+            let n = MathUtils.ceil(n0);
+
+            let nFinite = n;
+            if (N && N > 0) {
+                nFinite = MathUtils.ceil(n0 / (1 + (n0 - 1) / N));
+                n = nFinite;
+            }
+
+            const nFinal = MathUtils.ceil(n / (1 - losses));
+
+            this.lastResult = {
+                type: 'trans_mean',
+                nBase: MathUtils.ceil(n0),
+                nFinite: nFinite,
+                nLossAdjusted: nFinal,
+                nPerGroup: nFinal,
+                nTotal: nFinal,
+                groups: 1,
+                formula: `n = z²_{α/2} × σ² / d²`,
+                formulaDetail: `n = ${za.toFixed(4)}² × ${sd}² / ${marginError}² = ${n0.toFixed(1)}`,
+                assumptions: [
+                    `Desviación estándar estimada (σ): ${sd}`,
+                    `Margen de error (d): ${marginError}`,
+                    `Nivel de confianza: ${((1-alpha)*100).toFixed(0)}%`,
+                    N ? `Población finita (N): ${N}` : 'Población infinita',
+                    `Pérdidas: ${(losses*100).toFixed(0)}%`
+                ],
+                params: params
+            };
+
+            return this.lastResult;
+        },
+
+        /**
+         * Comparación de dos proporciones independientes.
+         * Fórmula de Fleiss con corrección de continuidad.
+         *
+         * Sin corrección (Kelsey et al. 1996):
+         *   n = [z_{α/2}√(2p̄q̄) + z_β√(p₁q₁ + p₂q₂)]² / (p₁ - p₂)²
+         *   donde p̄ = (p₁ + p₂)/2 y q̄ = 1 - p̄
+         *
+         * Con corrección de continuidad de Fleiss:
+         *   n_c = n/4 × [1 + √(1 + 4/(n|p₁-p₂|))]²
+         *
+         * Ref: Fleiss JL (1981). Statistical Methods for Rates and Proportions.
+         *
+         * @param {object} params - { p1, p2, alpha, power, ratio?, N?, losses }
+         * @returns {object} Resultado
+         */
+        compareProportions(params) {
+            const { p1, p2, alpha = 0.05, power = 0.80, ratio = 1, N = null, losses = 0 } = params;
+            const za = MathUtils.zAlpha(alpha);
+            const zb = MathUtils.zBeta(power);
+
+            // Proporción ponderada bajo H₀
+            // p̄ = (p₁ + r×p₂) / (1 + r), donde r = ratio
+            const pBar = (p1 + ratio * p2) / (1 + ratio);
+            const qBar = 1 - pBar;
+            const q1 = 1 - p1;
+            const q2 = 1 - p2;
+            const delta = Math.abs(p1 - p2);
+
+            // Fórmula sin corrección
+            const numerator = za * Math.sqrt((1 + 1/ratio) * pBar * qBar) +
+                              zb * Math.sqrt(p1 * q1 + (p2 * q2) / ratio);
+            const n0 = (numerator * numerator) / (delta * delta);
+
+            // Corrección de continuidad de Fleiss
+            // n_c = (n/4) × [1 + √(1 + 2(1+r)/(n×r×|p₁-p₂|))]²
+            const nFleiss = (n0 / 4) * Math.pow(1 + Math.sqrt(1 + 2 * (1 + ratio) / (n0 * ratio * delta)), 2);
+
+            let n1 = MathUtils.ceil(nFleiss);
+            let n2 = MathUtils.ceil(n1 * ratio);
+
+            // Corrección por población finita
+            if (N && N > 0) {
+                const nTotal = n1 + n2;
+                const factor = N / (N + nTotal - 1);
+                n1 = MathUtils.ceil(n1 * factor);
+                n2 = MathUtils.ceil(n2 * factor);
+            }
+
+            // Ajuste por pérdidas
+            n1 = MathUtils.ceil(n1 / (1 - losses));
+            n2 = MathUtils.ceil(n2 / (1 - losses));
+
+            this.lastResult = {
+                type: 'trans_comp_prop',
+                nBase: MathUtils.ceil(n0),
+                nFleiss: MathUtils.ceil(nFleiss),
+                nPerGroup: n1,
+                nGroup2: n2,
+                nTotal: n1 + n2,
+                nLossAdjusted: n1 + n2,
+                groups: 2,
+                formula: `n = [z_{α/2}√((1+1/r)p̄q̄) + z_β√(p₁q₁+p₂q₂/r)]² / (p₁-p₂)²`,
+                formulaDetail: `p̄ = ${pBar.toFixed(4)}, n₀ = ${n0.toFixed(1)}, n_Fleiss = ${nFleiss.toFixed(1)}`,
+                assumptions: [
+                    `Proporción grupo 1 (p₁): ${p1}`,
+                    `Proporción grupo 2 (p₂): ${p2}`,
+                    `Diferencia: ${delta.toFixed(4)}`,
+                    `Razón de grupos: 1:${ratio}`,
+                    `α = ${alpha} (z = ${za.toFixed(4)})`,
+                    `Potencia = ${(power*100).toFixed(0)}% (z = ${zb.toFixed(4)})`,
+                    `Corrección de Fleiss aplicada`,
+                    `Pérdidas: ${(losses*100).toFixed(0)}%`
+                ],
+                params: params
+            };
+
+            return this.lastResult;
+        },
+
+        /**
+         * Comparación de dos medias independientes.
+         * Fórmula: n = (z_{α/2} + z_β)² × (σ₁² + σ₂²/r) / (μ₁ - μ₂)²
+         *
+         * Caso de varianzas iguales:
+         *   n = (z_{α/2} + z_β)² × 2σ² / δ²
+         *
+         * Ref: Chow, Shao & Wang (2008). Sample Size Calculations in Clinical Research.
+         *
+         * @param {object} params - { delta (diferencia), sd, alpha, power, ratio?, N?, losses }
+         * @returns {object} Resultado
+         */
+        compareMeans(params) {
+            const { delta, sd, alpha = 0.05, power = 0.80, ratio = 1, N = null, losses = 0 } = params;
+            const za = MathUtils.zAlpha(alpha);
+            const zb = MathUtils.zBeta(power);
+
+            // n₁ = (z_{α/2} + z_β)² × σ² × (1 + 1/r) / δ²
+            const n0 = Math.pow(za + zb, 2) * sd * sd * (1 + 1/ratio) / (delta * delta);
+
+            let n1 = MathUtils.ceil(n0);
+            let n2 = MathUtils.ceil(n1 * ratio);
+
+            if (N && N > 0) {
+                const nTotal = n1 + n2;
+                const factor = N / (N + nTotal - 1);
+                n1 = MathUtils.ceil(n1 * factor);
+                n2 = MathUtils.ceil(n2 * factor);
+            }
+
+            n1 = MathUtils.ceil(n1 / (1 - losses));
+            n2 = MathUtils.ceil(n2 / (1 - losses));
+
+            this.lastResult = {
+                type: 'trans_comp_mean',
+                nBase: MathUtils.ceil(n0),
+                nPerGroup: n1,
+                nGroup2: n2,
+                nTotal: n1 + n2,
+                nLossAdjusted: n1 + n2,
+                groups: 2,
+                formula: `n = (z_{α/2} + z_β)² × σ²(1+1/r) / δ²`,
+                formulaDetail: `n₁ = (${za.toFixed(4)} + ${zb.toFixed(4)})² × ${sd}² × ${(1 + 1/ratio).toFixed(2)} / ${delta}² = ${n0.toFixed(1)}`,
+                assumptions: [
+                    `Diferencia mínima detectable (δ): ${delta}`,
+                    `Desviación estándar común (σ): ${sd}`,
+                    `Razón de grupos: 1:${ratio}`,
+                    `α = ${alpha}`,
+                    `Potencia = ${(power*100).toFixed(0)}%`,
+                    `Pérdidas: ${(losses*100).toFixed(0)}%`
+                ],
+                params: params
+            };
+
+            return this.lastResult;
+        },
+
+        /**
+         * Estudio de casos y controles basado en OR.
+         * Fórmula de Kelsey, Whittemore, Evans & Thompson (1996):
+         *
+         *   p₂ = proporción de exposición en controles
+         *   p₁ = OR × p₂ / (1 + p₂(OR - 1))  [proporción en casos derivada del OR]
+         *   Luego aplica comparación de proporciones.
+         *
+         * También incluida la fórmula clásica de Schlesselman:
+         *   n = [z_{α/2}√(2p̄q̄) + z_β√(p₁q₁+p₂q₂)]² / (p₁-p₂)²
+         *
+         * @param {object} params - { or, pControl, alpha, power, ratio?, losses }
+         * @returns {object} Resultado
+         */
+        caseControlOR(params) {
+            const { or, pControl, alpha = 0.05, power = 0.80, ratio = 1, losses = 0 } = params;
+
+            // Derivar p₁ (proporción de exposición en casos) del OR y p₂ (controles)
+            // OR = [p₁/(1-p₁)] / [p₂/(1-p₂)]
+            // Despejando: p₁ = OR × p₂ / [1 + p₂(OR - 1)]
+            const pCase = (or * pControl) / (1 + pControl * (or - 1));
+
+            // Usar la fórmula de comparación de proporciones
+            const result = this.compareProportions({
+                p1: pCase,
+                p2: pControl,
+                alpha,
+                power,
+                ratio,
+                losses
+            });
+
+            // Sobrescribir metadatos para reflejar el contexto de CC
+            result.type = 'cc_or';
+            result.formula = `p₁ = OR×p₂/(1+p₂(OR-1)); luego Fleiss para comparar proporciones`;
+            result.assumptions = [
+                `OR esperado: ${or}`,
+                `Prop. exposición en controles (p₂): ${pControl}`,
+                `Prop. exposición en casos (p₁) derivada: ${pCase.toFixed(4)}`,
+                `Razón casos:controles: 1:${ratio}`,
+                `α = ${alpha}`,
+                `Potencia = ${(power*100).toFixed(0)}%`,
+                `Corrección de Fleiss aplicada`,
+                `Pérdidas: ${(losses*100).toFixed(0)}%`
+            ];
+            result.params = { ...params, pCase };
+
+            this.lastResult = result;
+            return result;
+        },
+
+        /**
+         * Estudio de cohorte basado en RR.
+         * Similar al enfoque de comparación de proporciones:
+         *   p₂ = incidencia en no expuestos
+         *   p₁ = RR × p₂ (incidencia en expuestos)
+         *
+         * Ref: Kelsey et al. (1996)
+         *
+         * @param {object} params - { rr, pUnexposed, alpha, power, ratio?, losses }
+         * @returns {object} Resultado
+         */
+        cohortRR(params) {
+            const { rr, pUnexposed, alpha = 0.05, power = 0.80, ratio = 1, losses = 0 } = params;
+
+            // p₁ = RR × p₂
+            const pExposed = rr * pUnexposed;
+
+            // Validar que p₁ sea una proporción válida
+            if (pExposed >= 1 || pExposed <= 0) {
+                return {
+                    type: 'cohort_rr',
+                    error: true,
+                    errorMsg: `La incidencia en expuestos (RR × p₂ = ${pExposed.toFixed(4)}) está fuera de rango válido [0,1].`,
+                    params: params
+                };
+            }
+
+            const result = this.compareProportions({
+                p1: pExposed,
+                p2: pUnexposed,
+                alpha,
+                power,
+                ratio,
+                losses
+            });
+
+            result.type = 'cohort_rr';
+            result.formula = `p₁ = RR × p₂; luego Fleiss para comparar proporciones`;
+            result.assumptions = [
+                `RR esperado: ${rr}`,
+                `Incidencia en no expuestos (p₂): ${pUnexposed}`,
+                `Incidencia en expuestos (p₁) derivada: ${pExposed.toFixed(4)}`,
+                `Razón expuestos:no expuestos: 1:${ratio}`,
+                `α = ${alpha}`,
+                `Potencia = ${(power*100).toFixed(0)}%`,
+                `Corrección de Fleiss aplicada`,
+                `Pérdidas: ${(losses*100).toFixed(0)}%`
+            ];
+            result.params = { ...params, pExposed };
+
+            this.lastResult = result;
+            return result;
+        },
+
+        /**
+         * Punto de entrada principal: calcula según el tipo de estudio.
+         * @param {string} studyType - Tipo de estudio
+         * @param {object} params - Parámetros
+         * @returns {object} Resultado
+         */
+        calculate(studyType, params) {
+            switch (studyType) {
+                case 'trans_prop': return this.estimateProportion(params);
+                case 'trans_mean': return this.estimateMean(params);
+                case 'trans_comp_prop': return this.compareProportions(params);
+                case 'trans_comp_mean': return this.compareMeans(params);
+                case 'cc_or': return this.caseControlOR(params);
+                case 'cohort_rr': return this.cohortRR(params);
+                default: return { error: true, errorMsg: 'Tipo de estudio no reconocido.' };
+            }
+        }
+    };
+
+
+    // ================================================================
+    // MÓDULO: precisionEngine — Cálculo basado en precisión (ancho IC)
+    // ================================================================
+    /**
+     * Calcula tamaño de muestra basado en la precisión deseada
+     * del intervalo de confianza (enfoque de estimación).
+     */
+    const precisionEngine = {
+        lastResult: null,
+
+        /**
+         * Precisión para proporción.
+         * Ancho del IC 95% para una proporción: W = 2 × z_{α/2} × √(p(1-p)/n)
+         * Resolviendo para n: n = 4z²p(1-p)/W²
+         *
+         * @param {object} params - { p, width, alpha }
+         * @returns {object}
+         */
+        precisionProportion(params) {
+            const { p, width, alpha = 0.05 } = params;
+            const za = MathUtils.zAlpha(alpha);
+            // W = 2d, donde d = z × √(pq/n)
+            // n = 4z²pq/W²
+            const n = MathUtils.ceil(4 * za * za * p * (1 - p) / (width * width));
+
+            this.lastResult = {
+                type: 'precision_prop',
+                n: n,
+                formula: `n = 4z²_{α/2} × p(1-p) / W²`,
+                detail: `n = 4×${za.toFixed(4)}²×${p}×${(1-p).toFixed(4)} / ${width}² = ${n}`,
+                description: `Para estimar la proporción con un IC al ${((1-alpha)*100).toFixed(0)}% de ancho máximo ${width}.`
+            };
+
+            return this.lastResult;
+        },
+
+        /**
+         * Precisión para media.
+         * W = 2 × z_{α/2} × σ/√n → n = 4z²σ²/W²
+         *
+         * @param {object} params - { sd, width, alpha }
+         * @returns {object}
+         */
+        precisionMean(params) {
+            const { sd, width, alpha = 0.05 } = params;
+            const za = MathUtils.zAlpha(alpha);
+            const n = MathUtils.ceil(4 * za * za * sd * sd / (width * width));
+
+            this.lastResult = {
+                type: 'precision_mean',
+                n: n,
+                formula: `n = 4z²_{α/2} × σ² / W²`,
+                detail: `n = 4×${za.toFixed(4)}²×${sd}² / ${width}² = ${n}`,
+                description: `Para estimar la media con un IC al ${((1-alpha)*100).toFixed(0)}% de ancho máximo ${width}.`
+            };
+
+            return this.lastResult;
+        },
+
+        /**
+         * Precisión para OR (aproximación logarítmica).
+         * El IC del ln(OR) tiene varianza aproximada:
+         *   Var(ln(OR)) ≈ 1/(n×p₁×(1-p₁)) + 1/(n×p₂×(1-p₂))
+         * donde n es el tamaño por grupo.
+         *
+         * Ancho del IC de ln(OR): W_ln = 2z × √(Var)
+         * El ancho del IC del OR se obtiene por transformación.
+         *
+         * Para simplificar, usamos:
+         *   n ≈ 4z² × [1/(p₁(1-p₁)) + 1/(p₂(1-p₂))] / W_ln²
+         *
+         * @param {object} params - { or, pControl, widthLnOR, alpha }
+         * @returns {object}
+         */
+        precisionOR(params) {
+            const { or, pControl, widthLnOR, alpha = 0.05 } = params;
+            const za = MathUtils.zAlpha(alpha);
+            const pCase = (or * pControl) / (1 + pControl * (or - 1));
+
+            // Varianza de ln(OR) por observación: 1/(n*p1*q1) + 1/(n*p2*q2)
+            // Ancho W_ln = 2 × z × √(var_per_obs / n)
+            // n = 4z² × var_factor / W²
+            const varFactor = 1 / (pCase * (1 - pCase)) + 1 / (pControl * (1 - pControl));
+            const n = MathUtils.ceil(4 * za * za * varFactor / (widthLnOR * widthLnOR));
+
+            this.lastResult = {
+                type: 'precision_or',
+                n: n,
+                nTotal: n * 2,
+                formula: `n ≈ 4z² × [1/(p₁q₁) + 1/(p₂q₂)] / W²_{ln(OR)}`,
+                detail: `Var factor = ${varFactor.toFixed(4)}, n por grupo = ${n}`,
+                description: `Para un IC del ln(OR) de ancho ≤ ${widthLnOR}. Esto equivale a un IC del OR de [${Math.exp(Math.log(or) - widthLnOR/2).toFixed(2)}, ${Math.exp(Math.log(or) + widthLnOR/2).toFixed(2)}].`
+            };
+
+            return this.lastResult;
+        },
+
+        /**
+         * Precisión para RR (aproximación logarítmica).
+         * Var(ln(RR)) ≈ (1-p₁)/(n×p₁) + (1-p₂)/(n×p₂)
+         *
+         * @param {object} params - { rr, pUnexposed, widthLnRR, alpha }
+         * @returns {object}
+         */
+        precisionRR(params) {
+            const { rr, pUnexposed, widthLnRR, alpha = 0.05 } = params;
+            const za = MathUtils.zAlpha(alpha);
+            const pExposed = rr * pUnexposed;
+
+            if (pExposed >= 1 || pExposed <= 0) {
+                this.lastResult = { type: 'precision_rr', error: true, errorMsg: 'Incidencia en expuestos fuera de rango.' };
+                return this.lastResult;
+            }
+
+            const varFactor = (1 - pExposed) / pExposed + (1 - pUnexposed) / pUnexposed;
+            const n = MathUtils.ceil(4 * za * za * varFactor / (widthLnRR * widthLnRR));
+
+            this.lastResult = {
+                type: 'precision_rr',
+                n: n,
+                nTotal: n * 2,
+                formula: `n ≈ 4z² × [(1-p₁)/p₁ + (1-p₂)/p₂] / W²_{ln(RR)}`,
+                detail: `Var factor = ${varFactor.toFixed(4)}, n por grupo = ${n}`,
+                description: `Para un IC del ln(RR) de ancho ≤ ${widthLnRR}. IC del RR: [${Math.exp(Math.log(rr) - widthLnRR/2).toFixed(2)}, ${Math.exp(Math.log(rr) + widthLnRR/2).toFixed(2)}].`
+            };
+
+            return this.lastResult;
+        },
+
+        /**
+         * Calcula según el tipo de estudio.
+         * @param {string} studyType
+         * @param {object} params
+         * @returns {object}
+         */
+        calculate(studyType, params) {
+            switch (studyType) {
+                case 'trans_prop': return this.precisionProportion(params);
+                case 'trans_mean': return this.precisionMean(params);
+                case 'trans_comp_prop': return this.precisionProportion({ ...params, p: (params.p1 + params.p2) / 2 });
+                case 'trans_comp_mean': return this.precisionMean(params);
+                case 'cc_or': return this.precisionOR(params);
+                case 'cohort_rr': return this.precisionRR(params);
+                default: return { error: true, errorMsg: 'No disponible para este tipo.' };
+            }
+        }
+    };
+
+
+    // ================================================================
+    // MÓDULO: clusterAdjustment — Ajuste por diseño de conglomerados
+    // ================================================================
+    /**
+     * Calcula el efecto de diseño (deff) y ajusta el tamaño de muestra
+     * para muestreo por conglomerados.
+     */
+    const clusterAdjustment = {
+        lastDeff: 1,
+        lastNAdjusted: null,
+
+        /**
+         * Calcula el deff y actualiza la interfaz.
+         */
+        update() {
+            const icc = parseFloat(document.getElementById('icc').value) || 0;
+            const m = parseInt(document.getElementById('clusterSize').value) || 2;
+
+            // deff = 1 + (m - 1) × ρ
+            const deff = 1 + (m - 1) * icc;
+            this.lastDeff = deff;
+
+            // Obtener n del cálculo clásico
+            const classResult = classicalEngine.lastResult;
+            if (!classResult || classResult.error) {
+                document.getElementById('clusterResults').innerHTML = '<p class="text-sm text-gray-500">Realice primero el cálculo clásico.</p>';
+                return;
+            }
+
+            const nOriginal = classResult.nTotal;
+            const nAdjusted = MathUtils.ceil(nOriginal * deff);
+            const nClusters = MathUtils.ceil(nAdjusted / m);
+            this.lastNAdjusted = nAdjusted;
+
+            // Construir HTML de resultados
+            let html = `
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="text-center p-3 bg-white rounded-lg">
+                        <div class="text-2xl font-bold text-primary-600">${deff.toFixed(3)}</div>
+                        <div class="text-xs text-gray-500 mt-1">Efecto de diseño (deff)</div>
+                    </div>
+                    <div class="text-center p-3 bg-white rounded-lg">
+                        <div class="text-2xl font-bold text-primary-600">${nAdjusted.toLocaleString()}</div>
+                        <div class="text-xs text-gray-500 mt-1">n ajustado total</div>
+                    </div>
+                </div>
+                <div class="mt-3 text-sm text-gray-600 space-y-1">
+                    <p>• n original (sin ajuste): <strong>${nOriginal.toLocaleString()}</strong></p>
+                    <p>• Incremento: <strong>+${(nAdjusted - nOriginal).toLocaleString()}</strong> (×${deff.toFixed(3)})</p>
+                    <p>• Conglomerados necesarios: <strong>≈${nClusters}</strong> (de ~${m} individuos c/u)</p>
+                </div>
+            `;
+
+            // Advertencia si ICC alto
+            if (icc > 0.05) {
+                html += `
+                    <div class="mt-3 bg-yellow-50 border-l-4 border-warn-500 p-3 rounded-r text-sm text-yellow-800 pulse-warn">
+                        ⚠️ ICC > 0.05 indica alta correlación intraclase. El efecto de diseño es considerable (deff = ${deff.toFixed(2)}). Considere reducir el tamaño de los conglomerados si es posible.
+                    </div>
+                `;
+            }
+
+            document.getElementById('clusterResults').innerHTML = html;
+        },
+
+        /**
+         * Retorna el deff actual.
+         * @returns {number}
+         */
+        getDeff() {
+            return this.lastDeff;
+        },
+
+        /**
+         * Retorna el n ajustado.
+         * @returns {number|null}
+         */
+        getAdjustedN() {
+            return this.lastNAdjusted;
+        }
+    };
+
+
+    // ================================================================
+    // MÓDULO: sensitivityEngine — Análisis de sensibilidad
+    // ================================================================
+    /**
+     * Genera análisis de sensibilidad univariado:
+     * varía un parámetro manteniendo los demás fijos y
+     * calcula el n resultante en cada punto.
+     * Renderiza un gráfico en canvas HTML5.
+     */
+    const sensitivityEngine = {
+        /** Parámetros del análisis actual */
+        currentParam: null,
+        currentData: [],
+
+        /**
+         * Inicializa los controles de sensibilidad según el tipo de estudio.
+         * @param {string} studyType
+         * @param {object} baseParams - Parámetros base del cálculo
+         */
+        init(studyType, baseParams) {
+            const container = document.getElementById('sensitivityControls');
+            const sliders = this.getSlidersForStudy(studyType, baseParams);
+
+            let html = '<p class="text-sm text-gray-600 mb-3">Seleccione un parámetro y use el deslizador para ver cómo varía el tamaño de muestra:</p>';
+            html += '<div class="space-y-3">';
+
+            sliders.forEach((slider, idx) => {
+                html += `
+                    <div class="bg-gray-50 rounded-lg p-3">
+                        <div class="flex items-center justify-between mb-1">
+                            <label class="text-sm font-medium text-gray-700">${slider.label}</label>
+                            <span id="sensVal_${idx}" class="text-sm font-mono text-primary-600">${slider.value}</span>
+                        </div>
+                        <input type="range"
+                               id="sensSlider_${idx}"
+                               min="${slider.min}"
+                               max="${slider.max}"
+                               step="${slider.step}"
+                               value="${slider.value}"
+                               class="w-full"
+                               data-param="${slider.param}"
+                               data-idx="${idx}"
+                               oninput="sensitivityEngine.onSliderChange(this, '${studyType}')">
+                        <div class="flex justify-between text-xs text-gray-400 mt-1">
+                            <span>${slider.min}</span>
+                            <span>${slider.max}</span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += '</div>';
+            container.innerHTML = html;
+
+            // Renderizar gráfico inicial con el primer slider
+            if (sliders.length > 0) {
+                this.runSensitivity(sliders[0].param, sliders[0].min, sliders[0].max, sliders[0].step, studyType, baseParams);
+            }
+        },
+
+        /**
+         * Define los sliders disponibles para cada tipo de estudio.
+         */
+        getSlidersForStudy(studyType, params) {
+            const sliders = [];
+
+            switch (studyType) {
+                case 'trans_prop':
+                    sliders.push({ label: 'Prevalencia esperada (p)', param: 'p', min: 0.05, max: 0.95, step: 0.05, value: params.p || 0.5 });
+                    sliders.push({ label: 'Margen de error (d)', param: 'marginError', min: 0.01, max: 0.10, step: 0.01, value: params.marginError || 0.05 });
+                    break;
+                case 'trans_mean':
+                    sliders.push({ label: 'Desv. estándar (σ)', param: 'sd', min: 1, max: 50, step: 1, value: params.sd || 10 });
+                    sliders.push({ label: 'Margen de error (d)', param: 'marginError', min: 0.5, max: 10, step: 0.5, value: params.marginError || 2 });
+                    break;
+                case 'trans_comp_prop':
+                    sliders.push({ label: 'Proporción grupo 1 (p₁)', param: 'p1', min: 0.05, max: 0.95, step: 0.05, value: params.p1 || 0.5 });
+                    sliders.push({ label: 'Proporción grupo 2 (p₂)', param: 'p2', min: 0.05, max: 0.95, step: 0.05, value: params.p2 || 0.3 });
+                    sliders.push({ label: 'Pérdidas esperadas', param: 'losses', min: 0, max: 0.40, step: 0.05, value: params.losses || 0 });
+                    break;
+                case 'trans_comp_mean':
+                    sliders.push({ label: 'Diferencia mínima (δ)', param: 'delta', min: 0.5, max: 20, step: 0.5, value: params.delta || 5 });
+                    sliders.push({ label: 'Desv. estándar (σ)', param: 'sd', min: 1, max: 50, step: 1, value: params.sd || 10 });
+                    sliders.push({ label: 'Pérdidas esperadas', param: 'losses', min: 0, max: 0.40, step: 0.05, value: params.losses || 0 });
+                    break;
+                case 'cc_or':
+                    sliders.push({ label: 'OR esperado', param: 'or', min: 1.1, max: 5.0, step: 0.1, value: params.or || 2.0 });
+                    sliders.push({ label: 'Prop. exposición controles', param: 'pControl', min: 0.05, max: 0.80, step: 0.05, value: params.pControl || 0.30 });
+                    sliders.push({ label: 'Pérdidas esperadas', param: 'losses', min: 0, max: 0.40, step: 0.05, value: params.losses || 0 });
+                    break;
+                case 'cohort_rr':
+                    sliders.push({ label: 'RR esperado', param: 'rr', min: 1.1, max: 5.0, step: 0.1, value: params.rr || 2.0 });
+                    sliders.push({ label: 'Incidencia no expuestos', param: 'pUnexposed', min: 0.01, max: 0.50, step: 0.01, value: params.pUnexposed || 0.10 });
+                    sliders.push({ label: 'Pérdidas esperadas', param: 'losses', min: 0, max: 0.40, step: 0.05, value: params.losses || 0 });
+                    break;
+            }
+
+            return sliders;
+        },
+
+        /**
+         * Manejador de cambio de slider.
+         */
+        onSliderChange(slider, studyType) {
+            const idx = slider.dataset.idx;
+            const param = slider.dataset.param;
+            const value = parseFloat(slider.value);
+
+            // Actualizar display del valor
+            document.getElementById(`sensVal_${idx}`).textContent = value;
+
+            // Obtener parámetros base actuales
+            const baseParams = this.getCurrentParams();
+
+            // Ejecutar sensibilidad para este parámetro
+            const sliderEl = slider;
+            this.runSensitivity(
+                param,
+                parseFloat(sliderEl.min),
+                parseFloat(sliderEl.max),
+                parseFloat(sliderEl.step),
+                studyType,
+                baseParams
+            );
+        },
+
+        /**
+         * Obtiene los parámetros actuales del formulario.
+         */
+        getCurrentParams() {
+            return APP.collectParams();
+        },
+
+        /**
+         * Ejecuta el análisis de sensibilidad para un parámetro.
+         * @param {string} param - Nombre del parámetro a variar
+         * @param {number} min - Valor mínimo
+         * @param {number} max - Valor máximo
+         * @param {number} step - Paso
+         * @param {string} studyType - Tipo de estudio
+         * @param {object} baseParams - Parámetros base
+         */
+        runSensitivity(param, min, max, step, studyType, baseParams) {
+            const data = [];
+            const numPoints = Math.min(50, Math.ceil((max - min) / step) + 1);
+            const actualStep = (max - min) / (numPoints - 1);
+
+            for (let i = 0; i < numPoints; i++) {
+                const val = min + i * actualStep;
+                // Clonar parámetros y modificar el actual
+                const testParams = { ...baseParams };
+                testParams[param] = val;
+
+                try {
+                    const result = classicalEngine.calculate(studyType, testParams);
+                    if (!result.error) {
+                        data.push({ x: val, y: result.nTotal });
+                    }
+                } catch (e) {
+                    // Ignorar puntos que causan error
+                }
+            }
+
+            this.currentData = data;
+            this.currentParam = param;
+            this.drawChart(data, param);
+        },
+
+        /**
+         * Dibuja el gráfico de sensibilidad en canvas nativo.
+         * @param {Array} data - [{x, y}, ...]
+         * @param {string} paramName - Nombre del parámetro variable
+         */
+        drawChart(data, paramName) {
+            const canvas = document.getElementById('sensitivityCanvas');
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+            const dpr = window.devicePixelRatio || 1;
+
+            // Ajustar resolución del canvas
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width * dpr;
+            canvas.height = 280 * dpr;
+            ctx.scale(dpr, dpr);
+
+            const W = rect.width;
+            const H = 280;
+            const margin = { top: 30, right: 30, bottom: 50, left: 70 };
+            const plotW = W - margin.left - margin.right;
+            const plotH = H - margin.top - margin.bottom;
+
+            // Limpiar canvas
+            ctx.clearRect(0, 0, W, H);
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, W, H);
+
+            if (data.length < 2) {
+                ctx.fillStyle = '#9ca3af';
+                ctx.font = '14px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('Datos insuficientes para graficar', W / 2, H / 2);
+                return;
+            }
+
+            // Calcular escalas
+            const xMin = Math.min(...data.map(d => d.x));
+            const xMax = Math.max(...data.map(d => d.x));
+            const yMin = 0;
+            const yMax = Math.max(...data.map(d => d.y)) * 1.1;
+
+            const scaleX = (v) => margin.left + ((v - xMin) / (xMax - xMin || 1)) * plotW;
+            const scaleY = (v) => margin.top + plotH - ((v - yMin) / (yMax - yMin || 1)) * plotH;
+
+            // Dibujar grilla
+            ctx.strokeStyle = '#e5e7eb';
+            ctx.lineWidth = 0.5;
+            const yTicks = 5;
+            for (let i = 0; i <= yTicks; i++) {
+                const yVal = yMin + (yMax - yMin) * (i / yTicks);
+                const yPos = scaleY(yVal);
+                ctx.beginPath();
+                ctx.moveTo(margin.left, yPos);
+                ctx.lineTo(W - margin.right, yPos);
+                ctx.stroke();
+
+                // Etiqueta Y
+                ctx.fillStyle = '#6b7280';
+                ctx.font = '10px sans-serif';
+                ctx.textAlign = 'right';
+                ctx.fillText(Math.round(yVal).toLocaleString(), margin.left - 8, yPos + 4);
+            }
+
+            // Etiquetas X
+            const xTicks = Math.min(data.length, 8);
+            const xTickStep = Math.floor(data.length / xTicks);
+            ctx.textAlign = 'center';
+            for (let i = 0; i < data.length; i += xTickStep) {
+                const xPos = scaleX(data[i].x);
+                ctx.fillStyle = '#6b7280';
+                ctx.font = '10px sans-serif';
+                ctx.fillText(data[i].x.toFixed(2), xPos, H - margin.bottom + 20);
+            }
+
+            // Ejes
+            ctx.strokeStyle = '#374151';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(margin.left, margin.top);
+            ctx.lineTo(margin.left, H - margin.bottom);
+            ctx.lineTo(W - margin.right, H - margin.bottom);
+            ctx.stroke();
+
+            // Dibujar área bajo la curva
+            ctx.fillStyle = 'rgba(30, 58, 95, 0.08)';
+            ctx.beginPath();
+            ctx.moveTo(scaleX(data[0].x), scaleY(0));
+            data.forEach(d => ctx.lineTo(scaleX(d.x), scaleY(d.y)));
+            ctx.lineTo(scaleX(data[data.length - 1].x), scaleY(0));
+            ctx.closePath();
+            ctx.fill();
+
+            // Dibujar línea
+            ctx.strokeStyle = '#1e3a5f';
+            ctx.lineWidth = 2.5;
+            ctx.lineJoin = 'round';
+            ctx.beginPath();
+            data.forEach((d, i) => {
+                const x = scaleX(d.x);
+                const y = scaleY(d.y);
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            });
+            ctx.stroke();
+
+            // Dibujar puntos
+            ctx.fillStyle = '#1e3a5f';
+            data.forEach(d => {
+                ctx.beginPath();
+                ctx.arc(scaleX(d.x), scaleY(d.y), 3, 0, 2 * Math.PI);
+                ctx.fill();
+            });
+
+            // Etiquetas de ejes
+            ctx.fillStyle = '#374151';
+            ctx.font = '12px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(this.getParamLabel(paramName), W / 2, H - 5);
+
+            // Etiqueta Y (rotada)
+            ctx.save();
+            ctx.translate(15, H / 2);
+            ctx.rotate(-Math.PI / 2);
+            ctx.textAlign = 'center';
+            ctx.fillText('Tamaño de muestra (n)', 0, 0);
+            ctx.restore();
+
+            // Título
+            ctx.fillStyle = '#1e3a5f';
+            ctx.font = 'bold 12px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(`Sensibilidad: n vs ${this.getParamLabel(paramName)}`, W / 2, 18);
+        },
+
+        /**
+         * Retorna etiqueta legible para un parámetro.
+         */
+        getParamLabel(param) {
+            const labels = {
+                p: 'Prevalencia (p)',
+                p1: 'Proporción grupo 1 (p₁)',
+                p2: 'Proporción grupo 2 (p₂)',
+                marginError: 'Margen de error',
+                sd: 'Desv. estándar (σ)',
+                delta: 'Diferencia (δ)',
+                or: 'Odds Ratio',
+                rr: 'Riesgo Relativo',
+                pControl: 'Exposición controles',
+                pUnexposed: 'Incidencia no expuestos',
+                losses: 'Pérdidas esperadas',
+                power: 'Potencia',
+                alpha: 'Nivel α'
+            };
+            return labels[param] || param;
+        }
+    };
+
+
+    // ================================================================
+    // MÓDULO: reportGenerator — Generación de reportes
+    // ================================================================
+    /**
+     * Genera reportes exportables en formato HTML con toda la
+     * información del cálculo realizado.
+     */
+    const reportGenerator = {
+        /**
+         * Genera el HTML de preview del reporte.
+         */
+        async generatePreview() {
+            const study = studySelector.getConfig();
+            const classical = classicalEngine.lastResult;
+            const precision = precisionEngine.lastResult;
+            const deff = clusterAdjustment.getDeff();
+            const nAdjusted = clusterAdjustment.getAdjustedN();
+
+            if (!study || !classical) {
+                document.getElementById('reportPreview').innerHTML = '<p class="text-gray-500">No hay resultados para generar reporte.</p>';
+                return;
+            }
+
+            // Generar hash de parámetros
+            const paramStr = JSON.stringify(classical.params);
+            const hash = await MathUtils.sha256(paramStr);
+
+            const now = new Date();
+            const dateStr = now.toLocaleString('es-ES', { dateStyle: 'full', timeStyle: 'medium' });
+
+            let html = `
+                <div class="border-b border-gray-200 pb-4 mb-4">
+                    <h2 class="text-lg font-bold text-primary-600">Reporte de Cálculo de Tamaño de Muestra</h2>
+                    <p class="text-xs text-gray-400 mt-1">Generado: ${dateStr}</p>
+                    <p class="text-xs text-gray-400">Hash SHA-256: <code class="bg-gray-100 px-1 rounded">${hash.substring(0, 32)}...</code></p>
+                </div>
+
+                <div class="mb-4">
+                    <h3 class="text-sm font-bold text-gray-700 mb-2">1. Tipo de Estudio</h3>
+                    <p class="text-sm">${study.name}</p>
+                </div>
+
+                <div class="mb-4">
+                    <h3 class="text-sm font-bold text-gray-700 mb-2">2. Parámetros Ingresados</h3>
+                    <ul class="text-sm space-y-1 list-disc list-inside">
+            `;
+
+            classical.assumptions.forEach(a => {
+                html += `<li>${a}</li>`;
+            });
+
+            html += `
+                    </ul>
+                </div>
+
+                <div class="mb-4">
+                    <h3 class="text-sm font-bold text-gray-700 mb-2">3. Fórmula Utilizada (Enfoque Clásico)</h3>
+                    <div class="formula-block">${classical.formula}</div>
+                    <p class="text-xs text-gray-500 mt-1">${classical.formulaDetail}</p>
+                </div>
+
+                <div class="mb-4">
+                    <h3 class="text-sm font-bold text-gray-700 mb-2">4. Resultados</h3>
+                    <div class="bg-primary-50 rounded-lg p-4">
+                        <table class="w-full text-sm">
+                            <tr><td class="py-1">n base (sin ajustes):</td><td class="font-bold text-right">${classical.nBase.toLocaleString()}</td></tr>
+            `;
+
+            if (classical.groups > 1) {
+                html += `
+                    <tr><td class="py-1">n por grupo (grupo 1):</td><td class="font-bold text-right">${classical.nPerGroup.toLocaleString()}</td></tr>
+                `;
+                if (classical.nGroup2) {
+                    html += `<tr><td class="py-1">n grupo 2:</td><td class="font-bold text-right">${classical.nGroup2.toLocaleString()}</td></tr>`;
+                }
+            }
+
+            html += `
+                            <tr class="border-t"><td class="py-1 font-semibold">n total (con pérdidas):</td><td class="font-bold text-right text-lg text-primary-600">${classical.nTotal.toLocaleString()}</td></tr>
+                        </table>
+                    </div>
+                </div>
+            `;
+
+            // Enfoque de precisión
+            if (precision && !precision.error) {
+                html += `
+                    <div class="mb-4">
+                        <h3 class="text-sm font-bold text-gray-700 mb-2">5. Enfoque de Precisión</h3>
+                        <div class="formula-block">${precision.formula}</div>
+                        <p class="text-sm mt-2">${precision.description}</p>
+                        <p class="text-sm">n (precisión): <strong>${precision.n.toLocaleString()}</strong></p>
+                    </div>
+                `;
+            }
+
+            // Ajuste por conglomerados
+            if (deff > 1) {
+                html += `
+                    <div class="mb-4">
+                        <h3 class="text-sm font-bold text-gray-700 mb-2">6. Ajuste por Diseño de Conglomerados</h3>
+                        <div class="formula-block">deff = 1 + (m − 1) × ρ = ${deff.toFixed(3)}</div>
+                        <p class="text-sm mt-2">n ajustado por deff: <strong>${nAdjusted ? nAdjusted.toLocaleString() : 'No calculado'}</strong></p>
+                    </div>
+                `;
+            }
+
+            // Nota final
+            html += `
+                <div class="mt-6 pt-4 border-t border-gray-200 text-xs text-gray-400">
+                    <p>Este reporte fue generado por la herramienta "Cálculo de Muestra Frecuentista para Estudios Epidemiológicos" v1.0.</p>
+                    <p>Herramienta docente. Los resultados deben ser verificados por un bioestadístico antes de su uso en investigación formal.</p>
+                    <p>Hash completo: ${hash}</p>
+                </div>
+            `;
+
+            document.getElementById('reportPreview').innerHTML = html;
+        },
+
+        /**
+         * Genera y descarga el reporte como archivo HTML independiente.
+         */
+        async downloadHTML() {
+            const reportContent = document.getElementById('reportPreview').innerHTML;
+            const now = new Date();
+
+            const fullHTML = `<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte - Cálculo de Muestra Epidemiológica</title>
+    <style>
+        body { font-family: 'Segoe UI', system-ui, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; color: #1f2937; font-size: 14px; }
+        h2 { color: #1e3a5f; }
+        h3 { color: #374151; margin-top: 20px; }
+        .formula-block { background: #f8fafc; border-left: 3px solid #1e3a5f; padding: 12px 16px; margin: 8px 0; border-radius: 0 6px 6px 0; font-family: Georgia, serif; }
+        table { border-collapse: collapse; }
+        td { padding: 4px 12px; }
+        .bg-primary-50 { background: #e8eef5; border-radius: 8px; padding: 16px; }
+        ul { padding-left: 20px; }
+        li { margin: 4px 0; }
+        code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.85em; }
+        @media print { body { font-size: 11pt; } }
+    </style>
+</head>
+<body>
+    ${reportContent}
+</body>
+</html>`;
+
+            const blob = new Blob([fullHTML], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `reporte_muestra_${now.toISOString().slice(0,10)}.html`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    };
+
+
+    // ================================================================
+    // MÓDULO: APP — Controlador principal de la aplicación
+    // ================================================================
+    /**
+     * Orquesta la navegación, recolección de datos y coordinación
+     * entre los módulos de la aplicación.
+     */
+    const APP = {
+        /** Paso actual del asistente */
+        currentStep: 1,
+        /** Total de pasos */
+        totalSteps: 5,
+        /** Pasos etiquetados */
+        stepLabels: {
+            1: 'Tipo de estudio',
+            2: 'Parámetros',
+            3: 'Resultados',
+            4: 'Ajustes y sensibilidad',
+            5: 'Reporte final'
+        },
+
+        /**
+         * Inicializa la aplicación.
+         */
+        init() {
+            this.showStep(1);
+            this.updateConnectionStatus();
+            window.addEventListener('online', () => this.updateConnectionStatus());
+            window.addEventListener('offline', () => this.updateConnectionStatus());
+
+            // Registrar service worker
+            this.registerSW();
+        },
+
+        /**
+         * Registra el Service Worker para funcionalidad offline.
+         */
+        async registerSW() {
+            if ('serviceWorker' in navigator) {
+                try {
+                    // Service Worker como blob URL
+                    const swCode = `
+                        const CACHE_NAME = 'epi-sample-v1';
+                        const ASSETS = ['./', './index.html'];
+
+                        self.addEventListener('install', (event) => {
+                            event.waitUntil(
+                                caches.open(CACHE_NAME).then(cache => {
+                                    return cache.addAll(ASSETS).catch(() => {});
+                                })
+                            );
+                            self.skipWaiting();
+                        });
+
+                        self.addEventListener('activate', (event) => {
+                            event.waitUntil(
+                                caches.keys().then(keys =>
+                                    Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
+                                )
+                            );
+                            self.clients.claim();
+                        });
+
+                        self.addEventListener('fetch', (event) => {
+                            event.respondWith(
+                                caches.match(event.request).then(response => {
+                                    return response || fetch(event.request).then(fetchResponse => {
+                                        if (fetchResponse && fetchResponse.status === 200) {
+                                            const responseClone = fetchResponse.clone();
+                                            caches.open(CACHE_NAME).then(cache => {
+                                                cache.put(event.request, responseClone);
+                                            });
+                                        }
+                                        return fetchResponse;
+                                    }).catch(() => {
+                                        return new Response('<h1>Offline</h1><p>La aplicación funciona offline con los datos ya cargados.</p>', {
+                                            headers: { 'Content-Type': 'text/html' }
+                                        });
+                                    });
+                                })
+                            );
+                        });
+                    `;
+
+                    const blob = new Blob([swCode], { type: 'application/javascript' });
+                    const swUrl = URL.createObjectURL(blob);
+
+                    // Intentar registrar; puede fallar por restricciones de blob URL
+                    // pero la app sigue funcionando
+                    await navigator.serviceWorker.register(swUrl, { scope: '/' }).catch(() => {
+                        // Silenciar error - la app funciona sin SW
+                        console.log('Service Worker no registrado (normal en algunos contextos). La app funciona correctamente.');
+                    });
+                } catch (e) {
+                    console.log('SW setup skipped:', e.message);
+                }
+            }
+        },
+
+        /**
+         * Actualiza el badge de estado de conexión.
+         */
+        updateConnectionStatus() {
+            const badge = document.getElementById('statusBadge');
+            if (navigator.onLine) {
+                badge.className = 'status-badge bg-green-500 text-white';
+                badge.textContent = '● En línea';
+            } else {
+                badge.className = 'status-badge bg-yellow-500 text-white';
+                badge.textContent = '● Offline';
+            }
+        },
+
+        /**
+         * Navega al siguiente paso.
+         */
+        nextStep() {
+            // Validar paso actual antes de avanzar
+            if (!this.validateCurrentStep()) return;
+
+            // Ejecutar acciones de transición
+            if (this.currentStep === 1) {
+                this.setupParamsForm();
+            } else if (this.currentStep === 2) {
+                this.runCalculation();
+            } else if (this.currentStep === 3) {
+                this.setupAdjustments();
+            } else if (this.currentStep === 4) {
+                reportGenerator.generatePreview();
+            }
+
+            if (this.currentStep < this.totalSteps) {
+                this.showStep(this.currentStep + 1);
+            }
+        },
+
+        /**
+         * Navega al paso anterior.
+         */
+        prevStep() {
+            if (this.currentStep > 1) {
+                this.showStep(this.currentStep - 1);
+            }
+        },
+
+        /**
+         * Navega directamente a un paso (si es accesible).
+         */
+        goToStep(step) {
+            if (step <= this.currentStep || step === this.currentStep - 1) {
+                this.showStep(step);
+            }
+        },
+
+        /**
+         * Muestra un paso específico y oculta los demás.
+         */
+        showStep(step) {
+            // Ocultar todos los paneles
+            document.querySelectorAll('.step-panel').forEach(p => p.classList.add('hidden'));
+
+            // Mostrar el panel deseado
+            const panel = document.getElementById(`step${step}`);
+            panel.classList.remove('hidden');
+            panel.classList.add('step-enter');
+
+            // Actualizar indicadores
+            this.currentStep = step;
+            this.updateStepIndicators();
+
+            // Scroll al top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        },
+
+        /**
+         * Actualiza los indicadores de paso en la navegación.
+         */
+        updateStepIndicators() {
+            for (let i = 1; i <= this.totalSteps; i++) {
+                const indicator = document.querySelector(`.step-indicator[data-step="${i}"]`);
+                const line = document.querySelector(`[data-line="${i}"]`);
+
+                indicator.classList.remove('active', 'completed');
+
+                if (i < this.currentStep) {
+                    indicator.classList.add('completed');
+                    if (line) line.style.backgroundColor = '#22c55e';
+                } else if (i === this.currentStep) {
+                    indicator.classList.add('active');
+                    if (line) line.style.backgroundColor = '#e5e7eb';
+                } else {
+                    if (line) line.style.backgroundColor = '#e5e7eb';
+                }
+            }
+
+            document.getElementById('stepLabel').textContent =
+                `Paso ${this.currentStep}: ${this.stepLabels[this.currentStep]}`;
+        },
+
+        /**
+         * Valida el paso actual.
+         * @returns {boolean}
+         */
+        validateCurrentStep() {
+            if (this.currentStep === 1) {
+                return studySelector.isValid();
+            }
+            if (this.currentStep === 2) {
+                const params = this.collectParams();
+                const result = validator.validate(params, studySelector.current);
+                validator.display(result);
+                return result.valid;
+            }
+            return true;
+        },
+
+        /**
+         * Configura el formulario de parámetros según el tipo de estudio.
+         */
+        setupParamsForm() {
+            const study = studySelector.current;
+            const config = studySelector.getConfig();
+            const container = document.getElementById('paramsContainer');
+
+            document.getElementById('step2Subtitle').textContent =
+                `Parámetros para: ${config.name}`;
+
+            let html = '';
+
+            // Campos comunes a todos los estudios comparativos
+            const alphaField = `
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Nivel de significación (α)
+                        <span class="tooltip-trigger text-primary-400 cursor-help">ⓘ
+                            <span class="tooltip-box">Probabilidad de error tipo I. Convencionalmente 0.05 (5%).</span>
+                        </span>
+                    </label>
+                    <select id="param_alpha" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-300">
+                        <option value="0.01">0.01 (99% confianza)</option>
+                        <option value="0.05" selected>0.05 (95% confianza)</option>
+                        <option value="0.10">0.10 (90% confianza)</option>
+                    </select>
+                </div>
+            `;
+
+            const powerField = `
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Potencia estadística (1-β)
+                        <span class="tooltip-trigger text-primary-400 cursor-help">ⓘ
+                            <span class="tooltip-box">Probabilidad de detectar una diferencia real. Valores comunes: 80% o 90%.</span>
+                        </span>
+                    </label>
+                    <select id="param_power" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-300">
+                        <option value="0.70">70%</option>
+                        <option value="0.80" selected>80%</option>
+                        <option value="0.90">90%</option>
+                        <option value="0.95">95%</option>
+                    </select>
+                </div>
+            `;
+
+            const lossesField = `
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Pérdidas esperadas (%)
+                        <span class="tooltip-trigger text-primary-400 cursor-help">ⓘ
+                            <span class="tooltip-box">Proporción estimada de participantes que se perderán durante el seguimiento o no responderán.</span>
+                        </span>
+                    </label>
+                    <input type="number" id="param_losses" value="10" min="0" max="50" step="1"
+                           class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-300">
+                    <span class="text-xs text-gray-400">Ingrese como porcentaje (ej: 10 para 10%)</span>
+                </div>
+            `;
+
+            const popField = `
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Tamaño de población (N) — opcional
+                        <span class="tooltip-trigger text-primary-400 cursor-help">ⓘ
+                            <span class="tooltip-box">Si la población es finita y conocida, ingrese el tamaño total. Dejar vacío para asumir población infinita.</span>
+                        </span>
+                    </label>
+                    <input type="number" id="param_N" value="" min="1" step="1" placeholder="Dejar vacío = infinita"
+                           class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-300">
+                </div>
+            `;
+
+            // Campos de precisión
+            const precisionPropField = `
+                <div class="border-t pt-4 mt-4">
+                    <h4 class="text-sm font-semibold text-gray-600 mb-2">Enfoque de Precisión (opcional)</h4>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Ancho máximo deseado del IC
+                    </label>
+                    <input type="number" id="param_width" value="0.10" min="0.01" max="1" step="0.01"
+                           class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-300">
+                    <span class="text-xs text-gray-400">Ancho total del intervalo de confianza deseado</span>
+                </div>
+            `;
+
+            const precisionMeanField = `
+                <div class="border-t pt-4 mt-4">
+                    <h4 class="text-sm font-semibold text-gray-600 mb-2">Enfoque de Precisión (opcional)</h4>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Ancho máximo deseado del IC
+                    </label>
+                    <input type="number" id="param_width" value="2" min="0.1" max="100" step="0.1"
+                           class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-300">
+                </div>
+            `;
+
+            const precisionORField = `
+                <div class="border-t pt-4 mt-4">
+                    <h4 class="text-sm font-semibold text-gray-600 mb-2">Enfoque de Precisión (opcional)</h4>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Ancho máximo del IC de ln(OR)
+                    </label>
+                    <input type="number" id="param_widthLnOR" value="1.0" min="0.1" max="3" step="0.1"
+                           class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-300">
+                    <span class="text-xs text-gray-400">Ancho del IC en escala logarítmica del OR</span>
+                </div>
+            `;
+
+            const precisionRRField = `
+                <div class="border-t pt-4 mt-4">
+                    <h4 class="text-sm font-semibold text-gray-600 mb-2">Enfoque de Precisión (opcional)</h4>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Ancho máximo del IC de ln(RR)
+                    </label>
+                    <input type="number" id="param_widthLnRR" value="1.0" min="0.1" max="3" step="0.1"
+                           class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-300">
+                    <span class="text-xs text-gray-400">Ancho del IC en escala logarítmica del RR</span>
+                </div>
+            `;
+
+            // Generar campos según tipo de estudio
+            switch (study) {
+                case 'trans_prop':
+                    html = `
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">
+                                    Proporción esperada (p)
+                                    <span class="tooltip-trigger text-primary-400 cursor-help">ⓘ
+                                        <span class="tooltip-box">Prevalencia esperada de la condición. Si desconocida, use 0.50 (máxima variabilidad).</span>
+                                    </span>
+                                </label>
+                                <input type="number" id="param_p" value="0.50" min="0.01" max="0.99" step="0.01"
+                                       class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-300">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">
+                                    Margen de error (d)
+                                    <span class="tooltip-trigger text-primary-400 cursor-help">ⓘ
+                                        <span class="tooltip-box">Error absoluto máximo aceptable. Semiancho del IC. Valor típico: 0.05.</span>
+                                    </span>
+                                </label>
+                                <input type="number" id="param_marginError" value="0.05" min="0.01" max="0.20" step="0.01"
+                                       class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-300">
+                            </div>
+                            ${alphaField}
+                            ${lossesField}
+                            ${popField}
+                        </div>
+                        ${precisionPropField}
+                    `;
+                    this.updateFundamento2('trans_prop');
+                    break;
+
+                case 'trans_mean':
+                    html = `
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Desviación estándar estimada (σ)</label>
+                                <input type="number" id="param_sd" value="10" min="0.1" step="0.1"
+                                       class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-300">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Margen de error (d)</label>
+                                <input type="number" id="param_marginError" value="2" min="0.1" step="0.1"
+                                       class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-300">
+                            </div>
+                            ${alphaField}
+                            ${lossesField}
+                            ${popField}
+                        </div>
+                        ${precisionMeanField}
+                    `;
+                    this.updateFundamento2('trans_mean');
+                    break;
+
+                case 'trans_comp_prop':
+                    html = `
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Proporción grupo 1 (p₁)</label>
+                                <input type="number" id="param_p1" value="0.50" min="0.01" max="0.99" step="0.01"
+                                       class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-300">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Proporción grupo 2 (p₂)</label>
+                                <input type="number" id="param_p2" value="0.30" min="0.01" max="0.99" step="0.01"
+                                       class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-300">
+                            </div>
+                            ${alphaField}
+                            ${powerField}
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Razón de grupos (r = n₂/n₁)</label>
+                                <input type="number" id="param_ratio" value="1" min="0.5" max="4" step="0.5"
+                                       class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-300">
+                            </div>
+                            ${lossesField}
+                            ${popField}
+                        </div>
+                        ${precisionPropField}
+                    `;
+                    this.updateFundamento2('trans_comp_prop');
+                    break;
+
+                case 'trans_comp_mean':
+                    html = `
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Diferencia mínima detectable (δ)</label>
+                                <input type="number" id="param_delta" value="5" min="0.1" step="0.1"
+                                       class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-300">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Desviación estándar común (σ)</label>
+                                <input type="number" id="param_sd" value="10" min="0.1" step="0.1"
+                                       class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-300">
+                            </div>
+                            ${alphaField}
+                            ${powerField}
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Razón de grupos (r = n₂/n₁)</label>
+                                <input type="number" id="param_ratio" value="1" min="0.5" max="4" step="0.5"
+                                       class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-300">
+                            </div>
+                            ${lossesField}
+                            ${popField}
+                        </div>
+                        ${precisionMeanField}
+                    `;
+                    this.updateFundamento2('trans_comp_mean');
+                    break;
+
+                case 'cc_or':
+                    html = `
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">
+                                    OR esperado
+                                    <span class="tooltip-trigger text-primary-400 cursor-help">ⓘ
+                                        <span class="tooltip-box">Odds Ratio que se espera detectar como mínimo. Basado en literatura previa o hipótesis.</span>
+                                    </span>
+                                </label>
+                                <input type="number" id="param_or" value="2.0" min="0.1" max="20" step="0.1"
+                                       class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-300">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">
+                                    Prop. exposición en controles (p₂)
+                                    <span class="tooltip-trigger text-primary-400 cursor-help">ⓘ
+                                        <span class="tooltip-box">Prevalencia de la exposición en el grupo control (no enfermo). Dato de literatura o estudios previos.</span>
+                                    </span>
+                                </label>
+                                <input type="number" id="param_pControl" value="0.30" min="0.01" max="0.99" step="0.01"
+                                       class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-300">
+                            </div>
+                            ${alphaField}
+                            ${powerField}
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">
+                                    Razón casos:controles
+                                    <span class="tooltip-trigger text-primary-400 cursor-help">ⓘ
+                                        <span class="tooltip-box">Número de controles por cada caso. 1:1, 1:2, 1:3, etc.</span>
+                                    </span>
+                                </label>
+                                <input type="number" id="param_ratio" value="1" min="0.5" max="4" step="0.5"
+                                       class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-300">
+                            </div>
+                            ${lossesField}
+                        </div>
+                        ${precisionORField}
+                    `;
+                    this.updateFundamento2('cc_or');
+                    break;
+
+                case 'cohort_rr':
+                    html = `
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">
+                                    RR esperado
+                                    <span class="tooltip-trigger text-primary-400 cursor-help">ⓘ
+                                        <span class="tooltip-box">Riesgo Relativo que se espera detectar como mínimo.</span>
+                                    </span>
+                                </label>
+                                <input type="number" id="param_rr" value="2.0" min="0.1" max="20" step="0.1"
+                                       class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-300">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">
+                                    Incidencia en no expuestos (p₂)
+                                    <span class="tooltip-trigger text-primary-400 cursor-help">ⓘ
+                                        <span class="tooltip-box">Probabilidad de desarrollar el desenlace en el grupo no expuesto.</span>
+                                    </span>
+                                </label>
+                                <input type="number" id="param_pUnexposed" value="0.10" min="0.01" max="0.80" step="0.01"
+                                       class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-300">
+                            </div>
+                            ${alphaField}
+                            ${powerField}
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Razón expuestos:no expuestos</label>
+                                <input type="number" id="param_ratio" value="1" min="0.5" max="4" step="0.5"
+                                       class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-300">
+                            </div>
+                            ${lossesField}
+                        </div>
+                        ${precisionRRField}
+                    `;
+                    this.updateFundamento2('cohort_rr');
+                    break;
+            }
+
+            container.innerHTML = html;
+        },
+
+        /**
+         * Actualiza el contenido del fundamento matemático del paso 2.
+         */
+        updateFundamento2(studyType) {
+            const content = document.getElementById('fund2Content');
+            const formulas = {
+                trans_prop: `
+                    <p><strong>Fórmula para estimación de proporción:</strong></p>
+                    <div class="formula-block">n = z²<sub>α/2</sub> × p(1-p) / d²</div>
+                    <p><strong>z<sub>α/2</sub></strong>: Cuantil de la distribución normal correspondiente al nivel de confianza deseado.</p>
+                    <p><strong>p</strong>: Proporción esperada (prevalencia). Si desconocida, usar 0.50 maximiza el tamaño de muestra.</p>
+                    <p><strong>d</strong>: Margen de error absoluto (semiancho del IC). Define la precisión.</p>
+                    <p><strong>Supuesto:</strong> Muestreo aleatorio simple de una población infinita. Se aplica corrección por población finita si N es conocido.</p>
+                    <p><strong>Limitación:</strong> Asume distribución normal de la proporción muestral (aproximación válida si np ≥ 5 y n(1-p) ≥ 5).</p>
+                `,
+                trans_mean: `
+                    <p><strong>Fórmula para estimación de media:</strong></p>
+                    <div class="formula-block">n = z²<sub>α/2</sub> × σ² / d²</div>
+                    <p><strong>σ</strong>: Desviación estándar poblacional estimada (de estudios previos o piloto).</p>
+                    <p><strong>d</strong>: Margen de error absoluto para la media.</p>
+                    <p><strong>Limitación:</strong> Requiere una buena estimación de σ. Si σ se desconoce, considere un estudio piloto.</p>
+                `,
+                trans_comp_prop: `
+                    <p><strong>Comparación de proporciones (Fleiss, 1981):</strong></p>
+                    <div class="formula-block">n = [z<sub>α/2</sub>√((1+1/r)p̄q̄) + z<sub>β</sub>√(p₁q₁+p₂q₂/r)]² / (p₁-p₂)²</div>
+                    <p>Con corrección de continuidad de Fleiss:</p>
+                    <div class="formula-block">n<sub>c</sub> = (n/4) × [1 + √(1 + 2(1+r)/(n×r×|p₁-p₂|))]²</div>
+                    <p><strong>p̄</strong> = (p₁ + r×p₂)/(1+r): proporción ponderada bajo H₀.</p>
+                    <p><strong>r</strong>: Razón de tamaños de grupo (n₂/n₁).</p>
+                    <p><strong>Supuesto:</strong> Prueba bilateral, grupos independientes, muestreo aleatorio.</p>
+                `,
+                trans_comp_mean: `
+                    <p><strong>Comparación de medias (Chow, Shao & Wang, 2008):</strong></p>
+                    <div class="formula-block">n = (z<sub>α/2</sub> + z<sub>β</sub>)² × σ² × (1+1/r) / δ²</div>
+                    <p><strong>δ</strong>: Diferencia mínima clínicamente relevante entre las medias.</p>
+                    <p><strong>σ</strong>: Desviación estándar común (asume homocedasticidad).</p>
+                    <p><strong>Supuesto:</strong> Varianzas iguales en ambos grupos. Para varianzas desiguales, use la fórmula de Satterthwaite.</p>
+                `,
+                cc_or: `
+                    <p><strong>Casos y controles basado en OR (Kelsey et al., 1996):</strong></p>
+                    <p>Primero se deriva p₁ (exposición en casos) del OR y p₂ (exposición en controles):</p>
+                    <div class="formula-block">p₁ = OR × p₂ / [1 + p₂(OR - 1)]</div>
+                    <p>Luego se aplica la fórmula de comparación de proporciones con corrección de Fleiss.</p>
+                    <p><strong>OR</strong>: Odds Ratio esperado (basado en literatura).</p>
+                    <p><strong>p₂</strong>: Proporción de exposición en controles (dato de referencia).</p>
+                    <p><strong>r</strong>: Razón controles:casos. Valores > 1 permiten menos casos pero con rendimiento decreciente.</p>
+                `,
+                cohort_rr: `
+                    <p><strong>Cohorte basado en RR (Kelsey et al., 1996):</strong></p>
+                    <p>Se deriva p₁ (incidencia en expuestos) del RR y p₂ (incidencia en no expuestos):</p>
+                    <div class="formula-block">p₁ = RR × p₂</div>
+                    <p>Luego se aplica la fórmula de comparación de proporciones con corrección de Fleiss.</p>
+                    <p><strong>RR</strong>: Riesgo Relativo esperado.</p>
+                    <p><strong>p₂</strong>: Incidencia esperada en no expuestos.</p>
+                    <p><strong>Limitación:</strong> La fórmula asume que p₁ = RR × p₂ < 1. Valores altos de RR con p₂ moderada pueden producir p₁ inválidas.</p>
+                `
+            };
+
+            content.innerHTML = formulas[studyType] || '<p>Seleccione un tipo de estudio.</p>';
+        },
+
+        /**
+         * Recolecta todos los parámetros del formulario actual.
+         * @returns {object} Parámetros
+         */
+        collectParams() {
+            const params = {};
+            const study = studySelector.current;
+
+            // Campos comunes
+            const alphaEl = document.getElementById('param_alpha');
+            const powerEl = document.getElementById('param_power');
+            const lossesEl = document.getElementById('param_losses');
+            const nEl = document.getElementById('param_N');
+            const ratioEl = document.getElementById('param_ratio');
+
+            if (alphaEl) params.alpha = parseFloat(alphaEl.value);
+            if (powerEl) params.power = parseFloat(powerEl.value);
+            if (lossesEl) params.losses = parseFloat(lossesEl.value) / 100; // Convertir porcentaje a decimal
+            if (nEl && nEl.value) params.N = parseInt(nEl.value);
+            if (ratioEl) params.ratio = parseFloat(ratioEl.value);
+
+            // Campos específicos
+            switch (study) {
+                case 'trans_prop':
+                    params.p = parseFloat(document.getElementById('param_p').value);
+                    params.marginError = parseFloat(document.getElementById('param_marginError').value);
+                    break;
+                case 'trans_mean':
+                    params.sd = parseFloat(document.getElementById('param_sd').value);
+                    params.marginError = parseFloat(document.getElementById('param_marginError').value);
+                    break;
+                case 'trans_comp_prop':
+                    params.p1 = parseFloat(document.getElementById('param_p1').value);
+                    params.p2 = parseFloat(document.getElementById('param_p2').value);
+                    break;
+                case 'trans_comp_mean':
+                    params.delta = parseFloat(document.getElementById('param_delta').value);
+                    params.sd = parseFloat(document.getElementById('param_sd').value);
+                    break;
+                case 'cc_or':
+                    params.or = parseFloat(document.getElementById('param_or').value);
+                    params.pControl = parseFloat(document.getElementById('param_pControl').value);
+                    break;
+                case 'cohort_rr':
+                    params.rr = parseFloat(document.getElementById('param_rr').value);
+                    params.pUnexposed = parseFloat(document.getElementById('param_pUnexposed').value);
+                    break;
+            }
+
+            // Parámetros de precisión (opcionales)
+            const widthEl = document.getElementById('param_width');
+            const widthLnOREl = document.getElementById('param_widthLnOR');
+            const widthLnRREl = document.getElementById('param_widthLnRR');
+
+            if (widthEl) params.width = parseFloat(widthEl.value);
+            if (widthLnOREl) params.widthLnOR = parseFloat(widthLnOREl.value);
+            if (widthLnRREl) params.widthLnRR = parseFloat(widthLnRREl.value);
+
+            return params;
+        },
+
+        /**
+         * Ejecuta el cálculo y muestra los resultados.
+         */
+        runCalculation() {
+            const study = studySelector.current;
+            const params = this.collectParams();
+
+            // Cálculo clásico
+            const classical = classicalEngine.calculate(study, params);
+
+            // Mostrar resultados clásicos
+            this.displayClassicalResults(classical);
+
+            // Cálculo de precisión
+            const precision = precisionEngine.calculate(study, params);
+            this.displayPrecisionResults(precision, classical);
+
+            // Actualizar fundamento del paso 3
+            this.updateFundamento3(classical, precision);
+        },
+
+        /**
+         * Muestra los resultados del enfoque clásico.
+         */
+        displayClassicalResults(result) {
+            const container = document.getElementById('classicalResults');
+
+            if (result.error) {
+                container.innerHTML = `<div class="bg-red-50 border-l-4 border-err-500 p-3 rounded-r text-sm text-red-800">${result.errorMsg}</div>`;
+                return;
+            }
+
+            let html = `
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-4">
+            `;
+
+            if (result.groups === 1) {
+                html += `
+                    <div class="text-center p-4 bg-primary-50 rounded-lg col-span-2 sm:col-span-3">
+                        <div class="text-3xl font-bold text-primary-600">${result.nTotal.toLocaleString()}</div>
+                        <div class="text-xs text-gray-500 mt-1">Tamaño de muestra total</div>
+                    </div>
+                `;
+            } else {
+                html += `
+                    <div class="text-center p-4 bg-primary-50 rounded-lg">
+                        <div class="text-2xl font-bold text-primary-600">${result.nPerGroup.toLocaleString()}</div>
+                        <div class="text-xs text-gray-500 mt-1">n grupo 1</div>
+                    </div>
+                `;
+                if (result.nGroup2) {
+                    html += `
+                        <div class="text-center p-4 bg-primary-50 rounded-lg">
+                            <div class="text-2xl font-bold text-primary-600">${result.nGroup2.toLocaleString()}</div>
+                            <div class="text-xs text-gray-500 mt-1">n grupo 2</div>
+                        </div>
+                    `;
+                }
+                html += `
+                    <div class="text-center p-4 bg-green-50 rounded-lg">
+                        <div class="text-2xl font-bold text-accent-600">${result.nTotal.toLocaleString()}</div>
+                        <div class="text-xs text-gray-500 mt-1">n total</div>
+                    </div>
+                `;
+            }
+
+            html += `</div>`;
+
+            // Detalle de supuestos
+            html += `
+                <div class="text-sm text-gray-600 space-y-1">
+                    <p class="font-semibold text-gray-700 mb-2">Supuestos del cálculo:</p>
+                    <ul class="list-disc list-inside space-y-1">
+            `;
+            result.assumptions.forEach(a => {
+                html += `<li>${a}</li>`;
+            });
+            html += `</ul></div>`;
+
+            // Desglose
+            html += `
+                <div class="mt-3 text-xs text-gray-500 bg-gray-50 rounded p-3">
+                    <p><strong>n base (sin correcciones):</strong> ${result.nBase.toLocaleString()}</p>
+            `;
+            if (result.nFleiss) {
+                html += `<p><strong>n con corrección de Fleiss:</strong> ${result.nFleiss.toLocaleString()}</p>`;
+            }
+            html += `
+                    <p><strong>n total final (con pérdidas):</strong> ${result.nTotal.toLocaleString()}</p>
+                </div>
+            `;
+
+            container.innerHTML = html;
+        },
+
+        /**
+         * Muestra los resultados del enfoque de precisión.
+         */
+        displayPrecisionResults(precision, classical) {
+            const container = document.getElementById('precisionResults');
+
+            if (!precision || precision.error) {
+                container.innerHTML = `<p class="text-sm text-gray-500">${precision?.errorMsg || 'No disponible para este tipo de estudio.'}</p>`;
+                return;
+            }
+
+            let html = `
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div class="text-center p-4 bg-blue-50 rounded-lg">
+                        <div class="text-2xl font-bold text-blue-700">${precision.n.toLocaleString()}</div>
+                        <div class="text-xs text-gray-500 mt-1">n (enfoque precisión)</div>
+                    </div>
+                    <div class="text-center p-4 bg-gray-50 rounded-lg">
+                        <div class="text-2xl font-bold text-gray-600">${classical.nTotal.toLocaleString()}</div>
+                        <div class="text-xs text-gray-500 mt-1">n (enfoque hipótesis)</div>
+                    </div>
+                </div>
+                <div class="formula-block text-sm">${precision.formula}</div>
+                <p class="text-sm text-gray-600 mt-2">${precision.description}</p>
+                <p class="text-xs text-gray-400 mt-1">${precision.detail}</p>
+            `;
+
+            // Comparación entre ambos enfoques
+            const diff = precision.n - classical.nTotal;
+            const larger = diff > 0 ? 'precisión' : 'hipótesis';
+            html += `
+                <div class="mt-3 p-3 bg-yellow-50 rounded-lg text-sm text-gray-700">
+                    <strong>Comparación:</strong> El enfoque de ${larger} requiere ${Math.abs(diff).toLocaleString()} participantes más.
+                    <span class="block text-xs text-gray-500 mt-1">Se recomienda usar el mayor de ambos para garantizar tanto potencia estadística como precisión de la estimación.</span>
+                </div>
+            `;
+
+            container.innerHTML = html;
+        },
+
+        /**
+         * Actualiza el fundamento del paso 3.
+         */
+        updateFundamento3(classical, precision) {
+            const content = document.getElementById('fund3Content');
+            let html = `
+                <p><strong>Fórmula clásica utilizada:</strong></p>
+                <div class="formula-block">${classical.formula}</div>
+                <p class="text-xs mt-1">${classical.formulaDetail}</p>
+            `;
+
+            if (precision && !precision.error) {
+                html += `
+                    <p class="mt-3"><strong>Fórmula de precisión:</strong></p>
+                    <div class="formula-block">${precision.formula}</div>
+                    <p class="text-xs mt-1">${precision.detail}</p>
+                `;
+            }
+
+            html += `
+                <p class="mt-3"><strong>Notas importantes:</strong></p>
+                <ul class="list-disc list-inside text-xs space-y-1">
+                    <li>Los valores z se calculan con la aproximación de Acklam (precisión ~10⁻⁹).</li>
+                    <li>La corrección de Fleiss es conservadora (aumenta n).</li>
+                    <li>El ajuste por pérdidas se aplica como: n<sub>final</sub> = n / (1 - L).</li>
+                    <li>La corrección por población finita se aplica como: n<sub>corr</sub> = n₀ / (1 + (n₀-1)/N).</li>
+                </ul>
+            `;
+
+            content.innerHTML = html;
+        },
+
+        /**
+         * Configura el paso 4 (ajustes y sensibilidad).
+         */
+        setupAdjustments() {
+            // Actualizar ajuste por conglomerados
+            clusterAdjustment.update();
+
+            // Inicializar sensibilidad
+            const params = this.collectParams();
+            sensitivityEngine.init(studySelector.current, params);
+        },
+
+        /**
+         * Alterna visibilidad de secciones colapsables.
+         * @param {string} id - ID del contenedor colapsable
+         */
+        toggleCollapsible(id) {
+            const el = document.getElementById(id);
+            el.classList.toggle('open');
+
+            // Si es el panel de sensibilidad, actualizar botón
+            if (id === 'sensitivityPanel') {
+                const btn = document.getElementById('toggleSensBtn');
+                if (el.classList.contains('open')) {
+                    btn.textContent = 'Ocultar ▲';
+                    // Redibujar canvas después de que se abra
+                    setTimeout(() => {
+                        if (sensitivityEngine.currentData.length > 0) {
+                            sensitivityEngine.drawChart(sensitivityEngine.currentData, sensitivityEngine.currentParam);
+                        }
+                    }, 400);
+                } else {
+                    btn.textContent = 'Mostrar ▼';
+                }
+            }
+        },
+
+        /**
+         * Reinicia la aplicación para un nuevo cálculo.
+         */
+        restart() {
+            studySelector.current = null;
+            document.querySelectorAll('.study-card').forEach(c => c.classList.remove('selected'));
+            classicalEngine.lastResult = null;
+            precisionEngine.lastResult = null;
+            clusterAdjustment.lastDeff = 1;
+            clusterAdjustment.lastNAdjusted = null;
+            this.showStep(1);
+        }
+    };
+
+
+    // ================================================================
+    // INICIALIZACIÓN
+    // ================================================================
+    document.addEventListener('DOMContentLoaded', () => {
+        APP.init();
+    });
+
+    // Resize handler para canvas de sensibilidad
+    window.addEventListener('resize', () => {
+        if (sensitivityEngine.currentData.length > 0) {
+            sensitivityEngine.drawChart(sensitivityEngine.currentData, sensitivityEngine.currentParam);
+        }
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1810 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SurveyAnalytica v2 — Análisis de Encuestas Complejas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1e3a5f',
+                        secondary: '#2c5282',
+                        accent: '#3182ce',
+                        surface: '#f7fafc',
+                        danger: '#e53e3e',
+                        warning: '#dd6b20',
+                        success: '#38a169',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #e2e8f0; }
+        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 3px; }
+        .spinner { border: 3px solid #e2e8f0; border-top: 3px solid #3182ce; border-radius: 50%; width: 24px; height: 24px; animation: spin 0.8s linear infinite; display: inline-block; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .table-container { max-height: 350px; overflow: auto; }
+        .fade-in { animation: fadeIn 0.4s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .collapsible-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+        .collapsible-content.open { max-height: 5000px; transition: max-height 0.5s ease-in; }
+        .help-bubble { position: relative; }
+        .help-bubble .help-text { display: none; position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: #1a202c; color: white; padding: 12px 16px; border-radius: 10px; font-size: 0.8rem; line-height: 1.5; width: 320px; z-index: 100; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+        .help-bubble .help-text::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 6px solid transparent; border-top-color: #1a202c; }
+        .help-bubble:hover .help-text, .help-bubble:focus-within .help-text { display: block; }
+        .quality-bar { height: 8px; border-radius: 4px; background: #e2e8f0; overflow: hidden; }
+        .quality-fill { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
+        @media (max-width: 768px) {
+            .help-bubble .help-text { width: 260px; left: 0; transform: none; }
+            .help-bubble .help-text::after { left: 20px; }
+        }
+        @media print { .no-print { display: none !important; } }
+        .forest-plot-row { display: flex; align-items: center; gap: 8px; margin: 4px 0; }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-50">
+
+    <!-- ══════════ HEADER ══════════ -->
+    <header class="bg-primary text-white shadow-lg no-print">
+        <div class="max-w-6xl mx-auto px-4 py-4">
+            <div class="flex items-center justify-between flex-wrap gap-2">
+                <div class="flex items-center gap-3">
+                    <div class="bg-white/20 rounded-lg p-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-bold">SurveyAnalytica  <span class="text-blue-300 text-sm">v2</span></h1>
+                        <p class="text-xs text-blue-200">Analiza encuestas complejas </p>
+                    </div>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="showHelp('general')" class="bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-lg text-sm flex items-center gap-1 transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        Ayuda
+                    </button>
+                    <button onclick="loadDemoData()" class="bg-green-500 hover:bg-green-600 px-3 py-1.5 rounded-lg text-sm font-medium flex items-center gap-1 transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                        Demo Rápida
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ══════════ BARRA DE PASOS ══════════ -->
+    <div class="max-w-6xl mx-auto px-4 py-3 no-print">
+        <div class="flex items-center gap-2 overflow-x-auto pb-1">
+            <button id="step1-btn" onclick="goToStep(1)" class="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-accent text-white whitespace-nowrap transition-all">
+                <span class="bg-white/30 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">1</span>
+                Cargar Datos
+            </button>
+            <svg class="w-4 h-4 text-gray-300 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"/></svg>
+            <button id="step2-btn" onclick="goToStep(2)" class="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-gray-200 text-gray-500 whitespace-nowrap transition-all" disabled>
+                <span class="bg-gray-300 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">2</span>
+                Configurar Diseño
+            </button>
+            <svg class="w-4 h-4 text-gray-300 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"/></svg>
+            <button id="step3-btn" onclick="goToStep(3)" class="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-gray-200 text-gray-500 whitespace-nowrap transition-all" disabled>
+                <span class="bg-gray-300 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">3</span>
+                Verificar
+            </button>
+            <svg class="w-4 h-4 text-gray-300 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"/></svg>
+            <button id="step4-btn" onclick="goToStep(4)" class="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-gray-200 text-gray-500 whitespace-nowrap transition-all" disabled>
+                <span class="bg-gray-300 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">4</span>
+                Resultados
+            </button>
+        </div>
+    </div>
+
+    <!-- ══════════ CONTENIDO PRINCIPAL ══════════ -->
+    <main class="max-w-6xl mx-auto px-4 pb-8">
+
+        <!-- ══════════ MODAL DE AYUDA ══════════ -->
+        <div id="helpModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onclick="if(event.target===this)closeHelp()">
+            <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto">
+                <div class="sticky top-0 bg-white border-b px-6 py-4 flex items-center justify-between rounded-t-2xl">
+                    <h2 id="helpTitle" class="text-lg font-bold text-primary">Ayuda</h2>
+                    <button onclick="closeHelp()" class="text-gray-400 hover:text-gray-600 p-1">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+                <div id="helpBody" class="px-6 py-4 text-sm text-gray-700 leading-relaxed"></div>
+            </div>
+        </div>
+
+        <!-- ════════ PASO 1: CARGA DE DATOS ════════ -->
+        <section id="step1" class="fade-in">
+            <!-- Banner de bienvenida -->
+            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-5 mb-5">
+                <h2 class="text-base font-bold text-primary mb-2">👋 ¿Qué hace esta herramienta?</h2>
+                <p class="text-sm text-gray-700 mb-3">
+                    Calcula <strong>promedios, totales, proporciones y razones</strong> a partir de datos de encuestas, 
+                    teniendo en cuenta que la encuesta puede tener un <strong>diseño complejo</strong> (estratos, conglomerados, pesos).
+                </p>
+                <p class="text-sm text-gray-600 mb-3">
+                    ¿Por qué importa? Si tu encuesta no fue un muestreo aleatorio simple, los promedios normales y los 
+                    márgenes de error de Excel <strong>están mal</strong>. Esta herramienta los calcula correctamente.
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="loadDemoData()" class="bg-accent hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-1 transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                        Probar con datos de ejemplo
+                    </button>
+                    <button onclick="showHelp('concepts')" class="border border-blue-300 text-blue-700 px-4 py-2 rounded-lg text-sm flex items-center gap-1 hover:bg-blue-50 transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                        ¿Qué son estratos, conglomerados y pesos?
+                    </button>
+                </div>
+            </div>
+
+            <!-- Zona de carga -->
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h2 class="text-base font-bold text-primary mb-4 flex items-center gap-2">
+                    <span class="bg-accent text-white rounded-full w-7 h-7 flex items-center justify-center text-sm">1</span>
+                    Sube tu archivo de datos
+                </h2>
+
+                <div id="dropZone" class="border-2 border-dashed border-blue-300 rounded-xl p-8 text-center hover:border-blue-500 hover:bg-blue-50 transition-all cursor-pointer mb-4" onclick="document.getElementById('fileInput').click()">
+                    <svg class="w-12 h-12 mx-auto text-blue-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+                    <p class="text-gray-600 font-medium">Arrastra un archivo CSV o Excel aquí</p>
+                    <p class="text-gray-400 text-sm mt-1">o haz clic para seleccionar · Formatos: .csv, .xlsx, .xls · Máx 50,000 filas</p>
+                    <input type="file" id="fileInput" accept=".csv,.xlsx,.xls" class="hidden">
+                </div>
+
+                <div id="loadingSpinner" class="hidden text-center py-4">
+                    <div class="spinner mx-auto mb-2"></div>
+                    <p class="text-sm text-gray-500">Leyendo archivo...</p>
+                </div>
+
+                <!-- Info archivo cargado -->
+                <div id="fileInfoBar" class="hidden bg-green-50 border border-green-200 rounded-lg p-4 mb-4 fade-in">
+                    <div class="flex items-center gap-3 flex-wrap">
+                        <span class="text-green-600 text-xl">✅</span>
+                        <div class="flex-1">
+                            <span class="font-medium text-green-800" id="lblFileName"></span>
+                            <div class="text-xs text-green-600 mt-0.5">
+                                <span id="lblRows"></span> · <span id="lblCols"></span> · <span id="lblHash"></span>
+                            </div>
+                        </div>
+                        <button onclick="resetAll()" class="text-sm text-red-500 hover:text-red-700 underline">Cambiar archivo</button>
+                    </div>
+                </div>
+
+                <!-- Alerta de datos faltantes -->
+                <div id="missingAlert" class="hidden bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4 fade-in">
+                    <div class="flex items-start gap-2">
+                        <span class="text-yellow-600 text-lg">⚠️</span>
+                        <div>
+                            <p class="font-medium text-yellow-800 text-sm">Datos faltantes detectados</p>
+                            <p id="missingDetail" class="text-xs text-yellow-700 mt-1"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vista previa -->
+                <div id="previewSection" class="hidden fade-in">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="text-sm font-semibold text-gray-700">Vista previa (primeras 15 filas)</h3>
+                        <span class="text-xs text-gray-400">Desplaza horizontalmente para ver todas las columnas →</span>
+                    </div>
+                    <div class="table-container border rounded-lg mb-4">
+                        <table class="min-w-full text-xs">
+                            <thead id="previewHead" class="bg-gray-100 sticky top-0"></thead>
+                            <tbody id="previewBody" class="divide-y divide-gray-50"></tbody>
+                        </table>
+                    </div>
+
+                    <!-- Tipos detectados -->
+                    <div class="bg-gray-50 rounded-lg p-4 mb-4">
+                        <h3 class="text-sm font-semibold text-gray-700 mb-2">Tipos detectados automáticamente</h3>
+                        <div id="typeGrid" class="flex flex-wrap gap-2"></div>
+                    </div>
+
+                    <button onclick="goToStep(2)" class="bg-accent hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg font-medium transition-colors flex items-center gap-2">
+                        Siguiente: Configurar Diseño
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ════════ PASO 2: CONFIGURACIÓN GUIADA ════════ -->
+        <section id="step2" class="hidden fade-in">
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h2 class="text-base font-bold text-primary mb-1 flex items-center gap-2">
+                    <span class="bg-accent text-white rounded-full w-7 h-7 flex items-center justify-center text-sm">2</span>
+                    Configura el diseño de tu encuesta
+                </h2>
+                <p class="text-sm text-gray-500 mb-5">Responde cada pregunta para que calculemos correctamente. Si no estás seguro, haz clic en el ícono de ayuda.</p>
+
+                <!-- Pregunta 1: Variable objetivo -->
+                <div class="border rounded-xl p-4 mb-4 bg-blue-50/50">
+                    <div class="flex items-start gap-3">
+                        <span class="bg-blue-100 text-blue-700 rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold flex-shrink-0 mt-0.5">A</span>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-1">
+                                <label class="font-semibold text-gray-800 text-sm">¿Qué variable quieres analizar?</label>
+                                <span class="text-red-500 text-xs font-bold">REQUERIDO</span>
+                                <div class="help-bubble">
+                                    <button class="text-gray-400 hover:text-blue-600"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></button>
+                                    <div class="help-text">
+                                        <strong>Variable objetivo:</strong> Es la columna que contiene el dato que quieres estimar. 
+                                        <br><br>Ejemplos: <em>ingreso mensual, gasto en salud, años de educación, si está empleado (1/0)</em>.
+                                        <br><br>💡 En el dataset de ejemplo, prueba con <code>ingreso</code> para promedios o <code>empleo</code> para proporciones.
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-500 mb-2">Es la columna con el dato que quieres estimar (promedio, total, proporción).</p>
+                            <select id="selTarget" class="w-full md:w-2/3 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 bg-white">
+                                <option value="">— Selecciona una variable —</option>
+                            </select>
+                            <div id="targetPreview" class="hidden mt-2 text-xs bg-white rounded-lg p-2 border"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 2: Estratos -->
+                <div class="border rounded-xl p-4 mb-4">
+                    <div class="flex items-start gap-3">
+                        <span class="bg-gray-100 text-gray-600 rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold flex-shrink-0 mt-0.5">B</span>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-1">
+                                <label class="font-semibold text-gray-800 text-sm">¿Tu encuesta dividió la población en grupos antes de muestrear?</label>
+                                <span class="text-gray-400 text-xs">OPCIONAL</span>
+                                <div class="help-bubble">
+                                    <button class="text-gray-400 hover:text-blue-600"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></button>
+                                    <div class="help-text">
+                                        <strong>Estratos:</strong> Son grupos en los que se dividió la población <em>antes</em> de seleccionar la muestra, y se muestreó independientemente dentro de cada uno.
+                                        <br><br>Ejemplos: <em>regiones del país, zona urbana/rural, nivel socioeconómico</em>.
+                                        <br><br>🔑 Clave: si la columna tiene pocos valores (2-20) y representan categorías predefinidas, probablemente es un estrato.
+                                        <br><br>💡 En el ejemplo: <code>estrato</code> (urbano_alto, urbano_medio, rural_norte, rural_sur).
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-500 mb-2">Estos se llaman <strong>estratos</strong> (ej: regiones, urbano/rural). Si no los hay, déjalo vacío.</p>
+                            <select id="selStratum" class="w-full md:w-2/3 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 bg-white">
+                                <option value="">— No hay estratos —</option>
+                            </select>
+                            <div id="stratumPreview" class="hidden mt-2 text-xs bg-gray-50 rounded-lg p-2 border"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 3: Conglomerados -->
+                <div class="border rounded-xl p-4 mb-4">
+                    <div class="flex items-start gap-3">
+                        <span class="bg-gray-100 text-gray-600 rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold flex-shrink-0 mt-0.5">C</span>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-1">
+                                <label class="font-semibold text-gray-800 text-sm">¿Se seleccionaron grupos completos (manzanas, escuelas, localidades)?</label>
+                                <span class="text-gray-400 text-xs">OPCIONAL</span>
+                                <div class="help-bubble">
+                                    <button class="text-gray-400 hover:text-blue-600"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></button>
+                                    <div class="help-text">
+                                        <strong>Conglomerados (UPM):</strong> Si primero se eligieron <em>lugares</em> (manzanas, aldeas, escuelas, centros de salud) y luego se entrevistó a personas dentro de esos lugares, los lugares son conglomerados.
+                                        <br><br>También se llaman <strong>Unidades Primarias de Muestreo (UPM)</strong> o PSU.
+                                        <br><br>🔑 La columna debería tener un ID para cada grupo (ej: UPM_01, UPM_02...).
+                                        <br><br>💡 En el ejemplo: <code>conglomerado</code> (UPM_01 a UPM_16).
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-500 mb-2">Estos se llaman <strong>conglomerados</strong> o <strong>UPM</strong>. Si la encuesta fue persona por persona, déjalo vacío.</p>
+                            <select id="selCluster" class="w-full md:w-2/3 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 bg-white">
+                                <option value="">— No hay conglomerados —</option>
+                            </select>
+                            <div id="clusterPreview" class="hidden mt-2 text-xs bg-gray-50 rounded-lg p-2 border"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 4: Pesos -->
+                <div class="border rounded-xl p-4 mb-4">
+                    <div class="flex items-start gap-3">
+                        <span class="bg-gray-100 text-gray-600 rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold flex-shrink-0 mt-0.5">D</span>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-1">
+                                <label class="font-semibold text-gray-800 text-sm">¿Cada persona tiene un peso o factor de expansión?</label>
+                                <span class="text-gray-400 text-xs">OPCIONAL</span>
+                                <div class="help-bubble">
+                                    <button class="text-gray-400 hover:text-blue-600"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></button>
+                                    <div class="help-text">
+                                        <strong>Peso muestral:</strong> Es un número que indica "a cuántas personas de la población representa" cada encuestado. 
+                                        <br><br>Si una persona tiene peso = 500, significa que representa a 500 personas similares en la población.
+                                        <br><br>Los pesos corrigen el hecho de que no todas las personas tienen la misma probabilidad de ser seleccionadas.
+                                        <br><br>💡 En el ejemplo: <code>peso</code> (valores entre 1250 y 3125).
+                                        <br><br>Si no hay pesos, cada persona cuenta igual (peso = 1).
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-500 mb-2">El peso indica cuántas personas de la población representa cada encuestado. Si no existe, todos pesan igual.</p>
+                            <select id="selWeight" class="w-full md:w-2/3 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 bg-white">
+                                <option value="">— Todos pesan igual (peso = 1) —</option>
+                            </select>
+                            <div id="weightPreview" class="hidden mt-2 text-xs bg-gray-50 rounded-lg p-2 border"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 5: FPC -->
+                <div class="border rounded-xl p-4 mb-4">
+                    <div class="flex items-start gap-3">
+                        <span class="bg-gray-100 text-gray-600 rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold flex-shrink-0 mt-0.5">E</span>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-1">
+                                <label class="font-semibold text-gray-800 text-sm">¿Conoces el tamaño total de la población (por estrato)?</label>
+                                <span class="text-gray-400 text-xs">OPCIONAL</span>
+                                <div class="help-bubble">
+                                    <button class="text-gray-400 hover:text-blue-600"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></button>
+                                    <div class="help-text">
+                                        <strong>Corrección de Población Finita (FPC):</strong> Si muestreaste una fracción grande de la población (más del 5%), la varianza real es menor que lo que calculan las fórmulas estándar.
+                                        <br><br>La columna debe contener el tamaño total de la población del estrato (N_h) o la fracción muestreada.
+                                        <br><br>Si el valor es > 1, se interpreta como N_h. Si es ≤ 1, como fracción (n/N).
+                                        <br><br>💡 En el ejemplo: <code>fpc</code> (15000, 22500, 25000, 23000).
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-500 mb-2">Se usa para la corrección de población finita. Si la muestra es pequeña respecto a la población, no es necesario.</p>
+                            <select id="selFPC" class="w-full md:w-2/3 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 bg-white">
+                                <option value="">— No disponible —</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 6: Dominio -->
+                <div class="border rounded-xl p-4 mb-4">
+                    <div class="flex items-start gap-3">
+                        <span class="bg-gray-100 text-gray-600 rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold flex-shrink-0 mt-0.5">F</span>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-1">
+                                <label class="font-semibold text-gray-800 text-sm">¿Quieres analizar un subgrupo específico?</label>
+                                <span class="text-gray-400 text-xs">OPCIONAL</span>
+                                <div class="help-bubble">
+                                    <button class="text-gray-400 hover:text-blue-600"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></button>
+                                    <div class="help-text">
+                                        <strong>Análisis de dominio:</strong> Permite estimar solo para un subgrupo (ej: solo mujeres, solo zona norte) <em>sin eliminar los demás registros</em>.
+                                        <br><br>¿Por qué no simplemente filtrar? Porque filtrar rompe la estructura del diseño muestral y produce errores estándar incorrectos.
+                                        <br><br>💡 Prueba con <code>sexo</code> → valor <code>F</code> para analizar solo mujeres.
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-500 mb-2">Por ejemplo, analizar solo mujeres o solo una región. Se mantiene la estructura del diseño.</p>
+                            <select id="selDomain" class="w-full md:w-2/3 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 bg-white">
+                                <option value="">— Analizar toda la muestra —</option>
+                            </select>
+                            <div id="domainValueBox" class="hidden mt-2">
+                                <label class="text-xs font-medium text-gray-600">Valor del subgrupo:</label>
+                                <select id="selDomainValue" class="w-full md:w-1/2 border border-gray-300 rounded-lg px-3 py-2 text-sm mt-1 bg-white">
+                                    <option value="">— Todos los valores —</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Estimadores -->
+                <div class="border rounded-xl p-4 mb-4">
+                    <div class="flex items-start gap-3">
+                        <span class="bg-gray-100 text-gray-600 rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold flex-shrink-0 mt-0.5">G</span>
+                        <div class="flex-1">
+                            <label class="font-semibold text-gray-800 text-sm mb-2 block">¿Qué quieres calcular?</label>
+                            <div class="flex flex-wrap gap-x-5 gap-y-2">
+                                <label class="flex items-center gap-2 text-sm cursor-pointer">
+                                    <input type="checkbox" id="chkMean" checked class="rounded text-blue-600 w-4 h-4">
+                                    <span><strong>Promedio</strong> <span class="text-gray-400">(media ponderada)</span></span>
+                                </label>
+                                <label class="flex items-center gap-2 text-sm cursor-pointer">
+                                    <input type="checkbox" id="chkTotal" checked class="rounded text-blue-600 w-4 h-4">
+                                    <span><strong>Total</strong> <span class="text-gray-400">(total poblacional)</span></span>
+                                </label>
+                                <label class="flex items-center gap-2 text-sm cursor-pointer">
+                                    <input type="checkbox" id="chkProportion" class="rounded text-blue-600 w-4 h-4">
+                                    <span><strong>Proporción</strong> <span class="text-gray-400">(para variables 0/1)</span></span>
+                                </label>
+                                <label class="flex items-center gap-2 text-sm cursor-pointer">
+                                    <input type="checkbox" id="chkRatio" class="rounded text-blue-600 w-4 h-4">
+                                    <span><strong>Razón</strong> <span class="text-gray-400">(variable ÷ otra variable)</span></span>
+                                </label>
+                            </div>
+                            <div id="ratioBox" class="hidden mt-3 pl-6 border-l-2 border-blue-200">
+                                <label class="text-xs font-medium text-gray-600 block mb-1">¿Dividir entre cuál variable?</label>
+                                <select id="selRatioDenom" class="w-full md:w-1/2 border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white">
+                                    <option value="">— Seleccionar denominador —</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex gap-3 flex-wrap">
+                    <button onclick="goToStep(3)" id="btnToStep3" class="bg-accent hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg font-medium transition-colors flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        Siguiente: Verificar Configuración
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </button>
+                    <button onclick="goToStep(1)" class="border border-gray-300 text-gray-600 px-4 py-2.5 rounded-lg text-sm hover:bg-gray-50 transition-colors">← Volver</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ════════ PASO 3: VERIFICACIÓN ════════ -->
+        <section id="step3" class="hidden fade-in">
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h2 class="text-base font-bold text-primary mb-1 flex items-center gap-2">
+                    <span class="bg-accent text-white rounded-full w-7 h-7 flex items-center justify-center text-sm">3</span>
+                    Verifica antes de ejecutar
+                </h2>
+                <p class="text-sm text-gray-500 mb-5">Revisa que todo esté correcto. Si algo no cuadra, regresa al paso anterior.</p>
+
+                <!-- Resumen de configuración -->
+                <div id="sanityCheck" class="space-y-2 mb-6"></div>
+
+                <!-- Diseño detectado -->
+                <div id="designBadge" class="bg-indigo-50 border border-indigo-200 rounded-xl p-4 mb-6">
+                    <h3 class="text-sm font-bold text-indigo-800 mb-1">Diseño Muestral Detectado</h3>
+                    <p id="designName" class="text-indigo-700 font-semibold text-lg"></p>
+                    <p id="designDesc" class="text-xs text-indigo-600 mt-1"></p>
+                </div>
+
+                <div class="flex gap-3 flex-wrap">
+                    <button onclick="runAnalysis()" id="btnRun" class="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-bold transition-colors flex items-center gap-2 text-base">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                        ¡Ejecutar Análisis!
+                    </button>
+                    <button onclick="goToStep(2)" class="border border-gray-300 text-gray-600 px-4 py-2.5 rounded-lg text-sm hover:bg-gray-50 transition-colors">← Modificar configuración</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ════════ PASO 4: RESULTADOS ════════ -->
+        <section id="step4" class="hidden fade-in">
+
+            <!-- Resultado principal destacado -->
+            <div id="mainResultCard" class="bg-white rounded-xl shadow-lg p-6 mb-6 border-t-4 border-accent"></div>
+
+            <!-- Diagnósticos -->
+            <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                <button onclick="toggleCollapsible('diagCollapsible')" class="w-full flex items-center justify-between text-left">
+                    <h2 class="text-base font-bold text-primary flex items-center gap-2">
+                        🔍 Diagnósticos del Diseño
+                    </h2>
+                    <svg class="w-5 h-5 text-gray-400 transform transition-transform" id="diagArrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div id="diagCollapsible" class="collapsible-content open">
+                    <div id="diagMetrics" class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4"></div>
+                    <div id="diagWarnings" class="mt-4"></div>
+                </div>
+            </div>
+
+            <!-- Tabla de resultados detallada -->
+            <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                <button onclick="toggleCollapsible('detailCollapsible')" class="w-full flex items-center justify-between text-left">
+                    <h2 class="text-base font-bold text-primary flex items-center gap-2">
+                        📋 Detalle Técnico Completo
+                    </h2>
+                    <svg class="w-5 h-5 text-gray-400 transform transition-transform" id="detailArrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div id="detailCollapsible" class="collapsible-content">
+                    <div id="detailContent" class="mt-4"></div>
+                </div>
+            </div>
+
+            <!-- Gráficos -->
+            <div id="chartsPanel" class="bg-white rounded-xl shadow-md p-6 mb-6">
+                <h2 class="text-base font-bold text-primary flex items-center gap-2 mb-4">📊 Visualización</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="text-sm font-semibold text-gray-700 mb-2">Intervalos de Confianza</h3>
+                        <canvas id="forestCanvas" width="500" height="250" class="w-full border rounded-lg bg-gray-50"></canvas>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-gray-700 mb-2">Distribución de Pesos</h3>
+                        <canvas id="weightsCanvas" width="500" height="250" class="w-full border rounded-lg bg-gray-50"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dominio -->
+            <div id="domainPanel" class="hidden bg-white rounded-xl shadow-md p-6 mb-6">
+                <h2 class="text-base font-bold text-primary flex items-center gap-2 mb-4">👥 Resultados por Subgrupo</h2>
+                <div id="domainContent"></div>
+            </div>
+
+            <!-- Acciones -->
+            <div class="flex gap-3 flex-wrap no-print mb-8">
+                <button onclick="exportReport()" class="bg-primary hover:bg-secondary text-white px-6 py-2.5 rounded-lg font-medium flex items-center gap-2 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    Exportar Informe Técnico
+                </button>
+                <button onclick="goToStep(2)" class="border border-gray-300 text-gray-600 px-4 py-2.5 rounded-lg text-sm hover:bg-gray-50">← Cambiar configuración</button>
+                <button onclick="resetAll()" class="border border-red-300 text-red-600 px-4 py-2.5 rounded-lg text-sm hover:bg-red-50">🔄 Nuevo análisis</button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-gray-400 text-xs text-center py-4 no-print">
+        <p>SurveyAnalytica Pro v2 · Cochran (1977) · Kish (1965) · Särndal et al. (1992)</p>
+    </footer>
+
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         JAVASCRIPT — MÓDULOS
+         ══════════════════════════════════════════════════════════════════════ -->
+    <script>
+    "use strict";
+
+    /* ═══════════════════════════════════════════
+       DATOS DE DEMOSTRACIÓN EMBEBIDOS
+       Encuesta de hogares simulada: 150 registros,
+       4 estratos, 16 UPMs, pesos diferenciados.
+       ═══════════════════════════════════════════ */
+    const DEMO_CSV = `id,estrato,conglomerado,peso,fpc,ingreso,gasto,educacion_anios,empleo,sexo,edad,region,satisfaccion,horas_trabajo,miembros_hogar
+1,urbano_alto,UPM_01,1250.5,15000,48500,32000,16,1,M,35,norte,4,45,3
+2,urbano_alto,UPM_01,1250.5,15000,52300,34500,18,1,F,42,norte,5,40,2
+3,urbano_alto,UPM_01,1250.5,15000,61000,41000,17,1,M,51,norte,4,50,4
+4,urbano_alto,UPM_01,1250.5,15000,43200,29800,14,1,F,29,norte,3,42,2
+5,urbano_alto,UPM_01,1250.5,15000,55800,37200,16,1,M,38,norte,4,48,3
+6,urbano_alto,UPM_02,1250.5,15000,71000,45000,20,1,F,45,norte,5,38,1
+7,urbano_alto,UPM_02,1250.5,15000,49700,33100,15,1,M,33,norte,3,44,4
+8,urbano_alto,UPM_02,1250.5,15000,58200,39500,17,1,F,40,norte,4,41,2
+9,urbano_alto,UPM_02,1250.5,15000,46100,31200,16,0,M,62,norte,4,0,3
+10,urbano_alto,UPM_02,1250.5,15000,53900,36800,18,1,F,37,norte,5,39,2
+11,urbano_alto,UPM_03,1250.5,15000,44800,30500,14,1,M,28,sur,3,46,5
+12,urbano_alto,UPM_03,1250.5,15000,67500,43200,19,1,F,48,sur,5,36,2
+13,urbano_alto,UPM_03,1250.5,15000,51200,34800,16,1,M,41,sur,4,43,3
+14,urbano_alto,UPM_03,1250.5,15000,48900,33600,15,1,F,36,sur,4,40,2
+15,urbano_alto,UPM_03,1250.5,15000,59300,40100,17,1,M,44,sur,4,47,3
+16,urbano_alto,UPM_04,1250.5,15000,42100,28900,13,1,F,26,sur,3,38,2
+17,urbano_alto,UPM_04,1250.5,15000,56700,38400,16,1,M,39,sur,4,45,4
+18,urbano_alto,UPM_04,1250.5,15000,63400,42100,18,1,F,47,sur,5,37,1
+19,urbano_alto,UPM_04,1250.5,15000,47500,32400,15,0,M,65,sur,3,0,2
+20,urbano_alto,UPM_04,1250.5,15000,54100,36200,17,1,F,34,sur,4,41,3
+21,urbano_medio,UPM_05,1875.2,22500,32100,24500,12,1,M,30,norte,3,44,4
+22,urbano_medio,UPM_05,1875.2,22500,28700,21800,10,1,F,27,norte,3,40,3
+23,urbano_medio,UPM_05,1875.2,22500,35400,26200,13,1,M,35,norte,3,46,5
+24,urbano_medio,UPM_05,1875.2,22500,31200,23900,11,1,F,32,norte,2,42,3
+25,urbano_medio,UPM_05,1875.2,22500,29800,22600,12,0,M,58,norte,3,0,2
+26,urbano_medio,UPM_06,1875.2,22500,33600,25100,12,1,F,34,norte,3,39,4
+27,urbano_medio,UPM_06,1875.2,22500,27500,20900,9,1,M,25,norte,2,43,3
+28,urbano_medio,UPM_06,1875.2,22500,36800,27400,14,1,F,38,norte,4,37,2
+29,urbano_medio,UPM_06,1875.2,22500,30500,23200,11,1,M,31,norte,3,45,4
+30,urbano_medio,UPM_06,1875.2,22500,34200,25800,13,1,F,36,norte,3,41,3
+31,urbano_medio,UPM_07,1875.2,22500,26800,20300,9,1,M,24,sur,2,44,5
+32,urbano_medio,UPM_07,1875.2,22500,31900,24100,12,1,F,33,sur,3,38,3
+33,urbano_medio,UPM_07,1875.2,22500,29100,22100,10,0,M,60,sur,3,0,3
+34,urbano_medio,UPM_07,1875.2,22500,35100,26000,13,1,F,37,sur,4,36,2
+35,urbano_medio,UPM_07,1875.2,22500,28400,21500,11,1,M,29,sur,2,42,4
+36,urbano_medio,UPM_08,1875.2,22500,33100,24800,12,1,F,35,sur,3,40,3
+37,urbano_medio,UPM_08,1875.2,22500,30800,23500,11,1,M,32,sur,3,43,4
+38,urbano_medio,UPM_08,1875.2,22500,27200,20600,10,1,F,28,sur,2,39,2
+39,urbano_medio,UPM_08,1875.2,22500,34700,25900,13,1,M,40,sur,3,46,5
+40,urbano_medio,UPM_08,1875.2,22500,32400,24600,12,1,F,31,sur,3,41,3
+41,rural_norte,UPM_09,3125.8,25000,15200,12800,6,1,M,28,norte,2,48,6
+42,rural_norte,UPM_09,3125.8,25000,12800,10900,4,0,F,55,norte,2,0,4
+43,rural_norte,UPM_09,3125.8,25000,18500,14200,8,1,M,34,norte,3,50,5
+44,rural_norte,UPM_09,3125.8,25000,14100,11800,6,1,F,30,norte,2,44,4
+45,rural_norte,UPM_09,3125.8,25000,16700,13500,7,1,M,38,norte,2,52,7
+46,rural_norte,UPM_10,3125.8,25000,13500,11200,5,1,F,26,norte,2,46,5
+47,rural_norte,UPM_10,3125.8,25000,19200,14800,9,1,M,36,norte,3,49,4
+48,rural_norte,UPM_10,3125.8,25000,11900,10100,4,0,F,63,norte,1,0,3
+49,rural_norte,UPM_10,3125.8,25000,17300,13900,7,1,M,32,norte,2,51,6
+50,rural_norte,UPM_10,3125.8,25000,14800,12200,6,1,F,29,norte,2,45,5
+51,rural_norte,UPM_11,3125.8,25000,16100,13100,7,1,M,31,norte,2,48,5
+52,rural_norte,UPM_11,3125.8,25000,13200,11000,5,1,F,27,norte,2,43,4
+53,rural_norte,UPM_11,3125.8,25000,20100,15400,9,1,M,40,norte,3,53,6
+54,rural_norte,UPM_11,3125.8,25000,15500,12700,6,0,F,59,norte,2,0,3
+55,rural_norte,UPM_11,3125.8,25000,17800,14100,8,1,M,35,norte,3,50,5
+56,rural_norte,UPM_12,3125.8,25000,12100,10300,4,1,F,24,norte,1,42,4
+57,rural_norte,UPM_12,3125.8,25000,18900,14600,8,1,M,37,norte,3,52,7
+58,rural_norte,UPM_12,3125.8,25000,14500,12000,6,1,F,33,norte,2,44,5
+59,rural_norte,UPM_12,3125.8,25000,16400,13300,7,1,M,30,norte,2,49,6
+60,rural_norte,UPM_12,3125.8,25000,13800,11500,5,0,M,61,norte,2,0,2
+61,rural_sur,UPM_13,2890.3,23000,17600,13700,7,1,F,29,sur,2,47,5
+62,rural_sur,UPM_13,2890.3,23000,14200,11600,6,1,M,33,sur,2,50,6
+63,rural_sur,UPM_13,2890.3,23000,21300,16100,10,1,F,39,sur,3,42,3
+64,rural_sur,UPM_13,2890.3,23000,13100,10800,5,0,M,57,sur,2,0,4
+65,rural_sur,UPM_13,2890.3,23000,18900,14500,8,1,F,35,sur,3,45,5
+66,rural_sur,UPM_14,2890.3,23000,15800,12900,7,1,M,31,sur,2,49,6
+67,rural_sur,UPM_14,2890.3,23000,12500,10400,4,1,F,25,sur,1,43,4
+68,rural_sur,UPM_14,2890.3,23000,19700,15100,9,1,M,42,sur,3,51,5
+69,rural_sur,UPM_14,2890.3,23000,16200,13200,7,1,F,34,sur,2,46,4
+70,rural_sur,UPM_14,2890.3,23000,14600,12100,6,0,F,60,sur,2,0,3
+71,rural_sur,UPM_15,2890.3,23000,13800,11400,5,1,M,27,sur,2,48,5
+72,rural_sur,UPM_15,2890.3,23000,20500,15700,9,1,F,41,sur,3,40,3
+73,rural_sur,UPM_15,2890.3,23000,16900,13600,7,1,M,36,sur,2,50,6
+74,rural_sur,UPM_15,2890.3,23000,15100,12500,6,1,F,30,sur,2,44,5
+75,rural_sur,UPM_15,2890.3,23000,11800,9900,4,1,M,23,sur,1,47,4
+76,rural_sur,UPM_16,2890.3,23000,18200,14100,8,1,F,37,sur,3,43,4
+77,rural_sur,UPM_16,2890.3,23000,14900,12300,6,1,M,32,sur,2,49,6
+78,rural_sur,UPM_16,2890.3,23000,22100,16800,11,1,F,44,sur,4,38,2
+79,rural_sur,UPM_16,2890.3,23000,13400,11100,5,0,M,64,sur,1,0,2
+80,rural_sur,UPM_16,2890.3,23000,17100,13800,7,1,F,28,sur,2,45,5
+81,urbano_alto,UPM_01,1250.5,15000,57600,38900,17,1,F,43,norte,4,39,2
+82,urbano_alto,UPM_01,1250.5,15000,44500,30200,14,1,M,31,norte,3,46,4
+83,urbano_alto,UPM_02,1250.5,15000,62800,42500,19,1,F,49,norte,5,35,1
+84,urbano_alto,UPM_02,1250.5,15000,50100,34200,16,1,M,36,norte,4,43,3
+85,urbano_alto,UPM_03,1250.5,15000,47200,32100,15,0,F,61,sur,3,0,2
+86,urbano_alto,UPM_03,1250.5,15000,55400,37600,17,1,M,40,sur,4,44,3
+87,urbano_alto,UPM_04,1250.5,15000,68200,44100,19,1,F,46,sur,5,36,1
+88,urbano_alto,UPM_04,1250.5,15000,45800,31500,14,1,M,30,sur,3,47,4
+89,urbano_medio,UPM_05,1875.2,22500,33800,25400,12,1,F,33,norte,3,40,3
+90,urbano_medio,UPM_05,1875.2,22500,29500,22400,10,1,M,28,norte,2,44,4
+91,urbano_medio,UPM_06,1875.2,22500,36200,27100,14,1,F,39,norte,4,37,2
+92,urbano_medio,UPM_06,1875.2,22500,28100,21200,9,1,M,26,norte,2,43,3
+93,urbano_medio,UPM_07,1875.2,22500,31500,23800,11,1,F,34,sur,3,39,3
+94,urbano_medio,UPM_07,1875.2,22500,34500,25600,13,1,M,37,sur,3,45,4
+95,urbano_medio,UPM_08,1875.2,22500,27800,21000,10,0,F,56,sur,2,0,2
+96,urbano_medio,UPM_08,1875.2,22500,32900,24700,12,1,M,35,sur,3,42,3
+97,rural_norte,UPM_09,3125.8,25000,15900,13000,6,1,F,31,norte,2,46,5
+98,rural_norte,UPM_09,3125.8,25000,19800,15200,9,1,M,39,norte,3,51,6
+99,rural_norte,UPM_10,3125.8,25000,13100,10900,5,1,F,27,norte,2,43,4
+100,rural_norte,UPM_10,3125.8,25000,17500,14000,7,1,M,34,norte,2,50,6
+101,rural_norte,UPM_11,3125.8,25000,14400,11900,6,1,F,30,norte,2,44,5
+102,rural_norte,UPM_11,3125.8,25000,18200,14300,8,1,M,36,norte,3,49,5
+103,rural_norte,UPM_12,3125.8,25000,16800,13500,7,1,F,33,norte,2,47,5
+104,rural_norte,UPM_12,3125.8,25000,12600,10600,5,0,M,58,norte,1,0,3
+105,rural_sur,UPM_13,2890.3,23000,16500,13400,7,1,M,30,sur,2,48,5
+106,rural_sur,UPM_13,2890.3,23000,19400,14900,8,1,F,38,sur,3,43,4
+107,rural_sur,UPM_14,2890.3,23000,14100,11700,6,1,M,29,sur,2,50,6
+108,rural_sur,UPM_14,2890.3,23000,17800,14200,8,1,F,36,sur,3,44,4
+109,rural_sur,UPM_15,2890.3,23000,15600,12800,6,1,M,32,sur,2,49,5
+110,rural_sur,UPM_15,2890.3,23000,21800,16500,10,1,F,43,sur,3,39,3
+111,rural_sur,UPM_16,2890.3,23000,13900,11500,5,1,M,26,sur,2,47,5
+112,rural_sur,UPM_16,2890.3,23000,18600,14400,8,1,F,40,sur,3,42,4
+113,urbano_alto,UPM_01,1250.5,15000,59100,40200,18,1,M,47,norte,5,41,2
+114,urbano_alto,UPM_02,1250.5,15000,43800,30000,13,1,F,28,norte,3,43,3
+115,urbano_alto,UPM_03,1250.5,15000,64700,43500,19,1,M,50,sur,5,38,2
+116,urbano_alto,UPM_04,1250.5,15000,51500,35100,16,1,F,38,sur,4,40,3
+117,urbano_medio,UPM_05,1875.2,22500,30200,23000,11,1,M,30,norte,3,44,4
+118,urbano_medio,UPM_06,1875.2,22500,35800,26800,14,1,F,40,norte,4,36,2
+119,urbano_medio,UPM_07,1875.2,22500,28900,21900,10,1,M,27,sur,2,43,4
+120,urbano_medio,UPM_08,1875.2,22500,33500,25200,12,1,F,36,sur,3,40,3
+121,rural_norte,UPM_09,3125.8,25000,17100,13600,7,1,M,35,norte,2,49,5
+122,rural_norte,UPM_10,3125.8,25000,14700,12100,6,1,F,29,norte,2,45,5
+123,rural_norte,UPM_11,3125.8,25000,19500,15000,9,1,M,41,norte,3,52,6
+124,rural_norte,UPM_12,3125.8,25000,15300,12600,6,1,F,32,norte,2,46,4
+125,rural_sur,UPM_13,2890.3,23000,18100,14000,8,1,M,37,sur,3,48,5
+126,rural_sur,UPM_14,2890.3,23000,13600,11300,5,0,F,62,sur,1,0,2
+127,rural_sur,UPM_15,2890.3,23000,16800,13600,7,1,M,34,sur,2,50,6
+128,rural_sur,UPM_16,2890.3,23000,20200,15500,9,1,F,42,sur,3,41,3
+129,urbano_alto,UPM_01,1250.5,15000,46300,31800,15,1,F,32,norte,4,42,3
+130,urbano_alto,UPM_02,1250.5,15000,69500,44800,20,1,M,52,norte,5,37,2
+131,urbano_alto,UPM_03,1250.5,15000,53100,36100,16,1,F,39,sur,4,40,2
+132,urbano_alto,UPM_04,1250.5,15000,48200,33000,15,1,M,34,sur,3,45,4
+133,urbano_medio,UPM_05,1875.2,22500,34900,26100,13,1,F,37,norte,3,38,3
+134,urbano_medio,UPM_06,1875.2,22500,29800,22600,10,1,M,29,norte,2,44,4
+135,urbano_medio,UPM_07,1875.2,22500,32200,24300,12,0,F,57,sur,3,0,2
+136,urbano_medio,UPM_08,1875.2,22500,36500,27300,14,1,M,41,sur,4,43,4
+137,rural_norte,UPM_09,3125.8,25000,13400,11100,5,1,F,25,norte,1,42,4
+138,rural_norte,UPM_10,3125.8,25000,18600,14400,8,1,M,38,norte,3,51,6
+139,rural_norte,UPM_11,3125.8,25000,15800,12900,6,1,F,31,norte,2,45,5
+140,rural_norte,UPM_12,3125.8,25000,20400,15600,9,1,M,42,norte,3,53,7
+141,rural_sur,UPM_13,2890.3,23000,15200,12500,6,1,F,28,sur,2,44,4
+142,rural_sur,UPM_14,2890.3,23000,19100,14700,8,1,M,40,sur,3,49,5
+143,rural_sur,UPM_15,2890.3,23000,14300,11800,6,0,F,59,sur,2,0,3
+144,rural_sur,UPM_16,2890.3,23000,17400,13900,7,1,M,35,sur,2,47,5
+145,urbano_alto,UPM_01,1250.5,15000,54600,37100,17,1,M,41,norte,4,44,3
+146,urbano_alto,UPM_02,1250.5,15000,47800,32700,15,1,F,35,norte,4,41,2
+147,urbano_alto,UPM_03,1250.5,15000,60500,41200,18,1,M,48,sur,5,39,2
+148,urbano_alto,UPM_04,1250.5,15000,42900,29500,13,1,F,27,sur,3,43,3
+149,urbano_medio,UPM_05,1875.2,22500,31800,24200,11,1,M,32,norte,3,45,4
+150,urbano_medio,UPM_06,1875.2,22500,28500,21600,10,1,F,30,norte,2,40,3`;
+
+
+    /* ═══════════════════════════════════════════
+       CONTENIDOS DE AYUDA
+       ═══════════════════════════════════════════ */
+    const HELP_CONTENT = {
+        general: {
+            title: '¿Cómo usar SurveyAnalytica Pro?',
+            body: `
+                <div class="space-y-4">
+                    <div class="bg-blue-50 rounded-lg p-4">
+                        <h3 class="font-bold text-blue-800 mb-2">🎯 ¿Para qué sirve?</h3>
+                        <p>Calcula estadísticas (promedios, totales, proporciones) a partir de datos de encuestas que usaron un <strong>diseño muestral complejo</strong> — es decir, que NO fueron un simple muestreo aleatorio.</p>
+                        <p class="mt-2">Si calculas promedios con Excel o funciones normales, los <strong>márgenes de error estarán equivocados</strong> (generalmente subestimados). Esta herramienta los calcula correctamente.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-gray-800 mb-2">📋 Pasos</h3>
+                        <ol class="list-decimal pl-5 space-y-1">
+                            <li><strong>Carga</strong> tu archivo CSV o Excel</li>
+                            <li><strong>Indica</strong> qué columna es la variable de interés, cuál es el estrato, el conglomerado y el peso</li>
+                            <li><strong>Verifica</strong> que la configuración sea correcta</li>
+                            <li><strong>Obtén</strong> resultados con interpretación en lenguaje claro</li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-gray-800 mb-2">⚡ Prueba rápida</h3>
+                        <p>Haz clic en <strong>"Demo Rápida"</strong> para cargar datos de ejemplo y ver resultados inmediatamente. Es la mejor forma de entender cómo funciona.</p>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-4 text-xs">
+                        <h3 class="font-bold text-gray-700 mb-1">📚 Base teórica</h3>
+                        <p>Implementa linealización de Taylor para estimación de varianza bajo diseños complejos, siguiendo Cochran (1977), Kish (1965) y Särndal et al. (1992). Compatible con los resultados de Stata <code>svy</code> y R <code>survey</code>.</p>
+                    </div>
+                </div>
+            `
+        },
+        concepts: {
+            title: '¿Qué son estratos, conglomerados y pesos?',
+            body: `
+                <div class="space-y-5">
+                    <div class="border-l-4 border-blue-400 pl-4">
+                        <h3 class="font-bold text-blue-800 mb-1">📊 Estratos</h3>
+                        <p>Imagina que quieres encuestar un país. En lugar de sortear personas al azar de todo el país, primero <strong>divides</strong> la población en grupos (regiones, urbano/rural, etc.) y luego muestreas <strong>dentro de cada grupo por separado</strong>.</p>
+                        <p class="mt-1 text-gray-600 text-sm">Cada grupo se llama <strong>estrato</strong>. La ventaja es que garantizas representación de cada grupo.</p>
+                        <div class="bg-blue-50 rounded p-2 mt-2 text-sm">
+                            <strong>En tu archivo:</strong> Busca una columna con pocas categorías como "región", "zona", "nivel_socioeconomico".
+                        </div>
+                    </div>
+                    <div class="border-l-4 border-green-400 pl-4">
+                        <h3 class="font-bold text-green-800 mb-1">🔵 Conglomerados (UPM)</h3>
+                        <p>En lugar de ir persona por persona, primero se eligen <strong>lugares</strong> (manzanas, escuelas, aldeas) y luego se entrevista a las personas dentro de esos lugares.</p>
+                        <p class="mt-1 text-gray-600 text-sm">Cada lugar se llama <strong>conglomerado</strong> o <strong>Unidad Primaria de Muestreo (UPM)</strong>. Esto es más barato, pero las personas dentro de un mismo lugar tienden a ser parecidas, lo que <strong>aumenta el margen de error</strong>.</p>
+                        <div class="bg-green-50 rounded p-2 mt-2 text-sm">
+                            <strong>En tu archivo:</strong> Busca una columna con IDs de lugar como "UPM_01", "manzana_23", "escuela_05".
+                        </div>
+                    </div>
+                    <div class="border-l-4 border-purple-400 pl-4">
+                        <h3 class="font-bold text-purple-800 mb-1">⚖️ Pesos</h3>
+                        <p>Si no todas las personas tienen la misma probabilidad de ser seleccionadas, cada persona recibe un <strong>peso</strong> que indica a cuántas personas de la población "representa".</p>
+                        <p class="mt-1 text-gray-600 text-sm">Ejemplo: si en zona rural se muestreó el 1% y en zona urbana el 2%, los rurales tendrán peso 100 y los urbanos peso 50.</p>
+                        <div class="bg-purple-50 rounded p-2 mt-2 text-sm">
+                            <strong>En tu archivo:</strong> Busca una columna numérica con nombres como "peso", "factor", "weight", "factor_expansion".
+                        </div>
+                    </div>
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-3 text-sm">
+                        <strong>💡 ¿No tienes nada de esto?</strong> No hay problema. Si tu encuesta fue un sorteo completamente al azar sin estratos ni conglomerados, simplemente deja esos campos vacíos. La herramienta calculará un Muestreo Simple Aleatorio.
+                    </div>
+                </div>
+            `
+        }
+    };
+
+
+    /* ═══════════════════════════════════════════
+       ESTADO DE LA APLICACIÓN
+       ═══════════════════════════════════════════ */
+    let APP = {
+        data: null, columns: [], types: {}, hash: '', fileName: '', currentStep: 1,
+        results: null, design: null, diagResult: null, spec: null
+    };
+
+
+    /* ═══════════════════════════════════════════
+       MÓDULO 1: dataLoader
+       ═══════════════════════════════════════════ */
+    const dataLoader = (() => {
+        async function computeHash(buffer) {
+            const h = await crypto.subtle.digest('SHA-256', buffer);
+            return Array.from(new Uint8Array(h)).map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+        function detectType(values) {
+            let num = 0, valid = 0;
+            for (const v of values) {
+                if (v === null || v === undefined || v === '') continue;
+                valid++;
+                if (!isNaN(Number(v)) && isFinite(Number(v))) num++;
+            }
+            if (valid === 0) return 'categorical';
+            // Heurística mejorada: si todos los valores numéricos son enteros y hay muchos únicos
+            // relativo al total, probablemente es un ID (categórica)
+            if (num / valid >= 0.8) {
+                const uniques = new Set(values.filter(v => v !== null && v !== undefined && v !== ''));
+                // Si tiene pocos valores únicos O los valores no son secuenciales, tratar como numérica
+                if (uniques.size > valid * 0.9 && valid > 20) {
+                    // Probablemente un ID, pero lo marcamos como numérica con advertencia
+                    return 'numeric';
+                }
+                return 'numeric';
+            }
+            return 'categorical';
+        }
+        async function parseFile(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = async (e) => {
+                    try {
+                        const buffer = e.target.result;
+                        const hash = await computeHash(buffer);
+                        const wb = XLSX.read(buffer, { type: 'array' });
+                        const data = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { defval: '' });
+                        if (!data.length) throw new Error('Archivo vacío');
+                        const sliced = data.slice(0, 50000);
+                        const cols = Object.keys(sliced[0]);
+                        const types = {};
+                        for (const c of cols) types[c] = detectType(sliced.map(r => r[c]));
+                        resolve({ data: sliced, columns: cols, types, hash, total: data.length });
+                    } catch (err) { reject(err); }
+                };
+                reader.onerror = () => reject(new Error('Error de lectura'));
+                reader.readAsArrayBuffer(file);
+            });
+        }
+        function parseCSVString(csv) {
+            const wb = XLSX.read(csv, { type: 'string' });
+            const data = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { defval: '' });
+            const cols = Object.keys(data[0]);
+            const types = {};
+            for (const c of cols) types[c] = detectType(data.map(r => r[c]));
+            return { data, columns: cols, types };
+        }
+        return { parseFile, parseCSVString };
+    })();
+
+
+    /* ═══════════════════════════════════════════
+       MÓDULO 2: designDetector
+       ═══════════════════════════════════════════ */
+    const designDetector = (() => {
+        function detect(spec, data) {
+            const hasS = spec.stratum && spec.stratum !== '';
+            const hasC = spec.cluster && spec.cluster !== '';
+            const hasW = spec.weight && spec.weight !== '';
+            if (hasS && hasC) return { code: 'E', label: 'Estratificado con Conglomerados', description: 'Muestreo en dos niveles: primero se estratifica, luego se seleccionan conglomerados dentro de cada estrato. Es el diseño más común en encuestas nacionales de hogares.' };
+            if (hasC && !hasS) return { code: 'D', label: 'Por Conglomerados', description: 'Se seleccionan grupos (UPMs) y se muestrea dentro de ellos, sin estratificación previa.' };
+            if (hasS && !hasC) {
+                if (hasW) {
+                    const strata = [...new Set(data.map(r => r[spec.stratum]))];
+                    let prop = true;
+                    for (const s of strata) {
+                        const ws = data.filter(r => r[spec.stratum] === s).map(r => Number(r[spec.weight])).filter(w => !isNaN(w));
+                        if (ws.length > 1) {
+                            const m = ws.reduce((a, b) => a + b, 0) / ws.length;
+                            const cv = Math.sqrt(ws.reduce((a, w) => a + (w - m) ** 2, 0) / ws.length) / Math.abs(m);
+                            if (cv > 0.05) { prop = false; break; }
+                        }
+                    }
+                    return prop
+                        ? { code: 'B', label: 'Estratificado Proporcional', description: 'Muestreo estratificado donde cada estrato se muestrea proporcionalmente a su tamaño. Los pesos son similares dentro de cada estrato.' }
+                        : { code: 'C', label: 'Estratificado No Proporcional', description: 'Muestreo estratificado con tasas de muestreo diferentes por estrato. Los pesos varían significativamente.' };
+                }
+                return { code: 'B', label: 'Estratificado', description: 'Muestreo estratificado sin pesos explícitos.' };
+            }
+            return { code: 'A', label: 'Muestreo Simple Aleatorio' + (hasW ? ' (ponderado)' : ''), description: hasW ? 'MSA con pesos de muestreo.' : 'Cada persona tiene la misma probabilidad de selección. No hay estratos ni conglomerados.' };
+        }
+        return { detect };
+    })();
+
+
+    /* ═══════════════════════════════════════════
+       MÓDULO 3: surveyEstimator
+       Motor estadístico con linealización de Taylor.
+       Referencia: Särndal et al. (1992), Cochran (1977)
+       ═══════════════════════════════════════════ */
+    const surveyEstimator = (() => {
+        /* Distribución t inversa (tabla + interpolación) */
+        function tCrit(df) {
+            if (df <= 0 || !isFinite(df)) return 1.96;
+            const T = {1:12.706,2:4.303,3:3.182,4:2.776,5:2.571,6:2.447,7:2.365,8:2.306,9:2.262,10:2.228,11:2.201,12:2.179,13:2.160,14:2.145,15:2.131,16:2.120,17:2.110,18:2.101,19:2.093,20:2.086,21:2.080,22:2.074,23:2.069,24:2.064,25:2.060,26:2.056,27:2.052,28:2.048,29:2.045,30:2.042,35:2.030,40:2.021,45:2.014,50:2.009,60:2.000,70:1.994,80:1.990,90:1.987,100:1.984,120:1.980};
+            if (T[df]) return T[df];
+            if (df >= 120) return 1.96;
+            const keys = Object.keys(T).map(Number).sort((a,b) => a-b);
+            for (let i = 0; i < keys.length - 1; i++) {
+                if (df > keys[i] && df < keys[i+1]) {
+                    const f = (df - keys[i]) / (keys[i+1] - keys[i]);
+                    return T[keys[i]] * (1 - f) + T[keys[i+1]] * f;
+                }
+            }
+            return 1.96;
+        }
+
+        /* Preparar datos con dominio */
+        function prep(data, spec) {
+            const hasDom = spec.domain && spec.domainValue && spec.domainValue !== '';
+            return data.map(row => {
+                const e = { ...row };
+                e._w = spec.weight ? Number(row[spec.weight]) : 1;
+                if (isNaN(e._w) || !isFinite(e._w) || e._w <= 0) e._w = 1;
+                const ry = Number(row[spec.target]);
+                e._y = isNaN(ry) ? null : ry;
+                if (hasDom) {
+                    e._inDom = String(row[spec.domain]).trim() === String(spec.domainValue).trim();
+                    e._yd = e._inDom ? e._y : 0;
+                } else {
+                    e._inDom = e._y !== null;
+                    e._yd = e._y;
+                }
+                if (spec.ratioDenom) {
+                    const rx = Number(row[spec.ratioDenom]);
+                    e._x = isNaN(rx) ? null : rx;
+                    e._xd = hasDom ? (e._inDom ? e._x : 0) : e._x;
+                }
+                return e;
+            }).filter(e => e._y !== null || hasDom);
+        }
+
+        /* Varianza Taylor */
+        function varTaylor(data, spec) {
+            const sCol = spec.stratum, cCol = spec.cluster, fCol = spec.fpc;
+            const strata = {};
+            for (const r of data) { const k = sCol ? String(r[sCol]) : '__ALL__'; (strata[k] = strata[k] || []).push(r); }
+            let totVar = 0, totDF = 0;
+            for (const sKey of Object.keys(strata)) {
+                const sd = strata[sKey], nh = sd.length;
+                if (nh === 0) continue;
+                let fpc = 0;
+                if (fCol) {
+                    const fv = Number(sd[0][fCol]);
+                    if (!isNaN(fv) && isFinite(fv) && fv > 0) {
+                        if (fv > 1) { fpc = cCol ? [...new Set(sd.map(r => r[cCol]))].length / fv : nh / fv; }
+                        else fpc = fv;
+                    }
+                }
+                fpc = Math.max(0, Math.min(1, fpc));
+                if (cCol) {
+                    const cls = {};
+                    for (const r of sd) { const k = String(r[cCol]); (cls[k] = cls[k] || []).push(r); }
+                    const cKeys = Object.keys(cls), mh = cKeys.length;
+                    if (mh <= 1) continue;
+                    const cTots = cKeys.map(k => cls[k].reduce((s, r) => s + (r._e || 0), 0));
+                    const mean = cTots.reduce((a, b) => a + b, 0) / mh;
+                    let ssq = 0;
+                    for (const t of cTots) ssq += (t - mean) ** 2;
+                    totVar += (1 - fpc) * (mh / (mh - 1)) * ssq;
+                    totDF += mh - 1;
+                } else {
+                    if (nh <= 1) continue;
+                    const scores = sd.map(r => r._e || 0);
+                    const mean = scores.reduce((a, b) => a + b, 0) / nh;
+                    let ssq = 0;
+                    for (const e of scores) ssq += (e - mean) ** 2;
+                    totVar += (1 - fpc) * ssq * nh / (nh - 1);
+                    totDF += nh - 1;
+                }
+            }
+            if (totDF <= 0) totDF = Math.max(1, data.length - Object.keys(strata).length);
+            return { variance: Math.max(0, totVar), df: totDF };
+        }
+
+        /* DEFF */
+        function deff(data, varD, type) {
+            const valid = data.filter(r => r._y !== null);
+            const n = valid.length;
+            if (n <= 1 || varD <= 0) return 1;
+            const scores = valid.map(r => r._e || 0);
+            const mean = scores.reduce((a, b) => a + b, 0) / n;
+            let ssq = 0;
+            for (const e of scores) ssq += (e - mean) ** 2;
+            const vMSA = (n / (n - 1)) * ssq;
+            return vMSA > 0 ? varD / vMSA : 1;
+        }
+
+        /* Media ponderada */
+        function estimateMean(data, spec) {
+            const p = prep(data, spec);
+            const hasDom = spec.domain && spec.domainValue && spec.domainValue !== '';
+            let swy = 0, sw = 0;
+            for (const r of p) {
+                if (hasDom) { swy += r._w * (r._yd || 0); sw += r._inDom ? r._w : 0; }
+                else if (r._y !== null) { swy += r._w * r._y; sw += r._w; }
+            }
+            const est = sw > 0 ? swy / sw : 0;
+            for (const r of p) {
+                if (hasDom) { const d = r._inDom ? 1 : 0; r._e = sw > 0 ? (d * (r._yd||0) - est * d) / sw * r._w : 0; }
+                else { r._e = r._y !== null && sw > 0 ? (r._y - est) / sw * r._w : 0; }
+            }
+            const vr = varTaylor(p, spec);
+            const se = Math.sqrt(vr.variance);
+            const tc = tCrit(vr.df);
+            return { estimator: 'Media Ponderada', estimate: est, se, variance: vr.variance, df: vr.df,
+                ci_lower: est - tc * se, ci_upper: est + tc * se,
+                cv: est !== 0 ? se / Math.abs(est) : Infinity,
+                deff: deff(p, vr.variance), n: p.filter(r => hasDom ? r._inDom : r._y !== null).length, sumW: sw };
+        }
+
+        function estimateProportion(data, spec) {
+            const r = estimateMean(data, spec);
+            r.estimator = 'Proporción Ponderada';
+            r.estimate = Math.max(0, Math.min(1, r.estimate));
+            r.ci_lower = Math.max(0, r.ci_lower);
+            r.ci_upper = Math.min(1, r.ci_upper);
+            return r;
+        }
+
+        function estimateTotal(data, spec) {
+            const p = prep(data, spec);
+            const hasDom = spec.domain && spec.domainValue && spec.domainValue !== '';
+            let tot = 0;
+            for (const r of p) {
+                if (hasDom) tot += r._w * (r._yd || 0);
+                else if (r._y !== null) tot += r._w * r._y;
+            }
+            for (const r of p) {
+                if (hasDom) r._e = r._w * (r._yd || 0);
+                else r._e = r._y !== null ? r._w * r._y : 0;
+            }
+            const vr = varTaylor(p, spec);
+            const se = Math.sqrt(vr.variance);
+            const tc = tCrit(vr.df);
+            return { estimator: 'Total Poblacional', estimate: tot, se, variance: vr.variance, df: vr.df,
+                ci_lower: tot - tc * se, ci_upper: tot + tc * se,
+                cv: tot !== 0 ? se / Math.abs(tot) : Infinity,
+                deff: deff(p, vr.variance), n: p.filter(r => hasDom ? r._inDom : r._y !== null).length, sumW: p.reduce((a, r) => a + r._w, 0) };
+        }
+
+        function estimateRatio(data, spec) {
+            if (!spec.ratioDenom) return { estimator: 'Razón', error: 'Falta variable denominador' };
+            const p = prep(data, spec);
+            const hasDom = spec.domain && spec.domainValue && spec.domainValue !== '';
+            let swy = 0, swx = 0;
+            for (const r of p) {
+                if (hasDom) { swy += r._w * (r._yd || 0); swx += r._w * (r._xd || 0); }
+                else if (r._y !== null && r._x !== null) { swy += r._w * r._y; swx += r._w * r._x; }
+            }
+            const est = swx !== 0 ? swy / swx : 0;
+            for (const r of p) {
+                if (hasDom) r._e = swx !== 0 ? (r._w * (r._yd||0) - est * r._w * (r._xd||0)) / swx : 0;
+                else r._e = (r._y !== null && r._x !== null && swx !== 0) ? (r._w * r._y - est * r._w * r._x) / swx : 0;
+            }
+            const vr = varTaylor(p, spec);
+            const se = Math.sqrt(vr.variance);
+            const tc = tCrit(vr.df);
+            return { estimator: 'Razón Ponderada', estimate: est, se, variance: vr.variance, df: vr.df,
+                ci_lower: est - tc * se, ci_upper: est + tc * se,
+                cv: est !== 0 ? se / Math.abs(est) : Infinity,
+                deff: deff(p, vr.variance), n: p.filter(r => hasDom ? r._inDom : r._y !== null).length, sumW: swx };
+        }
+
+        return { estimateMean, estimateProportion, estimateTotal, estimateRatio, tCrit };
+    })();
+
+
+    /* ═══════════════════════════════════════════
+       MÓDULO 4: diagnostics
+       ═══════════════════════════════════════════ */
+    const diagnostics = (() => {
+        function run(data, spec) {
+            const r = { nObs: data.length, nStrata: 0, nClusters: 0, strataWithOne: [], df: 0,
+                wMin: 1, wMax: 1, wRatio: 1, icc: null, warnings: [], clusterSizes: [] };
+            if (spec.stratum) {
+                const st = [...new Set(data.map(d => String(d[spec.stratum])))];
+                r.nStrata = st.length;
+                for (const s of st) { const c = data.filter(d => String(d[spec.stratum]) === s).length; if (c === 1) r.strataWithOne.push(s); }
+                if (r.strataWithOne.length > 0) r.warnings.push({ type: 'danger', msg: `${r.strataWithOne.length} estrato(s) con solo 1 observación — no se puede estimar varianza para estos estratos.` });
+            }
+            if (spec.cluster) {
+                const cl = [...new Set(data.map(d => String(d[spec.cluster])))];
+                r.nClusters = cl.length;
+                r.df = spec.stratum ? r.nClusters - r.nStrata : r.nClusters - 1;
+                r.clusterSizes = cl.map(c => data.filter(d => String(d[spec.cluster]) === c).length);
+                if (r.df < 30 && r.df > 0) r.warnings.push({ type: 'warning', msg: `Grados de libertad = ${r.df} (bajo). Los intervalos de confianza pueden ser imprecisos. Idealmente se necesitan ≥ 30 gl.` });
+                if (r.df <= 0) r.warnings.push({ type: 'danger', msg: `Grados de libertad ≤ 0. No hay suficientes conglomerados por estrato para estimar varianza.` });
+            } else {
+                r.df = spec.stratum ? data.length - r.nStrata : data.length - 1;
+            }
+            if (spec.weight) {
+                const ws = data.map(d => Number(d[spec.weight])).filter(w => !isNaN(w) && isFinite(w) && w > 0);
+                if (ws.length) {
+                    r.wMin = Math.min(...ws); r.wMax = Math.max(...ws);
+                    r.wRatio = r.wMin > 0 ? r.wMax / r.wMin : Infinity;
+                    if (r.wRatio > 50) r.warnings.push({ type: 'warning', msg: `Ratio de pesos max/min = ${r.wRatio.toFixed(1)}. Pesos muy variables pueden inestabilizar las estimaciones.` });
+                }
+                const neg = data.filter(d => Number(d[spec.weight]) <= 0).length;
+                if (neg > 0) r.warnings.push({ type: 'danger', msg: `${neg} registro(s) con peso ≤ 0. Se les asigna peso = 1.` });
+            }
+            // ICC
+            if (spec.cluster && spec.target) {
+                try {
+                    const vals = data.map(d => ({ c: String(d[spec.cluster]), y: Number(d[spec.target]) })).filter(v => !isNaN(v.y));
+                    if (vals.length > 0) {
+                        const grps = {};
+                        for (const v of vals) (grps[v.c] = grps[v.c] || []).push(v.y);
+                        const gk = Object.keys(grps), k = gk.length, N = vals.length;
+                        const gm = vals.reduce((s, v) => s + v.y, 0) / N;
+                        let ssb = 0, ssw = 0;
+                        for (const g of gk) {
+                            const gr = grps[g], mg = gr.reduce((a, b) => a + b, 0) / gr.length;
+                            ssb += gr.length * (mg - gm) ** 2;
+                            for (const y of gr) ssw += (y - mg) ** 2;
+                        }
+                        const msb = ssb / (k - 1), msw = (N - k) > 0 ? ssw / (N - k) : 0, mbar = N / k;
+                        const den = msb + (mbar - 1) * msw;
+                        if (den > 0) {
+                            r.icc = Math.max(-1 / (mbar - 1), Math.min(1, (msb - msw) / den));
+                            if (r.icc > 0.3) r.warnings.push({ type: 'warning', msg: `ICC = ${r.icc.toFixed(4)} (alto). Fuerte homogeneidad dentro de conglomerados — el efecto de diseño será grande.` });
+                        }
+                    }
+                } catch(e) {}
+            }
+            return r;
+        }
+        return { run };
+    })();
+
+
+    /* ═══════════════════════════════════════════
+       MÓDULO 5: reportGenerator
+       ═══════════════════════════════════════════ */
+    const reportGenerator = (() => {
+        function generate(p) {
+            const { design, results, diag, spec, hash, ts, nR, nC, fn } = p;
+            let h = `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>Informe Técnico</title>
+<style>body{font-family:'Segoe UI',sans-serif;max-width:850px;margin:0 auto;padding:20px;color:#1a202c;font-size:13px;line-height:1.6}
+h1{color:#1e3a5f;border-bottom:3px solid #3182ce;padding-bottom:10px}h2{color:#2c5282;border-bottom:1px solid #e2e8f0;padding-bottom:5px;margin-top:25px}
+table{border-collapse:collapse;width:100%;margin:10px 0}th,td{border:1px solid #e2e8f0;padding:6px 10px;text-align:left}th{background:#f7fafc;font-weight:600}
+.warn{background:#fffbeb;border-left:4px solid #dd6b20;padding:8px;margin:8px 0}.danger{background:#fff5f5;border-left:4px solid #e53e3e;padding:8px;margin:8px 0}
+.f{background:#f7fafc;padding:10px;border-radius:6px;font-family:'Courier New',monospace;margin:8px 0;font-size:12px}
+.footer{margin-top:30px;padding-top:10px;border-top:2px solid #e2e8f0;color:#718096;font-size:11px}
+.summary{background:#ebf8ff;border:2px solid #90cdf4;border-radius:12px;padding:20px;margin:20px 0;text-align:center}
+.summary .big{font-size:28px;font-weight:bold;color:#2c5282}</style></head><body>
+<h1>📊 Informe Técnico — SurveyAnalytica Pro</h1><p style="color:#718096;font-size:11px">Generado: ${ts}</p>`;
+
+            // Resumen ejecutivo
+            const mainR = results.find(r => !r.error);
+            if (mainR) {
+                h += `<div class="summary"><p style="color:#4a5568;margin:0">RESULTADO PRINCIPAL</p>
+<p class="big">${mainR.estimator}: ${fmtN(mainR.estimate)}</p>
+<p style="color:#2c5282;font-size:16px">IC 95%: [${fmtN(mainR.ci_lower)} — ${fmtN(mainR.ci_upper)}]</p>
+<p style="color:#718096;font-size:12px">CV: ${(mainR.cv*100).toFixed(2)}% · DEFF: ${mainR.deff?.toFixed(3)||'N/A'} · gl: ${mainR.df}</p></div>`;
+            }
+
+            h += `<h2>1. Metadatos</h2><table><tr><th>Archivo</th><td>${fn||'N/A'}</td></tr><tr><th>SHA-256</th><td><code style="font-size:10px">${hash}</code></td></tr><tr><th>Filas × Columnas</th><td>${nR?.toLocaleString()} × ${nC}</td></tr></table>`;
+            h += `<h2>2. Diseño Muestral</h2><table><tr><th>Diseño</th><td><strong>${design.label}</strong></td></tr><tr><th>Variable objetivo</th><td>${spec.target||'—'}</td></tr><tr><th>Estrato</th><td>${spec.stratum||'No'}</td></tr><tr><th>Conglomerado</th><td>${spec.cluster||'No'}</td></tr><tr><th>Peso</th><td>${spec.weight||'Uniforme'}</td></tr><tr><th>FPC</th><td>${spec.fpc||'No'}</td></tr><tr><th>Dominio</th><td>${spec.domain&&spec.domainValue?spec.domain+'='+spec.domainValue:'No'}</td></tr></table>`;
+            h += `<h2>3. Diagnósticos</h2><table><tr><th>n</th><td>${diag.nObs}</td></tr><tr><th>Estratos</th><td>${diag.nStrata||'—'}</td></tr><tr><th>Conglomerados</th><td>${diag.nClusters||'—'}</td></tr><tr><th>gl</th><td>${diag.df}</td></tr><tr><th>Pesos min/max</th><td>${diag.wMin.toFixed(2)} / ${diag.wMax.toFixed(2)} (ratio: ${diag.wRatio.toFixed(1)})</td></tr><tr><th>ICC</th><td>${diag.icc!==null?diag.icc.toFixed(6):'N/A'}</td></tr></table>`;
+            if (diag.warnings.length) { h += '<h3>Advertencias</h3>'; for (const w of diag.warnings) h += `<div class="${w.type}">${w.msg}</div>`; }
+
+            h += `<h2>4. Resultados</h2>`;
+            for (const r of results) {
+                if (r.error) { h += `<div class="warn">${r.estimator}: ${r.error}</div>`; continue; }
+                h += `<h3>${r.estimator}</h3><table>
+<tr><th>Estimación</th><td>${fmtN(r.estimate)}</td></tr><tr><th>Error estándar</th><td>${fmtN(r.se)}</td></tr>
+<tr><th>IC 95%</th><td>[${fmtN(r.ci_lower)} — ${fmtN(r.ci_upper)}]</td></tr>
+<tr><th>CV</th><td>${(r.cv*100).toFixed(2)}%</td></tr><tr><th>DEFF</th><td>${r.deff?.toFixed(4)||'N/A'}</td></tr>
+<tr><th>gl</th><td>${r.df}</td></tr><tr><th>n</th><td>${r.n}</td></tr></table>`;
+            }
+
+            h += `<h2>5. Fórmulas</h2>
+<h3>Media</h3><div class="f">ȳ_w = Σ(w_i·y_i) / Σ(w_i)<br>Scores: e_i = w_i·(y_i - ȳ) / Σw</div>
+<h3>Total</h3><div class="f">T̂ = Σ(w_i·y_i)<br>Scores: e_i = w_i·y_i</div>
+<h3>Varianza (Taylor)</h3><div class="f">Con conglomerados: V̂_h = (1-f_h)·m_h/(m_h-1)·Σ(t_a - t̄)²<br>Sin: V̂_h = (1-f_h)·Σ(e_i - ē)²·n/(n-1)<br>Total: V̂ = Σ_h V̂_h</div>
+<h3>DEFF</h3><div class="f">deff = V̂_diseño / V̂_MSA</div>
+
+<h2>6. Referencias</h2><ul>
+<li>Cochran, W.G. (1977). <em>Sampling Techniques</em>, 3rd ed. Wiley.</li>
+<li>Kish, L. (1965). <em>Survey Sampling</em>. Wiley.</li>
+<li>Särndal, C.-E., Swensson, B., & Wretman, J. (1992). <em>Model Assisted Survey Sampling</em>. Springer.</li></ul>
+<div class="footer"><p>SurveyAnalytica Pro · SHA-256: ${hash}</p></div></body></html>`;
+            return h;
+        }
+        function download(p) {
+            const html = generate(p);
+            const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = `informe_${new Date().toISOString().slice(0,10)}.html`;
+            document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        }
+        return { download };
+    })();
+
+
+    /* ═══════════════════════════════════════════
+       UTILIDADES
+       ═══════════════════════════════════════════ */
+    function fmtN(n, d = 4) {
+        if (n === null || n === undefined || !isFinite(n)) return 'N/A';
+        if (Math.abs(n) >= 1e6) return n.toLocaleString('es-ES', { maximumFractionDigits: 0 });
+        if (Math.abs(n) >= 1) return n.toLocaleString('es-ES', { maximumFractionDigits: d });
+        if (Math.abs(n) >= 0.0001) return n.toFixed(6);
+        return n.toExponential(3);
+    }
+
+    function cvLabel(cv) {
+        const p = cv * 100;
+        if (p <= 5) return { text: 'Excelente', color: 'green', emoji: '🟢' };
+        if (p <= 10) return { text: 'Bueno', color: 'green', emoji: '🟢' };
+        if (p <= 20) return { text: 'Aceptable', color: 'yellow', emoji: '🟡' };
+        if (p <= 30) return { text: 'Usar con reservas', color: 'orange', emoji: '🟠' };
+        return { text: 'No publicable', color: 'red', emoji: '🔴' };
+    }
+
+
+    /* ═══════════════════════════════════════════
+       CONTROLADOR DE UI
+       ═══════════════════════════════════════════ */
+
+    function goToStep(n) {
+        if (n > 1 && !APP.data) return;
+        if (n > 2 && !getSpec().target) return;
+        if (n === 3) buildSanityCheck();
+        APP.currentStep = n;
+        for (let i = 1; i <= 4; i++) {
+            document.getElementById(`step${i}`).classList.toggle('hidden', i !== n);
+            const btn = document.getElementById(`step${i}-btn`);
+            if (i < n) { btn.className = 'flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-green-500 text-white whitespace-nowrap transition-all'; btn.disabled = false; }
+            else if (i === n) { btn.className = 'flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-accent text-white whitespace-nowrap transition-all'; btn.disabled = false; }
+            else { btn.className = 'flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-gray-200 text-gray-500 whitespace-nowrap transition-all'; btn.disabled = i > n + 1; }
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function getSpec() {
+        return {
+            target: document.getElementById('selTarget').value,
+            stratum: document.getElementById('selStratum').value,
+            cluster: document.getElementById('selCluster').value,
+            weight: document.getElementById('selWeight').value,
+            fpc: document.getElementById('selFPC').value,
+            domain: document.getElementById('selDomain').value,
+            domainValue: document.getElementById('selDomainValue').value,
+            ratioDenom: document.getElementById('selRatioDenom').value
+        };
+    }
+
+    function populateSelectors() {
+        const ids = ['selTarget','selStratum','selCluster','selWeight','selFPC','selDomain','selRatioDenom'];
+        for (const id of ids) {
+            const sel = document.getElementById(id);
+            const first = sel.options[0];
+            sel.innerHTML = '';
+            sel.appendChild(first);
+            for (const c of APP.columns) {
+                const o = document.createElement('option');
+                o.value = c;
+                o.textContent = `${c}  [${APP.types[c] === 'numeric' ? '123' : 'ABC'}]`;
+                sel.appendChild(o);
+            }
+        }
+    }
+
+    function renderPreview() {
+        const rows = APP.data.slice(0, 15);
+        document.getElementById('previewHead').innerHTML = '<tr>' + APP.columns.map(c => `<th class="px-3 py-2 text-xs font-semibold text-gray-600 whitespace-nowrap">${c}</th>`).join('') + '</tr>';
+        document.getElementById('previewBody').innerHTML = rows.map((row, i) => `<tr class="${i % 2 ? 'bg-gray-50' : ''}">` + APP.columns.map(c => `<td class="px-3 py-1 text-xs text-gray-700 whitespace-nowrap">${String(row[c] ?? '').substring(0, 40)}</td>`).join('') + '</tr>').join('');
+        const tg = document.getElementById('typeGrid');
+        tg.innerHTML = '';
+        for (const c of APP.columns) {
+            const isN = APP.types[c] === 'numeric';
+            tg.innerHTML += `<span class="px-3 py-1 rounded-full text-xs font-medium ${isN ? 'bg-blue-100 text-blue-800' : 'bg-purple-100 text-purple-800'}">${c} <span class="opacity-60">${isN ? '(num)' : '(cat)'}</span></span>`;
+        }
+    }
+
+    function checkMissing() {
+        let msgs = [];
+        for (const c of APP.columns) {
+            const missing = APP.data.filter(r => r[c] === '' || r[c] === null || r[c] === undefined).length;
+            if (missing > 0) msgs.push(`${c}: ${missing} faltante${missing > 1 ? 's' : ''}`);
+        }
+        if (msgs.length) {
+            document.getElementById('missingAlert').classList.remove('hidden');
+            document.getElementById('missingDetail').textContent = msgs.join(' · ') + '. Los registros con faltantes en la variable objetivo se excluirán; los demás se mantienen para preservar el diseño.';
+        } else {
+            document.getElementById('missingAlert').classList.add('hidden');
+        }
+    }
+
+    // Previews inline al seleccionar variables
+    function setupPreviewListeners() {
+        document.getElementById('selTarget').addEventListener('change', e => {
+            updatePreviewBox('targetPreview', e.target.value, 'numeric');
+            document.getElementById('btnToStep3').disabled = !e.target.value;
+        });
+        document.getElementById('selStratum').addEventListener('change', e => updatePreviewBox('stratumPreview', e.target.value, 'categorical'));
+        document.getElementById('selCluster').addEventListener('change', e => updatePreviewBox('clusterPreview', e.target.value, 'categorical'));
+        document.getElementById('selWeight').addEventListener('change', e => updatePreviewBox('weightPreview', e.target.value, 'weight'));
+        document.getElementById('selDomain').addEventListener('change', e => {
+            const box = document.getElementById('domainValueBox');
+            if (e.target.value) {
+                box.classList.remove('hidden');
+                const vals = [...new Set(APP.data.map(r => String(r[e.target.value]).trim()))].sort();
+                const sel = document.getElementById('selDomainValue');
+                sel.innerHTML = '<option value="">— Todos (comparar) —</option>' + vals.map(v => `<option value="${v}">${v} (n=${APP.data.filter(r=>String(r[e.target.value]).trim()===v).length})</option>`).join('');
+            } else box.classList.add('hidden');
+        });
+        document.getElementById('chkRatio').addEventListener('change', e => document.getElementById('ratioBox').classList.toggle('hidden', !e.target.checked));
+    }
+
+    function updatePreviewBox(id, col, type) {
+        const box = document.getElementById(id);
+        if (!col || !APP.data) { box.classList.add('hidden'); return; }
+        box.classList.remove('hidden');
+        const vals = APP.data.map(r => r[col]).filter(v => v !== '' && v !== null && v !== undefined);
+        if (type === 'numeric' || type === 'weight') {
+            const nums = vals.map(Number).filter(n => !isNaN(n));
+            const min = Math.min(...nums), max = Math.max(...nums);
+            const mean = nums.reduce((a, b) => a + b, 0) / nums.length;
+            box.innerHTML = `<span class="text-gray-600">📊 ${nums.length} valores · Min: <strong>${fmtN(min)}</strong> · Max: <strong>${fmtN(max)}</strong> · Promedio: <strong>${fmtN(mean)}</strong></span>`;
+            if (type === 'weight' && nums.length) {
+                const ratio = min > 0 ? max / min : Infinity;
+                const rColor = ratio > 50 ? 'text-red-600' : ratio > 10 ? 'text-yellow-600' : 'text-green-600';
+                box.innerHTML += ` <span class="${rColor}">· Ratio: ${ratio.toFixed(1)}</span>`;
+            }
+        } else {
+            const uniq = [...new Set(vals.map(String))];
+            box.innerHTML = `<span class="text-gray-600">📋 ${uniq.length} categorías: ${uniq.slice(0, 8).map(v => `<span class="bg-gray-200 px-1.5 py-0.5 rounded text-xs">${v}</span>`).join(' ')}${uniq.length > 8 ? ' ...' : ''}</span>`;
+        }
+    }
+
+    function buildSanityCheck() {
+        const spec = getSpec();
+        const container = document.getElementById('sanityCheck');
+        const items = [];
+        // Target
+        if (spec.target) {
+            const n = APP.data.filter(r => { const v = Number(r[spec.target]); return !isNaN(v); }).length;
+            const miss = APP.data.length - n;
+            items.push({ ok: true, text: `Variable objetivo: <strong>${spec.target}</strong> — ${n} valores válidos${miss > 0 ? `, ${miss} faltantes` : ''}`, warn: miss > APP.data.length * 0.1 });
+        }
+        if (spec.stratum) {
+            const st = [...new Set(APP.data.map(r => r[spec.stratum]))];
+            const singles = st.filter(s => APP.data.filter(r => r[spec.stratum] === s).length === 1);
+            items.push({ ok: singles.length === 0, text: `Estratos: <strong>${spec.stratum}</strong> — ${st.length} estratos${singles.length ? ` ⚠️ ${singles.length} con n=1` : ''}` });
+        } else items.push({ ok: true, text: 'Estratos: <em>no especificados</em>', neutral: true });
+        if (spec.cluster) {
+            const cl = [...new Set(APP.data.map(r => r[spec.cluster]))];
+            const perStr = spec.stratum ? [...new Set(APP.data.map(r => r[spec.stratum]))].map(s => ({ s, n: new Set(APP.data.filter(r => r[spec.stratum] === s).map(r => r[spec.cluster])).size })) : null;
+            const minPerStr = perStr ? Math.min(...perStr.map(p => p.n)) : cl.length;
+            items.push({ ok: minPerStr >= 2, text: `Conglomerados: <strong>${spec.cluster}</strong> — ${cl.length} UPMs${perStr ? ` (mín ${minPerStr} por estrato)` : ''}`, warn: minPerStr < 2 });
+        } else items.push({ ok: true, text: 'Conglomerados: <em>no especificados</em>', neutral: true });
+        if (spec.weight) {
+            const ws = APP.data.map(r => Number(r[spec.weight])).filter(w => !isNaN(w) && w > 0);
+            const ratio = ws.length ? Math.max(...ws) / Math.min(...ws) : 1;
+            items.push({ ok: ratio < 100, text: `Pesos: <strong>${spec.weight}</strong> — ratio max/min = ${ratio.toFixed(1)}`, warn: ratio > 50 });
+        } else items.push({ ok: true, text: 'Pesos: <em>todos iguales (peso = 1)</em>', neutral: true });
+
+        // Diseño
+        const design = designDetector.detect(spec, APP.data);
+        document.getElementById('designName').textContent = design.label;
+        document.getElementById('designDesc').textContent = design.description;
+
+        container.innerHTML = items.map(it => {
+            const icon = it.neutral ? '⚪' : it.ok ? '✅' : '⚠️';
+            const bg = it.neutral ? 'bg-gray-50' : it.ok ? (it.warn ? 'bg-yellow-50' : 'bg-green-50') : 'bg-red-50';
+            const border = it.neutral ? 'border-gray-200' : it.ok ? (it.warn ? 'border-yellow-200' : 'border-green-200') : 'border-red-200';
+            return `<div class="${bg} ${border} border rounded-lg px-4 py-2.5 text-sm flex items-center gap-2">${icon} ${it.text}</div>`;
+        }).join('');
+    }
+
+
+    /* ═══════════════════════════════════════════
+       ANÁLISIS PRINCIPAL
+       ═══════════════════════════════════════════ */
+    function runAnalysis() {
+        const spec = getSpec();
+        if (!spec.target) return alert('Selecciona una variable objetivo.');
+        APP.spec = spec;
+        APP.design = designDetector.detect(spec, APP.data);
+        APP.diagResult = diagnostics.run(APP.data, spec);
+
+        const results = [];
+        if (document.getElementById('chkMean').checked) try { results.push(surveyEstimator.estimateMean(APP.data, spec)); } catch(e) { results.push({ estimator:'Media', error:e.message }); }
+        if (document.getElementById('chkTotal').checked) try { results.push(surveyEstimator.estimateTotal(APP.data, spec)); } catch(e) { results.push({ estimator:'Total', error:e.message }); }
+        if (document.getElementById('chkProportion').checked) try { results.push(surveyEstimator.estimateProportion(APP.data, spec)); } catch(e) { results.push({ estimator:'Proporción', error:e.message }); }
+        if (document.getElementById('chkRatio').checked) try { results.push(surveyEstimator.estimateRatio(APP.data, spec)); } catch(e) { results.push({ estimator:'Razón', error:e.message }); }
+        APP.results = results;
+
+        renderMainResult(results);
+        renderDiag(APP.diagResult);
+        renderDetailedResults(results);
+        drawCharts(results, APP.data, spec);
+        renderDomainResults(APP.data, spec);
+        goToStep(4);
+    }
+
+    function renderMainResult(results) {
+        const card = document.getElementById('mainResultCard');
+        const mainR = results.find(r => !r.error);
+        if (!mainR) { card.innerHTML = '<p class="text-red-600">No se pudieron calcular resultados.</p>'; return; }
+        const cv = cvLabel(mainR.cv);
+        const cvPct = (mainR.cv * 100).toFixed(2);
+        const deffVal = mainR.deff?.toFixed(3) || 'N/A';
+        const deffInterp = mainR.deff > 1 ? `El muestreo por conglomerados aumentó la varianza un ${((mainR.deff - 1) * 100).toFixed(0)}% respecto a un muestreo aleatorio simple.` : 'El diseño es al menos tan eficiente como un muestreo aleatorio simple.';
+
+        card.innerHTML = `
+            <div class="text-center mb-6">
+                <p class="text-sm text-gray-500 uppercase tracking-wide font-medium">${mainR.estimator}</p>
+                <p class="text-4xl font-bold text-primary mt-2">${fmtN(mainR.estimate)}</p>
+                <p class="text-lg text-gray-600 mt-1">IC 95%: [${fmtN(mainR.ci_lower)} — ${fmtN(mainR.ci_upper)}]</p>
+                <div class="flex items-center justify-center gap-2 mt-3">
+                    <span class="text-2xl">${cv.emoji}</span>
+                    <span class="text-sm font-medium" style="color:${cv.color === 'green' ? '#38a169' : cv.color === 'yellow' ? '#d69e2e' : cv.color === 'orange' ? '#dd6b20' : '#e53e3e'}">CV = ${cvPct}% — ${cv.text}</span>
+                </div>
+                <div class="quality-bar w-48 mx-auto mt-2">
+                    <div class="quality-fill" style="width:${Math.min(100, 100 - mainR.cv * 100 * 3.33)}%;background:${cv.color === 'green' ? '#38a169' : cv.color === 'yellow' ? '#d69e2e' : cv.color === 'orange' ? '#dd6b20' : '#e53e3e'}"></div>
+                </div>
+            </div>
+            <div class="bg-gray-50 rounded-xl p-4 text-sm text-gray-700">
+                <h3 class="font-bold text-gray-800 mb-2">📝 Interpretación</h3>
+                <p>El <strong>${mainR.estimator.toLowerCase()}</strong> estimado es <strong>${fmtN(mainR.estimate)}</strong>. 
+                Con un 95% de confianza, el verdadero valor poblacional se encuentra entre <strong>${fmtN(mainR.ci_lower)}</strong> y <strong>${fmtN(mainR.ci_upper)}</strong>.</p>
+                <p class="mt-2">La precisión es <strong>${cv.text.toLowerCase()}</strong> (CV = ${cvPct}%). ${parseFloat(cvPct) > 20 ? '⚠️ Se recomienda precaución al usar esta estimación.' : ''}</p>
+                <p class="mt-2">El efecto de diseño (DEFF) es <strong>${deffVal}</strong>. ${deffInterp}</p>
+                <p class="mt-2 text-xs text-gray-500">Diseño: ${APP.design.label} · n = ${mainR.n} · gl = ${mainR.df} · t(α/2) = ${surveyEstimator.tCrit(mainR.df).toFixed(3)}</p>
+            </div>
+            ${results.length > 1 ? renderSecondaryResults(results.filter(r => r !== mainR && !r.error)) : ''}
+        `;
+    }
+
+    function renderSecondaryResults(results) {
+        if (!results.length) return '';
+        return `<div class="grid grid-cols-1 md:grid-cols-${Math.min(3, results.length)} gap-4 mt-4">
+            ${results.map(r => {
+                const cv = cvLabel(r.cv);
+                return `<div class="bg-white border rounded-lg p-4 text-center">
+                    <p class="text-xs text-gray-500 uppercase">${r.estimator}</p>
+                    <p class="text-2xl font-bold text-primary mt-1">${fmtN(r.estimate)}</p>
+                    <p class="text-xs text-gray-500 mt-1">[${fmtN(r.ci_lower)} — ${fmtN(r.ci_upper)}]</p>
+                    <p class="text-xs mt-1">${cv.emoji} CV: ${(r.cv*100).toFixed(1)}%</p>
+                </div>`;
+            }).join('')}
+        </div>`;
+    }
+
+    function renderDiag(d) {
+        const metrics = [
+            { l: 'Observaciones', v: d.nObs, i: '👥' },
+            { l: 'Estratos', v: d.nStrata || '—', i: '📊' },
+            { l: 'Conglomerados', v: d.nClusters || '—', i: '🔵' },
+            { l: 'gl', v: d.df, i: '📐' },
+            { l: 'Peso mín / máx', v: `${d.wMin.toFixed(1)} / ${d.wMax.toFixed(1)}`, i: '⚖️' },
+            { l: 'Ratio pesos', v: d.wRatio.toFixed(1), i: '📏' },
+            { l: 'ICC', v: d.icc !== null ? d.icc.toFixed(4) : 'N/A', i: '🔗' },
+            { l: 'Estratos n=1', v: d.strataWithOne.length, i: d.strataWithOne.length ? '⚠️' : '✅' }
+        ];
+        document.getElementById('diagMetrics').innerHTML = metrics.map(m => `<div class="bg-gray-50 rounded-lg p-3"><div class="flex items-center gap-2"><span>${m.i}</span><div><div class="text-xs text-gray-500">${m.l}</div><div class="font-bold text-gray-800">${m.v}</div></div></div></div>`).join('');
+        const wDiv = document.getElementById('diagWarnings');
+        if (d.warnings.length) {
+            wDiv.innerHTML = d.warnings.map(w => `<div class="${w.type === 'danger' ? 'bg-red-50 border-red-200 text-red-800' : 'bg-yellow-50 border-yellow-200 text-yellow-800'} border rounded-lg p-3 mb-2 text-sm flex items-start gap-2"><span>${w.type === 'danger' ? '🔴' : '🟡'}</span><span>${w.msg}</span></div>`).join('');
+        } else {
+            wDiv.innerHTML = '<div class="bg-green-50 border border-green-200 rounded-lg p-3 text-green-800 text-sm">✅ Sin advertencias. El diseño parece bien especificado.</div>';
+        }
+    }
+
+    function renderDetailedResults(results) {
+        document.getElementById('detailContent').innerHTML = results.map(r => {
+            if (r.error) return `<div class="bg-red-50 rounded-lg p-3 text-red-700 text-sm mb-3">${r.estimator}: ${r.error}</div>`;
+            return `<div class="border rounded-lg overflow-hidden mb-4">
+                <div class="bg-gray-50 px-4 py-2 font-semibold text-sm text-primary">${r.estimator}</div>
+                <table class="w-full text-sm"><tbody class="divide-y">
+                    <tr><td class="px-4 py-1.5">Estimación</td><td class="px-4 py-1.5 text-right font-mono">${fmtN(r.estimate)}</td></tr>
+                    <tr><td class="px-4 py-1.5">Error estándar</td><td class="px-4 py-1.5 text-right font-mono">${fmtN(r.se)}</td></tr>
+                    <tr><td class="px-4 py-1.5">IC 95% inferior</td><td class="px-4 py-1.5 text-right font-mono">${fmtN(r.ci_lower)}</td></tr>
+                    <tr><td class="px-4 py-1.5">IC 95% superior</td><td class="px-4 py-1.5 text-right font-mono">${fmtN(r.ci_upper)}</td></tr>
+                    <tr><td class="px-4 py-1.5">CV</td><td class="px-4 py-1.5 text-right font-mono">${(r.cv * 100).toFixed(4)}%</td></tr>
+                    <tr><td class="px-4 py-1.5">DEFF</td><td class="px-4 py-1.5 text-right font-mono">${r.deff?.toFixed(6) || 'N/A'}</td></tr>
+                    <tr><td class="px-4 py-1.5">gl</td><td class="px-4 py-1.5 text-right font-mono">${r.df}</td></tr>
+                    <tr><td class="px-4 py-1.5">t crítico</td><td class="px-4 py-1.5 text-right font-mono">${surveyEstimator.tCrit(r.df).toFixed(4)}</td></tr>
+                    <tr><td class="px-4 py-1.5">n</td><td class="px-4 py-1.5 text-right font-mono">${r.n}</td></tr>
+                    <tr><td class="px-4 py-1.5">Σ pesos</td><td class="px-4 py-1.5 text-right font-mono">${fmtN(r.sumW)}</td></tr>
+                </tbody></table></div>`;
+        }).join('');
+    }
+
+
+    /* ═══════════════════════════════════════════
+       GRÁFICOS CON CANVAS
+       ═══════════════════════════════════════════ */
+    function drawCharts(results, data, spec) {
+        drawForestPlot(results.filter(r => !r.error && r.estimator.includes('Media')));
+        drawWeightsHistogram(data, spec);
+    }
+
+    function drawForestPlot(results) {
+        const canvas = document.getElementById('forestCanvas');
+        const ctx = canvas.getContext('2d');
+        const W = canvas.width, H = canvas.height;
+        ctx.clearRect(0, 0, W, H);
+
+        // Si hay dominio con varios valores, mostrar comparación
+        const spec = APP.spec;
+        let items = [];
+        if (spec.domain && (!spec.domainValue || spec.domainValue === '')) {
+            const vals = [...new Set(APP.data.map(r => String(r[spec.domain]).trim()))].sort().slice(0, 10);
+            for (const v of vals) {
+                try {
+                    const r = surveyEstimator.estimateMean(APP.data, { ...spec, domainValue: v });
+                    items.push({ label: v, est: r.estimate, lo: r.ci_lower, hi: r.ci_upper });
+                } catch(e) {}
+            }
+        }
+        if (!items.length) {
+            for (const r of results) items.push({ label: r.estimator.replace(' Ponderada',''), est: r.estimate, lo: r.ci_lower, hi: r.ci_upper });
+        }
+        if (!items.length) return;
+
+        const margin = { top: 20, right: 30, bottom: 30, left: 120 };
+        const plotW = W - margin.left - margin.right;
+        const plotH = H - margin.top - margin.bottom;
+        const allVals = items.flatMap(i => [i.lo, i.hi]);
+        const minV = Math.min(...allVals), maxV = Math.max(...allVals);
+        const range = maxV - minV || 1;
+        const xScale = v => margin.left + ((v - minV + range * 0.1) / (range * 1.2)) * plotW;
+        const rowH = plotH / items.length;
+
+        ctx.font = '11px Segoe UI, sans-serif';
+        ctx.textBaseline = 'middle';
+
+        items.forEach((item, i) => {
+            const y = margin.top + i * rowH + rowH / 2;
+            // Label
+            ctx.fillStyle = '#4a5568';
+            ctx.textAlign = 'right';
+            ctx.fillText(item.label, margin.left - 10, y);
+            // CI line
+            ctx.strokeStyle = '#90cdf4';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(xScale(item.lo), y);
+            ctx.lineTo(xScale(item.hi), y);
+            ctx.stroke();
+            // Whiskers
+            ctx.beginPath();
+            ctx.moveTo(xScale(item.lo), y - 5);
+            ctx.lineTo(xScale(item.lo), y + 5);
+            ctx.moveTo(xScale(item.hi), y - 5);
+            ctx.lineTo(xScale(item.hi), y + 5);
+            ctx.stroke();
+            // Point estimate
+            ctx.fillStyle = '#2c5282';
+            ctx.beginPath();
+            ctx.arc(xScale(item.est), y, 5, 0, Math.PI * 2);
+            ctx.fill();
+            // Value
+            ctx.fillStyle = '#718096';
+            ctx.textAlign = 'left';
+            ctx.font = '10px monospace';
+            ctx.fillText(fmtN(item.est, 1), xScale(item.hi) + 8, y);
+            ctx.font = '11px Segoe UI, sans-serif';
+        });
+
+        // X axis
+        ctx.strokeStyle = '#e2e8f0';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(margin.left, H - margin.bottom);
+        ctx.lineTo(W - margin.right, H - margin.bottom);
+        ctx.stroke();
+
+        const ticks = 5;
+        for (let i = 0; i <= ticks; i++) {
+            const val = minV - range * 0.1 + (range * 1.2) * i / ticks;
+            const x = margin.left + plotW * i / ticks;
+            ctx.fillStyle = '#a0aec0';
+            ctx.textAlign = 'center';
+            ctx.font = '9px monospace';
+            ctx.fillText(fmtN(val, 0), x, H - 8);
+            ctx.strokeStyle = '#edf2f7';
+            ctx.beginPath();
+            ctx.moveTo(x, margin.top);
+            ctx.lineTo(x, H - margin.bottom);
+            ctx.stroke();
+        }
+    }
+
+    function drawWeightsHistogram(data, spec) {
+        const canvas = document.getElementById('weightsCanvas');
+        const ctx = canvas.getContext('2d');
+        const W = canvas.width, H = canvas.height;
+        ctx.clearRect(0, 0, W, H);
+
+        if (!spec.weight) {
+            ctx.fillStyle = '#a0aec0';
+            ctx.font = '13px Segoe UI, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('Sin pesos especificados (todos = 1)', W / 2, H / 2);
+            return;
+        }
+
+        const weights = data.map(r => Number(r[spec.weight])).filter(w => !isNaN(w) && isFinite(w) && w > 0);
+        if (!weights.length) return;
+
+        const min = Math.min(...weights), max = Math.max(...weights);
+        const nBins = 20;
+        const binW = (max - min) / nBins || 1;
+        const bins = new Array(nBins).fill(0);
+        for (const w of weights) {
+            const idx = Math.min(nBins - 1, Math.floor((w - min) / binW));
+            bins[idx]++;
+        }
+        const maxCount = Math.max(...bins);
+
+        const margin = { top: 15, right: 15, bottom: 35, left: 40 };
+        const plotW = W - margin.left - margin.right;
+        const plotH = H - margin.top - margin.bottom;
+        const barW = plotW / nBins;
+
+        // Bars
+        for (let i = 0; i < nBins; i++) {
+            const barH = maxCount > 0 ? (bins[i] / maxCount) * plotH : 0;
+            const x = margin.left + i * barW;
+            const y = margin.top + plotH - barH;
+            ctx.fillStyle = '#63b3ed';
+            ctx.fillRect(x + 1, y, barW - 2, barH);
+        }
+
+        // Axes
+        ctx.strokeStyle = '#cbd5e0';
+        ctx.beginPath();
+        ctx.moveTo(margin.left, margin.top);
+        ctx.lineTo(margin.left, H - margin.bottom);
+        ctx.lineTo(W - margin.right, H - margin.bottom);
+        ctx.stroke();
+
+        // Labels
+        ctx.fillStyle = '#718096';
+        ctx.font = '9px monospace';
+        ctx.textAlign = 'center';
+        for (let i = 0; i <= 4; i++) {
+            const val = min + (max - min) * i / 4;
+            const x = margin.left + plotW * i / 4;
+            ctx.fillText(fmtN(val, 0), x, H - 10);
+        }
+        ctx.textAlign = 'left';
+        ctx.font = '10px Segoe UI, sans-serif';
+        ctx.fillText('Frecuencia', margin.left + 2, margin.top - 3);
+    }
+
+
+    /* ═══════════════════════════════════════════
+       ANÁLISIS DE DOMINIO
+       ═══════════════════════════════════════════ */
+    function renderDomainResults(data, spec) {
+        if (!spec.domain) { document.getElementById('domainPanel').classList.add('hidden'); return; }
+        const vals = [...new Set(data.map(r => String(r[spec.domain]).trim()))].sort();
+        if (vals.length > 30) {
+            document.getElementById('domainPanel').classList.remove('hidden');
+            document.getElementById('domainContent').innerHTML = `<p class="text-yellow-700 text-sm">Demasiados valores de dominio (${vals.length}). Selecciona uno específico.</p>`;
+            return;
+        }
+        let rows = '';
+        for (const v of vals) {
+            try {
+                const r = surveyEstimator.estimateMean(data, { ...spec, domainValue: v });
+                const cv = cvLabel(r.cv);
+                rows += `<tr class="hover:bg-gray-50"><td class="px-3 py-2 font-medium">${v}</td><td class="px-3 py-2 text-right">${r.n}</td><td class="px-3 py-2 text-right font-mono">${fmtN(r.estimate)}</td><td class="px-3 py-2 text-right font-mono">${fmtN(r.se)}</td><td class="px-3 py-2 text-right font-mono">${fmtN(r.ci_lower)}</td><td class="px-3 py-2 text-right font-mono">${fmtN(r.ci_upper)}</td><td class="px-3 py-2 text-right">${cv.emoji} ${(r.cv * 100).toFixed(1)}%</td><td class="px-3 py-2 text-right">${r.deff?.toFixed(2) || 'N/A'}</td></tr>`;
+            } catch(e) { rows += `<tr><td class="px-3 py-2">${v}</td><td colspan="7" class="text-red-600 text-sm px-3 py-2">Error: ${e.message}</td></tr>`; }
+        }
+        document.getElementById('domainContent').innerHTML = `<div class="overflow-x-auto"><table class="min-w-full text-sm"><thead><tr class="bg-gray-100"><th class="px-3 py-2 text-left text-xs font-semibold text-gray-600">Grupo</th><th class="px-3 py-2 text-right text-xs">n</th><th class="px-3 py-2 text-right text-xs">Media</th><th class="px-3 py-2 text-right text-xs">SE</th><th class="px-3 py-2 text-right text-xs">IC Inf</th><th class="px-3 py-2 text-right text-xs">IC Sup</th><th class="px-3 py-2 text-right text-xs">CV</th><th class="px-3 py-2 text-right text-xs">DEFF</th></tr></thead><tbody class="divide-y">${rows}</tbody></table></div>`;
+        document.getElementById('domainPanel').classList.remove('hidden');
+    }
+
+
+    /* ═══════════════════════════════════════════
+       EXPORTAR
+       ═══════════════════════════════════════════ */
+    function exportReport() {
+        if (!APP.results) return;
+        reportGenerator.download({
+            design: APP.design, results: APP.results, diag: APP.diagResult, spec: APP.spec,
+            hash: APP.hash, ts: new Date().toLocaleString('es-ES', { dateStyle: 'full', timeStyle: 'long' }),
+            nR: APP.data.length, nC: APP.columns.length, fn: APP.fileName
+        });
+    }
+
+
+    /* ═══════════════════════════════════════════
+       AYUDA
+       ═══════════════════════════════════════════ */
+    function showHelp(key) {
+        const content = HELP_CONTENT[key];
+        if (!content) return;
+        document.getElementById('helpTitle').textContent = content.title;
+        document.getElementById('helpBody').innerHTML = content.body;
+        document.getElementById('helpModal').classList.remove('hidden');
+    }
+    function closeHelp() { document.getElementById('helpModal').classList.add('hidden'); }
+
+
+    /* ═══════════════════════════════════════════
+       COLLAPSIBLES
+       ═══════════════════════════════════════════ */
+    function toggleCollapsible(id) {
+        const el = document.getElementById(id);
+        el.classList.toggle('open');
+    }
+
+
+    /* ═══════════════════════════════════════════
+       DEMO RÁPIDA
+       ═══════════════════════════════════════════ */
+    async function loadDemoData() {
+        const { data, columns, types } = dataLoader.parseCSVString(DEMO_CSV);
+        APP.data = data;
+        APP.columns = columns;
+        APP.types = types;
+        APP.hash = 'demo-dataset-150-hogares-sha256-simulado';
+        APP.fileName = 'demo_encuesta_hogares.csv';
+
+        // Mostrar UI
+        document.getElementById('lblFileName').textContent = '📦 demo_encuesta_hogares.csv (datos de ejemplo)';
+        document.getElementById('lblRows').textContent = `${data.length} filas`;
+        document.getElementById('lblCols').textContent = `${columns.length} columnas`;
+        document.getElementById('lblHash').textContent = '';
+        document.getElementById('fileInfoBar').classList.remove('hidden');
+        renderPreview();
+        checkMissing();
+        document.getElementById('previewSection').classList.remove('hidden');
+        populateSelectors();
+
+        // Pre-configurar diseño
+        document.getElementById('selTarget').value = 'ingreso';
+        document.getElementById('selStratum').value = 'estrato';
+        document.getElementById('selCluster').value = 'conglomerado';
+        document.getElementById('selWeight').value = 'peso';
+        document.getElementById('selFPC').value = 'fpc';
+        document.getElementById('selDomain').value = 'sexo';
+
+        // Trigger previews
+        updatePreviewBox('targetPreview', 'ingreso', 'numeric');
+        updatePreviewBox('stratumPreview', 'estrato', 'categorical');
+        updatePreviewBox('clusterPreview', 'conglomerado', 'categorical');
+        updatePreviewBox('weightPreview', 'peso', 'weight');
+
+        // Poblar dominio
+        document.getElementById('domainValueBox').classList.remove('hidden');
+        const dVals = [...new Set(data.map(r => String(r['sexo']).trim()))].sort();
+        document.getElementById('selDomainValue').innerHTML = '<option value="">— Todos (comparar) —</option>' + dVals.map(v => `<option value="${v}">${v} (n=${data.filter(r => String(r['sexo']).trim() === v).length})</option>`).join('');
+
+        document.getElementById('btnToStep3').disabled = false;
+        goToStep(2);
+
+        // Mostrar mensaje explicativo
+        setTimeout(() => {
+            alert('✅ Datos de ejemplo cargados.\n\nSe ha pre-configurado:\n• Variable: ingreso\n• Estratos: estrato (4 niveles)\n• Conglomerados: conglomerado (16 UPMs)\n• Pesos: peso\n• FPC: fpc\n• Dominio: sexo\n\nHaz clic en "Siguiente" y luego "Ejecutar Análisis" para ver los resultados.');
+        }, 300);
+    }
+
+
+    /* ═══════════════════════════════════════════
+       RESET
+       ═══════════════════════════════════════════ */
+    function resetAll() {
+        APP = { data: null, columns: [], types: {}, hash: '', fileName: '', currentStep: 1, results: null, design: null, diagResult: null, spec: null };
+        document.getElementById('fileInfoBar').classList.add('hidden');
+        document.getElementById('previewSection').classList.add('hidden');
+        document.getElementById('missingAlert').classList.add('hidden');
+        document.getElementById('fileInput').value = '';
+        goToStep(1);
+    }
+
+
+    /* ═══════════════════════════════════════════
+       EVENT LISTENERS
+       ═══════════════════════════════════════════ */
+    document.getElementById('fileInput').addEventListener('change', async (e) => {
+        if (!e.target.files.length) return;
+        document.getElementById('loadingSpinner').classList.remove('hidden');
+        try {
+            const result = await dataLoader.parseFile(e.target.files[0]);
+            APP.data = result.data; APP.columns = result.columns; APP.types = result.types; APP.hash = result.hash;
+            APP.fileName = e.target.files[0].name;
+            document.getElementById('lblFileName').textContent = APP.fileName;
+            document.getElementById('lblRows').textContent = `${result.data.length.toLocaleString()} filas${result.total > 50000 ? ` (de ${result.total.toLocaleString()}, limitado a 50k)` : ''}`;
+            document.getElementById('lblCols').textContent = `${result.columns.length} columnas`;
+            document.getElementById('lblHash').textContent = `SHA256: ${result.hash.substring(0, 12)}...`;
+            document.getElementById('fileInfoBar').classList.remove('hidden');
+            renderPreview(); checkMissing();
+            document.getElementById('previewSection').classList.remove('hidden');
+            populateSelectors();
+            setTimeout(() => goToStep(2), 400);
+        } catch (err) { alert('Error: ' + err.message); }
+        document.getElementById('loadingSpinner').classList.add('hidden');
+    });
+
+    // Drag & drop
+    const dz = document.getElementById('dropZone');
+    dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('border-blue-500', 'bg-blue-50'); });
+    dz.addEventListener('dragleave', () => dz.classList.remove('border-blue-500', 'bg-blue-50'));
+    dz.addEventListener('drop', e => {
+        e.preventDefault(); dz.classList.remove('border-blue-500', 'bg-blue-50');
+        if (e.dataTransfer.files.length) {
+            const input = document.getElementById('fileInput');
+            input.files = e.dataTransfer.files;
+            input.dispatchEvent(new Event('change'));
+        }
+    });
+
+    // Init
+    setupPreviewListeners();
+    goToStep(1);
+
+    </script>
+</body>
+</html>
