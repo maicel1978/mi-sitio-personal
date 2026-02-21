@@ -1,0 +1,3241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#1e3a5f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="BiasLab">
+    <title>Laboratorio de Evaluación de Riesgo de Sesgo y Robustez Analítica</title>
+
+    <!-- TailwindCSS vía CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { 50:'#e8edf4', 100:'#c5d1e3', 200:'#9eb3d0', 300:'#7795bd', 400:'#597eaf', 500:'#3b67a1', 600:'#355f99', 700:'#2d548f', 800:'#264a85', 900:'#1e3a5f' },
+                        accent: { 500:'#e67e22', 600:'#d35400' },
+                        risk: { low:'#27ae60', moderate:'#f39c12', high:'#e74c3c' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Manifest para PWA (inline via data URI) -->
+    <link rel="manifest" href="data:application/json;charset=utf-8,%7B%22name%22%3A%22Laboratorio%20de%20Evaluaci%C3%B3n%20de%20Riesgo%20de%20Sesgo%22%2C%22short_name%22%3A%22BiasLab%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%231e3a5f%22%2C%22theme_color%22%3A%22%231e3a5f%22%2C%22orientation%22%3A%22portrait%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxOTIgMTkyJz48cmVjdCB3aWR0aD0nMTkyJyBoZWlnaHQ9JzE5MicgZmlsbD0nIzFlM2E1ZicvPjx0ZXh0IHg9Jzk2JyB5PScxMTAnIGZvbnQtc2l6ZT0nODAnIHRleHQtYW5jaG9yPSdtaWRkbGUnIGZpbGw9J3doaXRlJyBmb250LWZhbWlseT0nc2Fucy1zZXJpZic%2B4pqXPC90ZXh0Pjwvc3ZnPg%3D%3D%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%7D">
+
+    <style>
+        /* ─── Estilos base ─── */
+        * { box-sizing: border-box; }
+        body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+        
+        /* ─── Scrollbar sutil ─── */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 3px; }
+        
+        /* ─── Colapsables ─── */
+        .collapsible-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; }
+        .collapsible-content.open { max-height: 100000px; transition: max-height 0.8s ease-in; }
+        
+        /* ─── Heatmap ─── */
+        .heatmap-cell { min-width: 18px; min-height: 18px; display: inline-block; border: 0.5px solid #e2e8f0; }
+        
+        /* ─── Loader ─── */
+        .spinner { border: 3px solid #e2e8f0; border-top: 3px solid #3b67a1; border-radius: 50%; width: 28px; height: 28px; animation: spin 0.8s linear infinite; display: inline-block; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        /* ─── Botón docente ─── */
+        .edu-btn { font-size: 0.75rem; padding: 2px 8px; border-radius: 12px; background: #e8edf4; color: #2d548f; cursor: pointer; border: 1px solid #c5d1e3; transition: all 0.2s; }
+        .edu-btn:hover { background: #c5d1e3; }
+        
+        /* ─── Cards ─── */
+        .result-card { background: white; border-radius: 8px; padding: 16px; margin-bottom: 12px; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+        
+        /* ─── Badges de riesgo ─── */
+        .risk-badge { display: inline-block; padding: 4px 12px; border-radius: 16px; font-weight: 600; font-size: 0.85rem; }
+        .risk-low { background: #d5f5e3; color: #1e8449; }
+        .risk-moderate { background: #fdebd0; color: #b7950b; }
+        .risk-high { background: #fadbd8; color: #922b21; }
+        
+        /* ─── Tabs ─── */
+        .tab-btn { padding: 10px 16px; cursor: pointer; border-bottom: 3px solid transparent; font-weight: 500; color: #64748b; transition: all 0.2s; white-space: nowrap; }
+        .tab-btn.active { border-bottom-color: #3b67a1; color: #1e3a5f; font-weight: 700; }
+        .tab-btn:hover { color: #1e3a5f; }
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
+        
+        /* ─── Progress steps ─── */
+        .step-indicator { display: flex; align-items: center; gap: 4px; }
+        .step-dot { width: 10px; height: 10px; border-radius: 50%; background: #cbd5e1; transition: background 0.3s; }
+        .step-dot.completed { background: #27ae60; }
+        .step-dot.current { background: #3b67a1; box-shadow: 0 0 0 3px rgba(59,103,161,0.3); }
+        .step-line { flex: 1; height: 2px; background: #cbd5e1; }
+        .step-line.completed { background: #27ae60; }
+
+        /* ─── Tabla responsiva ─── */
+        .table-responsive { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        table.data-table { border-collapse: collapse; width: 100%; font-size: 0.8rem; }
+        table.data-table th { background: #f1f5f9; padding: 6px 10px; text-align: left; font-weight: 600; color: #475569; border-bottom: 2px solid #cbd5e1; position: sticky; top: 0; }
+        table.data-table td { padding: 5px 10px; border-bottom: 1px solid #e2e8f0; }
+        table.data-table tr:hover { background: #f8fafc; }
+        
+        /* ─── Chart bars ─── */
+        .bar-chart { display: flex; align-items: flex-end; gap: 6px; height: 200px; padding: 8px 0; }
+        .bar-item { display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 30px; }
+        .bar-fill { width: 100%; border-radius: 4px 4px 0 0; transition: height 0.5s ease; min-height: 2px; }
+        .bar-label { font-size: 0.6rem; text-align: center; margin-top: 4px; color: #64748b; word-break: break-all; max-width: 60px; overflow: hidden; text-overflow: ellipsis; }
+        .bar-value { font-size: 0.65rem; font-weight: 600; color: #1e3a5f; margin-bottom: 2px; }
+
+        /* ─── Edu panel ─── */
+        .edu-panel { background: #fffbf0; border: 1px solid #f0e6d2; border-radius: 6px; padding: 12px; margin-top: 8px; font-size: 0.82rem; line-height: 1.5; color: #5d4e37; }
+        .edu-panel h4 { font-weight: 700; color: #8b6914; margin-bottom: 4px; }
+        .edu-panel ul { padding-left: 16px; }
+        .edu-panel li { margin-bottom: 3px; }
+
+        /* ─── Forest plot style ─── */
+        .forest-row { display: flex; align-items: center; gap: 8px; padding: 4px 0; font-size: 0.8rem; }
+        .forest-label { width: 120px; text-align: right; font-weight: 500; flex-shrink: 0; }
+        .forest-plot { flex: 1; position: relative; height: 20px; background: #f1f5f9; border-radius: 4px; }
+        .forest-point { position: absolute; top: 50%; transform: translate(-50%,-50%); width: 10px; height: 10px; border-radius: 50%; background: #3b67a1; z-index: 2; }
+        .forest-ci { position: absolute; top: 50%; transform: translateY(-50%); height: 3px; background: #3b67a1; z-index: 1; }
+        .forest-ref { position: absolute; top: 0; bottom: 0; width: 2px; background: #e74c3c; z-index: 0; }
+        .forest-value { width: 140px; font-size: 0.75rem; color: #475569; flex-shrink: 0; }
+
+        /* ─── Print ─── */
+        @media print {
+            .no-print { display: none !important; }
+            body { font-size: 10pt; }
+        }
+
+        /* ─── Mobile adjustments ─── */
+        @media (max-width: 640px) {
+            .tab-btn { padding: 8px 10px; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     HEADER
+     ═══════════════════════════════════════════════════════════════════ -->
+<header class="bg-primary-900 text-white shadow-lg sticky top-0 z-50 no-print">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <div class="text-2xl">⚗</div>
+            <div>
+                <h1 class="text-lg font-bold leading-tight">BiasLab</h1>
+                <p class="text-xs text-primary-200 leading-tight">Laboratorio de Evaluación de Riesgo de Sesgo</p>
+            </div>
+        </div>
+        <div class="flex items-center gap-2">
+            <span id="statusIndicator" class="text-xs text-primary-300">Esperando datos</span>
+            <button onclick="showInstallPrompt()" class="edu-btn text-xs" title="Instalar como app">📲</button>
+        </div>
+    </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     PROGRESS BAR
+     ═══════════════════════════════════════════════════════════════════ -->
+<div class="bg-white border-b border-gray-200 no-print">
+    <div class="max-w-7xl mx-auto px-4 py-2">
+        <div class="step-indicator">
+            <div class="step-dot current" id="step0" title="Perfil"></div>
+            <div class="step-line" id="line0"></div>
+            <div class="step-dot" id="step1" title="Diagnóstico"></div>
+            <div class="step-line" id="line1"></div>
+            <div class="step-dot" id="step2" title="Asociación"></div>
+            <div class="step-line" id="line2"></div>
+            <div class="step-dot" id="step3" title="Impacto"></div>
+            <div class="step-line" id="line3"></div>
+            <div class="step-dot" id="step4" title="Sensibilidad"></div>
+            <div class="step-line" id="line4"></div>
+            <div class="step-dot" id="step5" title="Interpretación"></div>
+            <div class="step-line" id="line5"></div>
+            <div class="step-dot" id="step6" title="Reporte"></div>
+        </div>
+        <div class="flex justify-between text-xs text-gray-400 mt-1">
+            <span>Perfil</span><span>Diagnóstico</span><span>Asociación</span><span>Impacto</span><span>Sensib.</span><span>Interp.</span><span>Reporte</span>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     MAIN CONTENT
+     ═══════════════════════════════════════════════════════════════════ -->
+<main class="max-w-7xl mx-auto px-4 py-4">
+
+    <!-- ── TAB NAVIGATION ── -->
+    <div class="flex overflow-x-auto border-b border-gray-200 mb-4 no-print" id="tabNav">
+        <button class="tab-btn active" data-tab="tab-profile">1. Perfil</button>
+        <button class="tab-btn" data-tab="tab-diagnostics">2. Diagnóstico</button>
+        <button class="tab-btn" data-tab="tab-association">3. Asociación</button>
+        <button class="tab-btn" data-tab="tab-impact">4. Impacto</button>
+        <button class="tab-btn" data-tab="tab-sensitivity">5. Sensibilidad</button>
+        <button class="tab-btn" data-tab="tab-regulatory">6. Interpretación</button>
+        <button class="tab-btn" data-tab="tab-report">7. Reporte</button>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         TAB 1: PERFIL DEL ESTUDIO
+         ═══════════════════════════════════════════════ -->
+    <div class="tab-panel active" id="tab-profile">
+        <div class="result-card">
+            <h2 class="text-lg font-bold text-primary-900 mb-1">Perfil del Estudio</h2>
+            <p class="text-sm text-gray-500 mb-4">Configure los parámetros del estudio antes de cargar los datos.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Tipo de estudio -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Tipo de estudio</label>
+                    <select id="studyType" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                        <option value="cohort">Cohorte</option>
+                        <option value="case-control">Caso-control</option>
+                        <option value="cross-sectional">Transversal</option>
+                        <option value="rct" selected>Ensayo clínico (RCT)</option>
+                    </select>
+                </div>
+                
+                <!-- Tipo de outcome -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Tipo de outcome</label>
+                    <select id="outcomeType" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                        <option value="binary" selected>Binario (0/1)</option>
+                        <option value="continuous">Continuo</option>
+                    </select>
+                </div>
+                
+                <!-- Variable de tratamiento -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Variable de tratamiento/exposición</label>
+                    <select id="treatmentVar" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                        <option value="">— Cargue datos primero —</option>
+                    </select>
+                </div>
+                
+                <!-- Outcome -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Variable de outcome primario</label>
+                    <select id="outcomeVar" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                        <option value="">— Cargue datos primero —</option>
+                    </select>
+                </div>
+                
+                <!-- Covariables -->
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Covariables (selección múltiple, opcional)</label>
+                    <select id="covariatesVar" multiple class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 h-24">
+                        <option value="">— Cargue datos primero —</option>
+                    </select>
+                    <p class="text-xs text-gray-400 mt-1">Ctrl/Cmd + click para selección múltiple</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CARGA DE DATOS -->
+        <div class="result-card">
+            <h3 class="text-md font-bold text-primary-800 mb-2">Carga de Datos</h3>
+            <p class="text-sm text-gray-500 mb-3">Formato CSV. Separador: coma o punto y coma. Máximo 20,000 filas. Los valores vacíos, "NA", "null", "." se interpretan como faltantes.</p>
+            
+            <div class="flex flex-col sm:flex-row gap-3">
+                <label class="flex-1 flex items-center justify-center gap-2 px-4 py-8 border-2 border-dashed border-primary-300 rounded-lg cursor-pointer hover:bg-primary-50 transition-colors">
+                    <span class="text-2xl">📁</span>
+                    <span class="text-sm font-medium text-primary-700">Seleccionar archivo CSV</span>
+                    <input type="file" id="fileInput" accept=".csv,.txt" class="hidden">
+                </label>
+                <button onclick="loadDemoData()" class="px-4 py-2 bg-primary-100 text-primary-800 rounded-lg text-sm font-medium hover:bg-primary-200 transition-colors">
+                    📊 Cargar datos demo
+                </button>
+            </div>
+            
+            <div id="loadStatus" class="mt-3 text-sm text-gray-500"></div>
+            
+            <!-- Vista previa -->
+            <div id="previewSection" class="mt-4 hidden">
+                <h4 class="text-sm font-semibold text-gray-700 mb-2">Vista previa (primeras 10 filas)</h4>
+                <div class="table-responsive max-h-64 overflow-y-auto border rounded-lg">
+                    <table class="data-table" id="previewTable"></table>
+                </div>
+                <p class="text-xs text-gray-400 mt-2" id="dataInfo"></p>
+            </div>
+        </div>
+        
+        <!-- Botón para iniciar análisis -->
+        <div class="text-center mt-4">
+            <button id="btnStartAnalysis" onclick="startFullAnalysis()" disabled class="px-8 py-3 bg-primary-800 text-white rounded-lg font-bold text-sm disabled:opacity-40 disabled:cursor-not-allowed hover:bg-primary-700 transition-colors shadow-md">
+                🔬 Iniciar Análisis Completo
+            </button>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         TAB 2: DIAGNÓSTICO DE DATOS FALTANTES
+         ═══════════════════════════════════════════════ -->
+    <div class="tab-panel" id="tab-diagnostics">
+        <div id="diagnosticsContent">
+            <p class="text-gray-400 text-center py-8">Ejecute el análisis desde la pestaña Perfil.</p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         TAB 3: ASOCIACIÓN MISSING-VARIABLES
+         ═══════════════════════════════════════════════ -->
+    <div class="tab-panel" id="tab-association">
+        <div id="associationContent">
+            <p class="text-gray-400 text-center py-8">Ejecute el análisis desde la pestaña Perfil.</p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         TAB 4: IMPACTO EN ESTIMADOR
+         ═══════════════════════════════════════════════ -->
+    <div class="tab-panel" id="tab-impact">
+        <div id="impactContent">
+            <p class="text-gray-400 text-center py-8">Ejecute el análisis desde la pestaña Perfil.</p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         TAB 5: SENSIBILIDAD
+         ═══════════════════════════════════════════════ -->
+    <div class="tab-panel" id="tab-sensitivity">
+        <div id="sensitivityContent">
+            <p class="text-gray-400 text-center py-8">Ejecute el análisis desde la pestaña Perfil.</p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         TAB 6: INTERPRETACIÓN REGULATORIA
+         ═══════════════════════════════════════════════ -->
+    <div class="tab-panel" id="tab-regulatory">
+        <div id="regulatoryContent">
+            <p class="text-gray-400 text-center py-8">Ejecute el análisis desde la pestaña Perfil.</p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         TAB 7: REPORTE
+         ═══════════════════════════════════════════════ -->
+    <div class="tab-panel" id="tab-report">
+        <div id="reportContent">
+            <p class="text-gray-400 text-center py-8">Ejecute el análisis desde la pestaña Perfil.</p>
+        </div>
+    </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-gray-100 border-t border-gray-200 py-4 text-center text-xs text-gray-400 no-print">
+    <p>BiasLab — Laboratorio Interactivo de Evaluación de Riesgo de Sesgo y Robustez Analítica</p>
+    <p>Herramienta docente y exploratoria. No sustituye el juicio metodológico experto.</p>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     JAVASCRIPT — TODOS LOS MÓDULOS
+     ═══════════════════════════════════════════════════════════════════════════ -->
+<script>
+"use strict";
+
+// ═══════════════════════════════════════════════════════════════
+// SERVICE WORKER EMBEBIDO (para PWA offline)
+// ═══════════════════════════════════════════════════════════════
+if ('serviceWorker' in navigator) {
+    // Creamos el service worker como blob para mantener todo en un archivo
+    const swCode = `
+        const CACHE_NAME = 'biaslab-v1';
+        const ASSETS = [self.location.origin + self.location.pathname];
+        
+        self.addEventListener('install', e => {
+            e.waitUntil(
+                caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS))
+            );
+            self.skipWaiting();
+        });
+        
+        self.addEventListener('activate', e => {
+            e.waitUntil(
+                caches.keys().then(keys => 
+                    Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
+                )
+            );
+            self.clients.claim();
+        });
+        
+        self.addEventListener('fetch', e => {
+            e.respondWith(
+                caches.match(e.request).then(r => r || fetch(e.request).catch(() => new Response('Offline')))
+            );
+        });
+    `;
+    const swBlob = new Blob([swCode], { type: 'application/javascript' });
+    const swUrl = URL.createObjectURL(swBlob);
+    navigator.serviceWorker.register(swUrl).catch(() => {});
+}
+
+// Variable para el prompt de instalación PWA
+let deferredInstallPrompt = null;
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferredInstallPrompt = e; });
+
+function showInstallPrompt() {
+    if (deferredInstallPrompt) {
+        deferredInstallPrompt.prompt();
+        deferredInstallPrompt.userChoice.then(() => { deferredInstallPrompt = null; });
+    } else {
+        alert('Para instalar en iOS: toque el botón Compartir (⬆) y seleccione "Añadir a pantalla de inicio".\n\nEn Android: busque la opción "Instalar app" en el menú del navegador.');
+    }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// ESTADO GLOBAL DE LA APLICACIÓN
+// ═══════════════════════════════════════════════════════════════
+const AppState = {
+    rawData: null,          // Datos originales parseados [{col1: val, col2: val, ...}, ...]
+    columns: [],            // Nombres de columnas
+    nRows: 0,               // Número de filas
+    metadata: null,         // Configuración del estudio
+    results: {},            // Resultados de cada módulo
+    dataHash: null          // SHA-256 del dataset
+};
+
+// ═══════════════════════════════════════════════════════════════
+// TAB NAVIGATION
+// ═══════════════════════════════════════════════════════════════
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.tab).classList.add('active');
+    });
+});
+
+function switchToTab(tabId) {
+    document.querySelectorAll('.tab-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.tab === tabId);
+    });
+    document.querySelectorAll('.tab-panel').forEach(p => {
+        p.classList.toggle('active', p.id === tabId);
+    });
+}
+
+function updateProgress(step) {
+    for (let i = 0; i <= 6; i++) {
+        const dot = document.getElementById(`step${i}`);
+        const line = document.getElementById(`line${i}`);
+        dot.className = 'step-dot';
+        if (i < step) dot.classList.add('completed');
+        else if (i === step) dot.classList.add('current');
+        if (line) {
+            line.className = 'step-line';
+            if (i < step) line.classList.add('completed');
+        }
+    }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// MÓDULO: dataLoader
+// Responsable de parsear CSV, detectar tipos, generar hash
+// ═══════════════════════════════════════════════════════════════
+const dataLoader = (() => {
+
+    /**
+     * Parsea un string CSV en un array de objetos.
+     * Soporta coma y punto y coma como separadores.
+     * Detecta y convierte valores faltantes.
+     * @param {string} csvText - Contenido del archivo CSV
+     * @returns {Object} { data: Array, columns: Array }
+     */
+    function parseCSV(csvText) {
+        // Normalizar saltos de línea
+        csvText = csvText.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+        
+        const lines = csvText.trim().split('\n').filter(l => l.trim() !== '');
+        if (lines.length < 2) throw new Error('El archivo debe tener al menos un encabezado y una fila de datos.');
+        
+        // Detectar separador: si la primera línea tiene más ; que , usamos ;
+        const firstLine = lines[0];
+        const sep = (firstLine.split(';').length > firstLine.split(',').length) ? ';' : ',';
+        
+        /**
+         * Función de split que respeta comillas
+         */
+        function splitLine(line, separator) {
+            const result = [];
+            let current = '';
+            let inQuotes = false;
+            for (let i = 0; i < line.length; i++) {
+                const ch = line[i];
+                if (ch === '"') {
+                    inQuotes = !inQuotes;
+                } else if (ch === separator && !inQuotes) {
+                    result.push(current.trim());
+                    current = '';
+                } else {
+                    current += ch;
+                }
+            }
+            result.push(current.trim());
+            return result;
+        }
+        
+        const headers = splitLine(lines[0], sep).map(h => h.replace(/^"|"$/g, '').trim());
+        
+        // Verificar headers únicos
+        const headerSet = new Set(headers);
+        if (headerSet.size !== headers.length) {
+            console.warn('Hay nombres de columna duplicados; se renombrarán.');
+            const counts = {};
+            for (let i = 0; i < headers.length; i++) {
+                if (counts[headers[i]] !== undefined) {
+                    counts[headers[i]]++;
+                    headers[i] = headers[i] + '_' + counts[headers[i]];
+                } else {
+                    counts[headers[i]] = 0;
+                }
+            }
+        }
+        
+        const data = [];
+        const maxRows = 20000;
+        
+        for (let i = 1; i < lines.length && data.length < maxRows; i++) {
+            const vals = splitLine(lines[i], sep);
+            if (vals.length === 0 || (vals.length === 1 && vals[0] === '')) continue;
+            
+            const row = {};
+            for (let j = 0; j < headers.length; j++) {
+                let v = (j < vals.length) ? vals[j].replace(/^"|"$/g, '').trim() : '';
+                
+                // Detectar valores faltantes
+                if (v === '' || v === 'NA' || v === 'na' || v === 'N/A' || v === 'null' || v === 'NULL' || v === '.' || v === 'NaN' || v === 'nan') {
+                    row[headers[j]] = null;
+                } else {
+                    // Intentar convertir a número
+                    const num = Number(v);
+                    row[headers[j]] = isNaN(num) ? v : num;
+                }
+            }
+            data.push(row);
+        }
+        
+        if (data.length === 0) throw new Error('No se encontraron filas de datos válidas.');
+        
+        return { data, columns: headers };
+    }
+
+    /**
+     * Detecta si una columna es numérica (continua) o categórica.
+     * Una columna es numérica si >70% de sus valores no-nulos son números.
+     */
+    function detectColumnTypes(data, columns) {
+        const types = {};
+        for (const col of columns) {
+            let numCount = 0;
+            let nonNull = 0;
+            const uniqueVals = new Set();
+            for (const row of data) {
+                const v = row[col];
+                if (v !== null && v !== undefined) {
+                    nonNull++;
+                    if (typeof v === 'number') numCount++;
+                    uniqueVals.add(v);
+                }
+            }
+            // Si más del 70% son números y hay más de 5 valores únicos => continua
+            const isNumeric = nonNull > 0 && (numCount / nonNull) > 0.7 && uniqueVals.size > 5;
+            types[col] = isNumeric ? 'continuous' : 'categorical';
+        }
+        return types;
+    }
+
+    /**
+     * Calcula SHA-256 del texto del CSV para trazabilidad
+     */
+    async function computeHash(text) {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(text);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    return { parseCSV, detectColumnTypes, computeHash };
+})();
+
+
+// ═══════════════════════════════════════════════════════════════
+// MÓDULO: missingDiagnostics
+// Diagnóstico de datos faltantes: porcentajes, patrones, tests
+// ═══════════════════════════════════════════════════════════════
+const missingDiagnostics = (() => {
+
+    /**
+     * Calcula el porcentaje de missing por variable
+     * @returns {Object} { variable: { n_total, n_missing, pct_missing } }
+     */
+    function missingProfile(data, columns) {
+        const profile = {};
+        const n = data.length;
+        for (const col of columns) {
+            let miss = 0;
+            for (const row of data) {
+                if (row[col] === null || row[col] === undefined) miss++;
+            }
+            profile[col] = {
+                n_total: n,
+                n_missing: miss,
+                n_observed: n - miss,
+                pct_missing: (miss / n) * 100
+            };
+        }
+        return profile;
+    }
+
+    /**
+     * Diferencia de % missing por grupo (brazo de tratamiento)
+     */
+    function missingByGroup(data, columns, groupVar) {
+        if (!groupVar) return null;
+        
+        // Obtener grupos únicos
+        const groups = [...new Set(data.map(r => r[groupVar]).filter(v => v !== null && v !== undefined))];
+        if (groups.length < 2 || groups.length > 10) return null;
+        
+        const result = {};
+        for (const col of columns) {
+            if (col === groupVar) continue;
+            result[col] = {};
+            for (const g of groups) {
+                const groupRows = data.filter(r => r[groupVar] === g);
+                const miss = groupRows.filter(r => r[col] === null || r[col] === undefined).length;
+                result[col][g] = {
+                    n: groupRows.length,
+                    n_missing: miss,
+                    pct_missing: groupRows.length > 0 ? (miss / groupRows.length) * 100 : 0
+                };
+            }
+        }
+        return { groups, byVariable: result };
+    }
+
+    /**
+     * Genera matriz de patrones de missingness.
+     * Cada fila del dataset se convierte en un patrón binario (1=observado, 0=missing).
+     * Retorna los patrones únicos con sus frecuencias.
+     */
+    function missingnessPatterns(data, columns) {
+        const patternMap = {};
+        for (const row of data) {
+            const pattern = columns.map(c => (row[c] === null || row[c] === undefined) ? 0 : 1).join('');
+            patternMap[pattern] = (patternMap[pattern] || 0) + 1;
+        }
+        
+        // Ordenar por frecuencia descendente
+        const patterns = Object.entries(patternMap)
+            .map(([p, count]) => ({ pattern: p, count, pct: (count / data.length) * 100 }))
+            .sort((a, b) => b.count - a.count);
+        
+        return {
+            n_unique: patterns.length,
+            patterns: patterns.slice(0, 50), // Mostrar máximo 50
+            columns
+        };
+    }
+
+    /**
+     * Test de Little MCAR (versión simplificada).
+     * 
+     * Concepto: Bajo MCAR, las medias de las variables observadas no deberían
+     * diferir según el patrón de missingness. Se construye un estadístico
+     * chi-cuadrado comparando medias por patrón.
+     * 
+     * Nota: Esta es una implementación simplificada. El test completo de Little
+     * requiere estimación EM de la matriz de covarianza, que es computacionalmente
+     * intensivo para JS en navegador. Aquí usamos una aproximación basada en
+     * comparación de medias por patrón.
+     * 
+     * Fórmula simplificada:
+     * d² = Σ_j n_j * (x̄_j - x̄)' * S⁻¹ * (x̄_j - x̄)
+     * donde j son los patrones, n_j el tamaño, x̄_j la media del patrón,
+     * x̄ la media global, S la covarianza pooled.
+     * 
+     * Bajo H0 (MCAR), d² ~ χ²(df) aproximadamente.
+     */
+    function littleMCARTest(data, columns, colTypes) {
+        // Solo usar columnas continuas con al menos algo de missing
+        const numCols = columns.filter(c => colTypes[c] === 'continuous');
+        const relevantCols = numCols.filter(c => {
+            const miss = data.filter(r => r[c] === null || r[c] === undefined).length;
+            return miss > 0 && miss < data.length;
+        });
+        
+        if (relevantCols.length < 1) {
+            return { applicable: false, reason: 'No hay suficientes variables continuas con datos faltantes.' };
+        }
+        
+        // Construir patrones de missing solo para columnas relevantes
+        const patternGroups = {};
+        for (const row of data) {
+            const pat = relevantCols.map(c => (row[c] === null || row[c] === undefined) ? 0 : 1).join('');
+            if (!patternGroups[pat]) patternGroups[pat] = [];
+            patternGroups[pat].push(row);
+        }
+        
+        const patterns = Object.keys(patternGroups);
+        if (patterns.length < 2) {
+            return { applicable: false, reason: 'Solo se encontró un patrón de missingness.' };
+        }
+        
+        // Medias globales (solo observados)
+        const globalMeans = {};
+        const globalVars = {};
+        for (const c of relevantCols) {
+            const vals = data.map(r => r[c]).filter(v => v !== null && v !== undefined && typeof v === 'number');
+            if (vals.length === 0) continue;
+            const mean = vals.reduce((s, v) => s + v, 0) / vals.length;
+            globalMeans[c] = mean;
+            const variance = vals.reduce((s, v) => s + (v - mean) ** 2, 0) / (vals.length - 1);
+            globalVars[c] = Math.max(variance, 1e-10); // Evitar división por cero
+        }
+        
+        // Calcular estadístico chi-cuadrado
+        let chiSq = 0;
+        let df = 0;
+        
+        for (const pat of patterns) {
+            const group = patternGroups[pat];
+            const nj = group.length;
+            if (nj < 2) continue;
+            
+            // Para cada variable observada en este patrón
+            for (let idx = 0; idx < relevantCols.length; idx++) {
+                if (pat[idx] === '1') { // Variable observada en este patrón
+                    const c = relevantCols[idx];
+                    if (globalMeans[c] === undefined) continue;
+                    
+                    const vals = group.map(r => r[c]).filter(v => v !== null && v !== undefined && typeof v === 'number');
+                    if (vals.length < 2) continue;
+                    
+                    const patMean = vals.reduce((s, v) => s + v, 0) / vals.length;
+                    const diff = patMean - globalMeans[c];
+                    
+                    // Contribución al chi-cuadrado: nj * (diff)^2 / variance
+                    chiSq += nj * (diff ** 2) / globalVars[c];
+                    df++;
+                }
+            }
+        }
+        
+        // Ajustar df: restamos el número de parámetros estimados
+        df = Math.max(df - relevantCols.length - (patterns.length - 1), 1);
+        
+        // p-valor usando aproximación chi-cuadrado
+        const pValue = 1 - chiSquareCDF(chiSq, df);
+        
+        return {
+            applicable: true,
+            statistic: chiSq,
+            df: df,
+            pValue: pValue,
+            nPatterns: patterns.length,
+            nVarsUsed: relevantCols.length,
+            interpretation: pValue < 0.05 
+                ? 'El test sugiere que los datos podrían NO ser MCAR (p < 0.05). Sin embargo, este resultado no permite distinguir entre MAR y MNAR.'
+                : 'El test no rechaza la hipótesis de MCAR (p ≥ 0.05). Esto no confirma MCAR; solo indica que no se encontró evidencia suficiente en contra.',
+            caveats: [
+                'Este es un test simplificado basado en comparación de medias por patrón.',
+                'El test asume normalidad multivariada de las variables continuas.',
+                'No rechazar MCAR no equivale a confirmar MCAR.',
+                'El test no puede distinguir entre MAR y MNAR.',
+                'Con muestras grandes, diferencias triviales pueden ser significativas.',
+                'Con muestras pequeñas, el test tiene bajo poder estadístico.'
+            ]
+        };
+    }
+
+    /**
+     * Tabla de contingencia para variable categórica: missing vs categoría de otra variable
+     * Incluye chi-cuadrado y Fisher (cuando aplica)
+     */
+    function contingencyMissing(data, targetCol, groupCol) {
+        // targetCol: variable cuyo missing analizamos
+        // groupCol: variable categórica por la cual agrupamos
+        
+        const groups = [...new Set(data.map(r => r[groupCol]).filter(v => v !== null && v !== undefined))];
+        if (groups.length < 2 || groups.length > 20) return null;
+        
+        // Tabla 2 x k: missing/observed x grupo
+        const table = {};
+        for (const g of groups) {
+            table[g] = { observed: 0, missing: 0 };
+        }
+        
+        let totalUsed = 0;
+        for (const row of data) {
+            const g = row[groupCol];
+            if (g === null || g === undefined) continue;
+            totalUsed++;
+            const isMissing = row[targetCol] === null || row[targetCol] === undefined;
+            table[g][isMissing ? 'missing' : 'observed']++;
+        }
+        
+        // Chi-cuadrado de Pearson
+        // H0: la proporción de missing es igual en todos los grupos
+        const rowTotals = { observed: 0, missing: 0 };
+        const colTotals = {};
+        for (const g of groups) {
+            colTotals[g] = table[g].observed + table[g].missing;
+            rowTotals.observed += table[g].observed;
+            rowTotals.missing += table[g].missing;
+        }
+        
+        let chiSq = 0;
+        let minExpected = Infinity;
+        for (const g of groups) {
+            for (const status of ['observed', 'missing']) {
+                const O = table[g][status];
+                const E = (colTotals[g] * rowTotals[status]) / totalUsed;
+                minExpected = Math.min(minExpected, E);
+                if (E > 0) {
+                    chiSq += ((O - E) ** 2) / E;
+                }
+            }
+        }
+        
+        const df = groups.length - 1;
+        const pValueChi = 1 - chiSquareCDF(chiSq, df);
+        
+        // Fisher exacto solo para tablas 2x2
+        let fisherResult = null;
+        if (groups.length === 2) {
+            const a = table[groups[0]].missing;
+            const b = table[groups[1]].missing;
+            const c = table[groups[0]].observed;
+            const d = table[groups[1]].observed;
+            fisherResult = fisherExactTest(a, b, c, d);
+        }
+        
+        return {
+            table,
+            groups,
+            chiSquare: chiSq,
+            df,
+            pValueChi,
+            minExpected,
+            useExact: minExpected < 5,
+            fisherResult,
+            totalUsed
+        };
+    }
+
+    /**
+     * Comparación de medias: observados vs grupo con missing en otra variable
+     * t-test de Welch (no asume varianzas iguales)
+     */
+    function compareMeansByMissing(data, continuousCol, targetCol) {
+        // continuousCol: variable continua que comparamos
+        // targetCol: variable cuyo status de missing define los grupos
+        
+        const groupObs = []; // valor de continuousCol cuando targetCol está observado
+        const groupMiss = []; // valor de continuousCol cuando targetCol es missing
+        
+        for (const row of data) {
+            const val = row[continuousCol];
+            if (val === null || val === undefined || typeof val !== 'number') continue;
+            
+            if (row[targetCol] === null || row[targetCol] === undefined) {
+                groupMiss.push(val);
+            } else {
+                groupObs.push(val);
+            }
+        }
+        
+        if (groupObs.length < 2 || groupMiss.length < 2) {
+            return { applicable: false, reason: 'Grupos insuficientes para comparación.' };
+        }
+        
+        const meanObs = mean(groupObs);
+        const meanMiss = mean(groupMiss);
+        const varObs = variance(groupObs);
+        const varMiss = variance(groupMiss);
+        const nObs = groupObs.length;
+        const nMiss = groupMiss.length;
+        
+        // t de Welch
+        // t = (mean1 - mean2) / sqrt(var1/n1 + var2/n2)
+        const se = Math.sqrt(varObs / nObs + varMiss / nMiss);
+        if (se < 1e-15) {
+            return { applicable: true, tStat: 0, df: nObs + nMiss - 2, pValue: 1, meanObs, meanMiss, nObs, nMiss };
+        }
+        
+        const tStat = (meanObs - meanMiss) / se;
+        
+        // Grados de libertad de Welch-Satterthwaite
+        // df = (s1²/n1 + s2²/n2)² / ((s1²/n1)²/(n1-1) + (s2²/n2)²/(n2-1))
+        const v1 = varObs / nObs;
+        const v2 = varMiss / nMiss;
+        const dfWelch = ((v1 + v2) ** 2) / ((v1 ** 2) / (nObs - 1) + (v2 ** 2) / (nMiss - 1));
+        
+        const pValue = 2 * (1 - tCDF(Math.abs(tStat), Math.round(dfWelch)));
+        
+        return {
+            applicable: true,
+            tStat,
+            df: dfWelch,
+            pValue,
+            meanObs,
+            meanMiss,
+            sdObs: Math.sqrt(varObs),
+            sdMiss: Math.sqrt(varMiss),
+            nObs,
+            nMiss,
+            diff: meanObs - meanMiss
+        };
+    }
+
+    return { missingProfile, missingByGroup, missingnessPatterns, littleMCARTest, contingencyMissing, compareMeansByMissing };
+})();
+
+
+// ═══════════════════════════════════════════════════════════════
+// MÓDULO: associationAnalyzer
+// Modelos de regresión: Indicador_missing ~ tratamiento + outcome + covariables
+// ═══════════════════════════════════════════════════════════════
+const associationAnalyzer = (() => {
+
+    /**
+     * Para cada variable con missingness, construye un modelo predictivo
+     * del indicador de missing.
+     * 
+     * Si el outcome es binario: regresión logística
+     * Si el outcome es continuo: regresión lineal
+     * 
+     * La variable dependiente es siempre binaria (1=missing, 0=observado).
+     * Por tanto, siempre usamos regresión logística aquí.
+     */
+    function analyzeAssociations(data, columns, metadata, colTypes) {
+        const results = {};
+        const treatVar = metadata.treatmentVar;
+        const outVar = metadata.outcomeVar;
+        const covars = metadata.covariates || [];
+        
+        // Variables predictoras para el modelo
+        const predictors = [treatVar, outVar, ...covars].filter(v => v && v !== '');
+        
+        // Para cada variable que tiene missing
+        for (const targetCol of columns) {
+            // No modelar missing del tratamiento o outcome si son las mismas
+            const hasMissing = data.some(r => r[targetCol] === null || r[targetCol] === undefined);
+            const hasObserved = data.some(r => r[targetCol] !== null && r[targetCol] !== undefined);
+            if (!hasMissing || !hasObserved) continue;
+            
+            const missingPct = data.filter(r => r[targetCol] === null || r[targetCol] === undefined).length / data.length * 100;
+            if (missingPct < 0.5) continue; // Ignorar si <0.5% missing
+            
+            // Construir dataset para regresión
+            // y = indicador de missing del targetCol
+            // x = predictores disponibles (sin missing en predictores para esa fila)
+            const validPredictors = predictors.filter(p => p !== targetCol);
+            if (validPredictors.length === 0) continue;
+            
+            // Preparar datos: solo filas sin missing en predictores
+            const modelData = [];
+            for (const row of data) {
+                let allPredictorsOk = true;
+                for (const p of validPredictors) {
+                    if (row[p] === null || row[p] === undefined) {
+                        allPredictorsOk = false;
+                        break;
+                    }
+                }
+                if (!allPredictorsOk) continue;
+                
+                const y = (row[targetCol] === null || row[targetCol] === undefined) ? 1 : 0;
+                const x = {};
+                for (const p of validPredictors) {
+                    x[p] = row[p];
+                }
+                modelData.push({ y, x });
+            }
+            
+            if (modelData.length < 20) continue;
+            
+            // Preparar matriz numérica
+            // Variables categóricas necesitan dummy encoding
+            const { X, featureNames } = buildDesignMatrix(modelData.map(d => d.x), validPredictors, colTypes);
+            const y = modelData.map(d => d.y);
+            
+            if (X.length === 0 || featureNames.length === 0) continue;
+            
+            // Regresión logística (variable dependiente siempre binaria)
+            const logitResult = modelEngine.logisticRegression(X, y, featureNames);
+            
+            if (logitResult) {
+                results[targetCol] = {
+                    targetVariable: targetCol,
+                    missingPct: missingPct,
+                    nUsed: modelData.length,
+                    predictors: featureNames,
+                    model: logitResult,
+                    warnings: []
+                };
+                
+                // Verificar si hay asociación significativa con outcome
+                for (const coef of logitResult.coefficients) {
+                    if (coef.name.startsWith(outVar) && coef.pValue < 0.05) {
+                        results[targetCol].warnings.push(
+                            `Asociación significativa entre missing de "${targetCol}" y outcome "${outVar}" (p=${coef.pValue.toFixed(4)}). Esto sugiere riesgo potencial de sesgo.`
+                        );
+                    }
+                    if (coef.name.startsWith(treatVar) && coef.pValue < 0.05) {
+                        results[targetCol].warnings.push(
+                            `Asociación significativa entre missing de "${targetCol}" y tratamiento "${treatVar}" (p=${coef.pValue.toFixed(4)}). Esto indica diferencial de missing por brazo.`
+                        );
+                    }
+                }
+            }
+        }
+        
+        return results;
+    }
+
+    /**
+     * Construye matriz de diseño con intercepto.
+     * Variables categóricas se codifican como dummies (k-1 categorías).
+     * Variables continuas se centran y escalan para estabilidad numérica.
+     */
+    function buildDesignMatrix(xData, predictors, colTypes) {
+        const featureNames = [];
+        const transformations = [];
+        
+        for (const p of predictors) {
+            if (colTypes[p] === 'continuous') {
+                // Centrar y escalar
+                const vals = xData.map(d => typeof d[p] === 'number' ? d[p] : 0);
+                const m = mean(vals);
+                const s = Math.max(sd(vals), 1e-10);
+                transformations.push({ type: 'continuous', name: p, mean: m, sd: s });
+                featureNames.push(p);
+            } else {
+                // Dummy encoding
+                const categories = [...new Set(xData.map(d => d[p]))].sort();
+                if (categories.length > 10) continue; // Demasiadas categorías
+                const refCategory = categories[0]; // Primera como referencia
+                for (let i = 1; i < categories.length; i++) {
+                    transformations.push({ type: 'dummy', name: p, category: categories[i], ref: refCategory });
+                    featureNames.push(`${p}=${categories[i]}`);
+                }
+            }
+        }
+        
+        // Construir matriz
+        const X = xData.map(d => {
+            const row = [1]; // Intercepto
+            for (const t of transformations) {
+                if (t.type === 'continuous') {
+                    const v = typeof d[t.name] === 'number' ? d[t.name] : 0;
+                    row.push((v - t.mean) / t.sd);
+                } else {
+                    row.push(d[t.name] === t.category ? 1 : 0);
+                }
+            }
+            return row;
+        });
+        
+        return { X, featureNames: ['(Intercepto)', ...featureNames] };
+    }
+
+    return { analyzeAssociations, buildDesignMatrix };
+})();
+
+
+// ═══════════════════════════════════════════════════════════════
+// MÓDULO: modelEngine
+// Implementación de regresión logística y lineal
+// ═══════════════════════════════════════════════════════════════
+const modelEngine = (() => {
+
+    /**
+     * Regresión logística via Newton-Raphson (IRLS).
+     * 
+     * Modelo: log(p/(1-p)) = X*β
+     * donde p = P(Y=1|X)
+     * 
+     * Algoritmo IRLS (Iteratively Reweighted Least Squares):
+     * En cada iteración:
+     *   1. Calcular η = Xβ (predictor lineal)
+     *   2. Calcular μ = sigmoid(η) (probabilidades predichas)
+     *   3. Calcular W = diag(μ*(1-μ)) (pesos)
+     *   4. Actualizar: β = (X'WX)⁻¹ X'Wz donde z = η + (y-μ)/(μ*(1-μ))
+     * 
+     * @param {Array<Array<number>>} X - Matriz de diseño (n x p), incluye intercepto
+     * @param {Array<number>} y - Vector respuesta binario (0/1)
+     * @param {Array<string>} featureNames - Nombres de las features
+     * @returns {Object|null} Resultados del modelo
+     */
+    function logisticRegression(X, y, featureNames) {
+        const n = X.length;
+        const p = X[0].length;
+        
+        if (n < p + 5) return null; // Insuficientes datos
+        
+        // Verificar que y es binario
+        const yVals = new Set(y);
+        if (!yVals.has(0) && !yVals.has(1)) return null;
+        const nEvents = y.filter(v => v === 1).length;
+        if (nEvents < 2 || (n - nEvents) < 2) return null;
+        
+        // Inicializar β = 0
+        let beta = new Array(p).fill(0);
+        // Inicializar intercepto con log-odds marginal
+        const pMarginal = Math.max(Math.min(nEvents / n, 0.999), 0.001);
+        beta[0] = Math.log(pMarginal / (1 - pMarginal));
+        
+        const maxIter = 30;
+        const tol = 1e-8;
+        let converged = false;
+        
+        for (let iter = 0; iter < maxIter; iter++) {
+            // Calcular predictor lineal η = Xβ
+            const eta = X.map(row => dotProduct(row, beta));
+            
+            // Probabilidades μ = sigmoid(η), con clipping para estabilidad
+            const mu = eta.map(e => {
+                const v = sigmoid(e);
+                return Math.max(Math.min(v, 1 - 1e-10), 1e-10);
+            });
+            
+            // Pesos W = μ(1-μ)
+            const W = mu.map(m => m * (1 - m));
+            
+            // Score: X'(y - μ)
+            const residuals = y.map((yi, i) => yi - mu[i]);
+            
+            // Hessiana: -X'WX
+            // Resolver sistema: (X'WX)δ = X'(y-μ)
+            
+            // Calcular X'WX
+            const XtWX = new Array(p).fill(0).map(() => new Array(p).fill(0));
+            for (let j = 0; j < p; j++) {
+                for (let k = j; k < p; k++) {
+                    let sum = 0;
+                    for (let i = 0; i < n; i++) {
+                        sum += X[i][j] * W[i] * X[i][k];
+                    }
+                    XtWX[j][k] = sum;
+                    XtWX[k][j] = sum; // Simétrica
+                }
+            }
+            
+            // Calcular X'(y - μ)
+            const XtResid = new Array(p).fill(0);
+            for (let j = 0; j < p; j++) {
+                let sum = 0;
+                for (let i = 0; i < n; i++) {
+                    sum += X[i][j] * residuals[i];
+                }
+                XtResid[j] = sum;
+            }
+            
+            // Resolver (X'WX) * delta = X'(y-μ) usando Cholesky o inversión directa
+            const invXtWX = invertMatrix(XtWX);
+            if (!invXtWX) {
+                // Matriz singular, añadir ridge
+                for (let j = 0; j < p; j++) XtWX[j][j] += 0.001;
+                const inv2 = invertMatrix(XtWX);
+                if (!inv2) return null;
+                // Continuar con la inversión ridge
+                const delta = matVecMul(inv2, XtResid);
+                const maxDelta = Math.max(...delta.map(Math.abs));
+                for (let j = 0; j < p; j++) beta[j] += delta[j];
+                if (maxDelta < tol) { converged = true; break; }
+                continue;
+            }
+            
+            const delta = matVecMul(invXtWX, XtResid);
+            
+            // Verificar convergencia
+            const maxDelta = Math.max(...delta.map(Math.abs));
+            
+            // Actualizar β
+            for (let j = 0; j < p; j++) {
+                beta[j] += delta[j];
+                // Clipping para evitar overflow
+                beta[j] = Math.max(Math.min(beta[j], 20), -20);
+            }
+            
+            if (maxDelta < tol) {
+                converged = true;
+                break;
+            }
+        }
+        
+        // Calcular errores estándar = sqrt(diag((X'WX)^{-1}))
+        const etaFinal = X.map(row => dotProduct(row, beta));
+        const muFinal = etaFinal.map(e => {
+            const v = sigmoid(e);
+            return Math.max(Math.min(v, 1 - 1e-10), 1e-10);
+        });
+        const Wfinal = muFinal.map(m => m * (1 - m));
+        
+        const XtWXfinal = new Array(p).fill(0).map(() => new Array(p).fill(0));
+        for (let j = 0; j < p; j++) {
+            for (let k = j; k < p; k++) {
+                let sum = 0;
+                for (let i = 0; i < n; i++) sum += X[i][j] * Wfinal[i] * X[i][k];
+                XtWXfinal[j][k] = sum;
+                XtWXfinal[k][j] = sum;
+            }
+        }
+        
+        const covMatrix = invertMatrix(XtWXfinal);
+        if (!covMatrix) return null;
+        
+        const se = new Array(p);
+        for (let j = 0; j < p; j++) {
+            se[j] = covMatrix[j][j] > 0 ? Math.sqrt(covMatrix[j][j]) : NaN;
+        }
+        
+        // Log-likelihood
+        let logLik = 0;
+        for (let i = 0; i < n; i++) {
+            logLik += y[i] * Math.log(muFinal[i]) + (1 - y[i]) * Math.log(1 - muFinal[i]);
+        }
+        
+        // Construir resultados
+        const coefficients = featureNames.map((name, j) => {
+            const b = beta[j];
+            const s = se[j];
+            const z = isNaN(s) || s === 0 ? NaN : b / s;
+            const pVal = isNaN(z) ? NaN : 2 * (1 - normalCDF(Math.abs(z)));
+            const or = Math.exp(b);
+            const ciLow = Math.exp(b - 1.96 * s);
+            const ciHigh = Math.exp(b + 1.96 * s);
+            
+            return {
+                name, beta: b, se: s, z, pValue: pVal,
+                OR: or, CI_low: ciLow, CI_high: ciHigh
+            };
+        });
+        
+        return {
+            type: 'logistic',
+            coefficients,
+            n,
+            nEvents: nEvents,
+            logLikelihood: logLik,
+            converged,
+            AIC: -2 * logLik + 2 * p
+        };
+    }
+
+    /**
+     * Regresión lineal por mínimos cuadrados ordinarios.
+     * 
+     * β = (X'X)⁻¹ X'y
+     * Var(β) = σ² (X'X)⁻¹
+     * donde σ² = RSS / (n - p)
+     * 
+     * @param {Array<Array<number>>} X - Matriz de diseño (incluye intercepto)
+     * @param {Array<number>} y - Vector respuesta continuo
+     * @param {Array<string>} featureNames - Nombres de features
+     * @returns {Object|null}
+     */
+    function linearRegression(X, y, featureNames) {
+        const n = X.length;
+        const p = X[0].length;
+        
+        if (n < p + 3) return null;
+        
+        // X'X
+        const XtX = new Array(p).fill(0).map(() => new Array(p).fill(0));
+        for (let j = 0; j < p; j++) {
+            for (let k = j; k < p; k++) {
+                let sum = 0;
+                for (let i = 0; i < n; i++) sum += X[i][j] * X[i][k];
+                XtX[j][k] = sum;
+                XtX[k][j] = sum;
+            }
+        }
+        
+        // X'y
+        const Xty = new Array(p).fill(0);
+        for (let j = 0; j < p; j++) {
+            let sum = 0;
+            for (let i = 0; i < n; i++) sum += X[i][j] * y[i];
+            Xty[j] = sum;
+        }
+        
+        // β = (X'X)⁻¹ X'y
+        const invXtX = invertMatrix(XtX);
+        if (!invXtX) return null;
+        
+        const beta = matVecMul(invXtX, Xty);
+        
+        // Residuos y RSS
+        let RSS = 0;
+        const yMean = mean(y);
+        let TSS = 0;
+        for (let i = 0; i < n; i++) {
+            const yHat = dotProduct(X[i], beta);
+            RSS += (y[i] - yHat) ** 2;
+            TSS += (y[i] - yMean) ** 2;
+        }
+        
+        const sigmaSquared = RSS / (n - p);
+        const rSquared = 1 - RSS / TSS;
+        const adjRSquared = 1 - (1 - rSquared) * (n - 1) / (n - p);
+        
+        // Errores estándar
+        const se = new Array(p);
+        for (let j = 0; j < p; j++) {
+            se[j] = Math.sqrt(sigmaSquared * invXtX[j][j]);
+        }
+        
+        const coefficients = featureNames.map((name, j) => {
+            const b = beta[j];
+            const s = se[j];
+            const t = s > 0 ? b / s : NaN;
+            const pVal = isNaN(t) ? NaN : 2 * (1 - tCDF(Math.abs(t), n - p));
+            const ciLow = b - 1.96 * s;
+            const ciHigh = b + 1.96 * s;
+            
+            return {
+                name, beta: b, se: s, t, pValue: pVal,
+                CI_low: ciLow, CI_high: ciHigh
+            };
+        });
+        
+        return {
+            type: 'linear',
+            coefficients,
+            n,
+            rSquared,
+            adjRSquared,
+            sigma: Math.sqrt(sigmaSquared),
+            RSS,
+            AIC: n * Math.log(RSS / n) + 2 * p
+        };
+    }
+
+    return { logisticRegression, linearRegression };
+})();
+
+
+// ═══════════════════════════════════════════════════════════════
+// MÓDULO: sensitivityEngine
+// Análisis de sensibilidad para ensayos clínicos
+// ═══════════════════════════════════════════════════════════════
+const sensitivityEngine = (() => {
+
+    /**
+     * Análisis de sensibilidad para outcome binario en RCT.
+     * 
+     * Escenarios:
+     * 1. Missing = fracaso (peor caso para tratamiento si más missing en tto)
+     * 2. Missing = éxito (mejor caso para tratamiento)
+     * 3. Escenario intermedio configurable (proporción p de éxito)
+     * 
+     * Para cada escenario, recalcula la asociación tratamiento-outcome.
+     */
+    function sensitivityAnalysis(data, metadata, scenarios) {
+        const treatVar = metadata.treatmentVar;
+        const outVar = metadata.outcomeVar;
+        
+        if (!treatVar || !outVar) return null;
+        if (metadata.outcomeType !== 'binary') return null;
+        
+        // Identificar grupos de tratamiento
+        const groups = [...new Set(data.map(r => r[treatVar]).filter(v => v !== null && v !== undefined))];
+        if (groups.length !== 2) return { error: 'Se requieren exactamente 2 grupos de tratamiento.' };
+        
+        const results = [];
+        
+        for (const scenario of scenarios) {
+            // Crear dataset imputado según escenario
+            const imputed = data.map(row => {
+                const newRow = { ...row };
+                if (newRow[outVar] === null || newRow[outVar] === undefined) {
+                    if (scenario.type === 'failure') {
+                        newRow[outVar] = 0;
+                    } else if (scenario.type === 'success') {
+                        newRow[outVar] = 1;
+                    } else if (scenario.type === 'proportion') {
+                        // Asignar según proporción del grupo
+                        const group = newRow[treatVar];
+                        const p = scenario.proportions[group] !== undefined ? scenario.proportions[group] : 0.5;
+                        newRow[outVar] = Math.random() < p ? 1 : 0;
+                    }
+                }
+                return newRow;
+            }).filter(r => r[treatVar] !== null && r[treatVar] !== undefined);
+            
+            // Calcular tabla 2x2
+            const table = {};
+            for (const g of groups) {
+                const gRows = imputed.filter(r => r[treatVar] === g);
+                table[g] = {
+                    events: gRows.filter(r => r[outVar] === 1).length,
+                    total: gRows.length
+                };
+            }
+            
+            // Risk ratio y OR
+            const p0 = table[groups[0]].events / table[groups[0]].total;
+            const p1 = table[groups[1]].events / table[groups[1]].total;
+            
+            const a = table[groups[0]].events;
+            const b = table[groups[1]].events;
+            const c = table[groups[0]].total - a;
+            const d = table[groups[1]].total - b;
+            
+            let OR = NaN, orCI_low = NaN, orCI_high = NaN;
+            if (a > 0 && b > 0 && c > 0 && d > 0) {
+                OR = (a * d) / (b * c);
+                // IC 95% para log(OR) usando Woolf
+                const seLnOR = Math.sqrt(1/a + 1/b + 1/c + 1/d);
+                orCI_low = Math.exp(Math.log(OR) - 1.96 * seLnOR);
+                orCI_high = Math.exp(Math.log(OR) + 1.96 * seLnOR);
+            }
+            
+            let RD = p0 - p1;
+            let RR = p1 > 0 ? p0 / p1 : NaN;
+            
+            results.push({
+                label: scenario.label,
+                type: scenario.type,
+                table,
+                groups,
+                p0, p1, RD, RR, OR,
+                orCI_low, orCI_high
+            });
+        }
+        
+        return results;
+    }
+
+    return { sensitivityAnalysis };
+})();
+
+
+// ═══════════════════════════════════════════════════════════════
+// MÓDULO: regulatoryInterpreter
+// Motor lógico de interpretación regulatoria
+// ═══════════════════════════════════════════════════════════════
+const regulatoryInterpreter = (() => {
+
+    /**
+     * Genera narrativa estructurada combinando todos los resultados.
+     * 
+     * Estructura de la narrativa:
+     * 1. Magnitud del problema
+     * 2. Evidencia estadística
+     * 3. Implicaciones metodológicas
+     * 4. Nivel de riesgo potencial
+     * 5. Recomendaciones prudentes
+     */
+    function interpret(allResults, metadata) {
+        const narrative = {
+            magnitude: '',
+            evidence: '',
+            implications: '',
+            riskLevel: 'low',
+            riskScore: 0,
+            recommendations: []
+        };
+        
+        // ── 1. Magnitud del problema ──
+        const missingProf = allResults.missingProfile || {};
+        const outcomeVar = metadata.outcomeVar;
+        const treatVar = metadata.treatmentVar;
+        
+        let maxMissing = 0;
+        let outcomeMissing = 0;
+        let treatMissing = 0;
+        let highMissingVars = [];
+        
+        for (const [col, info] of Object.entries(missingProf)) {
+            if (info.pct_missing > maxMissing) maxMissing = info.pct_missing;
+            if (col === outcomeVar) outcomeMissing = info.pct_missing;
+            if (col === treatVar) treatMissing = info.pct_missing;
+            if (info.pct_missing > 10) highMissingVars.push({ name: col, pct: info.pct_missing });
+        }
+        
+        let magnitudeText = '';
+        if (outcomeMissing > 20) {
+            magnitudeText = `El outcome primario ("${outcomeVar}") presenta un ${outcomeMissing.toFixed(1)}% de datos faltantes, lo cual constituye una proporción sustancial que podría comprometer la validez interna del estudio.`;
+            narrative.riskScore += 3;
+        } else if (outcomeMissing > 10) {
+            magnitudeText = `El outcome primario presenta un ${outcomeMissing.toFixed(1)}% de datos faltantes. Aunque no es extremo, esta proporción merece atención analítica.`;
+            narrative.riskScore += 2;
+        } else if (outcomeMissing > 5) {
+            magnitudeText = `El outcome primario presenta un ${outcomeMissing.toFixed(1)}% de datos faltantes, una proporción moderada.`;
+            narrative.riskScore += 1;
+        } else {
+            magnitudeText = `El outcome primario presenta un ${outcomeMissing.toFixed(1)}% de datos faltantes, una proporción relativamente baja.`;
+        }
+        
+        if (highMissingVars.length > 0) {
+            magnitudeText += ` Además, ${highMissingVars.length} variable(s) superan el 10% de datos faltantes.`;
+        }
+        
+        narrative.magnitude = magnitudeText;
+        
+        // ── 2. Evidencia estadística ──
+        let evidenceItems = [];
+        
+        // Diferencial por brazo
+        const byGroup = allResults.missingByGroup;
+        if (byGroup && outcomeVar && byGroup.byVariable[outcomeVar]) {
+            const groupInfo = byGroup.byVariable[outcomeVar];
+            const groups = byGroup.groups;
+            if (groups.length === 2) {
+                const diff = Math.abs(groupInfo[groups[0]].pct_missing - groupInfo[groups[1]].pct_missing);
+                if (diff > 10) {
+                    evidenceItems.push(`Diferencial de missing del outcome entre brazos: ${diff.toFixed(1)} puntos porcentuales. Un diferencial de esta magnitud sugiere posible relación entre el tratamiento asignado y la pérdida de datos.`);
+                    narrative.riskScore += 2;
+                } else if (diff > 5) {
+                    evidenceItems.push(`Diferencial moderado de missing del outcome entre brazos: ${diff.toFixed(1)} puntos porcentuales.`);
+                    narrative.riskScore += 1;
+                }
+            }
+        }
+        
+        // MCAR test
+        const mcarTest = allResults.mcarTest;
+        if (mcarTest && mcarTest.applicable) {
+            if (mcarTest.pValue < 0.01) {
+                evidenceItems.push(`El test de Little rechaza MCAR (χ²=${mcarTest.statistic.toFixed(2)}, p=${mcarTest.pValue.toFixed(4)}). Los datos faltantes parecen no ser completamente aleatorios. Nota: este resultado no permite distinguir entre MAR y MNAR.`);
+                narrative.riskScore += 2;
+            } else if (mcarTest.pValue < 0.05) {
+                evidenceItems.push(`El test de Little sugiere posible desviación de MCAR (p=${mcarTest.pValue.toFixed(4)}), aunque la evidencia no es concluyente.`);
+                narrative.riskScore += 1;
+            } else {
+                evidenceItems.push(`El test de Little no rechaza MCAR (p=${mcarTest.pValue.toFixed(4)}). No se encontró evidencia estadística de no-aleatoriedad, aunque esto no confirma MCAR.`);
+            }
+        }
+        
+        // Asociaciones
+        const associations = allResults.associations;
+        if (associations) {
+            let sigAssoc = 0;
+            for (const [varName, assocResult] of Object.entries(associations)) {
+                if (assocResult.warnings && assocResult.warnings.length > 0) {
+                    sigAssoc++;
+                    for (const w of assocResult.warnings) {
+                        evidenceItems.push(w);
+                    }
+                }
+            }
+            if (sigAssoc > 0) narrative.riskScore += sigAssoc;
+        }
+        
+        narrative.evidence = evidenceItems.length > 0 
+            ? evidenceItems.join(' ')
+            : 'No se identificaron señales estadísticas significativas de sesgo potencial en los análisis realizados.';
+        
+        // ── 3. Implicaciones metodológicas ──
+        const impact = allResults.impactResults;
+        let implicationsText = '';
+        if (impact && impact.percentChange !== undefined) {
+            if (Math.abs(impact.percentChange) > 15) {
+                implicationsText = `El estimador primario muestra un cambio del ${impact.percentChange.toFixed(1)}% bajo diferentes estrategias de manejo de datos faltantes. Cambios superiores al 15% indican inestabilidad sustancial del estimador, lo que compromete la robustez de las conclusiones.`;
+                narrative.riskScore += 3;
+            } else if (Math.abs(impact.percentChange) > 10) {
+                implicationsText = `El cambio en el estimador es de ${impact.percentChange.toFixed(1)}%, sugiriendo sensibilidad moderada a la estrategia de manejo de datos faltantes.`;
+                narrative.riskScore += 1;
+            } else {
+                implicationsText = `El cambio en el estimador es menor al 10% (${impact.percentChange.toFixed(1)}%), sugiriendo relativa robustez del resultado principal.`;
+            }
+        }
+        
+        // Sensibilidad
+        const sens = allResults.sensitivityResults;
+        if (sens && Array.isArray(sens) && sens.length > 0) {
+            const ors = sens.filter(s => !isNaN(s.OR)).map(s => s.OR);
+            if (ors.length > 1) {
+                const minOR = Math.min(...ors);
+                const maxOR = Math.max(...ors);
+                if ((minOR < 1 && maxOR > 1) || (minOR > 1 && maxOR < 1)) {
+                    implicationsText += ` Crucialmente, los análisis de sensibilidad muestran que la dirección del efecto podría invertirse según los supuestos sobre los datos faltantes (rango de OR: ${minOR.toFixed(2)} – ${maxOR.toFixed(2)}).`;
+                    narrative.riskScore += 3;
+                } else {
+                    implicationsText += ` Los análisis de sensibilidad muestran un rango de OR de ${minOR.toFixed(2)} a ${maxOR.toFixed(2)}, manteniendo la dirección del efecto.`;
+                }
+            }
+        }
+        
+        narrative.implications = implicationsText || 'No se realizaron análisis de impacto suficientes para evaluar implicaciones metodológicas.';
+        
+        // ── 4. Nivel de riesgo ──
+        if (narrative.riskScore >= 8) {
+            narrative.riskLevel = 'high';
+            narrative.riskLabel = 'ALTO';
+            narrative.riskDescription = 'Los hallazgos sugieren un riesgo potencialmente alto de sesgo por datos faltantes. Se recomienda extrema cautela en la interpretación de los resultados primarios y la realización de análisis adicionales.';
+        } else if (narrative.riskScore >= 4) {
+            narrative.riskLevel = 'moderate';
+            narrative.riskLabel = 'MODERADO';
+            narrative.riskDescription = 'Existen señales que sugieren riesgo moderado de sesgo. Los resultados primarios podrían estar influenciados por los datos faltantes y se recomienda evaluación adicional.';
+        } else {
+            narrative.riskLevel = 'low';
+            narrative.riskLabel = 'BAJO';
+            narrative.riskDescription = 'Con base en los análisis realizados, el riesgo de sesgo por datos faltantes parece ser bajo. Sin embargo, esto no garantiza ausencia de sesgo.';
+        }
+        
+        // ── 5. Recomendaciones ──
+        narrative.recommendations = [];
+        
+        if (outcomeMissing > 5) {
+            narrative.recommendations.push('Considerar la implementación de métodos de imputación múltiple para el análisis primario.');
+        }
+        if (narrative.riskScore >= 4) {
+            narrative.recommendations.push('Reportar transparentemente la magnitud y patrón de datos faltantes en cualquier publicación.');
+            narrative.recommendations.push('Incluir análisis de sensibilidad bajo múltiples supuestos en el reporte final.');
+        }
+        if (byGroup && outcomeVar && byGroup.byVariable[outcomeVar]) {
+            const groupInfo = byGroup.byVariable[outcomeVar];
+            const groups = byGroup.groups;
+            if (groups.length === 2) {
+                const diff = Math.abs(groupInfo[groups[0]].pct_missing - groupInfo[groups[1]].pct_missing);
+                if (diff > 5) {
+                    narrative.recommendations.push('Investigar las razones del diferencial de datos faltantes entre brazos de tratamiento.');
+                }
+            }
+        }
+        if (narrative.riskScore >= 8) {
+            narrative.recommendations.push('Considerar consultar con un bioestadístico especializado en datos faltantes.');
+            narrative.recommendations.push('Evaluar si las conclusiones del estudio pueden sostenerse bajo los peores escenarios plausibles.');
+        }
+        
+        narrative.recommendations.push('Recordar que ningún análisis estadístico puede confirmar el mecanismo de datos faltantes (MCAR/MAR/MNAR). La evaluación del mecanismo requiere conocimiento sustantivo del dominio.');
+        
+        // Disclaimer
+        narrative.disclaimer = 'Esta evaluación es de carácter exploratorio y docente. No sustituye el juicio experto ni constituye una evaluación regulatoria formal. El lenguaje condicional empleado refleja la incertidumbre inherente a la evaluación del sesgo por datos faltantes.';
+        
+        return narrative;
+    }
+
+    return { interpret };
+})();
+
+
+// ═══════════════════════════════════════════════════════════════
+// MÓDULO: reportGenerator
+// Genera el reporte exportable en HTML
+// ═══════════════════════════════════════════════════════════════
+const reportGenerator = (() => {
+
+    function generateHTML(allResults, metadata, dataHash) {
+        const now = new Date().toISOString();
+        
+        let html = `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+<title>Reporte BiasLab - ${now.slice(0,10)}</title>
+<style>
+body{font-family:'Segoe UI',sans-serif;max-width:900px;margin:0 auto;padding:20px;color:#333;font-size:11pt;line-height:1.6}
+h1{color:#1e3a5f;border-bottom:3px solid #1e3a5f;padding-bottom:8px}
+h2{color:#2d548f;margin-top:24px;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{color:#475569}
+table{border-collapse:collapse;width:100%;margin:10px 0;font-size:10pt}
+th{background:#f1f5f9;padding:6px 10px;text-align:left;border:1px solid #ddd;font-weight:600}
+td{padding:5px 10px;border:1px solid #ddd}
+.risk-low{background:#d5f5e3;color:#1e8449;padding:4px 12px;border-radius:4px;font-weight:bold}
+.risk-moderate{background:#fdebd0;color:#b7950b;padding:4px 12px;border-radius:4px;font-weight:bold}
+.risk-high{background:#fadbd8;color:#922b21;padding:4px 12px;border-radius:4px;font-weight:bold}
+.warning{background:#fff3cd;border:1px solid #ffc107;padding:8px;border-radius:4px;margin:8px 0}
+.disclaimer{background:#f0f0f0;border:1px solid #ccc;padding:12px;font-size:9pt;color:#666;margin-top:20px;border-radius:4px}
+.section{margin-bottom:20px;page-break-inside:avoid}
+</style></head><body>`;
+        
+        html += `<h1>⚗ BiasLab — Reporte de Evaluación de Riesgo de Sesgo</h1>`;
+        html += `<p><strong>Fecha de generación:</strong> ${new Date().toLocaleString('es')}</p>`;
+        html += `<p><strong>Hash SHA-256 del dataset:</strong> <code>${dataHash || 'No disponible'}</code></p>`;
+        
+        // Metadata
+        html += `<div class="section"><h2>1. Perfil del Estudio</h2>`;
+        html += `<table>
+            <tr><th>Parámetro</th><th>Valor</th></tr>
+            <tr><td>Tipo de estudio</td><td>${metadata.studyType}</td></tr>
+            <tr><td>Tipo de outcome</td><td>${metadata.outcomeType}</td></tr>
+            <tr><td>Variable de tratamiento</td><td>${metadata.treatmentVar}</td></tr>
+            <tr><td>Variable de outcome</td><td>${metadata.outcomeVar}</td></tr>
+            <tr><td>Covariables</td><td>${(metadata.covariates || []).join(', ') || 'Ninguna'}</td></tr>
+            <tr><td>N total</td><td>${metadata.nRows}</td></tr>
+        </table></div>`;
+        
+        // Missing profile
+        if (allResults.missingProfile) {
+            html += `<div class="section"><h2>2. Diagnóstico de Datos Faltantes</h2>`;
+            html += `<table><tr><th>Variable</th><th>N total</th><th>N missing</th><th>% Missing</th></tr>`;
+            for (const [col, info] of Object.entries(allResults.missingProfile)) {
+                const highlight = info.pct_missing > 10 ? ' style="background:#fff3cd"' : '';
+                html += `<tr${highlight}><td>${col}</td><td>${info.n_total}</td><td>${info.n_missing}</td><td>${info.pct_missing.toFixed(1)}%</td></tr>`;
+            }
+            html += `</table>`;
+            
+            if (allResults.mcarTest && allResults.mcarTest.applicable) {
+                const t = allResults.mcarTest;
+                html += `<h3>Test de Little (MCAR)</h3>`;
+                html += `<p>χ² = ${t.statistic.toFixed(3)}, df = ${t.df}, p = ${t.pValue.toFixed(4)}</p>`;
+                html += `<p>${t.interpretation}</p>`;
+                html += `<div class="warning"><strong>Limitaciones:</strong> ${t.caveats.join(' ')}</div>`;
+            }
+            html += `</div>`;
+        }
+        
+        // Associations
+        if (allResults.associations && Object.keys(allResults.associations).length > 0) {
+            html += `<div class="section"><h2>3. Asociación entre Missing y Variables Clave</h2>`;
+            for (const [varName, res] of Object.entries(allResults.associations)) {
+                html += `<h3>Missing de: ${varName} (${res.missingPct.toFixed(1)}% faltante)</h3>`;
+                if (res.model) {
+                    html += `<table><tr><th>Predictor</th><th>β</th><th>SE</th><th>OR</th><th>IC 95%</th><th>p</th></tr>`;
+                    for (const c of res.model.coefficients) {
+                        html += `<tr><td>${c.name}</td><td>${fmt(c.beta)}</td><td>${fmt(c.se)}</td>`;
+                        html += `<td>${c.OR ? fmt(c.OR) : '—'}</td>`;
+                        html += `<td>${c.CI_low ? `[${fmt(c.CI_low)}, ${fmt(c.CI_high)}]` : '—'}</td>`;
+                        html += `<td>${fmt(c.pValue, 4)}</td></tr>`;
+                    }
+                    html += `</table>`;
+                }
+                if (res.warnings && res.warnings.length > 0) {
+                    for (const w of res.warnings) {
+                        html += `<div class="warning">⚠ ${w}</div>`;
+                    }
+                }
+            }
+            html += `</div>`;
+        }
+        
+        // Impact
+        if (allResults.impactResults) {
+            html += `<div class="section"><h2>4. Impacto en Estimador Primario</h2>`;
+            const imp = allResults.impactResults;
+            if (imp.models && imp.models.length > 0) {
+                html += `<table><tr><th>Modelo</th><th>Estimador</th><th>IC 95%</th><th>p</th><th>N</th></tr>`;
+                for (const m of imp.models) {
+                    html += `<tr><td>${m.label}</td><td>${fmt(m.estimate)}</td><td>[${fmt(m.ciLow)}, ${fmt(m.ciHigh)}]</td><td>${fmt(m.pValue, 4)}</td><td>${m.n}</td></tr>`;
+                }
+                html += `</table>`;
+                if (imp.percentChange !== undefined) {
+                    const warn = Math.abs(imp.percentChange) > 15;
+                    html += `<p>Cambio máximo en estimador: <strong>${imp.percentChange.toFixed(1)}%</strong>`;
+                    if (warn) html += ` <span class="risk-high">⚠ INESTABILIDAD</span>`;
+                    html += `</p>`;
+                }
+            }
+            html += `</div>`;
+        }
+        
+        // Sensitivity
+        if (allResults.sensitivityResults && Array.isArray(allResults.sensitivityResults)) {
+            html += `<div class="section"><h2>5. Análisis de Sensibilidad</h2>`;
+            html += `<table><tr><th>Escenario</th><th>OR</th><th>IC 95%</th></tr>`;
+            for (const s of allResults.sensitivityResults) {
+                html += `<tr><td>${s.label}</td><td>${isNaN(s.OR) ? '—' : fmt(s.OR)}</td>`;
+                html += `<td>${isNaN(s.orCI_low) ? '—' : `[${fmt(s.orCI_low)}, ${fmt(s.orCI_high)}]`}</td></tr>`;
+            }
+            html += `</table>`;
+            html += `<div class="warning">Estos resultados son exploratorios y no constituyen inferencia causal. Presentan el rango de estimaciones bajo diferentes supuestos extremos sobre los datos faltantes.</div>`;
+            html += `</div>`;
+        }
+        
+        // Regulatory interpretation
+        if (allResults.regulatoryNarrative) {
+            const n = allResults.regulatoryNarrative;
+            html += `<div class="section"><h2>6. Interpretación Regulatoria Estructurada</h2>`;
+            
+            html += `<h3>Nivel de riesgo potencial: <span class="risk-${n.riskLevel}">${n.riskLabel}</span></h3>`;
+            html += `<p>${n.riskDescription}</p>`;
+            
+            html += `<h3>6.1 Magnitud del problema</h3><p>${n.magnitude}</p>`;
+            html += `<h3>6.2 Evidencia estadística</h3><p>${n.evidence}</p>`;
+            html += `<h3>6.3 Implicaciones metodológicas</h3><p>${n.implications}</p>`;
+            
+            html += `<h3>6.4 Recomendaciones</h3><ul>`;
+            for (const r of n.recommendations) {
+                html += `<li>${r}</li>`;
+            }
+            html += `</ul>`;
+            
+            html += `<div class="disclaimer">${n.disclaimer}</div>`;
+            html += `</div>`;
+        }
+        
+        html += `<div class="disclaimer"><strong>Nota general:</strong> Este reporte ha sido generado por BiasLab, una herramienta docente y exploratoria. Los resultados deben interpretarse en el contexto del conocimiento sustantivo del estudio y no sustituyen la evaluación por un bioestadístico calificado.</div>`;
+        
+        html += `</body></html>`;
+        return html;
+    }
+
+    function downloadReport(html, filename) {
+        const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename || `BiasLab_Report_${new Date().toISOString().slice(0,10)}.html`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+
+    return { generateHTML, downloadReport };
+})();
+
+
+// ═══════════════════════════════════════════════════════════════
+// FUNCIONES MATEMÁTICAS Y ESTADÍSTICAS AUXILIARES
+// ═══════════════════════════════════════════════════════════════
+
+/** Media aritmética */
+function mean(arr) {
+    if (arr.length === 0) return 0;
+    return arr.reduce((s, v) => s + v, 0) / arr.length;
+}
+
+/** Varianza muestral (n-1) */
+function variance(arr) {
+    if (arr.length < 2) return 0;
+    const m = mean(arr);
+    return arr.reduce((s, v) => s + (v - m) ** 2, 0) / (arr.length - 1);
+}
+
+/** Desviación estándar muestral */
+function sd(arr) {
+    return Math.sqrt(variance(arr));
+}
+
+/** Función sigmoide: σ(x) = 1 / (1 + exp(-x)) */
+function sigmoid(x) {
+    if (x >= 0) {
+        return 1 / (1 + Math.exp(-x));
+    } else {
+        const ex = Math.exp(x);
+        return ex / (1 + ex);
+    }
+}
+
+/** Producto punto de dos vectores */
+function dotProduct(a, b) {
+    let sum = 0;
+    for (let i = 0; i < a.length; i++) sum += a[i] * b[i];
+    return sum;
+}
+
+/** Multiplicación matriz-vector */
+function matVecMul(M, v) {
+    return M.map(row => dotProduct(row, v));
+}
+
+/**
+ * Inversión de matriz usando eliminación Gauss-Jordan.
+ * @param {Array<Array<number>>} matrix - Matriz cuadrada
+ * @returns {Array<Array<number>>|null} Inversa o null si singular
+ */
+function invertMatrix(matrix) {
+    const n = matrix.length;
+    // Crear matriz aumentada [A|I]
+    const aug = matrix.map((row, i) => {
+        const newRow = [...row];
+        for (let j = 0; j < n; j++) newRow.push(i === j ? 1 : 0);
+        return newRow;
+    });
+    
+    // Eliminación hacia adelante con pivoteo parcial
+    for (let col = 0; col < n; col++) {
+        // Encontrar pivote máximo
+        let maxVal = Math.abs(aug[col][col]);
+        let maxRow = col;
+        for (let row = col + 1; row < n; row++) {
+            if (Math.abs(aug[row][col]) > maxVal) {
+                maxVal = Math.abs(aug[row][col]);
+                maxRow = row;
+            }
+        }
+        
+        if (maxVal < 1e-12) return null; // Singular
+        
+        // Intercambiar filas
+        if (maxRow !== col) {
+            [aug[col], aug[maxRow]] = [aug[maxRow], aug[col]];
+        }
+        
+        // Escalar pivote
+        const pivot = aug[col][col];
+        for (let j = 0; j < 2 * n; j++) aug[col][j] /= pivot;
+        
+        // Eliminar columna
+        for (let row = 0; row < n; row++) {
+            if (row === col) continue;
+            const factor = aug[row][col];
+            for (let j = 0; j < 2 * n; j++) {
+                aug[row][j] -= factor * aug[col][j];
+            }
+        }
+    }
+    
+    // Extraer inversa
+    return aug.map(row => row.slice(n));
+}
+
+/**
+ * CDF de la distribución normal estándar.
+ * Aproximación de Abramowitz & Stegun (fórmula 26.2.17).
+ */
+function normalCDF(x) {
+    if (x < -8) return 0;
+    if (x > 8) return 1;
+    
+    const a1 = 0.254829592;
+    const a2 = -0.284496736;
+    const a3 = 1.421413741;
+    const a4 = -1.453152027;
+    const a5 = 1.061405429;
+    const p = 0.3275911;
+    
+    const sign = x < 0 ? -1 : 1;
+    const absX = Math.abs(x);
+    const t = 1.0 / (1.0 + p * absX);
+    const y = 1.0 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-absX * absX / 2);
+    
+    return 0.5 * (1.0 + sign * y);
+}
+
+/**
+ * CDF de la distribución chi-cuadrado.
+ * Usa la función gamma incompleta regularizada.
+ * χ²(x, k) = γ(k/2, x/2) / Γ(k/2)
+ */
+function chiSquareCDF(x, df) {
+    if (x <= 0) return 0;
+    if (df <= 0) return 0;
+    return regularizedGammaP(df / 2, x / 2);
+}
+
+/**
+ * CDF de la distribución t de Student.
+ * Usa la relación con la función beta incompleta.
+ * Para df grande, aproximamos con normal.
+ */
+function tCDF(x, df) {
+    if (df <= 0) return 0.5;
+    if (df > 200) return normalCDF(x); // Aproximación normal para df grande
+    
+    const t2 = x * x;
+    const y = df / (df + t2);
+    const beta = regularizedBetaI(y, df / 2, 0.5);
+    
+    return x >= 0 ? 1 - 0.5 * beta : 0.5 * beta;
+}
+
+/**
+ * Función gamma incompleta regularizada P(a, x) = γ(a,x) / Γ(a)
+ * Implementación por series para x < a+1, y fracción continua para x >= a+1.
+ */
+function regularizedGammaP(a, x) {
+    if (x <= 0) return 0;
+    if (x < a + 1) {
+        // Series
+        let sum = 1 / a;
+        let term = 1 / a;
+        for (let n = 1; n < 200; n++) {
+            term *= x / (a + n);
+            sum += term;
+            if (Math.abs(term) < Math.abs(sum) * 1e-10) break;
+        }
+        return sum * Math.exp(-x + a * Math.log(x) - lnGamma(a));
+    } else {
+        // Fracción continua (Lentz)
+        return 1 - regularizedGammaQ(a, x);
+    }
+}
+
+function regularizedGammaQ(a, x) {
+    // Fracción continua para la gamma incompleta complementaria
+    let f = 1e-30;
+    let c = 1e-30;
+    let d = 1 / (x + 1 - a);
+    let h = d;
+    
+    for (let i = 1; i < 200; i++) {
+        const an = -i * (i - a);
+        const bn = x + 2 * i + 1 - a;
+        d = bn + an * d;
+        if (Math.abs(d) < 1e-30) d = 1e-30;
+        c = bn + an / c;
+        if (Math.abs(c) < 1e-30) c = 1e-30;
+        d = 1 / d;
+        const delta = d * c;
+        h *= delta;
+        if (Math.abs(delta - 1) < 1e-10) break;
+    }
+    
+    return Math.exp(-x + a * Math.log(x) - lnGamma(a)) * h;
+}
+
+/**
+ * Logaritmo de la función Gamma: ln(Γ(x))
+ * Aproximación de Stirling mejorada (Lanczos).
+ */
+function lnGamma(x) {
+    const g = 7;
+    const coefs = [
+        0.99999999999980993,
+        676.5203681218851,
+        -1259.1392167224028,
+        771.32342877765313,
+        -176.61502916214059,
+        12.507343278686905,
+        -0.13857109526572012,
+        9.9843695780195716e-6,
+        1.5056327351493116e-7
+    ];
+    
+    if (x < 0.5) {
+        return Math.log(Math.PI / Math.sin(Math.PI * x)) - lnGamma(1 - x);
+    }
+    
+    x -= 1;
+    let a = coefs[0];
+    const t = x + g + 0.5;
+    for (let i = 1; i < coefs.length; i++) {
+        a += coefs[i] / (x + i);
+    }
+    
+    return 0.5 * Math.log(2 * Math.PI) + (x + 0.5) * Math.log(t) - t + Math.log(a);
+}
+
+/**
+ * Función beta incompleta regularizada I_x(a, b)
+ * Usada para la distribución t y F.
+ */
+function regularizedBetaI(x, a, b) {
+    if (x <= 0) return 0;
+    if (x >= 1) return 1;
+    
+    const lnBeta = lnGamma(a) + lnGamma(b) - lnGamma(a + b);
+    const front = Math.exp(Math.log(x) * a + Math.log(1 - x) * b - lnBeta);
+    
+    if (x < (a + 1) / (a + b + 2)) {
+        return front * betaCF(x, a, b) / a;
+    } else {
+        return 1 - front * betaCF(1 - x, b, a) / b;
+    }
+}
+
+/**
+ * Fracción continua para la función beta incompleta (Lentz).
+ */
+function betaCF(x, a, b) {
+    const maxIter = 200;
+    const eps = 1e-10;
+    
+    let qab = a + b;
+    let qap = a + 1;
+    let qam = a - 1;
+    let c = 1;
+    let d = 1 - qab * x / qap;
+    if (Math.abs(d) < 1e-30) d = 1e-30;
+    d = 1 / d;
+    let h = d;
+    
+    for (let m = 1; m <= maxIter; m++) {
+        let m2 = 2 * m;
+        
+        // Even step
+        let aa = m * (b - m) * x / ((qam + m2) * (a + m2));
+        d = 1 + aa * d;
+        if (Math.abs(d) < 1e-30) d = 1e-30;
+        c = 1 + aa / c;
+        if (Math.abs(c) < 1e-30) c = 1e-30;
+        d = 1 / d;
+        h *= d * c;
+        
+        // Odd step
+        aa = -(a + m) * (qab + m) * x / ((a + m2) * (qap + m2));
+        d = 1 + aa * d;
+        if (Math.abs(d) < 1e-30) d = 1e-30;
+        c = 1 + aa / c;
+        if (Math.abs(c) < 1e-30) c = 1e-30;
+        d = 1 / d;
+        const delta = d * c;
+        h *= delta;
+        
+        if (Math.abs(delta - 1) < eps) break;
+    }
+    
+    return h;
+}
+
+/**
+ * Test exacto de Fisher para tabla 2x2.
+ * 
+ * Tabla:  | a | b |
+ *         | c | d |
+ * 
+ * p = C(a+b,a) * C(c+d,c) / C(n,a+c)
+ * 
+ * Calcula p bilateral sumando todas las tablas con probabilidad ≤ p_observada.
+ */
+function fisherExactTest(a, b, c, d) {
+    const n = a + b + c + d;
+    const r1 = a + b;
+    const r2 = c + d;
+    const c1 = a + c;
+    const c2 = b + d;
+    
+    // Log-probabilidad de una tabla específica
+    function logProb(a_) {
+        const b_ = r1 - a_;
+        const c_ = c1 - a_;
+        const d_ = r2 - c_;
+        if (b_ < 0 || c_ < 0 || d_ < 0) return -Infinity;
+        return lnChoose(r1, a_) + lnChoose(r2, c_) - lnChoose(n, c1);
+    }
+    
+    function lnChoose(n_, k_) {
+        if (k_ < 0 || k_ > n_) return -Infinity;
+        return lnGamma(n_ + 1) - lnGamma(k_ + 1) - lnGamma(n_ - k_ + 1);
+    }
+    
+    const logPObs = logProb(a);
+    
+    // Sumar probabilidades de todas las tablas con logP <= logPObs + epsilon
+    const minA = Math.max(0, c1 - r2);
+    const maxA = Math.min(r1, c1);
+    
+    let pValue = 0;
+    for (let a_ = minA; a_ <= maxA; a_++) {
+        const lp = logProb(a_);
+        if (lp <= logPObs + 1e-10) {
+            pValue += Math.exp(lp);
+        }
+    }
+    
+    return { pValue: Math.min(pValue, 1), method: 'Fisher exact (bilateral)' };
+}
+
+/** Formatear número */
+function fmt(val, decimals = 3) {
+    if (val === null || val === undefined || isNaN(val)) return '—';
+    if (Math.abs(val) < 0.001 && val !== 0) return val.toExponential(2);
+    return val.toFixed(decimals);
+}
+
+
+// ═══════════════════════════════════════════════════════════════
+// CARGA DE DATOS Y MANEJO DE ARCHIVOS
+// ═══════════════════════════════════════════════════════════════
+
+/** Listener para carga de archivo CSV */
+document.getElementById('fileInput').addEventListener('change', async function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    
+    document.getElementById('loadStatus').innerHTML = '<div class="spinner"></div> Cargando datos...';
+    
+    try {
+        const text = await file.text();
+        await processCSVText(text, file.name);
+    } catch (err) {
+        document.getElementById('loadStatus').innerHTML = `<span class="text-red-600">❌ Error: ${err.message}</span>`;
+    }
+});
+
+/**
+ * Genera datos demostrativos para un ensayo clínico simulado.
+ * Simula un RCT con datos faltantes informativos.
+ */
+function loadDemoData() {
+    document.getElementById('loadStatus').innerHTML = '<div class="spinner"></div> Generando datos demostrativos...';
+    
+    setTimeout(() => {
+        const n = 500;
+        const rows = ['treatment,outcome,age,sex,severity,biomarker'];
+        
+        for (let i = 0; i < n; i++) {
+            const treatment = Math.random() < 0.5 ? 1 : 0;
+            const age = Math.round(40 + Math.random() * 40 + (Math.random() - 0.5) * 10);
+            const sex = Math.random() < 0.55 ? 'M' : 'F';
+            const severity = Math.random() < 0.3 ? 'mild' : (Math.random() < 0.6 ? 'moderate' : 'severe');
+            
+            // Outcome depends on treatment and severity
+            const baseProb = severity === 'severe' ? 0.4 : (severity === 'moderate' ? 0.25 : 0.15);
+            const treatEffect = treatment === 1 ? -0.10 : 0;
+            const outcomeProb = Math.max(0.05, Math.min(0.95, baseProb + treatEffect));
+            const outcome = Math.random() < outcomeProb ? 1 : 0;
+            
+            // Missing mechanism: outcome missing more in treatment group when outcome=1 (MNAR-like)
+            let outcomeMissing = false;
+            if (treatment === 1 && outcome === 1) {
+                outcomeMissing = Math.random() < 0.25; // 25% missing in treatment with event
+            } else if (treatment === 1) {
+                outcomeMissing = Math.random() < 0.08; // 8% in treatment without event
+            } else {
+                outcomeMissing = Math.random() < 0.05; // 5% in control
+            }
+            
+            // Biomarker: continuous, some missing
+            const biomarker = (50 + Math.random() * 50 + (severity === 'severe' ? 20 : 0)).toFixed(1);
+            const biomarkerMissing = Math.random() < 0.12;
+            
+            // Age missing randomly (~3%)
+            const ageMissing = Math.random() < 0.03;
+            
+            const outcomeStr = outcomeMissing ? '' : outcome;
+            const ageStr = ageMissing ? '' : age;
+            const biomarkerStr = biomarkerMissing ? '' : biomarker;
+            
+            rows.push(`${treatment},${outcomeStr},${ageStr},${sex},${severity},${biomarkerStr}`);
+        }
+        
+        const csvText = rows.join('\n');
+        processCSVText(csvText, 'demo_rct.csv');
+        
+        // Autoseleccionar variables
+        setTimeout(() => {
+            document.getElementById('studyType').value = 'rct';
+            document.getElementById('outcomeType').value = 'binary';
+        }, 100);
+    }, 100);
+}
+
+/**
+ * Procesa el texto CSV: parsea, detecta tipos, muestra preview, actualiza selectores.
+ */
+async function processCSVText(csvText, fileName) {
+    try {
+        const { data, columns } = dataLoader.parseCSV(csvText);
+        const colTypes = dataLoader.detectColumnTypes(data, columns);
+        const hash = await dataLoader.computeHash(csvText);
+        
+        AppState.rawData = data;
+        AppState.columns = columns;
+        AppState.nRows = data.length;
+        AppState.colTypes = colTypes;
+        AppState.dataHash = hash;
+        
+        // Mostrar preview
+        showPreview(data, columns, 10);
+        
+        // Actualizar selectores
+        updateVariableSelectors(columns);
+        
+        // Info
+        document.getElementById('dataInfo').textContent = `${data.length} filas × ${columns.length} columnas | Archivo: ${fileName}`;
+        document.getElementById('loadStatus').innerHTML = `<span class="text-green-600">✅ Datos cargados correctamente: ${data.length} filas, ${columns.length} variables.</span>`;
+        document.getElementById('statusIndicator').textContent = 'Datos cargados';
+        document.getElementById('btnStartAnalysis').disabled = false;
+        
+    } catch (err) {
+        document.getElementById('loadStatus').innerHTML = `<span class="text-red-600">❌ Error: ${err.message}</span>`;
+    }
+}
+
+function showPreview(data, columns, maxRows) {
+    const table = document.getElementById('previewTable');
+    let html = '<thead><tr>';
+    for (const col of columns) html += `<th>${col}</th>`;
+    html += '</tr></thead><tbody>';
+    
+    for (let i = 0; i < Math.min(data.length, maxRows); i++) {
+        html += '<tr>';
+        for (const col of columns) {
+            const v = data[i][col];
+            const cls = (v === null || v === undefined) ? 'bg-red-50 text-red-400 italic' : '';
+            html += `<td class="${cls}">${v === null || v === undefined ? 'NA' : v}</td>`;
+        }
+        html += '</tr>';
+    }
+    html += '</tbody>';
+    table.innerHTML = html;
+    document.getElementById('previewSection').classList.remove('hidden');
+}
+
+function updateVariableSelectors(columns) {
+    const treatSel = document.getElementById('treatmentVar');
+    const outSel = document.getElementById('outcomeVar');
+    const covSel = document.getElementById('covariatesVar');
+    
+    for (const sel of [treatSel, outSel, covSel]) {
+        sel.innerHTML = '';
+    }
+    
+    // Agregar opción vacía
+    treatSel.innerHTML = '<option value="">— Seleccionar —</option>';
+    outSel.innerHTML = '<option value="">— Seleccionar —</option>';
+    
+    for (const col of columns) {
+        treatSel.innerHTML += `<option value="${col}">${col}</option>`;
+        outSel.innerHTML += `<option value="${col}">${col}</option>`;
+        covSel.innerHTML += `<option value="${col}">${col}</option>`;
+    }
+    
+    // Auto-detectar si existen variables comunes
+    const colLower = columns.map(c => c.toLowerCase());
+    for (const pattern of ['treatment', 'treat', 'trt', 'group', 'arm', 'exposure']) {
+        const idx = colLower.findIndex(c => c.includes(pattern));
+        if (idx >= 0) { treatSel.value = columns[idx]; break; }
+    }
+    for (const pattern of ['outcome', 'event', 'response', 'endpoint', 'result']) {
+        const idx = colLower.findIndex(c => c.includes(pattern));
+        if (idx >= 0) { outSel.value = columns[idx]; break; }
+    }
+}
+
+
+// ═══════════════════════════════════════════════════════════════
+// ANÁLISIS COMPLETO — ORQUESTADOR
+// ═══════════════════════════════════════════════════════════════
+async function startFullAnalysis() {
+    const treatVar = document.getElementById('treatmentVar').value;
+    const outVar = document.getElementById('outcomeVar').value;
+    const covariateEls = document.getElementById('covariatesVar');
+    const covariates = Array.from(covariateEls.selectedOptions).map(o => o.value).filter(v => v && v !== treatVar && v !== outVar);
+    
+    if (!treatVar || !outVar) {
+        alert('Debe seleccionar la variable de tratamiento y el outcome.');
+        return;
+    }
+    if (treatVar === outVar) {
+        alert('Tratamiento y outcome deben ser variables diferentes.');
+        return;
+    }
+    
+    const metadata = {
+        studyType: document.getElementById('studyType').value,
+        outcomeType: document.getElementById('outcomeType').value,
+        treatmentVar: treatVar,
+        outcomeVar: outVar,
+        covariates: covariates,
+        nRows: AppState.nRows
+    };
+    AppState.metadata = metadata;
+    
+    document.getElementById('statusIndicator').textContent = 'Analizando...';
+    document.getElementById('btnStartAnalysis').disabled = true;
+    document.getElementById('btnStartAnalysis').innerHTML = '<div class="spinner"></div> Procesando...';
+    
+    // Usar setTimeout para permitir repaint del UI
+    await new Promise(r => setTimeout(r, 50));
+    
+    try {
+        const allResults = {};
+        
+        // ─── Módulo 2: Diagnóstico ───
+        updateProgress(1);
+        allResults.missingProfile = missingDiagnostics.missingProfile(AppState.rawData, AppState.columns);
+        allResults.missingByGroup = missingDiagnostics.missingByGroup(AppState.rawData, AppState.columns, treatVar);
+        allResults.patterns = missingDiagnostics.missingnessPatterns(AppState.rawData, AppState.columns);
+        allResults.mcarTest = missingDiagnostics.littleMCARTest(AppState.rawData, AppState.columns, AppState.colTypes);
+        
+        // Contingency tables and mean comparisons
+        allResults.contingencies = {};
+        allResults.meanComparisons = {};
+        for (const col of AppState.columns) {
+            const missPct = allResults.missingProfile[col].pct_missing;
+            if (missPct < 0.5 || missPct > 99) continue;
+            
+            // Contingency with categorical variables
+            if (AppState.colTypes[treatVar] === 'categorical' || [...new Set(AppState.rawData.map(r=>r[treatVar]).filter(v=>v!==null))].length <= 5) {
+                const ct = missingDiagnostics.contingencyMissing(AppState.rawData, col, treatVar);
+                if (ct) allResults.contingencies[`${col}_by_${treatVar}`] = ct;
+            }
+            
+            // Mean comparison for continuous variables
+            for (const contCol of AppState.columns) {
+                if (contCol === col) continue;
+                if (AppState.colTypes[contCol] === 'continuous') {
+                    const mc = missingDiagnostics.compareMeansByMissing(AppState.rawData, contCol, col);
+                    if (mc && mc.applicable) {
+                        if (!allResults.meanComparisons[col]) allResults.meanComparisons[col] = {};
+                        allResults.meanComparisons[col][contCol] = mc;
+                    }
+                }
+            }
+        }
+        
+        renderDiagnostics(allResults);
+        await new Promise(r => setTimeout(r, 30));
+        
+        // ─── Módulo 3: Asociaciones ───
+        updateProgress(2);
+        allResults.associations = associationAnalyzer.analyzeAssociations(AppState.rawData, AppState.columns, metadata, AppState.colTypes);
+        renderAssociations(allResults);
+        await new Promise(r => setTimeout(r, 30));
+        
+        // ─── Módulo 4: Impacto ───
+        updateProgress(3);
+        allResults.impactResults = computeImpact(AppState.rawData, metadata, AppState.colTypes);
+        renderImpact(allResults);
+        await new Promise(r => setTimeout(r, 30));
+        
+        // ─── Módulo 5: Sensibilidad ───
+        updateProgress(4);
+        if (metadata.studyType === 'rct' && metadata.outcomeType === 'binary') {
+            const groups = [...new Set(AppState.rawData.map(r => r[treatVar]).filter(v => v !== null))];
+            const scenarios = [
+                { type: 'failure', label: 'Missing = Fracaso' },
+                { type: 'success', label: 'Missing = Éxito' }
+            ];
+            if (groups.length === 2) {
+                scenarios.push({
+                    type: 'proportion',
+                    label: 'Escenario intermedio (50/50)',
+                    proportions: { [groups[0]]: 0.5, [groups[1]]: 0.5 }
+                });
+                // Worst case for treatment
+                scenarios.push({
+                    type: 'proportion',
+                    label: 'Peor caso para tratamiento',
+                    proportions: { [groups[0]]: 0.2, [groups[1]]: 0.8 }
+                });
+            }
+            allResults.sensitivityResults = sensitivityEngine.sensitivityAnalysis(AppState.rawData, metadata, scenarios);
+        }
+        renderSensitivity(allResults);
+        await new Promise(r => setTimeout(r, 30));
+        
+        // ─── Módulo 6: Interpretación regulatoria ───
+        updateProgress(5);
+        allResults.regulatoryNarrative = regulatoryInterpreter.interpret(allResults, metadata);
+        renderRegulatory(allResults);
+        
+        // ─── Módulo 7/8: Reporte ───
+        updateProgress(6);
+        renderReportPanel(allResults, metadata);
+        
+        AppState.results = allResults;
+        document.getElementById('statusIndicator').textContent = 'Análisis completo';
+        
+    } catch (err) {
+        console.error(err);
+        document.getElementById('statusIndicator').textContent = 'Error en análisis';
+        alert('Error durante el análisis: ' + err.message);
+    }
+    
+    document.getElementById('btnStartAnalysis').disabled = false;
+    document.getElementById('btnStartAnalysis').innerHTML = '🔬 Reiniciar Análisis';
+}
+
+
+// ═══════════════════════════════════════════════════════════════
+// MÓDULO 4: Cálculo de impacto en estimador primario
+// ═══════════════════════════════════════════════════════════════
+function computeImpact(data, metadata, colTypes) {
+    const treatVar = metadata.treatmentVar;
+    const outVar = metadata.outcomeVar;
+    const covars = metadata.covariates || [];
+    const isBinary = metadata.outcomeType === 'binary';
+    
+    const models = [];
+    
+    // Helper: prepara datos para regresión del outcome ~ treatment + covars
+    function prepareModelData(processedData) {
+        const predictors = [treatVar, ...covars];
+        const valid = processedData.filter(r => {
+            if (r[outVar] === null || r[outVar] === undefined) return false;
+            if (r[treatVar] === null || r[treatVar] === undefined) return false;
+            for (const c of covars) {
+                if (r[c] === null || r[c] === undefined) return false;
+            }
+            return true;
+        });
+        
+        if (valid.length < 20) return null;
+        
+        const xData = valid.map(r => {
+            const x = {};
+            for (const p of predictors) x[p] = r[p];
+            return x;
+        });
+        const y = valid.map(r => typeof r[outVar] === 'number' ? r[outVar] : (r[outVar] === '1' || r[outVar] === true ? 1 : 0));
+        
+        const { X, featureNames } = associationAnalyzer.buildDesignMatrix(xData, predictors, colTypes);
+        
+        return { X, y, featureNames, n: valid.length };
+    }
+    
+    function runModel(prepared, label) {
+        if (!prepared) return null;
+        let result;
+        if (isBinary) {
+            result = modelEngine.logisticRegression(prepared.X, prepared.y, prepared.featureNames);
+        } else {
+            result = modelEngine.linearRegression(prepared.X, prepared.y, prepared.featureNames);
+        }
+        if (!result) return null;
+        
+        // Extraer coeficiente del tratamiento
+        const treatCoef = result.coefficients.find(c => c.name.startsWith(treatVar) || c.name === treatVar);
+        if (!treatCoef) return null;
+        
+        return {
+            label,
+            estimate: isBinary ? treatCoef.OR : treatCoef.beta,
+            beta: treatCoef.beta,
+            se: treatCoef.se,
+            ciLow: isBinary ? treatCoef.CI_low : treatCoef.CI_low,
+            ciHigh: isBinary ? treatCoef.CI_high : treatCoef.CI_high,
+            pValue: treatCoef.pValue,
+            n: prepared.n,
+            fullResult: result
+        };
+    }
+    
+    // Modelo 1: Lista completa (complete case)
+    const m1 = prepareModelData(data);
+    const r1 = runModel(m1, 'Caso completo');
+    if (r1) models.push(r1);
+    
+    // Modelo 2: Imputación por media (para continuas) / moda (para categóricas)
+    const imputed2 = data.map(r => {
+        const newR = { ...r };
+        for (const col of AppState.columns) {
+            if (newR[col] === null || newR[col] === undefined) {
+                if (colTypes[col] === 'continuous') {
+                    // Media de los observados
+                    const observed = data.map(d => d[col]).filter(v => v !== null && v !== undefined && typeof v === 'number');
+                    newR[col] = observed.length > 0 ? mean(observed) : 0;
+                } else {
+                    // Moda de los observados
+                    const observed = data.map(d => d[col]).filter(v => v !== null && v !== undefined);
+                    const freq = {};
+                    for (const v of observed) freq[v] = (freq[v] || 0) + 1;
+                    const mode = Object.entries(freq).sort((a, b) => b[1] - a[1])[0];
+                    newR[col] = mode ? mode[0] : 0;
+                    // Reconvertir a número si era número
+                    if (!isNaN(Number(newR[col]))) newR[col] = Number(newR[col]);
+                }
+            }
+        }
+        return newR;
+    });
+    const m2 = prepareModelData(imputed2);
+    const r2 = runModel(m2, 'Imputación media/moda');
+    if (r2) models.push(r2);
+    
+    // Modelo 3: Imputación por media del grupo de tratamiento
+    const imputed3 = data.map(r => {
+        const newR = { ...r };
+        const group = r[treatVar];
+        for (const col of AppState.columns) {
+            if (col === treatVar) continue;
+            if (newR[col] === null || newR[col] === undefined) {
+                if (colTypes[col] === 'continuous') {
+                    const groupData = data.filter(d => d[treatVar] === group).map(d => d[col]).filter(v => v !== null && v !== undefined && typeof v === 'number');
+                    newR[col] = groupData.length > 0 ? mean(groupData) : 0;
+                } else {
+                    const groupData = data.filter(d => d[treatVar] === group).map(d => d[col]).filter(v => v !== null && v !== undefined);
+                    const freq = {};
+                    for (const v of groupData) freq[v] = (freq[v] || 0) + 1;
+                    const mode = Object.entries(freq).sort((a, b) => b[1] - a[1])[0];
+                    newR[col] = mode ? mode[0] : 0;
+                    if (!isNaN(Number(newR[col]))) newR[col] = Number(newR[col]);
+                }
+            }
+        }
+        return newR;
+    });
+    const m3 = prepareModelData(imputed3);
+    const r3 = runModel(m3, 'Imputación por grupo');
+    if (r3) models.push(r3);
+    
+    // Modelo 4: Indicador de missing como covariable
+    // Añadir indicador de missing del outcome
+    const imputed4 = data.map(r => {
+        const newR = { ...r };
+        newR['__miss_indicator__'] = (r[outVar] === null || r[outVar] === undefined) ? 1 : 0;
+        // Imputar outcome con media global para poder ajustar el modelo
+        if (newR[outVar] === null || newR[outVar] === undefined) {
+            if (isBinary) {
+                const observed = data.map(d => d[outVar]).filter(v => v !== null && v !== undefined && typeof v === 'number');
+                newR[outVar] = observed.length > 0 ? Math.round(mean(observed)) : 0;
+            } else {
+                const observed = data.map(d => d[outVar]).filter(v => v !== null && v !== undefined && typeof v === 'number');
+                newR[outVar] = observed.length > 0 ? mean(observed) : 0;
+            }
+        }
+        return newR;
+    });
+    // Temporarily add the indicator to colTypes
+    const colTypes4 = { ...colTypes, '__miss_indicator__': 'continuous' };
+    const metadata4 = { ...metadata, covariates: [...(metadata.covariates || []), '__miss_indicator__'] };
+    const m4data = imputed4.filter(r => r[treatVar] !== null && r[treatVar] !== undefined);
+    const predictors4 = [treatVar, ...(metadata.covariates || []), '__miss_indicator__'];
+    const xData4 = m4data.map(r => {
+        const x = {};
+        for (const p of predictors4) x[p] = r[p];
+        return x;
+    });
+    const y4 = m4data.map(r => typeof r[outVar] === 'number' ? r[outVar] : 0);
+    if (m4data.length >= 20) {
+        const { X: X4, featureNames: fn4 } = associationAnalyzer.buildDesignMatrix(xData4, predictors4, colTypes4);
+        let result4;
+        if (isBinary) {
+            result4 = modelEngine.logisticRegression(X4, y4, fn4);
+        } else {
+            result4 = modelEngine.linearRegression(X4, y4, fn4);
+        }
+        if (result4) {
+            const tc = result4.coefficients.find(c => c.name.startsWith(treatVar));
+            if (tc) {
+                models.push({
+                    label: 'Con indicador de missing',
+                    estimate: isBinary ? tc.OR : tc.beta,
+                    beta: tc.beta,
+                    se: tc.se,
+                    ciLow: isBinary ? tc.CI_low : tc.CI_low,
+                    ciHigh: isBinary ? tc.CI_high : tc.CI_high,
+                    pValue: tc.pValue,
+                    n: m4data.length,
+                    fullResult: result4
+                });
+            }
+        }
+    }
+    
+    // Calcular cambio porcentual máximo
+    let percentChange = 0;
+    if (models.length >= 2) {
+        const estimates = models.map(m => m.estimate).filter(e => !isNaN(e) && isFinite(e));
+        if (estimates.length >= 2) {
+            const ref = estimates[0]; // Caso completo como referencia
+            for (let i = 1; i < estimates.length; i++) {
+                const change = ref !== 0 ? ((estimates[i] - ref) / Math.abs(ref)) * 100 : 0;
+                if (Math.abs(change) > Math.abs(percentChange)) percentChange = change;
+            }
+        }
+    }
+    
+    return { models, percentChange, isBinary };
+}
+
+
+// ═══════════════════════════════════════════════════════════════
+// RENDERIZADO DE RESULTADOS
+// ═══════════════════════════════════════════════════════════════
+
+function renderDiagnostics(results) {
+    const container = document.getElementById('diagnosticsContent');
+    let html = '';
+    
+    // ── Porcentaje de missing por variable ──
+    html += `<div class="result-card">
+        <div class="flex justify-between items-center mb-2">
+            <h3 class="text-md font-bold text-primary-800">Porcentaje de Datos Faltantes por Variable</h3>
+            <button class="edu-btn" onclick="toggleEdu('edu-missing-pct')">📚 Explicación</button>
+        </div>
+        <div id="edu-missing-pct" class="edu-panel hidden">
+            <h4>¿Qué evalúa?</h4>
+            <p>La proporción de observaciones sin valor registrado para cada variable del dataset.</p>
+            <h4>¿Qué NO evalúa?</h4>
+            <p>No determina POR QUÉ los datos están faltantes (mecanismo MCAR/MAR/MNAR).</p>
+            <h4>Supuestos</h4>
+            <p>Se asume que valores vacíos, "NA", "null" y "." representan datos genuinamente faltantes, no ceros u otra codificación.</p>
+            <h4>Umbrales orientativos</h4>
+            <ul>
+                <li><5%: generalmente manejable</li>
+                <li>5-20%: requiere análisis cuidadoso</li>
+                <li>>20%: potencial compromiso de validez</li>
+            </ul>
+        </div>`;
+    
+    // Gráfico de barras
+    const profile = results.missingProfile;
+    const varsWithMissing = Object.entries(profile).filter(([,v]) => v.pct_missing > 0).sort((a,b) => b[1].pct_missing - a[1].pct_missing);
+    
+    if (varsWithMissing.length > 0) {
+        const maxPct = Math.max(...varsWithMissing.map(([,v]) => v.pct_missing), 1);
+        html += `<div class="bar-chart" style="height:180px;align-items:flex-end">`;
+        for (const [col, info] of varsWithMissing.slice(0, 15)) {
+            const h = Math.max((info.pct_missing / maxPct) * 150, 2);
+            const color = info.pct_missing > 20 ? '#e74c3c' : (info.pct_missing > 10 ? '#f39c12' : (info.pct_missing > 5 ? '#f1c40f' : '#27ae60'));
+            html += `<div class="bar-item">
+                <div class="bar-value">${info.pct_missing.toFixed(1)}%</div>
+                <div class="bar-fill" style="height:${h}px;background:${color}"></div>
+                <div class="bar-label">${col}</div>
+            </div>`;
+        }
+        html += `</div>`;
+    }
+    
+    // Tabla
+    html += `<div class="table-responsive mt-3"><table class="data-table">
+        <thead><tr><th>Variable</th><th>N total</th><th>N observados</th><th>N faltantes</th><th>% Faltantes</th></tr></thead><tbody>`;
+    for (const [col, info] of Object.entries(profile)) {
+        const cls = info.pct_missing > 20 ? 'bg-red-50' : (info.pct_missing > 10 ? 'bg-yellow-50' : '');
+        html += `<tr class="${cls}"><td class="font-medium">${col}</td><td>${info.n_total}</td><td>${info.n_observed}</td><td>${info.n_missing}</td><td>${info.pct_missing.toFixed(2)}%</td></tr>`;
+    }
+    html += `</tbody></table></div></div>`;
+    
+    // ── Missing por grupo ──
+    if (results.missingByGroup) {
+        const bg = results.missingByGroup;
+        html += `<div class="result-card">
+            <div class="flex justify-between items-center mb-2">
+                <h3 class="text-md font-bold text-primary-800">Diferencial de Missing por Brazo</h3>
+                <button class="edu-btn" onclick="toggleEdu('edu-missing-group')">📚 Explicación</button>
+            </div>
+            <div id="edu-missing-group" class="edu-panel hidden">
+                <h4>¿Qué evalúa?</h4>
+                <p>Si la proporción de datos faltantes difiere entre los grupos de tratamiento. Diferencias sustanciales pueden indicar sesgo de desgaste diferencial.</p>
+                <h4>¿Qué NO evalúa?</h4>
+                <p>No determina si la diferencia es causada por el tratamiento o por otros factores confundentes.</p>
+            </div>`;
+        
+        html += `<div class="table-responsive"><table class="data-table">
+            <thead><tr><th>Variable</th>`;
+        for (const g of bg.groups) html += `<th>% missing (${g})</th>`;
+        html += `<th>Diferencia</th></tr></thead><tbody>`;
+        
+        for (const [col, groupInfo] of Object.entries(bg.byVariable)) {
+            const pcts = bg.groups.map(g => groupInfo[g].pct_missing);
+            const diff = bg.groups.length === 2 ? Math.abs(pcts[0] - pcts[1]) : Math.max(...pcts) - Math.min(...pcts);
+            const cls = diff > 10 ? 'bg-red-50' : (diff > 5 ? 'bg-yellow-50' : '');
+            html += `<tr class="${cls}"><td class="font-medium">${col}</td>`;
+            for (const p of pcts) html += `<td>${p.toFixed(1)}%</td>`;
+            html += `<td class="font-semibold">${diff.toFixed(1)} pp</td></tr>`;
+        }
+        html += `</tbody></table></div></div>`;
+    }
+    
+    // ── Patrones de missingness ──
+    if (results.patterns) {
+        const pat = results.patterns;
+        html += `<div class="result-card">
+            <div class="flex justify-between items-center mb-2">
+                <h3 class="text-md font-bold text-primary-800">Patrones de Missingness</h3>
+                <button class="edu-btn" onclick="toggleEdu('edu-patterns')">📚 Explicación</button>
+            </div>
+            <div id="edu-patterns" class="edu-panel hidden">
+                <h4>¿Qué evalúa?</h4>
+                <p>Los patrones únicos de datos faltantes. Un patrón es una combinación específica de variables observadas y faltantes. Muchos patrones sugieren missingness no monotónica.</p>
+                <h4>Lectura del heatmap</h4>
+                <p>🟦 Azul = Observado, 🟥 Rojo = Faltante. Cada fila es un patrón, cada columna una variable.</p>
+            </div>`;
+        
+        html += `<p class="text-sm text-gray-600 mb-2">${pat.n_unique} patrones únicos identificados. Mostrando los ${Math.min(pat.patterns.length, 20)} más frecuentes.</p>`;
+        
+        // Heatmap mini
+        html += `<div class="overflow-x-auto"><div style="font-size:0.65rem;display:inline-block">`;
+        // Header
+        html += `<div style="display:flex;align-items:flex-end;gap:1px;margin-bottom:2px">`;
+        html += `<div style="width:60px"></div>`;
+        for (const col of pat.columns) {
+            html += `<div style="width:18px;transform:rotate(-60deg);transform-origin:bottom left;white-space:nowrap;height:60px;display:flex;align-items:flex-end">${col.slice(0,8)}</div>`;
+        }
+        html += `<div style="width:50px;text-align:center">N</div></div>`;
+        
+        for (const p of pat.patterns.slice(0, 20)) {
+            html += `<div style="display:flex;gap:1px;margin-bottom:1px">`;
+            html += `<div style="width:60px;font-size:0.6rem;color:#999">${p.pct.toFixed(1)}%</div>`;
+            for (let i = 0; i < p.pattern.length; i++) {
+                const isObs = p.pattern[i] === '1';
+                const color = isObs ? '#3b82f6' : '#ef4444';
+                html += `<div class="heatmap-cell" style="background:${color}" title="${pat.columns[i]}: ${isObs ? 'Observado' : 'Faltante'}"></div>`;
+            }
+            html += `<div style="width:50px;text-align:center;font-size:0.7rem">${p.count}</div>`;
+            html += `</div>`;
+        }
+        html += `</div></div></div>`;
+    }
+    
+    // ── MCAR Test ──
+    if (results.mcarTest) {
+        const mcar = results.mcarTest;
+        html += `<div class="result-card">
+            <div class="flex justify-between items-center mb-2">
+                <h3 class="text-md font-bold text-primary-800">Test de Little (MCAR)</h3>
+                <button class="edu-btn" onclick="toggleEdu('edu-mcar')">📚 Explicación</button>
+            </div>
+            <div id="edu-mcar" class="edu-panel hidden">
+                <h4>¿Qué evalúa?</h4>
+                <p>Si los datos faltantes son completamente aleatorios (MCAR). Bajo MCAR, la probabilidad de que un dato falte no depende de ninguna variable observada ni no observada.</p>
+                <h4>¿Qué NO evalúa?</h4>
+                <ul>
+                    <li>No distingue entre MAR y MNAR si rechaza MCAR.</li>
+                    <li>No rechazar MCAR no confirma que los datos sean MCAR.</li>
+                </ul>
+                <h4>Supuestos</h4>
+                <ul>
+                    <li>Normalidad multivariada de las variables continuas</li>
+                    <li>Tamaño muestral adecuado para la aproximación χ²</li>
+                </ul>
+                <h4>Limitaciones</h4>
+                <p>Esta es una implementación simplificada. El test original de Little (1988) utiliza estimación EM completa, que es computacionalmente más intensiva.</p>
+            </div>`;
+        
+        if (mcar.applicable) {
+            const sigCls = mcar.pValue < 0.05 ? 'text-red-600 font-bold' : 'text-green-700';
+            html += `<div class="grid grid-cols-3 gap-4 mb-3">
+                <div class="text-center p-3 bg-gray-50 rounded"><div class="text-xs text-gray-500">Estadístico χ²</div><div class="text-lg font-bold text-primary-800">${mcar.statistic.toFixed(3)}</div></div>
+                <div class="text-center p-3 bg-gray-50 rounded"><div class="text-xs text-gray-500">g.l.</div><div class="text-lg font-bold text-primary-800">${mcar.df}</div></div>
+                <div class="text-center p-3 bg-gray-50 rounded"><div class="text-xs text-gray-500">p-valor</div><div class="text-lg font-bold ${sigCls}">${mcar.pValue < 0.001 ? '<0.001' : mcar.pValue.toFixed(4)}</div></div>
+            </div>`;
+            html += `<p class="text-sm">${mcar.interpretation}</p>`;
+            html += `<div class="mt-2 p-3 bg-amber-50 border border-amber-200 rounded text-xs text-amber-800">
+                <strong>⚠ Advertencias importantes:</strong>
+                <ul class="mt-1">`;
+            for (const c of mcar.caveats) html += `<li>• ${c}</li>`;
+            html += `</ul></div>`;
+        } else {
+            html += `<p class="text-sm text-gray-500">Test no aplicable: ${mcar.reason}</p>`;
+        }
+        html += `</div>`;
+    }
+    
+    // ── Contingencies ──
+    if (results.contingencies && Object.keys(results.contingencies).length > 0) {
+        html += `<div class="result-card">
+            <div class="flex justify-between items-center mb-2">
+                <h3 class="text-md font-bold text-primary-800">Tablas de Contingencia: Missing vs Grupo</h3>
+                <button class="edu-btn" onclick="toggleEdu('edu-contingency')">📚 Explicación</button>
+            </div>
+            <div id="edu-contingency" class="edu-panel hidden">
+                <h4>¿Qué evalúa?</h4>
+                <p>Si la proporción de datos faltantes difiere significativamente entre categorías de otra variable (ej. brazos de tratamiento).</p>
+                <h4>Tests utilizados</h4>
+                <ul>
+                    <li><strong>Chi-cuadrado de Pearson:</strong> Apropiado cuando las frecuencias esperadas son ≥5.</li>
+                    <li><strong>Test exacto de Fisher:</strong> Recomendado cuando alguna frecuencia esperada es <5. Solo disponible para tablas 2×2.</li>
+                </ul>
+            </div>`;
+        
+        for (const [key, ct] of Object.entries(results.contingencies)) {
+            html += `<div class="mb-3"><h4 class="text-sm font-semibold text-gray-700">${key.replace(/_/g, ' ')}</h4>`;
+            html += `<div class="table-responsive"><table class="data-table">
+                <thead><tr><th>Grupo</th><th>Observados</th><th>Faltantes</th><th>Total</th><th>% Faltantes</th></tr></thead><tbody>`;
+            for (const g of ct.groups) {
+                html += `<tr><td>${g}</td><td>${ct.table[g].observed}</td><td>${ct.table[g].missing}</td><td>${ct.table[g].observed + ct.table[g].missing}</td><td>${((ct.table[g].missing / (ct.table[g].observed + ct.table[g].missing)) * 100).toFixed(1)}%</td></tr>`;
+            }
+            html += `</tbody></table></div>`;
+            
+            html += `<div class="flex gap-4 mt-1 text-xs text-gray-600">
+                <span>χ² = ${ct.chiSquare.toFixed(3)} (df=${ct.df}, p=${ct.pValueChi < 0.001 ? '<0.001' : ct.pValueChi.toFixed(4)})</span>`;
+            if (ct.useExact) html += `<span class="text-amber-600">⚠ Frecuencia esperada mín. = ${ct.minExpected.toFixed(1)} (<5)</span>`;
+            if (ct.fisherResult) html += `<span>Fisher p = ${ct.fisherResult.pValue < 0.001 ? '<0.001' : ct.fisherResult.pValue.toFixed(4)}</span>`;
+            html += `</div></div>`;
+        }
+        html += `</div>`;
+    }
+    
+    // ── Mean comparisons ──
+    if (results.meanComparisons && Object.keys(results.meanComparisons).length > 0) {
+        html += `<div class="result-card">
+            <div class="flex justify-between items-center mb-2">
+                <h3 class="text-md font-bold text-primary-800">Comparación de Medias: Observados vs Faltantes</h3>
+                <button class="edu-btn" onclick="toggleEdu('edu-means')">📚 Explicación</button>
+            </div>
+            <div id="edu-means" class="edu-panel hidden">
+                <h4>¿Qué evalúa?</h4>
+                <p>Si la media de una variable continua difiere entre sujetos que tienen datos completos vs faltantes en otra variable.</p>
+                <h4>Test utilizado</h4>
+                <p>t de Welch (no asume igualdad de varianzas entre grupos). Los grados de libertad se calculan con la aproximación de Welch-Satterthwaite.</p>
+                <h4>Interpretación</h4>
+                <p>Una diferencia significativa sugiere que los datos faltantes no son aleatorios respecto a esa variable, lo que es consistente con MAR o MNAR.</p>
+            </div>`;
+        
+        html += `<div class="table-responsive"><table class="data-table">
+            <thead><tr><th>Missing en:</th><th>Variable comparada</th><th>Media (obs)</th><th>Media (miss)</th><th>Diferencia</th><th>t</th><th>p-valor</th></tr></thead><tbody>`;
+        
+        for (const [targetCol, comps] of Object.entries(results.meanComparisons)) {
+            for (const [contCol, mc] of Object.entries(comps)) {
+                const sigCls = mc.pValue < 0.05 ? 'bg-yellow-50 font-semibold' : '';
+                html += `<tr class="${sigCls}">
+                    <td>${targetCol}</td><td>${contCol}</td>
+                    <td>${mc.meanObs.toFixed(2)} (n=${mc.nObs})</td>
+                    <td>${mc.meanMiss.toFixed(2)} (n=${mc.nMiss})</td>
+                    <td>${mc.diff.toFixed(3)}</td>
+                    <td>${mc.tStat.toFixed(3)}</td>
+                    <td>${mc.pValue < 0.001 ? '<0.001' : mc.pValue.toFixed(4)}</td></tr>`;
+            }
+        }
+        html += `</tbody></table></div></div>`;
+    }
+    
+    container.innerHTML = html;
+}
+
+function renderAssociations(results) {
+    const container = document.getElementById('associationContent');
+    const assoc = results.associations;
+    
+    if (!assoc || Object.keys(assoc).length === 0) {
+        container.innerHTML = '<div class="result-card"><p class="text-gray-500 text-center">No se identificaron variables con suficiente missingness para modelar o no fue posible ajustar modelos.</p></div>';
+        return;
+    }
+    
+    let html = `<div class="result-card">
+        <div class="flex justify-between items-center mb-2">
+            <h3 class="text-md font-bold text-primary-800">Modelos de Asociación: Indicador de Missing ~ Variables Clave</h3>
+            <button class="edu-btn" onclick="toggleEdu('edu-assoc')">📚 Explicación</button>
+        </div>
+        <div id="edu-assoc" class="edu-panel hidden">
+            <h4>¿Qué evalúa?</h4>
+            <p>Para cada variable con datos faltantes, se ajusta un modelo de regresión logística donde la variable dependiente es un indicador binario de missingness (1=faltante, 0=observado) y las variables independientes son el tratamiento, outcome y covariables.</p>
+            <h4>Interpretación del OR</h4>
+            <ul>
+                <li>OR > 1: Mayor odds de dato faltante cuando el predictor aumenta</li>
+                <li>OR < 1: Menor odds de dato faltante cuando el predictor aumenta</li>
+                <li>OR = 1: No asociación</li>
+            </ul>
+            <h4>¿Qué NO evalúa?</h4>
+            <p>No establece causalidad. Una asociación significativa sugiere que los datos faltantes podrían no ser MCAR, pero no determina el mecanismo.</p>
+            <h4>Nota sobre la regresión logística</h4>
+            <p>Se utiliza el algoritmo Newton-Raphson (IRLS). Las variables continuas se centran y escalan. Las categóricas se codifican con dummies (primera categoría como referencia).</p>
+        </div>
+    </div>`;
+    
+    for (const [varName, res] of Object.entries(assoc)) {
+        html += `<div class="result-card">
+            <h4 class="text-sm font-bold text-primary-700 mb-1">Variable objetivo: <span class="text-primary-900">${varName}</span></h4>
+            <p class="text-xs text-gray-500 mb-2">${res.missingPct.toFixed(1)}% faltante | N usado en modelo: ${res.nUsed} | Modelo: Logístico${res.model.converged ? '' : ' ⚠ NO convergió'}</p>`;
+        
+        if (res.model) {
+            html += `<div class="table-responsive"><table class="data-table">
+                <thead><tr><th>Predictor</th><th>β</th><th>SE</th><th>OR</th><th>IC 95%</th><th>z</th><th>p-valor</th></tr></thead><tbody>`;
+            
+            for (const c of res.model.coefficients) {
+                const sig = c.pValue < 0.05;
+                const cls = sig ? 'bg-yellow-50 font-semibold' : '';
+                html += `<tr class="${cls}">
+                    <td>${c.name}</td>
+                    <td>${fmt(c.beta)}</td>
+                    <td>${fmt(c.se)}</td>
+                    <td>${fmt(c.OR)}</td>
+                    <td>[${fmt(c.CI_low)}, ${fmt(c.CI_high)}]</td>
+                    <td>${fmt(c.z)}</td>
+                    <td>${c.pValue < 0.001 ? '<0.001' : fmt(c.pValue, 4)}</td>
+                </tr>`;
+            }
+            html += `</tbody></table></div>`;
+        }
+        
+        // Warnings
+        if (res.warnings && res.warnings.length > 0) {
+            for (const w of res.warnings) {
+                html += `<div class="mt-2 p-3 bg-amber-50 border border-amber-200 rounded text-sm text-amber-800">⚠ ${w}</div>`;
+            }
+        }
+        
+        html += `</div>`;
+    }
+    
+    container.innerHTML = html;
+}
+
+function renderImpact(results) {
+    const container = document.getElementById('impactContent');
+    const impact = results.impactResults;
+    
+    if (!impact || !impact.models || impact.models.length === 0) {
+        container.innerHTML = '<div class="result-card"><p class="text-gray-500 text-center">No fue posible ajustar los modelos de impacto.</p></div>';
+        return;
+    }
+    
+    const isBinary = impact.isBinary;
+    const estimateLabel = isBinary ? 'OR' : 'β';
+    
+    let html = `<div class="result-card">
+        <div class="flex justify-between items-center mb-2">
+            <h3 class="text-md font-bold text-primary-800">Impacto en el Estimador Primario</h3>
+            <button class="edu-btn" onclick="toggleEdu('edu-impact')">📚 Explicación</button>
+        </div>
+        <div id="edu-impact" class="edu-panel hidden">
+            <h4>¿Qué evalúa?</h4>
+            <p>La estabilidad del estimador primario (efecto del tratamiento) bajo diferentes estrategias de manejo de datos faltantes.</p>
+            <h4>Modelos comparados</h4>
+            <ul>
+                <li><strong>Caso completo:</strong> Solo filas sin ningún dato faltante (análisis de referencia)</li>
+                <li><strong>Imputación media/moda:</strong> Reemplaza faltantes con media (continuas) o moda (categóricas) global</li>
+                <li><strong>Imputación por grupo:</strong> Reemplaza con media/moda del grupo de tratamiento</li>
+                <li><strong>Indicador de missing:</strong> Añade una variable indicadora de missingness como covariable</li>
+            </ul>
+            <h4>Criterio de inestabilidad</h4>
+            <p>Un cambio >15% en el estimador entre estrategias sugiere que las conclusiones son sensibles al manejo de datos faltantes.</p>
+            <h4>Limitaciones</h4>
+            <p>Ninguna de estas estrategias es óptima. La imputación simple subestima la variabilidad. La imputación múltiple (no implementada aquí) es generalmente preferible.</p>
+        </div>
+    </div>`;
+    
+    // Tabla comparativa
+    html += `<div class="result-card">
+        <div class="table-responsive"><table class="data-table">
+            <thead><tr><th>Modelo</th><th>${estimateLabel}</th><th>IC 95%</th><th>p-valor</th><th>N</th></tr></thead><tbody>`;
+    
+    for (const m of impact.models) {
+        html += `<tr>
+            <td class="font-medium">${m.label}</td>
+            <td class="font-bold">${fmt(m.estimate)}</td>
+            <td>[${fmt(m.ciLow)}, ${fmt(m.ciHigh)}]</td>
+            <td>${m.pValue < 0.001 ? '<0.001' : fmt(m.pValue, 4)}</td>
+            <td>${m.n}</td>
+        </tr>`;
+    }
+    html += `</tbody></table></div>`;
+    
+    // Forest plot visual
+    html += `<h4 class="text-sm font-semibold text-gray-700 mt-4 mb-2">Comparación visual (Forest plot simplificado)</h4>`;
+    
+    // Determinar rango para el plot
+    const allEsts = impact.models.map(m => [m.ciLow, m.ciHigh, m.estimate]).flat().filter(v => !isNaN(v) && isFinite(v));
+    let plotMin = Math.min(...allEsts);
+    let plotMax = Math.max(...allEsts);
+    const plotRange = plotMax - plotMin;
+    plotMin -= plotRange * 0.1;
+    plotMax += plotRange * 0.1;
+    const refLine = isBinary ? 1 : 0;
+    
+    for (const m of impact.models) {
+        if (isNaN(m.estimate)) continue;
+        const estPos = ((m.estimate - plotMin) / (plotMax - plotMin)) * 100;
+        const ciLowPos = Math.max(0, ((m.ciLow - plotMin) / (plotMax - plotMin)) * 100);
+        const ciHighPos = Math.min(100, ((m.ciHigh - plotMin) / (plotMax - plotMin)) * 100);
+        const refPos = ((refLine - plotMin) / (plotMax - plotMin)) * 100;
+        
+        html += `<div class="forest-row">
+            <div class="forest-label">${m.label}</div>
+            <div class="forest-plot">
+                <div class="forest-ref" style="left:${refPos}%"></div>
+                <div class="forest-ci" style="left:${ciLowPos}%;width:${ciHighPos - ciLowPos}%"></div>
+                <div class="forest-point" style="left:${estPos}%"></div>
+            </div>
+            <div class="forest-value">${estimateLabel}=${fmt(m.estimate)} [${fmt(m.ciLow)},${fmt(m.ciHigh)}]</div>
+        </div>`;
+    }
+    
+    // Alerta de cambio
+    html += `<div class="mt-4 p-3 rounded border ${Math.abs(impact.percentChange) > 15 ? 'bg-red-50 border-red-300' : 'bg-green-50 border-green-300'}">
+        <p class="font-semibold ${Math.abs(impact.percentChange) > 15 ? 'text-red-700' : 'text-green-700'}">
+            Cambio máximo en estimador: ${impact.percentChange.toFixed(1)}%
+            ${Math.abs(impact.percentChange) > 15 ? '⚠ ALERTA: Inestabilidad sustancial del estimador' : '✓ Cambio dentro de rango aceptable'}
+        </p>
+    </div>`;
+    
+    html += `</div>`;
+    container.innerHTML = html;
+}
+
+function renderSensitivity(results) {
+    const container = document.getElementById('sensitivityContent');
+    const sens = results.sensitivityResults;
+    
+    if (!sens || (typeof sens === 'object' && sens.error)) {
+        let msg = 'El análisis de sensibilidad solo está disponible para ensayos clínicos con outcome binario y dos brazos de tratamiento.';
+        if (sens && sens.error) msg = sens.error;
+        container.innerHTML = `<div class="result-card"><p class="text-gray-500 text-center">${msg}</p></div>`;
+        return;
+    }
+    
+    if (!Array.isArray(sens) || sens.length === 0) {
+        container.innerHTML = `<div class="result-card"><p class="text-gray-500 text-center">No se pudieron calcular los escenarios de sensibilidad.</p></div>`;
+        return;
+    }
+    
+    let html = `<div class="result-card">
+        <div class="flex justify-between items-center mb-2">
+            <h3 class="text-md font-bold text-primary-800">Análisis de Sensibilidad</h3>
+            <button class="edu-btn" onclick="toggleEdu('edu-sens')">📚 Explicación</button>
+        </div>
+        <div id="edu-sens" class="edu-panel hidden">
+            <h4>¿Qué evalúa?</h4>
+            <p>Explora cómo cambiarían las conclusiones del estudio bajo diferentes supuestos sobre el outcome de los participantes con datos faltantes.</p>
+            <h4>Escenarios</h4>
+            <ul>
+                <li><strong>Missing = Fracaso:</strong> Todos los faltantes se asumen con evento/fracaso (peor caso para tratamiento si se espera beneficio)</li>
+                <li><strong>Missing = Éxito:</strong> Todos los faltantes se asumen sin evento (mejor caso)</li>
+                <li><strong>Intermedio:</strong> Asignación probabilística configurable</li>
+            </ul>
+            <h4>¿Qué NO evalúa?</h4>
+            <p>No es una estimación del efecto real. Es una exploración del rango de resultados plausibles bajo supuestos extremos.</p>
+            <h4>Interpretación clave</h4>
+            <p>Si la dirección del efecto se invierte entre escenarios, las conclusiones del estudio son particularmente vulnerables al manejo de datos faltantes.</p>
+        </div>
+    </div>`;
+    
+    html += `<div class="result-card">`;
+    html += `<div class="table-responsive"><table class="data-table">
+        <thead><tr><th>Escenario</th>`;
+    if (sens[0].groups) {
+        for (const g of sens[0].groups) html += `<th>Eventos/N (${g})</th>`;
+    }
+    html += `<th>OR</th><th>IC 95%</th></tr></thead><tbody>`;
+    
+    for (const s of sens) {
+        html += `<tr><td class="font-medium">${s.label}</td>`;
+        if (s.groups) {
+            for (const g of s.groups) {
+                html += `<td>${s.table[g].events}/${s.table[g].total} (${(s.table[g].events/s.table[g].total*100).toFixed(1)}%)</td>`;
+            }
+        }
+        html += `<td class="font-bold">${isNaN(s.OR) ? '—' : fmt(s.OR)}</td>`;
+        html += `<td>${isNaN(s.orCI_low) ? '—' : `[${fmt(s.orCI_low)}, ${fmt(s.orCI_high)}]`}</td>`;
+        html += `</tr>`;
+    }
+    html += `</tbody></table></div>`;
+    
+    // Check if direction reverses
+    const ors = sens.filter(s => !isNaN(s.OR)).map(s => s.OR);
+    if (ors.length > 1) {
+        const hasAbove = ors.some(or => or > 1);
+        const hasBelow = ors.some(or => or < 1);
+        if (hasAbove && hasBelow) {
+            html += `<div class="mt-3 p-3 bg-red-50 border border-red-300 rounded">
+                <p class="text-red-700 font-semibold">⚠ La dirección del efecto se invierte según los supuestos. El resultado primario es altamente sensible al manejo de datos faltantes.</p>
+            </div>`;
+        } else {
+            html += `<div class="mt-3 p-3 bg-green-50 border border-green-300 rounded">
+                <p class="text-green-700">La dirección del efecto se mantiene bajo los diferentes escenarios, aunque la magnitud varía.</p>
+            </div>`;
+        }
+    }
+    
+    html += `<div class="mt-3 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-800">
+        <strong>Nota:</strong> Estos resultados son análisis de sensibilidad exploratorios. No deben interpretarse como estimaciones causales del efecto del tratamiento. Su propósito es evaluar la robustez de las conclusiones principales.
+    </div>`;
+    
+    html += `</div>`;
+    container.innerHTML = html;
+}
+
+function renderRegulatory(results) {
+    const container = document.getElementById('regulatoryContent');
+    const narrative = results.regulatoryNarrative;
+    
+    if (!narrative) {
+        container.innerHTML = '<div class="result-card"><p class="text-gray-500 text-center">No hay resultados para interpretar.</p></div>';
+        return;
+    }
+    
+    let html = `<div class="result-card">
+        <div class="flex justify-between items-center mb-3">
+            <h3 class="text-lg font-bold text-primary-800">Interpretación Regulatoria Estructurada</h3>
+            <button class="edu-btn" onclick="toggleEdu('edu-reg')">📚 Explicación</button>
+        </div>
+        <div id="edu-reg" class="edu-panel hidden">
+            <h4>Propósito</h4>
+            <p>Sintetizar los hallazgos de todos los módulos en una narrativa estructurada que facilite la evaluación del riesgo de sesgo por datos faltantes.</p>
+            <h4>Lenguaje utilizado</h4>
+            <p>Se emplea deliberadamente lenguaje condicional ("sugiere", "podría", "es consistente con") para reflejar la incertidumbre inherente a estos análisis.</p>
+            <h4>Nivel de riesgo</h4>
+            <p>Es una síntesis semi-cuantitativa basada en múltiples indicadores. No es una clasificación categórica definitiva.</p>
+        </div>
+    </div>`;
+    
+    // Risk badge
+    const riskClass = `risk-${narrative.riskLevel}`;
+    html += `<div class="result-card text-center py-4">
+        <p class="text-sm text-gray-500 mb-2">Nivel de riesgo potencial de sesgo por datos faltantes</p>
+        <span class="risk-badge ${riskClass}" style="font-size:1.2rem;padding:8px 24px">${narrative.riskLabel}</span>
+        <p class="text-sm text-gray-600 mt-3 max-w-lg mx-auto">${narrative.riskDescription}</p>
+    </div>`;
+    
+    // 5 bloques
+    const blocks = [
+        { title: '1. Magnitud del Problema', content: narrative.magnitude, icon: '📊' },
+        { title: '2. Evidencia Estadística', content: narrative.evidence, icon: '🔬' },
+        { title: '3. Implicaciones Metodológicas', content: narrative.implications, icon: '⚙️' },
+    ];
+    
+    for (const block of blocks) {
+        html += `<div class="result-card">
+            <h4 class="font-bold text-primary-800 mb-2">${block.icon} ${block.title}</h4>
+            <p class="text-sm text-gray-700 leading-relaxed">${block.content}</p>
+        </div>`;
+    }
+    
+    // Recomendaciones
+    html += `<div class="result-card">
+        <h4 class="font-bold text-primary-800 mb-2">📋 4. Recomendaciones Prudentes</h4>
+        <ul class="text-sm text-gray-700 space-y-2">`;
+    for (const r of narrative.recommendations) {
+        html += `<li class="flex gap-2"><span class="text-primary-500 font-bold">›</span><span>${r}</span></li>`;
+    }
+    html += `</ul></div>`;
+    
+    // Disclaimer
+    html += `<div class="result-card bg-gray-50 border-gray-300">
+        <p class="text-xs text-gray-500 italic">${narrative.disclaimer}</p>
+    </div>`;
+    
+    container.innerHTML = html;
+}
+
+function renderReportPanel(allResults, metadata) {
+    const container = document.getElementById('reportContent');
+    
+    let html = `<div class="result-card">
+        <h3 class="text-lg font-bold text-primary-800 mb-2">Generar Reporte Exportable</h3>
+        <p class="text-sm text-gray-500 mb-4">El reporte incluye todos los resultados del análisis, metadatos del estudio, estadísticos, supuestos, advertencias y el hash SHA-256 del dataset para trazabilidad.</p>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+            <div class="p-3 bg-gray-50 rounded border">
+                <div class="text-xs text-gray-500">Fecha del análisis</div>
+                <div class="font-medium">${new Date().toLocaleString('es')}</div>
+            </div>
+            <div class="p-3 bg-gray-50 rounded border">
+                <div class="text-xs text-gray-500">Hash SHA-256 del dataset</div>
+                <div class="font-mono text-xs break-all">${AppState.dataHash || 'No disponible'}</div>
+            </div>
+            <div class="p-3 bg-gray-50 rounded border">
+                <div class="text-xs text-gray-500">Dimensiones</div>
+                <div class="font-medium">${metadata.nRows} filas × ${AppState.columns.length} variables</div>
+            </div>
+            <div class="p-3 bg-gray-50 rounded border">
+                <div class="text-xs text-gray-500">Riesgo evaluado</div>
+                <div class="font-medium">${allResults.regulatoryNarrative ? allResults.regulatoryNarrative.riskLabel : '—'}</div>
+            </div>
+        </div>
+        
+        <div class="flex flex-col sm:flex-row gap-3">
+            <button onclick="downloadHTMLReport()" class="flex-1 px-4 py-3 bg-primary-800 text-white rounded-lg font-bold text-sm hover:bg-primary-700 transition-colors shadow-md">
+                📄 Descargar Reporte HTML
+            </button>
+        </div>
+        
+        <p class="text-xs text-gray-400 mt-3">El reporte se genera como archivo HTML autocontenido que puede abrirse en cualquier navegador.</p>
+    </div>`;
+    
+    container.innerHTML = html;
+}
+
+
+// ═══════════════════════════════════════════════════════════════
+// FUNCIONES DE DESCARGA
+// ═══════════════════════════════════════════════════════════════
+function downloadHTMLReport() {
+    if (!AppState.results || Object.keys(AppState.results).length === 0) {
+        alert('No hay resultados para exportar. Ejecute el análisis primero.');
+        return;
+    }
+    const html = reportGenerator.generateHTML(AppState.results, AppState.metadata, AppState.dataHash);
+    reportGenerator.downloadReport(html);
+}
+
+
+// ═══════════════════════════════════════════════════════════════
+// UTILIDADES UI
+// ═══════════════════════════════════════════════════════════════
+
+/** Toggle para paneles educativos */
+function toggleEdu(id) {
+    const el = document.getElementById(id);
+    if (el) el.classList.toggle('hidden');
+}
+
+/** Hacer funciones accesibles globalmente */
+window.toggleEdu = toggleEdu;
+window.loadDemoData = loadDemoData;
+window.startFullAnalysis = startFullAnalysis;
+window.downloadHTMLReport = downloadHTMLReport;
+window.showInstallPrompt = showInstallPrompt;
+
+</script>
+</body>
+</html>

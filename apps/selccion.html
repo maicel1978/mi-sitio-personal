@@ -1,0 +1,2189 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="EpiSampler — Herramienta de selección muestral probabilística para salud pública">
+    <title>EpiSampler v2 · Selección de Unidades de Análisis</title>
+
+    <!--
+    ╔══════════════════════════════════════════════════════════════════╗
+    ║  NOTA DE SEGURIDAD SOBRE CDNs:                                  ║
+    ║  Para entornos de PRODUCCIÓN con datos sensibles de salud,      ║
+    ║  descargue estas librerías y sírvalas localmente.               ║
+    ║  Los atributos integrity= (SRI) mitigan supply-chain attacks    ║
+    ║  pero NO eliminan el riesgo de tracking/telemetría del CDN.     ║
+    ╚══════════════════════════════════════════════════════════════════╝
+    -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"
+            integrity="sha512-r22gChDnGvBylk90+2e/ycr3RVrDi8DIOkIGNhJlKfuyQM4tIRAI062MaV8sfjQKYVGjOBaZBOA87z+IhZE9DA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"
+            integrity="sha512-dfX5uYVXzyU8+KHqj02MvgVsp6YGCq5ZfL173tO6I5lG3BKSA4aq6BREAKS+pQhJGHAMRAghAILtpJf68wM7Og=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                fontFamily: { sans: ['Inter','system-ui','sans-serif'] }
+            }
+        }
+    }
+    </script>
+
+    <!-- FIX #12: CSS unificado, sin !important, sin conflicto con Tailwind -->
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+        body { font-family: 'Inter', system-ui, sans-serif; }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+
+        [data-animate="fade"] { animation: fadeIn .3s ease-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .toast-item {
+            animation: toastIn .35s ease-out, toastOut .35s ease-in 3.65s forwards;
+        }
+        @keyframes toastIn  { from { opacity:0; transform:translateX(100%); } to { opacity:1; transform:translateX(0); } }
+        @keyframes toastOut { from { opacity:1; } to { opacity:0; transform:translateX(100%); } }
+
+        .drag-active { border-color: #3b82f6; background: #eff6ff; }
+
+        .method-btn[aria-checked="true"] {
+            border-color: #3b82f6;
+            background: #eff6ff;
+            box-shadow: 0 0 0 2px rgba(59,130,246,.3);
+        }
+
+        /* High-contrast focus ring for accessibility */
+        :focus-visible {
+            outline: 3px solid #3b82f6;
+            outline-offset: 2px;
+        }
+
+        /* Color-blind safe indicators */
+        [data-status="error"]::before   { content: "✕ "; font-weight: 700; }
+        [data-status="warning"]::before { content: "▲ "; font-weight: 700; }
+        [data-status="success"]::before { content: "✓ "; font-weight: 700; }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<!-- FIX #10: landmarks ARIA en body -->
+<body class="bg-slate-50 text-slate-800 min-h-screen">
+
+<!-- Skip navigation for screen readers -->
+<a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[9999] focus:bg-blue-600 focus:text-white focus:px-4 focus:py-2 focus:rounded-lg">
+    Saltar al contenido principal
+</a>
+
+<!-- Live region for screen reader announcements -->
+<div id="srAnnounce" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+
+<!-- Toast container -->
+<div id="toastContainer" class="fixed top-4 right-4 z-[999] flex flex-col gap-2 max-w-sm" role="status" aria-live="polite"></div>
+
+<!-- ============ MAIN LAYOUT ============ -->
+<div class="flex min-h-screen">
+
+    <!-- ======== SIDEBAR (nav landmark) ======== -->
+    <nav id="sidebar" aria-label="Panel de configuración"
+         class="w-80 bg-white border-r border-slate-200 flex flex-col shrink-0 overflow-y-auto">
+        <!-- Logo -->
+        <div class="p-5 border-b border-slate-200">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center" aria-hidden="true">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-slate-900">EpiSampler <span class="text-xs font-normal text-slate-400">v2.0</span></h1>
+                    <p class="text-[11px] text-slate-500 leading-tight">Selección probabilística muestral</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex-1 p-4 space-y-3">
+            <!-- STEP 1: CARGAR -->
+            <fieldset class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                <legend class="sr-only">Paso 1: Cargar base de datos</legend>
+                <div class="flex items-center gap-2 mb-3">
+                    <span class="w-6 h-6 bg-blue-600 text-white text-xs font-bold rounded-full flex items-center justify-center" aria-hidden="true">1</span>
+                    <h2 class="font-semibold text-sm text-slate-700">Cargar Base de Datos</h2>
+                </div>
+                <div id="dropZone" role="button" tabindex="0"
+                     aria-label="Zona para soltar archivos. Haga clic o presione Enter para seleccionar archivo CSV o Excel"
+                     class="border-2 border-dashed border-slate-300 rounded-lg p-4 text-center cursor-pointer hover:border-blue-400 hover:bg-blue-50 transition-colors">
+                    <svg class="w-8 h-8 mx-auto text-slate-400 mb-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+                    <p class="text-xs text-slate-500 mb-1">Arrastre un archivo aquí o</p>
+                    <label class="text-xs font-semibold text-blue-600 cursor-pointer hover:underline">
+                        seleccione un archivo
+                        <input type="file" id="fileInput" accept=".csv,.xlsx,.xls" class="hidden" aria-label="Seleccionar archivo CSV o Excel">
+                    </label>
+                    <p class="text-[10px] text-slate-400 mt-1">.csv · .xlsx · .xls</p>
+                </div>
+                <div id="fileInfo" class="hidden mt-3 p-2 bg-white rounded-lg border text-xs" role="status"></div>
+                <div id="validationPanel" class="hidden mt-2" role="alert"></div>
+            </fieldset>
+
+            <!-- STEP 2: COLUMNA ID -->
+            <fieldset id="step2" class="bg-slate-50 rounded-xl p-4 border border-slate-200 opacity-50" disabled>
+                <legend class="sr-only">Paso 2: Seleccionar identificador único</legend>
+                <div class="flex items-center gap-2 mb-3">
+                    <span class="w-6 h-6 bg-blue-600 text-white text-xs font-bold rounded-full flex items-center justify-center" aria-hidden="true">2</span>
+                    <h2 class="font-semibold text-sm text-slate-700">Identificador Único</h2>
+                </div>
+                <select id="idColumn" aria-label="Columna con el identificador único de cada unidad"
+                        class="w-full text-sm border border-slate-300 rounded-lg px-3 py-2 bg-white focus:ring-2 focus:ring-blue-300 focus:border-blue-500 outline-none">
+                    <option value="">— Seleccionar columna ID —</option>
+                </select>
+            </fieldset>
+
+            <!-- STEP 3: CALCULAR n o INGRESAR -->
+            <fieldset id="step3" class="bg-slate-50 rounded-xl p-4 border border-slate-200 opacity-50" disabled>
+                <legend class="sr-only">Paso 3: Determinar tamaño muestral</legend>
+                <div class="flex items-center gap-2 mb-3">
+                    <span class="w-6 h-6 bg-blue-600 text-white text-xs font-bold rounded-full flex items-center justify-center" aria-hidden="true">3</span>
+                    <h2 class="font-semibold text-sm text-slate-700">Tamaño Muestral</h2>
+                </div>
+                <div class="flex gap-2 mb-3" role="radiogroup" aria-label="Modo de determinar n">
+                    <button type="button" role="radio" aria-checked="true" id="nModeManual"
+                            class="flex-1 px-3 py-1.5 text-xs font-medium rounded-lg border border-blue-300 bg-blue-50 text-blue-700 focus:ring-2 focus:ring-blue-300"
+                            onclick="UIController.setNMode('manual')">
+                        Ingresar n
+                    </button>
+                    <button type="button" role="radio" aria-checked="false" id="nModeCalc"
+                            class="flex-1 px-3 py-1.5 text-xs font-medium rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 focus:ring-2 focus:ring-blue-300"
+                            onclick="UIController.setNMode('calc')">
+                        Calcular n
+                    </button>
+                </div>
+                <div id="nManualPanel">
+                    <label for="paramN" class="text-xs font-medium text-slate-600 block mb-1">Tamaño de muestra (n)</label>
+                    <input type="number" id="paramN" min="1" value="30"
+                           class="w-full text-sm border border-slate-300 rounded-lg px-3 py-2 bg-white focus:ring-2 focus:ring-blue-300 focus:border-blue-500 outline-none"
+                           aria-describedby="nHelp">
+                    <p id="nHelp" class="text-[10px] text-slate-400 mt-1">N = <span id="displayN">—</span></p>
+                </div>
+                <div id="nCalcPanel" class="hidden space-y-2">
+                    <div>
+                        <label for="calcConf" class="text-[11px] font-medium text-slate-600">Nivel de confianza</label>
+                        <select id="calcConf" class="w-full text-xs border border-slate-300 rounded-lg px-2 py-1.5 bg-white">
+                            <option value="1.645">90%</option>
+                            <option value="1.96" selected>95%</option>
+                            <option value="2.576">99%</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="calcP" class="text-[11px] font-medium text-slate-600">Proporción esperada (p)</label>
+                        <input type="number" id="calcP" value="0.5" min="0.01" max="0.99" step="0.01"
+                               class="w-full text-xs border border-slate-300 rounded-lg px-2 py-1.5 bg-white">
+                    </div>
+                    <div>
+                        <label for="calcD" class="text-[11px] font-medium text-slate-600">Margen de error (d)</label>
+                        <input type="number" id="calcD" value="0.05" min="0.001" max="0.5" step="0.001"
+                               class="w-full text-xs border border-slate-300 rounded-lg px-2 py-1.5 bg-white">
+                    </div>
+                    <div>
+                        <label for="calcDeff" class="text-[11px] font-medium text-slate-600">DEFF estimado</label>
+                        <input type="number" id="calcDeff" value="1.0" min="0.5" max="10" step="0.1"
+                               class="w-full text-xs border border-slate-300 rounded-lg px-2 py-1.5 bg-white">
+                        <p class="text-[9px] text-slate-400 mt-0.5">1.0 = MAS. Valores &gt;1 para conglomerados (típico 1.5–3.0)</p>
+                    </div>
+                    <button type="button" id="btnCalcN" class="w-full py-2 bg-indigo-600 text-white text-xs font-semibold rounded-lg hover:bg-indigo-700 transition-colors">
+                        Calcular n
+                    </button>
+                    <div id="calcResult" class="hidden p-2 bg-indigo-50 rounded-lg border border-indigo-200 text-xs text-indigo-700"></div>
+                </div>
+            </fieldset>
+
+            <!-- STEP 4: MÉTODO -->
+            <fieldset id="step4" class="bg-slate-50 rounded-xl p-4 border border-slate-200 opacity-50" disabled>
+                <legend class="sr-only">Paso 4: Seleccionar método de muestreo</legend>
+                <div class="flex items-center gap-2 mb-3">
+                    <span class="w-6 h-6 bg-blue-600 text-white text-xs font-bold rounded-full flex items-center justify-center" aria-hidden="true">4</span>
+                    <h2 class="font-semibold text-sm text-slate-700">Método de Muestreo</h2>
+                </div>
+                <div class="grid grid-cols-2 gap-2" role="radiogroup" aria-label="Selección del método de muestreo">
+                    <button type="button" role="radio" aria-checked="false" class="method-btn border border-slate-200 rounded-lg p-2.5 bg-white text-left hover:border-blue-300 hover:bg-blue-50/50 transition-colors" data-method="mas">
+                        <div class="text-base mb-0.5" aria-hidden="true">🎲</div>
+                        <div class="text-[11px] font-semibold text-slate-700">Aleatorio Simple</div>
+                        <div class="text-[9px] text-slate-400">MAS ± reemplazo</div>
+                    </button>
+                    <button type="button" role="radio" aria-checked="false" class="method-btn border border-slate-200 rounded-lg p-2.5 bg-white text-left hover:border-blue-300 hover:bg-blue-50/50 transition-colors" data-method="systematic">
+                        <div class="text-base mb-0.5" aria-hidden="true">📏</div>
+                        <div class="text-[11px] font-semibold text-slate-700">Sistemático</div>
+                        <div class="text-[9px] text-slate-400">Circular con k</div>
+                    </button>
+                    <button type="button" role="radio" aria-checked="false" class="method-btn border border-slate-200 rounded-lg p-2.5 bg-white text-left hover:border-blue-300 hover:bg-blue-50/50 transition-colors" data-method="stratified">
+                        <div class="text-base mb-0.5" aria-hidden="true">📊</div>
+                        <div class="text-[11px] font-semibold text-slate-700">Estratificado</div>
+                        <div class="text-[9px] text-slate-400">Proporcional / Neyman</div>
+                    </button>
+                    <button type="button" role="radio" aria-checked="false" class="method-btn border border-slate-200 rounded-lg p-2.5 bg-white text-left hover:border-blue-300 hover:bg-blue-50/50 transition-colors" data-method="cluster">
+                        <div class="text-base mb-0.5" aria-hidden="true">🏘️</div>
+                        <div class="text-[11px] font-semibold text-slate-700">Conglomerados</div>
+                        <div class="text-[9px] text-slate-400">PPS etápico</div>
+                    </button>
+                </div>
+            </fieldset>
+
+            <!-- STEP 5: PARÁMETROS DEL MÉTODO -->
+            <fieldset id="step5" class="bg-slate-50 rounded-xl p-4 border border-slate-200 opacity-50 hidden" disabled>
+                <legend class="sr-only">Paso 5: Parámetros específicos del método</legend>
+                <div class="flex items-center gap-2 mb-3">
+                    <span class="w-6 h-6 bg-blue-600 text-white text-xs font-bold rounded-full flex items-center justify-center" aria-hidden="true">5</span>
+                    <h2 class="font-semibold text-sm text-slate-700">Parámetros</h2>
+                </div>
+                <div id="methodParams" class="space-y-3"></div>
+            </fieldset>
+
+            <!-- STEP 6: SEMILLA Y SUPLENTES -->
+            <fieldset id="step6" class="bg-slate-50 rounded-xl p-4 border border-slate-200 opacity-50" disabled>
+                <legend class="sr-only">Paso 6: Semilla y suplentes</legend>
+                <div class="flex items-center gap-2 mb-3">
+                    <span class="w-6 h-6 bg-blue-600 text-white text-xs font-bold rounded-full flex items-center justify-center" aria-hidden="true">6</span>
+                    <h2 class="font-semibold text-sm text-slate-700">Reproducibilidad</h2>
+                </div>
+                <div class="space-y-3">
+                    <div>
+                        <label for="seedInput" class="text-xs font-medium text-slate-600 block mb-1">Semilla Aleatoria (Seed)</label>
+                        <div class="flex gap-2">
+                            <input type="number" id="seedInput" value="12345" min="1" max="999999999"
+                                   class="flex-1 text-sm border border-slate-300 rounded-lg px-3 py-2 bg-white focus:ring-2 focus:ring-blue-300 focus:border-blue-500 outline-none font-mono"
+                                   aria-describedby="seedHelp">
+                            <button type="button" id="btnRandomSeed" aria-label="Generar semilla aleatoria"
+                                    class="px-3 py-2 bg-slate-200 hover:bg-slate-300 rounded-lg text-xs font-medium transition-colors">
+                                🎰
+                            </button>
+                        </div>
+                        <p id="seedHelp" class="text-[10px] text-slate-400 mt-1">Misma semilla = misma selección (reproducibilidad)</p>
+                    </div>
+                    <div>
+                        <label for="subsCount" class="text-xs font-medium text-slate-600 block mb-1">Suplentes por unidad</label>
+                        <input type="number" id="subsCount" value="2" min="0" max="10"
+                               class="w-full text-sm border border-slate-300 rounded-lg px-3 py-2 bg-white focus:ring-2 focus:ring-blue-300 focus:border-blue-500 outline-none">
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+        <!-- ACTION BUTTONS -->
+        <div class="p-4 border-t border-slate-200 space-y-2">
+            <button type="button" id="btnExecute" disabled
+                    aria-label="Ejecutar selección muestral"
+                    class="w-full py-2.5 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold text-sm rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all shadow-lg shadow-blue-200 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                Ejecutar Selección
+            </button>
+            <div class="flex gap-2">
+                <button type="button" id="btnExport" disabled
+                        class="flex-1 py-2 bg-emerald-600 text-white font-medium text-xs rounded-lg hover:bg-emerald-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-1">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    Exportar Excel
+                </button>
+                <button type="button" id="btnSelfTest"
+                        class="px-3 py-2 bg-purple-100 text-purple-700 font-medium text-xs rounded-lg hover:bg-purple-200 transition-colors flex items-center justify-center gap-1"
+                        aria-label="Ejecutar autotest de verificación">
+                    🧪 Test
+                </button>
+                <button type="button" id="btnReset"
+                        class="flex-1 py-2 bg-slate-200 text-slate-700 font-medium text-xs rounded-lg hover:bg-slate-300 transition-colors flex items-center justify-center gap-1">
+                    ↺ Reiniciar
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ======== MAIN CONTENT (main landmark) ======== -->
+    <main id="main-content" class="flex-1 flex flex-col overflow-hidden">
+        <!-- Header -->
+        <header class="bg-white border-b border-slate-200 px-6 py-3 flex items-center justify-between shrink-0">
+            <div>
+                <h2 id="headerTitle" class="text-sm font-semibold text-slate-700">Panel de Análisis</h2>
+                <p id="headerSubtitle" class="text-xs text-slate-400">Cargue una base de datos para comenzar</p>
+            </div>
+            <div class="flex items-center gap-3">
+                <div id="statsBar" class="hidden flex items-center gap-2 flex-wrap">
+                    <div class="bg-blue-50 text-blue-700 px-3 py-1 rounded-lg text-center">
+                        <div class="text-[9px] font-medium uppercase tracking-wider">N</div>
+                        <div id="statN" class="text-base font-bold">0</div>
+                    </div>
+                    <div class="bg-emerald-50 text-emerald-700 px-3 py-1 rounded-lg text-center">
+                        <div class="text-[9px] font-medium uppercase tracking-wider">n</div>
+                        <div id="statN2" class="text-base font-bold">0</div>
+                    </div>
+                    <div class="bg-amber-50 text-amber-700 px-3 py-1 rounded-lg text-center">
+                        <div class="text-[9px] font-medium uppercase tracking-wider">Suplentes</div>
+                        <div id="statSup" class="text-base font-bold">0</div>
+                    </div>
+                    <div class="bg-purple-50 text-purple-700 px-3 py-1 rounded-lg text-center">
+                        <div class="text-[9px] font-medium uppercase tracking-wider">Seed</div>
+                        <div id="statSeed" class="text-base font-bold font-mono">—</div>
+                    </div>
+                </div>
+                <button type="button" id="btnHelp" class="p-2 rounded-lg hover:bg-slate-100 transition-colors" aria-label="Ver referencia metodológica">
+                    <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Tabs (FIX #10: proper ARIA roles) -->
+        <div class="bg-white border-b border-slate-200 px-6 flex gap-1 shrink-0" role="tablist" aria-label="Vistas del panel">
+            <button type="button" role="tab" aria-selected="true" aria-controls="panel-preview" id="tab-preview-btn"
+                    class="tab-btn px-4 py-2.5 text-sm border-b-2 border-blue-600 text-blue-600 font-semibold" data-panel="preview">
+                📋 Datos
+            </button>
+            <button type="button" role="tab" aria-selected="false" aria-controls="panel-results" id="tab-results-btn"
+                    class="tab-btn px-4 py-2.5 text-sm border-b-2 border-transparent text-slate-500 hover:text-blue-600" data-panel="results">
+                ✅ Resultados
+            </button>
+            <button type="button" role="tab" aria-selected="false" aria-controls="panel-charts" id="tab-charts-btn"
+                    class="tab-btn px-4 py-2.5 text-sm border-b-2 border-transparent text-slate-500 hover:text-blue-600" data-panel="charts">
+                📊 Gráficos
+            </button>
+            <button type="button" role="tab" aria-selected="false" aria-controls="panel-log" id="tab-log-btn"
+                    class="tab-btn px-4 py-2.5 text-sm border-b-2 border-transparent text-slate-500 hover:text-blue-600" data-panel="log">
+                📝 Registro
+            </button>
+        </div>
+
+        <!-- Tab Panels -->
+        <div class="flex-1 overflow-auto">
+            <!-- PREVIEW -->
+            <div id="panel-preview" role="tabpanel" aria-labelledby="tab-preview-btn" class="p-6" data-animate="fade">
+                <div id="emptyState" class="flex flex-col items-center justify-center py-16 text-center">
+                    <div class="w-20 h-20 bg-slate-100 rounded-2xl flex items-center justify-center mb-4" aria-hidden="true">
+                        <svg class="w-10 h-10 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-slate-400 mb-1">Sin datos cargados</h3>
+                    <p class="text-sm text-slate-400 max-w-md">Cargue un archivo CSV o Excel con su base de datos poblacional.</p>
+                </div>
+                <div id="dataPreview" class="hidden">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-sm font-semibold text-slate-700">Base de Datos</h3>
+                        <div class="flex items-center gap-2">
+                            <span id="rowCount" class="text-xs text-slate-500" aria-live="polite"></span>
+                            <nav aria-label="Paginación de la tabla de datos">
+                                <button type="button" id="prevPage" class="px-2 py-1 text-xs bg-slate-200 rounded hover:bg-slate-300 disabled:opacity-40" disabled aria-label="Página anterior">◀</button>
+                                <span id="pageInfo" class="px-2 py-1 text-xs text-slate-500"></span>
+                                <button type="button" id="nextPage" class="px-2 py-1 text-xs bg-slate-200 rounded hover:bg-slate-300 disabled:opacity-40" disabled aria-label="Página siguiente">▶</button>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="overflow-auto rounded-xl border border-slate-200 bg-white max-h-[calc(100vh-260px)]">
+                        <table id="previewTable" class="w-full text-xs" aria-label="Vista previa de la base de datos">
+                            <thead id="previewThead" class="bg-slate-50 sticky top-0 z-10"></thead>
+                            <tbody id="previewTbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RESULTS -->
+            <div id="panel-results" role="tabpanel" aria-labelledby="tab-results-btn" class="p-6 hidden" data-animate="fade">
+                <div id="noResults" class="flex flex-col items-center justify-center py-16 text-center">
+                    <span class="text-4xl mb-3" aria-hidden="true">🔬</span>
+                    <h3 class="text-base font-semibold text-slate-400">Sin resultados aún</h3>
+                    <p class="text-sm text-slate-400 mt-1">Configure los parámetros y ejecute la selección</p>
+                </div>
+                <div id="resultsContent" class="hidden space-y-6">
+                    <!-- Design Estimates -->
+                    <div id="designEstimates" class="p-4 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl border border-indigo-200">
+                        <h4 class="text-sm font-bold text-indigo-800 mb-2">📐 Estimaciones de Diseño</h4>
+                        <div id="designEstimatesGrid" class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs"></div>
+                    </div>
+                    <!-- Selected -->
+                    <div>
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="w-3 h-3 bg-blue-500 rounded-full" aria-hidden="true"></span>
+                            <h3 class="text-sm font-bold text-slate-700">Muestra Seleccionada</h3>
+                            <span id="selectedCount" class="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-medium"></span>
+                        </div>
+                        <div class="overflow-auto rounded-xl border border-blue-200 bg-white max-h-72">
+                            <table class="w-full text-xs" aria-label="Unidades seleccionadas en la muestra">
+                                <thead id="selectedThead" class="bg-blue-50 sticky top-0"></thead>
+                                <tbody id="selectedTbody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- Substitutes -->
+                    <div id="subsSection" class="hidden">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="w-3 h-3 bg-amber-500 rounded-full" aria-hidden="true"></span>
+                            <h3 class="text-sm font-bold text-slate-700">Lista de Suplentes</h3>
+                            <span id="subsBadge" class="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-medium"></span>
+                        </div>
+                        <div class="overflow-auto rounded-xl border border-amber-200 bg-white max-h-72">
+                            <table class="w-full text-xs" aria-label="Unidades suplentes de reserva">
+                                <thead id="subsThead" class="bg-amber-50 sticky top-0"></thead>
+                                <tbody id="subsTbody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- Systematic details -->
+                    <div id="sysDetails" class="hidden p-4 bg-indigo-50 rounded-xl border border-indigo-200">
+                        <h4 class="text-sm font-bold text-indigo-700 mb-2">🔢 Detalles Sistemático (Circular)</h4>
+                        <div id="sysInfo" class="text-xs text-indigo-600 space-y-1"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHARTS -->
+            <div id="panel-charts" role="tabpanel" aria-labelledby="tab-charts-btn" class="p-6 hidden" data-animate="fade">
+                <div id="noCharts" class="flex flex-col items-center justify-center py-16 text-center">
+                    <span class="text-4xl mb-3" aria-hidden="true">📊</span>
+                    <h3 class="text-base font-semibold text-slate-400">Sin gráficos disponibles</h3>
+                </div>
+                <div id="chartsContent" class="hidden grid grid-cols-1 xl:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-xl border border-slate-200 p-5">
+                        <h4 class="text-sm font-bold text-slate-700 mb-3">Población vs Muestra</h4>
+                        <div class="h-72"><canvas id="distChart" aria-label="Gráfico de barras: distribución población vs muestra"></canvas></div>
+                    </div>
+                    <div class="bg-white rounded-xl border border-slate-200 p-5">
+                        <h4 class="text-sm font-bold text-slate-700 mb-3">Fracción de Selección (%)</h4>
+                        <div class="h-72"><canvas id="propChart" aria-label="Gráfico de barras: proporción seleccionada"></canvas></div>
+                    </div>
+                    <div class="bg-white rounded-xl border border-slate-200 p-5 xl:col-span-2">
+                        <h4 class="text-sm font-bold text-slate-700 mb-3">Resumen del Diseño</h4>
+                        <div id="summaryGrid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LOG -->
+            <div id="panel-log" role="tabpanel" aria-labelledby="tab-log-btn" class="p-6 hidden" data-animate="fade">
+                <div id="noLog" class="flex flex-col items-center justify-center py-16 text-center">
+                    <span class="text-4xl mb-3" aria-hidden="true">📝</span>
+                    <h3 class="text-base font-semibold text-slate-400">Sin registros</h3>
+                </div>
+                <div id="logContent" class="hidden">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-sm font-bold text-slate-700">Log de Selección (Auditoría)</h3>
+                        <button type="button" id="btnCopyLog" class="px-3 py-1.5 bg-slate-200 hover:bg-slate-300 rounded-lg text-xs font-medium transition-colors" aria-label="Copiar log al portapapeles">
+                            📋 Copiar
+                        </button>
+                    </div>
+                    <pre id="logText" class="bg-slate-900 text-green-400 p-5 rounded-xl text-xs font-mono overflow-auto max-h-[calc(100vh-300px)] leading-relaxed whitespace-pre-wrap" tabindex="0" aria-label="Contenido del log de auditoría"></pre>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- ============ HELP MODAL ============ -->
+<div id="helpModal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center hidden" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+    <div class="bg-white rounded-2xl max-w-2xl w-full mx-4 max-h-[85vh] overflow-auto shadow-2xl">
+        <div class="p-6 border-b border-slate-200 flex items-center justify-between sticky top-0 bg-white rounded-t-2xl">
+            <h2 id="helpTitle" class="text-lg font-bold text-slate-800">📖 Referencia Metodológica</h2>
+            <button type="button" id="closeHelp" class="p-1 hover:bg-slate-100 rounded-lg" aria-label="Cerrar">
+                <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+        </div>
+        <div class="p-6 text-sm text-slate-600 space-y-4 leading-relaxed">
+            <div class="p-4 bg-blue-50 rounded-xl"><h3 class="font-bold text-blue-800 mb-1">MAS</h3><p>Probabilidad de inclusión π=n/N. Fisher-Yates con semilla. Con/sin reemplazo. Var(ȳ)=S²/n·(1−f).</p></div>
+            <div class="p-4 bg-indigo-50 rounded-xl"><h3 class="font-bold text-indigo-800 mb-1">Sistemático Circular</h3><p>k=N/n (real). Arranque r∈[0,k). Posiciones (r+i·k) mod N. Elimina sesgo de borde cuando N no es múltiplo de k (Silva Ayçaguer, 1993).</p></div>
+            <div class="p-4 bg-emerald-50 rounded-xl"><h3 class="font-bold text-emerald-800 mb-1">Estratificado</h3><p>Asignación proporcional (nₕ=n·Nₕ/N) con Método del Resto Mayor. Opción Neyman: nₕ=n·(Nₕ·Sₕ)/Σ(Nₕ·Sₕ). DEFF calculado.</p></div>
+            <div class="p-4 bg-amber-50 rounded-xl"><h3 class="font-bold text-amber-800 mb-1">Conglomerados PPS</h3><p>Etapa 1: UPMs seleccionadas con probabilidad proporcional al tamaño (PPS sistemático). Etapa 2: MAS dentro de UPMs. DEFF ≈ 1+(m̄−1)ρ.</p></div>
+            <div class="p-4 bg-purple-50 rounded-xl"><h3 class="font-bold text-purple-800 mb-1">Cálculo de n</h3><p>n₀=(Z²·p·q·DEFF)/d². Corrección: n=n₀/(1+(n₀−1)/N). Z de tabla normal estándar.</p></div>
+            <div class="p-4 bg-slate-100 rounded-xl"><h3 class="font-bold text-slate-700 mb-1">📚 Referencias</h3><ul class="list-disc pl-5 space-y-1 text-xs text-slate-500">
+                <li>Silva Ayçaguer, L.C. (1993). <em>Muestreo para la investigación en ciencias de la salud</em>.</li>
+                <li>Silva Ayçaguer, L.C. (2009). <em>Diseño razonado de muestras</em>.</li>
+                <li>EPIDAT 4.2. Xunta de Galicia / OPS.</li>
+                <li>Kish, L. (1965). <em>Survey Sampling</em>. Wiley.</li>
+            </ul></div>
+        </div>
+    </div>
+</div>
+
+<!-- ============ SELF-TEST MODAL ============ -->
+<div id="testModal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center hidden" role="dialog" aria-modal="true" aria-labelledby="testTitle">
+    <div class="bg-white rounded-2xl max-w-lg w-full mx-4 max-h-[80vh] overflow-auto shadow-2xl">
+        <div class="p-5 border-b border-slate-200 flex items-center justify-between">
+            <h2 id="testTitle" class="text-base font-bold text-slate-800">🧪 Autotest de Verificación</h2>
+            <button type="button" id="closeTest" class="p-1 hover:bg-slate-100 rounded-lg" aria-label="Cerrar">✕</button>
+        </div>
+        <div id="testResults" class="p-5 text-xs font-mono space-y-1"></div>
+    </div>
+</div>
+
+
+<!-- =============================================================== -->
+<!-- ======================== JAVASCRIPT ============================ -->
+<!-- =============================================================== -->
+<script>
+"use strict";
+
+/* ============================================================
+   MODULE 0: HTML SANITIZER
+   FIX #3: Previene XSS inyectando datos del usuario de forma segura.
+   ============================================================ */
+const Sanitizer = (() => {
+    const ESC_MAP = { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#039;' };
+    const ESC_RE = /[&<>"']/g;
+
+    function esc(val) {
+        if (val === null || val === undefined) return '';
+        return String(val).replace(ESC_RE, c => ESC_MAP[c]);
+    }
+
+    // Build a table row using textContent-safe approach via DocumentFragment
+    function createRow(cells, className) {
+        const tr = document.createElement('tr');
+        if (className) tr.className = className;
+        cells.forEach(c => {
+            const td = document.createElement('td');
+            td.className = 'px-3 py-1.5 text-xs text-slate-700 whitespace-nowrap';
+            td.textContent = c ?? '';
+            tr.appendChild(td);
+        });
+        return tr;
+    }
+
+    function createHeaderRow(cells, colorClass) {
+        const tr = document.createElement('tr');
+        cells.forEach(c => {
+            const th = document.createElement('th');
+            th.className = `px-3 py-2 text-left text-[10px] font-semibold uppercase tracking-wider border-b whitespace-nowrap ${colorClass || 'text-slate-500 border-slate-200'}`;
+            th.textContent = c;
+            th.setAttribute('scope', 'col');
+            tr.appendChild(th);
+        });
+        return tr;
+    }
+
+    return { esc, createRow, createHeaderRow };
+})();
+
+
+/* ============================================================
+   MODULE 1: SEEDED PRNG (Mulberry32)
+   ============================================================ */
+const SeededRNG = (() => {
+    let _fn = null, _seed = 12345;
+
+    function _mulberry32(s) {
+        return () => {
+            s |= 0; s = (s + 0x6D2B79F5) | 0;
+            let t = Math.imul(s ^ (s >>> 15), 1 | s);
+            t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+            return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        };
+    }
+
+    function init(seed) { _seed = parseInt(seed) || 12345; _fn = _mulberry32(_seed); }
+    function random() { if (!_fn) init(_seed); return _fn(); }
+    function getSeed() { return _seed; }
+
+    function shuffle(arr) {
+        const a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    function randInt(min, max) { return min + Math.floor(random() * (max - min + 1)); }
+
+    return { init, random, getSeed, shuffle, randInt };
+})();
+
+
+/* ============================================================
+   MODULE 2: DATA VALIDATOR
+   FIX: Validación exhaustiva con edge cases.
+   ============================================================ */
+const DataValidator = (() => {
+    function validate(data, headers, idCol) {
+        const warnings = [], errors = [];
+
+        if (!data || data.length === 0) {
+            errors.push({ type: 'empty_file', msg: 'El archivo no contiene datos', details: [] });
+            return { warnings, errors, isValid: false };
+        }
+        if (!headers || headers.length === 0) {
+            errors.push({ type: 'no_headers', msg: 'No se detectaron columnas', details: [] });
+            return { warnings, errors, isValid: false };
+        }
+
+        // Empty cells
+        let emptyCells = 0;
+        const emptyDetails = [];
+        data.forEach((row, ri) => {
+            headers.forEach(h => {
+                const val = row[h];
+                if (val === null || val === undefined || String(val).trim() === '') {
+                    emptyCells++;
+                    if (emptyDetails.length < 10) emptyDetails.push(`Fila ${ri + 2}, Col "${h}"`);
+                }
+            });
+        });
+        if (emptyCells > 0)
+            warnings.push({ type: 'empty', msg: `${emptyCells} celda(s) vacía(s)`, details: emptyDetails });
+
+        // Duplicate IDs
+        if (idCol) {
+            const seen = {}, dupes = [];
+            data.forEach((r, i) => {
+                const id = String(r[idCol] ?? '').trim();
+                if (id === '') {
+                    if (dupes.length < 5) dupes.push({ id: '(vacío)', rows: [i + 2] });
+                } else if (seen[id] !== undefined) {
+                    dupes.push({ id, rows: [seen[id] + 2, i + 2] });
+                } else {
+                    seen[id] = i;
+                }
+            });
+            if (dupes.length > 0)
+                errors.push({ type: 'duplicate', msg: `${dupes.length} ID(s) duplicado(s) o vacío(s)`, details: dupes.slice(0, 10).map(d => `"${d.id}" en fila(s) ${d.rows.join(', ')}`) });
+        }
+
+        // Single-row check
+        if (data.length < 2)
+            warnings.push({ type: 'small', msg: 'La base tiene menos de 2 registros', details: [] });
+
+        return { warnings, errors, isValid: errors.length === 0 };
+    }
+    return { validate };
+})();
+
+
+/* ============================================================
+   MODULE 3: DATA MANAGER
+   FIX #9: Pagination with DocumentFragment for performance.
+   ============================================================ */
+const DataManager = (() => {
+    let _data = [], _headers = [], _fileName = '', _page = 0;
+    const PAGE_SIZE = 100;
+
+    function parseCSV(file) {
+        return new Promise((resolve, reject) => {
+            Papa.parse(file, {
+                header: true, skipEmptyLines: true, dynamicTyping: true,
+                complete: r => r.data.length === 0 ? reject(new Error('CSV vacío')) : resolve({ data: r.data, headers: r.meta.fields || [] }),
+                error: e => reject(e)
+            });
+        });
+    }
+
+    function parseExcel(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = e => {
+                try {
+                    const wb = XLSX.read(e.target.result, { type: 'array' });
+                    const json = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { defval: '' });
+                    resolve({ data: json, headers: json.length ? Object.keys(json[0]) : [] });
+                } catch (err) { reject(err); }
+            };
+            reader.onerror = () => reject(new Error('Error leyendo archivo'));
+            reader.readAsArrayBuffer(file);
+        });
+    }
+
+    async function loadFile(file) {
+        _fileName = file.name;
+        const ext = file.name.split('.').pop().toLowerCase();
+        let result;
+        if (ext === 'csv') result = await parseCSV(file);
+        else if (['xlsx', 'xls'].includes(ext)) result = await parseExcel(file);
+        else throw new Error('Formato no soportado (use CSV, XLSX, XLS)');
+        _data = result.data; _headers = result.headers; _page = 0;
+        return { rows: _data.length, cols: _headers.length, fileName: _fileName };
+    }
+
+    function getData() { return _data; }
+    function getHeaders() { return _headers; }
+    function getFileName() { return _fileName; }
+    function getN() { return _data.length; }
+
+    function getPage(p) {
+        const total = Math.max(1, Math.ceil(_data.length / PAGE_SIZE));
+        _page = Math.max(0, Math.min(p, total - 1));
+        const start = _page * PAGE_SIZE;
+        return { rows: _data.slice(start, start + PAGE_SIZE), page: _page, totalPages: total, start, end: Math.min(start + PAGE_SIZE, _data.length) };
+    }
+    function nextPage() { return getPage(_page + 1); }
+    function prevPage() { return getPage(_page - 1); }
+
+    function reset() { _data = []; _headers = []; _fileName = ''; _page = 0; }
+
+    function getStratumCounts(col) {
+        const c = {};
+        _data.forEach(r => { const v = String(r[col] ?? '').trim() || '(vacío)'; c[v] = (c[v] || 0) + 1; });
+        return c;
+    }
+
+    // For Neyman allocation: get std dev of a numeric column within strata
+    function getStratumStats(stratCol, varCol) {
+        const stats = {};
+        _data.forEach(r => {
+            const s = String(r[stratCol] ?? '').trim() || '(vacío)';
+            if (!stats[s]) stats[s] = { values: [], n: 0 };
+            const v = parseFloat(r[varCol]);
+            if (!isNaN(v)) { stats[s].values.push(v); stats[s].n++; }
+        });
+        // Calculate std dev for each stratum
+        for (const s in stats) {
+            const vals = stats[s].values;
+            if (vals.length < 2) { stats[s].sd = 0; continue; }
+            const mean = vals.reduce((a, b) => a + b, 0) / vals.length;
+            const ssq = vals.reduce((a, v) => a + (v - mean) ** 2, 0);
+            stats[s].sd = Math.sqrt(ssq / (vals.length - 1));
+        }
+        return stats;
+    }
+
+    return { loadFile, getData, getHeaders, getFileName, getN, getPage, nextPage, prevPage, reset, getStratumCounts, getStratumStats };
+})();
+
+
+/* ============================================================
+   MODULE 4: SAMPLE SIZE CALCULATOR
+   FIX #1: Cálculo de n con DEFF y corrección de población finita.
+   ============================================================ */
+const SampleSizeCalc = (() => {
+    function calculate(params) {
+        const { Z, p, d, deff, N } = params;
+        const q = 1 - p;
+        const n0 = (Z * Z * p * q * deff) / (d * d);
+        const n = N > 0 ? Math.ceil(n0 / (1 + (n0 - 1) / N)) : Math.ceil(n0);
+        return {
+            n0: Math.ceil(n0),
+            n,
+            f: (n / N * 100).toFixed(2),
+            formula: `n₀ = (${Z}² × ${p} × ${q} × ${deff}) / ${d}² = ${Math.ceil(n0)}`,
+            correction: N > 0 ? `n = ${Math.ceil(n0)} / (1 + (${Math.ceil(n0)}-1)/${N}) = ${n}` : 'Sin corrección (N no especificado)'
+        };
+    }
+    return { calculate };
+})();
+
+
+/* ============================================================
+   MODULE 5: SAMPLING ENGINE
+   FIXES: Circular systematic, PPS clusters, Largest Remainder.
+   ============================================================ */
+const SamplingEngine = (() => {
+
+    /* --- MAS --- */
+    function mas(data, n, withReplacement = false) {
+        const N = data.length;
+        if (n <= 0) throw new Error('n debe ser > 0');
+        if (n > N && !withReplacement) throw new Error(`n(${n}) > N(${N}) sin reemplazo`);
+
+        let selected, remaining;
+        if (withReplacement) {
+            selected = [];
+            const counts = {};
+            for (let i = 0; i < n; i++) {
+                const idx = Math.floor(SeededRNG.random() * N);
+                counts[idx] = (counts[idx] || 0) + 1;
+                selected.push({ ...data[idx], _origIdx: idx, _selCount: counts[idx] });
+            }
+            remaining = data.map((d, i) => ({ ...d, _origIdx: i }));
+        } else {
+            const indices = SeededRNG.shuffle(Array.from({ length: N }, (_, i) => i));
+            selected = indices.slice(0, n).map(i => ({ ...data[i], _origIdx: i }));
+            remaining = indices.slice(n).map(i => ({ ...data[i], _origIdx: i }));
+        }
+
+        // Variance estimation: s²/n * (1-f)
+        const f = n / N;
+        return {
+            selected, remaining, method: 'MAS',
+            params: { N, n, withReplacement, f: (f * 100).toFixed(2) },
+            design: { f, fpc: 1 - f, deff: 1.0 }
+        };
+    }
+
+    /* --- FIX #4: Muestreo Sistemático CIRCULAR --- */
+    function systematic(data, n) {
+        const N = data.length;
+        if (n <= 0) throw new Error('n debe ser > 0');
+        if (n > N) throw new Error(`n(${n}) > N(${N})`);
+
+        const k = N / n; // real-valued interval (no truncar)
+        const r = SeededRNG.random() * k; // arranque in [0, k)
+
+        const selectedIndices = new Set();
+        const selectedList = [];
+        for (let i = 0; i < n; i++) {
+            const pos = Math.floor((r + i * k) % N); // CIRCULAR
+            selectedIndices.add(pos);
+            selectedList.push(pos);
+        }
+
+        const selected = selectedList.map(i => ({ ...data[i], _origIdx: i, _sysPos: i + 1 }));
+        const remaining = data.map((d, i) => ({ ...d, _origIdx: i })).filter((_, i) => !selectedIndices.has(i));
+        const f = n / N;
+
+        return {
+            selected, remaining, method: 'Sistemático Circular',
+            params: { N, n: selected.length, k: k.toFixed(4), r: r.toFixed(4), arranque: r.toFixed(4), circular: true },
+            design: { f, fpc: 1 - f, deff: 1.0 }
+        };
+    }
+
+    /* --- FIX #6: Estratificado con Largest Remainder Method + opción Neyman --- */
+    function stratified(data, n, stratumCol, allocation = 'proportional', neymanVarCol = null) {
+        const N = data.length;
+        if (n <= 0) throw new Error('n debe ser > 0');
+        if (n > N) throw new Error(`n(${n}) > N(${N})`);
+
+        // Group by stratum
+        const strata = {};
+        data.forEach((row, i) => {
+            const key = String(row[stratumCol] ?? '').trim() || '(vacío)';
+            if (!strata[key]) strata[key] = [];
+            strata[key].push({ ...row, _origIdx: i });
+        });
+        const names = Object.keys(strata).sort();
+
+        let allocations;
+        if (allocation === 'neyman' && neymanVarCol) {
+            allocations = _neymanAllocation(n, names, strata, neymanVarCol);
+        } else {
+            allocations = _largestRemainder(n, names.map(s => strata[s].length), N);
+        }
+
+        const selected = [], remaining = [];
+        const stratumDetails = {};
+
+        names.forEach((s, idx) => {
+            const pool = strata[s];
+            const nh = Math.min(allocations[idx], pool.length);
+            const shuffled = SeededRNG.shuffle(pool);
+            shuffled.slice(0, nh).forEach(u => selected.push({ ...u, _stratum: s }));
+            shuffled.slice(nh).forEach(u => remaining.push({ ...u, _stratum: s }));
+            stratumDetails[s] = { Nh: pool.length, nh, pctPop: (pool.length / N * 100).toFixed(1), pctSample: (nh / n * 100).toFixed(1) };
+        });
+
+        // DEFF estimation for stratified
+        const f = selected.length / N;
+        const wh2_sum = names.reduce((acc, s) => acc + (strata[s].length / N) ** 2 / (allocations[names.indexOf(s)] || 1), 0);
+
+        return {
+            selected, remaining, method: 'Estratificado (' + (allocation === 'neyman' ? 'Neyman' : 'Proporcional') + ')',
+            params: { N, n: selected.length, stratumCol, allocation, strata: stratumDetails, L: names.length },
+            design: { f, fpc: 1 - f, deff: null /* computed later if data available */ }
+        };
+    }
+
+    /* FIX #6: Largest Remainder Method */
+    function _largestRemainder(n, sizes, N) {
+        const quotas = sizes.map(Nh => n * Nh / N);
+        const floors = quotas.map(q => Math.max(1, Math.floor(q))); // mínimo 1 por estrato
+        let totalFloor = floors.reduce((a, b) => a + b, 0);
+
+        // If floors exceed n (many small strata), cap to 1
+        if (totalFloor > n) {
+            const sorted = sizes.map((s, i) => ({ i, s })).sort((a, b) => a.s - b.s);
+            for (const item of sorted) {
+                if (totalFloor <= n) break;
+                if (floors[item.i] > 1) { floors[item.i]--; totalFloor--; }
+            }
+        }
+
+        // Distribute remainder by largest fractional part
+        let rem = n - totalFloor;
+        if (rem > 0) {
+            const remainders = quotas.map((q, i) => ({ i, frac: q - Math.floor(q) }));
+            remainders.sort((a, b) => b.frac - a.frac);
+            for (let j = 0; j < rem && j < remainders.length; j++) {
+                floors[remainders[j].i]++;
+            }
+        }
+        return floors;
+    }
+
+    /* Neyman (Optimal) Allocation */
+    function _neymanAllocation(n, names, strata, varCol) {
+        const stats = {};
+        names.forEach(s => {
+            const vals = strata[s].map(r => parseFloat(r[varCol])).filter(v => !isNaN(v));
+            if (vals.length < 2) { stats[s] = 0; return; }
+            const mean = vals.reduce((a, b) => a + b, 0) / vals.length;
+            stats[s] = Math.sqrt(vals.reduce((a, v) => a + (v - mean) ** 2, 0) / (vals.length - 1));
+        });
+
+        const NhSh = names.map(s => strata[s].length * stats[s]);
+        const totalNhSh = NhSh.reduce((a, b) => a + b, 0);
+
+        if (totalNhSh === 0) {
+            // Fallback to proportional if no variance info
+            return _largestRemainder(n, names.map(s => strata[s].length), names.reduce((a, s) => a + strata[s].length, 0));
+        }
+
+        const quotas = NhSh.map(v => n * v / totalNhSh);
+        const floors = quotas.map((q, i) => Math.max(1, Math.min(Math.floor(q), strata[names[i]].length)));
+        let totalFloor = floors.reduce((a, b) => a + b, 0);
+        let rem = n - totalFloor;
+        if (rem > 0) {
+            const remainders = quotas.map((q, i) => ({ i, frac: q - floors[i] })).sort((a, b) => b.frac - a.frac);
+            for (let j = 0; j < rem && j < remainders.length; j++) {
+                if (floors[remainders[j].i] < strata[names[remainders[j].i]].length) {
+                    floors[remainders[j].i]++;
+                }
+            }
+        }
+        return floors;
+    }
+
+    /* --- FIX #7: Conglomerados con PPS Sistemático --- */
+    function cluster(data, clusterCol, numClusters, withinN = 0) {
+        const N = data.length;
+        const clusters = {};
+        data.forEach((row, i) => {
+            const key = String(row[clusterCol] ?? '').trim() || '(vacío)';
+            if (!clusters[key]) clusters[key] = [];
+            clusters[key].push({ ...row, _origIdx: i });
+        });
+
+        const clusterNames = Object.keys(clusters).sort();
+        const M = clusterNames.length;
+        if (numClusters > M) throw new Error(`m(${numClusters}) > M(${M})`);
+        if (numClusters <= 0) throw new Error('m debe ser > 0');
+
+        // FIX #7: PPS Systematic Selection
+        const selectedClusterNames = _ppsSystematic(clusterNames, clusters, numClusters);
+        const notSelected = new Set(clusterNames);
+        selectedClusterNames.forEach(c => notSelected.delete(c));
+
+        // Stage 2: within-cluster sampling
+        const selected = [], remaining = [];
+        const clusterDetails = {};
+
+        selectedClusterNames.forEach(c => {
+            const pool = clusters[c];
+            let sel, rem;
+            if (withinN > 0 && withinN < pool.length) {
+                const shuffled = SeededRNG.shuffle(pool);
+                sel = shuffled.slice(0, withinN).map(u => ({ ...u, _cluster: c, _clusterSel: true }));
+                rem = shuffled.slice(withinN).map(u => ({ ...u, _cluster: c, _clusterSel: true }));
+            } else {
+                sel = pool.map(u => ({ ...u, _cluster: c, _clusterSel: true }));
+                rem = [];
+            }
+            selected.push(...sel);
+            remaining.push(...rem);
+            clusterDetails[c] = { size: pool.length, sampled: sel.length, pi: null };
+        });
+
+        // Non-selected clusters to remaining
+        notSelected.forEach(c => {
+            clusters[c].forEach(u => remaining.push({ ...u, _cluster: c, _clusterSel: false }));
+        });
+
+        // Calculate inclusion probabilities for PPS
+        const totalSize = clusterNames.reduce((a, c) => a + clusters[c].length, 0);
+        selectedClusterNames.forEach(c => {
+            clusterDetails[c].pi = (numClusters * clusters[c].length / totalSize).toFixed(4);
+        });
+
+        // DEFF estimation: DEFF ≈ 1 + (m̄ - 1) × ρ
+        const avgClusterSize = selected.length / selectedClusterNames.length;
+
+        return {
+            selected, remaining, method: 'Conglomerados PPS',
+            params: {
+                N, n: selected.length, clusterCol, M, m: numClusters,
+                withinSampleSize: withinN || 'Censo', clusters: clusterDetails,
+                selectedClusters: selectedClusterNames, selectionMethod: 'PPS Sistemático'
+            },
+            design: { f: selected.length / N, avgClusterSize, deff: null }
+        };
+    }
+
+    /* PPS Systematic Selection (Madow) */
+    function _ppsSystematic(clusterNames, clusters, m) {
+        // Calculate cumulative sizes
+        const sizes = clusterNames.map(c => clusters[c].length);
+        const totalSize = sizes.reduce((a, b) => a + b, 0);
+        const cumulative = [];
+        let cum = 0;
+        sizes.forEach(s => { cum += s; cumulative.push(cum); });
+
+        const interval = totalSize / m;
+        const start = SeededRNG.random() * interval;
+
+        const selectedSet = new Set();
+        const selectedNames = [];
+
+        for (let i = 0; i < m; i++) {
+            const point = (start + i * interval) % totalSize;
+            // Find cluster that contains this point
+            for (let j = 0; j < cumulative.length; j++) {
+                const lower = j === 0 ? 0 : cumulative[j - 1];
+                if (point >= lower && point < cumulative[j]) {
+                    if (!selectedSet.has(clusterNames[j])) {
+                        selectedSet.add(clusterNames[j]);
+                        selectedNames.push(clusterNames[j]);
+                    } else {
+                        // Collision: find next available
+                        for (let k = 1; k < clusterNames.length; k++) {
+                            const alt = clusterNames[(j + k) % clusterNames.length];
+                            if (!selectedSet.has(alt)) {
+                                selectedSet.add(alt);
+                                selectedNames.push(alt);
+                                break;
+                            }
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+
+        // Ensure exactly m clusters selected
+        while (selectedNames.length < m) {
+            for (const c of clusterNames) {
+                if (!selectedSet.has(c)) {
+                    selectedSet.add(c);
+                    selectedNames.push(c);
+                    if (selectedNames.length >= m) break;
+                }
+            }
+        }
+
+        return selectedNames.slice(0, m);
+    }
+
+    return { mas, systematic, stratified, cluster };
+})();
+
+
+/* ============================================================
+   MODULE 6: DESIGN ESTIMATOR
+   FIX #1: Calcula DEFF, varianza, intervalos de confianza.
+   ============================================================ */
+const DesignEstimator = (() => {
+    function estimate(result, idCol, data, headers) {
+        const est = {
+            deff: 1.0,
+            se: null,
+            ci95: null,
+            samplingFraction: result.design?.f || (result.selected.length / result.params.N),
+            fpc: null
+        };
+
+        est.fpc = 1 - est.samplingFraction;
+        const n = result.selected.length;
+        const N = result.params.N;
+
+        if (result.method === 'MAS' || result.method.includes('Sistemático')) {
+            est.deff = 1.0;
+            est.se = Math.sqrt((0.25 / n) * est.fpc); // for proportion p=0.5
+            est.ci95 = [0.5 - 1.96 * est.se, 0.5 + 1.96 * est.se];
+        }
+
+        if (result.method.includes('Estratificado')) {
+            // Stratified usually has DEFF ≤ 1
+            const strata = result.params.strata;
+            if (strata) {
+                let varStrat = 0;
+                for (const [s, d] of Object.entries(strata)) {
+                    const Wh = d.Nh / N;
+                    const nh = d.nh;
+                    const fh = nh / d.Nh;
+                    varStrat += Wh * Wh * (0.25 / nh) * (1 - fh);
+                }
+                const varSRS = (0.25 / n) * (1 - n / N);
+                est.deff = varSRS > 0 ? varStrat / varSRS : 1.0;
+                est.se = Math.sqrt(varStrat);
+                est.ci95 = [0.5 - 1.96 * est.se, 0.5 + 1.96 * est.se];
+            }
+        }
+
+        if (result.method.includes('Conglomerados')) {
+            const m = result.params.m;
+            const avgM = result.design?.avgClusterSize || n / m;
+            // Approximate DEFF = 1 + (m̄ - 1) × ρ, assume ρ = 0.1 as conservative
+            const rho = 0.1;
+            est.deff = 1 + (avgM - 1) * rho;
+            est.se = Math.sqrt((0.25 / n) * est.deff * est.fpc);
+            est.ci95 = [0.5 - 1.96 * est.se, 0.5 + 1.96 * est.se];
+            est.rhoAssumed = rho;
+        }
+
+        return est;
+    }
+
+    return { estimate };
+})();
+
+
+/* ============================================================
+   MODULE 7: SUBSTITUTE GENERATOR
+   FIX #5: Suplentes con emparejamiento robusto.
+   ============================================================ */
+const SubstituteGenerator = (() => {
+    function generate(result, numSubs, stratumCol) {
+        if (numSubs <= 0 || result.remaining.length === 0)
+            return { substitutes: [], details: 'Sin suplentes solicitados' };
+
+        const substitutes = [];
+        const method = result.method;
+
+        if (method.includes('Estratificado') && stratumCol) {
+            // Match by stratum
+            const remByS = {};
+            result.remaining.forEach(r => {
+                const s = r._stratum || String(r[stratumCol] ?? '').trim() || '(vacío)';
+                if (!remByS[s]) remByS[s] = [];
+                remByS[s].push(r);
+            });
+            result.selected.forEach((sel, idx) => {
+                const s = sel._stratum || String(sel[stratumCol] ?? '').trim() || '(vacío)';
+                const pool = remByS[s] || [];
+                for (let i = 0; i < numSubs && pool.length > 0; i++) {
+                    substitutes.push({ ...pool.shift(), _subFor: idx + 1, _subOrd: i + 1, _matchKey: s, _matchType: 'Estrato' });
+                }
+            });
+        } else if (method.includes('Conglomerados')) {
+            // Match by cluster
+            const remByC = {};
+            result.remaining.filter(r => r._clusterSel).forEach(r => {
+                const c = r._cluster;
+                if (!remByC[c]) remByC[c] = [];
+                remByC[c].push(r);
+            });
+            result.selected.forEach((sel, idx) => {
+                const c = sel._cluster;
+                const pool = remByC[c] || [];
+                for (let i = 0; i < numSubs && pool.length > 0; i++) {
+                    substitutes.push({ ...pool.shift(), _subFor: idx + 1, _subOrd: i + 1, _matchKey: c, _matchType: 'Conglomerado' });
+                }
+            });
+        } else {
+            // MAS/Sistemático: use positional neighbors for substitutes
+            // FIX #5: Instead of random, use the next in the shuffled/ordered remaining
+            const ordered = [...result.remaining];
+            let cursor = 0;
+            result.selected.forEach((sel, idx) => {
+                for (let i = 0; i < numSubs && cursor < ordered.length; i++, cursor++) {
+                    substitutes.push({ ...ordered[cursor], _subFor: idx + 1, _subOrd: i + 1, _matchKey: '-', _matchType: 'Secuencial' });
+                }
+            });
+        }
+
+        return { substitutes, details: `${substitutes.length} suplentes (${numSubs}/unidad, emparejados por ${substitutes[0]?._matchType || 'N/A'})` };
+    }
+    return { generate };
+})();
+
+
+/* ============================================================
+   MODULE 8: LOG MANAGER
+   Enhanced with design estimates.
+   ============================================================ */
+const LogManager = (() => {
+    let _log = '';
+
+    function generate(result, subsResult, designEst, config) {
+        const now = new Date();
+        const L = [];
+        L.push('════════════════════════════════════════════════════════════');
+        L.push('       LOG DE SELECCIÓN MUESTRAL — EpiSampler v2.0');
+        L.push('════════════════════════════════════════════════════════════');
+        L.push('');
+        L.push(`📅 Fecha/hora:           ${now.toLocaleString('es-ES')}`);
+        L.push(`📄 Archivo:              ${config.fileName}`);
+        L.push(`🔐 Semilla (Seed):       ${config.seed}`);
+        L.push(`📋 Método:               ${result.method}`);
+        L.push(`👥 Población (N):        ${result.params.N}`);
+        L.push(`🎯 Muestra (n):          ${result.selected.length}`);
+        L.push(`📌 Columna ID:           ${config.idCol || '(índice)'}`);
+        L.push(`📐 Fracción muestral:    ${(result.design.f * 100).toFixed(2)}%`);
+        L.push('');
+
+        if (result.method === 'MAS') {
+            L.push(`🔄 Con reemplazo:        ${result.params.withReplacement ? 'Sí' : 'No'}`);
+            L.push(`   DEFF:                 1.00 (por definición en MAS)`);
+        }
+
+        if (result.method.includes('Sistemático')) {
+            L.push('── Detalles Sistemático Circular ──');
+            L.push(`   Intervalo k:          ${result.params.k}`);
+            L.push(`   Arranque r:           ${result.params.r}`);
+            L.push(`   Tipo:                 Circular (mod N)`);
+            L.push(`   Fórmula:              pos(i) = (r + i·k) mod N`);
+        }
+
+        if (result.method.includes('Estratificado')) {
+            L.push(`📊 Columna estrato:      ${result.params.stratumCol}`);
+            L.push(`   Asignación:           ${result.params.allocation === 'neyman' ? 'Óptima de Neyman' : 'Proporcional (Resto Mayor)'}`);
+            L.push(`   Nº estratos (L):      ${result.params.L}`);
+            L.push('');
+            L.push('── Asignación por Estrato ──');
+            L.push('  Estrato                 Nh      nh    %Pob   %Muest');
+            L.push('  ──────────────────────────────────────────────────────');
+            for (const [s, d] of Object.entries(result.params.strata)) {
+                L.push(`  ${s.substring(0, 24).padEnd(24)} ${String(d.Nh).padStart(6)} ${String(d.nh).padStart(6)}  ${d.pctPop.padStart(6)}% ${d.pctSample.padStart(6)}%`);
+            }
+        }
+
+        if (result.method.includes('Conglomerados')) {
+            L.push(`🏘️  Columna UPM:          ${result.params.clusterCol}`);
+            L.push(`   Selección UPM:        ${result.params.selectionMethod}`);
+            L.push(`   Total congl. (M):     ${result.params.M}`);
+            L.push(`   Seleccionados (m):    ${result.params.m}`);
+            L.push(`   Submuestra interna:   ${result.params.withinSampleSize}`);
+            L.push('');
+            L.push('── UPMs Seleccionadas ──');
+            for (const c of result.params.selectedClusters) {
+                const d = result.params.clusters[c];
+                L.push(`   • ${c}: ${d.size} uds, ${d.sampled} muestreadas, πi=${d.pi}`);
+            }
+        }
+
+        L.push('');
+        L.push('── Estimaciones de Diseño ──');
+        L.push(`   DEFF estimado:        ${designEst.deff?.toFixed(3) || 'N/A'}`);
+        L.push(`   Error estándar (p̂=0.5): ${designEst.se?.toFixed(4) || 'N/A'}`);
+        if (designEst.ci95)
+            L.push(`   IC 95% (p̂=0.5):      [${designEst.ci95[0]?.toFixed(4)}, ${designEst.ci95[1]?.toFixed(4)}]`);
+        if (designEst.rhoAssumed !== undefined)
+            L.push(`   ρ (ICC) asumido:      ${designEst.rhoAssumed}`);
+        L.push(`   Corrección pob. fin.: ${designEst.fpc?.toFixed(4) || 'N/A'}`);
+
+        L.push('');
+        L.push('── Suplentes ──');
+        L.push(`   ${subsResult.details}`);
+
+        L.push('');
+        L.push('── Reproducibilidad ──');
+        L.push(`   Semilla: ${config.seed} | Método: ${result.method}`);
+        L.push(`   PRNG: Mulberry32 (periodo ~2³²)`);
+
+        L.push('');
+        L.push('════════════════════════════════════════════════════════════');
+        L.push('  Silva Ayçaguer (1993, 2009) · EPIDAT 4.2 · Kish (1965)');
+        L.push('  Procesamiento local · Sin telemetría');
+        L.push('════════════════════════════════════════════════════════════');
+
+        _log = L.join('\n');
+        return _log;
+    }
+
+    function getLog() { return _log; }
+    return { generate, getLog };
+})();
+
+
+/* ============================================================
+   MODULE 9: CHART MANAGER
+   FIX #2: No dynamic Tailwind classes — uses inline styles.
+   ============================================================ */
+const ChartManager = (() => {
+    let _dC = null, _pC = null;
+
+    function destroy() {
+        if (_dC) { _dC.destroy(); _dC = null; }
+        if (_pC) { _pC.destroy(); _pC = null; }
+    }
+
+    function render(result) {
+        destroy();
+        let labels, popN, samN;
+
+        if (result.method.includes('Estratificado') && result.params.strata) {
+            const st = result.params.strata;
+            labels = Object.keys(st);
+            popN = labels.map(s => st[s].Nh);
+            samN = labels.map(s => st[s].nh);
+        } else if (result.method.includes('Conglomerados') && result.params.clusters) {
+            labels = Object.keys(result.params.clusters);
+            popN = labels.map(c => result.params.clusters[c].size);
+            samN = labels.map(c => result.params.clusters[c].sampled);
+        } else {
+            labels = ['Seleccionados', 'No seleccionados'];
+            popN = [result.params.N, 0];
+            samN = [result.selected.length, result.remaining.length];
+        }
+
+        if (labels.length > 30) {
+            labels = labels.slice(0, 30); popN = popN.slice(0, 30); samN = samN.slice(0, 30);
+        }
+
+        const ctx1 = document.getElementById('distChart').getContext('2d');
+        _dC = new Chart(ctx1, {
+            type: 'bar',
+            data: { labels, datasets: [
+                { label: 'Población', data: popN, backgroundColor: 'rgba(99,102,241,0.7)', borderColor: 'rgba(99,102,241,1)', borderWidth: 1 },
+                { label: 'Muestra', data: samN, backgroundColor: 'rgba(16,185,129,0.7)', borderColor: 'rgba(16,185,129,1)', borderWidth: 1 }
+            ]},
+            options: { responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { labels: { font: { size: 11, family: 'Inter' }}}},
+                scales: { y: { beginAtZero: true, title: { display: true, text: 'Frecuencia' }}, x: { ticks: { maxRotation: 45, font: { size: 9 }}}}
+            }
+        });
+
+        const props = labels.map((_, i) => popN[i] > 0 ? parseFloat((samN[i] / popN[i] * 100).toFixed(1)) : 0);
+        const ctx2 = document.getElementById('propChart').getContext('2d');
+        _pC = new Chart(ctx2, {
+            type: 'bar',
+            data: { labels, datasets: [{ label: '% Seleccionado', data: props, backgroundColor: 'rgba(245,158,11,0.7)', borderColor: 'rgba(245,158,11,1)', borderWidth: 1 }]},
+            options: { responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { labels: { font: { size: 11, family: 'Inter' }}}},
+                scales: { y: { beginAtZero: true, max: Math.min(100, Math.max(...props) * 1.3), title: { display: true, text: '% Seleccionado' }}, x: { ticks: { maxRotation: 45, font: { size: 9 }}}}
+            }
+        });
+    }
+
+    /* FIX #2: Inline styles instead of dynamic Tailwind classes */
+    function renderSummary(result, substitutes, designEst) {
+        const grid = document.getElementById('summaryGrid');
+        grid.innerHTML = '';
+
+        const cards = [
+            { label: 'Población (N)', value: result.params.N.toLocaleString(), bg: '#eff6ff', color: '#1d4ed8', icon: '👥' },
+            { label: 'Muestra (n)', value: result.selected.length.toLocaleString(), bg: '#ecfdf5', color: '#047857', icon: '🎯' },
+            { label: 'Suplentes', value: substitutes.length.toLocaleString(), bg: '#fffbeb', color: '#b45309', icon: '🔄' },
+            { label: 'Fracción f', value: (result.design.f * 100).toFixed(2) + '%', bg: '#faf5ff', color: '#7c3aed', icon: '📐' },
+            { label: 'DEFF', value: designEst.deff?.toFixed(3) || '—', bg: '#fef2f2', color: '#b91c1c', icon: '📏' },
+            { label: 'EE (p̂=0.5)', value: designEst.se?.toFixed(4) || '—', bg: '#f0fdf4', color: '#15803d', icon: '📉' }
+        ];
+
+        if (result.method.includes('Sistemático')) {
+            cards.push({ label: 'Intervalo k', value: result.params.k, bg: '#eef2ff', color: '#4338ca', icon: '📏' });
+            cards.push({ label: 'Arranque r', value: result.params.r, bg: '#fdf2f8', color: '#be185d', icon: '🎲' });
+        }
+        if (result.method.includes('Estratificado'))
+            cards.push({ label: 'Estratos (L)', value: result.params.L, bg: '#f0fdfa', color: '#0f766e', icon: '📊' });
+        if (result.method.includes('Conglomerados')) {
+            cards.push({ label: 'UPMs (M)', value: result.params.M, bg: '#fff7ed', color: '#c2410c', icon: '🏘️' });
+            cards.push({ label: 'UPMs sel. (m)', value: result.params.m, bg: '#f0fdfa', color: '#0f766e', icon: '✅' });
+        }
+
+        cards.forEach(c => {
+            const div = document.createElement('div');
+            div.className = 'rounded-xl p-3 text-center transition-transform hover:-translate-y-0.5';
+            div.style.backgroundColor = c.bg;
+            div.style.color = c.color;
+            div.innerHTML = `<div class="text-xl mb-1" aria-hidden="true">${Sanitizer.esc(c.icon)}</div>
+                <div class="text-lg font-bold">${Sanitizer.esc(String(c.value))}</div>
+                <div class="text-[10px] font-medium uppercase tracking-wide">${Sanitizer.esc(c.label)}</div>`;
+            grid.appendChild(div);
+        });
+    }
+
+    return { render, renderSummary, destroy };
+})();
+
+
+/* ============================================================
+   MODULE 10: EXPORT MANAGER
+   ============================================================ */
+const ExportManager = (() => {
+    function exportResults(data, headers, result, substitutes, logText) {
+        const wb = XLSX.utils.book_new();
+        const selSet = new Set(result.selected.map(s => s._origIdx));
+        const subSet = new Set(substitutes.map(s => s._origIdx));
+
+        // Sheet 1: All data marked
+        const marked = data.map((row, i) => {
+            const nr = {};
+            headers.forEach(h => nr[h] = row[h]);
+            nr['_SELECCION'] = selSet.has(i) ? 'MUESTRA' : subSet.has(i) ? 'SUPLENTE' : '';
+            return nr;
+        });
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(marked), 'Datos_Marcados');
+
+        // Sheet 2: Sample
+        const samData = result.selected.map((s, i) => {
+            const r = {}; headers.forEach(h => r[h] = s[h]);
+            r['_Orden'] = i + 1;
+            if (s._stratum) r['_Estrato'] = s._stratum;
+            if (s._cluster) r['_Conglomerado'] = s._cluster;
+            return r;
+        });
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(samData), 'Muestra');
+
+        // Sheet 3: Substitutes
+        if (substitutes.length > 0) {
+            const subData = substitutes.map(s => {
+                const r = {}; headers.forEach(h => r[h] = s[h]);
+                r['_Suplente_De'] = s._subFor; r['_Orden'] = s._subOrd;
+                r['_Emparejado_Por'] = s._matchType; r['_Valor_Match'] = s._matchKey;
+                return r;
+            });
+            XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(subData), 'Suplentes');
+        }
+
+        // Sheet 4: Log
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(logText.split('\n').map(l => ({ Log: l }))), 'Log_Seleccion');
+
+        const ts = new Date().toISOString().slice(0, 16).replace(/[T:]/g, '-');
+        XLSX.writeFile(wb, `EpiSampler_${ts}.xlsx`);
+    }
+    return { exportResults };
+})();
+
+
+/* ============================================================
+   MODULE 11: SELF-TEST
+   FIX #11: Validates algorithms against known results.
+   ============================================================ */
+const SelfTest = (() => {
+    const results = [];
+
+    function assert(name, condition, detail) {
+        results.push({ name, pass: condition, detail: detail || (condition ? 'OK' : 'FAIL') });
+    }
+
+    function run() {
+        results.length = 0;
+
+        // Test 1: PRNG reproducibility
+        SeededRNG.init(42);
+        const v1 = SeededRNG.random();
+        SeededRNG.init(42);
+        const v2 = SeededRNG.random();
+        assert('PRNG reproducibilidad', v1 === v2, `Seed=42 → ${v1} === ${v2}`);
+
+        // Test 2: PRNG range
+        SeededRNG.init(12345);
+        let allInRange = true;
+        for (let i = 0; i < 1000; i++) {
+            const v = SeededRNG.random();
+            if (v < 0 || v >= 1) { allInRange = false; break; }
+        }
+        assert('PRNG rango [0,1)', allInRange, '1000 valores en [0,1)');
+
+        // Test 3: MAS selects exactly n
+        SeededRNG.init(99);
+        const testData = Array.from({ length: 100 }, (_, i) => ({ id: i }));
+        const masR = SamplingEngine.mas(testData, 10, false);
+        assert('MAS n=10 selecciona 10', masR.selected.length === 10, `Seleccionados: ${masR.selected.length}`);
+
+        // Test 4: MAS no duplicates without replacement
+        const masIds = masR.selected.map(s => s._origIdx);
+        const masUniq = new Set(masIds);
+        assert('MAS sin reemplazo: sin duplicados', masUniq.size === 10, `Únicos: ${masUniq.size}`);
+
+        // Test 5: MAS selected + remaining = N
+        assert('MAS n + remaining = N', masR.selected.length + masR.remaining.length === 100,
+            `${masR.selected.length} + ${masR.remaining.length} = ${masR.selected.length + masR.remaining.length}`);
+
+        // Test 6: Systematic circular selects exactly n
+        SeededRNG.init(77);
+        const sysR = SamplingEngine.systematic(testData, 7);
+        assert('Sistemático n=7 selecciona 7', sysR.selected.length === 7, `Seleccionados: ${sysR.selected.length}`);
+
+        // Test 7: Systematic - N not multiple of n
+        SeededRNG.init(77);
+        const testData2 = Array.from({ length: 103 }, (_, i) => ({ id: i }));
+        const sysR2 = SamplingEngine.systematic(testData2, 7);
+        assert('Sistemático N=103, n=7', sysR2.selected.length === 7, `Seleccionados: ${sysR2.selected.length}`);
+
+        // Test 8: Largest Remainder sums to n
+        const lrAlloc = SamplingEngine.stratified(
+            [
+                ...Array(60).fill(null).map(() => ({ g: 'A' })),
+                ...Array(30).fill(null).map(() => ({ g: 'B' })),
+                ...Array(10).fill(null).map(() => ({ g: 'C' }))
+            ], 20, 'g'
+        );
+        assert('Estratificado n=20 suma 20', lrAlloc.selected.length === 20, `Seleccionados: ${lrAlloc.selected.length}`);
+
+        // Test 9: All strata represented
+        const strataInSample = new Set(lrAlloc.selected.map(s => s._stratum));
+        assert('Estratificado: todos los estratos', strataInSample.size === 3, `Estratos en muestra: ${strataInSample.size}`);
+
+        // Test 10: Proportional allocation check
+        const nA = lrAlloc.selected.filter(s => s._stratum === 'A').length;
+        const nB = lrAlloc.selected.filter(s => s._stratum === 'B').length;
+        const nC = lrAlloc.selected.filter(s => s._stratum === 'C').length;
+        assert('Proporcional: A≈12, B≈6, C≈2', nA >= 10 && nA <= 14 && nB >= 4 && nB <= 8 && nC >= 1 && nC <= 3,
+            `A=${nA}, B=${nB}, C=${nC}`);
+
+        // Test 11: Cluster PPS
+        SeededRNG.init(55);
+        const clData = [
+            ...Array(50).fill(null).map((_, i) => ({ id: i, region: 'Norte' })),
+            ...Array(30).fill(null).map((_, i) => ({ id: 50 + i, region: 'Sur' })),
+            ...Array(10).fill(null).map((_, i) => ({ id: 80 + i, region: 'Este' })),
+            ...Array(10).fill(null).map((_, i) => ({ id: 90 + i, region: 'Oeste' }))
+        ];
+        const clR = SamplingEngine.cluster(clData, 'region', 2, 0);
+        assert('Conglomerados m=2', clR.params.selectedClusters.length === 2, `UPMs: ${clR.params.selectedClusters.join(', ')}`);
+
+        // Test 12: Sample size calculator
+        const calcR = SampleSizeCalc.calculate({ Z: 1.96, p: 0.5, d: 0.05, deff: 1, N: 10000 });
+        assert('Cálculo n (p=0.5, d=0.05, N=10000)', calcR.n >= 360 && calcR.n <= 390, `n=${calcR.n}`);
+
+        // Test 13: Sample size with DEFF=2
+        const calcR2 = SampleSizeCalc.calculate({ Z: 1.96, p: 0.5, d: 0.05, deff: 2, N: 10000 });
+        assert('Cálculo n con DEFF=2', calcR2.n > calcR.n, `n(DEFF=2)=${calcR2.n} > n(DEFF=1)=${calcR.n}`);
+
+        // Test 14: Sanitizer
+        const xss = Sanitizer.esc('<script>alert("xss")</script>');
+        assert('Sanitizer bloquea XSS', !xss.includes('<script>'), `Output: ${xss.substring(0, 40)}`);
+
+        // Test 15: Edge case n=N
+        SeededRNG.init(1);
+        const edgeR = SamplingEngine.mas(Array.from({ length: 5 }, (_, i) => ({ id: i })), 5, false);
+        assert('Edge case n=N', edgeR.selected.length === 5, `n=${edgeR.selected.length}`);
+
+        return results;
+    }
+
+    return { run };
+})();
+
+
+/* ============================================================
+   MODULE 12: UI CONTROLLER
+   FIX #10: ARIA, keyboard nav, proper roles.
+   FIX #3: All user data rendered via Sanitizer.
+   FIX #9: DocumentFragment for table rendering.
+   ============================================================ */
+const UIController = (() => {
+    let _method = null, _result = null, _subs = [], _logText = '', _designEst = null;
+
+    const $ = id => document.getElementById(id);
+    const $$ = sel => document.querySelectorAll(sel);
+
+    function announce(msg) { $('srAnnounce').textContent = msg; }
+
+    function toast(msg, type = 'info') {
+        const c = $('toastContainer');
+        const colors = { info: '#2563eb', success: '#059669', error: '#dc2626', warning: '#d97706' };
+        const icons = { info: 'ℹ️', success: '✅', error: '❌', warning: '⚠️' };
+        const div = document.createElement('div');
+        div.className = 'toast-item text-white px-4 py-3 rounded-xl shadow-lg text-sm font-medium flex items-center gap-2';
+        div.style.backgroundColor = colors[type];
+        div.setAttribute('role', 'alert');
+        div.textContent = `${icons[type]} ${msg}`;
+        c.appendChild(div);
+        announce(msg);
+        setTimeout(() => div.remove(), 4000);
+    }
+
+    function enableStep(id) { const el = $(id); el.disabled = false; el.classList.remove('opacity-50'); }
+    function disableStep(id) { const el = $(id); el.disabled = true; el.classList.add('opacity-50'); }
+
+    // ---- TABS (FIX #10: keyboard accessible) ----
+    function initTabs() {
+        const btns = $$('.tab-btn');
+        btns.forEach(btn => {
+            btn.addEventListener('click', () => switchTab(btn.dataset.panel));
+            btn.addEventListener('keydown', e => {
+                const tabs = [...btns];
+                const idx = tabs.indexOf(btn);
+                if (e.key === 'ArrowRight') { e.preventDefault(); tabs[(idx + 1) % tabs.length].focus(); tabs[(idx + 1) % tabs.length].click(); }
+                if (e.key === 'ArrowLeft') { e.preventDefault(); tabs[(idx - 1 + tabs.length) % tabs.length].focus(); tabs[(idx - 1 + tabs.length) % tabs.length].click(); }
+            });
+        });
+    }
+
+    function switchTab(panel) {
+        $$('.tab-btn').forEach(b => { b.classList.remove('border-blue-600', 'text-blue-600', 'font-semibold'); b.classList.add('border-transparent', 'text-slate-500'); b.setAttribute('aria-selected', 'false'); });
+        const btn = $(`tab-${panel}-btn`);
+        btn.classList.add('border-blue-600', 'text-blue-600', 'font-semibold');
+        btn.classList.remove('border-transparent', 'text-slate-500');
+        btn.setAttribute('aria-selected', 'true');
+        ['preview', 'results', 'charts', 'log'].forEach(p => {
+            $(`panel-${p}`).classList.toggle('hidden', p !== panel);
+        });
+    }
+
+    // ---- FILE UPLOAD ----
+    function initFileUpload() {
+        const dz = $('dropZone'), fi = $('fileInput');
+        dz.addEventListener('click', () => fi.click());
+        dz.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fi.click(); } });
+        dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag-active'); });
+        dz.addEventListener('dragleave', () => dz.classList.remove('drag-active'));
+        dz.addEventListener('drop', e => { e.preventDefault(); dz.classList.remove('drag-active'); if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]); });
+        fi.addEventListener('change', e => { if (e.target.files.length) handleFile(e.target.files[0]); });
+    }
+
+    async function handleFile(file) {
+        try {
+            toast('Cargando archivo...', 'info');
+            const info = await DataManager.loadFile(file);
+            $('fileInfo').classList.remove('hidden');
+            $('fileInfo').textContent = `✓ ${info.fileName} — ${info.rows.toLocaleString()} filas × ${info.cols} columnas`;
+
+            populateSelects();
+            renderPreview();
+            enableStep('step2');
+            $('headerTitle').textContent = Sanitizer.esc(info.fileName);
+            $('headerSubtitle').textContent = `${info.rows.toLocaleString()} unidades · ${info.cols} variables`;
+            $('statN').textContent = info.rows.toLocaleString();
+            $('displayN').textContent = info.rows.toLocaleString();
+            $('paramN').max = info.rows;
+            $('statsBar').classList.remove('hidden');
+            toast(`Cargado: ${info.rows} filas`, 'success');
+        } catch (err) {
+            toast(`Error: ${err.message}`, 'error');
+        }
+    }
+
+    function populateSelects() {
+        const headers = DataManager.getHeaders();
+        const sel = $('idColumn');
+        sel.innerHTML = '<option value="">— Seleccionar columna ID —</option>';
+        headers.forEach(h => { const o = document.createElement('option'); o.value = h; o.textContent = h; sel.appendChild(o); });
+
+        sel.onchange = () => {
+            if (sel.value) {
+                const v = DataValidator.validate(DataManager.getData(), headers, sel.value);
+                showValidation(v);
+                if (v.isValid) { enableStep('step3'); enableStep('step4'); enableStep('step6'); }
+            }
+        };
+    }
+
+    function showValidation(v) {
+        const p = $('validationPanel');
+        p.classList.remove('hidden');
+        p.innerHTML = '';
+        const frag = document.createDocumentFragment();
+
+        v.errors.forEach(e => {
+            const d = document.createElement('div');
+            d.className = 'mt-2 p-2 bg-red-50 border border-red-200 rounded-lg text-xs text-red-700';
+            d.setAttribute('data-status', 'error');
+            d.textContent = e.msg + (e.details.length ? ': ' + e.details.join('; ') : '');
+            frag.appendChild(d);
+        });
+        v.warnings.forEach(w => {
+            const d = document.createElement('div');
+            d.className = 'mt-2 p-2 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-700';
+            d.setAttribute('data-status', 'warning');
+            d.textContent = w.msg + (w.details.length ? ': ' + w.details.slice(0, 3).join('; ') : '');
+            frag.appendChild(d);
+        });
+        if (v.isValid && v.warnings.length === 0) {
+            const d = document.createElement('div');
+            d.className = 'mt-2 p-2 bg-green-50 border border-green-200 rounded-lg text-xs text-green-700';
+            d.setAttribute('data-status', 'success');
+            d.textContent = 'Validación OK — Sin errores ni advertencias';
+            frag.appendChild(d);
+        }
+        p.appendChild(frag);
+    }
+
+    // ---- PREVIEW TABLE (FIX #3 + #9: safe rendering + DocumentFragment) ----
+    function renderPreview() {
+        $('emptyState').classList.add('hidden');
+        $('dataPreview').classList.remove('hidden');
+        const headers = DataManager.getHeaders();
+        const thead = $('previewThead');
+        thead.innerHTML = '';
+        thead.appendChild(Sanitizer.createHeaderRow(['#', ...headers]));
+        renderPage(DataManager.getPage(0));
+    }
+
+    function renderPage(page) {
+        const headers = DataManager.getHeaders();
+        const tbody = $('previewTbody');
+        tbody.innerHTML = '';
+        const frag = document.createDocumentFragment();
+        page.rows.forEach((row, ri) => {
+            const cls = ri % 2 === 0 ? 'bg-white border-b border-slate-100' : 'bg-slate-50/50 border-b border-slate-100';
+            const tr = Sanitizer.createRow([page.start + ri + 1, ...headers.map(h => row[h])], cls);
+            frag.appendChild(tr);
+        });
+        tbody.appendChild(frag);
+        $('rowCount').textContent = `${page.start + 1}–${page.end} de ${DataManager.getN().toLocaleString()}`;
+        $('pageInfo').textContent = `${page.page + 1}/${page.totalPages}`;
+        $('prevPage').disabled = page.page === 0;
+        $('nextPage').disabled = page.page >= page.totalPages - 1;
+    }
+
+    function initPagination() {
+        $('prevPage').addEventListener('click', () => renderPage(DataManager.prevPage()));
+        $('nextPage').addEventListener('click', () => renderPage(DataManager.nextPage()));
+    }
+
+    // ---- n MODE ----
+    function setNMode(mode) {
+        $('nModeManual').setAttribute('aria-checked', mode === 'manual');
+        $('nModeCalc').setAttribute('aria-checked', mode === 'calc');
+        $('nModeManual').className = `flex-1 px-3 py-1.5 text-xs font-medium rounded-lg border ${mode === 'manual' ? 'border-blue-300 bg-blue-50 text-blue-700' : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50'}`;
+        $('nModeCalc').className = `flex-1 px-3 py-1.5 text-xs font-medium rounded-lg border ${mode === 'calc' ? 'border-blue-300 bg-blue-50 text-blue-700' : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50'}`;
+        $('nManualPanel').classList.toggle('hidden', mode !== 'manual');
+        $('nCalcPanel').classList.toggle('hidden', mode !== 'calc');
+    }
+
+    function initCalcN() {
+        $('btnCalcN').addEventListener('click', () => {
+            const Z = parseFloat($('calcConf').value);
+            const p = parseFloat($('calcP').value);
+            const d = parseFloat($('calcD').value);
+            const deff = parseFloat($('calcDeff').value);
+            const N = DataManager.getN();
+            if (isNaN(Z) || isNaN(p) || isNaN(d) || isNaN(deff) || p <= 0 || p >= 1 || d <= 0) {
+                toast('Parámetros inválidos', 'warning'); return;
+            }
+            const r = SampleSizeCalc.calculate({ Z, p, d, deff, N });
+            $('calcResult').classList.remove('hidden');
+            $('calcResult').innerHTML = '';
+            const div = document.createElement('div');
+            div.innerHTML = `<strong>n = ${r.n}</strong> (n₀ = ${r.n0})<br>
+                <span class="text-[10px]">${Sanitizer.esc(r.formula)}<br>${Sanitizer.esc(r.correction)}<br>Fracción: ${r.f}%</span>`;
+            $('calcResult').appendChild(div);
+            $('paramN').value = r.n;
+            toast(`n calculado: ${r.n}`, 'success');
+        });
+    }
+
+    // ---- METHOD SELECTION (FIX #10: proper buttons) ----
+    function initMethods() {
+        $$('.method-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                $$('.method-btn').forEach(b => b.setAttribute('aria-checked', 'false'));
+                btn.setAttribute('aria-checked', 'true');
+                _method = btn.dataset.method;
+                renderMethodParams();
+                $('step5').classList.remove('hidden');
+                enableStep('step5');
+                $('btnExecute').disabled = false;
+                announce(`Método seleccionado: ${btn.querySelector('.text-\\[11px\\]')?.textContent || _method}`);
+            });
+        });
+    }
+
+    function renderMethodParams() {
+        const c = $('methodParams');
+        c.innerHTML = '';
+        const headers = DataManager.getHeaders();
+
+        const createSelect = (id, label, options) => {
+            const div = document.createElement('div');
+            const lbl = document.createElement('label');
+            lbl.className = 'text-[11px] font-medium text-slate-600 block mb-1';
+            lbl.textContent = label;
+            lbl.setAttribute('for', id);
+            const sel = document.createElement('select');
+            sel.id = id;
+            sel.className = 'w-full text-xs border border-slate-300 rounded-lg px-2 py-1.5 bg-white focus:ring-2 focus:ring-blue-300';
+            sel.innerHTML = '<option value="">— Seleccionar —</option>';
+            options.forEach(o => { const opt = document.createElement('option'); opt.value = o; opt.textContent = o; sel.appendChild(opt); });
+            div.appendChild(lbl);
+            div.appendChild(sel);
+            return div;
+        };
+
+        switch (_method) {
+            case 'mas': {
+                const d = document.createElement('div');
+                d.innerHTML = `<label class="flex items-center gap-2 text-xs font-medium text-slate-600 cursor-pointer">
+                    <input type="checkbox" id="paramReplace" class="rounded border-slate-300 text-blue-600 focus:ring-blue-500">
+                    Con reemplazo
+                </label>`;
+                c.appendChild(d);
+                break;
+            }
+            case 'systematic': {
+                const d = document.createElement('div');
+                d.className = 'p-2 bg-indigo-50 rounded-lg text-[11px] text-indigo-600';
+                d.id = 'sysCalcInfo';
+                const N = DataManager.getN();
+                const n = parseInt($('paramN').value) || 30;
+                d.textContent = `k = N/n = ${N}/${n} = ${(N / n).toFixed(4)}. Arranque circular r ∈ [0, k). Posiciones: (r + i·k) mod N.`;
+                c.appendChild(d);
+                $('paramN').addEventListener('input', () => {
+                    const nv = parseInt($('paramN').value) || 1;
+                    d.textContent = `k = N/n = ${N}/${nv} = ${(N / nv).toFixed(4)}. Arranque circular.`;
+                });
+                break;
+            }
+            case 'stratified': {
+                c.appendChild(createSelect('paramStratCol', 'Columna de Estratificación', headers));
+                // Allocation type
+                const allocDiv = document.createElement('div');
+                allocDiv.className = 'mt-2';
+                allocDiv.innerHTML = `<label class="text-[11px] font-medium text-slate-600 block mb-1">Tipo de asignación</label>
+                    <select id="paramAllocType" class="w-full text-xs border border-slate-300 rounded-lg px-2 py-1.5 bg-white">
+                        <option value="proportional">Proporcional (Resto Mayor)</option>
+                        <option value="neyman">Óptima de Neyman</option>
+                    </select>`;
+                c.appendChild(allocDiv);
+                // Neyman variable
+                const neyDiv = document.createElement('div');
+                neyDiv.id = 'neymanVarDiv';
+                neyDiv.className = 'hidden mt-2';
+                neyDiv.appendChild(createSelect('paramNeymanVar', 'Variable numérica para Neyman (Sₕ)', headers));
+                c.appendChild(neyDiv);
+
+                setTimeout(() => {
+                    $('paramAllocType')?.addEventListener('change', () => {
+                        $('neymanVarDiv').classList.toggle('hidden', $('paramAllocType').value !== 'neyman');
+                    });
+                    $('paramStratCol')?.addEventListener('change', () => {
+                        if ($('paramStratCol').value) {
+                            const counts = DataManager.getStratumCounts($('paramStratCol').value);
+                            const infoDiv = document.createElement('div');
+                            infoDiv.className = 'mt-2 p-2 bg-emerald-50 rounded-lg text-[10px] text-emerald-600';
+                            infoDiv.textContent = `${Object.keys(counts).length} estratos detectados: ${Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,6).map(([k,v])=>`${k}(${v})`).join(', ')}`;
+                            const existing = c.querySelector('.bg-emerald-50');
+                            if (existing) existing.remove();
+                            c.appendChild(infoDiv);
+                        }
+                    });
+                }, 50);
+                break;
+            }
+            case 'cluster': {
+                c.appendChild(createSelect('paramClustCol', 'Columna de Conglomerado (UPM)', headers));
+                const mDiv = document.createElement('div');
+                mDiv.className = 'mt-2';
+                mDiv.innerHTML = `<label for="paramM" class="text-[11px] font-medium text-slate-600 block mb-1">Nº UPMs a seleccionar (m)</label>
+                    <input type="number" id="paramM" value="5" min="1" class="w-full text-xs border border-slate-300 rounded-lg px-2 py-1.5 bg-white">
+                    <p class="text-[9px] text-slate-400 mt-0.5">Selección PPS (probabilidad proporcional al tamaño)</p>`;
+                c.appendChild(mDiv);
+                const wDiv = document.createElement('div');
+                wDiv.className = 'mt-2';
+                wDiv.innerHTML = `<label for="paramWithin" class="text-[11px] font-medium text-slate-600 block mb-1">Submuestreo interno (0=censo)</label>
+                    <input type="number" id="paramWithin" value="0" min="0" class="w-full text-xs border border-slate-300 rounded-lg px-2 py-1.5 bg-white">`;
+                c.appendChild(wDiv);
+
+                setTimeout(() => {
+                    $('paramClustCol')?.addEventListener('change', () => {
+                        if ($('paramClustCol').value) {
+                            const counts = DataManager.getStratumCounts($('paramClustCol').value);
+                            const M = Object.keys(counts).length;
+                            $('paramM').max = M;
+                            const infoDiv = document.createElement('div');
+                            infoDiv.className = 'mt-2 p-2 bg-amber-50 rounded-lg text-[10px] text-amber-600';
+                            infoDiv.textContent = `M=${M} conglomerados: ${Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,6).map(([k,v])=>`${k}(${v})`).join(', ')}`;
+                            const existing = c.querySelector('.bg-amber-50');
+                            if (existing) existing.remove();
+                            c.appendChild(infoDiv);
+                        }
+                    });
+                }, 50);
+                break;
+            }
+        }
+    }
+
+    // ---- EXECUTE ----
+    function initExecute() {
+        $('btnExecute').addEventListener('click', execute);
+    }
+
+    function execute() {
+        try {
+            if (!_method) { toast('Seleccione un método', 'warning'); return; }
+            const data = DataManager.getData();
+            const n = parseInt($('paramN').value);
+            const seed = parseInt($('seedInput').value) || 12345;
+            const numSubs = parseInt($('subsCount').value) || 0;
+            const idCol = $('idColumn').value;
+
+            if (!n || n <= 0) { toast('Ingrese n válido', 'warning'); return; }
+
+            SeededRNG.init(seed);
+            let result;
+
+            switch (_method) {
+                case 'mas':
+                    result = SamplingEngine.mas(data, n, $('paramReplace')?.checked || false);
+                    break;
+                case 'systematic':
+                    result = SamplingEngine.systematic(data, n);
+                    break;
+                case 'stratified': {
+                    const sc = $('paramStratCol')?.value;
+                    if (!sc) { toast('Seleccione columna de estratificación', 'warning'); return; }
+                    const alloc = $('paramAllocType')?.value || 'proportional';
+                    const neyVar = alloc === 'neyman' ? $('paramNeymanVar')?.value : null;
+                    result = SamplingEngine.stratified(data, n, sc, alloc, neyVar);
+                    break;
+                }
+                case 'cluster': {
+                    const cc = $('paramClustCol')?.value;
+                    if (!cc) { toast('Seleccione columna de conglomerado', 'warning'); return; }
+                    const m = parseInt($('paramM')?.value) || 5;
+                    const w = parseInt($('paramWithin')?.value) || 0;
+                    result = SamplingEngine.cluster(data, cc, m, w);
+                    break;
+                }
+            }
+
+            _result = result;
+
+            // Design estimates (FIX #1: DEFF, variance)
+            _designEst = DesignEstimator.estimate(result, idCol, data, DataManager.getHeaders());
+
+            // Substitutes (FIX #5: improved matching)
+            const stratCol = _method === 'stratified' ? $('paramStratCol')?.value : null;
+            const subsR = SubstituteGenerator.generate(result, numSubs, stratCol);
+            _subs = subsR.substitutes;
+
+            // Log (enhanced)
+            _logText = LogManager.generate(result, subsR, _designEst, { fileName: DataManager.getFileName(), seed, idCol });
+
+            // Render
+            renderResults(result, _subs, _designEst);
+            ChartManager.render(result);
+            ChartManager.renderSummary(result, _subs, _designEst);
+
+            switchTab('results');
+
+            $('statN2').textContent = result.selected.length.toLocaleString();
+            $('statSup').textContent = _subs.length.toLocaleString();
+            $('statSeed').textContent = seed;
+            $('btnExport').disabled = false;
+
+            $('noLog').classList.add('hidden');
+            $('logContent').classList.remove('hidden');
+            $('logText').textContent = _logText;
+
+            $('noCharts').classList.add('hidden');
+            $('chartsContent').classList.remove('hidden');
+
+            toast(`Selección completada: ${result.selected.length} unidades (DEFF≈${_designEst.deff?.toFixed(2) || '?'})`, 'success');
+        } catch (err) {
+            toast(`Error: ${err.message}`, 'error');
+            console.error(err);
+        }
+    }
+
+    // ---- RENDER RESULTS (FIX #3: Sanitizer + DocumentFragment) ----
+    function renderResults(result, subs, designEst) {
+        $('noResults').classList.add('hidden');
+        $('resultsContent').classList.remove('hidden');
+
+        // Design Estimates Panel
+        const estGrid = $('designEstimatesGrid');
+        estGrid.innerHTML = '';
+        const estimates = [
+            ['DEFF', designEst.deff?.toFixed(3) || '—'],
+            ['EE (p̂=0.5)', designEst.se?.toFixed(4) || '—'],
+            ['IC 95% inf', designEst.ci95?.[0]?.toFixed(4) || '—'],
+            ['IC 95% sup', designEst.ci95?.[1]?.toFixed(4) || '—'],
+            ['FPC', designEst.fpc?.toFixed(4) || '—'],
+            ['Fracción f', (designEst.samplingFraction * 100).toFixed(2) + '%']
+        ];
+        if (designEst.rhoAssumed !== undefined) estimates.push(['ρ (ICC) asumido', designEst.rhoAssumed]);
+
+        estimates.forEach(([label, val]) => {
+            const d = document.createElement('div');
+            d.className = 'text-center';
+            const v = document.createElement('div');
+            v.className = 'font-bold text-indigo-800';
+            v.textContent = val;
+            const l = document.createElement('div');
+            l.className = 'text-[10px] text-indigo-500 uppercase';
+            l.textContent = label;
+            d.appendChild(v);
+            d.appendChild(l);
+            estGrid.appendChild(d);
+        });
+
+        const headers = DataManager.getHeaders();
+        const extraCols = [];
+        if (result.selected[0]?._stratum) extraCols.push('Estrato');
+        if (result.selected[0]?._cluster) extraCols.push('Conglomerado');
+        const allCols = ['#', ...headers, ...extraCols];
+
+        // Selected table
+        const sThead = $('selectedThead');
+        sThead.innerHTML = '';
+        sThead.appendChild(Sanitizer.createHeaderRow(allCols, 'text-blue-600 border-blue-200'));
+
+        const sTbody = $('selectedTbody');
+        sTbody.innerHTML = '';
+        const frag1 = document.createDocumentFragment();
+        result.selected.forEach((row, i) => {
+            const cells = [i + 1, ...headers.map(h => row[h] ?? '')];
+            if (row._stratum) cells.push(row._stratum);
+            if (row._cluster) cells.push(row._cluster);
+            const tr = Sanitizer.createRow(cells, 'border-b border-blue-100');
+            tr.style.backgroundColor = '#dbeafe';
+            frag1.appendChild(tr);
+        });
+        sTbody.appendChild(frag1);
+        $('selectedCount').textContent = `n = ${result.selected.length}`;
+
+        // Substitutes
+        if (subs.length > 0) {
+            $('subsSection').classList.remove('hidden');
+            const subCols = ['#', ...headers, 'Suplente_De', 'Orden', 'Match_Por', 'Match_Valor'];
+            const subThead = $('subsThead');
+            subThead.innerHTML = '';
+            subThead.appendChild(Sanitizer.createHeaderRow(subCols, 'text-amber-600 border-amber-200'));
+
+            const subTbody = $('subsTbody');
+            subTbody.innerHTML = '';
+            const frag2 = document.createDocumentFragment();
+            subs.forEach((s, i) => {
+                const cells = [i + 1, ...headers.map(h => s[h] ?? ''), s._subFor, s._subOrd, s._matchType, s._matchKey];
+                const tr = Sanitizer.createRow(cells, 'border-b border-amber-100');
+                tr.style.backgroundColor = '#fef9c3';
+                frag2.appendChild(tr);
+            });
+            subTbody.appendChild(frag2);
+            $('subsBadge').textContent = subs.length;
+        } else {
+            $('subsSection').classList.add('hidden');
+        }
+
+        // Systematic
+        if (result.method.includes('Sistemático')) {
+            $('sysDetails').classList.remove('hidden');
+            const info = $('sysInfo');
+            info.innerHTML = '';
+            const items = [
+                `Intervalo k = ${result.params.k}`,
+                `Arranque r = ${result.params.r}`,
+                `Tipo: Circular (mod N)`,
+                `Posiciones: pos(i) = (${result.params.r} + i × ${result.params.k}) mod ${result.params.N}`
+            ];
+            items.forEach(t => { const p = document.createElement('p'); p.textContent = t; info.appendChild(p); });
+        } else {
+            $('sysDetails').classList.add('hidden');
+        }
+    }
+
+    // ---- SEED ----
+    function initSeed() {
+        $('btnRandomSeed').addEventListener('click', () => {
+            const s = Math.floor(Math.random() * 999999) + 1;
+            $('seedInput').value = s;
+            toast(`Semilla: ${s}`, 'info');
+        });
+    }
+
+    // ---- EXPORT ----
+    function initExport() {
+        $('btnExport').addEventListener('click', () => {
+            if (!_result) { toast('Sin resultados', 'warning'); return; }
+            try {
+                ExportManager.exportResults(DataManager.getData(), DataManager.getHeaders(), _result, _subs, _logText);
+                toast('Excel exportado', 'success');
+            } catch (e) { toast(`Error: ${e.message}`, 'error'); }
+        });
+    }
+
+    // ---- RESET ----
+    function initReset() {
+        $('btnReset').addEventListener('click', () => {
+            DataManager.reset(); ChartManager.destroy();
+            _result = null; _subs = []; _logText = ''; _method = null; _designEst = null;
+            $('fileInput').value = '';
+            $('fileInfo').classList.add('hidden');
+            $('validationPanel').classList.add('hidden');
+            $('validationPanel').innerHTML = '';
+            $('emptyState').classList.remove('hidden');
+            $('dataPreview').classList.add('hidden');
+            $('noResults').classList.remove('hidden');
+            $('resultsContent').classList.add('hidden');
+            $('noCharts').classList.remove('hidden');
+            $('chartsContent').classList.add('hidden');
+            $('noLog').classList.remove('hidden');
+            $('logContent').classList.add('hidden');
+            $('statsBar').classList.add('hidden');
+            $('headerTitle').textContent = 'Panel de Análisis';
+            $('headerSubtitle').textContent = 'Cargue una base de datos para comenzar';
+            disableStep('step2'); disableStep('step3'); disableStep('step4'); disableStep('step6');
+            $('step5').classList.add('hidden'); disableStep('step5');
+            $$('.method-btn').forEach(b => b.setAttribute('aria-checked', 'false'));
+            $('methodParams').innerHTML = '';
+            $('btnExecute').disabled = true; $('btnExport').disabled = true;
+            $('statN').textContent = '0'; $('statN2').textContent = '0'; $('statSup').textContent = '0'; $('statSeed').textContent = '—';
+            switchTab('preview');
+            toast('Reiniciado', 'info');
+        });
+    }
+
+    // ---- HELP ----
+    function initHelp() {
+        $('btnHelp').addEventListener('click', () => { $('helpModal').classList.remove('hidden'); $('closeHelp').focus(); });
+        $('closeHelp').addEventListener('click', () => { $('helpModal').classList.add('hidden'); $('btnHelp').focus(); });
+        $('helpModal').addEventListener('click', e => { if (e.target === $('helpModal')) { $('helpModal').classList.add('hidden'); $('btnHelp').focus(); } });
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') {
+                if (!$('helpModal').classList.contains('hidden')) { $('helpModal').classList.add('hidden'); $('btnHelp').focus(); }
+                if (!$('testModal').classList.contains('hidden')) { $('testModal').classList.add('hidden'); }
+            }
+        });
+    }
+
+    // ---- SELF TEST (FIX #11) ----
+    function initSelfTest() {
+        $('btnSelfTest').addEventListener('click', () => {
+            const results = SelfTest.run();
+            $('testModal').classList.remove('hidden');
+            const container = $('testResults');
+            container.innerHTML = '';
+            const frag = document.createDocumentFragment();
+
+            let passed = 0, failed = 0;
+            results.forEach(r => {
+                if (r.pass) passed++; else failed++;
+                const div = document.createElement('div');
+                div.className = `p-2 rounded-lg mb-1 ${r.pass ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`;
+                div.setAttribute('data-status', r.pass ? 'success' : 'error');
+                div.textContent = `${r.name}: ${r.detail}`;
+                frag.appendChild(div);
+            });
+
+            const summary = document.createElement('div');
+            summary.className = `p-3 rounded-xl font-bold text-sm text-center mb-3 ${failed === 0 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`;
+            summary.textContent = `${passed}/${results.length} tests pasados${failed > 0 ? ` · ${failed} fallidos` : ' · Todos OK ✓'}`;
+
+            container.appendChild(summary);
+            container.appendChild(frag);
+
+            announce(`Self-test: ${passed} de ${results.length} tests pasados`);
+        });
+        $('closeTest').addEventListener('click', () => $('testModal').classList.add('hidden'));
+        $('testModal').addEventListener('click', e => { if (e.target === $('testModal')) $('testModal').classList.add('hidden'); });
+    }
+
+    // ---- COPY LOG ----
+    function initCopyLog() {
+        $('btnCopyLog').addEventListener('click', () => {
+            navigator.clipboard.writeText(_logText).then(
+                () => toast('Log copiado', 'success'),
+                () => { const ta = document.createElement('textarea'); ta.value = _logText; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); toast('Log copiado', 'success'); }
+            );
+        });
+    }
+
+    function init() {
+        initTabs(); initFileUpload(); initPagination(); initMethods();
+        initCalcN(); initSeed(); initExecute(); initExport(); initReset();
+        initHelp(); initSelfTest(); initCopyLog();
+    }
+
+    return { init, setNMode };
+})();
+
+
+/* ============================================================
+   APP INIT
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+    UIController.init();
+    console.log('%c🔬 EpiSampler v2.0', 'font-size:14px;font-weight:bold;color:#2563eb');
+    console.log('%cFixes: XSS, DEFF, PPS, Circular Sys., Largest Remainder, a11y, self-test', 'color:#64748b;font-size:10px');
+});
+</script>
+</body>
+</html>

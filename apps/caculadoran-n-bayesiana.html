@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Planificador Bayesiano de Muestra</title>
+<meta name="theme-color" content="#1e40af">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0f172a;--bg2:#1e293b;--bg3:#334155;
+  --blue:#3b82f6;--green:#10b981;--yellow:#f59e0b;
+  --red:#ef4444;--purple:#8b5cf6;
+  --text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;
+  --border:rgba(59,130,246,.2)
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  background:var(--bg);color:var(--text);line-height:1.5;min-height:100vh}
+.container{max-width:900px;margin:0 auto;padding:0 16px}
+.grid2{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:640px){.grid2{grid-template-columns:1fr 1fr}}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+.grid4{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
+.flex-between{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.flex-center{display:flex;align-items:center;gap:8px}
+.hidden{display:none!important}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px}
+.card-inner{background:rgba(15,23,42,.4);border:1px solid rgba(255,255,255,.05);border-radius:8px;padding:16px;margin-top:12px}
+h1{font-size:1.2rem;font-weight:700;color:#fff}
+h2{font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:12px}
+h3{font-size:.9rem;font-weight:600;color:var(--text2);margin-bottom:8px}
+label{display:block;font-size:.8rem;color:var(--text2);margin-bottom:4px}
+input[type=number],select{
+  width:100%;background:var(--bg);border:1px solid var(--border);
+  color:var(--text);border-radius:6px;padding:8px 10px;font-size:.85rem;outline:none}
+input[type=number]:focus,select:focus{border-color:var(--blue)}
+input[type=range]{-webkit-appearance:none;width:100%;height:6px;
+  background:var(--bg3);border-radius:3px;outline:none;margin:6px 0;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;
+  background:var(--blue);border-radius:50%;cursor:pointer}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;
+  background:var(--blue);border-radius:50%;cursor:pointer;border:none}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border:none;
+  border-radius:8px;font-size:.82rem;font-weight:600;cursor:pointer;color:#fff}
+.btn:hover{opacity:.85}
+.btn-blue{background:var(--blue)}
+.btn-green{background:var(--green)}
+.btn-gray{background:var(--bg3);color:var(--text2)}
+.btn-sm{padding:4px 10px;font-size:.72rem;border-radius:6px}
+.tabs{display:flex;overflow-x:auto;gap:2px;background:var(--bg2);
+  border-radius:10px;padding:3px;margin-bottom:16px;-webkit-overflow-scrolling:touch}
+.tab{padding:8px 12px;border-radius:8px;font-size:.78rem;font-weight:600;
+  white-space:nowrap;cursor:pointer;border:none;background:transparent;
+  color:var(--text3);transition:all .2s}
+.tab.active{background:var(--blue);color:#fff}
+.tab:hover:not(.active){background:rgba(59,130,246,.15)}
+.metric{text-align:center;padding:12px 8px;background:rgba(0,0,0,.2);border-radius:8px}
+.metric-val{font-size:1.3rem;font-weight:700;line-height:1.2;word-break:break-all}
+.metric-lbl{font-size:.68rem;color:var(--text3);margin-top:3px}
+.edu{background:linear-gradient(135deg,#1e3a5f,var(--bg2));border:1px solid var(--border);
+  border-left:3px solid var(--blue);border-radius:8px;padding:14px;
+  font-size:.82rem;color:var(--text2);line-height:1.6;margin-bottom:12px}
+.edu strong{color:var(--blue)}
+.edu code{background:rgba(0,0,0,.3);padding:2px 5px;border-radius:3px;font-size:.76rem}
+.warn{padding:10px 14px;border-radius:8px;font-size:.78rem;margin-top:8px}
+.warn-y{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);color:var(--yellow)}
+.warn-b{background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.3);color:var(--blue)}
+canvas{width:100%;border-radius:8px;background:rgba(0,0,0,.15);margin-top:8px}
+header{background:rgba(15,23,42,.92);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50;padding:10px 0}
+.fade{animation:fi .3s ease-out}
+@keyframes fi{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.slider-row{margin-bottom:10px}
+.slider-val{color:var(--blue);font-weight:700;font-size:.9rem}
+.small-text{font-size:.75rem;color:var(--text3)}
+details{margin-top:10px}
+details summary{font-size:.8rem;color:var(--text3);cursor:pointer;padding:4px 0}
+details summary:hover{color:var(--text)}
+@media print{
+  body{background:#fff;color:#000}
+  .card{background:#fff;border:1px solid #ccc}
+  header,.tabs,.btn,.no-print{display:none!important}
+  .metric-val{color:#000}
+}
+</style>
+</head>
+<body>
+
+<header>
+<div class="container flex-between">
+  <div class="flex-center">
+    <svg width="30" height="30" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="#1e40af"/><text x="50" y="68" font-size="55" text-anchor="middle" fill="#fff" font-family="serif">β</text></svg>
+    <div><h1>Planificador Bayesiano</h1><div style="font-size:.68rem;color:var(--text3)">Tamaño de muestra · Epidemiología</div></div>
+  </div>
+</div>
+</header>
+
+<main class="container" style="padding-top:16px;padding-bottom:40px">
+
+<!-- TABS -->
+<div class="tabs no-print" id="tabBar">
+  <button class="tab active" data-tab="prior">🎯 Prior</button>
+  <button class="tab" data-tab="precision">📐 Precisión</button>
+  <button class="tab" data-tab="assurance">🛡️ Assurance</button>
+  <button class="tab" data-tab="compare">⚖️ 2 Grupos</button>
+  <button class="tab" data-tab="predictive">🔮 Predictiva</button>
+  <button class="tab" data-tab="sensitivity">📊 Sensibilidad</button>
+  <button class="tab" data-tab="report">📄 Reporte</button>
+</div>
+
+<!-- ============ PANEL: PRIOR ============ -->
+<section id="panel-prior" class="panel fade">
+<div class="card">
+  <div class="flex-between">
+    <h2>🎯 Distribución Previa Beta(a, b)</h2>
+    <button class="btn btn-sm btn-gray" onclick="toggleEdu('edu1')">💡 Info</button>
+  </div>
+  <div id="edu1" class="edu hidden">
+    <strong>¿Qué es la prior?</strong> Representa tu conocimiento sobre la proporción antes de recoger datos.
+    Usamos <code>Beta(a, b)</code> porque es conjugada de la Binomial: la posterior también es Beta.<br><br>
+    <strong>Media</strong> = a/(a+b). <strong>Fuerza κ</strong> = a+b: cuánto confías. κ bajo → mucha incertidumbre.
+  </div>
+
+  <div class="card-inner">
+    <div class="slider-row">
+      <label>Prevalencia esperada: <span class="slider-val" id="dMean">30.0%</span></label>
+      <input type="range" id="sMean" min="0.02" max="0.98" step="0.01" value="0.30">
+    </div>
+    <div class="slider-row">
+      <label>Fuerza de la prior (κ = a+b): <span class="slider-val" id="dKappa">10</span></label>
+      <input type="range" id="sKappa" min="2" max="200" step="1" value="10">
+    </div>
+    <details>
+      <summary>✏️ Entrada directa (a, b)</summary>
+      <div class="grid2" style="margin-top:8px">
+        <div><label>a (α)</label><input type="number" id="inA" min="0.1" step="0.1" value="3.0"></div>
+        <div><label>b (β)</label><input type="number" id="inB" min="0.1" step="0.1" value="7.0"></div>
+      </div>
+      <button class="btn btn-sm btn-blue" style="margin-top:8px" onclick="applyDirectAB()">Aplicar a, b</button>
+    </details>
+  </div>
+
+  <div class="grid4" style="margin-top:16px">
+    <div class="metric"><div class="metric-val" style="color:var(--blue)" id="mParams">Beta(3.0, 7.0)</div><div class="metric-lbl">Parámetros</div></div>
+    <div class="metric"><div class="metric-val" style="color:var(--green)" id="mMean">0.300</div><div class="metric-lbl">Media</div></div>
+    <div class="metric"><div class="metric-val" style="color:var(--yellow)" id="mVar">0.0191</div><div class="metric-lbl">Varianza</div></div>
+    <div class="metric"><div class="metric-val" style="color:var(--purple)" id="mCI">[0.07, 0.58]</div><div class="metric-lbl">IC Creíble 95%</div></div>
+  </div>
+
+  <canvas id="cvPrior" height="200"></canvas>
+  <div id="priorWarns"></div>
+</div>
+</section>
+
+<!-- ============ PANEL: PRECISIÓN ============ -->
+<section id="panel-precision" class="panel hidden fade">
+<div class="card">
+  <div class="flex-between">
+    <h2>📐 Precisión Posterior Esperada</h2>
+    <button class="btn btn-sm btn-gray" onclick="toggleEdu('edu2')">💡 Info</button>
+  </div>
+  <div id="edu2" class="edu hidden">
+    Buscamos el <strong>n mínimo</strong> tal que el intervalo creíble posterior sea ≤ un ancho deseado.<br>
+    Posterior esperada: <code>Beta(a + n·μ, b + n·(1−μ))</code>. Ancho IC ≈ 2·z·√(Var posterior).
+  </div>
+  <div class="card-inner">
+    <div class="slider-row">
+      <label>Ancho máximo deseado del IC 95%: <span class="slider-val" id="dWidth">±5.0%</span></label>
+      <input type="range" id="sWidth" min="0.02" max="0.30" step="0.01" value="0.10">
+    </div>
+    <div>
+      <label>Nivel de credibilidad</label>
+      <select id="selCred"><option value="0.90">90%</option><option value="0.95" selected>95%</option><option value="0.99">99%</option></select>
+    </div>
+  </div>
+  <div class="grid3" style="margin-top:16px">
+    <div class="metric"><div class="metric-val" style="color:var(--blue)" id="rNBayes">—</div><div class="metric-lbl">n bayesiano</div></div>
+    <div class="metric"><div class="metric-val" style="color:var(--green)" id="rExpCI">—</div><div class="metric-lbl">IC esperado</div></div>
+    <div class="metric"><div class="metric-val" style="color:var(--text3)" id="rNClass">—</div><div class="metric-lbl">n clásico (ref)</div></div>
+  </div>
+  <canvas id="cvPrec" height="200"></canvas>
+</div>
+</section>
+
+<!-- ============ PANEL: ASSURANCE ============ -->
+<section id="panel-assurance" class="panel hidden fade">
+<div class="card">
+  <div class="flex-between">
+    <h2>🛡️ Assurance (Potencia Bayesiana)</h2>
+    <button class="btn btn-sm btn-gray" onclick="toggleEdu('edu3')">💡 Info</button>
+  </div>
+  <div id="edu3" class="edu hidden">
+    <strong>Assurance</strong> = probabilidad de resultado «conclusivo» promediando sobre la prior.<br>
+    <code>Assurance = Σ P(conclusivo|x,n) · P(X=x)</code> donde P(X=x) es Beta-Binomial.<br>
+    Conclusivo: <code>P(p > p₀ | datos) ≥ umbral</code>.<br><br>
+    <strong>vs Potencia clásica:</strong> La potencia fija p en un valor. La assurance integra sobre toda tu incertidumbre.
+  </div>
+  <div class="card-inner">
+    <div class="grid2">
+      <div><label>Proporción nula p₀</label><input type="number" id="inP0" min="0.01" max="0.99" step="0.01" value="0.20"></div>
+      <div><label>Umbral de conclusión</label>
+        <select id="selThresh"><option value="0.90">P(p>p₀)≥0.90</option><option value="0.95" selected>P(p>p₀)≥0.95</option><option value="0.99">P(p>p₀)≥0.99</option></select>
+      </div>
+    </div>
+    <div class="slider-row" style="margin-top:12px">
+      <label>Tamaño de muestra: <span class="slider-val" id="dAssN">100</span></label>
+      <input type="range" id="sAssN" min="10" max="1000" step="5" value="100">
+    </div>
+  </div>
+  <div class="grid3" style="margin-top:16px">
+    <div class="metric"><div class="metric-val" id="rAss">—</div><div class="metric-lbl">Assurance (n dado)</div></div>
+    <div class="metric"><div class="metric-val" style="color:var(--green)" id="rAssN80">—</div><div class="metric-lbl">n para ≥80%</div></div>
+    <div class="metric"><div class="metric-val" style="color:var(--yellow)" id="rAssN90">—</div><div class="metric-lbl">n para ≥90%</div></div>
+  </div>
+  <canvas id="cvAss" height="200"></canvas>
+</div>
+</section>
+
+<!-- ============ PANEL: 2 GRUPOS ============ -->
+<section id="panel-compare" class="panel hidden fade">
+<div class="card">
+  <div class="flex-between">
+    <h2>⚖️ Comparación de Dos Proporciones</h2>
+    <button class="btn btn-sm btn-gray" onclick="toggleEdu('edu4')">💡 Info</button>
+  </div>
+  <div id="edu4" class="edu hidden">
+    Asignamos prior Beta independiente a cada grupo. Calculamos <code>P(p₁ > p₂)</code> por cuadratura
+    de Gauss-Legendre (30 puntos, preciso). Buscamos n/grupo para alcanzar el umbral.
+  </div>
+  <div class="grid2">
+    <div class="card-inner">
+      <h3 style="color:var(--blue)">🔵 Grupo 1 (Tratamiento)</h3>
+      <div class="grid2">
+        <div><label>a₁</label><input type="number" id="g1a" min="0.5" step="0.5" value="4"></div>
+        <div><label>b₁</label><input type="number" id="g1b" min="0.5" step="0.5" value="6"></div>
+      </div>
+      <div class="small-text" style="margin-top:6px">Media: <strong id="g1mu">0.400</strong></div>
+    </div>
+    <div class="card-inner">
+      <h3 style="color:var(--red)">🔴 Grupo 2 (Control)</h3>
+      <div class="grid2">
+        <div><label>a₂</label><input type="number" id="g2a" min="0.5" step="0.5" value="2.5"></div>
+        <div><label>b₂</label><input type="number" id="g2b" min="0.5" step="0.5" value="7.5"></div>
+      </div>
+      <div class="small-text" style="margin-top:6px">Media: <strong id="g2mu">0.250</strong></div>
+    </div>
+  </div>
+  <div class="card-inner">
+    <div class="slider-row">
+      <label>n por grupo: <span class="slider-val" id="dCompN">80</span></label>
+      <input type="range" id="sCompN" min="10" max="500" step="5" value="80">
+    </div>
+  </div>
+  <div class="grid3" style="margin-top:16px">
+    <div class="metric"><div class="metric-val" style="color:var(--blue)" id="rPrP">—</div><div class="metric-lbl">P(p₁>p₂) prior</div></div>
+    <div class="metric"><div class="metric-val" style="color:var(--green)" id="rPoP">—</div><div class="metric-lbl">P(p₁>p₂) post</div></div>
+    <div class="metric"><div class="metric-val" style="color:var(--yellow)" id="rCmpN">—</div><div class="metric-lbl">n/grupo ≥95%</div></div>
+  </div>
+  <canvas id="cvComp" height="200"></canvas>
+</div>
+</section>
+
+<!-- ============ PANEL: PREDICTIVA ============ -->
+<section id="panel-predictive" class="panel hidden fade">
+<div class="card">
+  <div class="flex-between">
+    <h2>🔮 Distribución Predictiva Beta-Binomial</h2>
+    <button class="btn btn-sm btn-gray" onclick="toggleEdu('edu5')">💡 Info</button>
+  </div>
+  <div id="edu5" class="edu hidden">
+    <code>X ~ BetaBinomial(n, a, b)</code> predice cuántos éxitos observaremos.<br>
+    <strong>E[X]</strong> = n·a/(a+b). <strong>Var[X]</strong> = n·a·b·(a+b+n)/((a+b)²·(a+b+1)).
+  </div>
+  <div class="card-inner">
+    <div class="slider-row">
+      <label>Tamaño de muestra: <span class="slider-val" id="dPredN">50</span></label>
+      <input type="range" id="sPredN" min="10" max="300" step="5" value="50">
+    </div>
+  </div>
+  <div class="grid3" style="margin-top:16px">
+    <div class="metric"><div class="metric-val" style="color:var(--blue)" id="rPredM">—</div><div class="metric-lbl">E[X]</div></div>
+    <div class="metric"><div class="metric-val" style="color:var(--green)" id="rPredSD">—</div><div class="metric-lbl">Desv. Est.</div></div>
+    <div class="metric"><div class="metric-val" style="color:var(--purple)" id="rPredCI">—</div><div class="metric-lbl">Intervalo 95%</div></div>
+  </div>
+  <canvas id="cvPred" height="220"></canvas>
+</div>
+</section>
+
+<!-- ============ PANEL: SENSIBILIDAD ============ -->
+<section id="panel-sensitivity" class="panel hidden fade">
+<div class="card">
+  <div class="flex-between">
+    <h2>📊 Análisis de Sensibilidad</h2>
+    <button class="btn btn-sm btn-gray" onclick="toggleEdu('edu6')">💡 Info</button>
+  </div>
+  <div id="edu6" class="edu hidden">
+    Variamos la prior para evaluar robustez. El <strong>peso de la prior</strong> = κ/(κ+n): qué fracción
+    de la posterior viene de la prior vs los datos. Si el peso es alto, los resultados dependen mucho de la prior.
+  </div>
+  <div class="card-inner">
+    <div class="slider-row">
+      <label>Media previa: <span class="slider-val" id="dSMu">0.30</span></label>
+      <input type="range" id="sSMu" min="0.05" max="0.95" step="0.01" value="0.30">
+    </div>
+    <div class="slider-row">
+      <label>Fuerza κ: <span class="slider-val" id="dSK">10</span></label>
+      <input type="range" id="sSK" min="2" max="150" step="1" value="10">
+    </div>
+    <div class="slider-row">
+      <label>Muestra n: <span class="slider-val" id="dSN">100</span></label>
+      <input type="range" id="sSN" min="10" max="500" step="5" value="100">
+    </div>
+  </div>
+  <div class="grid4" style="margin-top:16px">
+    <div class="metric"><div class="metric-val" style="color:var(--blue)" id="rSCI">—</div><div class="metric-lbl">IC posterior</div></div>
+    <div class="metric"><div class="metric-val" style="color:var(--green)" id="rSAss">—</div><div class="metric-lbl">Assurance</div></div>
+    <div class="metric"><div class="metric-val" style="color:var(--yellow)" id="rSNr">—</div><div class="metric-lbl">n para ±5%</div></div>
+    <div class="metric"><div class="metric-val" style="color:var(--purple)" id="rSPW">—</div><div class="metric-lbl">Peso prior</div></div>
+  </div>
+  <div class="grid2" style="margin-top:8px">
+    <canvas id="cvS1" height="190"></canvas>
+    <canvas id="cvS2" height="190"></canvas>
+  </div>
+</div>
+</section>
+
+<!-- ============ PANEL: REPORTE ============ -->
+<section id="panel-report" class="panel hidden fade">
+<div class="card">
+  <h2>📄 Reporte de Planificación</h2>
+  <div id="reportBox" style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:16px;font-size:.83rem;line-height:1.8;margin-bottom:12px">
+    <p style="color:var(--text3)">Cargando reporte...</p>
+  </div>
+  <div class="flex-center no-print" style="flex-wrap:wrap">
+    <button class="btn btn-green" onclick="downloadReport()">📥 Descargar HTML</button>
+    <button class="btn btn-blue" onclick="copyReport()">📋 Copiar texto</button>
+    <button class="btn btn-gray" onclick="window.print()">🖨️ Imprimir</button>
+  </div>
+</div>
+</section>
+
+</main>
+
+<script>
+"use strict";
+
+/* ================================================================
+   MATH — Funciones estadísticas puras sin dependencias
+   ================================================================ */
+
+/** Log-Gamma (Lanczos g=7) */
+function lgamma(z) {
+  if (z < 0.5) return Math.log(Math.PI / Math.sin(Math.PI * z)) - lgamma(1 - z);
+  z -= 1;
+  const c = [0.99999999999980993,676.5203681218851,-1259.1392167224028,
+    771.32342877765313,-176.61502916214059,12.507343278686905,
+    -0.13857109526572012,9.9843695780195716e-6,1.5056327351493116e-7];
+  let x = c[0];
+  for (let i = 1; i < 9; i++) x += c[i] / (z + i);
+  const t = z + 7.5;
+  return 0.5 * Math.log(2 * Math.PI) + (z + 0.5) * Math.log(t) - t + Math.log(x);
+}
+
+/** Log-Beta: ln B(a,b) */
+function lbeta(a, b) { return lgamma(a) + lgamma(b) - lgamma(a + b); }
+
+/** CDF Beta — fracción continua de Lentz */
+function betacdf(x, a, b) {
+  if (x <= 0) return 0;
+  if (x >= 1) return 1;
+  if (x > (a + 1) / (a + b + 2)) return 1 - betacdf(1 - x, b, a);
+  const lnpre = a * Math.log(x) + b * Math.log(1 - x) - lbeta(a, b) - Math.log(a);
+  const prefix = Math.exp(lnpre);
+  let f = 1, C = 1, D = 0;
+  for (let m = 1; m <= 200; m++) {
+    let num;
+    if (m % 2 === 0) {
+      const k = m / 2;
+      num = k * (b - k) * x / ((a + 2*k - 1) * (a + 2*k));
+    } else {
+      const k = (m - 1) / 2;
+      num = -((a + k) * (a + b + k)) * x / ((a + 2*k) * (a + 2*k + 1));
+    }
+    D = 1 + num * D; if (Math.abs(D) < 1e-30) D = 1e-30; D = 1 / D;
+    C = 1 + num / C; if (Math.abs(C) < 1e-30) C = 1e-30;
+    const delta = C * D; f *= delta;
+    if (Math.abs(delta - 1) < 1e-14) break;
+  }
+  return Math.max(0, Math.min(1, prefix * f));
+}
+
+/** Cuantil Beta — bisección 64 iteraciones */
+function betaqt(p, a, b) {
+  if (p <= 0) return 0; if (p >= 1) return 1;
+  let lo = 0, hi = 1;
+  for (let i = 0; i < 64; i++) {
+    const mid = (lo + hi) / 2;
+    betacdf(mid, a, b) < p ? lo = mid : hi = mid;
+  }
+  return (lo + hi) / 2;
+}
+
+/** PDF Beta */
+function betapdf(x, a, b) {
+  if (x <= 0 || x >= 1) return 0;
+  return Math.exp((a-1)*Math.log(x) + (b-1)*Math.log(1-x) - lbeta(a, b));
+}
+
+/** PMF Beta-Binomial */
+function bbpmf(k, n, a, b) {
+  if (k < 0 || k > n) return 0;
+  return Math.exp(lgamma(n+1) - lgamma(k+1) - lgamma(n-k+1) + lbeta(k+a, n-k+b) - lbeta(a, b));
+}
+
+/** CDF normal (Abramowitz & Stegun) */
+function normcdf(x) {
+  const s = x < 0 ? -1 : 1;
+  const t = 1 / (1 + 0.3275911 * Math.abs(x) / Math.SQRT2);
+  const y = 1 - (((((1.061405429*t-1.453152027)*t)+1.421413741)*t-0.284496736)*t+0.254829592)*t*Math.exp(-x*x/2);
+  return 0.5 * (1 + s * y);
+}
+
+/** Cuantil normal */
+function norminv(p) {
+  if (p >= 0.5) return -norminv(1 - p);
+  const t = Math.sqrt(-2 * Math.log(p));
+  return -(t - (2.515517+0.802853*t+0.010328*t*t)/(1+1.432788*t+0.189269*t*t+0.001308*t*t*t));
+}
+
+/** P(p1>p2) — Gauss-Legendre 30 puntos */
+const GL30 = [
+  [-0.9968934841,0.0079681924],[-0.9836681233,0.0184664683],[-0.9600218650,0.0287847079],
+  [-0.9262000474,0.0387991926],[-0.8825605358,0.0484026728],[-0.8295657624,0.0574931562],
+  [-0.7677774321,0.0659742299],[-0.6978504948,0.0737559747],[-0.6205261830,0.0807558952],
+  [-0.5366241481,0.0868997872],[-0.4470337695,0.0921225222],[-0.3527047255,0.0963687372],
+  [-0.2546369261,0.0995934206],[-0.1538699136,0.1017623897],[-0.0514718426,0.1028526529],
+  [0.0514718426,0.1028526529],[0.1538699136,0.1017623897],[0.2546369261,0.0995934206],
+  [0.3527047255,0.0963687372],[0.4470337695,0.0921225222],[0.5366241481,0.0868997872],
+  [0.6205261830,0.0807558952],[0.6978504948,0.0737559747],[0.7677774321,0.0659742299],
+  [0.8295657624,0.0574931562],[0.8825605358,0.0484026728],[0.9262000474,0.0387991926],
+  [0.9600218650,0.0287847079],[0.9836681233,0.0184664683],[0.9968934841,0.0079681924]
+];
+
+function probP1gtP2(a1, b1, a2, b2) {
+  let s = 0;
+  for (const [t, w] of GL30) {
+    const x = (1 + t) / 2;
+    s += w * betapdf(x, a1, b1) * betacdf(x, a2, b2) * 0.5;
+  }
+  return Math.max(0, Math.min(1, s));
+}
+
+
+/* ================================================================
+   CHART — Gráficos canvas genéricos con DPI correcto
+   ================================================================ */
+function setupCanvas(id) {
+  const c = document.getElementById(id);
+  if (!c) return null;
+  const dpr = window.devicePixelRatio || 1;
+  const r = c.getBoundingClientRect();
+  c.width = r.width * dpr;
+  c.height = r.height * dpr;
+  const ctx = c.getContext('2d');
+  ctx.scale(dpr, dpr);
+  ctx.clearRect(0, 0, r.width, r.height);
+  return { ctx, W: r.width, H: r.height };
+}
+
+const PAD = { t: 16, r: 14, b: 30, l: 46 };
+
+function drawLines(canvasId, series, opts) {
+  const s = setupCanvas(canvasId);
+  if (!s) return;
+  const { ctx, W, H } = s;
+  const pw = W - PAD.l - PAD.r, ph = H - PAD.t - PAD.b;
+  opts = opts || {};
+
+  let xMin = Infinity, xMax = -Infinity, yMax = opts.yMax || 0;
+  for (const sr of series) for (const d of sr.data) {
+    if (d.x < xMin) xMin = d.x;
+    if (d.x > xMax) xMax = d.x;
+    if (d.y > yMax) yMax = d.y;
+  }
+  if (yMax === 0) yMax = 1;
+  yMax *= 1.12;
+  const xR = xMax - xMin || 1;
+  const tx = x => PAD.l + ((x - xMin) / xR) * pw;
+  const ty = y => PAD.t + ph - (Math.min(y, yMax) / yMax) * ph;
+
+  // Background
+  ctx.fillStyle = 'rgba(15,23,42,0.25)';
+  ctx.fillRect(PAD.l, PAD.t, pw, ph);
+
+  // Horizontal ref lines
+  if (opts.hLines) for (const hl of opts.hLines) {
+    ctx.strokeStyle = hl.color || 'rgba(255,255,255,.1)';
+    ctx.lineWidth = 1; ctx.setLineDash([4,4]);
+    ctx.beginPath(); ctx.moveTo(PAD.l, ty(hl.y)); ctx.lineTo(PAD.l+pw, ty(hl.y)); ctx.stroke();
+    ctx.setLineDash([]);
+    if (hl.label) { ctx.fillStyle = hl.color; ctx.font='9px sans-serif'; ctx.textAlign='right'; ctx.fillText(hl.label, PAD.l-4, ty(hl.y)+3); }
+  }
+
+  // Target
+  if (opts.target != null) {
+    ctx.strokeStyle = '#f59e0b'; ctx.lineWidth = 1.5; ctx.setLineDash([6,3]);
+    ctx.beginPath(); ctx.moveTo(PAD.l, ty(opts.target)); ctx.lineTo(PAD.l+pw, ty(opts.target)); ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  // Series
+  for (const sr of series) {
+    ctx.strokeStyle = sr.color || '#3b82f6';
+    ctx.lineWidth = sr.w || 2;
+    if (sr.dash) ctx.setLineDash(sr.dash); else ctx.setLineDash([]);
+    ctx.beginPath();
+    for (let i = 0; i < sr.data.length; i++) {
+      const px = tx(sr.data[i].x), py = ty(sr.data[i].y);
+      i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+    }
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  // Axes
+  ctx.strokeStyle = '#475569'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(PAD.l, PAD.t+ph); ctx.lineTo(PAD.l+pw, PAD.t+ph);
+  ctx.moveTo(PAD.l, PAD.t); ctx.lineTo(PAD.l, PAD.t+ph); ctx.stroke();
+
+  // X labels
+  ctx.fillStyle = '#64748b'; ctx.font = '9px sans-serif'; ctx.textAlign = 'center';
+  for (let i = 0; i <= 5; i++) {
+    const v = xMin + (i/5)*xR;
+    ctx.fillText(Number.isInteger(v) ? v.toString() : v.toFixed(2), tx(v), H-6);
+  }
+  // Y labels
+  ctx.textAlign = 'right';
+  for (let i = 0; i <= 4; i++) {
+    const v = yMax*(4-i)/4;
+    ctx.fillText(v < 10 ? v.toFixed(2) : Math.round(v).toString(), PAD.l-5, PAD.t+(i/4)*ph+4);
+  }
+
+  // Legend
+  let ly = PAD.t + 12;
+  ctx.font = 'bold 9px sans-serif'; ctx.textAlign = 'left';
+  for (const sr of series) {
+    if (!sr.label) continue;
+    ctx.fillStyle = sr.color || '#3b82f6';
+    ctx.fillText((sr.dash ? '--- ' : '— ') + sr.label, PAD.l+6, ly); ly += 13;
+  }
+}
+
+function drawBars(canvasId, data, meanX) {
+  const s = setupCanvas(canvasId);
+  if (!s) return;
+  const { ctx, W, H } = s;
+  const pw = W - PAD.l - PAD.r, ph = H - PAD.t - PAD.b;
+  let yMax = 0;
+  for (const d of data) if (d.y > yMax) yMax = d.y;
+  yMax *= 1.15;
+  if (yMax === 0) yMax = 1;
+
+  ctx.fillStyle = 'rgba(15,23,42,0.25)';
+  ctx.fillRect(PAD.l, PAD.t, pw, ph);
+
+  const bw = Math.max(1, pw / data.length - 0.5);
+  for (let i = 0; i < data.length; i++) {
+    const d = data[i];
+    const bx = PAD.l + (i / data.length) * pw;
+    const bh = (d.y / yMax) * ph;
+    ctx.fillStyle = d.hl ? 'rgba(59,130,246,0.55)' : 'rgba(100,116,139,0.2)';
+    ctx.fillRect(bx, PAD.t + ph - bh, bw, bh);
+  }
+
+  if (meanX != null && data.length > 0) {
+    const mi = meanX - data[0].x;
+    if (mi >= 0 && mi < data.length) {
+      const mx = PAD.l + (mi / data.length) * pw;
+      ctx.strokeStyle = '#10b981'; ctx.lineWidth = 1.5; ctx.setLineDash([4,3]);
+      ctx.beginPath(); ctx.moveTo(mx, PAD.t); ctx.lineTo(mx, PAD.t+ph); ctx.stroke();
+      ctx.setLineDash([]);
+    }
+  }
+
+  ctx.strokeStyle = '#475569'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(PAD.l,PAD.t+ph); ctx.lineTo(PAD.l+pw,PAD.t+ph); ctx.stroke();
+
+  ctx.fillStyle = '#64748b'; ctx.font = '9px sans-serif'; ctx.textAlign = 'center';
+  const step = Math.max(1, Math.floor(data.length / 8));
+  for (let i = 0; i < data.length; i += step) {
+    ctx.fillText(data[i].x.toString(), PAD.l + (i/data.length)*pw + bw/2, H-6);
+  }
+}
+
+
+/* ================================================================
+   ESTADO — Prior centralizado
+   ================================================================ */
+let PRIOR = { a: 3, b: 7 };
+
+function getPrior() { return PRIOR; }
+function priorMean() { return PRIOR.a / (PRIOR.a + PRIOR.b); }
+function priorKappa() { return PRIOR.a + PRIOR.b; }
+function priorVar() {
+  const {a,b} = PRIOR;
+  return (a*b) / ((a+b)**2 * (a+b+1));
+}
+function priorCI() {
+  return [betaqt(0.025, PRIOR.a, PRIOR.b), betaqt(0.975, PRIOR.a, PRIOR.b)];
+}
+
+
+/* ================================================================
+   TAB SWITCHING
+   ================================================================ */
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => { p.classList.add('hidden'); p.classList.remove('fade'); });
+  document.querySelector(`.tab[data-tab="${name}"]`)?.classList.add('active');
+  const panel = document.getElementById('panel-' + name);
+  if (panel) {
+    panel.classList.remove('hidden');
+    void panel.offsetWidth;
+    panel.classList.add('fade');
+  }
+  // Trigger recalc for the activated panel
+  if (name === 'precision') calcPrecision();
+  if (name === 'assurance') calcAssurance();
+  if (name === 'compare') calcCompare();
+  if (name === 'predictive') calcPredictive();
+  if (name === 'sensitivity') calcSensitivity();
+  if (name === 'report') generateReport();
+}
+
+document.getElementById('tabBar').addEventListener('click', e => {
+  const tab = e.target.closest('.tab');
+  if (tab) switchTab(tab.dataset.tab);
+});
+
+function toggleEdu(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.toggle('hidden');
+}
+
+
+/* ================================================================
+   PANEL 1: PRIOR
+   ================================================================ */
+function updatePriorFromSliders() {
+  const mu = parseFloat(document.getElementById('sMean').value);
+  const kappa = parseFloat(document.getElementById('sKappa').value);
+  PRIOR.a = mu * kappa;
+  PRIOR.b = (1 - mu) * kappa;
+  document.getElementById('inA').value = PRIOR.a.toFixed(1);
+  document.getElementById('inB').value = PRIOR.b.toFixed(1);
+  refreshPrior();
+}
+
+function applyDirectAB() {
+  const a = parseFloat(document.getElementById('inA').value);
+  const b = parseFloat(document.getElementById('inB').value);
+  if (!a || a < 0.1 || !b || b < 0.1) return;
+  PRIOR.a = a;
+  PRIOR.b = b;
+  // Sync sliders
+  document.getElementById('sMean').value = (a / (a + b)).toFixed(2);
+  document.getElementById('sKappa').value = Math.min(200, Math.round(a + b));
+  refreshPrior();
+}
+
+function refreshPrior() {
+  const { a, b } = PRIOR;
+  const mu = priorMean();
+  const [lo, hi] = priorCI();
+
+  // Update displays
+  document.getElementById('dMean').textContent = (mu * 100).toFixed(1) + '%';
+  document.getElementById('dKappa').textContent = 'κ = ' + priorKappa().toFixed(0);
+  document.getElementById('mParams').textContent = `Beta(${a.toFixed(1)}, ${b.toFixed(1)})`;
+  document.getElementById('mMean').textContent = mu.toFixed(3);
+  document.getElementById('mVar').textContent = priorVar().toFixed(4);
+  document.getElementById('mCI').textContent = `[${lo.toFixed(2)}, ${hi.toFixed(2)}]`;
+
+  // Warnings
+  const warns = [];
+  if (priorKappa() > 100) warns.push({ c: 'warn-y', t: '⚠️ Prior muy informativa (κ > 100). Los datos tendrán poco impacto.' });
+  if (a < 1 || b < 1) warns.push({ c: 'warn-y', t: '⚠️ Parámetro < 1: forma en U. Verificar si es intencional.' });
+  if (mu < 0.03 || mu > 0.97) warns.push({ c: 'warn-b', t: 'ℹ️ Proporción extrema. Aproximaciones pueden perder precisión.' });
+  document.getElementById('priorWarns').innerHTML = warns.map(w => `<div class="warn ${w.c}">${w.t}</div>`).join('');
+
+  // Draw prior density
+  const pts = [];
+  for (let i = 0; i <= 200; i++) {
+    const x = 0.002 + (i / 200) * 0.996;
+    pts.push({ x, y: betapdf(x, a, b) });
+  }
+  drawLines('cvPrior', [{ data: pts, color: '#3b82f6', w: 2.5, label: `Beta(${a.toFixed(1)}, ${b.toFixed(1)})` }]);
+
+  // Recalc active panel
+  const activeTab = document.querySelector('.tab.active')?.dataset.tab;
+  if (activeTab === 'precision') calcPrecision();
+  if (activeTab === 'assurance') calcAssurance();
+  if (activeTab === 'predictive') calcPredictive();
+  if (activeTab === 'sensitivity') calcSensitivity();
+}
+
+document.getElementById('sMean').addEventListener('input', updatePriorFromSliders);
+document.getElementById('sKappa').addEventListener('input', updatePriorFromSliders);
+
+
+/* ================================================================
+   PANEL 2: PRECISIÓN
+   ================================================================ */
+function calcPrecision() {
+  const { a, b } = PRIOR;
+  const mu = priorMean();
+  const width = parseFloat(document.getElementById('sWidth').value);
+  const level = parseFloat(document.getElementById('selCred').value);
+  const z = norminv(1 - (1 - level) / 2);
+
+  document.getElementById('dWidth').textContent = `±${(width / 2 * 100).toFixed(1)}%`;
+
+  // Find n bayesian
+  let nB = 1;
+  for (let n = 1; n <= 50000; n++) {
+    const ap = a + n * mu, bp = b + n * (1 - mu);
+    const sd = Math.sqrt((ap * bp) / ((ap + bp) ** 2 * (ap + bp + 1)));
+    if (2 * z * sd <= width) { nB = n; break; }
+    if (n === 50000) nB = n;
+  }
+
+  const apF = a + nB * mu, bpF = b + nB * (1 - mu);
+  const al = (1 - level) / 2;
+  const ciLo = betaqt(al, apF, bpF), ciHi = betaqt(1 - al, apF, bpF);
+  const nC = Math.ceil(z * z * mu * (1 - mu) / ((width / 2) ** 2));
+
+  document.getElementById('rNBayes').textContent = nB.toLocaleString();
+  document.getElementById('rExpCI').textContent = `[${ciLo.toFixed(3)}, ${ciHi.toFixed(3)}]`;
+  document.getElementById('rNClass').textContent = nC.toLocaleString();
+
+  // Chart
+  const maxN = Math.min(Math.max(nB * 3, nC * 3, 80), 2000);
+  const step = Math.max(1, Math.floor(maxN / 120));
+  const sB = [], sC = [];
+  for (let n = step; n <= maxN; n += step) {
+    const ap = a + n * mu, bp = b + n * (1 - mu);
+    const sd = Math.sqrt((ap * bp) / ((ap + bp) ** 2 * (ap + bp + 1)));
+    sB.push({ x: n, y: 2 * z * sd });
+    sC.push({ x: n, y: 2 * z * Math.sqrt(mu * (1 - mu) / n) });
+  }
+  drawLines('cvPrec', [
+    { data: sC, color: '#64748b', w: 1.5, dash: [4,3], label: 'Clásico' },
+    { data: sB, color: '#3b82f6', w: 2.5, label: 'Bayesiano' }
+  ], { target: width });
+}
+
+document.getElementById('sWidth').addEventListener('input', calcPrecision);
+document.getElementById('selCred').addEventListener('change', calcPrecision);
+
+
+/* ================================================================
+   PANEL 3: ASSURANCE
+   ================================================================ */
+function computeAssurance(a, b, n, p0, theta) {
+  let ass = 0;
+  for (let x = 0; x <= n; x++) {
+    const px = bbpmf(x, n, a, b);
+    if (px < 1e-15) continue;
+    const postProb = 1 - betacdf(p0, a + x, b + n - x);
+    if (postProb >= theta) ass += px;
+  }
+  return Math.max(0, Math.min(1, ass));
+}
+
+function findAssN(a, b, p0, theta, target, maxN) {
+  maxN = maxN || 3000;
+  if (computeAssurance(a, b, maxN, p0, theta) < target) return maxN + 1;
+  let lo = 1, hi = maxN;
+  while (lo < hi) {
+    const mid = (lo + hi) >> 1;
+    computeAssurance(a, b, mid, p0, theta) >= target ? hi = mid : lo = mid + 1;
+  }
+  return lo;
+}
+
+let assTimer;
+function calcAssurance() {
+  clearTimeout(assTimer);
+  assTimer = setTimeout(_calcAssurance, 60);
+}
+
+function _calcAssurance() {
+  const { a, b } = PRIOR;
+  const n = parseInt(document.getElementById('sAssN').value);
+  const p0 = parseFloat(document.getElementById('inP0').value) || 0.2;
+  const theta = parseFloat(document.getElementById('selThresh').value);
+
+  document.getElementById('dAssN').textContent = n;
+
+  const ass = computeAssurance(a, b, n, p0, theta);
+  const n80 = findAssN(a, b, p0, theta, 0.80, 2000);
+  const n90 = findAssN(a, b, p0, theta, 0.90, 3000);
+
+  const el = document.getElementById('rAss');
+  el.textContent = (ass * 100).toFixed(1) + '%';
+  el.style.color = ass >= 0.8 ? 'var(--green)' : ass >= 0.5 ? 'var(--yellow)' : 'var(--red)';
+
+  document.getElementById('rAssN80').textContent = n80 > 2000 ? '>2,000' : n80.toLocaleString();
+  document.getElementById('rAssN90').textContent = n90 > 3000 ? '>3,000' : n90.toLocaleString();
+
+  // Curve
+  const maxPlot = Math.min(Math.max(n * 2.5, (n90 < 3001 ? n90 : n80) * 1.5, 150), 800);
+  const step = Math.max(2, Math.floor(maxPlot / 50));
+  const pts = [];
+  for (let nn = step; nn <= maxPlot; nn += step) {
+    pts.push({ x: nn, y: computeAssurance(a, b, nn, p0, theta) });
+  }
+  drawLines('cvAss', [{ data: pts, color: '#3b82f6', w: 2.5, label: 'Assurance' }], {
+    hLines: [
+      { y: 0.8, color: 'rgba(245,158,11,0.35)', label: '80%' },
+      { y: 0.9, color: 'rgba(239,68,68,0.35)', label: '90%' }
+    ],
+    yMax: 1.05
+  });
+}
+
+document.getElementById('sAssN').addEventListener('input', calcAssurance);
+document.getElementById('inP0').addEventListener('input', calcAssurance);
+document.getElementById('selThresh').addEventListener('change', calcAssurance);
+
+
+/* ================================================================
+   PANEL 4: COMPARACIÓN
+   ================================================================ */
+let compTimer;
+function calcCompare() {
+  clearTimeout(compTimer);
+  compTimer = setTimeout(_calcCompare, 50);
+}
+
+function _calcCompare() {
+  const a1 = parseFloat(document.getElementById('g1a').value) || 1;
+  const b1 = parseFloat(document.getElementById('g1b').value) || 1;
+  const a2 = parseFloat(document.getElementById('g2a').value) || 1;
+  const b2 = parseFloat(document.getElementById('g2b').value) || 1;
+  const n = parseInt(document.getElementById('sCompN').value);
+
+  const mu1 = a1/(a1+b1), mu2 = a2/(a2+b2);
+  document.getElementById('g1mu').textContent = mu1.toFixed(3);
+  document.getElementById('g2mu').textContent = mu2.toFixed(3);
+  document.getElementById('dCompN').textContent = n;
+
+  const priorP = probP1gtP2(a1, b1, a2, b2);
+
+  const x1 = Math.round(n * mu1), x2 = Math.round(n * mu2);
+  const pa1 = a1+x1, pb1 = b1+n-x1, pa2 = a2+x2, pb2 = b2+n-x2;
+  const postP = probP1gtP2(pa1, pb1, pa2, pb2);
+
+  // Find n for >= 0.95
+  let nReq = 0;
+  for (let nn = 5; nn <= 3000; nn += 5) {
+    const xx1 = Math.round(nn*mu1), xx2 = Math.round(nn*mu2);
+    if (probP1gtP2(a1+xx1, b1+nn-xx1, a2+xx2, b2+nn-xx2) >= 0.95) {
+      // Refine
+      for (let r = Math.max(1,nn-5); r <= nn; r++) {
+        const rx1 = Math.round(r*mu1), rx2 = Math.round(r*mu2);
+        if (probP1gtP2(a1+rx1, b1+r-rx1, a2+rx2, b2+r-rx2) >= 0.95) { nReq = r; break; }
+      }
+      if (nReq === 0) nReq = nn;
+      break;
+    }
+  }
+  if (nReq === 0) nReq = 3001;
+
+  document.getElementById('rPrP').textContent = (priorP*100).toFixed(1)+'%';
+  document.getElementById('rPoP').textContent = (postP*100).toFixed(1)+'%';
+  document.getElementById('rCmpN').textContent = nReq > 3000 ? '>3,000' : nReq.toLocaleString();
+
+  // Chart: prior + posterior densities
+  const makePts = (aa, bb) => {
+    const d = [];
+    for (let i = 0; i <= 150; i++) { const x = 0.005+(i/150)*0.99; d.push({x, y: betapdf(x,aa,bb)}); }
+    return d;
+  };
+  drawLines('cvComp', [
+    { data: makePts(a1,b1), color:'rgba(59,130,246,0.35)', w:1.5, dash:[3,3], label:'G1 prior' },
+    { data: makePts(a2,b2), color:'rgba(239,68,68,0.35)', w:1.5, dash:[3,3], label:'G2 prior' },
+    { data: makePts(pa1,pb1), color:'#3b82f6', w:2.5, label:'G1 post' },
+    { data: makePts(pa2,pb2), color:'#ef4444', w:2.5, label:'G2 post' }
+  ]);
+}
+
+['g1a','g1b','g2a','g2b'].forEach(id =>
+  document.getElementById(id)?.addEventListener('input', calcCompare));
+document.getElementById('sCompN')?.addEventListener('input', calcCompare);
+
+
+/* ================================================================
+   PANEL 5: PREDICTIVA
+   ================================================================ */
+function calcPredictive() {
+  const { a, b } = PRIOR;
+  const n = parseInt(document.getElementById('sPredN').value);
+  document.getElementById('dPredN').textContent = n;
+
+  const mean = n * a / (a + b);
+  const vari = n * a * b * (a + b + n) / ((a+b)**2 * (a+b+1));
+  const sd = Math.sqrt(vari);
+
+  // PMF + quantiles
+  const pmf = [];
+  let cum = 0, lo95 = 0, hi95 = n, fLo = false;
+  for (let x = 0; x <= n; x++) {
+    const p = bbpmf(x, n, a, b);
+    pmf.push(p);
+    cum += p;
+    if (!fLo && cum >= 0.025) { lo95 = x; fLo = true; }
+    if (cum <= 0.975) hi95 = x;
+  }
+
+  document.getElementById('rPredM').textContent = mean.toFixed(1);
+  document.getElementById('rPredSD').textContent = sd.toFixed(1);
+  document.getElementById('rPredCI').textContent = `[${lo95}, ${hi95}]`;
+
+  // Bars (visible range)
+  const vLo = Math.max(0, Math.floor(mean - 4 * sd));
+  const vHi = Math.min(n, Math.ceil(mean + 4 * sd));
+  const bars = [];
+  for (let x = vLo; x <= vHi; x++) {
+    bars.push({ x, y: pmf[x] || 0, hl: x >= lo95 && x <= hi95 });
+  }
+  drawBars('cvPred', bars, Math.round(mean));
+}
+
+document.getElementById('sPredN')?.addEventListener('input', calcPredictive);
+
+
+/* ================================================================
+   PANEL 6: SENSIBILIDAD
+   ================================================================ */
+let sensTimer;
+function calcSensitivity() {
+  clearTimeout(sensTimer);
+  sensTimer = setTimeout(_calcSens, 50);
+}
+
+function _calcSens() {
+  const mu = parseFloat(document.getElementById('sSMu').value);
+  const kappa = parseFloat(document.getElementById('sSK').value);
+  const n = parseInt(document.getElementById('sSN').value);
+
+  document.getElementById('dSMu').textContent = mu.toFixed(2);
+  document.getElementById('dSK').textContent = kappa;
+  document.getElementById('dSN').textContent = n;
+
+  const a = mu * kappa, b = (1 - mu) * kappa;
+  const ap = a + n * mu, bp = b + n * (1 - mu);
+
+  const ciLo = betaqt(0.025, ap, bp), ciHi = betaqt(0.975, ap, bp);
+  const p0 = parseFloat(document.getElementById('inP0')?.value || 0.2);
+  const capN = Math.min(n, 300);
+  const ass = computeAssurance(a, b, capN, p0, 0.95);
+  const pw = kappa / (kappa + n);
+
+  // n for ±5%
+  const z = 1.96, tW = 0.10;
+  let nReq = 1;
+  for (let nn = 1; nn <= 5000; nn++) {
+    const a2 = a + nn*mu, b2 = b + nn*(1-mu);
+    const sd2 = Math.sqrt((a2*b2)/((a2+b2)**2*(a2+b2+1)));
+    if (2*z*sd2 <= tW) { nReq = nn; break; }
+    if (nn === 5000) nReq = nn;
+  }
+
+  document.getElementById('rSCI').textContent = `[${ciLo.toFixed(3)}, ${ciHi.toFixed(3)}]`;
+  document.getElementById('rSAss').textContent = (ass*100).toFixed(1)+'%';
+  document.getElementById('rSNr').textContent = nReq.toLocaleString();
+  document.getElementById('rSPW').textContent = (pw*100).toFixed(1)+'%';
+
+  // Chart 1: prior vs posterior
+  const dP = [], dPo = [];
+  for (let i = 0; i <= 150; i++) {
+    const x = 0.005 + (i/150)*0.99;
+    dP.push({ x, y: betapdf(x, a, b) });
+    dPo.push({ x, y: betapdf(x, ap, bp) });
+  }
+  drawLines('cvS1', [
+    { data: dP, color: '#f59e0b', w: 1.5, dash: [4,3], label: 'Prior' },
+    { data: dPo, color: '#3b82f6', w: 2.5, label: 'Posterior' }
+  ]);
+
+  // Chart 2: n required vs kappa
+  const nrData = [];
+  for (let k = 2; k <= 150; k += 2) {
+    const aa = mu*k, bb = (1-mu)*k;
+    let nr2 = 1;
+    for (let nn = 1; nn <= 3000; nn++) {
+      const a3 = aa+nn*mu, b3 = bb+nn*(1-mu);
+      const sd3 = Math.sqrt((a3*b3)/((a3+b3)**2*(a3+b3+1)));
+      if (2*z*sd3 <= tW) { nr2 = nn; break; }
+      if (nn === 3000) nr2 = nn;
+    }
+    nrData.push({ x: k, y: nr2 });
+  }
+  drawLines('cvS2', [{ data: nrData, color: '#8b5cf6', w: 2.5, label: 'n requerido' }]);
+}
+
+['sSMu','sSK','sSN'].forEach(id =>
+  document.getElementById(id)?.addEventListener('input', calcSensitivity));
+
+
+/* ================================================================
+   PANEL 7: REPORTE
+   ================================================================ */
+function generateReport() {
+  const { a, b } = PRIOR;
+  const mu = priorMean(), [lo, hi] = priorCI();
+  const ts = new Date().toLocaleString();
+
+  // Gather results from DOM
+  const nB = document.getElementById('rNBayes')?.textContent || '—';
+  const eCI = document.getElementById('rExpCI')?.textContent || '—';
+  const nC = document.getElementById('rNClass')?.textContent || '—';
+  const ass = document.getElementById('rAss')?.textContent || '—';
+  const a80 = document.getElementById('rAssN80')?.textContent || '—';
+  const a90 = document.getElementById('rAssN90')?.textContent || '—';
+
+  document.getElementById('reportBox').innerHTML = `
+    <div style="border-bottom:1px solid var(--border);padding-bottom:8px;margin-bottom:12px">
+      <strong style="font-size:1rem;color:#fff">Reporte de Planificación Bayesiana</strong><br>
+      <span class="small-text">${ts}</span>
+    </div>
+    <p><strong style="color:var(--blue)">1. Distribución Previa</strong></p>
+    <p>Modelo: Beta(${a.toFixed(2)}, ${b.toFixed(2)}) · Media: ${mu.toFixed(4)} · κ: ${priorKappa().toFixed(1)}</p>
+    <p>IC creíble 95%: [${lo.toFixed(4)}, ${hi.toFixed(4)}] · Varianza: ${priorVar().toFixed(6)}</p>
+    <br>
+    <p><strong style="color:var(--blue)">2. Precisión Posterior</strong></p>
+    <p>n bayesiano: <strong>${nB}</strong> · IC esperado: ${eCI} · n clásico (ref): ${nC}</p>
+    <br>
+    <p><strong style="color:var(--blue)">3. Assurance</strong></p>
+    <p>Assurance actual: <strong>${ass}</strong> · n≥80%: ${a80} · n≥90%: ${a90}</p>
+    <br>
+    <p class="small-text" id="hashLine">SHA-256: calculando...</p>
+  `;
+
+  // Hash
+  if (crypto?.subtle) {
+    const raw = JSON.stringify({ a, b, nB, ts });
+    crypto.subtle.digest('SHA-256', new TextEncoder().encode(raw)).then(buf => {
+      const hash = [...new Uint8Array(buf)].map(x => x.toString(16).padStart(2,'0')).join('');
+      const el = document.getElementById('hashLine');
+      if (el) el.textContent = 'SHA-256: ' + hash;
+    });
+  }
+}
+
+function downloadReport() {
+  generateReport();
+  const content = document.getElementById('reportBox').innerHTML;
+  const html = `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+    <title>Reporte Bayesiano</title>
+    <style>body{font-family:sans-serif;max-width:700px;margin:40px auto;padding:20px;color:#1e293b;line-height:1.7}
+    p{margin:4px 0}strong{color:#1e40af}</style></head>
+    <body>${content.replace(/var\(--[^)]+\)/g,'#1e293b').replace(/color:\s*#fff/g,'color:#000')}<hr>
+    <p style="font-size:11px;color:#999">Planificador Bayesiano v2 — Cálculos analíticos, sin MCMC</p></body></html>`;
+  const blob = new Blob([html], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a'); link.href = url;
+  link.download = 'reporte_bayesiano_' + Date.now() + '.html';
+  link.click(); URL.revokeObjectURL(url);
+}
+
+function copyReport() {
+  generateReport();
+  const text = document.getElementById('reportBox').innerText;
+  navigator.clipboard?.writeText(text).then(() => alert('✓ Copiado')).catch(() => {
+    const t = document.createElement('textarea'); t.value = text;
+    document.body.appendChild(t); t.select(); document.execCommand('copy');
+    document.body.removeChild(t); alert('✓ Copiado');
+  });
+}
+
+
+/* ================================================================
+   INICIALIZACIÓN
+   ================================================================ */
+(function init() {
+  // Initial prior render
+  updatePriorFromSliders();
+
+  // Force initial calc of visible panel
+  calcPrecision();
+  calcCompare();
+})();
+</script>
+</body>
+</html>
