@@ -7,8 +7,8 @@ tags:
   - "herramientas"
   - "calculadoras"
   - "software-educativo" 
-  - "datos fabricados"
-date: "2024-12-31"
+  - "datos-fabricados"
+date: "2025-01-28"
 external_link: "/apps/pinocho-tool.html"
 image:
   caption: ""

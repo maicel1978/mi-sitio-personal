@@ -14,6 +14,7 @@ sections:
       text: >
         Calculadoras y herramientas diseñadas para el análisis
         estadístico en investigación clínica y regulatoria.
+      count: 6
       filters:
         folders:
           - project
@@ -32,6 +33,7 @@ sections:
       text: >
         Herramientas para gestión de PDFs, imágenes,
         video y contenido visual.
+      count: 6
       filters:
         folders:
           - project
@@ -50,6 +52,7 @@ sections:
       text: >
         Conversores y analizadores basados en procesamiento
         de lenguaje natural.
+      count: 6
       filters:
         folders:
           - project

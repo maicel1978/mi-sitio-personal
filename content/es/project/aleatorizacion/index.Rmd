@@ -1,6 +1,6 @@
 ---
-title: "Aleatorizador Clínico (RandClin  ver 1.0)"
-date: "2024-12-30" # Fecha reducida en dos días respecto al anterior
+title: "Asignador de Sujetos a Grupos de Estudio  (RandClin  ver 1.0)"
+date: "2024-12-31" # Fecha reducida en dos días respecto al anterior
 categories: ["calculadoras"]
 tags:
   - "herramientas" 
@@ -13,3 +13,4 @@ image:
   caption: ""
   focal_point: "Smart"
 ---
+
