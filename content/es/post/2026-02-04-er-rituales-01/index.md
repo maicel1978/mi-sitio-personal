@@ -25,7 +25,6 @@ En muchos protocolos de **ensayos no aleatorizados** se incluyen poblaciones den
 
 Este ritual examina **por qué esta práctica se produce por inercia**, los riesgos que introduce y cómo definir análisis con sentido científico y regulatorio.
 
-## Mensaje warning
 
 {{% callout warning %}} **Advertencia:** en estudios no aleatorizados **no existe ITT ni PP clásico**, porque no hay grupos definidos a priori mediante asignación aleatoria. Aplicar estas poblaciones mecánicamente **carece de fundamento metodológico**. La población de análisis debe definirse exclusivamente según **criterios de exposición y elegibilidad**, sin intentar replicar definiciones de ensayos controlados.
 {{% /callout %}}
@@ -38,7 +37,7 @@ Este ritual examina **por qué esta práctica se produce por inercia**, los ries
 
 ---
 
-## **1. La inercia ritual**
+## **La inercia como causa del ritual**
 
 El uso de ITT/PP en estudios no aleatorizados suele obedecer a **costumbre o plantilla heredada**:
 
@@ -50,7 +49,7 @@ El uso de ITT/PP en estudios no aleatorizados suele obedecer a **costumbre o pla
 
 ---
 
-## **2. Por qué ITT no se aplica sin aleatorización**
+## **Por qué ITT no se aplica sin aleatorización**
 
 1. ITT preserva el balance de covariables garantizado **solo por aleatorización**.
 2. Sin asignación aleatoria, **no existe grupo definido a priori** para aplicar ITT o PP.
@@ -60,7 +59,7 @@ El uso de ITT/PP en estudios no aleatorizados suele obedecer a **costumbre o pla
 
 ---
 
-## **3. Poblaciones con sentido**
+## **Poblaciones con sentido**
 
 Aunque ITT/PP no aplican, se pueden definir poblaciones de análisis razonables y defendibles:
 
@@ -78,7 +77,7 @@ Aunque ITT/PP no aplican, se pueden definir poblaciones de análisis razonables 
 
 ---
 
-## **4. Por qué se produce la confusión**
+## **Por qué se produce la confusión**
 
 1. **Formación heredada:** muchos cursos y manuales enseñan ITT/PP como paquete estándar.
 2. **Plantillas de protocolo:** promueven la aplicación mecánica de poblaciones sin evaluar pertinencia.
@@ -87,7 +86,7 @@ Aunque ITT/PP no aplican, se pueden definir poblaciones de análisis razonables 
 
 ---
 
-## **5. Ritual resumido: pasos prácticos**
+## **Ritual resumido: pasos prácticos**
 
 1. Reconocer que **sin aleatorización no existe ITT ni PP clásico**.
 2. Definir la población de análisis según **exposición y criterios de elegibilidad**.
@@ -98,7 +97,7 @@ Aunque ITT/PP no aplican, se pueden definir poblaciones de análisis razonables 
 
 ---
 
-## **6. Conclusión**
+## **Conclusión**
 
 * La aplicación mecánica de ITT/PP en estudios no aleatorizados es **un ritual por inercia**.
 * La validez no proviene de nombres de poblaciones, sino de **claridad conceptual, transparencia y definición adecuada de la población de análisis**.
