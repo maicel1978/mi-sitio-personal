@@ -153,7 +153,6 @@ Y también regulatoria.&lt;/p>
 &lt;h2 id="introducción">&lt;strong>Introducción&lt;/strong>&lt;/h2>
 &lt;p>En muchos protocolos de &lt;strong>ensayos no aleatorizados&lt;/strong> se incluyen poblaciones denominadas &lt;strong>Intención de Tratar (ITT)&lt;/strong>, &lt;strong>Por Protocolo (PP)&lt;/strong> y &lt;strong>Seguridad&lt;/strong>, replicando plantillas de ensayos controlados aleatorizados (RCT).&lt;/p>
 &lt;p>Este ritual examina &lt;strong>por qué esta práctica se produce por inercia&lt;/strong>, los riesgos que introduce y cómo definir análisis con sentido científico y regulatorio.&lt;/p>
-&lt;h2 id="mensaje-warning">Mensaje warning&lt;/h2>
 &lt;div class="flex px-4 py-3 mb-6 rounded-md bg-yellow-100 dark:bg-yellow-900">
 &lt;span class="pr-3 pt-1 text-red-400">
 &lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0zM12 15.75h.007v.008H12z"/>&lt;/svg>
@@ -164,7 +163,7 @@ Y también regulatoria.&lt;/p>
 &lt;blockquote>
 &lt;p>Si un estudio de un solo brazo evalúa un fármaco experimental y no hay aleatorización, no existe un grupo de comparación definido. Incluir un “ITT” como si hubiera aleatorización es como intentar repartir cartas que nunca se barajaron: no protege contra sesgos y genera falsa sensación de rigor.&lt;/p>&lt;/blockquote>
 &lt;hr>
-&lt;h2 id="1-la-inercia-ritual">&lt;strong>1. La inercia ritual&lt;/strong>&lt;/h2>
+&lt;h2 id="la-inercia-como-causa-del-ritual">&lt;strong>La inercia como causa del ritual&lt;/strong>&lt;/h2>
 &lt;p>El uso de ITT/PP en estudios no aleatorizados suele obedecer a &lt;strong>costumbre o plantilla heredada&lt;/strong>:&lt;/p>
 &lt;ul>
 &lt;li>Se copian protocolos de RCT anteriores.&lt;/li>
@@ -173,7 +172,7 @@ Y también regulatoria.&lt;/p>
 &lt;/ul>
 &lt;p>&lt;strong>Consecuencia:&lt;/strong> análisis confusos, riesgo de sesgos y observaciones regulatorias negativas.&lt;/p>
 &lt;hr>
-&lt;h2 id="2-por-qué-itt-no-se-aplica-sin-aleatorización">&lt;strong>2. Por qué ITT no se aplica sin aleatorización&lt;/strong>&lt;/h2>
+&lt;h2 id="por-qué-itt-no-se-aplica-sin-aleatorización">&lt;strong>Por qué ITT no se aplica sin aleatorización&lt;/strong>&lt;/h2>
 &lt;ol>
 &lt;li>ITT preserva el balance de covariables garantizado &lt;strong>solo por aleatorización&lt;/strong>.&lt;/li>
 &lt;li>Sin asignación aleatoria, &lt;strong>no existe grupo definido a priori&lt;/strong> para aplicar ITT o PP.&lt;/li>
@@ -182,7 +181,7 @@ Y también regulatoria.&lt;/p>
 &lt;blockquote>
 &lt;p>En estudios no aleatorizados, &lt;strong>hablar de ITT o PP clásico es un ritual sin valor metodológico&lt;/strong>.&lt;/p>&lt;/blockquote>
 &lt;hr>
-&lt;h2 id="3-poblaciones-con-sentido">&lt;strong>3. Poblaciones con sentido&lt;/strong>&lt;/h2>
+&lt;h2 id="poblaciones-con-sentido">&lt;strong>Poblaciones con sentido&lt;/strong>&lt;/h2>
 &lt;p>Aunque ITT/PP no aplican, se pueden definir poblaciones de análisis razonables y defendibles:&lt;/p>
 &lt;table>
 &lt;thead>
@@ -217,7 +216,7 @@ Y también regulatoria.&lt;/p>
 &lt;li>Aplicar métodos de ajuste si se comparan con controles históricos: propensity scores, matching, weighting.&lt;/li>
 &lt;/ul>
 &lt;hr>
-&lt;h2 id="4-por-qué-se-produce-la-confusión">&lt;strong>4. Por qué se produce la confusión&lt;/strong>&lt;/h2>
+&lt;h2 id="por-qué-se-produce-la-confusión">&lt;strong>Por qué se produce la confusión&lt;/strong>&lt;/h2>
 &lt;ol>
 &lt;li>&lt;strong>Formación heredada:&lt;/strong> muchos cursos y manuales enseñan ITT/PP como paquete estándar.&lt;/li>
 &lt;li>&lt;strong>Plantillas de protocolo:&lt;/strong> promueven la aplicación mecánica de poblaciones sin evaluar pertinencia.&lt;/li>
@@ -225,7 +224,7 @@ Y también regulatoria.&lt;/p>
 &lt;li>&lt;strong>Reducción terminológica:&lt;/strong> términos como “Full Analysis Set” se usan fuera de contexto, generando falsa sensación de cumplimiento metodológico.&lt;/li>
 &lt;/ol>
 &lt;hr>
-&lt;h2 id="5-ritual-resumido-pasos-prácticos">&lt;strong>5. Ritual resumido: pasos prácticos&lt;/strong>&lt;/h2>
+&lt;h2 id="ritual-resumido-pasos-prácticos">&lt;strong>Ritual resumido: pasos prácticos&lt;/strong>&lt;/h2>
 &lt;ol>
 &lt;li>Reconocer que &lt;strong>sin aleatorización no existe ITT ni PP clásico&lt;/strong>.&lt;/li>
 &lt;li>Definir la población de análisis según &lt;strong>exposición y criterios de elegibilidad&lt;/strong>.&lt;/li>
@@ -235,7 +234,7 @@ Y también regulatoria.&lt;/p>
 &lt;li>Si se utilizan controles históricos, aplicar métodos de ajuste robustos para minimizar sesgos.&lt;/li>
 &lt;/ol>
 &lt;hr>
-&lt;h2 id="6-conclusión">&lt;strong>6. Conclusión&lt;/strong>&lt;/h2>
+&lt;h2 id="conclusión">&lt;strong>Conclusión&lt;/strong>&lt;/h2>
 &lt;ul>
 &lt;li>La aplicación mecánica de ITT/PP en estudios no aleatorizados es &lt;strong>un ritual por inercia&lt;/strong>.&lt;/li>
 &lt;li>La validez no proviene de nombres de poblaciones, sino de &lt;strong>claridad conceptual, transparencia y definición adecuada de la población de análisis&lt;/strong>.&lt;/li>
