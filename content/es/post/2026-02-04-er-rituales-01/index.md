@@ -6,11 +6,12 @@ date: '2026-02-04'
 slug: "rituales-metodologicos-01"
 categories: ["Evaluación Regulatoria"]
 tags:
-  - "ensayos clínicos"
-  - "rituales metodológicos"
-  - "errores metodológicos"
-  - "atajos regulatorios"
-summary: Una guía crítica y práctica sobre la aplicación mecánica de poblaciones ITT/PP en estudios no aleatorizados, por qué este ritual es innecesario y cómo definir análisis de manera sólida y defendible según ICH, EMA y FDA.
+  - ensayos-clinicos
+  - rituales-metodologicos
+  - post
+  - evaluacion-regulatoria
+  - atajos-regulatorios
+summary: "Una guía crítica y práctica sobre la aplicación mecánica de poblaciones ITT/PP en estudios no aleatorizados, por qué este ritual es innecesario y cómo definir análisis de manera sólida y defendible según ICH, EMA y FDA."
 featured: false
 commentable: true
 type: post

@@ -5,9 +5,10 @@ author: "admin"
 date: 2025-12-12
 categories: ["Reflexiones Críticas"]
 tags:
-  - "evaluación-regulatoria"
-  - "VAR-Científico"
-  - "ensayos-clinicos"
+  - evaluacion-regulatoria
+  - var-cientifico
+  - post
+  - ensayos-clinicos
 slug: var-caso01
 summary: "Primer caso de la serie -VAR Científico-. Analiza un ensayo clínico sobre duloxetina donde el objetivo principal (reducir morfina) no se cumplió. El artículo publicado declaró éxito usando un resultado secundario, una práctica llamada outcome switching que equivale a -mover la portería- después del partido, comprometiendo la validez del estudio"
 featured: false

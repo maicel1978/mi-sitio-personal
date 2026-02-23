@@ -7,11 +7,10 @@ slug: imryd-redaccion-inversa
 translationKey: "imryd"
 categories: ["Metodología de Investigación"]
 tags:
-  - "cómo usar redacción inversa en artículos científicos"
-  - "evitar HARKing en tesis médicas"
-  - "IMRyD vs. honestidad en narrativas científicas"
-  - "guía para redacción ética en publicaciones"
-  - "errores éticos en reporting de resultados salud"
+  - cómo-usar-redacción-inversa-en-artículos-científicos"
+  - post
+  - guía-para-redacción-ética-en-publicaciones
+  - errores-eticos-en-reporting-de-resultados-salud
 summary: "IMRyD es el estándar de publicación, pero no tiene por qué ser el de redacción. Este post argumenta a favor de una estrategia de escritura 'inversa' —de los hallazgos hacia la introducción— como un método para aumentar la honestidad y claridad, distinguiéndolo del HARKing y alineando la narrativa con el verdadero descubrimiento científico."
 featured: false  # Destacar en la página principal
 languages:

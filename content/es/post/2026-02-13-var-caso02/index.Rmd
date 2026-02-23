@@ -5,9 +5,10 @@ author: "admin"
 date: 2026-02-13
 categories: ["Reflexiones Críticas"]
 tags:
-  - "evaluación-regulatoria"
-  - "VAR-Científico"
-  - "ensayos-clinicos"
+  - evaluacion-regulatoria
+  - var-cientifico
+  - post
+  - ensayos-clinicos
 slug: var-caso02
 summary: "Análisis crítico de cómo decisiones éticas pueden afectar la validez de un ensayo clínico, usando ejemplos simulados y humor ácido."
 featured: false

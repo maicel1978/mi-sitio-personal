@@ -6,11 +6,12 @@ date: '2026-02-04'
 slug: "rituales-metodologicos-01"
 categories: ["Evaluación Regulatoria"]
 tags:
-  - "ensayos clínicos"
-  - "rituales metodológicos"
-  - "errores metodológicos"
-  - "atajos regulatorios"
-summary: Una guía crítica y práctica sobre la aplicación mecánica de poblaciones ITT/PP en estudios no aleatorizados, por qué este ritual es innecesario y cómo definir análisis de manera sólida y defendible según ICH, EMA y FDA.
+  - ensayos-clinicos
+  - rituales-metodologicos
+  - post
+  - evaluacion-regulatoria
+  - atajos-regulatorios
+summary: "Una guía crítica y práctica sobre la aplicación mecánica de poblaciones ITT/PP en estudios no aleatorizados, por qué este ritual es innecesario y cómo definir análisis de manera sólida y defendible según ICH, EMA y FDA."
 featured: false
 commentable: true
 type: post
@@ -24,7 +25,6 @@ En muchos protocolos de **ensayos no aleatorizados** se incluyen poblaciones den
 
 Este ritual examina **por qué esta práctica se produce por inercia**, los riesgos que introduce y cómo definir análisis con sentido científico y regulatorio.
 
-## Mensaje warning
 
 {{% callout warning %}} **Advertencia:** en estudios no aleatorizados **no existe ITT ni PP clásico**, porque no hay grupos definidos a priori mediante asignación aleatoria. Aplicar estas poblaciones mecánicamente **carece de fundamento metodológico**. La población de análisis debe definirse exclusivamente según **criterios de exposición y elegibilidad**, sin intentar replicar definiciones de ensayos controlados.
 {{% /callout %}}
@@ -37,7 +37,7 @@ Este ritual examina **por qué esta práctica se produce por inercia**, los ries
 
 ---
 
-## **1. La inercia ritual**
+## **1. La inercia como causa del ritual**
 
 El uso de ITT/PP en estudios no aleatorizados suele obedecer a **costumbre o plantilla heredada**:
 

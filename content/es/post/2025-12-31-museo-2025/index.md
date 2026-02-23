@@ -5,9 +5,9 @@ author: "admin"
 date: 2025-12-05
 categories: ["Reflexiones Críticas"]
 tags:
-  - "Museo-Horrores"
-  - "RigorMetodológico"
-  - "IA"
+  - museo-horrores
+  - post
+  - IA
 slug: museo-2025
 summary: "Crítica humorística a publicaciones científicas de 2025, con referencias reales y lecciones para investigadores."
 featured: false

@@ -6,10 +6,11 @@ author: "admin"
 date: "2026-02-03"
 categories: ["Evaluación Reguladora"]
 tags:
-  - "ensayos clínicos"
-  - "rituales metodológicos"
-  - "bioestadística"
-  - "pensamiento crítico"
+  - ensayos-clinicos
+  - rituales-metodologicos
+  - bioestadística
+  - post
+  - evaluacion-regulatoria
 slug: "rituales-metodologicos-00"
 featured: false
 draft: false

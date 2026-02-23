@@ -5,8 +5,9 @@ author: "admin"
 date: "2025-12-06"
 categories: ["Reflexiones Críticas"]
 tags:
-  - "Museo-Horrores"
-  - "RigorMetodológico"
+  - museo-horrores
+  - post
+  - RigorMetodológico
 slug: museo-clasico
 summary: "Crítica humorística a los pecados metodológicos eternos de la ciencia biomédica, con raíces en la Antigua Grecia y vigencia plena en 2025. Metáforas clásicas, esencia teórica rigurosa y lecciones implacables para investigadores que no quieran repetir la historia (ni retractarse mañana)."
 featured: false
