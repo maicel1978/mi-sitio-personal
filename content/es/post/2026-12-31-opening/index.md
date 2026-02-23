@@ -5,11 +5,10 @@ author: "admin"
 date: "2026-02-14"
 categories: ["Metodología de Investigación"]
 tags:
-  - "bioestadística"
-  - "metodología de investigación"
-  - "ensayos clínicos"
-  - "evaluación regulatoria"
-  - "pensamiento crítico"
+  - bioestadistica
+  - manifiesto
+  - post
+  - bioestadisticaedu
 slug: manifiesto-es
 summary: "Reflexiones y herramientas para mirar más allá de los números y la apariencia de certeza"
 featured: true
