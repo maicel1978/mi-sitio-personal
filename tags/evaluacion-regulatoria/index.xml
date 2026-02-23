@@ -1,4 +1,398 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Evaluacion-Regulatoria | Bioestadística edu</title><link>https://bioestadisticaedu.com/tags/evaluacion-regulatoria/</link><atom:link href="https://bioestadisticaedu.com/tags/evaluacion-regulatoria/index.xml" rel="self" type="application/rss+xml"/><description>Evaluacion-Regulatoria</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Sun, 01 Feb 2026 00:00:00 +0000</lastBuildDate><image><url>https://bioestadisticaedu.com/media/icon_hu_a91eea5f46a3944e.png</url><title>Evaluacion-Regulatoria</title><link>https://bioestadisticaedu.com/tags/evaluacion-regulatoria/</link></image><item><title>El Frankenstein metodológico: desconexión inferencial entre fenómeno clínico y objetivos o hipótesis</title><link>https://bioestadisticaedu.com/post/er-02/</link><pubDate>Sun, 01 Feb 2026 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/er-02/</guid><description>&lt;p>&lt;em>Por Maicel Monzon&lt;/em>&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Evaluacion-Regulatoria | Bioestadística edu</title><link>https://bioestadisticaedu.com/tags/evaluacion-regulatoria/</link><atom:link href="https://bioestadisticaedu.com/tags/evaluacion-regulatoria/index.xml" rel="self" type="application/rss+xml"/><description>Evaluacion-Regulatoria</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Fri, 13 Feb 2026 00:00:00 +0000</lastBuildDate><image><url>https://bioestadisticaedu.com/media/icon_hu_a91eea5f46a3944e.png</url><title>Evaluacion-Regulatoria</title><link>https://bioestadisticaedu.com/tags/evaluacion-regulatoria/</link></image><item><title>VAR Científico: Rescate ético y suicidio estadístico</title><link>https://bioestadisticaedu.com/post/var-caso02/</link><pubDate>Fri, 13 Feb 2026 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/var-caso02/</guid><description>&lt;p>&lt;em>Por Maicel Monzon&lt;/em>&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;em>Cualquier parecido con la realidad es pura coincidencia.&lt;br>
+Aunque, curiosamente, estas coincidencias suelen tener protocolo aprobado.&lt;/em>&lt;/p>&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="1-el-grupo-control-ese-gran-incomprendido">1. El grupo control: ese gran incomprendido&lt;/h2>
+&lt;p>El grupo control no es un trámite regulatorio.&lt;br>
+No está ahí para completar la tabla 1 ni para tranquilizar a un comité.&lt;/p>
+&lt;p>Está ahí para responder una pregunta fundamental:&lt;/p>
+&lt;blockquote>
+&lt;p>¿Qué habría ocurrido si estos pacientes no hubieran recibido el tratamiento experimental?&lt;/p>&lt;/blockquote>
+&lt;p>Eso es el &lt;strong>contrafactual&lt;/strong>.&lt;/p>
+&lt;p>Nace de la aleatorización.&lt;br>
+Vive de la comparabilidad.&lt;br>
+Y desaparece cuando modificamos el experimento sin redefinir la inferencia.&lt;/p>
+&lt;p>Sin contrafactual válido, no hay evidencia.&lt;br>
+Hay narrativa.&lt;/p>
+&lt;hr>
+&lt;h2 id="2-el-experimento-bien-portado">2. El experimento bien portado&lt;/h2>
+&lt;p>Imaginemos un ensayo clásico:&lt;/p>
+&lt;ul>
+&lt;li>Asignación 1:1&lt;/li>
+&lt;li>Medición basal&lt;/li>
+&lt;li>Medición intermedia&lt;/li>
+&lt;li>Medición final&lt;/li>
+&lt;li>Objetivo: comparar resultados al final&lt;/li>
+&lt;/ul>
+&lt;p>Mientras cada paciente permanece en el grupo asignado:&lt;/p>
+&lt;ul>
+&lt;li>La aleatorización protege la comparabilidad.&lt;/li>
+&lt;li>El análisis ITT tiene interpretación causal clara.&lt;/li>
+&lt;li>El efecto estimado responde a la pregunta original.&lt;/li>
+&lt;/ul>
+&lt;p>La arquitectura es coherente.&lt;br>
+Y la inferencia también.&lt;/p>
+&lt;hr>
+&lt;h2 id="3-el-momento-aparentemente-razonable">3. El momento aparentemente razonable&lt;/h2>
+&lt;p>En algún punto intermedio ocurre algo:&lt;/p>
+&lt;blockquote>
+&lt;p>Los pacientes del grupo control que no responden suficientemente reciben el tratamiento experimental.&lt;/p>&lt;/blockquote>
+&lt;p>Puede suceder en cualquier momento del seguimiento.&lt;/p>
+&lt;p>El calendario es secundario.&lt;br>
+Lo relevante es que el tratamiento futuro pasa a depender de la evolución previa.&lt;/p>
+&lt;p>Y esa evolución fue influenciada por la asignación inicial.&lt;/p>
+&lt;p>Ahí cambia la estructura del experimento.&lt;/p>
+&lt;hr>
+&lt;h2 id="4-qué-cambia-realmente">4. Qué cambia realmente&lt;/h2>
+&lt;p>Antes:&lt;/p>
+&lt;ul>
+&lt;li>El tratamiento depende solo de la aleatorización.&lt;/li>
+&lt;/ul>
+&lt;p>Después:&lt;/p>
+&lt;ul>
+&lt;li>El tratamiento depende de la respuesta intermedia.&lt;/li>
+&lt;li>Y la respuesta intermedia depende del tratamiento inicial.&lt;/li>
+&lt;/ul>
+&lt;p>Eso introduce un circuito causal.&lt;/p>
+&lt;p>Comprensible desde la ética.&lt;br>
+Metodológicamente delicado desde la inferencia.&lt;/p>
+&lt;hr>
+&lt;h2 id="5-qué-ocurre-en-términos-simples">5. Qué ocurre en términos simples&lt;/h2>
+&lt;p>Tras permitir el cambio:&lt;/p>
+&lt;ul>
+&lt;li>En el grupo control permanecen, en promedio, quienes iban mejor.&lt;/li>
+&lt;li>Los que evolucionaban peor pasan al experimental.&lt;/li>
+&lt;li>El experimental incorpora pacientes con peor pronóstico intermedio.&lt;/li>
+&lt;/ul>
+&lt;p>El resultado visible:&lt;/p>
+&lt;p>La diferencia entre grupos al final puede reducirse.&lt;/p>
+&lt;p>El resultado menos visible —y más importante—:&lt;/p>
+&lt;p>La pregunta que estamos respondiendo ya no es exactamente la misma.&lt;/p>
+&lt;hr>
+&lt;h2 id="6-el-problema-no-es-el-resultado-es-su-significado">6. El problema no es el resultado. Es su significado.&lt;/h2>
+&lt;p>La diferencia puede reducirse.&lt;/p>
+&lt;p>La estimación puede cambiar.&lt;/p>
+&lt;p>Incluso el intervalo de confianza puede desplazarse.&lt;/p>
+&lt;p>Pero nada de eso es el núcleo del problema.&lt;/p>
+&lt;p>El verdadero problema es que ya no sabemos con precisión qué efecto estamos estimando.&lt;/p>
+&lt;p>¿Es el efecto del tratamiento experimental frente a control puro?&lt;/p>
+&lt;p>¿O es el efecto de una estrategia que permite cambiar de tratamiento si no hay respuesta?&lt;/p>
+&lt;p>Si la pregunta cambia y no lo declaramos, el número final pierde interpretación.&lt;/p>
+&lt;p>La estadística no consiste en producir números.&lt;br>
+Consiste en saber qué significan.&lt;/p>
+&lt;hr>
+&lt;h2 id="7-qué-muestra-la-simulación">7. Qué muestra la simulación&lt;/h2>
+&lt;img src="https://bioestadisticaedu.com/post/var-caso02/index_files/figure-html/unnamed-chunk-1-1.png" width="768" />
+&lt;p>El gráfico no solo ilustra una reducción de diferencias.&lt;/p>
+&lt;p>Muestra algo más profundo:&lt;/p>
+&lt;p>El grupo “control” ya no representa la evolución sin tratamiento experimental.&lt;/p>
+&lt;p>Representa la evolución de quienes respondieron mejor al inicio.&lt;/p>
+&lt;p>Eso no es un detalle estadístico.&lt;br>
+Es una alteración del contrafactual.&lt;/p>
+&lt;p>Y cuando el contrafactual cambia, la validez interna cambia con él.&lt;/p>
+&lt;hr>
+&lt;h2 id="8-una-aclaración-necesaria">8. Una aclaración necesaria&lt;/h2>
+&lt;p>El análisis ITT no se vuelve incorrecto.&lt;/p>
+&lt;p>Se vuelve insuficientemente interpretado.&lt;/p>
+&lt;p>Ahora estima el efecto de una &lt;strong>estrategia clínica adaptativa&lt;/strong>:&lt;/p>
+&lt;blockquote>
+&lt;p>“Asignar control, pero permitir cambio si no hay respuesta.”&lt;/p>&lt;/blockquote>
+&lt;p>Esa puede ser una pregunta válida.&lt;/p>
+&lt;p>Pero no es lo mismo que comparar tratamiento experimental versus control puro.&lt;/p>
+&lt;p>Si no redefinimos explícitamente el estimando, generamos ambigüedad científica.&lt;/p>
+&lt;p>Y la ambigüedad rara vez favorece decisiones sólidas.&lt;/p>
+&lt;hr>
+&lt;h2 id="9-el-problema-no-es-ético-es-estructural">9. El problema no es ético. Es estructural.&lt;/h2>
+&lt;p>Rescatar pacientes puede ser correcto.&lt;/p>
+&lt;p>Lo problemático es:&lt;/p>
+&lt;ul>
+&lt;li>No anticiparlo en el diseño.&lt;/li>
+&lt;li>No redefinir la pregunta científica.&lt;/li>
+&lt;li>No usar métodos apropiados.&lt;/li>
+&lt;li>Pretender que nada cambió.&lt;/li>
+&lt;/ul>
+&lt;p>La estadística no es una ceremonia para obtener aprobación regulatoria.&lt;/p>
+&lt;p>Es el mecanismo que preserva el significado de nuestras comparaciones.&lt;/p>
+&lt;hr>
+&lt;h2 id="10-conclusión">10. Conclusión&lt;/h2>
+&lt;p>Cuando el tratamiento cambia en función de la respuesta intermedia:&lt;/p>
+&lt;p>No estamos comparando tratamientos.&lt;/p>
+&lt;p>Estamos comparando estrategias.&lt;/p>
+&lt;p>Si eso se define, se modela y se analiza correctamente, es ciencia.&lt;/p>
+&lt;p>Si no, es una ilusión estadística con buenas intenciones.&lt;/p>
+&lt;p>Y la ilusión nunca ha sido un sustituto sólido de la evidencia.&lt;/p>
+&lt;hr>
+&lt;h2 id="-para-debatir">🔎 Para debatir&lt;/h2>
+&lt;p>Cuando un ensayo permite cambiar de tratamiento a los no respondedores:&lt;/p>
+&lt;blockquote>
+&lt;p>¿Deberíamos seguir hablando de “eficacia del fármaco”&lt;br>
+o de “eficacia de la estrategia terapéutica”?&lt;/p>&lt;/blockquote>
+&lt;p>La diferencia no es semántica.&lt;br>
+Es metodológica.&lt;br>
+Y también regulatoria.&lt;/p>
+&lt;hr>
+&lt;h1 id="bibliografía">Bibliografía&lt;/h1>
+&lt;ul>
+&lt;li>
+&lt;p>Robins JM, Hernán MA, Brumback B. Marginal structural models and causal inference in epidemiology. &lt;em>Epidemiology&lt;/em>. 2000;11(5):550–560. PMID: 10955408.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Latimer NR et al. Adjusting for treatment switching in randomised controlled trials. &lt;em>Stat Med&lt;/em>. 2014;33(26):4489–4505. PMID: 25237052.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Hernán MA, Robins JM. &lt;em>Causal Inference: What If&lt;/em>. Chapman &amp;amp; Hall/CRC, 2020.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>ICH E9(R1) Addendum on Estimands and Sensitivity Analysis in Clinical Trials. EMA, 2019.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Schulz KF et al. CONSORT 2010 Statement. &lt;em>BMJ&lt;/em>. 2010;340:c332. PMID: 20332509.&lt;/p>
+&lt;/li>
+&lt;/ul></description></item><item><title>Ritual ITT/PP en Estudios No Aleatorizados: Desmontando un Mito</title><link>https://bioestadisticaedu.com/post/rituales-metodologicos-01/</link><pubDate>Wed, 04 Feb 2026 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/rituales-metodologicos-01/</guid><description>&lt;p>&lt;em>Por Maicel Monzón&lt;/em>&lt;/p>
+&lt;h2 id="introducción">&lt;strong>Introducción&lt;/strong>&lt;/h2>
+&lt;p>En muchos protocolos de &lt;strong>ensayos no aleatorizados&lt;/strong> se incluyen poblaciones denominadas &lt;strong>Intención de Tratar (ITT)&lt;/strong>, &lt;strong>Por Protocolo (PP)&lt;/strong> y &lt;strong>Seguridad&lt;/strong>, replicando plantillas de ensayos controlados aleatorizados (RCT).&lt;/p>
+&lt;p>Este ritual examina &lt;strong>por qué esta práctica se produce por inercia&lt;/strong>, los riesgos que introduce y cómo definir análisis con sentido científico y regulatorio.&lt;/p>
+&lt;h2 id="mensaje-warning">Mensaje warning&lt;/h2>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-yellow-100 dark:bg-yellow-900">
+&lt;span class="pr-3 pt-1 text-red-400">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0zM12 15.75h.007v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;strong>Advertencia:&lt;/strong> en estudios no aleatorizados &lt;strong>no existe ITT ni PP clásico&lt;/strong>, porque no hay grupos definidos a priori mediante asignación aleatoria. Aplicar estas poblaciones mecánicamente &lt;strong>carece de fundamento metodológico&lt;/strong>. La población de análisis debe definirse exclusivamente según &lt;strong>criterios de exposición y elegibilidad&lt;/strong>, sin intentar replicar definiciones de ensayos controlados.&lt;/span>
+&lt;/div>
+&lt;p>&lt;strong>Ejemplo concreto:&lt;/strong>&lt;/p>
+&lt;blockquote>
+&lt;p>Si un estudio de un solo brazo evalúa un fármaco experimental y no hay aleatorización, no existe un grupo de comparación definido. Incluir un “ITT” como si hubiera aleatorización es como intentar repartir cartas que nunca se barajaron: no protege contra sesgos y genera falsa sensación de rigor.&lt;/p>&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="1-la-inercia-ritual">&lt;strong>1. La inercia ritual&lt;/strong>&lt;/h2>
+&lt;p>El uso de ITT/PP en estudios no aleatorizados suele obedecer a &lt;strong>costumbre o plantilla heredada&lt;/strong>:&lt;/p>
+&lt;ul>
+&lt;li>Se copian protocolos de RCT anteriores.&lt;/li>
+&lt;li>Se aplican términos sin evaluar si aportan información.&lt;/li>
+&lt;li>Se genera la ilusión de rigor metodológico sin valor inferencial.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Consecuencia:&lt;/strong> análisis confusos, riesgo de sesgos y observaciones regulatorias negativas.&lt;/p>
+&lt;hr>
+&lt;h2 id="2-por-qué-itt-no-se-aplica-sin-aleatorización">&lt;strong>2. Por qué ITT no se aplica sin aleatorización&lt;/strong>&lt;/h2>
+&lt;ol>
+&lt;li>ITT preserva el balance de covariables garantizado &lt;strong>solo por aleatorización&lt;/strong>.&lt;/li>
+&lt;li>Sin asignación aleatoria, &lt;strong>no existe grupo definido a priori&lt;/strong> para aplicar ITT o PP.&lt;/li>
+&lt;li>Cualquier intento de replicar estas poblaciones es &lt;strong>meramente simbólico&lt;/strong> y no protege contra sesgos de selección o abandono.&lt;/li>
+&lt;/ol>
+&lt;blockquote>
+&lt;p>En estudios no aleatorizados, &lt;strong>hablar de ITT o PP clásico es un ritual sin valor metodológico&lt;/strong>.&lt;/p>&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="3-poblaciones-con-sentido">&lt;strong>3. Poblaciones con sentido&lt;/strong>&lt;/h2>
+&lt;p>Aunque ITT/PP no aplican, se pueden definir poblaciones de análisis razonables y defendibles:&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Propósito&lt;/th>
+&lt;th>Población sugerida&lt;/th>
+&lt;th>Observaciones&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Eficacia&lt;/td>
+&lt;td>&lt;strong>Todos los sujetos que iniciaron tratamiento y tienen al menos una medición del endpoint primario&lt;/strong>&lt;/td>
+&lt;td>Permite análisis completo y evaluable; realizar análisis de sensibilidad para datos faltantes&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Seguridad&lt;/td>
+&lt;td>&lt;strong>Todos los sujetos expuestos al tratamiento&lt;/strong>&lt;/td>
+&lt;td>Documentar dosis y tiempo de exposición; permite seguimiento de eventos adversos&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Análisis exploratorio&lt;/td>
+&lt;td>Subgrupos predefinidos según criterios clínicos o de riesgo&lt;/td>
+&lt;td>Solo como análisis de sensibilidad, nunca como ITT/PP&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>&lt;strong>Notas regulatorias:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Justificar cada población en &lt;strong>SAP y protocolo&lt;/strong>.&lt;/li>
+&lt;li>Evitar usar términos ITT/PP sin aclarar que no se trata de ITT clásico.&lt;/li>
+&lt;li>Aplicar métodos de ajuste si se comparan con controles históricos: propensity scores, matching, weighting.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="4-por-qué-se-produce-la-confusión">&lt;strong>4. Por qué se produce la confusión&lt;/strong>&lt;/h2>
+&lt;ol>
+&lt;li>&lt;strong>Formación heredada:&lt;/strong> muchos cursos y manuales enseñan ITT/PP como paquete estándar.&lt;/li>
+&lt;li>&lt;strong>Plantillas de protocolo:&lt;/strong> promueven la aplicación mecánica de poblaciones sin evaluar pertinencia.&lt;/li>
+&lt;li>&lt;strong>Deseo de simplificar:&lt;/strong> aplicar ITT da sensación de rigor aunque carezca de fundamento.&lt;/li>
+&lt;li>&lt;strong>Reducción terminológica:&lt;/strong> términos como “Full Analysis Set” se usan fuera de contexto, generando falsa sensación de cumplimiento metodológico.&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h2 id="5-ritual-resumido-pasos-prácticos">&lt;strong>5. Ritual resumido: pasos prácticos&lt;/strong>&lt;/h2>
+&lt;ol>
+&lt;li>Reconocer que &lt;strong>sin aleatorización no existe ITT ni PP clásico&lt;/strong>.&lt;/li>
+&lt;li>Definir la población de análisis según &lt;strong>exposición y criterios de elegibilidad&lt;/strong>.&lt;/li>
+&lt;li>Documentar &lt;strong>eventos intercurrentes y datos faltantes&lt;/strong>.&lt;/li>
+&lt;li>Analizar subgrupos solo como exploratorio o sensibilidad.&lt;/li>
+&lt;li>Justificar cada decisión en &lt;strong>SAP y protocolo&lt;/strong>.&lt;/li>
+&lt;li>Si se utilizan controles históricos, aplicar métodos de ajuste robustos para minimizar sesgos.&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h2 id="6-conclusión">&lt;strong>6. Conclusión&lt;/strong>&lt;/h2>
+&lt;ul>
+&lt;li>La aplicación mecánica de ITT/PP en estudios no aleatorizados es &lt;strong>un ritual por inercia&lt;/strong>.&lt;/li>
+&lt;li>La validez no proviene de nombres de poblaciones, sino de &lt;strong>claridad conceptual, transparencia y definición adecuada de la población de análisis&lt;/strong>.&lt;/li>
+&lt;li>Adaptar las poblaciones al diseño real &lt;strong>reduce sesgos y facilita la aprobación regulatoria&lt;/strong>.&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>Reflexión final: “Cada población tiene un propósito. No todas las plantillas son sagradas. La ciencia avanza cuando se cuestionan los rituales.”&lt;/p>&lt;/blockquote>
+&lt;hr>
+&lt;p>&lt;strong>Referencias&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>ICH E9(R1): Estimands and Sensitivity Analysis in Clinical Trials&lt;/li>
+&lt;li>EMA Reflection Paper on Single-Arm Trials (2023)&lt;/li>
+&lt;li>FDA Guidance on Externally Controlled Trials (2023)&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="suscripción">Suscripción&lt;/h2>
+&lt;p>&lt;a href="https://bioestadisticaedu.com/subscribe/%7d">&lt;strong>Suscríbase a bioestadísticaedu&lt;/strong>&lt;/a>
+y reciba la serie completa sobre rituales metodológicos en ensayos clínicos.&lt;/p>
+&lt;div style="background-color: #f3f6f8; padding: 20px; border-radius: 10px; text-align: center; margin-top: 30px; border: 1px solid #e0e0e0;">
+&lt;p style="color: #000; font-weight: bold; margin-bottom: 15px;">¿Desea pensar más allá de los números?&lt;/p>
+&lt;a href="https://www.linkedin.com/newsletters/7415401669913706496/"
+target="_blank"
+style="background-color: #0077b5; color: white; padding: 10px 20px; text-decoration: none; border-radius: 25px; font-weight: bold; display: inline-block;">
+Suscribirse al Boletín en LinkedIn
+&lt;/a>
+&lt;/div></description></item><item><title>Rituales metodológicos en ensayos clínicos: cuando la técnica reemplaza al pensamiento</title><link>https://bioestadisticaedu.com/post/rituales-metodologicos-00/</link><pubDate>Tue, 03 Feb 2026 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/rituales-metodologicos-00/</guid><description>&lt;p>&lt;em>Por Maicel Monzón&lt;/em>&lt;/p>
+&lt;hr>
+&lt;h2 id="introducción-la-escena-del-ritual">Introducción: la escena del ritual&lt;/h2>
+&lt;p>Durante más de una década fui responsable del &lt;strong>análisis estadístico de ensayos clínicos en CENCEC&lt;/strong>, y desde hace aproximadamente tres años en el &lt;strong>CECMED&lt;/strong>. Esta experiencia abarca &lt;strong>todas las fases de los ensayos clínicos&lt;/strong>, desde la elaboración de protocolos hasta la evaluación de proyectos concluidos y reportes de análisis.&lt;/p>
+&lt;p>A lo largo de este recorrido, he observado que en cada etapa pueden surgir &lt;strong>decisiones técnicas que, aunque correctas formalmente, requieren reflexión crítica sobre su propósito&lt;/strong>. La serie que presentamos aborda lo que denominamos &lt;strong>rituales metodológicos&lt;/strong>: procedimientos ejecutados de manera sistemática que pueden priorizar la técnica sobre la interpretación de los resultados, afectando la alineación entre el diseño, la pregunta clínica y la inferencia estadística.&lt;/p>
+&lt;hr>
+&lt;h2 id="definición-conceptual">Definición conceptual&lt;/h2>
+&lt;p>En el contexto de ensayos clínicos y evaluación regulatoria:&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Ritual metodológico&lt;/strong>
+Procedimiento técnico realizado siguiendo normas o costumbres establecidas, &lt;strong>sin justificación explícita frente al fenómeno clínico que se pretende comprender&lt;/strong>.
+Este procedimiento puede cumplir reglas, generar documentos impecables, pero no necesariamente produce conocimiento veraz ni evidencia clínica útil.&lt;/p>&lt;/blockquote>
+&lt;p>Se distingue de un error: &lt;strong>es buena técnica aplicada sin pensamiento crítico&lt;/strong>, un automatismo formal.&lt;/p>
+&lt;hr>
+&lt;h2 id="relevancia">Relevancia&lt;/h2>
+&lt;p>Los rituales metodológicos generan consecuencias importantes:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Decisiones clínicas menos informadas&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>Riesgo de interpretación parcial o sesgada&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>Desperdicio de tiempo y recursos&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>Desconexión entre el diseño, la pregunta clínica y los resultados&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;p>Este fenómeno no implica negligencia, sino que &lt;strong>la técnica puede prevalecer sobre la reflexión sobre la evidencia&lt;/strong>.&lt;/p>
+&lt;hr>
+&lt;h2 id="atlas-de-rituales-metodológicos">Atlas de rituales metodológicos&lt;/h2>
+&lt;p>Esta serie documentará cada ritual con:&lt;/p>
+&lt;ul>
+&lt;li>Análisis conceptual&lt;/li>
+&lt;li>Riesgos inferenciales y clínicos&lt;/li>
+&lt;li>Excepciones legítimas&lt;/li>
+&lt;li>Ejemplos prácticos y simulaciones reproducibles&lt;/li>
+&lt;/ul>
+&lt;h3 id="rituales-de-diseño-y-análisis">Rituales de diseño y análisis&lt;/h3>
+&lt;p>&lt;strong>1. Poblaciones según intención de tratar en estudios no aleatorizados&lt;/strong>&lt;/p>
+&lt;p>&lt;a href="https://bioestadisticaedu.com/post/rituales-metodologicos-01/"> Aplicar esta población sin aleatorización genera un control que no refleja la causalidad (ver publicación).&lt;/a>&lt;/p>
+&lt;p>→ Ritual formal, desvinculado de la pregunta clínica.&lt;/p>
+&lt;p>&lt;strong>2. Aleatorización como garantía absoluta&lt;/strong>&lt;/p>
+&lt;p>Creer que la aleatorización equilibra automáticamente todas las características, incluso en muestras pequeñas o heterogéneas.&lt;/p>
+&lt;p>→ La aleatorización se convierte en un amuleto, no en instrumento de inferencia.&lt;/p>
+&lt;p>&lt;strong>3. Objetivos secundarios multiplicados&lt;/strong>&lt;/p>
+&lt;p>Multiplicidad de objetivos por inercia o hábito.&lt;/p>
+&lt;p>→ Aumenta la probabilidad de hallazgos azarosos y desvía la atención de la pregunta principal.&lt;/p>
+&lt;p>&lt;strong>4. Comparación con controles históricos sin ajuste&lt;/strong>&lt;/p>
+&lt;p>Uso de datos antiguos sin técnicas de control de sesgos.&lt;/p>
+&lt;p>→ Comparación susceptible a sesgos y errores de interpretación.&lt;/p>
+&lt;p>&lt;strong>5. Análisis intermedios predefinidos solo por rutina&lt;/strong>
+Realizar análisis intermedios sin reglas claras de detención.&lt;/p>
+&lt;p>→ Riesgo de sobrestimación de efectos y decisiones prematuras.&lt;/p>
+&lt;p>&lt;strong>6. Modelos complejos por disponibilidad de software&lt;/strong>
+Aplicar modelos porque el programa lo permite, sin evaluar adecuación.&lt;/p>
+&lt;p>→ Ajuste del ruido como si fuera señal.&lt;/p>
+&lt;p>&lt;strong>7. Ignorar la diferencia mínima clínicamente relevante&lt;/strong>&lt;/p>
+&lt;p>Focalizarse únicamente en significación estadística sin considerar relevancia clínica.&lt;/p>
+&lt;p>→ Resultados precisos pero clínicamente irrelevantes.&lt;/p>
+&lt;hr>
+&lt;h3 id="rituales-éticos-e-institucionales">Rituales éticos e institucionales&lt;/h3>
+&lt;p>&lt;strong>8. Uso de placebo sin justificación clínica&lt;/strong>&lt;/p>
+&lt;p>Administrar placebo cuando existe tratamiento activo, siguiendo normas formales.&lt;/p>
+&lt;p>→ Ética formal, no necesariamente alineada con el beneficio del paciente.&lt;/p>
+&lt;p>&lt;strong>9. Variables sustitutas no validadas&lt;/strong>&lt;/p>
+&lt;p>Aceptar biomarcadores como indicador de éxito sin evidencia de efecto clínico relevante.&lt;/p>
+&lt;p>→ Evidencia parcial, desvinculada de resultados significativos para el paciente.&lt;/p>
+&lt;p>&lt;strong>10. Interpretación de tendencias cerca del umbral de significación&lt;/strong>&lt;/p>
+&lt;p>Considerar valores próximos a 0,05 como evidencia de efecto.&lt;/p>
+&lt;p>→ Estadística como consuelo, no como respuesta válida.&lt;/p>
+&lt;p>&lt;strong>11. Enfoque administrativo de los comités de ética&lt;/strong>&lt;/p>
+&lt;p>Revisiones centradas en formatos y documentación más que en valor científico o impacto clínico.&lt;/p>
+&lt;p>→ Cumplimiento formal sin reflexión crítica.&lt;/p>
+&lt;hr>
+&lt;h2 id="marco-general-para-superar-los-rituales">Marco general para superar los rituales&lt;/h2>
+&lt;ol>
+&lt;li>&lt;strong>Definir primero qué se pretende estimar&lt;/strong> (según ICH E9(R1)).&lt;/li>
+&lt;li>&lt;strong>Justificar los métodos por contexto clínico y biológico&lt;/strong>.&lt;/li>
+&lt;li>&lt;strong>Explorar la sensibilidad&lt;/strong> y supuestos, no solo la significación.&lt;/li>
+&lt;li>&lt;strong>Documentar las decisiones&lt;/strong> y la distancia entre la pregunta clínica y su operacionalización.&lt;/li>
+&lt;li>&lt;strong>Integrar pensamiento clínico y estadístico&lt;/strong>, no solo cumplimiento de procedimientos.&lt;/li>
+&lt;/ol>
+&lt;blockquote>
+&lt;p>La estadística no se abandona; se reintegra a su propósito original: &lt;strong>informar decisiones clínicas y generar conocimiento veraz&lt;/strong>.&lt;/p>&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="conclusión">Conclusión&lt;/h2>
+&lt;p>Este post constituye &lt;strong>el mapa de la serie&lt;/strong>. Cada ritual será desarrollado en detalle en futuras entradas, con ejemplos, simulaciones y listas de verificación.
+La serie permitirá:&lt;/p>
+&lt;ul>
+&lt;li>Identificar rituales metodológicos&lt;/li>
+&lt;li>Evaluar riesgos inferenciales y clínicos&lt;/li>
+&lt;li>Alinear análisis con la pregunta clínica&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Reflexión final:&lt;/strong> la evidencia no se genera cumpliendo procedimientos; se construye pensando críticamente en cada decisión metodológica.&lt;/p>
+&lt;hr>
+&lt;h2 id="suscripción">Suscripción&lt;/h2>
+&lt;p>&lt;a href="https://bioestadisticaedu.com/subscribe/%7d">&lt;strong>Suscríbase a bioestadísticaedu&lt;/strong>&lt;/a>
+y reciba la serie completa sobre rituales metodológicos en ensayos clínicos.&lt;/p>
+&lt;div style="background-color: #f3f6f8; padding: 20px; border-radius: 10px; text-align: center; margin-top: 30px; border: 1px solid #e0e0e0;">
+&lt;p style="color: #000; font-weight: bold; margin-bottom: 15px;">¿Desea pensar más allá de los números?&lt;/p>
+&lt;a href="https://www.linkedin.com/newsletters/7415401669913706496/"
+target="_blank"
+style="background-color: #0077b5; color: white; padding: 10px 20px; text-decoration: none; border-radius: 25px; font-weight: bold; display: inline-block;">
+Suscribirse al Boletín en LinkedIn
+&lt;/a>
+&lt;/div>
+&lt;hr>
+&lt;h2 id="bibliografía">Bibliografía&lt;/h2>
+&lt;ul>
+&lt;li>Altman DG (1984). &lt;em>Statistical ritual in clinical journals: is there a cure?&lt;/em> BMJ. 288:841–843, 920–922.&lt;/li>
+&lt;li>Gigerenzer G (2018). &lt;em>Statistical Rituals: The Replication Delusion and How We Got There.&lt;/em> Advances in Methods and Practices in Psychological Science, 1(2):198–218.&lt;/li>
+&lt;li>ICH E9(R1). &lt;em>Addendum sobre estimandos y análisis de sensibilidad en ensayos clínicos.&lt;/em> 2019.&lt;/li>
+&lt;li>FDA. &lt;em>Múltiples objetivos en ensayos clínicos: guía para la industria.&lt;/em> 2017.&lt;/li>
+&lt;li>EMA. &lt;em>Guía sobre evaluación de productos medicinales.&lt;/em> 2012.&lt;/li>
+&lt;/ul>
+&lt;!-- ## **Versión LinkedIn – Español (revisada)** -->
+&lt;!-- **Post principal (carrusel o texto breve)** -->
+&lt;!-- > 🔍 **¿Cumples procedimientos o piensas críticamente?** -->
+&lt;!-- > -->
+&lt;!-- > En investigación clínica, un análisis impecable puede **no responder la pregunta correcta**. Esto es lo que llamamos **ritual estadístico**: ejecutar pasos técnicos sin cuestionar su sentido ni sus supuestos. -->
+&lt;!-- > -->
+&lt;!-- > Aprende a identificarlo, por qué los checklists no bastan y cómo recuperar el pensamiento crítico en bioestadística. -->
+&lt;!-- > -->
+&lt;!-- > 💡 Comparte tu experiencia: ¿has visto rituales estadísticos en tu campo? -->
+&lt;!-- **Primer comentario (con enlace al blog y llamada a la acción)** -->
+&lt;!-- > Lee el artículo completo y participa con tu ejemplo: -->
+&lt;!-- > [El ritual estadístico: Cuando cumplir el procedimiento reemplaza al pensamiento](https://bioestadisticaedu.com/post/er-02/) -->
+&lt;!-- > -->
+&lt;!-- > Para aportar, puedes usar este mini-formato y completar lo que puedas (sin datos sensibles): -->
+&lt;!-- > -->
+&lt;!-- > * Tipo de estudio / área terapéutica: ___ -->
+&lt;!-- > * Variable principal: ___ -->
+&lt;!-- > * Pregunta clínica (1 frase): ___ -->
+&lt;!-- > * Suposición crítica ignorada o endpoint cuestionable: ___ -->
+&lt;!-- > -->
+&lt;!-- > Responderé con **una sugerencia metodológica concreta**, para que entrenes tu pensamiento crítico en bioestadística. -->
+&lt;!-- --- --></description></item><item><title>El Frankenstein metodológico: desconexión inferencial entre fenómeno clínico y objetivos o hipótesis</title><link>https://bioestadisticaedu.com/post/er-02/</link><pubDate>Sun, 01 Feb 2026 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/er-02/</guid><description>&lt;p>&lt;em>Por Maicel Monzon&lt;/em>&lt;/p>
 &lt;h2 id="introducción">Introducción&lt;/h2>
 &lt;p>En un ensayo clínico, la pregunta clínica inicial suele surgir de un fenómeno observable: por ejemplo, &lt;strong>reducir exacerbaciones en EPOC&lt;/strong>, &lt;strong>prolongar la supervivencia en cáncer&lt;/strong> o &lt;strong>mejorar la calidad de vida tras un procedimiento&lt;/strong>.&lt;/p>
 &lt;p>El desafío surge cuando trasladamos esta pregunta clínica a &lt;strong>objetivos operativos y hipótesis estadísticas&lt;/strong>.&lt;/p>
@@ -374,7 +768,81 @@ target="_blank"
 style="background-color: #0077b5; color: white; padding: 10px 20px; text-decoration: none; border-radius: 25px; font-weight: bold; display: inline-block;">
 Suscribirse al Boletín en LinkedIn
 &lt;/a>
-&lt;/div></description></item><item><title>Los siete pecados capitales del protocolo y del Plan de Análisis Estadístico: confesiones de un regulador</title><link>https://bioestadisticaedu.com/post/siete-pecados-protocolos-clinicos/</link><pubDate>Sun, 09 Nov 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/siete-pecados-protocolos-clinicos/</guid><description>&lt;p>&lt;em>Por Maicel Monzon&lt;/em>&lt;/p>
+&lt;/div></description></item><item><title>VAR Científico: El arte de mover la portería</title><link>https://bioestadisticaedu.com/post/var-caso01/</link><pubDate>Fri, 12 Dec 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/var-caso01/</guid><description>&lt;p>&lt;em>Por Maicel Monzon&lt;/em>&lt;/p>
+&lt;p>En el fútbol, si el balón sale por la banda, no puedes mover la portería para que entre.
+En la literatura médica, a veces, los postes tienen ruedas.
+Bienvenidos al VAR Científico. Aquí revisamos el partido completo: comparamos lo que prometieron en el protocolo con lo que celebraron en el paper. Si hubo mano, fuera de juego o portería relocalizada, el monitor no miente.&lt;/p>
+&lt;h2 id="-la-promesa-inicial-clinicaltrialsgov--nct01324037">📋 La promesa inicial (ClinicalTrials.gov – NCT01324037)&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Objetivo principal:&lt;/strong> Reducción del consumo acumulado de morfina en las primeras 48 horas post-cirugía.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Regla:&lt;/strong> Portería fija en el centro del campo.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>⚽ El resultado publicado (Expert Opinion on Pharmacotherapy)&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Los datos hablaron:&lt;/strong> la morfina no bajó significativamente. Empate técnico en el mejor de los casos.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>La &amp;ldquo;jugada&amp;rdquo;:&lt;/strong> Declarar éxito basándose en la reducción del dolor en un punto temporal secundario y promocionarlo como el gol de la victoria en el abstract.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="-dictamen-del-var">🖥️ Dictamen del VAR&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Elemento&lt;/th>
+&lt;th>Protocolo Original&lt;/th>
+&lt;th>Paper Publicado&lt;/th>
+&lt;th>Dictamen VAR&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Portería (Objetivo)&lt;/td>
+&lt;td>Consumo morfina 48h&lt;/td>
+&lt;td>Dolor puntual&lt;/td>
+&lt;td>Movida 20 metros&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Resultado oficial&lt;/td>
+&lt;td>No significativo&lt;/td>
+&lt;td>(Silencio de radio)&lt;/td>
+&lt;td>Fuera de juego&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Gol celebrado&lt;/td>
+&lt;td>-&lt;/td>
+&lt;td>Variable secundaria&lt;/td>
+&lt;td>Anulado por el VAR&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Transparencia&lt;/td>
+&lt;td>Registro obligatorio&lt;/td>
+&lt;td>Cambio omitido&lt;/td>
+&lt;td>Tarjeta roja ética&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="-sentencia-final">⚖️ Sentencia Final&lt;/h2>
+&lt;p>Cuando el objetivo principal falla y un secundario olvidado se convierte en la estrella del estudio, no estamos ante un descubrimiento: estamos ante una redecoración del fracaso. Es el equivalente científico a que el árbitro corra con la portería a cuestas para cazar un balón que iba al córner y grite &amp;ldquo;¡Golazo!&amp;rdquo; mientras el linier mira hacia otro lado.&lt;/p>
+&lt;p>🧤 Lección de Juego Limpio&lt;/p>
+&lt;p>La próxima vez que leas sobre un &lt;strong>&amp;ldquo;avance revolucionario&amp;rdquo;&lt;/strong>, hazte una pregunta de vestuario: ¿Dónde estaba la portería al empezar el partido? Porque un gol marcado con portería móvil no cuenta en ninguna liga seria&amp;hellip; ni debería contar en tu prescripción.&lt;/p>
+&lt;p>&lt;strong>Próximamente en VAR Científico&lt;/strong>&lt;/p>
+&lt;p>Caso 2: El antidepresivo que se volvió analgésico estrella tras un oportuno cambio de banda.
+Fuentes:&lt;/p>
+&lt;ul>
+&lt;li>Registro: NCT01324037&lt;/li>
+&lt;li>Auditoría de Integridad: Proyecto COMPARE (University of Oxford).&lt;/li>
+&lt;/ul>
+&lt;!-- ¿Por qué esta versión es la "campeona"?-->
+&lt;!-- * Impacto inmediato: Eliminamos introducciones blandas.-->
+&lt;!-- * Visualidad: La tabla es el corazón del post. Se entiende de un vistazo, incluso para alguien que no sepa de fútbol, por el código de colores implícito (Goles vs Tarjetas).-->
+&lt;!-- * Networking: Citar a la EMA (Agencia Europea de Medicamentos) o a Oxford en tus comentarios de este post te pondrá en el radar de la gente que realmente toma decisiones en Europa.-->
+&lt;!-- ¿Te parece que con esto ya tenemos el "Balón de Oro" de los posts de bioestadística? Si es así, ¡estoy listo para cuando decidas lanzar el Caso #2!--></description></item><item><title>Los siete pecados capitales del protocolo y del Plan de Análisis Estadístico: confesiones de un regulador</title><link>https://bioestadisticaedu.com/post/siete-pecados-protocolos-clinicos/</link><pubDate>Sun, 09 Nov 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/siete-pecados-protocolos-clinicos/</guid><description>&lt;p>&lt;em>Por Maicel Monzon&lt;/em>&lt;/p>
 &lt;p>&lt;strong>¿Sabías que más de la mitad de los protocolos de ensayos clínicos requieren modificaciones antes de su aprobación debido a deficiencias metodológicas evitables?&lt;/strong>&lt;/p>
 &lt;p>Imagine la escena: tras &lt;strong>meses de trabajo meticuloso&lt;/strong>, el &lt;strong>protocolo&lt;/strong> de su &lt;strong>ensayo clínico regresa&lt;/strong> con una &lt;strong>solicitud de información adicional&lt;/strong> por parte de la autoridad reguladora, por lo que tendrás que hacer &lt;strong>modificaciones&lt;/strong> para someterlo a una nueva evaluación.&lt;/p>
 &lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
