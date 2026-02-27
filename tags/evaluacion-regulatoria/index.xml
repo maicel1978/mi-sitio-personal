@@ -1,4 +1,135 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Evaluacion-Regulatoria | Bioestadística edu</title><link>https://bioestadisticaedu.com/tags/evaluacion-regulatoria/</link><atom:link href="https://bioestadisticaedu.com/tags/evaluacion-regulatoria/index.xml" rel="self" type="application/rss+xml"/><description>Evaluacion-Regulatoria</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Fri, 13 Feb 2026 00:00:00 +0000</lastBuildDate><image><url>https://bioestadisticaedu.com/media/icon_hu_a91eea5f46a3944e.png</url><title>Evaluacion-Regulatoria</title><link>https://bioestadisticaedu.com/tags/evaluacion-regulatoria/</link></image><item><title>VAR Científico: Rescate ético y suicidio estadístico</title><link>https://bioestadisticaedu.com/post/var-caso02/</link><pubDate>Fri, 13 Feb 2026 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/var-caso02/</guid><description>&lt;p>&lt;em>Por Maicel Monzon&lt;/em>&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Evaluacion-Regulatoria | Bioestadística edu</title><link>https://bioestadisticaedu.com/tags/evaluacion-regulatoria/</link><atom:link href="https://bioestadisticaedu.com/tags/evaluacion-regulatoria/index.xml" rel="self" type="application/rss+xml"/><description>Evaluacion-Regulatoria</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Fri, 27 Feb 2026 00:00:00 +0000</lastBuildDate><image><url>https://bioestadisticaedu.com/media/icon_hu_a91eea5f46a3944e.png</url><title>Evaluacion-Regulatoria</title><link>https://bioestadisticaedu.com/tags/evaluacion-regulatoria/</link></image><item><title>Rituales metodológicos en ensayos clínicos: cuando la técnica reemplaza al pensamiento</title><link>https://bioestadisticaedu.com/post/rituales-metodologicos-00/</link><pubDate>Fri, 27 Feb 2026 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/rituales-metodologicos-00/</guid><description>&lt;p>&lt;em>Por Maicel Monzón&lt;/em>&lt;/p>
+&lt;hr>
+&lt;h2 id="introducción-la-escena-del-ritual">Introducción: la escena del ritual&lt;/h2>
+&lt;p>Durante más de una década fui responsable del &lt;strong>análisis estadístico de ensayos clínicos en CENCEC&lt;/strong>, y desde hace aproximadamente tres años en el &lt;strong>CECMED&lt;/strong>. Esta experiencia abarca &lt;strong>todas las fases de los ensayos clínicos&lt;/strong>, desde la elaboración de protocolos hasta la evaluación de proyectos concluidos y reportes de análisis.&lt;/p>
+&lt;p>A lo largo de este recorrido, he observado que en cada etapa pueden surgir &lt;strong>decisiones técnicas que, aunque correctas formalmente, requieren reflexión crítica sobre su propósito&lt;/strong>. La serie que presentamos aborda lo que denominamos &lt;strong>rituales metodológicos&lt;/strong>: procedimientos ejecutados de manera sistemática que pueden priorizar la técnica sobre la interpretación de los resultados, afectando la alineación entre el diseño, la pregunta clínica y la inferencia estadística.&lt;/p>
+&lt;hr>
+&lt;h2 id="definición-conceptual">Definición conceptual&lt;/h2>
+&lt;p>En el contexto de ensayos clínicos y evaluación regulatoria:&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Ritual metodológico&lt;/strong>
+Procedimiento técnico realizado siguiendo normas o costumbres establecidas, &lt;strong>sin justificación explícita frente al fenómeno clínico que se pretende comprender&lt;/strong>.
+Este procedimiento puede cumplir reglas, generar documentos impecables, pero no necesariamente produce conocimiento veraz ni evidencia clínica útil.&lt;/p>&lt;/blockquote>
+&lt;p>Se distingue de un error: &lt;strong>es buena técnica aplicada sin pensamiento crítico&lt;/strong>, un automatismo formal.&lt;/p>
+&lt;hr>
+&lt;h2 id="relevancia">Relevancia&lt;/h2>
+&lt;p>Los rituales metodológicos generan consecuencias importantes:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Decisiones clínicas menos informadas&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>Riesgo de interpretación parcial o sesgada&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>Desperdicio de tiempo y recursos&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>Desconexión entre el diseño, la pregunta clínica y los resultados&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;p>Este fenómeno no implica negligencia, sino que &lt;strong>la técnica puede prevalecer sobre la reflexión sobre la evidencia&lt;/strong>.&lt;/p>
+&lt;hr>
+&lt;h2 id="atlas-de-rituales-metodológicos">Atlas de rituales metodológicos&lt;/h2>
+&lt;p>Esta serie documentará cada ritual con:&lt;/p>
+&lt;ul>
+&lt;li>Análisis conceptual&lt;/li>
+&lt;li>Riesgos inferenciales y clínicos&lt;/li>
+&lt;li>Excepciones legítimas&lt;/li>
+&lt;li>Ejemplos prácticos y simulaciones reproducibles&lt;/li>
+&lt;/ul>
+&lt;h3 id="rituales-de-diseño-y-análisis">Rituales de diseño y análisis&lt;/h3>
+&lt;p>&lt;strong>1. Poblaciones según intención de tratar en estudios no aleatorizados&lt;/strong>&lt;/p>
+&lt;p>&lt;a href="https://bioestadisticaedu.com/post/rituales-metodologicos-01/"> Aplicar esta población sin aleatorización genera un control que no refleja la causalidad (ver publicación).&lt;/a>&lt;/p>
+&lt;p>→ Ritual formal, desvinculado de la pregunta clínica.&lt;/p>
+&lt;p>&lt;strong>2. Aleatorización como garantía absoluta&lt;/strong>&lt;/p>
+&lt;p>Creer que la aleatorización equilibra automáticamente todas las características, incluso en muestras pequeñas o heterogéneas.&lt;/p>
+&lt;p>→ La aleatorización se convierte en un amuleto, no en instrumento de inferencia.&lt;/p>
+&lt;p>&lt;strong>3. Objetivos secundarios multiplicados&lt;/strong>&lt;/p>
+&lt;p>Multiplicidad de objetivos por inercia o hábito.&lt;/p>
+&lt;p>→ Aumenta la probabilidad de hallazgos azarosos y desvía la atención de la pregunta principal.&lt;/p>
+&lt;p>&lt;strong>4. Comparación con controles históricos sin ajuste&lt;/strong>&lt;/p>
+&lt;p>Uso de datos antiguos sin técnicas de control de sesgos.&lt;/p>
+&lt;p>→ Comparación susceptible a sesgos y errores de interpretación.&lt;/p>
+&lt;p>&lt;strong>5. Análisis intermedios predefinidos solo por rutina&lt;/strong>
+Realizar análisis intermedios sin reglas claras de detención.&lt;/p>
+&lt;p>→ Riesgo de sobrestimación de efectos y decisiones prematuras.&lt;/p>
+&lt;p>&lt;strong>6. Modelos complejos por disponibilidad de software&lt;/strong>
+Aplicar modelos porque el programa lo permite, sin evaluar adecuación.&lt;/p>
+&lt;p>→ Ajuste del ruido como si fuera señal.&lt;/p>
+&lt;p>&lt;strong>7. Ignorar la diferencia mínima clínicamente relevante&lt;/strong>&lt;/p>
+&lt;p>Focalizarse únicamente en significación estadística sin considerar relevancia clínica.&lt;/p>
+&lt;p>→ Resultados precisos pero clínicamente irrelevantes.&lt;/p>
+&lt;hr>
+&lt;h3 id="rituales-éticos-e-institucionales">Rituales éticos e institucionales&lt;/h3>
+&lt;p>&lt;strong>8. Uso de placebo sin justificación clínica&lt;/strong>&lt;/p>
+&lt;p>Administrar placebo cuando existe tratamiento activo, siguiendo normas formales.&lt;/p>
+&lt;p>→ Ética formal, no necesariamente alineada con el beneficio del paciente.&lt;/p>
+&lt;p>&lt;strong>9. Variables sustitutas no validadas&lt;/strong>&lt;/p>
+&lt;p>Aceptar biomarcadores como indicador de éxito sin evidencia de efecto clínico relevante.&lt;/p>
+&lt;p>→ Evidencia parcial, desvinculada de resultados significativos para el paciente.&lt;/p>
+&lt;p>&lt;strong>10. Interpretación de tendencias cerca del umbral de significación&lt;/strong>&lt;/p>
+&lt;p>Considerar valores próximos a 0,05 como evidencia de efecto.&lt;/p>
+&lt;p>→ Estadística como consuelo, no como respuesta válida.&lt;/p>
+&lt;p>&lt;strong>11. Enfoque administrativo de los comités de ética&lt;/strong>&lt;/p>
+&lt;p>Revisiones centradas en formatos y documentación más que en valor científico o impacto clínico.&lt;/p>
+&lt;p>→ Cumplimiento formal sin reflexión crítica.&lt;/p>
+&lt;hr>
+&lt;h2 id="marco-general-para-superar-los-rituales">Marco general para superar los rituales&lt;/h2>
+&lt;ol>
+&lt;li>&lt;strong>Definir primero qué se pretende estimar&lt;/strong> (según ICH E9(R1)).&lt;/li>
+&lt;li>&lt;strong>Justificar los métodos por contexto clínico y biológico&lt;/strong>.&lt;/li>
+&lt;li>&lt;strong>Explorar la sensibilidad&lt;/strong> y supuestos, no solo la significación.&lt;/li>
+&lt;li>&lt;strong>Documentar las decisiones&lt;/strong> y la distancia entre la pregunta clínica y su operacionalización.&lt;/li>
+&lt;li>&lt;strong>Integrar pensamiento clínico y estadístico&lt;/strong>, no solo cumplimiento de procedimientos.&lt;/li>
+&lt;/ol>
+&lt;blockquote>
+&lt;p>La estadística no se abandona; se reintegra a su propósito original: &lt;strong>informar decisiones clínicas y generar conocimiento veraz&lt;/strong>.&lt;/p>&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="conclusión">Conclusión&lt;/h2>
+&lt;p>Este post constituye &lt;strong>el mapa de la serie&lt;/strong>. Cada ritual será desarrollado en detalle en futuras entradas, con ejemplos, simulaciones y listas de verificación.
+La serie permitirá:&lt;/p>
+&lt;ul>
+&lt;li>Identificar rituales metodológicos&lt;/li>
+&lt;li>Evaluar riesgos inferenciales y clínicos&lt;/li>
+&lt;li>Alinear análisis con la pregunta clínica&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Reflexión final:&lt;/strong> la evidencia no se genera cumpliendo procedimientos; se construye pensando críticamente en cada decisión metodológica.&lt;/p>
+&lt;hr>
+&lt;h2 id="suscripción">Suscripción&lt;/h2>
+&lt;p>&lt;a href="https://bioestadisticaedu.com/subscribe/%7d">&lt;strong>Suscríbase a bioestadísticaedu&lt;/strong>&lt;/a>
+y reciba la serie completa sobre rituales metodológicos en ensayos clínicos.&lt;/p>
+&lt;div style="background-color: #f3f6f8; padding: 20px; border-radius: 10px; text-align: center; margin-top: 30px; border: 1px solid #e0e0e0;">
+&lt;p style="color: #000; font-weight: bold; margin-bottom: 15px;">¿Desea pensar más allá de los números?&lt;/p>
+&lt;a href="https://www.linkedin.com/newsletters/7415401669913706496/"
+target="_blank"
+style="background-color: #0077b5; color: white; padding: 10px 20px; text-decoration: none; border-radius: 25px; font-weight: bold; display: inline-block;">
+Suscribirse al Boletín en LinkedIn
+&lt;/a>
+&lt;/div>
+&lt;hr>
+&lt;h2 id="bibliografía">Bibliografía&lt;/h2>
+&lt;ul>
+&lt;li>Altman DG (1984). &lt;em>Statistical ritual in clinical journals: is there a cure?&lt;/em> BMJ. 288:841–843, 920–922.&lt;/li>
+&lt;li>Gigerenzer G (2018). &lt;em>Statistical Rituals: The Replication Delusion and How We Got There.&lt;/em> Advances in Methods and Practices in Psychological Science, 1(2):198–218.&lt;/li>
+&lt;li>ICH E9(R1). &lt;em>Addendum sobre estimandos y análisis de sensibilidad en ensayos clínicos.&lt;/em> 2019.&lt;/li>
+&lt;li>FDA. &lt;em>Múltiples objetivos en ensayos clínicos: guía para la industria.&lt;/em> 2017.&lt;/li>
+&lt;li>EMA. &lt;em>Guía sobre evaluación de productos medicinales.&lt;/em> 2012.&lt;/li>
+&lt;/ul>
+&lt;!-- ## **Versión LinkedIn – Español (revisada)** -->
+&lt;!-- **Post principal (carrusel o texto breve)** -->
+&lt;!-- > 🔍 **¿Cumples procedimientos o piensas críticamente?** -->
+&lt;!-- > -->
+&lt;!-- > En investigación clínica, un análisis impecable puede **no responder la pregunta correcta**. Esto es lo que llamamos **ritual estadístico**: ejecutar pasos técnicos sin cuestionar su sentido ni sus supuestos. -->
+&lt;!-- > -->
+&lt;!-- > Aprende a identificarlo, por qué los checklists no bastan y cómo recuperar el pensamiento crítico en bioestadística. -->
+&lt;!-- > -->
+&lt;!-- > 💡 Comparte tu experiencia: ¿has visto rituales estadísticos en tu campo? -->
+&lt;!-- **Primer comentario (con enlace al blog y llamada a la acción)** -->
+&lt;!-- > Lee el artículo completo y participa con tu ejemplo: -->
+&lt;!-- > [El ritual estadístico: Cuando cumplir el procedimiento reemplaza al pensamiento](https://bioestadisticaedu.com/post/er-02/) -->
+&lt;!-- > -->
+&lt;!-- > Para aportar, puedes usar este mini-formato y completar lo que puedas (sin datos sensibles): -->
+&lt;!-- > -->
+&lt;!-- > * Tipo de estudio / área terapéutica: ___ -->
+&lt;!-- > * Variable principal: ___ -->
+&lt;!-- > * Pregunta clínica (1 frase): ___ -->
+&lt;!-- > * Suposición crítica ignorada o endpoint cuestionable: ___ -->
+&lt;!-- > -->
+&lt;!-- > Responderé con **una sugerencia metodológica concreta**, para que entrenes tu pensamiento crítico en bioestadística. -->
+&lt;!-- --- --></description></item><item><title>VAR Científico: Rescate ético y suicidio estadístico</title><link>https://bioestadisticaedu.com/post/var-caso02/</link><pubDate>Fri, 13 Feb 2026 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/var-caso02/</guid><description>&lt;p>&lt;em>Por Maicel Monzon&lt;/em>&lt;/p>
 &lt;blockquote>
 &lt;p>&lt;em>Cualquier parecido con la realidad es pura coincidencia.&lt;br>
 Aunque, curiosamente, estas coincidencias suelen tener protocolo aprobado.&lt;/em>&lt;/p>&lt;/blockquote>
@@ -260,138 +391,7 @@ target="_blank"
 style="background-color: #0077b5; color: white; padding: 10px 20px; text-decoration: none; border-radius: 25px; font-weight: bold; display: inline-block;">
 Suscribirse al Boletín en LinkedIn
 &lt;/a>
-&lt;/div></description></item><item><title>Rituales metodológicos en ensayos clínicos: cuando la técnica reemplaza al pensamiento</title><link>https://bioestadisticaedu.com/post/rituales-metodologicos-00/</link><pubDate>Tue, 03 Feb 2026 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/rituales-metodologicos-00/</guid><description>&lt;p>&lt;em>Por Maicel Monzón&lt;/em>&lt;/p>
-&lt;hr>
-&lt;h2 id="introducción-la-escena-del-ritual">Introducción: la escena del ritual&lt;/h2>
-&lt;p>Durante más de una década fui responsable del &lt;strong>análisis estadístico de ensayos clínicos en CENCEC&lt;/strong>, y desde hace aproximadamente tres años en el &lt;strong>CECMED&lt;/strong>. Esta experiencia abarca &lt;strong>todas las fases de los ensayos clínicos&lt;/strong>, desde la elaboración de protocolos hasta la evaluación de proyectos concluidos y reportes de análisis.&lt;/p>
-&lt;p>A lo largo de este recorrido, he observado que en cada etapa pueden surgir &lt;strong>decisiones técnicas que, aunque correctas formalmente, requieren reflexión crítica sobre su propósito&lt;/strong>. La serie que presentamos aborda lo que denominamos &lt;strong>rituales metodológicos&lt;/strong>: procedimientos ejecutados de manera sistemática que pueden priorizar la técnica sobre la interpretación de los resultados, afectando la alineación entre el diseño, la pregunta clínica y la inferencia estadística.&lt;/p>
-&lt;hr>
-&lt;h2 id="definición-conceptual">Definición conceptual&lt;/h2>
-&lt;p>En el contexto de ensayos clínicos y evaluación regulatoria:&lt;/p>
-&lt;blockquote>
-&lt;p>&lt;strong>Ritual metodológico&lt;/strong>
-Procedimiento técnico realizado siguiendo normas o costumbres establecidas, &lt;strong>sin justificación explícita frente al fenómeno clínico que se pretende comprender&lt;/strong>.
-Este procedimiento puede cumplir reglas, generar documentos impecables, pero no necesariamente produce conocimiento veraz ni evidencia clínica útil.&lt;/p>&lt;/blockquote>
-&lt;p>Se distingue de un error: &lt;strong>es buena técnica aplicada sin pensamiento crítico&lt;/strong>, un automatismo formal.&lt;/p>
-&lt;hr>
-&lt;h2 id="relevancia">Relevancia&lt;/h2>
-&lt;p>Los rituales metodológicos generan consecuencias importantes:&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>Decisiones clínicas menos informadas&lt;/strong>&lt;/li>
-&lt;li>&lt;strong>Riesgo de interpretación parcial o sesgada&lt;/strong>&lt;/li>
-&lt;li>&lt;strong>Desperdicio de tiempo y recursos&lt;/strong>&lt;/li>
-&lt;li>&lt;strong>Desconexión entre el diseño, la pregunta clínica y los resultados&lt;/strong>&lt;/li>
-&lt;/ul>
-&lt;p>Este fenómeno no implica negligencia, sino que &lt;strong>la técnica puede prevalecer sobre la reflexión sobre la evidencia&lt;/strong>.&lt;/p>
-&lt;hr>
-&lt;h2 id="atlas-de-rituales-metodológicos">Atlas de rituales metodológicos&lt;/h2>
-&lt;p>Esta serie documentará cada ritual con:&lt;/p>
-&lt;ul>
-&lt;li>Análisis conceptual&lt;/li>
-&lt;li>Riesgos inferenciales y clínicos&lt;/li>
-&lt;li>Excepciones legítimas&lt;/li>
-&lt;li>Ejemplos prácticos y simulaciones reproducibles&lt;/li>
-&lt;/ul>
-&lt;h3 id="rituales-de-diseño-y-análisis">Rituales de diseño y análisis&lt;/h3>
-&lt;p>&lt;strong>1. Poblaciones según intención de tratar en estudios no aleatorizados&lt;/strong>&lt;/p>
-&lt;p>&lt;a href="https://bioestadisticaedu.com/post/rituales-metodologicos-01/"> Aplicar esta población sin aleatorización genera un control que no refleja la causalidad (ver publicación).&lt;/a>&lt;/p>
-&lt;p>→ Ritual formal, desvinculado de la pregunta clínica.&lt;/p>
-&lt;p>&lt;strong>2. Aleatorización como garantía absoluta&lt;/strong>&lt;/p>
-&lt;p>Creer que la aleatorización equilibra automáticamente todas las características, incluso en muestras pequeñas o heterogéneas.&lt;/p>
-&lt;p>→ La aleatorización se convierte en un amuleto, no en instrumento de inferencia.&lt;/p>
-&lt;p>&lt;strong>3. Objetivos secundarios multiplicados&lt;/strong>&lt;/p>
-&lt;p>Multiplicidad de objetivos por inercia o hábito.&lt;/p>
-&lt;p>→ Aumenta la probabilidad de hallazgos azarosos y desvía la atención de la pregunta principal.&lt;/p>
-&lt;p>&lt;strong>4. Comparación con controles históricos sin ajuste&lt;/strong>&lt;/p>
-&lt;p>Uso de datos antiguos sin técnicas de control de sesgos.&lt;/p>
-&lt;p>→ Comparación susceptible a sesgos y errores de interpretación.&lt;/p>
-&lt;p>&lt;strong>5. Análisis intermedios predefinidos solo por rutina&lt;/strong>
-Realizar análisis intermedios sin reglas claras de detención.&lt;/p>
-&lt;p>→ Riesgo de sobrestimación de efectos y decisiones prematuras.&lt;/p>
-&lt;p>&lt;strong>6. Modelos complejos por disponibilidad de software&lt;/strong>
-Aplicar modelos porque el programa lo permite, sin evaluar adecuación.&lt;/p>
-&lt;p>→ Ajuste del ruido como si fuera señal.&lt;/p>
-&lt;p>&lt;strong>7. Ignorar la diferencia mínima clínicamente relevante&lt;/strong>&lt;/p>
-&lt;p>Focalizarse únicamente en significación estadística sin considerar relevancia clínica.&lt;/p>
-&lt;p>→ Resultados precisos pero clínicamente irrelevantes.&lt;/p>
-&lt;hr>
-&lt;h3 id="rituales-éticos-e-institucionales">Rituales éticos e institucionales&lt;/h3>
-&lt;p>&lt;strong>8. Uso de placebo sin justificación clínica&lt;/strong>&lt;/p>
-&lt;p>Administrar placebo cuando existe tratamiento activo, siguiendo normas formales.&lt;/p>
-&lt;p>→ Ética formal, no necesariamente alineada con el beneficio del paciente.&lt;/p>
-&lt;p>&lt;strong>9. Variables sustitutas no validadas&lt;/strong>&lt;/p>
-&lt;p>Aceptar biomarcadores como indicador de éxito sin evidencia de efecto clínico relevante.&lt;/p>
-&lt;p>→ Evidencia parcial, desvinculada de resultados significativos para el paciente.&lt;/p>
-&lt;p>&lt;strong>10. Interpretación de tendencias cerca del umbral de significación&lt;/strong>&lt;/p>
-&lt;p>Considerar valores próximos a 0,05 como evidencia de efecto.&lt;/p>
-&lt;p>→ Estadística como consuelo, no como respuesta válida.&lt;/p>
-&lt;p>&lt;strong>11. Enfoque administrativo de los comités de ética&lt;/strong>&lt;/p>
-&lt;p>Revisiones centradas en formatos y documentación más que en valor científico o impacto clínico.&lt;/p>
-&lt;p>→ Cumplimiento formal sin reflexión crítica.&lt;/p>
-&lt;hr>
-&lt;h2 id="marco-general-para-superar-los-rituales">Marco general para superar los rituales&lt;/h2>
-&lt;ol>
-&lt;li>&lt;strong>Definir primero qué se pretende estimar&lt;/strong> (según ICH E9(R1)).&lt;/li>
-&lt;li>&lt;strong>Justificar los métodos por contexto clínico y biológico&lt;/strong>.&lt;/li>
-&lt;li>&lt;strong>Explorar la sensibilidad&lt;/strong> y supuestos, no solo la significación.&lt;/li>
-&lt;li>&lt;strong>Documentar las decisiones&lt;/strong> y la distancia entre la pregunta clínica y su operacionalización.&lt;/li>
-&lt;li>&lt;strong>Integrar pensamiento clínico y estadístico&lt;/strong>, no solo cumplimiento de procedimientos.&lt;/li>
-&lt;/ol>
-&lt;blockquote>
-&lt;p>La estadística no se abandona; se reintegra a su propósito original: &lt;strong>informar decisiones clínicas y generar conocimiento veraz&lt;/strong>.&lt;/p>&lt;/blockquote>
-&lt;hr>
-&lt;h2 id="conclusión">Conclusión&lt;/h2>
-&lt;p>Este post constituye &lt;strong>el mapa de la serie&lt;/strong>. Cada ritual será desarrollado en detalle en futuras entradas, con ejemplos, simulaciones y listas de verificación.
-La serie permitirá:&lt;/p>
-&lt;ul>
-&lt;li>Identificar rituales metodológicos&lt;/li>
-&lt;li>Evaluar riesgos inferenciales y clínicos&lt;/li>
-&lt;li>Alinear análisis con la pregunta clínica&lt;/li>
-&lt;/ul>
-&lt;p>&lt;strong>Reflexión final:&lt;/strong> la evidencia no se genera cumpliendo procedimientos; se construye pensando críticamente en cada decisión metodológica.&lt;/p>
-&lt;hr>
-&lt;h2 id="suscripción">Suscripción&lt;/h2>
-&lt;p>&lt;a href="https://bioestadisticaedu.com/subscribe/%7d">&lt;strong>Suscríbase a bioestadísticaedu&lt;/strong>&lt;/a>
-y reciba la serie completa sobre rituales metodológicos en ensayos clínicos.&lt;/p>
-&lt;div style="background-color: #f3f6f8; padding: 20px; border-radius: 10px; text-align: center; margin-top: 30px; border: 1px solid #e0e0e0;">
-&lt;p style="color: #000; font-weight: bold; margin-bottom: 15px;">¿Desea pensar más allá de los números?&lt;/p>
-&lt;a href="https://www.linkedin.com/newsletters/7415401669913706496/"
-target="_blank"
-style="background-color: #0077b5; color: white; padding: 10px 20px; text-decoration: none; border-radius: 25px; font-weight: bold; display: inline-block;">
-Suscribirse al Boletín en LinkedIn
-&lt;/a>
-&lt;/div>
-&lt;hr>
-&lt;h2 id="bibliografía">Bibliografía&lt;/h2>
-&lt;ul>
-&lt;li>Altman DG (1984). &lt;em>Statistical ritual in clinical journals: is there a cure?&lt;/em> BMJ. 288:841–843, 920–922.&lt;/li>
-&lt;li>Gigerenzer G (2018). &lt;em>Statistical Rituals: The Replication Delusion and How We Got There.&lt;/em> Advances in Methods and Practices in Psychological Science, 1(2):198–218.&lt;/li>
-&lt;li>ICH E9(R1). &lt;em>Addendum sobre estimandos y análisis de sensibilidad en ensayos clínicos.&lt;/em> 2019.&lt;/li>
-&lt;li>FDA. &lt;em>Múltiples objetivos en ensayos clínicos: guía para la industria.&lt;/em> 2017.&lt;/li>
-&lt;li>EMA. &lt;em>Guía sobre evaluación de productos medicinales.&lt;/em> 2012.&lt;/li>
-&lt;/ul>
-&lt;!-- ## **Versión LinkedIn – Español (revisada)** -->
-&lt;!-- **Post principal (carrusel o texto breve)** -->
-&lt;!-- > 🔍 **¿Cumples procedimientos o piensas críticamente?** -->
-&lt;!-- > -->
-&lt;!-- > En investigación clínica, un análisis impecable puede **no responder la pregunta correcta**. Esto es lo que llamamos **ritual estadístico**: ejecutar pasos técnicos sin cuestionar su sentido ni sus supuestos. -->
-&lt;!-- > -->
-&lt;!-- > Aprende a identificarlo, por qué los checklists no bastan y cómo recuperar el pensamiento crítico en bioestadística. -->
-&lt;!-- > -->
-&lt;!-- > 💡 Comparte tu experiencia: ¿has visto rituales estadísticos en tu campo? -->
-&lt;!-- **Primer comentario (con enlace al blog y llamada a la acción)** -->
-&lt;!-- > Lee el artículo completo y participa con tu ejemplo: -->
-&lt;!-- > [El ritual estadístico: Cuando cumplir el procedimiento reemplaza al pensamiento](https://bioestadisticaedu.com/post/er-02/) -->
-&lt;!-- > -->
-&lt;!-- > Para aportar, puedes usar este mini-formato y completar lo que puedas (sin datos sensibles): -->
-&lt;!-- > -->
-&lt;!-- > * Tipo de estudio / área terapéutica: ___ -->
-&lt;!-- > * Variable principal: ___ -->
-&lt;!-- > * Pregunta clínica (1 frase): ___ -->
-&lt;!-- > * Suposición crítica ignorada o endpoint cuestionable: ___ -->
-&lt;!-- > -->
-&lt;!-- > Responderé con **una sugerencia metodológica concreta**, para que entrenes tu pensamiento crítico en bioestadística. -->
-&lt;!-- --- --></description></item><item><title>El Frankenstein metodológico: desconexión inferencial entre fenómeno clínico y objetivos o hipótesis</title><link>https://bioestadisticaedu.com/post/er-02/</link><pubDate>Sun, 01 Feb 2026 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/er-02/</guid><description>&lt;p>&lt;em>Por Maicel Monzon&lt;/em>&lt;/p>
+&lt;/div></description></item><item><title>El Frankenstein metodológico: desconexión inferencial entre fenómeno clínico y objetivos o hipótesis</title><link>https://bioestadisticaedu.com/post/er-02/</link><pubDate>Sun, 01 Feb 2026 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/er-02/</guid><description>&lt;p>&lt;em>Por Maicel Monzon&lt;/em>&lt;/p>
 &lt;h2 id="introducción">Introducción&lt;/h2>
 &lt;p>En un ensayo clínico, la pregunta clínica inicial suele surgir de un fenómeno observable: por ejemplo, &lt;strong>reducir exacerbaciones en EPOC&lt;/strong>, &lt;strong>prolongar la supervivencia en cáncer&lt;/strong> o &lt;strong>mejorar la calidad de vida tras un procedimiento&lt;/strong>.&lt;/p>
 &lt;p>El desafío surge cuando trasladamos esta pregunta clínica a &lt;strong>objetivos operativos y hipótesis estadísticas&lt;/strong>.&lt;/p>
@@ -1270,4 +1270,182 @@ sigue mi canal de telegram&lt;/a>. Al suscribirte, te enviaré inmediatamente el
 &lt;li>Vignot S, Dhanani A, Sainte-Marie I, De Ligniville Lajavardi L, Even G, Echemann M, et al. Authorization of COVID-19 clinical trials: lessons from 2 years of experience of a national competent authority. Front Pharmacol [Internet]. 15 de agosto de 2022 [citado 7 de noviembre de 2025];13:972660. Disponible en: &lt;a href="https://www.frontiersin.org/articles/10.3389/fphar.2022.972660/full" target="_blank" rel="noopener">https://www.frontiersin.org/articles/10.3389/fphar.2022.972660/full&lt;/a>&lt;/li>
 &lt;li>Getz K, Smith Z, Botto E, Murphy E, Dauchy A. New Benchmarks on Protocol Amendment Practices, Trends and their Impact on Clinical Trial Performance [Internet]. In Review; 2023 [citado 7 de noviembre de 2025]. Disponible en: &lt;a href="https://www.researchsquare.com/article/rs-3168679/v1" target="_blank" rel="noopener">https://www.researchsquare.com/article/rs-3168679/v1&lt;/a>&lt;/li>
 &lt;li>Kahan BC, Ahmad T, Forbes G, Cro S. Public availability and adherence to prespecified statistical analysis approaches was low in published randomized trials. Journal of Clinical Epidemiology [Internet]. diciembre de 2020 [citado 7 de noviembre de 2025];128:29-34. Disponible en: &lt;a href="https://linkinghub.elsevier.com/retrieve/pii/S0895435620301979" target="_blank" rel="noopener">https://linkinghub.elsevier.com/retrieve/pii/S0895435620301979&lt;/a>&lt;/li>
+&lt;/ol></description></item><item><title>Diseños Alternativos a Ensayos Clínicos Controlados Aleatorizados: Contextos de Aplicación y Riesgos Regulatorios</title><link>https://bioestadisticaedu.com/post/atajos/</link><pubDate>Thu, 07 Aug 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/atajos/</guid><description>&lt;p>&lt;em>Por Maicel Monzon&lt;/em>&lt;/p>
+&lt;h2 id="introducción">Introducción&lt;/h2>
+&lt;p>Los ensayos clínicos controlados, aleatorizados y enmascarados (ECAs) constituyen el marco metodológico más robusto para evaluar la &lt;strong>eficacia y seguridad&lt;/strong> de nuevas intervenciones terapéuticas. Son considerados el &amp;ldquo;estándar de oro&amp;rdquo; en investigación clínica por agencias como &lt;strong>ICH, EMA y FDA&lt;/strong>, ya que proporcionan el mayor control contra el sesgo y la mayor solidez en inferencia causal.&lt;/p>
+&lt;p>En este marco, los &lt;strong>ensayos confirmatorios&lt;/strong> son aquellos diseñados explícitamente para confirmar hipótesis clínicas relevantes, con base en análisis predefinidos y control adecuado de errores. Cuando estos estudios sustentan una solicitud de comercialización, adquieren la condición de &lt;strong>ensayos pivotal&lt;/strong> (terminología empleada por FDA y EMA).&lt;/p>
+&lt;p>En principio, se recomienda la presentación de &lt;strong>dos ensayos confirmatorios independientes&lt;/strong>. Sin embargo, &lt;strong>tanto EMA como FDA&lt;/strong> contemplan aprobaciones basadas en &lt;strong>un único ensayo pivotal&lt;/strong>, siempre que esté respaldado por &lt;strong>evidencia complementaria rigurosa&lt;/strong>. La &lt;strong>FDA&lt;/strong>, mediante el concepto de &lt;strong>evidencia confirmatoria&lt;/strong> (FDA 2023), formaliza esta vía alternativa. La &lt;strong>EMA&lt;/strong>, aunque no utiliza esa denominación, acepta enfoques equivalentes (meta-análisis, controles históricos validados, análisis de consistencia interna).&lt;/p>
+&lt;h2 id="tabla-1-términos-clave-definición-origen-normativo-y-función-regulatoria">Tabla 1. Términos clave: definición, origen normativo y función regulatoria&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>&lt;strong>Término&lt;/strong>&lt;/th>
+&lt;th>&lt;strong>Fuente regulatoria&lt;/strong>&lt;/th>
+&lt;th>&lt;strong>Definición técnica&lt;/strong>&lt;/th>
+&lt;th>&lt;strong>Función regulatoria&lt;/strong>&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;strong>Ensayo clínico confirmatorio&lt;/strong>&lt;/td>
+&lt;td>ICH E9&lt;/td>
+&lt;td>Estudio con hipótesis explícita, análisis planificado y diseño robusto para inferencia causal.&lt;/td>
+&lt;td>Fuente principal de evidencia en autorizaciones de comercialización.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Ensayo pivotal&lt;/strong>&lt;/td>
+&lt;td>FDA, EMA&lt;/td>
+&lt;td>Estudio esencial para demostrar eficacia y seguridad en el expediente regulatorio.&lt;/td>
+&lt;td>Sustento central del dossier clínico.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Evidencia confirmatoria&lt;/strong>&lt;/td>
+&lt;td>FDA (2023)&lt;/td>
+&lt;td>Datos adicionales (clínicos/no clínicos) que refuerzan un ensayo pivotal único.&lt;/td>
+&lt;td>Permite cumplir el estándar de &amp;ldquo;evidencia sustancial&amp;rdquo; con un solo ECA.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Evidencia sustancial&lt;/strong>&lt;/td>
+&lt;td>FDA (21 CFR 314.126)&lt;/td>
+&lt;td>Estándar legal que puede cumplirse mediante 2 ECAs o, cuando esté justificado, 1 ECA + confirmación.&lt;/td>
+&lt;td>Requisito para la aprobación de nuevos medicamentos en EE.UU.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Evidencia complementaria&lt;/strong>&lt;/td>
+&lt;td>ICH E9; EMA, FDA&lt;/td>
+&lt;td>Estudios no pivotal que aportan consistencia (ej. subgrupos, dosis, seguridad, datos externos).&lt;/td>
+&lt;td>Reforzar la plausibilidad de los hallazgos principales.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h1 id="estructura-metodológica-de-los-ecas-y-su-anclaje-normativo">Estructura metodológica de los ECAs y su anclaje normativo&lt;/h1>
+&lt;p>Los ECAs incorporan tres garantías fundamentales: &lt;strong>aleatorización&lt;/strong>, &lt;strong>grupo control&lt;/strong> y &lt;strong>cegamiento&lt;/strong>. Estos componentes son esenciales para maximizar la validez interna y minimizar fuentes de sesgo sistemático.&lt;/p>
+&lt;h2 id="tabla-2-garantías-anti-sesgo-en-ecas">Tabla 2. Garantías anti-sesgo en ECAs&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>&lt;strong>Componente metodológico&lt;/strong>&lt;/th>
+&lt;th>&lt;strong>Función específica&lt;/strong>&lt;/th>
+&lt;th>&lt;strong>Cómo reduce el sesgo&lt;/strong>&lt;/th>
+&lt;th>&lt;strong>Referencia normativa ICH&lt;/strong>&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;strong>Aleatorización&lt;/strong>&lt;/td>
+&lt;td>Asignación no predecible de tratamientos&lt;/td>
+&lt;td>Mitiga el sesgo de selección; equilibra factores conocidos/desconocidos&lt;/td>
+&lt;td>ICH E9 Sección 2.2.3&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Grupo control&lt;/strong>&lt;/td>
+&lt;td>Comparación con placebo o tratamiento estándar&lt;/td>
+&lt;td>Permite contrafactual válido e inferencia causal robusta&lt;/td>
+&lt;td>ICH E10; ICH E8(R1)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Cegamiento (blinding)&lt;/strong>&lt;/td>
+&lt;td>Ocultamiento de asignación a participantes e investigadores&lt;/td>
+&lt;td>Previene sesgo de evaluación, expectativa y cointervención&lt;/td>
+&lt;td>ICH E9 Sección 2.2.4&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h1 id="contextos-que-permiten-prescindir-de-ecas">Contextos que permiten prescindir de ECAs&lt;/h1>
+&lt;p>La omisión de ECAs solo es aceptable en contextos claramente delimitados por justificaciones éticas, científicas o logísticas:&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>Enfermedades raras o ultrarraras&lt;/strong>, con poblaciones muy limitadas.&lt;/li>
+&lt;li>&lt;strong>Situaciones de emergencia sanitaria&lt;/strong>, con necesidades clínicas urgentes.&lt;/li>
+&lt;li>Cuando la &lt;strong>aleatorización o el cegamiento son éticamente problemáticos&lt;/strong>.&lt;/li>
+&lt;li>Cuando existen &lt;strong>datos históricos o reales bien estructurados y validados&lt;/strong>.&lt;/li>
+&lt;/ol>
+&lt;p>La aceptación de estos diseños como base regulatoria &lt;strong>requiere validación metodológica específica y evaluación caso por caso&lt;/strong>, según guías EMA y FDA.&lt;/p>
+&lt;hr>
+&lt;h1 id="diseños-alternativos-más-empleados-y-criterios-de-validación">Diseños alternativos más empleados y criterios de validación&lt;/h1>
+&lt;h2 id="tabla-3-diseños-alternativos-justificación-limitaciones-y-requisitos-regulatorios">Tabla 3. Diseños alternativos: justificación, limitaciones y requisitos regulatorios&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>&lt;strong>Diseño alternativo&lt;/strong>&lt;/th>
+&lt;th>&lt;strong>Justificación de uso&lt;/strong>&lt;/th>
+&lt;th>&lt;strong>Limitaciones críticas&lt;/strong>&lt;/th>
+&lt;th>&lt;strong>Requisitos de validación&lt;/strong>&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;strong>Single-Arm Trials (SAT)&lt;/strong>&lt;/td>
+&lt;td>Enfermedades raras; oncología sin comparador disponible&lt;/td>
+&lt;td>Ausencia de grupo control; alta vulnerabilidad a sesgo de selección&lt;/td>
+&lt;td>Control externo robusto; endpoints validados; análisis de consistencia&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Controles externos/sintéticos&lt;/strong>&lt;/td>
+&lt;td>Cohortes históricas o datos de mundo real&lt;/td>
+&lt;td>Riesgo de confusión residual y sesgo de canalización&lt;/td>
+&lt;td>Propensity score matching; alineación temporal; CHMP/4366/2020 (EMA)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Diseños adaptativos&lt;/strong>&lt;/td>
+&lt;td>Eficiencia en reclutamiento; ajustes preplanificados&lt;/td>
+&lt;td>Riesgo de error tipo I si no se prespecifican adecuadamente&lt;/td>
+&lt;td>Control de multiplicidad; simulación previa; ICH E9(R1)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Real-World Evidence (RWE)&lt;/strong>&lt;/td>
+&lt;td>Acceso a datos de rutina clínica; seguimiento largo; baja carga ética&lt;/td>
+&lt;td>Falta de aleatorización; sesgo de confusión no medido&lt;/td>
+&lt;td>PROACE principles (FDA 2023); data provenance; calidad del DMR; plan de análisis riguroso&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h1 id="riesgos-del-uso-estratégico-de-diseños-no-confirmatorios">Riesgos del uso estratégico de diseños no confirmatorios&lt;/h1>
+&lt;p>Aunque válidos en contextos excepcionales, el uso frecuente y estratégico de estos diseños plantea &lt;strong>serios desafíos regulatorios&lt;/strong>, especialmente si se recurre a ellos como vía para &lt;strong>prescindir de ECAs sin justificación metodológica sólida&lt;/strong>.&lt;/p>
+&lt;h2 id="riesgos-identificados">Riesgos identificados:&lt;/h2>
+&lt;ul>
+&lt;li>Aprobaciones basadas en &lt;strong>evidencia débil o no reproducible&lt;/strong>.&lt;/li>
+&lt;li>Incremento del &lt;strong>sesgo sistemático&lt;/strong> en resultados de eficacia.&lt;/li>
+&lt;li>Exposición de pacientes a intervenciones &lt;strong>no validadas rigurosamente&lt;/strong>.&lt;/li>
+&lt;li>&lt;strong>Deslegitimación del proceso regulatorio&lt;/strong> ante la comunidad científica y la sociedad.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h1 id="recomendaciones-regulatorias">Recomendaciones regulatorias&lt;/h1>
+&lt;h2 id="a-para-la-industria">A. Para la industria&lt;/h2>
+&lt;ul>
+&lt;li>Presentar &lt;strong>justificación exhaustiva&lt;/strong> cuando no se utilicen ECAs.&lt;/li>
+&lt;li>Cumplir con requisitos metodológicos específicos según tipo de diseño alternativo.&lt;/li>
+&lt;li>Incluir análisis de sensibilidad, consistencia y control de sesgo.&lt;/li>
+&lt;/ul>
+&lt;h2 id="b-para-las-agencias-reguladoras">B. Para las agencias reguladoras&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>Reforzar guías específicas&lt;/strong> (EMA, FDA) que regulen el uso de diseños alternativos.&lt;/li>
+&lt;li>Exigir &lt;strong>registro público&lt;/strong>, transparencia y acceso a protocolos completos.&lt;/li>
+&lt;li>Fortalecer &lt;strong>capacidades internas&lt;/strong> en estadística avanzada y diseño de estudios no aleatorizados.&lt;/li>
+&lt;li>Establecer &lt;strong>comités independientes&lt;/strong> de evaluación para salvaguardas éticas y científicas.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h1 id="conclusión">Conclusión&lt;/h1>
+&lt;p>Los diseños alternativos no deben entenderse como sustitutos genéricos del ECA, sino como herramientas &lt;strong>válidas solo bajo condiciones estrictamente justificadas y validadas&lt;/strong>. El regulador tiene la responsabilidad científica y ética de exigir evidencia que no solo sea suficiente, sino también sólida, reproducible y libre de sesgos. La precisión metodológica y la claridad terminológica no son un lujo en este proceso: &lt;strong>son el principio rector que protege la salud pública frente a la ambigüedad científica&lt;/strong>.&lt;/p>
+&lt;hr>
+&lt;!-- 🎧 **Escucha el podcast de esta publicación** -->
+&lt;!--
+&lt;audio controls >
+&lt;source src="https://bioestadisticaedu.com/mp3/atajos.mp3" type="audio/mpeg">
+&lt;/audio>
+-->
+&lt;hr>
+&lt;h1 id="bibliografía">Bibliografía&lt;/h1>
+&lt;ol>
+&lt;li>FDA. &lt;em>Demonstrating Substantial Evidence of Effectiveness with One Adequate and Well-Controlled Clinical Investigation and Confirmatory Evidence&lt;/em>. Draft Guidance. 2023.&lt;/li>
+&lt;li>EMA. &lt;em>Reflection Paper on Single‑Arm Trials as Pivotal Evidence&lt;/em>. EMA/CHMP/161300/2023.&lt;/li>
+&lt;li>FDA. &lt;em>Real-World Evidence Framework&lt;/em>. 2023 Update.&lt;/li>
+&lt;li>EMA. &lt;em>Use of Real‑World Evidence in Regulatory Decision-Making&lt;/em>. EMA/INS/GCP/455222/2024.&lt;/li>
+&lt;li>ICH. &lt;em>E9: Statistical Principles for Clinical Trials&lt;/em>. 1998.&lt;/li>
+&lt;li>ICH. &lt;em>E9(R1): Addendum on Estimands and Sensitivity Analysis in Clinical Trials&lt;/em>. 2020.&lt;/li>
+&lt;li>EMA. &lt;em>Guideline on Adjustment for Baseline Covariates in Clinical Trials&lt;/em>. CHMP/EWP/2863/99.&lt;/li>
+&lt;li>FDA. &lt;em>Real-World Evidence Program Annual Report 2025 (PUB-245)&lt;/em>.&lt;/li>
+&lt;li>Temple R, Ellenberg SS. &lt;em>Placebo-Controlled Trials and Active-Control Trials in the Evaluation of New Treatments&lt;/em>. &lt;em>Ann Intern Med&lt;/em>. 2000;133(6):455–463.&lt;/li>
 &lt;/ol></description></item></channel></rss>
