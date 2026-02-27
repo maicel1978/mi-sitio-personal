@@ -6,11 +6,11 @@ author: "admin"
 date: "2026-01-01"
 categories: ["Evaluación Regulatoria"]
 tags:
-  - "evaluacion-regulatoria"
-  - "ensayos-clínicos"
-  - "estimandos"
-  - "datos-faltantes"
-  - "simulacion-R"
+  - post
+  - ensayos-clinicos
+  - estimandos
+  - evaluacion-regulatoria
+  - simulacion-r
 slug: "er-01"
 featured: false
 draft: false

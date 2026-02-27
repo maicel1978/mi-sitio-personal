@@ -58,7 +58,7 @@ sections:
   #     count: 6
   #     page_type: post
   #     filters:
-  #       tag: "experimentos"
+  #       tag: "experimento-en-el-aula"
   #     sort_by: 'Date'
   #     sort_ascending: false
   #   design:

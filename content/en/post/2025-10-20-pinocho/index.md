@@ -5,10 +5,11 @@ author: "admin"
 date: 2025-12-10
 categories: ["Metodología de Investigación"]
 tags: 
-  - "experimento en el aula"
-  - "estadística forence"
-  - "detección de datos falsos"
-  - "educación médica"
+  - post
+  - experimento-en-el-aula
+  - estadística-forense
+  - datos-fabricados
+  - educacion-medica
 slug: experimento-aula-estudiantes-en
 languages:
   es: "/es/experimento-aula-estudiantes"

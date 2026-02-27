@@ -4,7 +4,7 @@ date: "2025-11-24" # Progresión: 2026-01-14 -> 2026-01-12
 categories: ["pdf"]
 tags:
   - "herramientas" # Tag agrupador principal
-  - "file engineering"
+  - "file-engineering"
   - "pdf"
 summary: "Optimiza la estructura de archivos PDF sin pérdida de legibilidad técnica, procesando los datos localmente para garantizar la máxima privacidad."
 # Configuración técnica y URL relativa preservada

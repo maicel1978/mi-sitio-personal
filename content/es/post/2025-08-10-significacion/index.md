@@ -6,10 +6,11 @@ slug: signifiacion
 author: "admin"
 categories: ["Reflexiones Críticas"]
 tags:
-  - "significación-estadística"
-  - "valor p"
-  - "intervalos de confianza"
-  - "estadística bayesiana"
+  - post
+  - estadistica-bayesiana
+  - intervalos-de-confianza
+  - significacion-estadistica
+  - valor-p
 date: "2025-08-10T15:30:00Z" # Asegúrate de que la fecha y hora sean correctas
 featured: false # Cambia a true si quieres destacarlo en la página principal
 draft: false # Cambia a true si aún estás trabajando en él

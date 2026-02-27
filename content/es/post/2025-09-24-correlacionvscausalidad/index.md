@@ -5,10 +5,12 @@ author: "admin"
 date: '2025-01-13'
 categories: ["Estadística en Salud"]
 tags:
-  - "detectar trampas correlación vs. causalidad en investigación"
-  - "checklist para rigor en pruebas estadísticas médicas"
-  - "ejemplos prácticos de falacias causales en salud"
-  - "herramientas para validar causalidad real"
+  - post
+  - bioestadistica
+  - causalidad-vs-correlacion
+  - falacias-causales
+  - validacion-causal
+  - rigor-estadistico
 slug: trampas-correlacion
 languages:
   es: "/es/trampas-correlacion"

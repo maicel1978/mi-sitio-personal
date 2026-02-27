@@ -6,8 +6,8 @@ date: "2025-03-05"
 slug: "tutorial-an-lisis-de-fortificaci-n-de-alimentos-con-hces-y-r"
 categories: ["Metodología de Investigación"]
 tags:
-  - R
-  - Fortificación
+  - r
+  - fortificacion
 type: page
 ---
 

@@ -3,8 +3,8 @@ title: "Rituales metodológicos en ensayos clínicos: cuando la técnica reempla
 subtitle: "Cómo procedimientos formalmente correctos pueden generar evidencia desvinculada de la pregunta clínica"
 summary: "Analiza los rituales metodológicos en ensayos clínicos: procedimientos técnicamente correctos pero desvinculados de la pregunta científica. Presenta un marco conceptual y un índice de rituales que se desarrollarán en entradas posteriores."
 author: "admin"
-date: "2026-02-03"
-categories: ["Evaluación Reguladora"]
+date: "2026-02-27"
+categories: ["Evaluación Regulatoria"]
 tags:
   - ensayos-clinicos
   - rituales-metodologicos
@@ -12,7 +12,7 @@ tags:
   - post
   - evaluacion-regulatoria
 slug: "rituales-metodologicos-00"
-featured: false
+featured: true
 draft: false
 share: true
 commentable: true

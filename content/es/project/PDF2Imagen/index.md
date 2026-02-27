@@ -5,7 +5,7 @@ date: "2025-11-28"
 categories: ["pdf"]
 tags:
   - "herramientas" # Tag agrupador principal
-  - "file engineering"
+  - "file-engineering"
   - "pdf"  
   - "Gestión Documental"
   - "Visualización de Datos"

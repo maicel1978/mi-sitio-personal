@@ -5,7 +5,7 @@ date: "2025-11-26"
 categories: ["pdf"]
 tags:
   - "herramientas" # Tag agrupador principal
-  - "file engineering"
+  - "file-engineering"
   - "Seguridad de la Información"
   - "Gestión de Activos"
 # Sumario optimizado para Google Index (Enfoque en flujo de trabajo y privacidad)

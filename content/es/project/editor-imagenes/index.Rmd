@@ -5,7 +5,7 @@ date: "2025-10-20" # Progresión: 2025-12-27 -> 2025-12-25
 categories: ["imagen"]
 tags:
   - "herramientas" # Tag agrupador principal
-  - "file engineering"
+  - "file-engineering"
 # Sumario optimizado para Google Index (Enfoque en precisión y flujo de trabajo)
 summary: "Editor de imágenes espcializado en miniaturas y portadas para redes sociales."
 # Configuración técnica y URL relativa preservada

@@ -20,7 +20,7 @@ publishDate: "2023-02-01T00:00:00Z"
 slides: example
 summary: Este estudio analiza modelos de predicción de COVID-19 para su aplicación en Cuba. Los modelos existentes tienen limitaciones, pero la investigación proporciona datos útiles para el desarrollo de nuevos modelos.
 tags:
-- Source Themes
+# - Source Themes
 title: Estado en la investigación sobre modelos de predicción de la severidad en confirmados de la Covid-19.
 url_code: ""
 url_dataset: ""

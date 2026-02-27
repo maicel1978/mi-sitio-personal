@@ -4,7 +4,7 @@ date: "2025-10-26"
 categories: ["imagen"]
 tags:
   - "herramientas" # Tag agrupador principal
-  - "file engineering"
+  - "file-engineering"
   - "pdf"
   - "conversor"
 # Sumario optimizado para Google Index (Enfoque en integridad visual)

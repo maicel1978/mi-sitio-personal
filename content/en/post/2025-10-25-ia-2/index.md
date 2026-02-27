@@ -5,10 +5,11 @@ author: "admin"
 date: 2025-12-12
 categories: ["Metodología de Investigación"]
 tags:
-  - "experimento en el aula"
-  - "correlaciones espurias"
-  - "IA"
-  - "horror vacui algorítmico"
+  - post
+  - experimento-en-el-aula
+  - horror-vacui
+  - ia
+  - correlaciones-espurias
 slug: experimento-aula-ia-en
 languages:
   es: "/es/experimento-aula-ia"

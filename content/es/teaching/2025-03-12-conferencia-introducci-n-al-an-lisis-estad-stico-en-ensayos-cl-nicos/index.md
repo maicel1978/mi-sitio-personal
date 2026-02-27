@@ -5,8 +5,9 @@ author: "admin"
 summary: "Conferecia realizada en el Centro para el Control Estatal de Medicamentos, Equipos y Dispositivos Médicos sobre Análisis Estadístico en Ensayos Clínicos"
 slug: conferencia-introducci-n-al-an-lisis-estad-stico-en-ensayos-cl-nicos
 tags: 
-  - "conferencia"
-  - "curso"
+  - conferencia
+  - curso
+  - ensayos-clinicos
 url_pdf: "/pdf/conferencia_cecmed.pdf"
 url_slides: "https://rpubs.com/maicel/cecmedEC"
 url_video: "https://youtu.be/MoUhKkX6crY"

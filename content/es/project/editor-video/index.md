@@ -5,7 +5,7 @@ date: "2025-08-30"
 categories: ["video"]
 tags:
   - "herramientas" # Tag agrupador principal
-  - "file engineering"
+  - "file-engineering"
   - "edicion de video"
 # Sumario optimizado para Google Index (Enfoque en precisión y flujo de trabajo)
 summary: "Herramienta de edición de video siemple"

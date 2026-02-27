@@ -4,10 +4,11 @@ author: "admin"
 date: '2025-08-07'
 categories: ["Evaluación Regulatoria"]
 tags:
-  - "evaluación-regulatoria"
-  - "ensayos-clínicos"
-  - "atajos diseños ensayos clínicos y riesgos ICH"
-  - "guía validación regulatoria para evaluadores"
+  - post
+  - evaluacion-regulatoria
+  - ensayos-clinicos
+  - atajos-regulatorios
+  - validacion-regulatoria
 description: "Análisis técnico y regulatorio del uso de diseños no confirmatorios
   en sustitución de ensayos clínicos aleatorizados: justificaciones, riesgos metodológicos  y salvaguardas requeridas por ICH, EMA y FDA."
 slug: "atajos"

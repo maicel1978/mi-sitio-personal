@@ -8,7 +8,7 @@ date: "2025-10-22" #año mes dia
 # show_author_profile: true
 tags: 
   - post
-  - tutorial-in-R-for-medical-predictive-models
+  - tutorial-in-r-for-medical-predictive-models
   - Steyerberg-guide-for-medical-predictive-models
   - avoid-overfitting-in-ML-validation
 slug: how-to-train-and-validate-a-machine-learning-model

@@ -1,14 +1,15 @@
 ---
 title: "Experimento en el aula: ¿Pueden los estudiantes engañar a un bioestadístico? Un concurso de fabricación de datos"
-subtitle: "Donde tres residentes intentaron engañar a la estadística forence (y perdieron espectacularmente)"
+subtitle: "Donde tres residentes intentaron engañar a la estadística forense (y perdieron espectacularmente)"
 author: "admin"
 date: 2025-12-10
 categories: ["Metodología de Investigación"]
 tags: 
-  - "experimento en el aula"
-  - "estadística forence"
-  - "detección de datos falsos"
-  - "educación médica"
+  - post
+  - experimento-en-el-aula
+  - estadistica-forense
+  - datos-fabricados
+  - educacion-medica
 slug: experimento-aula-estudiantes
 languages:
   es: "/es/experimento-aula-estudiantes"

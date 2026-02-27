@@ -6,7 +6,7 @@ date: "2025-11-26" # Progresión: 2026-01-30 -> 2026-01-28
 categories: ["imagen"]
 tags:
   - "herramientas" # Tag agrupador principal
-  - "file engineering"
+  - "file-engineering"
   - "Optimización de Rendimiento"
 # Configuración técnica y URL relativa preservada
 slug: "imagen_reduce"

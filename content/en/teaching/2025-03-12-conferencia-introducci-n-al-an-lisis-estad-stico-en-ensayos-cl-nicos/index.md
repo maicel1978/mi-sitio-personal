@@ -6,7 +6,7 @@ summary: "Conferecia realizada en el Centro para el Control Estatal de Medicamen
 slug: conferencia-introducci-n-al-an-lisis-estad-stico-en-ensayos-cl-nicos
 categories: ["Metodología de Investigación"]
 tags: 
-  - ensayos-clínicos
+  - ensayos-clinicos
 url_pdf: /pdf/conferencia_cecmed.pdf
 url_slides: https://rpubs.com/maicel/cecmedEC
 url_video: 'https://youtu.be/MoUhKkX6crY'

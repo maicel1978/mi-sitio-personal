@@ -420,3 +420,82 @@ image:
   - evaluacion-regulatoria
   - ensayos-clínicos
 
+
+# Asegurarte de que main está limpio
+git status
+
+# Si hay cambios sin guardar:
+git add -A && git commit -m "estado actual antes de limpieza taxonomía"
+
+# Crear rama y moverte a ella
+git checkout -b limpieza-taxonomia
+
+# Verificar que estás en la rama nueva
+git branch
+
+Si en cualquier momento algo se rompe:
+
+# Opción 1: deshacer los cambios del último archivo tocado
+git checkout -- RUTA/DEL/ARCHIVO
+
+# Opción 2: deshacer TODO y volver al inicio de la rama
+git checkout .
+
+# Opción 3: abandonar la rama y volver a main intacto
+git checkout main
+
+
+
+# MÉTODOS ESTADÍSTICOS
+- tamaño-de-muestra        # (absorbe "tamaño de muestra" 12 posts)
+- inferencia-bayesiana      # (fusiona estadística-bayesiana, enfoque bayesiano, Estadística Bayesiana)
+- inferencia-frecuentista   # (fusiona enfoque frecuentista)
+- intervalos-de-confianza
+- valor-p
+- significación-estadística
+- análisis-no-lineal
+- series-temporales
+- correlación-y-causalidad  # (fusiona correlaciones-espurias, correlation-vs-causation, etc.)
+- medidas-de-efecto
+- modelos-predictivos       # (fusiona Modelación, Modelización-Clínica, etc.)
+- simulación
+- datos-faltantes
+
+# ENSAYOS CLÍNICOS Y REGULACIÓN
+- ensayos-clínicos          # (fusiona las 3 variantes = 23 posts)
+- evaluación-regulatoria    # (fusiona las 2 variantes = 15 posts)  
+- diseños-adaptativos
+- no-inferioridad
+- estimandos
+- atajos-regulatorios
+
+# INTEGRIDAD Y ÉTICA
+- integridad-científica     # (fusiona Mala conducta, datos-fabricados, etc.)
+- plagio
+- detección-de-fraude       # (fusiona Estadística-Forense, Auditoría Forense Digital)
+- calidad-de-datos          # (fusiona calidad-dato, GIGO, Validación-de-Datos)
+- rituales-metodológicos
+- museo-de-horrores
+
+# TECNOLOGÍA
+- nlp                       # (mantiene NLP 14 posts)
+- machine-learning
+- inteligencia-artificial   # (fusiona IA, ia)
+- r-estadístico             # (fusiona R, r)
+- transformers
+
+# DOMINIO CLÍNICO
+- epidemiología
+- covid-19
+- sarampión
+- educación-médica
+- farmacología
+
+# COMUNICACIÓN
+- branding-científico
+- comunicación-de-impacto
+- revistas-biomédicas
+
+# META
+- herramientas              # (tu tag más usado, 60)
+- calculadoras              # (26 posts, merece tag propio)

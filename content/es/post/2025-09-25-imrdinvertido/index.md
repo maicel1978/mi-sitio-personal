@@ -7,7 +7,7 @@ slug: imryd-redaccion-inversa
 translationKey: "imryd"
 categories: ["Metodología de Investigación"]
 tags:
-  - cómo-usar-redacción-inversa-en-artículos-científicos"
+  - redaccion-inversa
   - post
   - guía-para-redacción-ética-en-publicaciones
   - errores-eticos-en-reporting-de-resultados-salud

@@ -6,10 +6,9 @@ summary: "Conferencia impartida en la Maestría de Atención Primaria de Salud (
 slug: introducci-n-a-los-dise-os-explicativos-experimentales
 categories: ["Metodología de Investigación"]
 tags:
-  - Evidencia-clínica
-  - Ciencia
-  - Bioestadística
-  - ensayos-clínicos
+  - conferencia
+  - curso
+  - ensayos-clinicos
 url_slides: /pdf/presetacion_experimentosAPS.pdf
 url_video: https://youtu.be/cQ4af2j2jrg
 type: page

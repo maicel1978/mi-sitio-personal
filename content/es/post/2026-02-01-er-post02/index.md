@@ -6,11 +6,11 @@ author: "admin"
 date: "2026-02-01"
 categories: ["Evaluación Regulatoria"]
 tags:
-  - "evaluacion-regulatoria"
-  - "ensayos-clínicos"
-  - "objetivos"
-  - "hipotesis"
-  - "simulacion-R"
+  - post
+  - ensayos-clinicos
+  - evaluacion-regulatoria
+  - hipotesis
+  - simulacion-r
 slug: "er-02"
 featured: false
 draft: false
