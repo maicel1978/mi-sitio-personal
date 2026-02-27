@@ -15,7 +15,7 @@ publishDate: "2020-08-01T00:00:00Z"
 slides: ""
 summary: 'Un estudio sobre revistas biomédicas cubanas revela la alta frecuencia de plagio y la necesidad de una intervención educativa.'
 tags:
-- "Plagio""
+- "Plagio"
 - "Ética"
 - "Revistas biomédicas"
 title: 'Plagio en artículos de investigación en revistas biomédicas cubanas. 2016'
