@@ -9,9 +9,9 @@ languages:
 description: "This analysis examines the essential pillars that define Large Language Models (LLMs), from their technical conception to their practical implications and inherent challenges"
 categories: ["Reflexiones Críticas"]
 tags:
-  - "IA"
-  - "arquitectura transformers"
-  - "modelos predictivos estadísticos"
+  - post
+  - IA
+  - transformers
 draft: false 
 type: post
 ---

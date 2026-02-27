@@ -7,11 +7,10 @@ author: "admin"
 date: "2025-10-22" #año mes dia
 # show_author_profile: true
 tags: 
-  - "train model in R for clinical predictions"
-  - "tutorial in R for medical predictive models"
-  - "Steyerberg guide for medical predictive models"
-  - "avoid overfitting in ML validation"
-  - "step by step R for machine learning in thesis"
+  - post
+  - tutorial-in-R-for-medical-predictive-models
+  - Steyerberg-guide-for-medical-predictive-models
+  - avoid-overfitting-in-ML-validation
 slug: how-to-train-and-validate-a-machine-learning-model
 featured: true  # Destacar en la página principal
 translationKey: "MPC"
@@ -19,7 +18,7 @@ languages:
   es: "/es/como-entrenar-y-validar-un-modelo-de-machine-learning"
   en: "/en/how-to-train-and-validate-a-machine-learning-model"
 commentable: true
-draft: true# True para un borrador
+draft: true # True para un borrador
 type: post
 ---
 

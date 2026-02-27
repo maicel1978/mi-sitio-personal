@@ -2,12 +2,11 @@
 title: "Experimento en el aula: ¿Pueden los estudiantes engañar a un bioestadístico? Un concurso de fabricación de datos"
 subtitle: "Donde tres residentes intentaron engañar a la estadística forence (y perdieron espectacularmente)"
 author: "admin"
-date: 2025-12-10
+date: 2024-12-10
 categories: ["Metodología de Investigación"]
 tags: 
-  - experimentos
-  - estadística-forence
   - post
+  - experimentos-aula
   - detección-de-datos-falsos
 slug: experimento-aula-estudiantes
 languages:
@@ -16,7 +15,6 @@ languages:
 summary: "Pedí a mis residentes que inventaran datos de hemoglobina en 60 segundos. Usé seis técnicas forenses para atraparlos. Spoiler: La estadística siempre gana."
 featured: true
 commentable: true  # Solo si tienes Disqus o similar configurado
-draft: false# True para un borrador
 show_related: true
 show_breadcrumb: true
 type: post
