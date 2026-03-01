@@ -1,0 +1,20 @@
+{
+    "name": "Hugo Terminal Trainer Pro",
+    "short_name": "Hugo Trainer",
+    "description": "Aprende terminal, Git y Hugo Blox de forma interactiva",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#0d1117",
+    "theme_color": "#0d1117",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><text y='380px' font-size='380'>🎓</text></svg>",
+            "sizes": "512x512",
+            "type": "image/svg+xml",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": ["education", "development"],
+    "lang": "es"
+}
