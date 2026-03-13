@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>La Famiglia</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --gold: #d4a037;
+      --wine: #8b2252;
+      --smoke: #888;
+      --cream: #f0e6d3;
+      --panel: rgba(255, 215, 0, 0.03);
+      --panel-border: rgba(255, 215, 0, 0.1);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      background: var(--bg);
+      color: var(--cream);
+      min-height: 100vh;
+      background-image:
+        repeating-linear-gradient(45deg, rgba(212,160,55,0.02) 0, rgba(212,160,55,0.02) 2px, transparent 2px, transparent 7px),
+        repeating-linear-gradient(-45deg, rgba(139,34,82,0.02) 0, rgba(139,34,82,0.02) 1px, transparent 1px, transparent 6px),
+        radial-gradient(circle at top right, rgba(139,34,82,0.1), transparent 30%);
+    }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+    }
+    .tab-btn.active {
+      color: var(--gold);
+      border-color: var(--gold);
+    }
+    .dialogue {
+      border-left: 2px solid var(--panel-border);
+      padding-left: 0.8rem;
+      margin-bottom: 0.9rem;
+    }
+    .fade {
+      animation: fadeIn .45s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .option-btn {
+      width: 100%;
+      text-align: left;
+      border: 1px solid rgba(212,160,55,0.25);
+      padding: 0.8rem;
+      color: var(--cream);
+      background: rgba(212,160,55,0.02);
+      transition: all .25s ease;
+    }
+    .option-btn:hover {
+      border-color: var(--gold);
+      background: rgba(212,160,55,0.07);
+    }
+    .typewriter {
+      min-height: 5.2rem;
+      white-space: pre-wrap;
+    }
+    .bar {
+      height: 10px;
+      background: rgba(255,255,255,0.08);
+      overflow: hidden;
+    }
+    .bar > span {
+      display: block;
+      height: 100%;
+      background: linear-gradient(90deg, var(--wine), var(--gold));
+    }
+  </style>
+</head>
+<body>
+  <main class="max-w-3xl mx-auto px-4 py-6 md:py-8">
+    <header class="mb-6">
+      <h1 class="text-3xl md:text-4xl tracking-wide text-[#d4a037]">LA FAMIGLIA</h1>
+      <p class="text-sm text-[#888]">Mafia, pasta y teoría de juegos para gente que quiere vivir lo suficiente para aprender.</p>
+      <div class="mt-4 panel p-3">
+        <div class="flex items-center justify-between text-sm">
+          <span>RISPETTO</span>
+          <strong id="rispettoValue" class="text-[#d4a037]">50/100</strong>
+        </div>
+        <div class="bar mt-2"><span id="rispettoBar" style="width:50%"></span></div>
+      </div>
+    </header>
+
+    <nav class="flex gap-2 mb-5">
+      <button class="tab-btn active px-3 py-2 border border-[#8b2252] text-sm" data-tab="historia">Historia</button>
+      <button class="tab-btn px-3 py-2 border border-[#8b2252] text-sm" data-tab="consejo">Consejo</button>
+      <button class="tab-btn px-3 py-2 border border-[#8b2252] text-sm" data-tab="perfil">Perfil</button>
+    </nav>
+
+    <section id="historia" class="fade"></section>
+    <section id="consejo" class="hidden fade"></section>
+    <section id="perfil" class="hidden fade"></section>
+  </main>
+
+  <script>
+    const chapters = [
+      {
+        title: "Cap 1: La Prueba",
+        lesson: "Los 4 cuadrantes de Cipolla",
+        ambience: [
+          "La lluvia golpea los toldos del puerto como dedos impacientes.",
+          "Huele a albahaca, gasolina y café recalentado de madrugada.",
+          "La luz del neón del bar Ti Amo parpadea como un testigo nervioso.",
+          "Desde adentro, alguien afina un acordeón que ya suena culpable."
+        ],
+        situation: "Enzo te ofrece tu primer trato: mover una caja sin hacer preguntas. Sofía dice que no hay caja inocente, solo preguntas caras. Don Carlo observa sin pestañear, como si estuviera viendo una partida de ajedrez que ya jugó en 1962.",
+        opinions: [
+          { emoji: "😈", name: "Enzo", text: "Escúchame, principiante. Caja cerrada, boca cerrada, bolsillo abierto. El barrio ama a quien entrega a tiempo. El barrio también olvida rápido, así que cobra hoy. Mañana es un rumor con traje." },
+          { emoji: "📊", name: "Sofía", text: "Mi proyección es simple: si no entiendes el riesgo, el riesgo te entiende a ti. Hay tres escenarios malos y uno peor: que te parezca normal. La ignorancia no es blindaje legal; es descuento para ataúd." }
+        ],
+        options: [
+          { text: "Pides abrir la caja delante de todos, propones reparto transparente y una ruta legal de cobertura.", quadrant: "inteligente", delta: 8, karma: { wisdom: 2, coop: 1 }, consequence: "Descubren mercancía comprometida. Evitas una redada, propones una operación menos rentable pero estable. Sofía sonríe como quien aprobó una tesis con sangre fría.", don: "Hijo... pausa larga... eso que hiciste tiene un nombre. Inteligente. Ganaste tú y no enterraste a nadie. En la vida real es igual: cuando pides claridad, pierdes dos amigos rápidos y ganas diez años de sueño." },
+          { text: "Aceptas el trato de Enzo, alteras registros y dejas que otro cargue el riesgo mientras tú cobras comisión.", quadrant: "malvado", delta: 3, karma: { exploit: 2 }, consequence: "La entrega sale limpia. También sale un chofer a declarar por un error que no cometió. Enzo te da una palmada; su palmada pesa como una factura futura.", don: "Elegiste malvado racional. Ganaste hoy, cobró otro. Hay gente que llama a esto eficiencia. Yo lo llamo préstamo con intereses del infierno." },
+          { text: "Rechazas cobrar por la misión y te ofreces a cubrir a Enzo 'por compañerismo'.", quadrant: "incauto", delta: -5, karma: { coop: 2 }, consequence: "Enzo acepta encantado tu generosidad espontánea. Tú no cobras, tú te expones, tú limpias. El barrio te aplaude con la misma energía con la que te va a olvidar.", don: "Este cuadrante es incauto, hijo. Buena intención, mala contabilidad. El mundo está lleno de gente que confunde ser noble con ser alfombra." },
+          { text: "Intentas quedarte con la caja para chantajear a ambos bandos. Te persigue medio puerto.", quadrant: "estupido", delta: -11, karma: { wisdom: -2 }, consequence: "Corres, tropiezas, la caja cae al agua y con ella tu credibilidad. Perdiste dinero propio y ajeno en una sola noche. Récord de inutilidad administrativa.", don: "Estúpido clásico: daño compartido, beneficio ausente. ¿Sabes cuál es la diferencia entre un hombre inteligente y uno estúpido? El inteligente hace dinero y el otro también hace dinero. Pero el estúpido de alguna manera pierde los dos." }
+        ]
+      },
+      {
+        title: "Cap 2: La Deuda de Gino",
+        lesson: "Reciprocidad y Tit-for-Tat",
+        ambience: [
+          "El comedor de Gino huele a salsa de domingo y facturas de martes.",
+          "Un reloj cucú marca las horas con culpa.",
+          "La ventana deja entrar luz dorada y discusiones del vecindario.",
+          "Sobre la mesa: pan, vino y un cuaderno de deudas con manchas de café."
+        ],
+        situation: "Gino vuelve a pedirte dinero. Es la tercera vez. Te abraza antes de pedir, como quien ya sabe el resultado pero quiere llorar con estilo.",
+        opinions: [
+          { emoji: "💛", name: "Gino", text: "Es temporal, primo, temporal desde 1987. Mira, esta vez sí me pagan. Además, si no me ayudas tú, voy a tener que vender la moto de mi sobrino... y ni siquiera tiene moto, pero se la prometí para motivarlo." },
+          { emoji: "📊", name: "Sofía", text: "Ayudar sin estructura es subsidio a la irresponsabilidad. Propón términos: plazos, garantía, consecuencias. La compasión sin límites es un Excel con fórmulas rotas." }
+        ],
+        options: [
+          { text: "Le prestas, pero con regla clara: hoy sí, próxima vez solo si cumple. Le consigues un trabajo real para pagar.", quadrant: "inteligente", delta: 7, karma: { wisdom: 2, coop: 1, forgive: 1 }, consequence: "Gino acepta entre lágrimas y promesas. A la semana te trae la primera cuota, pequeña pero real. Por primera vez su cuaderno se usa para cobrar y no para apoyar vasos.", don: "Tit-for-Tat, hijo: empiezas amable y luego reciprocidad. Ni santo ni verdugo. Así se cría respeto en casa y en negocios." },
+          { text: "Le cobras interés brutal y te quedas con su furgoneta como garantía inmediata.", quadrant: "malvado", delta: 4, karma: { exploit: 2 }, consequence: "Recuperas dinero rápido. Gino sigue sonriendo, pero ahora cuando te ve guarda las llaves. El barrio aprende que contigo se negocia con casco.", don: "Malvado rentable, corto plazo brillante. Largo plazo, te vuelves la persona que todos saludan y nadie llama cuando de verdad importa." },
+          { text: "Le das más dinero, perdonas las deudas previas y le invitas cena para que no se sienta mal.", quadrant: "incauto", delta: -6, karma: { coop: 2 }, consequence: "Gino te bendice, promete cambio y te pide prestado para el taxi de regreso. Te sientes héroe cinco minutos y cajero automático tres meses.", don: "Incauto puro: ayudaste, te hundiste, él no aprendió. En la calle y en familia, el amor sin límites cría dependencia, no lealtad." },
+          { text: "Le gritas en público, rompes su cuaderno y ahuyentas también a dos buenos deudores que sí pagaban.", quadrant: "estupido", delta: -10, karma: { wisdom: -2 }, consequence: "Gino llora, la mesa queda en silencio y se cae un negocio paralelo por tu show. Ganaste un momento de poder y perdiste reputación de adulto funcional.", don: "Estúpido: castigo sin estrategia. Cuando humillas al más débil, todos toman nota y nadie te confía nada serio." }
+        ]
+      },
+      {
+        title: "Cap 3: El Negocio del Siglo",
+        lesson: "Skin in the Game",
+        ambience: [
+          "Un casino clandestino respira humo y promesas veloces.",
+          "Las fichas chocan como dientes en invierno.",
+          "Un desconocido con reloj enorme habla más bajito que su perfume.",
+          "Las lámparas rojas hacen que todos parezcan culpables desde antes."
+        ],
+        situation: "Un extraño te ofrece 300% de ganancia en una semana, 'sin riesgo'. Enzo asiente como quien ya se imaginó su yate nuevo. Sofía te mira con ese gesto de 'te lo dije' antes de decir nada.",
+        opinions: [
+          { emoji: "😈", name: "Enzo", text: "Los cobardes llaman estafa a toda oportunidad. Si promete 300%, mínimo dale una silla y escucha. El riesgo real es quedarse pobre por prudente." },
+          { emoji: "📊", name: "Sofía", text: "Si no pone su propio cuello en la mesa, no es socio, es vendedor de humo premium. Pregunta cuánto pierde él si sale mal. Si la respuesta es 'nada', ya tienes tu respuesta." }
+        ],
+        options: [
+          { text: "Exiges que el desconocido invierta su propio dinero primero y firme penalidades. Solo entras si comparte caída.", quadrant: "inteligente", delta: 9, karma: { wisdom: 2, coop: 1 }, consequence: "El tipo se ofende, tartamudea y desaparece por la puerta trasera. Te ahorras una estafa elegante con servilletas de seda.", don: "Skin in the game, hijo. Quien no sangra contigo, te vende su paraguas en tormenta y te factura la lluvia." },
+          { text: "Entras primero, pero revendes el trato a novatos de otro barrio para salir tú antes del colapso.", quadrant: "malvado", delta: 5, karma: { exploit: 2 }, consequence: "Ganas rápido y te lavas las manos en agua importada. Semanas después hay gritos en tres calles y tu nombre en cuatro maldiciones.", don: "Malvado racional. Te fue bien porque otro pagó la música. No olvides: cada estafa deja una deuda moral que alguien cobra en carne." },
+          { text: "Invitas a Gino y pones tú más capital para 'asegurarle' una oportunidad.", quadrant: "incauto", delta: -7, karma: { coop: 2 }, consequence: "Pierdes todo, Gino pierde todo, y ambos brindan con agua porque no quedó para vino. Nadie aprendió excepto el estafador, que confirmó su modelo de negocio.", don: "Incauto contagioso: tu bondad arrastró a otro. Si ayudas, primero verifica. El cariño no audita balances." },
+          { text: "Te burlas del trato, pero por orgullo apuestas en la ruleta para demostrar que eras más listo que todos.", quadrant: "estupido", delta: -9, karma: { wisdom: -2 }, consequence: "No entras a la estafa, pero igual pierdes dinero en cinco giros y una rabieta. Sofía te ofrece agua. Enzo te ofrece silencio incómodo.", don: "Estúpido por vanidad. Evitaste una trampa y te fabricaste otra. Hay gente que no necesita enemigos; se tiene a sí misma." }
+        ]
+      },
+      {
+        title: "Cap 4: La Traición",
+        lesson: "Información asimétrica y Nash",
+        ambience: [
+          "En el sótano de la trattoria solo suena un ventilador cansado.",
+          "Las sombras de botellas parecen jurados indecisos.",
+          "Una lámpara desnuda cae sobre un sobre con fotos borrosas.",
+          "Afuera, una sirena lejana recuerda que el tiempo cobra por minuto."
+        ],
+        situation: "Tienes pruebas parciales de que alguien filtra información a la policía. Si acusas mal, rompes la famiglia. Si callas, la policía llega primero.",
+        opinions: [
+          { emoji: "😈", name: "Enzo", text: "Acusa al más débil y cierra el caso. La verdad tarda, el miedo no. Un culpable útil vale más que una investigación elegante." },
+          { emoji: "👴", name: "Don Carlo", text: "Cuando la información está partida, hijo, el que grita primero no siempre tiene razón. A veces solo tiene prisa... o culpas." }
+        ],
+        options: [
+          { text: "Montas una trampa de información: das datos distintos a tres sospechosos y esperas quién filtra.", quadrant: "inteligente", delta: 8, karma: { wisdom: 2 }, consequence: "La filtración delata a un contable que cobraba doble. Lo atrapas sin espectáculo, sin inocentes rotos y con evidencia completa.", don: "Eso es pensar en equilibrio, no en drama. En juegos de información incompleta, gana quien diseña incentivos, no quien improvisa amenazas." },
+          { text: "Filtras un rumor falso para que el soplón caiga... y de paso eliminas a un rival interno que te molestaba.", quadrant: "malvado", delta: 3, karma: { exploit: 2, wisdom: 1 }, consequence: "Descubres al traidor y también hundes a alguien inocente que competía contigo. Eficiente, sí. Limpio, no.", don: "Malvado con cerebro: dos pájaros y una piedra sucia. El problema es que las piedras dejan huella en los bolsillos." },
+          { text: "Defiendes a todos y pides confiar en la palabra de la famiglia sin investigar.", quadrant: "incauto", delta: -5, karma: { coop: 2 }, consequence: "Nadie se pelea... por dos días. Luego cae un depósito por otra filtración. La paz sin verdad duró lo que dura un espresso.", don: "Incauto ceremonial. La confianza sin verificación es fe; la fe es hermosa, pero no firma inventarios." },
+          { text: "Acusas al azar para demostrar liderazgo, desatando una cacería interna.", quadrant: "estupido", delta: -12, karma: { wisdom: -2 }, consequence: "Tres socios se van ofendidos, el verdadero soplón celebra y tú heredas el caos. Lideraste, sí, hacia el barranco.", don: "Estúpido de manual: costo para todos, beneficio para nadie. El miedo mal dirigido es gasolina en bodega cerrada." }
+        ]
+      },
+      {
+        title: "Cap 5: La Cena",
+        lesson: "Suma cero vs suma positiva",
+        ambience: [
+          "La mesa familiar parece un mapa de guerra con manteles de flores.",
+          "Hay pan caliente, cuchillos brillantes y sonrisas de media jornada.",
+          "La lluvia ya paró, pero dentro sigue el clima inestable.",
+          "Un retrato de la nonna mira desde la pared como juez vitalicio."
+        ],
+        situation: "Se reparten territorios de negocio. Todos quieren más. Si alguien siente que pierde, mañana amanece con socios nuevos y menos paciencia.",
+        opinions: [
+          { emoji: "📊", name: "Sofía", text: "Podemos ampliar el pastel: reparto por zonas y por tipo de cliente. Si dejamos de pisarnos, todos ganan. Sí, incluso Enzo, aunque le pique admitirlo." },
+          { emoji: "😈", name: "Enzo", text: "Expandir, cooperar, sinergias... bonito discurso para un póster. Quita territorio hoy y cobras mañana. El que duda comparte." }
+        ],
+        options: [
+          { text: "Propones colaboración por especialidad y fondo común para conflictos. Menos choques, más margen global.", quadrant: "inteligente", delta: 8, karma: { coop: 2, wisdom: 1 }, consequence: "La cena termina sin disparos verbales. En dos semanas suben ingresos y bajan peleas por esquina. Hasta el retrato de la nonna parece menos decepcionado.", don: "Suma positiva, hijo. La calle cree que solo existe ganar-perder porque nunca aprendió a cocinar una mesa larga." },
+          { text: "Aseguras el mejor territorio para ti con amenaza elegante y dejas migas a los demás.", quadrant: "malvado", delta: 4, karma: { exploit: 2 }, consequence: "Te llevas la zona premium. También te llevas tres miradas que memorizan tu rutina. Cenaste bien, dormirás ligero.", don: "Ganaste en suma cero a costa de futuro. Hay victorias que vienen con escolta obligatoria." },
+          { text: "Cedes tu parte para evitar conflicto y dices que 'la familia es primero'.", quadrant: "incauto", delta: -6, karma: { coop: 2 }, consequence: "Te felicitan por noble. Nadie ofrece devolverte cuando pasan los aplausos. La paz te salió carísima.", don: "Incauto noble. Bello en poesía, ruinoso en negocios. Quien siempre cede enseña a los demás a empujar." },
+          { text: "Rompes la negociación con insultos y clausuras dos zonas por orgullo.", quadrant: "estupido", delta: -10, karma: { wisdom: -2 }, consequence: "Pierden todos ingresos durante un mes por tu berrinche táctico. Lograste igualdad: miseria para todos.", don: "Estúpido colectivo. Cuando no puedes repartir, destruyes el pastel y luego presumes dieta." }
+        ]
+      },
+      {
+        title: "Cap 6: El Perdón",
+        lesson: "Tit-for-Tat generoso vs Grudger",
+        ambience: [
+          "La capilla vieja huele a cera, humedad y secretos masticados.",
+          "Las velas tiemblan como testimonios nerviosos.",
+          "Un hombre de rodillas pide volver; su voz llega rota pero práctica.",
+          "Don Carlo enciende un puro y mira como quien evalúa madera para ataúd."
+        ],
+        situation: "Un antiguo aliado que te traicionó pide segunda oportunidad. Dice que cambió. Trae pruebas de ayuda reciente, pero también fama de camaleón.",
+        opinions: [
+          { emoji: "👴", name: "Don Carlo", text: "Perdonar no es olvidar. Es cobrar distinto. Si vuelve, vuelve con regla. Si falla, se acabó la misa." },
+          { emoji: "😈", name: "Enzo", text: "La gente no cambia, solo mejora su coartada. Quémalo ahora y nadie confundirá tu paciencia con debilidad." }
+        ],
+        options: [
+          { text: "Lo readmites con vigilancia y condiciones claras: una falla y fuera.", quadrant: "inteligente", delta: 7, karma: { forgive: 2, wisdom: 1 }, consequence: "El aliado cumple, aporta información útil y entiende que esta vez no hay tercera vida. La familia ve firmeza con memoria.", don: "Tit-for-Tat generoso: castigas, luego permites regreso bajo reglas. Eso construye cooperación sin parecer ingenuo." },
+          { text: "Lo readmites para usarlo de cebo y luego descartarlo cuando ya no sirva.", quadrant: "malvado", delta: 3, karma: { exploit: 2 }, consequence: "Consigues resultados rápidos, luego lo apartas. La operación sale; tu reputación de traición preventiva también.", don: "Malvado estratégico. Funciona hasta que todos esperan la puñalada y nadie firma contigo sin cláusula antibalas." },
+          { text: "Lo perdonas sin condiciones porque 'todos merecen empezar de cero'.", quadrant: "incauto", delta: -6, karma: { coop: 2, forgive: 1 }, consequence: "Dos semanas de calma, luego desaparece con una caja chica y un abrazo de despedida. Te dejó una nota: 'Gracias por creer'.", don: "Incauto misericordioso. El perdón sin memoria es cupón infinito para reincidentes." },
+          { text: "Te vuelves Grudger absoluto: rechazas cualquier trato futuro con cualquiera que haya fallado una vez.", quadrant: "estupido", delta: -9, karma: { wisdom: -1 }, consequence: "El mensaje intimida, pero también corta alianzas valiosas. Terminas rodeado de novatos y resentidos, combinación explosiva.", don: "Estúpido rígido. Confundiste principios con pared de cemento. Hasta la puerta de una bóveda tiene bisagra." }
+        ]
+      },
+      {
+        title: "Cap 7: El Protegido",
+        lesson: "El dilema del mentor",
+        ambience: [
+          "En el gimnasio del barrio suenan golpes al saco y radios viejas.",
+          "Tu antiguo aprendiz ahora usa traje caro y sonrisa de estreno.",
+          "El olor a cuero y desinfectante tapa la tensión a medias.",
+          "Las fotos en la pared muestran cuando él te llamaba jefe."
+        ],
+        situation: "Entrenaste a Luca durante años. Ahora compite contigo usando exactamente tus tácticas. Te reta públicamente por un contrato grande.",
+        opinions: [
+          { emoji: "📊", name: "Sofía", text: "Si lo destruyes, nadie querrá aprender contigo. Si lo dejas pasar, quedas débil. Diseña una regla de competencia y conviértelo en sistema, no vendetta." },
+          { emoji: "😈", name: "Enzo", text: "La pedagogía está sobrevalorada. Tu alumno te muerde, tú le quitas los dientes. Lección memorable, cero powerpoint." }
+        ],
+        options: [
+          { text: "Aceptas competir, pero con acuerdo de colaboración posterior: quien gane integra al otro.", quadrant: "inteligente", delta: 8, karma: { coop: 2, wisdom: 1 }, consequence: "Compiten duro, tú ganas por poco y cumples el trato. Luca pasa de rival a aliado útil. El barrio aprende que contigo crecer no implica morir.", don: "Mentor inteligente: defiendes posición y conservas talento. Eso, hijo, es pensar en generaciones, no en aplausos." },
+          { text: "Saboteas al protegido con un inspector comprado para hundir su contrato.", quadrant: "malvado", delta: 4, karma: { exploit: 2 }, consequence: "Luca cae, tú cobras. También nace una camada de jóvenes que te teme más de lo que te respeta.", don: "Malvado eficaz. El problema de sabotar a un alumno es que también saboteas la escuela." },
+          { text: "Renuncias al contrato y se lo cedes para 'verlo triunfar'.", quadrant: "incauto", delta: -5, karma: { coop: 2 }, consequence: "Luca prospera, te agradece en público, y luego firma con tus rivales. Tu generosidad quedó enmarcada; tus cuentas, no.", don: "Incauto paternal. Enseñaste bien, negociaste mal. El afecto no paga nómina." },
+          { text: "Lo enfrentas a golpes en público y pierdes contrato y dignidad en una sola escena.", quadrant: "estupido", delta: -10, karma: { wisdom: -2 }, consequence: "El video se vuelve viral en el barrio: 'Jefe contra su propio alumno'. Nadie confía contratos a quien confunde licitación con ring.", don: "Estúpido emocional. El orgullo sin plan es alcohol caro servido en vaso roto." }
+        ]
+      },
+      {
+        title: "Cap 8: La Oferta",
+        lesson: "Valor de la reputación a largo plazo",
+        ambience: [
+          "Un puente viejo sobre el río sirve de sala de juntas improvisada.",
+          "La famiglia rival llega en coches impecables y promesas indecentes.",
+          "El aire huele a metal mojado y acuerdos temporales.",
+          "Tu teléfono vibra: Sofía, Enzo y dos dudas existenciales."
+        ],
+        situation: "La famiglia rival te ofrece el doble de dinero por cambiar de bando. Dicen que el talento no tiene bandera, solo tarifa.",
+        opinions: [
+          { emoji: "📊", name: "Sofía", text: "La reputación es interés compuesto. Una traición rentable hoy destruye futuras primas de confianza. Y la confianza paga más que un bono urgente." },
+          { emoji: "😈", name: "Enzo", text: "Lealtad es una palabra que inventó alguien sin ofertas. Si pagan más, sonríe y cambia de escudo. Ya llorarán en la próxima cena." }
+        ],
+        options: [
+          { text: "Negocias una alianza puntual transparente, sin traicionar, y conviertes la oferta rival en mejor contrato interno.", quadrant: "inteligente", delta: 8, karma: { wisdom: 2, coop: 1 }, consequence: "No cambias de bando, pero mejoras tu posición. Demuestras que sabes usar presión externa sin vender apellido.", don: "Lealtad inteligente: firme, no ciega. En la vida real, negociar no es traicionar; es evitar que te traten como mueble." },
+          { text: "Aceptas en secreto, cobras adelanto y filtras información gradual para vender dos veces el mismo dato.", quadrant: "malvado", delta: 5, karma: { exploit: 2 }, consequence: "Dinero rápido, adrenalina alta. También dos familias con motivos legítimos para buscarte en un callejón sin cámaras.", don: "Malvado de doble facturación. Brillante hasta que ambos clientes descubren que eran el mismo menú." },
+          { text: "Rechazas con honor, pero regalas detalles operativos para que 'no se vayan con las manos vacías'.", quadrant: "incauto", delta: -6, karma: { coop: 2 }, consequence: "Te quedas leal y pobremente discreto. La rival agradece y usa tus datos para morder rutas laterales.", don: "Incauto diplomático. Quisiste caer bien y entregaste munición con moño." },
+          { text: "Insultas a la rival y publicas su oferta en redes del barrio; cierras puertas con todos.", quadrant: "estupido", delta: -10, karma: { wisdom: -2 }, consequence: "La rival se ofende, tu familia se incomoda y los neutrales te catalogan como riesgo de reputación. Logro triple, pero en contra.", don: "Estúpido escénico. Quemaste puentes y luego preguntaste por qué no hay tráfico." }
+        ]
+      },
+      {
+        title: "Cap 9: El Chivo",
+        lesson: "Explotar al incauto vs protegerlo",
+        ambience: [
+          "En el almacén, las cajas están apiladas como excusas viejas.",
+          "Un error colectivo dejó pérdidas y alguien debe pagar la cara pública.",
+          "Gino está cerca, limpiando una mesa, tarareando como si el mundo fuera bueno.",
+          "Enzo habla bajito: eso siempre significa problemas de volumen alto."
+        ],
+        situation: "Te proponen culpar a Gino. No se defendería. Resolvería el escándalo en una tarde y salvaría a pesos pesados del clan.",
+        opinions: [
+          { emoji: "😈", name: "Enzo", text: "Gino es amortiguador humano: recibe golpes y da abrazos. Úsalo. Es eficiente y además trae cannoli cuando lo retas." },
+          { emoji: "👴", name: "Don Carlo", text: "Cuando una casa protege al débil, se vuelve familia. Cuando lo sacrifica, se vuelve empresa de cobardes." }
+        ],
+        options: [
+          { text: "Defiendes a Gino, asumes tu parte del error y rediseñas el sistema para que no se repita.", quadrant: "inteligente", delta: 9, karma: { wisdom: 2, coop: 2 }, consequence: "Hay costos inmediatos, pero la familia entiende que contigo la responsabilidad no baja por jerarquía. Gino te mira como quien volvió a creer en algo.", don: "Inteligente con columna vertebral. Proteger al incauto no es caridad; es proteger la cultura que evita monstruos internos." },
+          { text: "Culpas a Gino y le prometes compensarlo luego, en secreto, para mantener tu imagen limpia.", quadrant: "malvado", delta: 4, karma: { exploit: 3 }, consequence: "El problema mediático se apaga. Gino acepta callado. Tu espejo tarda un segundo más en devolverte la mirada.", don: "Malvado paternalista: lo explotas diciendo que es por el bien común. El bien común casi siempre llega sin recibo." },
+          { text: "Te ofreces tú solo como culpable total para salvar a todos, incluso a quienes sí causaron el daño.", quadrant: "incauto", delta: -7, karma: { coop: 2 }, consequence: "Te vuelves mártir de una tarde y ejemplo de lo que no repetir. Nadie corrige procesos porque ya tienen héroe disponible.", don: "Incauto heroico. Te inmolaste y dejaste intacta la máquina que fabrica errores." },
+          { text: "Mientes, culpas a Gino y además filtras que él roba para hundirlo del todo.", quadrant: "estupido", delta: -12, karma: { wisdom: -2, exploit: 1 }, consequence: "El barrio se divide, la historia se descontrola y terminas señalado como manipulador cuando salen pruebas. Te explotó el plan en la mano.", don: "Estúpido cruel. Quisiste daño perfecto y fabricaste desastre perfecto." }
+        ]
+      },
+      {
+        title: "Cap 10: El Consejo",
+        lesson: "Asimetría de Taleb y skin in the game del consejero",
+        ambience: [
+          "Una oficina con persianas a media luz y olor a tinta fresca.",
+          "Sofía te pide consejo sobre un movimiento arriesgado con alto retorno.",
+          "Enzo escucha apoyado en la puerta, sonrisa de vendedor de tormentas.",
+          "Tus palabras hoy pueden salvar a alguien... o empujarlo elegante al abismo."
+        ],
+        situation: "Debes recomendar si Sofía entra en una operación internacional. Si sale bien, todos ganan. Si sale mal, cae ella primero. Tu consejo también define cuánto confían en ti.",
+        opinions: [
+          { emoji: "📊", name: "Sofía", text: "No quiero aplausos, quiero criterio. Si me dices que entre, dime también qué parte del golpe compartes si esto falla." },
+          { emoji: "😈", name: "Enzo", text: "Aconsejar sin pagar cuesta cero y se ve profesional. Habla fuerte, usa palabras complejas y desaparece si truena." }
+        ],
+        options: [
+          { text: "Recomiendas entrar solo si tú también pones capital y responsabilidad pública en caso de pérdida.", quadrant: "inteligente", delta: 8, karma: { wisdom: 2, coop: 1 }, consequence: "Sofía acepta. El plan se ajusta, el riesgo baja y tu palabra gana peso porque viene con piel en juego.", don: "Consejero con cicatriz potencial: así se habla. Quien arriesga contigo merece ser escuchado incluso cuando se equivoca." },
+          { text: "La empujas a entrar y escondes cláusulas para que el costo recaiga solo en ella si fracasa.", quadrant: "malvado", delta: 4, karma: { exploit: 2 }, consequence: "Si sale bien, tú celebras en primera fila. Si sale mal, ella paga sola y tú traes discurso de 'era imprevisible'.", don: "Malvado de oficina. Corbata limpia, manos limpias, conciencia en lavandería." },
+          { text: "Le dices que no entre por miedo general, sin analizar datos, y te ofreces a cubrirla emocionalmente.", quadrant: "incauto", delta: -5, karma: { coop: 1 }, consequence: "Evitan riesgo, también oportunidad clave. La familia te quiere, pero para consejos serios buscan otra mesa.", don: "Incauto protector. Buen abrazo, mal brújula. El miedo también cuesta dinero, hijo." },
+          { text: "Das un consejo ambiguo para quedar bien pase lo que pase, y luego dices que te malinterpretaron.", quadrant: "estupido", delta: -9, karma: { wisdom: -2 }, consequence: "Cuando llegan resultados mixtos, todos recuerdan tu niebla verbal. Pierdes credibilidad, el activo más caro que tenías.", don: "Estúpido evasivo. El que nunca se compromete termina sin voz cuando de verdad hay que decidir." }
+        ]
+      },
+      {
+        title: "Cap 11: La Guerra",
+        lesson: "Dilema del prisionero puro",
+        ambience: [
+          "Noche cerrada en la frontera de dos barrios.",
+          "Motores encendidos, dedos tensos, radios en susurro.",
+          "Dos familias frente a frente, cada una esperando que la otra pestañee.",
+          "El olor a pólvora vieja pelea con el de pizza recién horneada del local de esquina."
+        ],
+        situation: "Una provocación escaló y ahora ambos bandos deben elegir: atacar o negociar. Si ambos atacan, pierden todos. Si uno coopera y el otro traiciona, uno humilla y el otro sangra.",
+        opinions: [
+          { emoji: "😈", name: "Enzo", text: "Ataca primero. La paz es una pausa entre victorias ajenas. El que dispara segundo escribe memorias, no historia." },
+          { emoji: "👴", name: "Don Carlo", text: "Las guerras empiezan por orgullo y terminan por contadores. La pregunta no es quién gana hoy; es quién queda vivo para cobrar mañana." }
+        ],
+        options: [
+          { text: "Propones tregua verificable: intercambio de garantías, canales abiertos y castigo automático a quien rompa.", quadrant: "inteligente", delta: 9, karma: { coop: 2, wisdom: 2 }, consequence: "La rival acepta por costo mutuo. Se firma paz tensa, pero real. Los negocios vuelven y las funerarias se ofenden por falta de clientes.", don: "Dilema del prisionero resuelto con repetición y memoria. Si te veré mañana, me conviene no traicionarte hoy." },
+          { text: "Finges negociar mientras preparas ataque quirúrgico para llevarte ventaja inicial.", quadrant: "malvado", delta: 5, karma: { exploit: 2, wisdom: 1 }, consequence: "Golpeas primero y fuerte. También activas venganza larga. Ganaste la batalla, firmaste cuotas para la siguiente década.", don: "Malvado de manual bélico: victoria táctica, deuda estratégica." },
+          { text: "Cedes territorio clave para evitar conflicto, sin pedir garantías.", quadrant: "incauto", delta: -6, karma: { coop: 2 }, consequence: "No hay guerra hoy. Mañana hay más exigencias. Descubres que la paz sin límites se parece mucho a la rendición.", don: "Incauto pacifista. Noble intención, incentivo perverso: el otro aprende que presionarte funciona." },
+          { text: "Ordenas ataque total sin logística ni inteligencia; el caos consume ambos bandos.", quadrant: "estupido", delta: -12, karma: { wisdom: -2 }, consequence: "Pierdes gente, recursos y tiempo. La rival también, pero menos. Tu orgullo queda satisfecho cinco minutos y endeudado cinco años.", don: "Estúpido apocalíptico. Si ambos pierden, no hay héroes, solo viudas." }
+        ]
+      },
+      {
+        title: "Cap 12: La Sucesión",
+        lesson: "Integración total",
+        ambience: [
+          "Amanecer sobre la villa. El mármol frío refleja un cielo cansado.",
+          "Don Carlo viste de negro impecable y respira como reloj antiguo.",
+          "Sofía, Enzo y Gino esperan en silencio, cada uno con su verdad.",
+          "Una silla vacía en la cabecera parece pesar más que el edificio entero."
+        ],
+        situation: "Don Carlo se retira. Debes elegir cómo se hereda el poder: concentración, sistema compartido, manipulación o renuncia. Tu historia completa cae ahora sobre una sola decisión.",
+        opinions: [
+          { emoji: "👴", name: "Don Carlo", text: "Un Don no es el que manda más fuerte. Es el que hace que mañana exista. El resto son fuegos artificiales con traje." },
+          { emoji: "📊", name: "Sofía", text: "La sucesión no es coronación, es arquitectura de incentivos. Si diseñamos mal esto, en un año estaremos negociando entre cenizas." }
+        ],
+        options: [
+          { text: "Creas un consejo con reglas claras: tú coordinas, Sofía diseña estrategia, Gino protege tejido social y Enzo queda bajo límites verificables.", quadrant: "inteligente", delta: 10, karma: { wisdom: 3, coop: 2 }, consequence: "La famiglia deja de depender del capricho de una sola persona. Hay tensión, sí, pero también estructura. Don Carlo asiente como quien ve futuro y no solo nostalgia.", don: "Integraste teoría en vida. Inteligente no es ser bueno: es construir un sistema donde cooperar rinda y traicionar salga caro." },
+          { text: "Te proclamas Don absoluto, compras lealtad de Enzo y reduces a todos por miedo eficiente.", quadrant: "malvado", delta: 4, karma: { exploit: 3 }, consequence: "Mandas rápido, todo obedece, todo tiembla. También nace una cola de conspiraciones que trabaja turno noche.", don: "Malvado soberano. El trono sin confianza viene con fecha de caducidad oculta debajo del cojín." },
+          { text: "Renuncias al liderazgo y entregas el poder a quien lo pida primero para evitar conflicto.", quadrant: "incauto", delta: -8, karma: { coop: 1 }, consequence: "Evitas discusión inmediata y abres guerra lenta por vacío de poder. Tu bondad deja a todos peor coordinados.", don: "Incauto final. Hiciste paz de un día y tormenta de un año." },
+          { text: "Intentas enfrentar a todos entre sí para salir como único árbitro, pero pierdes control del tablero.", quadrant: "estupido", delta: -14, karma: { wisdom: -3 }, consequence: "Las facciones se rompen, los negocios se congelan y tú quedas en medio de un incendio político que tú mismo prendiste con fósforos mojados.", don: "Estúpido imperial. Creíste jugar ajedrez 4D y se te cayó el tablero en el pie." }
+        ]
+      }
+    ];
+
+    const detectorCases = [
+      { text: "Te promete duplicar tu dinero en una semana, pero cuando preguntas cuánto arriesga él, te cambia de tema y te invita whisky.", answer: "malvado" },
+      { text: "Siempre ayuda a todos, paga cuentas ajenas y cuando lo estafan dice que 'seguro lo necesitaban'.", answer: "incauto" },
+      { text: "Si lo tratas bien, te trata mejor. Si lo engañas, te responde una vez y luego vuelve a negociar con condiciones.", answer: "inteligente" },
+      { text: "Rompe alianza rentable solo para ganar una discusión en voz alta frente a cinco personas.", answer: "estupido" },
+      { text: "Antes de recomendar una inversión, mete su propio dinero y firma responsabilidad si falla.", answer: "inteligente" },
+      { text: "Dice 'somos familia', toma tu ayuda y desaparece justo cuando toca pagar.", answer: "malvado" },
+      { text: "Perdona cinco veces seguidas al mismo traidor porque 'esta vez sí lo sintió'.", answer: "incauto" },
+      { text: "Acusa al azar para parecer líder y termina perdiendo a inocentes y culpables.", answer: "estupido" },
+      { text: "Negocia duro, pero siempre deja una salida para que la otra parte también gane algo y vuelva mañana.", answer: "inteligente" },
+      { text: "Te sonríe, te llama hermano y vende la misma información a tu rival en la misma tarde.", answer: "malvado" },
+      { text: "Cede siempre por evitar conflicto y cada semana le piden un poco más.", answer: "incauto" },
+      { text: "No entra a una estafa, pero por orgullo apuesta igual y pierde por deporte.", answer: "estupido" },
+      { text: "Cuando alguien falla, castiga una vez y luego permite volver con reglas claras.", answer: "inteligente" },
+      { text: "Se ofrece de chivo expiatorio para salvar a todos, incluyendo a quienes lo culparon.", answer: "incauto" },
+      { text: "Diseña contratos tan asimétricos que él gana si sale bien y también si sale mal.", answer: "malvado" },
+      { text: "En plena crisis, grita, insulta y destruye recursos que necesitaba para resolverla.", answer: "estupido" }
+    ];
+
+    const donSarcasm = {
+      inteligente: "Hijo... ese sí piensa a largo plazo. Da gusto ver neuronas trabajando en horario nocturno.",
+      malvado: "Maldad con corbata. Eficiente, sí. Confiable, jamás.",
+      incauto: "Corazón enorme, bolsillo en coma. Eres adorable y altamente saqueable.",
+      estupido: "Eso no fue estrategia, fue un accidente con entusiasmo."
+    };
+
+    const tabs = [...document.querySelectorAll(".tab-btn")];
+    const sections = {
+      historia: document.getElementById("historia"),
+      consejo: document.getElementById("consejo"),
+      perfil: document.getElementById("perfil")
+    };
+
+    const baseState = {
+      currentChapter: 0,
+      rispetto: 50,
+      karma: { coop: 0, exploit: 0, wisdom: 0, forgive: 0 },
+      decisions: [],
+      quadrants: [],
+      detector: { streak: 0, best: 0, score: 0, current: null, left: 10 },
+      gameState: "playing"
+    };
+
+    let state = loadState();
+    let timer = null;
+
+    function loadState() {
+      const raw = localStorage.getItem("lafamiglia-save");
+      if (!raw) return structuredClone(baseState);
+      try {
+        const parsed = JSON.parse(raw);
+        return {
+          ...structuredClone(baseState),
+          ...parsed,
+          karma: { ...baseState.karma, ...(parsed.karma || {}) },
+          detector: { ...baseState.detector, ...(parsed.detector || {}) }
+        };
+      } catch {
+        return structuredClone(baseState);
+      }
+    }
+
+    function saveState() {
+      localStorage.setItem("lafamiglia-save", JSON.stringify(state));
+    }
+
+    function clamp(num, min, max) {
+      return Math.max(min, Math.min(max, num));
+    }
+
+    function renderAll() {
+      renderRispetto();
+      renderStory();
+      renderCouncil();
+      renderProfile();
+    }
+
+    function renderRispetto() {
+      const r = clamp(state.rispetto, 0, 100);
+      document.getElementById("rispettoValue").textContent = `${r}/100`;
+      document.getElementById("rispettoBar").style.width = `${r}%`;
+    }
+
+    function getDecision(chapterIndex) {
+      return state.decisions.find(d => d.chapter === chapterIndex);
+    }
+
+    function getChapterWithModifiers(index) {
+      const chapter = structuredClone(chapters[index]);
+      if (!chapter) return null;
+
+      if (index === 7 && state.karma.exploit >= 5) {
+        chapter.options[0].text = "Intentas quedarte leal, pero tu fama de traición te obliga a ofrecer garantías humillantes para que te crean.";
+        chapter.options[0].delta = 3;
+        chapter.options[0].consequence = "Logras quedarte, pero bajo vigilancia dura. Tu pasado negocia más fuerte que tus palabras.";
+      }
+      if (index === 8 && state.karma.exploit >= 4) {
+        chapter.options[2].text = "Buscas refugio emocional en Gino, pero él ya no responde llamadas de última hora.";
+        chapter.options[2].delta = -9;
+        chapter.options[2].consequence = "Tu historial de uso de personas te pasa factura. Por primera vez, la bondad de Gino tiene frontera.";
+      }
+      if (index === 10 && state.karma.wisdom >= 6) {
+        chapter.options[0].text = "Propones tregua verificable y visitas personales semanales con la rival para sostener reciprocidad.";
+        chapter.options[0].delta = 11;
+        chapter.options[0].consequence = "La paz no solo se firma, se mantiene. Tu presencia constante evita recaídas y eleva tu nombre por encima del miedo.";
+      }
+      // More dynamic karma
+      if (index === 11 && state.karma.exploit >= 7) {
+        chapter.options[1].delta = 8;
+        chapter.options[1].consequence = "Tu fama de serpiente te precede. La rival acepta tu 'paz' con desconfianza pero paga para no pelear.";
+      }
+      return chapter;
+    }
+
+    function renderStory() {
+      const el = sections.historia;
+      if (state.gameState === "gameover") {
+        el.innerHTML = `<div class="panel p-4 fade text-center">
+          <div class="text-6xl mb-6">⚰️</div>
+          <h2 class="text-3xl text-[#8b2252] mb-3">La famiglia ya no te necesita</h2>
+          <p class="text-[#f0e6d3] leading-relaxed max-w-md mx-auto">Te quedaste sin Rispetto. Don Carlo suspira y dice: "Hijo... eso que hiciste tiene un nombre. Y no es bonito." Tu reputación se gastó en cuotas pequeñas.</p>
+          <button id="resetGame" class="mt-6 option-btn px-8">Empezar otra vida</button>
+        </div>`;
+        document.getElementById("resetGame").onclick = resetGame;
+        return;
+      }
+      if (state.gameState === "victory") {
+        el.innerHTML = `<div class="panel p-4 fade text-center">
+          <div class="text-6xl mb-4">👑</div>
+          <h2 class="text-3xl text-[#d4a037] mb-3">Eres el nuevo Don</h2>
+          <p class="text-[#f0e6d3] leading-relaxed">Llegaste a 100 de Rispetto. La famiglia te respeta. Don Carlo te deja la silla con una última frase: "Manda menos, diseña más. Así no dependes de gritar".</p>
+          <div class="mt-6 flex justify-center gap-3">
+            <button id="resetGame" class="option-btn">Jugar de nuevo</button>
+          </div>
+        </div>`;
+        document.getElementById("resetGame").onclick = resetGame;
+        return;
+      }
+
+      const idx = state.currentChapter;
+      if (idx >= chapters.length) {
+        const dominant = getDominantQuadrant();
+        el.innerHTML = `<div class="panel p-4 fade"><h2 class="text-2xl text-[#d4a037] mb-2">Final de Historia</h2><p>Concluiste los 12 capítulos. Tu estilo dominante fue <strong>${dominant.label}</strong>. Don Carlo se levanta despacio y te mira fijo: "Un Don no nace por discurso. Nace por patrón".</p><button id="resetGame" class="mt-4 option-btn">Rejugar la historia</button></div>`;
+        document.getElementById("resetGame").onclick = resetGame;
+        return;
+      }
+
+      const chapter = getChapterWithModifiers(idx);
+      const decision = getDecision(idx);
+
+      el.innerHTML = `
+        <article class="panel p-4 md:p-5 fade">
+          <h2 class="text-2xl text-[#d4a037] mb-1">${chapter.title}</h2>
+          <p class="text-sm text-[#888] mb-4">${chapter.lesson}</p>
+
+          <div class="mb-4">
+            ${chapter.ambience.map(line => `<p class="text-[#f0e6d3] leading-relaxed">${line}</p>`).join("")}
+          </div>
+
+          <h3 class="text-[#d4a037]">Situación</h3>
+          <p class="mb-4 leading-relaxed">${chapter.situation}</p>
+
+          <h3 class="text-[#d4a037]">Voces de la mesa</h3>
+          <div class="mb-4">
+            ${chapter.opinions.map(o => `<div class="dialogue"><p class="text-sm text-[#888]">${o.emoji} ${o.name}</p><p class="leading-relaxed">${o.text}</p></div>`).join("")}
+          </div>
+
+          <h3 class="text-[#d4a037] mb-2">Tu decisión</h3>
+          <div class="grid gap-2" id="optionsWrap">
+            ${chapter.options.map((opt, i) => `<button class="option-btn" data-option="${i}" ${decision ? "disabled" : ""}>${opt.text}</button>`).join("")}
+          </div>
+
+          <div id="outcome" class="mt-5 ${decision ? "" : "hidden"}"></div>
+          ${decision ? `<button onclick="window.replayChapter(${idx})" class="mt-3 text-xs text-[#d4a037] hover:text-white transition-colors">↻ Releer este capítulo</button>` : ''}
+        </article>
+      `;
+
+      if (!decision) {
+        [...el.querySelectorAll("[data-option]")].forEach(btn => {
+          btn.addEventListener("click", () => chooseOption(idx, Number(btn.dataset.option)));
+        });
+      } else {
+        renderOutcome(chapter, decision, state.gameState === "playing");
+      }
+    }
+
+    function chooseOption(chapterIndex, optionIndex) {
+      if (getDecision(chapterIndex)) return;
+      const chapter = getChapterWithModifiers(chapterIndex);
+      const option = chapter.options[optionIndex];
+      if (!option) return;
+
+      state.rispetto = clamp(state.rispetto + option.delta, 0, 100);
+      Object.entries(option.karma || {}).forEach(([k, v]) => {
+        state.karma[k] = (state.karma[k] || 0) + v;
+      });
+
+      state.decisions.push({
+        chapter: chapterIndex,
+        optionIndex,
+        quadrant: option.quadrant,
+        delta: option.delta,
+        consequence: option.consequence,
+        don: option.don
+      });
+      state.quadrants.push(option.quadrant);
+
+      if (state.rispetto <= 0) {
+        state.gameState = "gameover";
+      } else if (state.rispetto >= 100) {
+        state.gameState = "victory";
+      }
+
+      saveState();
+      renderRispetto();
+      renderStory();
+      renderProfile();
+    }
+
+    function renderOutcome(chapter, decision, showNext = false) {
+      const out = document.getElementById("outcome");
+      if (!out || !decision) return;
+      out.classList.remove("hidden");
+      out.innerHTML = `
+        <div class="panel p-3 mb-3">
+          <p class="text-sm text-[#888] mb-1">Consecuencia inmediata</p>
+          <p class="leading-relaxed">${decision.consequence}</p>
+        </div>
+        <div class="panel p-3 mb-3">
+          <p class="text-sm text-[#888] mb-1">👴 Don Carlo</p>
+          <p id="donType" class="typewriter leading-relaxed"></p>
+        </div>
+        <p class="text-[#d4a037]">Cambio en Rispetto: ${decision.delta >= 0 ? "+" : ""}${decision.delta}</p>
+        ${showNext && state.gameState === "playing" ? '<button id="nextChapter" class="mt-3 option-btn">Siguiente capítulo</button>' : ""}
+      `;
+      typeWriter(document.getElementById("donType"), decision.don);
+      const nextBtn = document.getElementById("nextChapter");
+      if (nextBtn) {
+        nextBtn.onclick = () => {
+          state.currentChapter = Math.min(chapters.length, state.currentChapter + 1);
+          saveState();
+          renderStory();
+        };
+      }
+    }
+
+    function typeWriter(el, text) {
+      if (!el) return;
+      el.textContent = "";
+      let i = 0;
+      const tick = () => {
+        if (i < text.length) {
+          el.textContent += text[i++];
+          setTimeout(tick, 16);
+        }
+      };
+      tick();
+    }
+
+    function renderCouncil() {
+      const el = sections.consejo;
+      const c = state.detector.current;
+      const left = state.detector.left;
+
+      el.innerHTML = `
+        <div class="panel p-4">
+          <h2 class="text-2xl text-[#d4a037] mb-1">Consejo de Familia</h2>
+          <p class="text-[#888] mb-4">Clasifica el comportamiento antes de que se enfríe el café. Tienes 10 segundos.</p>
+          <div class="flex gap-4 text-sm mb-3">
+            <p>Racha: <strong>${state.detector.streak}</strong></p>
+            <p>Mejor: <strong>${state.detector.best}</strong></p>
+            <p>Tiempo: <strong id="timerVal">${left}s</strong></p>
+          </div>
+          <div class="panel p-3 mb-3 min-h-[110px]">
+            <p id="caseText">${c ? c.text : "Pulsa empezar y que Dios reparta reflejos."}</p>
+          </div>
+          <div class="grid grid-cols-2 gap-2 mb-3">
+            <button class="option-btn" data-det="inteligente">Inteligente</button>
+            <button class="option-btn" data-det="malvado">Malvado</button>
+            <button class="option-btn" data-det="incauto">Incauto</button>
+            <button class="option-btn" data-det="estupido">Estúpido</button>
+          </div>
+          <div class="flex gap-2 mb-3">
+            <button id="startDetector" class="option-btn">${c ? "Siguiente caso" : "Empezar"}</button>
+          </div>
+          <div class="panel p-3">
+            <p class="text-sm text-[#888] mb-1">Comentario de Don Carlo</p>
+            <p id="detectorComment" class="leading-relaxed">"El reloj no te evalúa moralmente, hijo. Solo mide si piensas antes de hablar".</p>
+          </div>
+        </div>
+      `;
+
+      document.getElementById("startDetector").onclick = nextDetectorCase;
+      [...el.querySelectorAll("[data-det]")].forEach(btn => {
+        btn.onclick = () => answerDetector(btn.dataset.det);
+      });
+    }
+
+    function nextDetectorCase() {
+      clearInterval(timer);
+      const idx = Math.floor(Math.random() * detectorCases.length);
+      state.detector.current = detectorCases[idx];
+      state.detector.left = 10;
+      saveState();
+      renderCouncil();
+      timer = setInterval(() => {
+        state.detector.left -= 1;
+        const t = document.getElementById("timerVal");
+        if (t) t.textContent = `${state.detector.left}s`;
+        if (state.detector.left <= 0) {
+          clearInterval(timer);
+          resolveDetector(false, null, true);
+        }
+      }, 1000);
+    }
+
+    function answerDetector(choice) {
+      if (!state.detector.current || state.detector.left <= 0) return;
+      clearInterval(timer);
+      const ok = choice === state.detector.current.answer;
+      resolveDetector(ok, choice, false);
+    }
+
+    function resolveDetector(ok, choice, timedOut) {
+      if (ok) {
+        state.detector.streak += 1;
+        state.detector.best = Math.max(state.detector.best, state.detector.streak);
+        state.detector.score += 1;
+        state.rispetto = clamp(state.rispetto + 2, 0, 100);
+      } else {
+        state.detector.streak = 0;
+        state.detector.score -= 1;
+        state.rispetto = clamp(state.rispetto - 1, 0, 100);
+      }
+
+      const correct = state.detector.current.answer;
+      const text = timedOut
+        ? `Se acabó el reloj. Era ${correct.toUpperCase()}. ${donSarcasm[correct]}`
+        : ok
+          ? `Correcto. Era ${correct.toUpperCase()}. ${donSarcasm[correct]}`
+          : `No, hijo. Marcaste ${choice.toUpperCase()}, pero era ${correct.toUpperCase()}. ${donSarcasm[correct]}`;
+
+      state.detector.current = null;
+      state.detector.left = 10;
+
+      if (state.rispetto <= 0) state.gameState = "gameover";
+      if (state.rispetto >= 100) state.gameState = "victory";
+
+      saveState();
+      renderRispetto();
+      renderCouncil();
+      const comment = document.getElementById("detectorComment");
+      if (comment) typeWriter(comment, text);
+      renderStory();
+      renderProfile();
+    }
+
+    function getDominantQuadrant() {
+      const count = { inteligente: 0, malvado: 0, incauto: 0, estupido: 0 };
+      state.quadrants.forEach(q => count[q] = (count[q] || 0) + 1);
+      let winner = "inteligente";
+      Object.keys(count).forEach(k => {
+        if (count[k] > count[winner]) winner = k;
+      });
+      const labels = {
+        inteligente: "Inteligente",
+        malvado: "Malvado",
+        incauto: "Incauto",
+        estupido: "Estúpido"
+      };
+      return { key: winner, label: labels[winner], count };
+    }
+
+    function renderProfile() {
+      const el = sections.perfil;
+      const total = state.quadrants.length || 1;
+      const count = { inteligente: 0, malvado: 0, incauto: 0, estupido: 0 };
+      state.quadrants.forEach(q => count[q] = (count[q] || 0) + 1);
+
+      const rows = [
+        ["Inteligente", "inteligente"],
+        ["Malvado", "malvado"],
+        ["Incauto", "incauto"],
+        ["Estúpido", "estupido"]
+      ].map(([label, key]) => {
+        const pct = Math.round((count[key] / total) * 100);
+        return `<div class="mb-3"><div class="flex justify-between text-sm"><span>${label}</span><span>${pct}%</span></div><div class="bar"><span style="width:${pct}%"></span></div></div>`;
+      }).join("");
+
+      const dominant = getDominantQuadrant().key;
+      const diagnosis = {
+        inteligente: "Serás Don algún día. Si sobrevives.",
+        malvado: "Te respeto. No te doy la espalda, pero te respeto.",
+        incauto: "Hijo... eres buena persona. Eso no es un cumplido en este negocio.",
+        estupido: "...¿Estás seguro de que no te adoptaron?"
+      };
+
+      el.innerHTML = `
+        <div class="panel p-4">
+          <h2 class="text-2xl text-[#d4a037] mb-1">Perfil de Estratega</h2>
+          <p class="text-[#888] mb-4">Tus decisiones dejan patrón, y el patrón deja destino.</p>
+          ${rows}
+          <div class="panel p-3 mt-4">
+            <p class="text-sm text-[#888] mb-1">Diagnóstico de Don Carlo</p>
+            <p>${diagnosis[dominant]}</p>
+          </div>
+          <button id="resetAll" class="option-btn mt-4">Borrar progreso</button>
+        </div>
+      `;
+      document.getElementById("resetAll").onclick = resetGame;
+    }
+
+    function resetGame() {
+      clearInterval(timer);
+      state = structuredClone(baseState);
+      saveState();
+      renderAll();
+    }
+
+    window.replayChapter = function(idx) {
+      const el = sections.historia;
+      const chapter = getChapterWithModifiers(idx);
+      const decision = getDecision(idx);
+      if (!decision) return;
+      renderOutcome(chapter, decision, false);
+    };
+
+    tabs.forEach(btn => {
+      btn.addEventListener("click", () => {
+        tabs.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        Object.values(sections).forEach(sec => sec.classList.add("hidden"));
+        sections[btn.dataset.tab].classList.remove("hidden");
+      });
+    });
+
+    renderAll();
+  </script>
+</body>
+</html>
