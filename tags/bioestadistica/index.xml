@@ -1,334 +1,98 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Bioestadistica | Bioestadística edu</title><link>https://bioestadisticaedu.com/tags/bioestadistica/</link><atom:link href="https://bioestadisticaedu.com/tags/bioestadistica/index.xml" rel="self" type="application/rss+xml"/><description>Bioestadistica</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Mon, 01 Sep 2025 00:00:00 +0000</lastBuildDate><image><url>https://bioestadisticaedu.com/media/icon_hu_a91eea5f46a3944e.png</url><title>Bioestadistica</title><link>https://bioestadisticaedu.com/tags/bioestadistica/</link></image><item><title>Inferencia Causal, Desvelando la Lógica Matemática Detrás de Causa y Efecto</title><link>https://bioestadisticaedu.com/post/inferencia-causal/</link><pubDate>Mon, 01 Sep 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/inferencia-causal/</guid><description>&lt;p>&lt;em>Por Maicel Monzon&lt;/em>&lt;/p>
-&lt;h2 id="introducción">Introducción&lt;/h2>
-&lt;p>El &lt;strong>marco de resultados potenciales&lt;/strong> se mantiene como la piedra angular del pensamiento causal, proporcionando el andamiaje conceptual para diferenciar la mera correlación de la causalidad. Ante la imposibilidad de llevar a cabo &lt;strong>ensayos controlados aleatorizados (RCT)&lt;/strong>, la investigación se ha nutrido de &lt;strong>métodos robustos&lt;/strong> que permiten extraer inferencias causales creíbles de datos observacionales. En este contexto, herramientas como el &lt;strong>Propensity Score&lt;/strong> y los &lt;strong>estimadores doblemente robustos&lt;/strong> (DR) se utilizan para controlar los sesgos de selección a partir de covariables observables, mientras que los &lt;strong>Efectos de Tratamiento Promedio Condicionales (CATE)&lt;/strong>, apoyados en machine learning, permiten explorar la heterogeneidad del efecto entre subpoblaciones. Asimismo, un conjunto de estrategias cuasi-experimentales ha abierto nuevos horizontes en la investigación, incluyendo el uso de &lt;strong>Variables Instrumentales (IV)&lt;/strong> para corregir la confusión no observada, el &lt;strong>Diferencias-en-Diferencias (DID)&lt;/strong> y el &lt;strong>Control Sintético (SC)&lt;/strong> para comparar trayectorias temporales, y la &lt;strong>Regresión Discontinua (RDD)&lt;/strong> para explotar umbrales de asignación, todas ellas permitiendo identificar efectos causales en contextos donde la aleatorización no es factible.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Bioestadística | Bioestadística edu</title><link>https://bioestadisticaedu.com/tags/bioestadistica/</link><atom:link href="https://bioestadisticaedu.com/tags/bioestadistica/index.xml" rel="self" type="application/rss+xml"/><description>Bioestadística</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Fri, 27 Feb 2026 00:00:00 +0000</lastBuildDate><image><url>https://bioestadisticaedu.com/media/icon_hu_a91eea5f46a3944e.png</url><title>Bioestadística</title><link>https://bioestadisticaedu.com/tags/bioestadistica/</link></image><item><title>Rituales metodológicos en ensayos clínicos: cuando la técnica reemplaza al pensamiento</title><link>https://bioestadisticaedu.com/post/rituales-metodologicos-00/</link><pubDate>Fri, 27 Feb 2026 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/rituales-metodologicos-00/</guid><description>&lt;p>&lt;em>Por Maicel Monzón&lt;/em>&lt;/p>
 &lt;hr>
-&lt;h2 id="1-el-desafío-central-solo-vemos-un-lado-de-la-moneda">1. El desafío central: solo vemos un lado de la moneda&lt;/h2>
-&lt;p>Imagina que quieres evaluar el impacto de una nueva política de vacunación. Para cada persona, podríamos definir dos mundos posibles: uno donde recibe la vacuna y otro donde no. Pero en la práctica solo observamos un mundo: el que ocurrió. Ese es el &lt;strong>“problema fundamental de la inferencia causal”&lt;/strong>.&lt;/p>
-&lt;p>El &lt;strong>marco de resultados potenciales&lt;/strong> formaliza esta idea:&lt;/p>
-$$
-\tau_{\text{sample}} = \frac{1}{N} \sum_{i=1}^{N} (Y_i(1) - Y_i(0))
-$$
-&lt;p>En un ensayo controlado aleatorizado (RCT), la aleatorización nos permite estimar este efecto promedio simplemente comparando medias. Pero ¿qué pasa cuando los RCT no son factibles por razones éticas, logísticas o económicas?&lt;/p>
+&lt;h2 id="introducción-la-escena-del-ritual">Introducción: la escena del ritual&lt;/h2>
+&lt;p>Durante más de una década fui responsable del &lt;strong>análisis estadístico de ensayos clínicos en CENCEC&lt;/strong>, y desde hace aproximadamente tres años en el &lt;strong>CECMED&lt;/strong>. Esta experiencia abarca &lt;strong>todas las fases de los ensayos clínicos&lt;/strong>, desde la elaboración de protocolos hasta la evaluación de proyectos concluidos y reportes de análisis.&lt;/p>
+&lt;p>A lo largo de este recorrido, he observado que en cada etapa pueden surgir &lt;strong>decisiones técnicas que, aunque correctas formalmente, requieren reflexión crítica sobre su propósito&lt;/strong>. La serie que presentamos aborda lo que denominamos &lt;strong>rituales metodológicos&lt;/strong>: procedimientos ejecutados de manera sistemática que pueden priorizar la técnica sobre la interpretación de los resultados, afectando la alineación entre el diseño, la pregunta clínica y la inferencia estadística.&lt;/p>
 &lt;hr>
-&lt;h2 id="2-estudios-observacionales-cuando-no-hay-azar-pero-sí-ingenio">2. Estudios observacionales: cuando no hay azar, pero sí ingenio&lt;/h2>
-&lt;p>En contextos reales —salud pública, economía, políticas sociales— dependemos de datos observacionales. Allí, la clave es suponer que, condicional en ciertas variables previas ($X_i$), la asignación al tratamiento es “tan buena como aleatoria”.&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>Propensity Score (Rosenbaum &amp;amp; Rubin, 1983):&lt;/strong> condensa múltiples covariables en una única probabilidad de recibir tratamiento, facilitando el emparejamiento y la ponderación.&lt;/li>
-&lt;li>&lt;strong>Estimadores doblemente robustos:&lt;/strong> combinan modelos de resultado y de asignación al tratamiento; basta con que uno esté bien especificado para obtener estimaciones consistentes.&lt;/li>
-&lt;li>&lt;strong>CATE (Conditional Average Treatment Effect):&lt;/strong> con machine learning, hoy podemos explorar cómo los efectos varían entre subpoblaciones (ej. políticas de empleo más efectivas en jóvenes que en adultos mayores).&lt;/li>
-&lt;/ul>
-&lt;p>⚠️ Cuando sospechamos de confusión no observada, entran en juego &lt;strong>análisis de sensibilidad&lt;/strong> (Manski bounds, métodos de Rosenbaum).&lt;/p>
-&lt;hr>
-&lt;h2 id="3-estrategias-avanzadas-cuando-la-confusión-no-puede-ignorarse">3. Estrategias avanzadas cuando la confusión no puede ignorarse&lt;/h2>
-&lt;h3 id="a-variables-instrumentales-iv">a) Variables Instrumentales (IV)&lt;/h3>
-&lt;p>Si un confusor no observado afecta tanto al tratamiento como al resultado, un &lt;strong>instrumento válido&lt;/strong> ($Z$) puede rescatar el análisis. Ejemplo clásico: la distancia a una universidad como instrumento para estudiar el impacto de la educación en ingresos.&lt;/p>
-&lt;p>Bajo ciertos supuestos, identificamos el &lt;strong>LATE (Local Average Treatment Effect)&lt;/strong> para quienes cambian su estado de tratamiento debido al instrumento.&lt;/p>
-&lt;hr>
-&lt;h3 id="b-diferencias-en-diferencias-did-y-control-sintético-sc">b) Diferencias-en-Diferencias (DID) y Control Sintético (SC)&lt;/h3>
-&lt;ul>
-&lt;li>&lt;strong>DID&lt;/strong>: compara tendencias pre y post en grupos tratados y no tratados. Ejemplo: medir el impacto de un aumento del salario mínimo sobre el empleo.&lt;/li>
-&lt;li>&lt;strong>SC&lt;/strong>: construye un “gemelo sintético” de la unidad tratada combinando unidades no tratadas. Ejemplo: evaluar el impacto de una ley antitabaco en California comparando con un control sintético formado por otros estados.&lt;/li>
-&lt;/ul>
-&lt;hr>
-&lt;h3 id="c-regresión-discontinua-rdd">c) Regresión Discontinua (RDD)&lt;/h3>
-&lt;p>Aprovecha umbrales de asignación. Ejemplo: un programa de becas asignado a estudiantes con notas ≥ 8.0. Comparar resultados justo por encima y por debajo del corte estima el efecto del programa en los “marginales”.&lt;/p>
-&lt;hr>
-&lt;h2 id="4-horizontes-emergentes-combinar-evidencia">4. Horizontes emergentes: combinar evidencia&lt;/h2>
-&lt;p>Dos líneas prometedoras:&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>Surrogacy:&lt;/strong> usar resultados a corto plazo como sustitutos de resultados de largo plazo.&lt;/li>
-&lt;li>&lt;strong>Integración de experimentos y observacionales:&lt;/strong> Athey et al. (2020) proponen usar experimentos para identificar y corregir confusores en estudios observacionales.&lt;/li>
-&lt;/ul>
-&lt;hr>
-&lt;p>Tabla comparativa de métodos de inferencia causal&lt;/p>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>Método&lt;/th>
-&lt;th>Supuesto clave&lt;/th>
-&lt;th>Ventajas&lt;/th>
-&lt;th>Limitaciones&lt;/th>
-&lt;th>Ejemplo típico&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>&lt;strong>RCT&lt;/strong>&lt;/td>
-&lt;td>Asignación aleatoria&lt;/td>
-&lt;td>Estimador insesgado, alta validez interna&lt;/td>
-&lt;td>Costoso, a veces poco ético, baja validez externa&lt;/td>
-&lt;td>Ensayo clínico de un fármaco&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;strong>Propensity Score / DR&lt;/strong>&lt;/td>
-&lt;td>Confusión controlada por covariables observadas&lt;/td>
-&lt;td>Flexibilidad, usa datos observacionales grandes&lt;/td>
-&lt;td>Vulnerable a confusión no observada&lt;/td>
-&lt;td>Impacto de programas sociales&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;strong>IV&lt;/strong>&lt;/td>
-&lt;td>Relevancia + exclusión + exogeneidad&lt;/td>
-&lt;td>Corrige confusión no observada&lt;/td>
-&lt;td>Difícil encontrar instrumentos válidos&lt;/td>
-&lt;td>Educación → ingresos&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;strong>DID&lt;/strong>&lt;/td>
-&lt;td>Tendencias paralelas&lt;/td>
-&lt;td>Simple, interpretable&lt;/td>
-&lt;td>Frágil si tendencias difieren&lt;/td>
-&lt;td>Políticas laborales&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;strong>SC&lt;/strong>&lt;/td>
-&lt;td>Unidades control combinan bien la pre-tendencia&lt;/td>
-&lt;td>Más creíble que DID en casos individuales&lt;/td>
-&lt;td>Requiere datos ricos pre-tratamiento&lt;/td>
-&lt;td>Leyes de salud pública&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;strong>RDD&lt;/strong>&lt;/td>
-&lt;td>Continuidad de potenciales en el umbral&lt;/td>
-&lt;td>Interpretación clara, diseño cuasi-experimental&lt;/td>
-&lt;td>Válido solo cerca del umbral&lt;/td>
-&lt;td>Programas de becas&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;hr>
-&lt;h2 id="5-conclusión-práctica">5. Conclusión práctica&lt;/h2>
-&lt;p>La inferencia causal no es una caja negra: es un conjunto de &lt;strong>herramientas matemáticas y conceptuales&lt;/strong> que, bien aplicadas, permiten a responsables de políticas, clínicos y científicos sociales responder la pregunta clave: &lt;em>¿qué pasaría si?&lt;/em>&lt;/p>
-&lt;p>La frontera actual está en combinar evidencia, explotar machine learning para heterogeneidad y desarrollar métodos más robustos frente a confusión no observada.&lt;/p>
-&lt;hr>
-&lt;h2 id="-referencias">📚 Referencias&lt;/h2>
-&lt;ul>
-&lt;li>Rosenbaum PR, Rubin DB. &lt;em>The central role of the propensity score…&lt;/em> Biometrika. 1983. &lt;a href="https://pubmed.ncbi.nlm.nih.gov/12009849/" target="_blank" rel="noopener">PubMed PMID: 12009849&lt;/a>&lt;/li>
-&lt;li>Hernán MA, Robins JM. &lt;em>Causal Inference: What If&lt;/em>. 2020. &lt;a href="https://pubmed.ncbi.nlm.nih.gov/33290294/" target="_blank" rel="noopener">PubMed PMID: 33290294&lt;/a>&lt;/li>
-&lt;li>Imbens GW, Rubin DB. &lt;em>Causal Inference for Statistics, Social, and Biomedical Sciences&lt;/em>. 2015.&lt;/li>
-&lt;li>Athey S, Imbens GW. &lt;em>Design-based analysis in difference-in-differences settings.&lt;/em> J Econometrics. 2022. &lt;a href="https://pubmed.ncbi.nlm.nih.gov/36212825/" target="_blank" rel="noopener">PubMed PMID: 36212825&lt;/a>&lt;/li>
-&lt;li>Abadie A. &lt;em>Using synthetic controls.&lt;/em> J Econometrics. 2021.&lt;/li>
-&lt;/ul></description></item><item><title>Las trampas de la correlación disfrazada de causalidad</title><link>https://bioestadisticaedu.com/post/trampas-correlacion/</link><pubDate>Mon, 13 Jan 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/trampas-correlacion/</guid><description>&lt;p>&lt;em>Por Maicel Monzon&lt;/em>&lt;/p>
-&lt;h2 id="introducción">Introducción&lt;/h2>
-&lt;p>El ojo humano está entrenado para detectar patrones.&lt;br>
-Cuando dos fenómenos se mueven juntos, tendemos a asumir que uno provoca al otro.&lt;/p>
-&lt;p>La estadística, mal interpretada, refuerza esa intuición peligrosa.&lt;br>
-La &lt;strong>correlación&lt;/strong> describe coexistencia; &lt;strong>no establece causalidad&lt;/strong>.&lt;br>
-Sin embargo, titulares, políticas públicas y decisiones clínicas se apoyan a menudo en esta confusión.&lt;/p>
-&lt;p>Este artículo no busca ridiculizar errores obvios, sino &lt;strong>mostrar cómo incluso análisis técnicamente correctos pueden sostener conclusiones falsas&lt;/strong> si el razonamiento causal es débil.&lt;/p>
-&lt;hr>
-&lt;h2 id="1-correlaciones-llamativas-y-por-qué-engañan">1) Correlaciones llamativas (y por qué engañan)&lt;/h2>
-&lt;p>Algunas correlaciones resultan tan evidentes que parecen absurdas. Precisamente por eso son útiles como punto de partida.&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>Helados y ahogamientos.&lt;/strong> Ambos aumentan en verano. El factor común es el calor, no el helado.&lt;/li>
-&lt;li>&lt;strong>Cigüeñas y natalidad.&lt;/strong> En zonas rurales europeas, ambas son más frecuentes. La explicación está en el contexto demográfico, no en las aves.&lt;/li>
-&lt;li>&lt;strong>Películas de Nicolas Cage y ahogamientos en piscinas.&lt;/strong> Ejemplo clásico de correlaciones espurias recopiladas por Tyler Vigen.&lt;/li>
-&lt;/ul>
-&lt;p>Estos casos no son interesantes por sí mismos, sino porque &lt;strong>revelan un mecanismo general&lt;/strong>:&lt;br>
-una tercera variable no observada puede generar asociaciones engañosas.&lt;/p>
-&lt;hr>
-&lt;h2 id="2-cuando-la-confusión-tiene-consecuencias-reales">2) Cuando la confusión tiene consecuencias reales&lt;/h2>
-&lt;p>En investigación en salud, confundir correlación con causalidad &lt;strong>no es anecdótico&lt;/strong>.&lt;/p>
-&lt;p>&lt;strong>Ejemplo en política pública:&lt;/strong>&lt;br>
-Países con mayor densidad de médicos reportan más diagnósticos de cáncer.&lt;br>
-Conclusión errónea: “los médicos causan cáncer”.&lt;br>
-Realidad: mayor acceso sanitario implica mejor detección.&lt;/p>
-&lt;h3 id="causalidad-inversa-no-bidireccional">Causalidad inversa (no bidireccional)&lt;/h3>
-&lt;p>Un error frecuente es invertir el sentido de la relación:&lt;/p>
+&lt;h2 id="definición-conceptual">Definición conceptual&lt;/h2>
+&lt;p>En el contexto de ensayos clínicos y evaluación regulatoria:&lt;/p>
 &lt;blockquote>
-&lt;p>Niños con bajo rendimiento escolar pasan más horas frente a la televisión.&lt;/p>&lt;/blockquote>
-&lt;p>La pregunta relevante no es retórica:&lt;/p>
+&lt;p>&lt;strong>Ritual metodológico&lt;/strong>
+Procedimiento técnico realizado siguiendo normas o costumbres establecidas, &lt;strong>sin justificación explícita frente al fenómeno clínico que se pretende comprender&lt;/strong>.
+Este procedimiento puede cumplir reglas, generar documentos impecables, pero no necesariamente produce conocimiento veraz ni evidencia clínica útil.&lt;/p>&lt;/blockquote>
+&lt;p>Se distingue de un error: &lt;strong>es buena técnica aplicada sin pensamiento crítico&lt;/strong>, un automatismo formal.&lt;/p>
+&lt;hr>
+&lt;h2 id="relevancia">Relevancia&lt;/h2>
+&lt;p>Los rituales metodológicos generan consecuencias importantes:&lt;/p>
 &lt;ul>
-&lt;li>¿La televisión empeora el rendimiento?&lt;/li>
-&lt;li>¿O los niños con dificultades académicas recurren más a ella?&lt;/li>
+&lt;li>&lt;strong>Decisiones clínicas menos informadas&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>Riesgo de interpretación parcial o sesgada&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>Desperdicio de tiempo y recursos&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>Desconexión entre el diseño, la pregunta clínica y los resultados&lt;/strong>&lt;/li>
 &lt;/ul>
-&lt;p>Aquí no hablamos de retroalimentación compleja, sino de &lt;strong>una inversión plausible del sentido causal&lt;/strong>.&lt;/p>
-&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
-&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
-&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
-&lt;/span>
-&lt;span class="dark:text-neutral-300">&lt;h3 id="qué-es-una-variable-de-confusión">¿Qué es una variable de confusión?&lt;/h3>
-&lt;p>Una &lt;strong>variable de confusión&lt;/strong> es una tercera variable que:&lt;/p>
+&lt;p>Este fenómeno no implica negligencia, sino que &lt;strong>la técnica puede prevalecer sobre la reflexión sobre la evidencia&lt;/strong>.&lt;/p>
+&lt;hr>
+&lt;h2 id="atlas-de-rituales-metodológicos">Atlas de rituales metodológicos&lt;/h2>
+&lt;p>Esta serie documentará cada ritual con:&lt;/p>
+&lt;ul>
+&lt;li>Análisis conceptual&lt;/li>
+&lt;li>Riesgos inferenciales y clínicos&lt;/li>
+&lt;li>Excepciones legítimas&lt;/li>
+&lt;li>Ejemplos prácticos y simulaciones reproducibles&lt;/li>
+&lt;/ul>
+&lt;h3 id="rituales-de-diseño-y-análisis">Rituales de diseño y análisis&lt;/h3>
+&lt;p>&lt;strong>1. Poblaciones según intención de tratar en estudios no aleatorizados&lt;/strong>&lt;/p>
+&lt;p>&lt;a href="https://bioestadisticaedu.com/post/rituales-metodologicos-01/"> Aplicar esta población sin aleatorización genera un control que no refleja la causalidad (ver publicación).&lt;/a>&lt;/p>
+&lt;p>→ Ritual formal, desvinculado de la pregunta clínica.&lt;/p>
+&lt;p>&lt;strong>2. Aleatorización como garantía absoluta&lt;/strong>&lt;/p>
+&lt;p>Creer que la aleatorización equilibra automáticamente todas las características, incluso en muestras pequeñas o heterogéneas.&lt;/p>
+&lt;p>→ La aleatorización se convierte en un amuleto, no en instrumento de inferencia.&lt;/p>
+&lt;p>&lt;strong>3. Objetivos secundarios multiplicados&lt;/strong>&lt;/p>
+&lt;p>Multiplicidad de objetivos por inercia o hábito.&lt;/p>
+&lt;p>→ Aumenta la probabilidad de hallazgos azarosos y desvía la atención de la pregunta principal.&lt;/p>
+&lt;p>&lt;strong>4. Comparación con controles históricos sin ajuste&lt;/strong>&lt;/p>
+&lt;p>Uso de datos antiguos sin técnicas de control de sesgos.&lt;/p>
+&lt;p>→ Comparación susceptible a sesgos y errores de interpretación.&lt;/p>
+&lt;p>&lt;strong>5. Análisis intermedios predefinidos solo por rutina&lt;/strong>
+Realizar análisis intermedios sin reglas claras de detención.&lt;/p>
+&lt;p>→ Riesgo de sobrestimación de efectos y decisiones prematuras.&lt;/p>
+&lt;p>&lt;strong>6. Modelos complejos por disponibilidad de software&lt;/strong>
+Aplicar modelos porque el programa lo permite, sin evaluar adecuación.&lt;/p>
+&lt;p>→ Ajuste del ruido como si fuera señal.&lt;/p>
+&lt;p>&lt;strong>7. Ignorar la diferencia mínima clínicamente relevante&lt;/strong>&lt;/p>
+&lt;p>Focalizarse únicamente en significación estadística sin considerar relevancia clínica.&lt;/p>
+&lt;p>→ Resultados precisos pero clínicamente irrelevantes.&lt;/p>
+&lt;hr>
+&lt;h3 id="rituales-éticos-e-institucionales">Rituales éticos e institucionales&lt;/h3>
+&lt;p>&lt;strong>8. Uso de placebo sin justificación clínica&lt;/strong>&lt;/p>
+&lt;p>Administrar placebo cuando existe tratamiento activo, siguiendo normas formales.&lt;/p>
+&lt;p>→ Ética formal, no necesariamente alineada con el beneficio del paciente.&lt;/p>
+&lt;p>&lt;strong>9. Variables sustitutas no validadas&lt;/strong>&lt;/p>
+&lt;p>Aceptar biomarcadores como indicador de éxito sin evidencia de efecto clínico relevante.&lt;/p>
+&lt;p>→ Evidencia parcial, desvinculada de resultados significativos para el paciente.&lt;/p>
+&lt;p>&lt;strong>10. Interpretación de tendencias cerca del umbral de significación&lt;/strong>&lt;/p>
+&lt;p>Considerar valores próximos a 0,05 como evidencia de efecto.&lt;/p>
+&lt;p>→ Estadística como consuelo, no como respuesta válida.&lt;/p>
+&lt;p>&lt;strong>11. Enfoque administrativo de los comités de ética&lt;/strong>&lt;/p>
+&lt;p>Revisiones centradas en formatos y documentación más que en valor científico o impacto clínico.&lt;/p>
+&lt;p>→ Cumplimiento formal sin reflexión crítica.&lt;/p>
+&lt;hr>
+&lt;h2 id="marco-general-para-superar-los-rituales">Marco general para superar los rituales&lt;/h2>
 &lt;ol>
-&lt;li>Está asociada con la exposición&lt;/li>
-&lt;li>Está asociada con el desenlace&lt;/li>
-&lt;li>No forma parte del mecanismo causal entre ambos&lt;/li>
+&lt;li>&lt;strong>Definir primero qué se pretende estimar&lt;/strong> (según ICH E9(R1)).&lt;/li>
+&lt;li>&lt;strong>Justificar los métodos por contexto clínico y biológico&lt;/strong>.&lt;/li>
+&lt;li>&lt;strong>Explorar la sensibilidad&lt;/strong> y supuestos, no solo la significación.&lt;/li>
+&lt;li>&lt;strong>Documentar las decisiones&lt;/strong> y la distancia entre la pregunta clínica y su operacionalización.&lt;/li>
+&lt;li>&lt;strong>Integrar pensamiento clínico y estadístico&lt;/strong>, no solo cumplimiento de procedimientos.&lt;/li>
 &lt;/ol>
-&lt;p>Su efecto es generar una asociación aparente o distorsionar una real.&lt;/p>
-&lt;p>&lt;strong>Ejemplo:&lt;/strong> la edad puede confundir la relación entre consumo de medicamentos y mortalidad.&lt;/p>
-&lt;/span>
-&lt;/div>
-&lt;hr>
-&lt;h2 id="3-qué-mide-realmente-la-correlación">3) Qué mide realmente la correlación&lt;/h2>
-&lt;p>El coeficiente de correlación de Pearson (&lt;strong>r&lt;/strong>) mide &lt;strong>la intensidad y dirección de una relación lineal&lt;/strong> entre dos variables continuas.&lt;/p>
-&lt;ul>
-&lt;li>r = +1 → relación positiva perfecta&lt;/li>
-&lt;li>r = −1 → relación negativa perfecta&lt;/li>
-&lt;li>r ≈ 0 → ausencia de relación lineal&lt;/li>
-&lt;/ul>
-&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-yellow-100 dark:bg-yellow-900">
-&lt;span class="pr-3 pt-1 text-red-400">
-&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0zM12 15.75h.007v.008H12z"/>&lt;/svg>
-&lt;/span>
-&lt;span class="dark:text-neutral-300">Un coeficiente alto &lt;strong>no implica causalidad&lt;/strong>.&lt;br>
-Puede deberse a confusión, azar o causalidad inversa.&lt;br>
-Un coeficiente cercano a cero &lt;strong>no descarta relaciones no lineales&lt;/strong>.&lt;/span>
-&lt;/div>
-&lt;p>La correlación es descriptiva. &lt;strong>No responde preguntas causales.&lt;/strong>&lt;/p>
-&lt;hr>
-&lt;h2 id="4-elegir-el-coeficiente-adecuado-no-salva-una-mala-pregunta">4) Elegir el coeficiente adecuado no salva una mala pregunta&lt;/h2>
-&lt;p>Existen múltiples coeficientes de correlación porque los datos y las relaciones varían.&lt;br>
-Elegir el coeficiente correcto &lt;strong>evita errores técnicos&lt;/strong>, pero &lt;strong>no convierte una asociación en causal&lt;/strong>.&lt;/p>
-&lt;p>
-&lt;figure >
-&lt;div class="flex justify-center ">
-&lt;div class="w-100" >&lt;img alt="" srcset="
-/post/trampas-correlacion/correlacion_hu_c614a73ad03379b6.webp 400w,
-/post/trampas-correlacion/correlacion_hu_e6f9def3a13f9eea.webp 760w,
-/post/trampas-correlacion/correlacion_hu_dedc904516865376.webp 1200w"
-src="https://bioestadisticaedu.com/post/trampas-correlacion/correlacion_hu_c614a73ad03379b6.webp"
-width="507"
-height="760"
-loading="lazy" data-zoomable />&lt;/div>
-&lt;/div>&lt;/figure>
-&lt;/p>
-&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-yellow-100 dark:bg-yellow-900">
-&lt;span class="pr-3 pt-1 text-red-400">
-&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0zM12 15.75h.007v.008H12z"/>&lt;/svg>
-&lt;/span>
-&lt;span class="dark:text-neutral-300">Aplicar Pearson a datos ordinales o relaciones curvilíneas produce resultados engañosos, aunque sean “significativos”.&lt;/span>
-&lt;/div>
-&lt;p>El problema central no suele ser el coeficiente, sino &lt;strong>la interpretación posterior&lt;/strong>.&lt;/p>
-&lt;hr>
-&lt;h2 id="5-causalidad-un-problema-de-razonamiento-no-de-software">5) Causalidad: un problema de razonamiento, no de software&lt;/h2>
-&lt;p>Establecer causalidad exige diseño, contexto y juicio crítico.&lt;br>
-Una guía clásica son los &lt;strong>criterios de Bradford Hill&lt;/strong>, propuestos en 1965.&lt;/p>
-&lt;h3 id="los-criterios-de-bradford-hill">Los criterios de Bradford Hill&lt;/h3>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>Criterio&lt;/th>
-&lt;th>Pregunta clave&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>Fuerza&lt;/td>
-&lt;td>¿Qué tan grande es la asociación?&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>Consistencia&lt;/td>
-&lt;td>¿Se replica en distintos contextos?&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>Especificidad&lt;/td>
-&lt;td>¿La exposición produce un efecto concreto?&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>Temporalidad&lt;/td>
-&lt;td>¿La causa precede al efecto? &lt;em>(obligatorio)&lt;/em>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>Gradiente&lt;/td>
-&lt;td>¿Existe relación dosis–respuesta?&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>Plausibilidad&lt;/td>
-&lt;td>¿Tiene sentido biológico?&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>Coherencia&lt;/td>
-&lt;td>¿Contradice el conocimiento previo?&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>Evidencia experimental&lt;/td>
-&lt;td>¿Hay respaldo experimental?&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>Analogía&lt;/td>
-&lt;td>¿Existen fenómenos similares conocidos?&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
-&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
-&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
-&lt;/span>
-&lt;span class="dark:text-neutral-300">Estos criterios &lt;strong>no son un checklist mecánico&lt;/strong>.&lt;br>
-Sirven para estructurar el razonamiento, no para automatizar conclusiones.&lt;/span>
-&lt;/div>
-&lt;hr>
-&lt;h3 id="diagramas-causales-dags-pensar-antes-de-ajustar">Diagramas causales (DAGs): pensar antes de ajustar&lt;/h3>
-&lt;p>Los &lt;strong>diagramas causales dirigidos (DAGs)&lt;/strong> permiten representar hipótesis causales antes del análisis.&lt;/p>
-&lt;p>&lt;strong>Ejemplo conceptual:&lt;/strong>&lt;br>
-El tabaquismo aumenta el consumo de café y el riesgo cardiovascular.&lt;br>
-Si no se ajusta por tabaquismo, el café parecerá causalmente dañino.&lt;/p>
-&lt;p>El DAG no “demuestra” nada.&lt;br>
-&lt;strong>Obliga a explicitar supuestos.&lt;/strong>&lt;/p>
-&lt;hr>
-&lt;h2 id="6-cuando-una-correlación-sí-condujo-a-causalidad">6) Cuando una correlación sí condujo a causalidad&lt;/h2>
-&lt;p>En los años 50, los estudios de Doll y Hill mostraron una fuerte asociación entre tabaco y cáncer de pulmón.&lt;br>
-La objeción fue conocida: “correlación no es causalidad”.&lt;/p>
-&lt;p>La diferencia fue el &lt;strong>razonamiento acumulativo&lt;/strong>:&lt;/p>
-&lt;ul>
-&lt;li>efectos grandes&lt;/li>
-&lt;li>temporalidad clara&lt;/li>
-&lt;li>dosis–respuesta&lt;/li>
-&lt;li>plausibilidad biológica&lt;/li>
-&lt;li>consistencia internacional&lt;/li>
-&lt;/ul>
-&lt;p>Aquí, la frase correcta no era descartar la correlación, sino &lt;strong>investigarla con rigor&lt;/strong>.&lt;/p>
-&lt;hr>
-&lt;h2 id="7-una-metáfora-útil">7) Una metáfora útil&lt;/h2>
-&lt;p>Ver dos hojas caer juntas no implica que una arrastre a la otra.&lt;br>
-Ignorar el viento es ignorar la causa común.&lt;/p>
-&lt;hr>
-&lt;h2 id="8-checklist-mínimo-de-rigor-causal">8) Checklist mínimo de rigor causal&lt;/h2>
-&lt;p>Antes de afirmar causalidad, pregúntate:&lt;/p>
-&lt;ol>
-&lt;li>¿Existe una variable no considerada que explique la asociación?&lt;/li>
-&lt;li>¿El efecto podría preceder a la supuesta causa?&lt;/li>
-&lt;li>¿El diseño permite inferencia causal o solo asociación?&lt;/li>
-&lt;li>¿El tamaño del efecto es clínicamente relevante?&lt;/li>
-&lt;li>¿La conclusión depende de supuestos no explicitados?&lt;/li>
-&lt;/ol>
-&lt;p>Si no puedes responderlas, la correlación no basta.&lt;/p>
-&lt;hr>
-&lt;h2 id="9-p-hacking-correlaciones-fabricadas">9) P-hacking: correlaciones fabricadas&lt;/h2>
-&lt;p>El &lt;strong>p-hacking&lt;/strong> consiste en explorar múltiples análisis hasta encontrar un resultado “significativo”.&lt;/p>
-&lt;p>Con suficientes pruebas, el azar garantiza falsos positivos.&lt;/p>
-&lt;p>&lt;strong>Señales de alerta:&lt;/strong>&lt;/p>
-&lt;ul>
-&lt;li>muchas variables, pocas hipótesis previas&lt;/li>
-&lt;li>resultados sorprendentes sin plausibilidad&lt;/li>
-&lt;li>ausencia de preregistro&lt;/li>
-&lt;li>efectos pequeños presentados como hallazgos mayores&lt;/li>
-&lt;/ul>
-&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-yellow-100 dark:bg-yellow-900">
-&lt;span class="pr-3 pt-1 text-red-400">
-&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0zM12 15.75h.007v.008H12z"/>&lt;/svg>
-&lt;/span>
-&lt;span class="dark:text-neutral-300">Un p-valor bajo no valida una hipótesis causal.&lt;br>
-Solo indica compatibilidad estadística bajo supuestos específicos.&lt;/span>
-&lt;/div>
+&lt;blockquote>
+&lt;p>La estadística no se abandona; se reintegra a su propósito original: &lt;strong>informar decisiones clínicas y generar conocimiento veraz&lt;/strong>.&lt;/p>&lt;/blockquote>
 &lt;hr>
 &lt;h2 id="conclusión">Conclusión&lt;/h2>
-&lt;p>La correlación es un punto de partida, no una conclusión.&lt;br>
-Sin razonamiento causal explícito, incluso análisis impecables pueden inducir a error.&lt;/p>
-&lt;p>La próxima vez que leas que “X causa Y”, haz una pausa crítica.&lt;br>
-La estadística describe. &lt;strong>El pensamiento decide.&lt;/strong>&lt;/p>
+&lt;p>Este post constituye &lt;strong>el mapa de la serie&lt;/strong>. Cada ritual será desarrollado en detalle en futuras entradas, con ejemplos, simulaciones y listas de verificación.
+La serie permitirá:&lt;/p>
+&lt;ul>
+&lt;li>Identificar rituales metodológicos&lt;/li>
+&lt;li>Evaluar riesgos inferenciales y clínicos&lt;/li>
+&lt;li>Alinear análisis con la pregunta clínica&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Reflexión final:&lt;/strong> la evidencia no se genera cumpliendo procedimientos; se construye pensando críticamente en cada decisión metodológica.&lt;/p>
 &lt;hr>
-&lt;h2 id="para-cerrar-y-abrir-la-conversación">Para cerrar (y abrir la conversación)&lt;/h2>
-&lt;p>Si trabajas con datos reales —en salud, investigación o políticas públicas—, es muy probable que ya te hayas enfrentado a una correlación tentadora.&lt;/p>
-&lt;p>&lt;strong>La pregunta no es si existe una correlación, sino si te atreviste a interrogarla.&lt;/strong>&lt;/p>
-&lt;p>👉 &lt;strong>Pregunta para la caja de comentarios:&lt;/strong>&lt;/p>
-&lt;blockquote>
-&lt;p>¿Has visto alguna vez una decisión importante (clínica, regulatoria o científica) apoyarse en una correlación que no resistía un análisis causal serio?&lt;br>
-¿Dónde falló el razonamiento: en el diseño, en el análisis o en la interpretación?&lt;/p>&lt;/blockquote>
-&lt;p>Si quieres, descríbelo de forma general (sin datos sensibles). Responderé señalando &lt;strong>qué tipo de trampa causal está en juego&lt;/strong> y cómo habría que replantearla.&lt;/p>
-&lt;p>&amp;ldquo;Si te gusta cuestionar los datos y la IA con rigor, suscríbete a mi boletín en LinkedIn para no perderte estos análisis semanalmente.&amp;rdquo;&lt;/p>
+&lt;h2 id="suscripción">Suscripción&lt;/h2>
+&lt;p>&lt;a href="https://bioestadisticaedu.com/subscribe/%7d">&lt;strong>Suscríbase a bioestadísticaedu&lt;/strong>&lt;/a>
+y reciba la serie completa sobre rituales metodológicos en ensayos clínicos.&lt;/p>
 &lt;div style="background-color: #f3f6f8; padding: 20px; border-radius: 10px; text-align: center; margin-top: 30px; border: 1px solid #e0e0e0;">
-&lt;p style="color: #000; font-weight: bold; margin-bottom: 15px;">¿Te interesa pensar más allá de los números?&lt;/p>
+&lt;p style="color: #000; font-weight: bold; margin-bottom: 15px;">¿Desea pensar más allá de los números?&lt;/p>
 &lt;a href="https://www.linkedin.com/newsletters/7415401669913706496/"
 target="_blank"
 style="background-color: #0077b5; color: white; padding: 10px 20px; text-decoration: none; border-radius: 25px; font-weight: bold; display: inline-block;">
@@ -337,8 +101,32 @@ Suscribirse al Boletín en LinkedIn
 &lt;/div>
 &lt;hr>
 &lt;h2 id="bibliografía">Bibliografía&lt;/h2>
-&lt;p>Hill, A. B. (1965). &lt;em>The environment and disease: association or causation?&lt;/em>&lt;/p>
-&lt;p>Hernán, M. A., &amp;amp; Robins, J. M. (2020). &lt;em>Causal Inference: What If&lt;/em>.&lt;/p>
-&lt;p>Pearl, J. (2009). &lt;em>Causality&lt;/em>.&lt;/p>
-&lt;p>Silva Aycaguer, L. C. (1998). &lt;em>Cultura estadística e investigación científica&lt;/em>.&lt;/p>
-&lt;p>Vigen, T. (2015). &lt;em>Spurious Correlations&lt;/em>.&lt;/p></description></item></channel></rss>
+&lt;ul>
+&lt;li>Altman DG (1984). &lt;em>Statistical ritual in clinical journals: is there a cure?&lt;/em> BMJ. 288:841–843, 920–922.&lt;/li>
+&lt;li>Gigerenzer G (2018). &lt;em>Statistical Rituals: The Replication Delusion and How We Got There.&lt;/em> Advances in Methods and Practices in Psychological Science, 1(2):198–218.&lt;/li>
+&lt;li>ICH E9(R1). &lt;em>Addendum sobre estimandos y análisis de sensibilidad en ensayos clínicos.&lt;/em> 2019.&lt;/li>
+&lt;li>FDA. &lt;em>Múltiples objetivos en ensayos clínicos: guía para la industria.&lt;/em> 2017.&lt;/li>
+&lt;li>EMA. &lt;em>Guía sobre evaluación de productos medicinales.&lt;/em> 2012.&lt;/li>
+&lt;/ul>
+&lt;!-- ## **Versión LinkedIn – Español (revisada)** -->
+&lt;!-- **Post principal (carrusel o texto breve)** -->
+&lt;!-- > 🔍 **¿Cumples procedimientos o piensas críticamente?** -->
+&lt;!-- > -->
+&lt;!-- > En investigación clínica, un análisis impecable puede **no responder la pregunta correcta**. Esto es lo que llamamos **ritual estadístico**: ejecutar pasos técnicos sin cuestionar su sentido ni sus supuestos. -->
+&lt;!-- > -->
+&lt;!-- > Aprende a identificarlo, por qué los checklists no bastan y cómo recuperar el pensamiento crítico en bioestadística. -->
+&lt;!-- > -->
+&lt;!-- > 💡 Comparte tu experiencia: ¿has visto rituales estadísticos en tu campo? -->
+&lt;!-- **Primer comentario (con enlace al blog y llamada a la acción)** -->
+&lt;!-- > Lee el artículo completo y participa con tu ejemplo: -->
+&lt;!-- > [El ritual estadístico: Cuando cumplir el procedimiento reemplaza al pensamiento](https://bioestadisticaedu.com/post/er-02/) -->
+&lt;!-- > -->
+&lt;!-- > Para aportar, puedes usar este mini-formato y completar lo que puedas (sin datos sensibles): -->
+&lt;!-- > -->
+&lt;!-- > * Tipo de estudio / área terapéutica: ___ -->
+&lt;!-- > * Variable principal: ___ -->
+&lt;!-- > * Pregunta clínica (1 frase): ___ -->
+&lt;!-- > * Suposición crítica ignorada o endpoint cuestionable: ___ -->
+&lt;!-- > -->
+&lt;!-- > Responderé con **una sugerencia metodológica concreta**, para que entrenes tu pensamiento crítico en bioestadística. -->
+&lt;!-- --- --></description></item><item><title>Calculadora del margen de no inferioridad (NI-Margin Tool ver 2.0)</title><link>https://bioestadisticaedu.com/project/margen-no-inferioridad/</link><pubDate>Sat, 28 Dec 2024 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/project/margen-no-inferioridad/</guid><description/></item></channel></rss>
