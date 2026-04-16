@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PMA Survival Trainer</title>
+<style>
+body{font-family:Arial;background:#000;color:#eee;margin:15px}
+button{padding:10px;margin:5px;font-size:16px}
+.card{border:1px solid #444;padding:15px;margin:10px 0}
+textarea{width:100%;height:90px;background:#111;color:#eee}
+.hidden{display:none}
+</style>
+</head>
+<body>
+
+<h2>⚔️ PMA Survival Trainer</h2>
+
+<button onclick="nextCard()">Siguiente</button>
+<button onclick="showAnswer()">Ver respuesta</button>
+<button onclick="mark(true)">✔</button>
+<button onclick="mark(false)">✖</button>
+
+<div class="card">
+<p id="q"></p>
+<textarea id="input" placeholder="Responde antes de ver..."></textarea>
+<p id="a" class="hidden"></p>
+</div>
+
+<h3>🔥 Trampas críticas</h3>
+<div class="card">
+<ul>
+<li>FCS NO es para targeting</li>
+<li>NO re-focalizar → priorizar</li>
+<li>Siempre Do No Harm</li>
+<li>Siempre apelación</li>
+<li>No ceder presión política</li>
+</ul>
+</div>
+
+<h3>🎯 Estructura</h3>
+<div class="card">
+1. Principio<br>
+2. Datos<br>
+3. Acción<br>
+4. Control
+</div>
+
+<script>
+const cards=[
+{q:"Targeting vs Prioritization",a:"Targeting=quién entra / Prioritization=quién primero"},
+{q:"FCS sirve para...",a:"Monitoreo, NO selección"},
+{q:"Error más grave",a:"Exclusión"},
+{q:"CARI",a:"Estado (FCS) + Capacidad (rCSI, LCS-FS, ECMEN)"},
+{q:"CBT",a:"Cash-Based Transfers"},
+{q:"Respuesta correcta en examen",a:"Principio + Datos + Acción + Control"},
+{q:"Presión política",a:"Imparcialidad"},
+{q:"PSEA",a:"Reportar siempre"},
+{q:"Do No Harm",a:"Evitar daño"}
+];
+
+let i=0,ok=0,fail=0;
+
+function load(){
+ document.getElementById('q').innerText=cards[i].q;
+ document.getElementById('a').innerText=cards[i].a;
+ document.getElementById('a').classList.add('hidden');
+ document.getElementById('input').value='';
+}
+
+function showAnswer(){
+ if(!document.getElementById('input').value){alert('Responde primero');return}
+ document.getElementById('a').classList.remove('hidden');
+}
+
+function nextCard(){
+ i=(i+1)%cards.length;
+ load();
+}
+
+function mark(c){
+ if(c)ok++; else fail++;
+}
+
+load();
+</script>
+
+</body>
+</html>

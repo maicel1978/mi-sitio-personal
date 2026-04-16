@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PMA SC-6 Trainer — Brutal</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 16px; background:#0b0b0b; color:#eaeaea; }
+  h2 { margin: 8px 0 12px; }
+  button { padding:10px 12px; margin:6px 4px; font-size:15px; border-radius:8px; border:1px solid #333; background:#1a1a1a; color:#eaeaea; }
+  button.primary { background:#2a2a2a; }
+  button.danger { background:#3a1a1a; }
+  button.success { background:#1a3a1a; }
+  .card { margin:14px 0; padding:14px; border:1px solid #333; border-radius:10px; }
+  .hidden { display:none; }
+  textarea { width:100%; min-height:110px; background:#0f0f0f; color:#eaeaea; border:1px solid #333; border-radius:8px; padding:10px; }
+  .muted { color:#aaa; font-size:13px; }
+  .row { display:flex; flex-wrap:wrap; gap:8px; }
+  .pill { padding:6px 10px; border:1px solid #333; border-radius:999px; }
+  .timer { font-weight:bold; }
+</style>
+</head>
+<body>
+
+<h2>⚔️ PMA SC-6 Trainer — Brutal Mode</h2>
+<div class="row">
+  <button onclick="showSection('flashcards')">Flashcards</button>
+  <button onclick="showSection('cases')">Casos</button>
+  <button onclick="showSection('traps')">Trampas</button>
+  <button onclick="startQuiz()" class="primary">Simulacro</button>
+  <span class="pill">Errores: <b id="errCount">0</b></span>
+  <span class="pill">Aciertos: <b id="okCount">0</b></span>
+</div>
+
+<!-- FLASHCARDS -->
+<div id="flashcards" class="section">
+  <div class="card">
+    <div id="fc-q"></div>
+    <textarea id="fc-input" placeholder="Escribe tu respuesta (obligatorio)…"></textarea>
+    <div class="row">
+      <button onclick="fcCheckReady()" class="primary">Ya respondí</button>
+      <button onclick="fcShowAnswer()">Ver respuesta</button>
+    </div>
+    <div id="fc-a" class="hidden"></div>
+    <div class="row hidden" id="fc-grade">
+      <button onclick="mark(true)" class="success">Lo sabía</button>
+      <button onclick="mark(false)" class="danger">Fallé</button>
+      <button onclick="nextFlashcard()">Siguiente</button>
+    </div>
+    <div class="muted">Regla: no puedes ver la respuesta sin escribir algo.</div>
+  </div>
+</div>
+
+<!-- CASES -->
+<div id="cases" class="section hidden">
+  <div class="card">
+    <div id="case-q"></div>
+    <div class="muted">Estructura obligatoria: 1) Principio 2) Datos 3) Acción 4) Control</div>
+    <textarea id="case-input" placeholder="Escribe tu respuesta estructurada…"></textarea>
+    <div class="row">
+      <button onclick="caseCheckReady()" class="primary">Ya respondí</button>
+      <button onclick="caseShowAnswer()">Ver modelo</button>
+    </div>
+    <div id="case-a" class="hidden"></div>
+    <div class="row hidden" id="case-grade">
+      <button onclick="mark(true)" class="success">Sólida</button>
+      <button onclick="mark(false)" class="danger">Débil</button>
+      <button onclick="nextCase()">Siguiente</button>
+    </div>
+  </div>
+</div>
+
+<!-- TRAPS -->
+<div id="traps" class="section hidden">
+  <div class="card">
+    <ul>
+      <li>❌ FCS para targeting individual</li>
+      <li>❌ Re-focalizar ante recorte → ✔️ priorizar</li>
+      <li>❌ Ignorar Do No Harm</li>
+      <li>❌ Ignorar imparcialidad ante presión política</li>
+      <li>❌ No mencionar apelaciones / CFM</li>
+      <li>❌ Respuesta sin estructura (principio–datos–acción–control)</li>
+      <li>❌ CBT ≠ Community-Based Targeting</li>
+    </ul>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div id="quiz" class="section hidden">
+  <div class="card">
+    <div class="row">
+      <div>Pregunta <b id="qIdx">1</b>/<b id="qTot">5</b></div>
+      <div class="timer" id="timer">00:45</div>
+    </div>
+    <div id="quiz-q"></div>
+    <textarea id="quiz-input" placeholder="Respuesta…"></textarea>
+    <div class="row">
+      <button onclick="quizReady()" class="primary">Responder</button>
+      <button onclick="quizShowAnswer()">Ver modelo</button>
+    </div>
+    <div id="quiz-a" class="hidden"></div>
+    <div class="row hidden" id="quiz-grade">
+      <button onclick="mark(true)" class="success">Correcto</button>
+      <button onclick="mark(false)" class="danger">Incorrecto</button>
+      <button onclick="nextQuiz()">Siguiente</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== DATA =====
+const flashcards = [
+ {q:"Define targeting (WFP).", a:"Proceso de seleccionar quién recibe asistencia basado en necesidad y objetivos del programa."},
+ {q:"Targeting vs Prioritization.", a:"Targeting: quién cumple criterios. Prioritization: quién primero cuando no alcanza el presupuesto."},
+ {q:"Error más grave en targeting.", a:"Error de exclusión (falso negativo)."},
+ {q:"¿Por qué NO usar FCS para targeting individual?", a:"Inestable (7 días), afectado por asistencia previa y no captura capacidad de afrontamiento."},
+ {q:"Dominios del CARI.", a:"Estado Actual (FCS) + Capacidad de Afrontamiento (rCSI, LCS-FS, ECMEN)."},
+ {q:"¿Qué es ECMEN?", a:"Capacidad económica del hogar para cubrir el MEB."},
+ {q:"¿Qué es MEB?", a:"Canasta mínima de bienes y servicios esenciales por contexto."},
+ {q:"CBT significa…", a:"Cash-Based Transfers (no Community-Based Targeting)."},
+ {q:"Principio clave en presión política.", a:"Imparcialidad: asistencia basada en necesidad documentada."},
+ {q:"¿Qué es PSEA?", a:"Prevención de explotación y abuso sexual; obligación de reportar."}
+];
+
+const cases = [
+ {q:"Recorte del 40% del presupuesto.", a:"Principio: imparcialidad. Datos: lista elegibles y severidad (IPC/CARI). Acción: priorización (no re-focalizar), criterios adicionales, comunicar y abrir apelaciones. Control: monitoreo y ajustes documentados."},
+ {q:"Gobierno pide incluir grupo no elegible.", a:"Principio: imparcialidad. Datos: evaluar con metodología estándar. Acción: incluir solo si evidencia confirma; documentar. Control: registro en TWG y auditoría."},
+ {q:"Comunidad reporta exclusiones.", a:"Principio: AAP/Do No Harm. Datos: revisar criterios vs casos. Acción: activar CFM, investigar, ajustar si hay error. Control: PDM y re-validación comunitaria."},
+ {q:"ONG quiere publicar lista de beneficiarios.", a:"Principio: Do No Harm. Datos: riesgos de estigma/represalias. Acción: publicar criterios y proceso de apelación, no nombres. Control: monitoreo de quejas."},
+ {q:"Proponen usar FCS para seleccionar hogares.", a:"Principio: rigor técnico. Datos: FCS es 7 días y endógeno. Acción: usar ECMEN/LCS-FS/PMT. Control: validar con comunidad y PDM."}
+];
+
+// ===== STATE =====
+let fcIndex=0, caseIndex=0, quizIndex=0;
+let errors = JSON.parse(localStorage.getItem('errors')||'[]');
+let ok=0, err=0;
+
+// ===== UI =====
+function showSection(id){
+ document.querySelectorAll('.section').forEach(s=>s.classList.add('hidden'));
+ document.getElementById(id).classList.remove('hidden');
+}
+function updateCounters(){
+ document.getElementById('errCount').innerText = err;
+ document.getElementById('okCount').innerText = ok;
+}
+
+// ===== FLASHCARDS =====
+function loadFlashcard(){
+ const item = flashcards[fcIndex];
+ document.getElementById('fc-q').innerText = item.q;
+ document.getElementById('fc-a').innerText = item.a;
+ document.getElementById('fc-a').classList.add('hidden');
+ document.getElementById('fc-grade').classList.add('hidden');
+ document.getElementById('fc-input').value='';
+}
+function fcCheckReady(){
+ if(!document.getElementById('fc-input').value.trim()){
+   alert('Escribe algo. Recuperación activa obligatoria.'); return;
+ }
+}
+function fcShowAnswer(){
+ if(!document.getElementById('fc-input').value.trim()){
+   alert('Primero responde.'); return;
+ }
+ delayShow('fc-a','fc-grade');
+}
+function nextFlashcard(){ fcIndex=(fcIndex+1)%flashcards.length; loadFlashcard(); }
+
+// ===== CASES =====
+function loadCase(){
+ const item = cases[caseIndex];
+ document.getElementById('case-q').innerText = item.q;
+ document.getElementById('case-a').innerText = item.a;
+ document.getElementById('case-a').classList.add('hidden');
+ document.getElementById('case-grade').classList.add('hidden');
+ document.getElementById('case-input').value='';
+}
+function caseCheckReady(){
+ if(!document.getElementById('case-input').value.trim()){
+   alert('Escribe tu estructura.'); return;
+ }
+}
+function caseShowAnswer(){
+ if(!document.getElementById('case-input').value.trim()){
+   alert('Primero responde.'); return;
+ }
+ delayShow('case-a','case-grade');
+}
+function nextCase(){ caseIndex=(caseIndex+1)%cases.length; loadCase(); }
+
+// ===== QUIZ =====
+let quizSet = [];
+let timeLeft = 45; let timerInt=null;
+function startQuiz(){
+ quizSet = shuffle([...flashcards, ...cases]).slice(0,5);
+ quizIndex=0; err=0; ok=0; updateCounters();
+ document.getElementById('qTot').innerText = quizSet.length;
+ showSection('quiz'); loadQuiz(); startTimer();
+}
+function loadQuiz(){
+ const item = quizSet[quizIndex];
+ document.getElementById('qIdx').innerText = quizIndex+1;
+ document.getElementById('quiz-q').innerText = item.q;
+ document.getElementById('quiz-a').innerText = item.a;
+ document.getElementById('quiz-a').classList.add('hidden');
+ document.getElementById('quiz-grade').classList.add('hidden');
+ document.getElementById('quiz-input').value='';
+ timeLeft=45; updateTimer();
+}
+function quizReady(){
+ if(!document.getElementById('quiz-input').value.trim()){
+   alert('Responde primero.'); return;
+ }
+}
+function quizShowAnswer(){
+ if(!document.getElementById('quiz-input').value.trim()){
+   alert('Primero responde.'); return;
+ }
+ delayShow('quiz-a','quiz-grade');
+}
+function nextQuiz(){
+ if(quizIndex < quizSet.length-1){ quizIndex++; loadQuiz(); }
+ else { alert('Fin del simulacro'); }
+}
+
+// ===== COMMON =====
+function mark(correct){
+ if(correct){ ok++; } else { err++; errors.push(currentItem().q); localStorage.setItem('errors', JSON.stringify(errors)); }
+ updateCounters();
+}
+function currentItem(){
+ const sec = visibleSection();
+ if(sec==='flashcards') return flashcards[fcIndex];
+ if(sec==='cases') return cases[caseIndex];
+ if(sec==='quiz') return quizSet[quizIndex];
+}
+function visibleSection(){
+ if(!document.getElementById('flashcards').classList.contains('hidden')) return 'flashcards';
+ if(!document.getElementById('cases').classList.contains('hidden')) return 'cases';
+ if(!document.getElementById('quiz').classList.contains('hidden')) return 'quiz';
+}
+function delayShow(ansId, gradeId){
+ setTimeout(()=>{
+   document.getElementById(ansId).classList.remove('hidden');
+   document.getElementById(gradeId).classList.remove('hidden');
+ }, 1200); // micro-fricción
+}
+function shuffle(a){ return a.sort(()=>Math.random()-0.5); }
+
+// ===== TIMER =====
+function startTimer(){
+ clearInterval(timerInt);
+ timerInt = setInterval(()=>{
+   timeLeft--; updateTimer();
+   if(timeLeft<=0){ clearInterval(timerInt); quizShowAnswer(); }
+ },1000);
+}
+function updateTimer(){
+ const s = String(timeLeft%60).padStart(2,'0');
+ const m = String(Math.floor(timeLeft/60)).padStart(2,'0');
+ document.getElementById('timer').innerText = `${m}:${s}`;
+}
+
+// INIT
+loadFlashcard(); loadCase(); updateCounters();
+</script>
+
+</body>
+</html>
