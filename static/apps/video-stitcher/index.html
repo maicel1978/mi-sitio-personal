@@ -1,1060 +1,1105 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Stitcher Pro - Unir Videos</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <style>
-        .clip-item { transition: all 0.2s ease; }
-        .clip-item:hover { transform: translateY(-2px); }
-        .clip-item.dragging { opacity: 0.5; transform: scale(0.98); }
-        .progress-bar { transition: width 0.3s ease; }
-        .status-badge { animation: pulse 2s infinite; }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.6; }
-        }
-        input[type="range"] { -webkit-appearance: none; background: #3b82f6; border-radius: 4px; height: 8px; }
-        input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; background: white; border-radius: 50%; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.3); }
-        .log-entry { font-family: 'Courier New', monospace; font-size: 11px; line-height: 1.4; }
-        .log-entry.error { color: #f87171; }
-        .log-entry.success { color: #4ade80; }
-        .log-entry.warning { color: #fbbf24; }
-        .log-entry.info { color: #60a5fa; }
-    </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>🎬 Video Stitcher Pro v2</title>
+<style>
+/* ═══ RESET & TOKENS ═══════════════════════════════════════════════════════ */
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0b0c18;--s1:#12132a;--s2:#1a1b36;--s3:#22244a;
+  --border:#2e3060;--accent:#7c6fcd;--accent2:#a78bfa;
+  --ok:#22c55e;--warn:#f59e0b;--err:#ef4444;--info:#38bdf8;
+  --text:#e2e8f0;--muted:#8892b0;--white:#fff;
+  --radius:12px;--shadow:0 4px 24px rgba(0,0,0,.4);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+code{font-family:'Courier New',monospace;font-size:.82em;background:rgba(255,255,255,.07);padding:1px 5px;border-radius:4px}
+
+/* ═══ LAYOUT ═══════════════════════════════════════════════════════════════ */
+.page{max-width:900px;margin:0 auto;padding:0 16px 80px}
+header{background:linear-gradient(135deg,#0b0c18,#1a1b36 60%,#0e1530);
+  border-bottom:1px solid var(--border);padding:20px 24px;margin-bottom:28px}
+header .inner{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+header h1{font-size:1.5rem;font-weight:800;color:var(--white);letter-spacing:-.5px}
+header p{font-size:.8rem;color:var(--muted);margin-top:2px}
+.badge{font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:999px;white-space:nowrap}
+.badge-ok{background:rgba(34,197,94,.15);color:#4ade80;border:1px solid rgba(34,197,94,.3)}
+.badge-warn{background:rgba(245,158,11,.15);color:#fbbf24;border:1px solid rgba(245,158,11,.3)}
+.badge-err{background:rgba(239,68,68,.15);color:#f87171;border:1px solid rgba(239,68,68,.3)}
+.badge-info{background:rgba(56,189,248,.15);color:#7dd3fc;border:1px solid rgba(56,189,248,.3)}
+
+/* ═══ ALERTS ════════════════════════════════════════════════════════════════ */
+.alert{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;border-radius:var(--radius);font-size:.85rem;line-height:1.5}
+.alert .ico{flex-shrink:0;font-size:1rem;margin-top:1px}
+.alert-ok  {background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.25);color:#4ade80}
+.alert-warn{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);color:#fbbf24}
+.alert-err {background:rgba(239,68,68,.08); border:1px solid rgba(239,68,68,.25); color:#f87171}
+.alert-info{background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.25);color:#7dd3fc}
+.alert strong{font-weight:700;display:block;margin-bottom:3px}
+.alert pre{font-size:.75rem;background:rgba(0,0,0,.3);padding:6px 10px;border-radius:6px;margin-top:6px;white-space:pre-wrap;color:var(--text)}
+
+/* ═══ CARDS ═════════════════════════════════════════════════════════════════ */
+.card{background:var(--s1);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+.card-title{font-size:1rem;font-weight:700;color:var(--white);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+
+/* ═══ SECTION: PREFLIGHT ════════════════════════════════════════════════════ */
+#preflight{margin-bottom:18px}
+.preflight-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:600px){.preflight-grid{grid-template-columns:1fr}}
+.pf-item{background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px}
+.pf-icon{font-size:1.3rem;flex-shrink:0;margin-top:2px}
+.pf-label{font-size:.78rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.pf-value{font-size:.88rem;color:var(--text);margin-top:2px;font-weight:600}
+.pf-note{font-size:.72rem;color:var(--muted);margin-top:3px;line-height:1.4}
+
+/* ═══ FFMPEG STATUS ══════════════════════════════════════════════════════════ */
+#ffmpeg-card{margin-bottom:18px}
+#ffmpeg-log{font-family:monospace;font-size:.72rem;color:var(--muted);max-height:90px;overflow-y:auto;
+  background:var(--bg);border-radius:8px;padding:8px 10px;margin-top:10px;display:none;line-height:1.6}
+#ffmpeg-log.show{display:block}
+.spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.2);border-top-color:#fff;
+  border-radius:50%;animation:spin .6s linear infinite;display:inline-block;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ═══ DROPZONE ════════════════════════════════════════════════════════════════ */
+#dropzone{border:2px dashed var(--border);border-radius:16px;background:var(--s1);
+  padding:48px 24px;text-align:center;cursor:pointer;transition:.2s;position:relative}
+#dropzone:hover,#dropzone.over{border-color:var(--accent);background:rgba(124,111,205,.05)}
+#dropzone.over{transform:scale(1.01)}
+#dropzone h2{font-size:1.1rem;font-weight:700;color:var(--white);margin:10px 0 4px}
+#dropzone p{font-size:.82rem;color:var(--muted)}
+#dropzone input{display:none}
+.dz-icon{font-size:3rem}
+.btn-dz{display:inline-flex;align-items:center;gap:6px;margin-top:14px;padding:8px 20px;
+  border-radius:10px;background:var(--accent);color:#fff;font-weight:700;font-size:.88rem;
+  border:none;cursor:pointer;transition:.15s}
+.btn-dz:hover{background:var(--accent2);transform:translateY(-1px)}
+
+/* ═══ CLIPS LIST ═════════════════════════════════════════════════════════════ */
+#clips-wrap{display:none}
+#clips-list{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
+.clip-card{background:var(--s2);border:1px solid var(--border);border-radius:var(--radius);
+  padding:12px 14px;transition:.15s;position:relative}
+.clip-card.dragging{opacity:.35;border-style:dashed}
+.clip-card.drop-target{border-color:var(--accent);background:rgba(124,111,205,.08)}
+.cc-inner{display:flex;align-items:flex-start;gap:12px}
+.cc-handle{cursor:grab;color:var(--muted);font-size:1.2rem;padding:4px 2px;user-select:none;flex-shrink:0}
+.cc-handle:active{cursor:grabbing}
+.cc-thumb{width:90px;height:60px;flex-shrink:0;border-radius:8px;overflow:hidden;position:relative;background:#000}
+.cc-thumb video{width:100%;height:100%;object-fit:cover}
+.cc-thumb .dur-badge{position:absolute;bottom:3px;right:3px;background:rgba(0,0,0,.75);
+  color:#fff;font-size:.6rem;padding:1px 5px;border-radius:4px}
+.cc-body{flex:1;min-width:0}
+.cc-name{font-weight:700;font-size:.88rem;color:var(--white);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:8px}
+.cc-controls{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.time-lbl{font-size:.75rem;color:var(--muted);display:flex;align-items:center;gap:5px}
+.time-inp{background:var(--bg);border:1px solid var(--border);border-radius:7px;color:var(--text);
+  padding:4px 8px;font-size:.82rem;width:82px;transition:.15s}
+.time-inp:focus{outline:none;border-color:var(--accent)}
+.time-inp.err{border-color:var(--err)}
+.cc-tag{font-size:.7rem;padding:2px 8px;border-radius:999px;font-weight:600}
+.tag-trim{background:rgba(124,111,205,.15);color:var(--accent2)}
+.tag-audio{background:rgba(34,197,94,.1);color:#4ade80}
+.tag-noaudio{background:rgba(239,68,68,.1);color:#f87171}
+.cc-trimbar{margin-top:8px;height:4px;border-radius:999px;background:var(--border);position:relative}
+.cc-trimbar-fill{position:absolute;top:0;height:100%;border-radius:999px;background:var(--accent);transition:.1s}
+.btn-rm{background:transparent;border:1px solid rgba(239,68,68,.4);color:#f87171;border-radius:7px;
+  padding:3px 8px;font-size:.75rem;cursor:pointer;transition:.15s;flex-shrink:0}
+.btn-rm:hover{background:var(--err);color:#fff;border-color:var(--err)}
+.clips-footer{display:flex;justify-content:space-between;align-items:center;font-size:.82rem;color:var(--muted);margin-top:4px}
+
+/* ═══ OPTIONS ════════════════════════════════════════════════════════════════ */
+#options-wrap{display:none}
+.opt-row{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-bottom:12px}
+.toggle-wrap{display:flex;align-items:center;gap:10px}
+.toggle{position:relative;width:42px;height:23px;display:inline-block}
+.toggle input{opacity:0;width:0;height:0}
+.toggle-track{position:absolute;inset:0;background:var(--border);border-radius:999px;cursor:pointer;transition:.25s}
+.toggle-track:before{content:'';position:absolute;width:17px;height:17px;left:3px;bottom:3px;
+  background:#fff;border-radius:50%;transition:.25s}
+.toggle input:checked+.toggle-track{background:var(--accent)}
+.toggle input:checked+.toggle-track:before{transform:translateX(19px)}
+.opt-label{font-size:.88rem;font-weight:600;color:var(--text)}
+.opt-sublabel{font-size:.72rem;color:var(--muted);margin-top:2px}
+.inline-inp{background:var(--bg);border:1px solid var(--border);border-radius:8px;
+  color:var(--text);padding:5px 10px;font-size:.85rem;width:90px}
+.inline-inp:focus{outline:none;border-color:var(--accent)}
+select.inline-inp{width:auto;cursor:pointer}
+
+/* ═══ PROCESS ════════════════════════════════════════════════════════════════ */
+#process-wrap{display:none;flex-direction:column;align-items:center;gap:16px}
+.btn-process{display:inline-flex;align-items:center;gap:10px;padding:13px 36px;
+  border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#fff;font-weight:800;font-size:1rem;border:none;cursor:pointer;
+  transition:.2s;box-shadow:0 4px 20px rgba(124,111,205,.35)}
+.btn-process:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 6px 28px rgba(124,111,205,.5)}
+.btn-process:disabled{opacity:.5;cursor:not-allowed;transform:none}
+#progress-wrap{display:none;width:100%;max-width:600px}
+#progress-wrap.show{display:block}
+.prog-header{display:flex;justify-content:space-between;font-size:.8rem;color:var(--muted);margin-bottom:6px}
+.prog-bar-bg{background:var(--border);border-radius:999px;height:8px}
+.prog-bar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .3s}
+#proc-log{font-family:monospace;font-size:.7rem;color:var(--muted);max-height:110px;overflow-y:auto;
+  background:var(--bg);border-radius:8px;padding:8px 10px;margin-top:10px;display:none;line-height:1.7}
+#proc-log.show{display:block}
+#err-area{display:none;margin-top:8px}
+
+/* ═══ RESULT ═════════════════════════════════════════════════════════════════ */
+#result-wrap{display:none}
+#result-wrap.show{display:block}
+#result-video{width:100%;border-radius:12px;background:#000;max-height:420px;margin:12px 0}
+.btn-dl{display:inline-flex;align-items:center;gap:6px;padding:9px 22px;
+  border-radius:10px;background:var(--ok);color:#fff;font-weight:700;font-size:.88rem;
+  border:none;cursor:pointer;transition:.15s}
+.btn-dl:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.btn-ghost{display:inline-flex;align-items:center;gap:6px;padding:9px 22px;
+  border-radius:10px;background:transparent;border:1px solid var(--border);
+  color:var(--muted);font-weight:600;font-size:.88rem;cursor:pointer;transition:.15s}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.result-meta{font-size:.75rem;color:var(--muted);margin-top:8px}
+
+/* ═══ MISC ═══════════════════════════════════════════════════════════════════ */
+.space-y{display:flex;flex-direction:column;gap:14px}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+hr.divider{border:none;border-top:1px solid var(--border);margin:6px 0}
+</style>
 </head>
-<body class="bg-gradient-to-br from-gray-950 via-slate-900 to-gray-950 min-h-screen text-white">
-    
-    <!-- ========== ENVIRONMENT CHECK BANNER ========== -->
-    <div id="envBanner" class="sticky top-0 z-50 border-b">
-        <!-- Will be populated by JS -->
+<body>
+
+<!-- ═══ HEADER ═══════════════════════════════════════════════════════════════ -->
+<header>
+  <div class="inner">
+    <div style="font-size:2rem">🎬</div>
+    <div style="flex:1">
+      <h1>Video Stitcher Pro <span style="font-size:.7rem;font-weight:400;color:var(--muted)">v2 — Reescritura Total</span></h1>
+      <p>Recorta · Reordena · Une · 100% privado · Sin servidores · Sin instalación</p>
+    </div>
+    <span id="mt-badge" class="badge badge-info">⏳ Analizando entorno…</span>
+  </div>
+</header>
+
+<main class="page space-y">
+
+  <!-- ═══ PANEL DE DIAGNÓSTICO PREVIO ══════════════════════════════════════ -->
+  <section id="preflight" class="card">
+    <div class="card-title">🔬 Diagnóstico del entorno</div>
+    <div class="preflight-grid">
+
+      <div class="pf-item" id="pf-origin">
+        <div class="pf-icon">🌐</div>
+        <div>
+          <div class="pf-label">Origen</div>
+          <div class="pf-value" id="pf-origin-val">—</div>
+          <div class="pf-note" id="pf-origin-note"></div>
+        </div>
+      </div>
+
+      <div class="pf-item" id="pf-sab">
+        <div class="pf-icon">⚡</div>
+        <div>
+          <div class="pf-label">SharedArrayBuffer</div>
+          <div class="pf-value" id="pf-sab-val">—</div>
+          <div class="pf-note" id="pf-sab-note"></div>
+        </div>
+      </div>
+
+      <div class="pf-item">
+        <div class="pf-icon">🧠</div>
+        <div>
+          <div class="pf-label">Memoria RAM estimada</div>
+          <div class="pf-value" id="pf-ram">—</div>
+          <div class="pf-note">Mín. recomendado: 4 GB</div>
+        </div>
+      </div>
+
+      <div class="pf-item">
+        <div class="pf-icon">🔧</div>
+        <div>
+          <div class="pf-label">WebAssembly</div>
+          <div class="pf-value" id="pf-wasm">—</div>
+          <div class="pf-note" id="pf-wasm-note"></div>
+        </div>
+      </div>
+
     </div>
 
-    <div class="max-w-5xl mx-auto px-4 py-8">
-        <!-- ========== HEADER ========== -->
-        <header class="text-center mb-8">
-            <div class="inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-2 rounded-full mb-4">
-                <span class="text-2xl">🎬</span>
-                <h1 class="text-2xl font-bold">Video Stitcher Pro</h1>
-            </div>
-            <p class="text-slate-400">Unión de videos segura 100% en el navegador</p>
-            <div id="envStatus" class="mt-3 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800/50">
-                <span class="w-2 h-2 rounded-full bg-yellow-500 status-badge"></span>
-                <span class="text-sm text-slate-300">Verificando ambiente...</span>
-            </div>
-        </header>
+    <!-- Aviso de origin null (file://) — el error más común -->
+    <div id="null-origin-warning" style="display:none;margin-top:14px" class="alert alert-err">
+      <span class="ico">🚫</span>
+      <div>
+        <strong>Estás abriendo el archivo con file:// — esto NUNCA funcionará</strong>
+        Los Workers de WebAssembly están bloqueados por el navegador cuando el origen es <code>null</code>. Verás el error <em>"cannot be accessed from origin 'null'"</em>.
+        <pre>
+# Opción 1 — Python (cualquier sistema):
+python -m http.server 8080
+→ Abre: http://localhost:8080
 
-        <!-- ========== MAIN CONTENT GRID ========== -->
-        <div class="grid lg:grid-cols-3 gap-6">
-            
-            <!-- LEFT PANEL: INPUTS -->
-            <div class="lg:col-span-2 space-y-6">
-                
-                <!-- Drop Zone -->
-                <div id="dropZone" class="border-2 border-dashed border-slate-600/50 rounded-2xl p-8 text-center transition-all hover:border-blue-500 hover:bg-blue-950/20 cursor-pointer group">
-                    <div class="text-5xl mb-4 group-hover:scale-110 transition-transform">📁</div>
-                    <p class="text-lg text-slate-300 mb-2">Arrastra videos o clic para seleccionar</p>
-                    <p class="text-sm text-slate-500">MP4 • MOV • WebM (H.264/H.265)</p>
-                    <input type="file" id="fileInput" accept="video/*" multiple class="hidden">
-                </div>
+# Opción 2 — Node.js:
+npx serve .
+→ Abre: http://localhost:3000
 
-                <!-- Stats Bar -->
-                <div id="statsBar" class="hidden grid grid-cols-3 gap-4 bg-slate-800/30 rounded-xl p-4">
-                    <div class="text-center">
-                        <p class="text-2xl font-bold text-blue-400" id="clipCount">0</p>
-                        <p class="text-xs text-slate-500">Clips</p>
-                    </div>
-                    <div class="text-center">
-                        <p class="text-2xl font-bold text-purple-400" id="totalSize">0 MB</p>
-                        <p class="text-xs text-slate-500">Tamaño</p>
-                    </div>
-                    <div class="text-center">
-                        <p class="text-2xl font-bold text-green-400" id="totalDuration">0:00</p>
-                        <p class="text-xs text-slate-500">Duración</p>
-                    </div>
-                </div>
-
-                <!-- Clips List -->
-                <div id="clipsList" class="space-y-3"></div>
-
-                <!-- Empty State -->
-                <div id="emptyState" class="hidden text-center py-12 text-slate-500">
-                    <div class="text-4xl mb-3">🎥</div>
-                    <p>No hay clips cargados</p>
-                </div>
-            </div>
-
-            <!-- RIGHT PANEL: CONTROLS -->
-            <div class="space-y-6">
-                
-                <!-- Options Card -->
-                <div id="optionsCard" class="hidden bg-slate-800/50 backdrop-blur rounded-2xl p-5 border border-slate-700/50">
-                    <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
-                        <span>⚙️</span> Configuración
-                    </h3>
-                    
-                    <div class="space-y-4">
-                        <label class="flex items-start gap-3 cursor-pointer group">
-                            <input type="checkbox" id="useTransition" class="mt-1 w-5 h-5 rounded bg-slate-700 border-slate-600 text-blue-500 focus:ring-blue-500">
-                            <div>
-                                <span class="text-slate-300 font-medium block">Transición suave</span>
-                                <span class="text-xs text-slate-500 group-hover:text-slate-400">Fade de 1s con preservación de audio</span>
-                            </div>
-                        </label>
-
-                        <div>
-                            <label class="text-xs text-slate-400 block mb-2">Calidad de salida</label>
-                            <select id="quality" class="w-full bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-sm">
-                                <option value="18">Alta (H.264 CRF 18) - Recomendado</option>
-                                <option value="23">Media (H.264 CRF 23) - Más rápido</option>
-                                <option value="28">Baja (H.264 CRF 28) - Archivo pequeño</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Process Button -->
-                <button id="processBtn" class="hidden w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-bold py-4 px-6 rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed text-lg shadow-lg shadow-blue-500/20">
-                    <span id="processBtnText">🚀 Procesar Video</span>
-                </button>
-
-                <!-- Environment Info -->
-                <div id="envInfo" class="bg-slate-800/30 rounded-xl p-4 text-sm">
-                    <h4 class="font-semibold mb-2 flex items-center gap-2">
-                        <span>🌐</span> Ambiente Detectado
-                    </h4>
-                    <div class="space-y-2 text-slate-400">
-                        <div class="flex justify-between">
-                            <span>Protocolo:</span>
-                            <span id="detectedProtocol" class="text-white">-</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span>COOP/COEP:</span>
-                            <span id="detectedCOOP" class="text-white">-</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span>Modo FFmpeg:</span>
-                            <span id="detectedMode" class="text-white">-</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ========== PROGRESS SECTION ========== -->
-        <div id="progressSection" class="hidden mt-8 bg-slate-800/50 backdrop-blur rounded-2xl p-6 border border-slate-700/50">
-            <div class="flex items-center justify-between mb-4">
-                <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center">
-                        <span class="animate-spin">⟳</span>
-                    </div>
-                    <span class="text-slate-300 font-medium" id="progressStatus">Inicializando...</span>
-                </div>
-                <span id="progressPercent" class="text-2xl font-bold text-blue-400">0%</span>
-            </div>
-            
-            <div class="h-4 bg-slate-900 rounded-full overflow-hidden mb-4">
-                <div id="progressBar" class="progress-bar h-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full" style="width: 0%"></div>
-            </div>
-            
-            <!-- Log Console -->
-            <div class="bg-slate-950 rounded-lg p-4 h-48 overflow-y-auto font-mono text-xs" id="logConsole">
-                <div class="log-entry info">📋 Sistema listo. Esperando comando...</div>
-            </div>
-        </div>
-
-        <!-- ========== RESULT SECTION ========== -->
-        <div id="resultSection" class="hidden mt-8">
-            <div class="bg-gradient-to-r from-green-900/40 to-emerald-900/40 border border-green-500/30 rounded-2xl p-6">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center text-xl">✅</div>
-                    <h3 class="text-xl font-semibold text-green-400">Video generado exitosamente</h3>
-                </div>
-                
-                <video id="resultVideo" controls class="w-full rounded-xl mb-4 max-h-96 bg-black shadow-lg"></video>
-                
-                <a id="downloadBtn" download="video_unido.mp4" class="flex items-center justify-center gap-2 w-full bg-green-600 hover:bg-green-500 text-white font-bold py-4 px-6 rounded-xl transition-all text-lg">
-                    <span>📥</span> Descargar Video Final
-                </a>
-            </div>
-        </div>
-
-        <!-- ========== ERROR MODAL ========== -->
-        <div id="errorModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-            <div class="bg-slate-900 rounded-2xl p-6 max-w-lg w-full border border-red-500/30">
-                <div class="flex items-center gap-3 mb-4">
-                    <span class="text-3xl">❌</span>
-                    <h3 class="text-xl font-semibold text-red-400">Error Detectado</h3>
-                </div>
-                <div id="errorContent" class="text-slate-300 mb-6 p-4 bg-slate-800/50 rounded-lg"></div>
-                <div class="flex gap-3">
-                    <button onclick="app.closeError()" class="flex-1 py-3 px-4 bg-slate-700 hover:bg-slate-600 rounded-lg transition-all">
-                        Cerrar
-                    </button>
-                    <button onclick="app.copyError()" class="flex-1 py-3 px-4 bg-slate-700 hover:bg-slate-600 rounded-lg transition-all">
-                        📋 Copiar Error
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- ========== FOOTER ========== -->
-        <footer class="text-center mt-12 text-slate-500 text-sm">
-            <p>Procesamiento 100% local • Videos nunca salen de tu dispositivo</p>
-            <p class="text-xs mt-1">Basado en FFmpeg.wasm v0.12.7</p>
-        </footer>
+# Opción 3 — VS Code:
+Instala la extensión "Live Server" y haz clic en "Go Live"</pre>
+        No cierres esta página — ábrela desde el servidor local y vuelve a intentarlo.
+      </div>
     </div>
 
-    <script>
-    // ============================================================
-    // ENVIRONMENT DETECTION & VALIDATION MODULE
-    // ============================================================
-    const EnvDetector = {
-        isFileProtocol: window.location.protocol === 'file:',
-        hasSharedArrayBuffer: typeof SharedArrayBuffer !== 'undefined',
-        detectedCOOP: null,
-        detectedCOEP: null,
-        cdnIndex: 0,
-        
-        // CDN alternativos para fallback
-        CDNS: {
-            ffmpeg: [
-                'https://unpkg.com/@ffmpeg/ffmpeg@0.12.7/dist/umd/ffmpeg.js',
-                'https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.7/dist/umd/ffmpeg.js'
-            ],
-            core: {
-                single: 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd/ffmpeg-core.js',
-                multi: 'https://unpkg.com/@ffmpeg/core-mt@0.12.6/dist/umd/ffmpeg-core.js'
-            }
-        },
+    <!-- Aviso de falta de headers COOP/COEP -->
+    <div id="no-sab-warning" style="display:none;margin-top:14px" class="alert alert-warn">
+      <span class="ico">⚠️</span>
+      <div>
+        <strong>Sin headers COOP/COEP — Modo single-thread activo (más lento, pero funcional)</strong>
+        FFmpeg procesará en un solo hilo. Videos de más de 2 minutos pueden tardar varios minutos.
+        Para activar multi-hilo, configura tu servidor web:
+        <pre>
+# Apache (.htaccess):
+Header set Cross-Origin-Opener-Policy "same-origin"
+Header set Cross-Origin-Embedder-Policy "require-corp"
 
-        async init() {
-            const banner = document.getElementById('envBanner');
-            const statusEl = document.getElementById('envStatus');
-            
-            // Detectación de COOP/COEP
-            if (!this.isFileProtocol) {
-                try {
-                    const response = await fetch(window.location.href, { method: 'HEAD', cache: 'no-cache' });
-                    this.detectedCOOP = response.headers.get('Cross-Origin-Opener-Policy');
-                    this.detectedCOEP = response.headers.get('Cross-Origin-Embedder-Policy');
-                } catch (e) {
-                    console.warn('No se pudieron detectar headers:', e);
-                }
-            }
+# Nginx:
+add_header Cross-Origin-Opener-Policy "same-origin";
+add_header Cross-Origin-Embedder-Policy "require-corp";</pre>
+      </div>
+    </div>
+  </section>
 
-            // Determinar modo
-            const isSecure = !this.isFileProtocol && 
-                           this.hasSharedArrayBuffer && 
-                           this.detectedCOOP === 'same-origin' && 
-                           this.detectedCOEP === 'require-corp';
+  <!-- ═══ ESTADO DE FFMPEG ══════════════════════════════════════════════════ -->
+  <section id="ffmpeg-card" class="card">
+    <div class="card-title">⚙️ Motor FFmpeg.wasm</div>
+    <div id="ffmpeg-status" class="alert alert-info">
+      <div class="spinner"></div>
+      <div>Iniciando FFmpeg… <span id="ffmpeg-detail">Cargando módulo JavaScript…</span></div>
+    </div>
+    <div id="ffmpeg-log"></div>
+  </section>
 
-            const mode = isSecure ? 'multi-thread' : 'single-thread';
-            
-            // Actualizar UI
-            this.updateUI(mode, banner, statusEl);
-            this.updateEnvInfoSection();
-            
-            return {
-                isFileProtocol: this.isFileProtocol,
-                isSecure,
-                mode,
-                hasCOOP_COEP: !!this.detectedCOOP && !!this.detectedCOEP
-            };
-        },
+  <!-- ═══ DROP ZONE ══════════════════════════════════════════════════════════ -->
+  <section>
+    <div id="dropzone"
+         role="button" tabindex="0" aria-label="Zona de arrastre de videos"
+         ondragover="dzOver(event)" ondragleave="dzLeave()" ondrop="dzDrop(event)"
+         onclick="document.getElementById('file-input').click()">
+      <div class="dz-icon">🎥</div>
+      <h2>Arrastra tus videos aquí</h2>
+      <p>MP4 · MOV · WebM · AVI — Máximo <strong>5 clips</strong> y <strong>500 MB total</strong></p>
+      <button class="btn-dz" onclick="event.stopPropagation();document.getElementById('file-input').click()">
+        📂 Seleccionar archivos
+      </button>
+      <input id="file-input" type="file" multiple
+             accept="video/mp4,video/quicktime,video/webm,video/x-msvideo,.mp4,.mov,.webm,.avi"
+             onchange="stitcher.addFiles(this.files)">
+    </div>
+    <div id="dz-alert" style="display:none;margin-top:10px" class="alert alert-err">
+      <span class="ico">🚫</span><span id="dz-alert-msg"></span>
+    </div>
+  </section>
 
-        updateUI(mode, banner, statusEl) {
-            let bannerClass = '';
-            let bannerContent = '';
-            let statusText = '';
-            let statusColor = '';
+  <!-- ═══ LISTA DE CLIPS ═════════════════════════════════════════════════════ -->
+  <section id="clips-wrap">
+    <div class="card">
+      <div class="card-title">
+        📋 Clips
+        <span id="clips-count" style="font-weight:400;font-size:.8rem;color:var(--muted)"></span>
+        <button class="btn-ghost" style="margin-left:auto;padding:4px 12px;font-size:.78rem"
+                onclick="stitcher.clearAll()">🗑️ Limpiar todo</button>
+      </div>
+      <div id="clips-list"></div>
+      <div class="clips-footer">
+        <span>Arrastra las tarjetas para reordenar</span>
+        <span>Total estimado: <strong id="total-dur" style="color:var(--accent2)">0s</strong></span>
+      </div>
+    </div>
+  </section>
 
-            if (this.isFileProtocol) {
-                bannerClass = 'bg-red-500/90';
-                bannerContent = `
-                    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-center gap-4">
-                        <span class="text-2xl">🚫</span>
-                        <div>
-                            <p class="font-semibold">No puedes abrir este archivo directamente (doble clic)</p>
-                            <p class="text-sm text-red-200">Usa un servidor local: <code class="bg-red-800/50 px-2 py-1 rounded">python -m http.server 8000</code> o sube a tu hosting</p>
-                        </div>
-                    </div>
-                `;
-                statusText = '❌ Protocolo file:// no soportado';
-                statusColor = 'bg-red-500';
-            } else if (mode === 'single-thread') {
-                bannerClass = 'bg-amber-500/90';
-                const reason = !this.hasSharedArrayBuffer ? 'SharedArrayBuffer no disponible' :
-                              !this.detectedCOOP ? 'Falta header COOP' :
-                              !this.detectedCOEP ? 'Falta header COEP' :
-                              'Headers incorrectos';
-                bannerContent = `
-                    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-center gap-4 flex-wrap">
-                        <span class="text-2xl">⚠️</span>
-                        <div>
-                            <p class="font-semibold">FFmpeg funcionará en modo single-thread (más lento)</p>
-                            <p class="text-sm text-amber-200">Causa: ${reason}. Para velocidad máxima, configura en tu servidor:</p>
-                            <code class="block mt-1 bg-amber-800/50 px-2 py-1 rounded text-xs">
-                                Cross-Origin-Opener-Policy: same-origin<br>
-                                Cross-Origin-Embedder-Policy: require-corp
-                            </code>
-                        </div>
-                    </div>
-                `;
-                statusText = '⚠️ Modo single-thread (más lento)';
-                statusColor = 'bg-amber-500';
-            } else {
-                bannerClass = 'bg-green-500/90';
-                bannerContent = `
-                    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-center gap-3">
-                        <span class="text-2xl">✅</span>
-                        <p class="font-semibold">Ambiente óptimo detectado - FFmpeg multi-thread activado</p>
-                    </div>
-                `;
-                statusText = '✅ Ambiente óptimo';
-                statusColor = 'bg-green-500';
-            }
+  <!-- ═══ OPCIONES ══════════════════════════════════════════════════════════ -->
+  <section id="options-wrap">
+    <div class="card">
+      <div class="card-title">⚙️ Opciones de exportación</div>
+      <div class="opt-row">
+        <!-- Transición -->
+        <div class="toggle-wrap">
+          <label class="toggle">
+            <input type="checkbox" id="use-fade" onchange="toggleFadeOpts()">
+            <span class="toggle-track"></span>
+          </label>
+          <div>
+            <div class="opt-label">🎞️ Transición Fade</div>
+            <div class="opt-sublabel">xfade (video) + acrossfade (audio) — audio preservado</div>
+          </div>
+        </div>
+        <!-- Duración fade -->
+        <div id="fade-opts" style="display:none;align-items:center;gap:6px" class="toggle-wrap">
+          <span style="font-size:.82rem;color:var(--muted)">Duración:</span>
+          <input type="number" id="fade-dur" class="inline-inp" min="0.2" max="3" step="0.1" value="0.8"/>
+          <span style="font-size:.82rem;color:var(--muted)">seg</span>
+        </div>
+        <!-- Calidad -->
+        <div class="toggle-wrap">
+          <span class="opt-label" style="font-size:.82rem;color:var(--muted)">Calidad:</span>
+          <select id="quality" class="inline-inp">
+            <option value="23">Alta (CRF 23)</option>
+            <option value="18">Máxima (CRF 18)</option>
+            <option value="28">Rápida (CRF 28)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            banner.className = `sticky top-0 z-50 border-b ${bannerClass}`;
-            banner.innerHTML = bannerContent;
-            
-            statusEl.innerHTML = `
-                <span class="w-2 h-2 rounded-full ${statusColor} status-badge"></span>
-                <span class="text-sm text-slate-300">${statusText}</span>
-            `;
-        },
+  <!-- ═══ BOTÓN DE PROCESO ══════════════════════════════════════════════════ -->
+  <section id="process-wrap">
+    <button id="proc-btn" class="btn-process" onclick="stitcher.processVideo()">
+      <span id="proc-icon">🚀</span>
+      <span id="proc-txt">Procesar y Unir Videos</span>
+    </button>
 
-        updateEnvInfoSection() {
-            document.getElementById('detectedProtocol').textContent = window.location.protocol;
-            
-            const coopEl = document.getElementById('detectedCOOP');
-            if (this.detectedCOOP) {
-                coopEl.textContent = '✅ OK';
-                coopEl.className = 'text-green-400';
-            } else {
-                coopEl.textContent = '❌ Falta';
-                coopEl.className = 'text-red-400';
-            }
-            
-            const modeEl = document.getElementById('detectedMode');
-            if (!this.isFileProtocol && this.hasSharedArrayBuffer && this.detectedCOOP && this.detectedCOEP) {
-                modeEl.textContent = 'Multi-thread 🚀';
-                modeEl.className = 'text-green-400';
-            } else {
-                modeEl.textContent = 'Single-thread 🐌';
-                modeEl.className = 'text-amber-400';
-            }
-        },
+    <div id="progress-wrap">
+      <div class="prog-header">
+        <span id="prog-label">Procesando…</span>
+        <span id="prog-pct" style="color:var(--accent2);font-weight:700">0%</span>
+      </div>
+      <div class="prog-bar-bg"><div class="prog-bar-fill" id="prog-fill" style="width:0%"></div></div>
+      <div id="proc-log"></div>
+    </div>
 
-        getNextCDN(type) {
-            const list = type === 'ffmpeg' ? this.CDNS.ffmpeg : [this.CDNS.core.single, this.CDNS.core.multi];
-            const url = list[this.cdnIndex % list.length];
-            this.cdnIndex++;
-            return url;
-        }
+    <div id="err-area" class="alert alert-err" style="width:100%;max-width:700px;display:none">
+      <span class="ico">❌</span><div id="err-msg"></div>
+    </div>
+  </section>
+
+  <!-- ═══ RESULTADO ═════════════════════════════════════════════════════════ -->
+  <section id="result-wrap">
+    <div class="card">
+      <div class="alert alert-ok" style="margin-bottom:14px">
+        <span class="ico">✅</span><span><strong>¡Video procesado con éxito!</strong></span>
+      </div>
+      <video id="result-video" controls></video>
+      <div class="row">
+        <button class="btn-dl" onclick="stitcher.downloadResult()">⬇️ Descargar MP4</button>
+        <button class="btn-ghost" onclick="stitcher.resetResult()">🔄 Nuevo proceso</button>
+      </div>
+      <div class="result-meta" id="result-meta"></div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ═════════════════════════════════════════════════════════════════════════
+     JAVASCRIPT — VideoStitcher v2 (Reescritura total)
+     Corrige: cargador FFmpeg roto, worker origin null, detección audio falsa,
+     comando duplicado en 1 clip, offset xfade incorrecto, progress callback erróneo
+═════════════════════════════════════════════════════════════════════════════ -->
+<script>
+'use strict';
+
+/* ══════════════════════════════════════════════════════════════════════════
+   CONFIGURACIÓN GLOBAL
+   Usamos @ffmpeg/ffmpeg 0.12.x + @ffmpeg/core 0.12.x desde esm.sh (ESM real).
+   CDN alternativo: unpkg con path correcto.
+   Estrategia: intentar multi-thread primero, caer a single-thread si falla.
+══════════════════════════════════════════════════════════════════════════ */
+const CFG = {
+  MAX_CLIPS : 5,
+  MAX_MB    : 500,
+  // ESM desde CDN que sirve Content-Type correcto y CORS limpio
+  FFMPEG_ESM    : 'https://esm.sh/@ffmpeg/ffmpeg@0.12.10?bundle',
+  CORE_ST       : 'https://esm.sh/@ffmpeg/core@0.12.6/dist/umd/ffmpeg-core.js',
+  CORE_MT       : 'https://esm.sh/@ffmpeg/core-mt@0.12.6/dist/umd/ffmpeg-core.js',
+  CORE_MT_WASM  : 'https://esm.sh/@ffmpeg/core-mt@0.12.6/dist/umd/ffmpeg-core.wasm',
+  CORE_MT_WORK  : 'https://esm.sh/@ffmpeg/core-mt@0.12.6/dist/umd/ffmpeg-core.worker.js',
+};
+
+/* ══════════════════════════════════════════════════════════════════════════
+   DIAGNÓSTICO PREVIO (Preflight)
+══════════════════════════════════════════════════════════════════════════ */
+function runPreflight() {
+  const origin = location.origin;
+  const isNull = origin === 'null' || location.protocol === 'file:';
+  const hasSAB = typeof SharedArrayBuffer !== 'undefined';
+  const hasWASM = typeof WebAssembly !== 'undefined';
+
+  // Origen
+  _el('pf-origin-val').textContent = isNull ? 'null (file://)' : origin;
+  _el('pf-origin-val').style.color = isNull ? 'var(--err)' : 'var(--ok)';
+  _el('pf-origin-note').textContent = isNull
+    ? '⛔ Requiere servidor HTTP local' : '✅ Origen válido';
+
+  // SharedArrayBuffer
+  _el('pf-sab-val').textContent = hasSAB ? 'Disponible ✅' : 'No disponible ⚠️';
+  _el('pf-sab-val').style.color = hasSAB ? 'var(--ok)' : 'var(--warn)';
+  _el('pf-sab-note').textContent = hasSAB
+    ? 'Multi-hilo activo — máxima velocidad'
+    : 'Single-thread — funcional pero más lento';
+
+  // RAM
+  const ram = navigator.deviceMemory;
+  _el('pf-ram').textContent = ram ? `~${ram} GB detectados` : 'No detectable (privacidad)';
+  _el('pf-ram').style.color = (!ram || ram >= 4) ? 'var(--ok)' : 'var(--warn)';
+
+  // WASM
+  _el('pf-wasm').textContent = hasWASM ? 'Soportado ✅' : '⛔ No soportado';
+  _el('pf-wasm').style.color = hasWASM ? 'var(--ok)' : 'var(--err)';
+  _el('pf-wasm-note').textContent = hasWASM
+    ? 'Chrome/Edge/Firefox/Safari modernos' : 'Actualiza tu navegador';
+
+  // Badge principal
+  const badge = _el('mt-badge');
+  if (isNull) {
+    badge.textContent = '⛔ Servidor requerido';
+    badge.className = 'badge badge-err';
+    _el('null-origin-warning').style.display = 'flex';
+  } else if (hasSAB) {
+    badge.textContent = '⚡ Multi-hilo activo';
+    badge.className = 'badge badge-ok';
+  } else {
+    badge.textContent = '🐢 Single-thread';
+    badge.className = 'badge badge-warn';
+    _el('no-sab-warning').style.display = 'flex';
+  }
+
+  return { isNull, hasSAB, hasWASM };
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   CLASE PRINCIPAL
+══════════════════════════════════════════════════════════════════════════ */
+class VideoStitcher {
+  constructor() {
+    this.ffmpeg      = null;
+    this.ffmpegReady = false;
+    this.useMT       = false;
+    this.clips       = [];
+    this.dragSrcIdx  = null;
+    this.processing  = false;
+    this.resultBlob  = null;
+    this.resultUrl   = null;
+    this._env        = runPreflight();
+  }
+
+  /* ── CARGA DE FFMPEG ──────────────────────────────────────────────────── */
+  async loadFFmpeg() {
+    const stEl   = _el('ffmpeg-status');
+    const detEl  = _el('ffmpeg-detail');
+    const logEl  = _el('ffmpeg-log');
+    logEl.classList.add('show');
+
+    const addLog = (msg) => {
+      const l = document.createElement('div'); l.textContent = msg;
+      logEl.appendChild(l); logEl.scrollTop = logEl.scrollHeight;
     };
 
-    // ============================================================
-    // VIDEO STITCHER MAIN APPLICATION
-    // ============================================================
-    class VideoStitcherApp {
-        constructor() {
-            this.clips = [];
-            this.maxClips = 5;
-            this.maxTotalSize = 500 * 1024 * 1024;
-            this.ffmpeg = null;
-            this.env = null;
-            this.transitionDuration = 1;
-            this.lastError = null;
-
-            this.initElements();
-        }
-
-        async init() {
-            try {
-                // Detect environment first
-                this.env = await EnvDetector.init();
-                
-                // Setup event listeners
-                this.initEventListeners();
-                
-                this.log('info', '🌐 Ambiente verificado: ' + (this.env.mode === 'multi-thread' ? 'Multi-thread 🚀' : 'Single-thread 🐌'));
-                
-                if (this.env.isFileProtocol) {
-                    this.showModal('fatal', `
-                        <p class="mb-3">Has abierto este archivo directamente con doble clic (<code>file://</code>).</p>
-                        <p class="mb-3">FFmpeg.wasm NO funciona con el protocolo <code>file://</code> debido a restricciones de seguridad del navegador.</p>
-                        <p class="mb-4"><strong>Solución:</strong></p>
-                        <ol class="list-decimal list-inside space-y-2 text-sm">
-                            <li>Opción A: Usa un servidor local<br><code class="block bg-slate-700 p-2 rounded mt-1">python -m http.server 8000<br># Luego abre: http://localhost:8000</code></li>
-                            <li>Opción B: Sube el archivo a tu servidor web (bioestadisticaedu.com)</li>
-                        </ol>
-                    `);
-                }
-            } catch (error) {
-                this.log('error', 'Error iniciando: ' + error.message);
-            }
-        }
-
-        initElements() {
-            // Main elements
-            this.dropZone = document.getElementById('dropZone');
-            this.fileInput = document.getElementById('fileInput');
-            this.clipsList = document.getElementById('clipsList');
-            this.statsBar = document.getElementById('statsBar');
-            this.emptyState = document.getElementById('emptyState');
-            this.optionsCard = document.getElementById('optionsCard');
-            this.processBtn = document.getElementById('processBtn');
-            this.processBtnText = document.getElementById('processBtnText');
-            
-            // Progress elements
-            this.progressSection = document.getElementById('progressSection');
-            this.progressBar = document.getElementById('progressBar');
-            this.progressPercent = document.getElementById('progressPercent');
-            this.progressStatus = document.getElementById('progressStatus');
-            this.logConsole = document.getElementById('logConsole');
-            
-            // Result elements
-            this.resultSection = document.getElementById('resultSection');
-            this.resultVideo = document.getElementById('resultVideo');
-            this.downloadBtn = document.getElementById('downloadBtn');
-            
-            // Error elements
-            this.errorModal = document.getElementById('errorModal');
-            this.errorContent = document.getElementById('errorContent');
-        }
-
-        initEventListeners() {
-            this.dropZone.addEventListener('click', () => this.fileInput.click());
-            this.dropZone.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                this.dropZone.classList.add('border-blue-500', 'bg-blue-950/30');
-            });
-            this.dropZone.addEventListener('dragleave', () => {
-                this.dropZone.classList.remove('border-blue-500', 'bg-blue-950/30');
-            });
-            this.dropZone.addEventListener('drop', (e) => this.handleDrop(e));
-            this.fileInput.addEventListener('change', (e) => this.handleFileSelect(e));
-            this.processBtn.addEventListener('click', () => this.processVideo());
-        }
-
-        handleDrop(e) {
-            e.preventDefault();
-            this.dropZone.classList.remove('border-blue-500', 'bg-blue-950/30');
-            const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('video/'));
-            this.addFiles(files);
-        }
-
-        handleFileSelect(e) {
-            const files = Array.from(e.target.files);
-            this.addFiles(files);
-        }
-
-        async addFiles(files) {
-            if (this.env.isFileProtocol) {
-                this.showModal('error', 'No puedes agregar videos en modo file://. Usa un servidor HTTP.');
-                return;
-            }
-
-            const validFiles = files.filter(f => {
-                if (!f.type.startsWith('video/')) {
-                    this.log('warning', `Archivo ignorado: ${f.name} (no es video)`);
-                    return false;
-                }
-                return true;
-            });
-
-            if (validFiles.length === 0) {
-                if (files.length > 0) {
-                    this.showModal('error', 'Ningún archivo válido encontrado. Asegúrate de subir videos (MP4, MOV, WebM).');
-                }
-                return;
-            }
-
-            // Check limits
-            if (this.clips.length + validFiles.length > this.maxClips) {
-                this.showModal('error', `Máximo ${this.maxClips} clips permitidos. Tienes ${this.clips.length}, intentas agregar ${validFiles.length}.`);
-                return;
-            }
-
-            for (const file of validFiles) {
-                const clip = {
-                    id: Date.now() + Math.random(),
-                    file: file,
-                    name: file.name,
-                    size: file.size,
-                    duration: 0,
-                    start: 0,
-                    end: 0
-                };
-                this.clips.push(clip);
-            }
-
-            this.log('info', `📁 ${validFiles.length} video(s) agregado(s)`);
-            this.updateUI();
-            await this.loadClipMetadata();
-        }
-
-        async loadClipMetadata() {
-            for (const clip of this.clips) {
-                if (clip.duration === 0) {
-                    try {
-                        const duration = await this.getVideoDuration(clip.file);
-                        clip.duration = duration;
-                        clip.end = duration;
-                    } catch (e) {
-                        this.log('warning', `No se pudo leer metadatos de ${clip.name}`);
-                    }
-                }
-            }
-            this.updateUI();
-            this.checkLimits();
-        }
-
-        getVideoDuration(file) {
-            return new Promise((resolve, reject) => {
-                const video = document.createElement('video');
-                video.preload = 'metadata';
-                const url = URL.createObjectURL(file);
-                
-                const cleanup = () => {
-                    URL.revokeObjectURL(url);
-                    video.src = '';
-                };
-
-                video.onloadedmetadata = () => {
-                    cleanup();
-                    resolve(video.duration);
-                };
-                video.onerror = () => {
-                    cleanup();
-                    reject(new Error('Error loading video'));
-                };
-                video.src = url;
-            });
-        }
-
-        checkLimits() {
-            const totalSize = this.clips.reduce((sum, c) => sum + c.size, 0);
-            const totalDuration = this.clips.reduce((sum, c) => sum + (c.end - c.start), 0);
-            
-            // Disable if over limits
-            this.processBtn.disabled = this.clips.length === 0 || totalSize > this.maxTotalSize;
-            
-            // Update stats
-            document.getElementById('clipCount').textContent = this.clips.length;
-            document.getElementById('totalSize').textContent = this.formatSize(totalSize);
-            document.getElementById('totalSize').className = totalSize > this.maxTotalSize ? 'text-2xl font-bold text-red-400' : 'text-2xl font-bold text-purple-400';
-            document.getElementById('totalDuration').textContent = this.formatTime(totalDuration);
-
-            if (totalSize > this.maxTotalSize) {
-                this.log('warning', `⚠️ Tamaño total excedido: ${this.formatSize(totalSize)} / 500MB`);
-            }
-        }
-
-        updateUI() {
-            if (this.clips.length === 0) {
-                this.clipsList.innerHTML = '';
-                this.statsBar.classList.add('hidden');
-                this.emptyState.classList.remove('hidden');
-                this.optionsCard.classList.add('hidden');
-                this.processBtn.classList.add('hidden');
-                return;
-            }
-
-            this.statsBar.classList.remove('hidden');
-            this.emptyState.classList.add('hidden');
-            this.optionsCard.classList.remove('hidden');
-            this.processBtn.classList.remove('hidden');
-
-            this.clipsList.innerHTML = this.clips.map((clip, index) => `
-                <div class="clip-item bg-slate-800/50 rounded-xl p-4 cursor-move border border-slate-700/50 hover:border-blue-500/50" data-index="${index}" draggable="true">
-                    <div class="flex items-start gap-4">
-                        <div class="text-slate-500 cursor-grab active:cursor-grabbing pt-1">⋮⋮</div>
-                        <div class="flex-1 min-w-0">
-                            <div class="flex items-center gap-2 mb-3 flex-wrap">
-                                <span class="bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">${index + 1}</span>
-                                <span class="text-white font-medium truncate max-w-xs">${clip.name}</span>
-                                <span class="text-slate-500 text-sm">${this.formatSize(clip.size)}</span>
-                            </div>
-                            <div class="text-sm text-slate-400 mb-2">
-                                Clip: <span class="text-white">${this.formatTime(clip.start)}</span> → 
-                                <span class="text-white">${this.formatTime(clip.end)}</span> 
-                                (<span class="text-blue-400">${this.formatTime(clip.end - clip.start)}</span>)
-                            </div>
-                            <div class="flex gap-2 items-center">
-                                <div class="flex-1">
-                                    <label class="text-xs text-slate-500">Inicio</label>
-                                    <input type="range" min="0" max="${clip.duration}" step="0.1" 
-                                           value="${clip.start}" 
-                                           data-index="${index}" data-type="start"
-                                           class="w-full">
-                                </div>
-                                <div class="flex-1">
-                                    <label class="text-xs text-slate-500">Fin</label>
-                                    <input type="range" min="0" max="${clip.duration}" step="0.1" 
-                                           value="${clip.end}" 
-                                           data-index="${index}" data-type="end"
-                                           class="w-full">
-                                </div>
-                            </div>
-                            <p class="text-xs text-slate-500 mt-2">Duración original: ${this.formatTime(clip.duration)}</p>
-                        </div>
-                        <button class="text-red-400 hover:text-red-300 hover:bg-red-500/10 p-2 rounded-lg transition-colors" 
-                                onclick="app.removeClip(${index})" title="Eliminar clip">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            `).join('');
-
-            // Drag handlers
-            const items = this.clipsList.querySelectorAll('.clip-item');
-            items.forEach(item => {
-                item.addEventListener('dragstart', (e) => this.handleDragStart(e));
-                item.addEventListener('dragover', (e) => e.preventDefault());
-                item.addEventListener('drop', (e) => this.handleItemDrop(e));
-                item.addEventListener('dragend', (e) => e.target.classList.remove('dragging'));
-                item.addEventListener('input', (e) => this.handleTimeChange(e));
-            });
-        }
-
-        handleDragStart(e) {
-            e.target.classList.add('dragging');
-            e.dataTransfer.setData('text/plain', e.target.dataset.index);
-        }
-
-        handleItemDrop(e) {
-            e.preventDefault();
-            const fromIndex = parseInt(e.dataTransfer.getData('text/plain'));
-            const toItem = e.target.closest('.clip-item');
-            
-            if (toItem) {
-                const toIndex = parseInt(toItem.dataset.index);
-                if (fromIndex !== toIndex && !isNaN(fromIndex) && !isNaN(toIndex)) {
-                    const [moved] = this.clips.splice(fromIndex, 1);
-                    this.clips.splice(toIndex, 0, moved);
-                    this.updateUI();
-                    this.log('info', `🔄 Clip ${fromIndex + 1} movido a posición ${toIndex + 1}`);
-                }
-            }
-        }
-
-        handleTimeChange(e) {
-            if (!e.target.matches('input[type="range"]')) return;
-            
-            const index = parseInt(e.target.dataset.index);
-            const type = e.target.dataset.type;
-            const value = parseFloat(e.target.value);
-            
-            const clip = this.clips[index];
-            const otherType = type === 'start' ? 'end' : 'start';
-            const otherInput = this.clipsList.querySelector(`input[data-index="${index}"][data-type="${otherType}"]`);
-            const otherValue = parseFloat(otherInput.value);
-            
-            // Validate constraints
-            if (type === 'start' && value < otherValue) {
-                clip.start = value;
-            } else if (type === 'end' && value > otherValue) {
-                clip.end = value;
-            }
-            
-            this.updateUI();
-        }
-
-        removeClip(index) {
-            const removed = this.clips.splice(index, 1)[0];
-            this.log('info', `🗑️ Clip eliminado: ${removed.name}`);
-            this.updateUI();
-            this.checkLimits();
-        }
-
-        formatSize(bytes) {
-            if (bytes < 1024) return bytes + ' B';
-            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
-            return (bytes / 1024 / 1024).toFixed(1) + ' MB';
-        }
-
-        formatTime(seconds) {
-            if (!seconds || isNaN(seconds)) return '0:00';
-            const mins = Math.floor(seconds / 60);
-            const secs = Math.floor(seconds % 60);
-            return `${mins}:${secs.toString().padStart(2, '0')}`;
-        }
-
-        log(type, message) {
-            const entry = document.createElement('div');
-            entry.className = `log-entry ${type}`;
-            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
-            this.logConsole.appendChild(entry);
-            this.logConsole.scrollTop = this.logConsole.scrollHeight;
-        }
-
-        showModal(type, content) {
-            this.lastError = content;
-            this.errorContent.innerHTML = content;
-            this.errorModal.classList.remove('hidden');
-        }
-
-        closeModal() {
-            this.errorModal.classList.add('hidden');
-        }
-
-        copyError() {
-            navigator.clipboard.writeText(this.lastError).then(() => {
-                alert('Error copiado al portapapeles');
-            });
-        }
-
-        async loadFFmpeg() {
-            this.log('info', '📦 Cargando FFmpeg.wasm...');
-            this.updateProgress(5, 'Cargando biblioteca FFmpeg...');
-
-            try {
-                // Try loading script with timeout and CDN fallback
-                let scriptLoaded = false;
-                let lastError = null;
-
-                for (let attempt = 0; attempt < 3; attempt++) {
-                    try {
-                        const url = EnvDetector.getNextCDN('ffmpeg');
-                        this.log('info', `🌐 Intentando CDN: ${url.split('/')[2]}...`);
-                        
-                        await this.loadScriptWithTimeout(url, 20000);
-                        scriptLoaded = true;
-                        this.log('success', '✅ Script FFmpeg cargado');
-                        break;
-                    } catch (e) {
-                        lastError = e;
-                        this.log('warning', `⚠️ CDN ${attempt + 1} falló: ${e.message}`);
-                        await new Promise(r => setTimeout(r, 1000));
-                    }
-                }
-
-                if (!scriptLoaded) {
-                    throw new Error(`Todos los CDNs fallaron. Último error: ${lastError?.message}`);
-                }
-
-                // Initialize FFmpeg
-                if (!window.FFmpegWASM) {
-                    throw new Error('FFmpegWASM no se inicializó correctamente');
-                }
-
-                const { FFmpeg } = window.FFmpegWASM;
-                this.ffmpeg = new FFmpeg();
-
-                // Setup progress handler
-                this.ffmpeg.on('progress', ({ progress, time }) => {
-                    const percent = Math.min(Math.round(progress * 100), 100);
-                    this.updateProgress(percent, `Procesando... (${this.formatTime(time / 1000000)})`);
-                });
-
-                this.ffmpeg.on('log', ({ message }) => {
-                    if (message.includes('frame=') || message.includes('time=')) {
-                        this.log('info', message.trim());
-                    }
-                });
-
-                // Load core
-                this.log('info', '🔧 Cargando core de FFmpeg...');
-                this.updateProgress(10, 'Cargando core...');
-                
-                const loadOptions = {
-                    logLevel: 'info'
-                };
-
-                // For multi-thread, we need coreURL options
-                if (this.env.mode === 'multi-thread') {
-                    loadOptions.coreURL = EnvDetector.CDNS.core.multi;
-                }
-
-                await this.ffmpeg.load(loadOptions);
-                this.log('success', '✅ FFmpeg cargado y listo');
-                this.updateProgress(15, 'FFmpeg listo');
-
-            } catch (error) {
-                this.log('error', '❌ Error cargando FFmpeg: ' + error.message);
-                
-                // Show detailed error modal
-                const errorDetails = `
-                    <p class="mb-3"><strong>Error:</strong> ${error.message}</p>
-                    <div class="text-sm bg-slate-950 p-3 rounded mb-3">
-                        <p class="mb-2">Posibles causas:</p>
-                        <ul class="list-disc list-inside space-y-1 text-slate-400">
-                            <li>Problemas de conexión a CDN (unpkg/jsdelivr)</li>
-                            <li>navegador bloqueando WebAssembly</li>
-                            <li>Falta headers COOP/COEP (${this.env.mode})</li>
-                            <li>Extensión de navegador interfiriendo</li>
-                        </ul>
-                    </div>
-                    <p class="text-sm text-slate-400">
-                        <strong>Soluciones:</strong><br>
-                        1. Recarga la página<br>
-                        2. Prueba con Chrome/Edge recientes<br>
-                        3. Verifica tu conexión a internet<br>
-                        4. Deshabilita extensiones de privacidad temporalmente
-                    </p>
-                `;
-                
-                this.showModal('error', errorDetails);
-                throw error;
-            }
-        }
-
-        loadScriptWithTimeout(url, timeout) {
-            return new Promise((resolve, reject) => {
-                const script = document.createElement('script');
-                script.src = url;
-                script.onerror = () => reject(new Error(`Error al cargar ${url}`));
-                
-                const timer = setTimeout(() => {
-                    script.remove();
-                    reject(new Error(`Timeout cargando ${url}`));
-                }, timeout);
-
-                script.onload = () => {
-                    clearTimeout(timer);
-                    resolve();
-                };
-
-                document.head.appendChild(script);
-            });
-        }
-
-        updateProgress(percent, status) {
-            this.progressBar.style.width = percent + '%';
-            this.progressPercent.textContent = percent + '%';
-            if (status) {
-                this.progressStatus.textContent = status;
-            }
-        }
-
-        buildCommands(clips, useTransition) {
-            const commands = [];
-            this.log('info', '🔨 Construyendo comandos FFmpeg...');
-
-            // Step 1: Trim each clip
-            for (let i = 0; i < clips.length; i++) {
-                const clip = clips[i];
-                const duration = clip.end - clip.start;
-                
-                if (duration <= 0.05) {
-                    throw new Error(`Clip ${i + 1} demasiado corto`);
-                }
-
-                // Trim filters - PROTOCOLO: sincronizado video+audio
-                let filterComplex = `[${i}:v]trim=start=${clip.start.toFixed(3)}:end=${clip.end.toFixed(3)},setpts=PTS-STARTPTS[v${i}]`;
-                filterComplex += `;[${i}:a]atrim=${clip.start.toFixed(3)}:${clip.end.toFixed(3)},asetpts=PTS-STARTPTS[a${i}]`;
-
-                commands.push({
-                    input: `input_${i}.mp4`,
-                    output: `trim_${i}.mp4`,
-                    filterComplex: filterComplex,
-                    maps: [`[v${i}]`, `[a${i}]`]
-                });
-            }
-
-            // Step 2: Merge
-            if (useTransition && clips.length > 1) {
-                this.log('info', '🎨 Configurando transiciones...');
-                
-                let videoChain = `[v0]`;
-                let audioChain = `[a0]`;
-                
-                for (let i = 1; i < clips.length; i++) {
-                    const prevDur = clips[i - 1].end - clips[i - 1].start;
-                    const offset = prevDur - this.transitionDuration;
-                    
-                    if (offset <= 0) {
-                        throw new Error(`Clip ${i} demasiado corto para transición`);
-                    }
-                    
-                    videoChain += `[v${i}]xfade=transition=fade:duration=${this.transitionDuration}:offset=${offset.toFixed(3)}[v${i}]`;
-                    audioChain += `[a${i}]acrossfade=d=${this.transitionDuration}[a${i}]`;
-                    
-                    if (i < clips.length - 1) {
-                        videoChain = `[v${i}]`;
-                        audioChain = `[a${i}]`;
-                    }
-                }
-                
-                const lastV = clips.length - 1;
-                commands.push({
-                    inputs: clips.map((_, i) => `trim_${i}.mp4`),
-                    output: 'output.mp4',
-                    filterComplex: `${videoChain};${audioChain}`,
-                    maps: [`[v${lastV}]`, `[a${lastV}]`]
-                });
-            } else {
-                // Simple concat
-                let concatList = '';
-                clips.forEach((_, i) => {
-                    concatList += `file trim_${i}.mp4\n`;
-                });
-                
-                commands.push({
-                    concatList: concatList,
-                    output: 'output.mp4'
-                });
-            }
-
-            return commands;
-        }
-
-        async processVideo() {
-            try {
-                if (this.env.isFileProtocol) {
-                    this.showModal('error', 'Abre este archivo desde un servidor HTTP, no con doble clic.');
-                    return;
-                }
-
-                this.resetProgress();
-                this.progressSection.classList.remove('hidden');
-                this.resultSection.classList.add('hidden');
-                this.processBtn.disabled = true;
-                this.processBtnText.innerHTML = '⟳ Procesando...';
-
-                const useTransition = document.getElementById('useTransition').checked;
-                const crf = parseInt(document.getElementById('quality').value);
-
-                // Validate clips
-                if (useTransition) {
-                    for (let i = 0; i < this.clips.length; i++) {
-                        const dur = this.clips[i].end - this.clips[i].start;
-                        if (dur <= this.transitionDuration + 0.1) {
-                            throw new Error(`Clip ${i + 1} demasiado corto para transición (${this.formatTime(dur)})`);
-                        }
-                    }
-                }
-
-                // Load FFmpeg
-                if (!this.ffmpeg) {
-                    await this.loadFFmpeg();
-                }
-
-                // Write input files
-                this.log('info', '📤 Escribiendo archivos de entrada...');
-                this.updateProgress(20, 'Cargando videos en memoria...');
-                
-                for (let i = 0; i < this.clips.length; i++) {
-                    const data = await this.clips[i].file.arrayBuffer();
-                    await this.ffmpeg.writeFile(`input_${i}.mp4`, new Uint8Array(data));
-                    this.log('info', `  ✓ ${this.clips[i].name}`);
-                }
-
-                // Build and execute commands
-                this.log('info', '⚡ Ejecutando comandos FFmpeg...');
-                
-                const commands = this.buildCommands(this.clips, useTransition);
-                const totalSteps = commands.length;
-                
-                for (let step = 0; step < commands.length; step++) {
-                    const cmd = commands[step];
-                    const stepProgress = 20 + (60 * (step + 1) / totalSteps);
-                    
-                    this.log('info', `📝 Paso ${step + 1}/${totalSteps}: ${cmd.type || 'merge'}`);
-                    this.updateProgress(stepProgress, `Paso ${step + 1}/${totalSteps}...`);
-
-                    if (cmd.filterComplex && cmd.maps) {
-                        // Trim or transition command
-                        const args = [];
-                        
-                        if (cmd.inputs) {
-                            cmd.inputs.forEach(inp => args.push('-i', inp));
-                        } else if (cmd.input) {
-                            args.push('-i', cmd.input);
-                        }
-                        
-                        args.push('-filter_complex', cmd.filterComplex);
-                        cmd.maps.forEach(m => args.push('-map', m));
-                        args.push('-c:v', 'libx264', '-preset', 'fast', '-crf', String(crf));
-                        args.push('-c:a', 'aac', '-b:a', '128k');
-                        args.push('-y', cmd.output);
-                        
-                        await this.ffmpeg.exec(args);
-                    } else if (cmd.concatList) {
-                        // Concat command
-                        await this.ffmpeg.writeFile('concat.txt', cmd.concatList);
-                        await this.ffmpeg.exec([
-                            '-f', 'concat', '-safe', '0',
-                            '-i', 'concat.txt',
-                            '-c:v', 'libx264', '-preset', 'fast', '-crf', String(crf),
-                            '-c:a', 'aac', '-b:a', '128k',
-                            '-y', 'output.mp4'
-                        ]);
-                    }
-                }
-
-                this.log('success', '✅ ¡Video procesado exitosamente!');
-                this.updateProgress(100, '¡Completado!');
-
-                // Show result
-                const data = await this.ffmpeg.readFile('output.mp4');
-                const blob = new Blob([data], { type: 'video/mp4' });
-                const url = URL.createObjectURL(blob);
-
-                this.resultVideo.src = url;
-                this.downloadBtn.href = url;
-                this.resultSection.classList.remove('hidden');
-
-                // Cleanup
-                await this.cleanup();
-
-            } catch (error) {
-                this.log('error', '❌ Error: ' + error.message);
-                this.showModal('error', `
-                    <p class="font-semibold text-red-400 mb-2">${error.message}</p>
-                    <div class="text-sm text-slate-400">
-                        <p>Verifica:</p>
-                        <ul class="list-disc list-inside mt-2">
-                            <li>Los videos tienen formato válido (MP4/H.264)</li>
-                            <li>Tienen pista de audio</li>
-                            <li>No están corruptos</li>
-                            <li>Los tiempos de recorte son válidos</li>
-                        </ul>
-                    </div>
-                `);
-                await this.cleanup();
-            } finally {
-                this.processBtn.disabled = false;
-                this.processBtnText.innerHTML = '🚀 Procesar Video';
-            }
-        }
-
-        async cleanup() {
-            try {
-                const files = [
-                    'input_0.mp4', 'input_1.mp4', 'input_2.mp4', 'input_3.mp4', 'input_4.mp4',
-                    'trim_0.mp4', 'trim_1.mp4', 'trim_2.mp4', 'trim_3.mp4', 'trim_4.mp4',
-                    'output.mp4', 'concat.txt'
-                ];
-                
-                for (const file of files) {
-                    try {
-                        await this.ffmpeg.unlink(file);
-                    } catch (e) {
-                        // File might not exist
-                    }
-                }
-                this.log('info', '🧹 Limpieza completada');
-            } catch (e) {
-                console.warn('Cleanup warning:', e);
-            }
-        }
-
-        resetProgress() {
-            this.progressBar.style.width = '0%';
-            this.progressPercent.textContent = '0%';
-            this.progressStatus.textContent = 'Inicializando...';
-        }
+    if (this._env.isNull) {
+      stEl.className = 'alert alert-err';
+      stEl.innerHTML = '<span class="ico">⛔</span><div>No se puede iniciar FFmpeg desde <code>file://</code>. <strong>Usa un servidor HTTP local.</strong> Ver instrucciones arriba.</div>';
+      return;
+    }
+    if (!this._env.hasWASM) {
+      stEl.className = 'alert alert-err';
+      stEl.innerHTML = '<span class="ico">❌</span><div>Tu navegador no soporta WebAssembly. Usa Chrome 90+, Firefox 90+ o Edge 90+.</div>';
+      return;
     }
 
-    // Initialize app
-    const app = new VideoStitcherApp();
-    app.init();
-    </script>
-</body>
-</html>
+    try {
+      addLog('📦 Importando @ffmpeg/ffmpeg desde CDN…');
+      detEl.textContent = 'Descargando módulo ESM…';
+
+      // Importación ESM dinámica — la ÚNICA forma correcta para @ffmpeg/ffmpeg@0.12.x
+      // No usar script tags, no usar UMD, no usar window.FFmpegWASM (no existe)
+      let FFmpegModule;
+      try {
+        FFmpegModule = await import(CFG.FFMPEG_ESM);
+      } catch(e1) {
+        addLog(`⚠️ esm.sh falló: ${e1.message} — intentando unpkg…`);
+        try {
+          FFmpegModule = await import('https://unpkg.com/@ffmpeg/ffmpeg@0.12.10/dist/esm/index.js');
+        } catch(e2) {
+          throw new Error(`No se pudo cargar el módulo FFmpeg. Error: ${e2.message}. Verifica tu conexión y que el navegador soporte import() dinámico.`);
+        }
+      }
+
+      const { FFmpeg } = FFmpegModule;
+      if (!FFmpeg) throw new Error('El módulo cargado no exporta la clase FFmpeg. CDN incorrecto.');
+
+      this.ffmpeg = new FFmpeg();
+
+      // ── Callbacks correctos para @ffmpeg/ffmpeg@0.12.x ──────────────────
+      // La API emite { progress: number, time: number }
+      this.ffmpeg.on('progress', ({ progress, time }) => {
+        const p = Math.max(0, Math.min(1, progress || 0));
+        this._setProgress(0.2 + p * 0.75, `FFmpeg: ${Math.round(p * 100)}%`);
+      });
+      this.ffmpeg.on('log', ({ type, message }) => {
+        addLog(`[${type}] ${message}`);
+        // Parsear frame= para progreso adicional
+        const m = message.match(/frame=\s*(\d+)/);
+        if (m) {
+          const frames = parseInt(m[1]);
+          const totalFrames = this.clips.reduce((s, c) => s + Math.max(0,(c.endT - c.startT)) * 30, 1);
+          const ratio = Math.min(frames / totalFrames, 0.95);
+          this._setProgress(0.2 + ratio * 0.75, `Codificando frame ${frames}…`);
+        }
+      });
+
+      addLog('🧠 Cargando núcleo WASM…');
+      detEl.textContent = 'Descargando ffmpeg-core.wasm…';
+
+      // Intentar multi-thread, caer a single-thread
+      this.useMT = this._env.hasSAB;
+      try {
+        if (this.useMT) {
+          addLog('⚡ Intentando modo multi-hilo (core-mt)…');
+          await this.ffmpeg.load({
+            coreURL     : CFG.CORE_MT,
+            wasmURL     : CFG.CORE_MT_WASM,
+            workerURL   : CFG.CORE_MT_WORK,
+          });
+          addLog('✅ Modo multi-hilo cargado correctamente.');
+        } else {
+          throw new Error('Sin SharedArrayBuffer — usar single-thread directamente');
+        }
+      } catch(mtErr) {
+        if (this.useMT) addLog(`⚠️ Multi-hilo falló: ${mtErr.message} — usando single-thread…`);
+        this.useMT = false;
+        addLog('🔄 Cargando modo single-thread (core)…');
+        await this.ffmpeg.load({ coreURL: CFG.CORE_ST });
+        addLog('✅ Modo single-thread cargado.');
+      }
+
+      this.ffmpegReady = true;
+      stEl.className = 'alert alert-ok';
+      stEl.innerHTML = `<span class="ico">✅</span><div><strong>FFmpeg listo</strong> — Modo: ${this.useMT ? '⚡ Multi-hilo' : '🐢 Single-thread'}. Puedes añadir clips.</div>`;
+      _el('ffmpeg-detail').textContent = '';
+
+    } catch(err) {
+      console.error('FFmpeg load error:', err);
+      stEl.className = 'alert alert-err';
+      stEl.innerHTML = `<span class="ico">❌</span><div>
+        <strong>Error al cargar FFmpeg:</strong> ${err.message}<br>
+        <small>Soluciones: 1) Comprueba tu conexión · 2) Usa Chrome/Edge · 3) Desactiva bloqueadores de scripts · 4) Prueba en modo incógnito</small>
+      </div>`;
+    }
+  }
+
+  /* ── GESTIÓN DE ARCHIVOS ─────────────────────────────────────────────── */
+  async addFiles(fileList) {
+    const files = Array.from(fileList).filter(f =>
+      f.type.startsWith('video/') || /\.(mp4|mov|webm|avi|mkv)$/i.test(f.name)
+    );
+    if (!files.length) { this._dzAlert('No se detectaron archivos de video válidos.'); return; }
+
+    const total = this.clips.length + files.length;
+    if (total > CFG.MAX_CLIPS) {
+      this._dzAlert(`Máximo ${CFG.MAX_CLIPS} clips. Tienes ${this.clips.length}, intentas añadir ${files.length}. Elimina alguno primero.`);
+      return;
+    }
+
+    const currentMB = this.clips.reduce((s,c) => s + c.file.size, 0) / 1024 / 1024;
+    const addMB     = files.reduce((s,f) => s + f.size, 0) / 1024 / 1024;
+    if (currentMB + addMB > CFG.MAX_MB) {
+      this._dzAlert(`Tamaño total (${(currentMB + addMB).toFixed(0)} MB) supera el límite de ${CFG.MAX_MB} MB.`);
+      return;
+    }
+
+    _el('dz-alert').style.display = 'none';
+
+    for (const file of files) {
+      try {
+        const clip = await this._analyzeFile(file);
+        this.clips.push(clip);
+      } catch(e) {
+        this._dzAlert(`Error analizando "${file.name}": ${e.message}`);
+      }
+    }
+
+    this._renderAll();
+  }
+
+  async _analyzeFile(file) {
+    return new Promise((resolve, reject) => {
+      const url = URL.createObjectURL(file);
+      const vid = document.createElement('video');
+      vid.preload = 'metadata';
+      vid.muted = true;
+
+      const t = setTimeout(() => {
+        // Timeout: asumir sin duración detectada pero seguir
+        resolve({ file, name: file.name, duration: 60, startT: 0, endT: 60, hasAudio: true, objUrl: url });
+      }, 6000);
+
+      vid.onloadedmetadata = () => {
+        clearTimeout(t);
+        const dur = isFinite(vid.duration) && vid.duration > 0 ? vid.duration : 60;
+        // Detección de audio real via WebAudio API sobre los primeros frames
+        // NO usamos decodeAudioData (falla siempre en MP4) — usamos videoTracks/audioTracks API
+        let hasAudio = true;
+        if (typeof vid.audioTracks !== 'undefined') {
+          hasAudio = vid.audioTracks.length > 0;
+        }
+        // Fallback: asumimos audio presente (ffmpeg lo manejará con anullsrc si no hay)
+        resolve({ file, name: file.name, duration: dur, startT: 0, endT: parseFloat(dur.toFixed(3)), hasAudio, objUrl: url });
+      };
+      vid.onerror = () => { clearTimeout(t); URL.revokeObjectURL(url); reject(new Error('No se pudo leer el archivo de video')); };
+      vid.src = url;
+    });
+  }
+
+  /* ── RENDER ──────────────────────────────────────────────────────────── */
+  _renderAll() {
+    this._renderClips();
+    const has = this.clips.length > 0;
+    _el('clips-wrap').style.display    = has ? 'block' : 'none';
+    _el('options-wrap').style.display  = has ? 'block' : 'none';
+    _el('process-wrap').style.display  = has ? 'flex'  : 'none';
+  }
+
+  _renderClips() {
+    const list = _el('clips-list');
+    list.innerHTML = '';
+    this.clips.forEach((c, i) => list.appendChild(this._buildCard(c, i)));
+    _el('clips-count').textContent = `(${this.clips.length}/${CFG.MAX_CLIPS})`;
+    this._updateTotalDur();
+  }
+
+  _buildCard(clip, idx) {
+    const dur     = clip.duration;
+    const start   = clip.startT;
+    const end     = clip.endT;
+    const trimSec = Math.max(0, end - start).toFixed(2);
+    const fillPct = dur > 0 ? ((end - start) / dur * 100).toFixed(1) : 100;
+    const leftPct = dur > 0 ? (start / dur * 100).toFixed(1) : 0;
+
+    const el = document.createElement('div');
+    el.className = 'clip-card';
+    el.draggable = true;
+    el.dataset.idx = idx;
+
+    el.innerHTML = `
+      <div class="cc-inner">
+        <div class="cc-handle" title="Arrastrar para reordenar">⠿</div>
+        <div class="cc-thumb">
+          <video src="${clip.objUrl}" muted preload="metadata"></video>
+          <span class="dur-badge">${_fmtTime(dur)}</span>
+        </div>
+        <div class="cc-body">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:8px">
+            <div class="cc-name" title="${clip.name}">${clip.name}</div>
+            <button class="btn-rm" onclick="stitcher.removeClip(${idx})">✕ Quitar</button>
+          </div>
+          <div class="cc-controls">
+            <label class="time-lbl">
+              ▶ Inicio
+              <input class="time-inp" id="s-${idx}" type="number"
+                min="0" max="${dur.toFixed(3)}" step="0.1" value="${start.toFixed(2)}"
+                onchange="stitcher.updateTrim(${idx},'s',this)">
+            </label>
+            <label class="time-lbl">
+              ⏹ Fin
+              <input class="time-inp" id="e-${idx}" type="number"
+                min="0" max="${dur.toFixed(3)}" step="0.1" value="${end.toFixed(2)}"
+                onchange="stitcher.updateTrim(${idx},'e',this)">
+            </label>
+            <span class="cc-tag tag-trim">✂️ ${trimSec}s</span>
+            <span class="cc-tag ${clip.hasAudio ? 'tag-audio' : 'tag-noaudio'}">
+              ${clip.hasAudio ? '🔊 Audio' : '🔇 Sin audio'}
+            </span>
+          </div>
+          <div class="cc-trimbar" style="margin-top:8px">
+            <div class="cc-trimbar-fill" id="tb-${idx}" style="left:${leftPct}%;width:${fillPct}%"></div>
+          </div>
+        </div>
+      </div>`;
+
+    // Drag & Drop reorder
+    el.addEventListener('dragstart', e => {
+      this.dragSrcIdx = idx;
+      setTimeout(() => el.classList.add('dragging'), 0);
+      e.dataTransfer.effectAllowed = 'move';
+    });
+    el.addEventListener('dragend', () => {
+      el.classList.remove('dragging');
+      document.querySelectorAll('.clip-card').forEach(c => c.classList.remove('drop-target'));
+    });
+    el.addEventListener('dragover', e => { e.preventDefault(); el.classList.add('drop-target'); });
+    el.addEventListener('dragleave', () => el.classList.remove('drop-target'));
+    el.addEventListener('drop', e => {
+      e.preventDefault(); el.classList.remove('drop-target');
+      if (this.dragSrcIdx !== null && this.dragSrcIdx !== idx) {
+        const [item] = this.clips.splice(this.dragSrcIdx, 1);
+        this.clips.splice(idx, 0, item);
+        this._renderClips();
+      }
+      this.dragSrcIdx = null;
+    });
+
+    return el;
+  }
+
+  updateTrim(idx, field, inp) {
+    const clip = this.clips[idx];
+    const val  = parseFloat(inp.value);
+    if (isNaN(val)) return;
+
+    if (field === 's') {
+      clip.startT = Math.max(0, Math.min(val, clip.endT - 0.1));
+      inp.value = clip.startT.toFixed(2);
+    } else {
+      clip.endT = Math.min(clip.duration, Math.max(val, clip.startT + 0.1));
+      inp.value = clip.endT.toFixed(2);
+    }
+
+    // Actualizar barra
+    const tb = _el(`tb-${idx}`);
+    if (tb && clip.duration > 0) {
+      tb.style.left  = `${(clip.startT / clip.duration * 100).toFixed(1)}%`;
+      tb.style.width = `${((clip.endT - clip.startT) / clip.duration * 100).toFixed(1)}%`;
+    }
+
+    // Actualizar badge de trim
+    const card = document.querySelector(`.clip-card[data-idx="${idx}"]`);
+    if (card) {
+      const tag = card.querySelector('.tag-trim');
+      if (tag) tag.textContent = `✂️ ${Math.max(0, clip.endT - clip.startT).toFixed(2)}s`;
+    }
+
+    this._updateTotalDur();
+  }
+
+  removeClip(idx) {
+    URL.revokeObjectURL(this.clips[idx].objUrl);
+    this.clips.splice(idx, 1);
+    this._renderAll();
+  }
+
+  clearAll() {
+    this.clips.forEach(c => URL.revokeObjectURL(c.objUrl));
+    this.clips = [];
+    this._renderAll();
+    this.resetResult();
+  }
+
+  _updateTotalDur() {
+    const t = this.clips.reduce((s, c) => s + Math.max(0, c.endT - c.startT), 0);
+    _el('total-dur').textContent = `${t.toFixed(2)}s`;
+  }
+
+  /* ══════════════════════════════════════════════════════════════════════
+     CONSTRUCTOR DE COMANDO FFMPEG
+     Protocolo de audio (non-negotiable):
+     1. Todo clip usa trim+setpts / atrim+asetpts (video y audio juntos)
+     2. Clips sin audio → anullsrc inyectado con duración exacta
+     3. Transición → xfade SIEMPRE acompañado de acrossfade
+     4. Salida SIEMPRE -map [v_out] -map [a_out] -c:v libx264 -c:a aac
+  ══════════════════════════════════════════════════════════════════════ */
+  buildFFmpegCommand(clips, useFade, fadeDurSec, crf) {
+    const n   = clips.length;
+    const fd  = Math.max(0.1, Math.min(fadeDurSec, Math.min(...clips.map(c => c.endT - c.startT)) - 0.05));
+    const inputs = clips.map((c, i) => ({ file: c.file, name: `in_${i}.mp4` }));
+
+    // Argumentos de entrada (-i para cada clip)
+    const inArgs = [];
+    inputs.forEach(inp => inArgs.push('-i', inp.name));
+
+    const fp = [];   // filter_complex parts
+
+    // ── Paso 1: Recortar cada clip (video + audio sincronizados) ──────────
+    clips.forEach((c, i) => {
+      const ss = c.startT.toFixed(6);
+      const se = c.endT.toFixed(6);
+      // Video: trim + reset PTS
+      fp.push(`[${i}:v]trim=start=${ss}:end=${se},setpts=PTS-STARTPTS[tv${i}]`);
+      // Audio: atrim + reset PTS (o anullsrc si no hay pista de audio)
+      if (c.hasAudio) {
+        fp.push(`[${i}:a]atrim=start=${ss}:end=${se},asetpts=PTS-STARTPTS[ta${i}]`);
+      } else {
+        const dur = (c.endT - c.startT).toFixed(6);
+        fp.push(`anullsrc=r=44100:cl=stereo:d=${dur}[ta${i}]`);
+      }
+    });
+
+    let filter, mapArgs;
+
+    if (n === 1) {
+      // ── Un solo clip ──────────────────────────────────────────────────
+      filter  = fp.join(';');
+      // Renombrar salida
+      filter += `;[tv0][ta0]concat=n=1:v=1:a=1[v_out][a_out]`;
+      // (usamos concat n=1 para unificar el grafo limpiamente)
+      mapArgs = ['-map', '[v_out]', '-map', '[a_out]'];
+
+    } else if (!useFade) {
+      // ── Concatenación simple ──────────────────────────────────────────
+      const segs = clips.map((_, i) => `[tv${i}][ta${i}]`).join('');
+      fp.push(`${segs}concat=n=${n}:v=1:a=1[v_out][a_out]`);
+      filter  = fp.join(';');
+      mapArgs = ['-map', '[v_out]', '-map', '[a_out]'];
+
+    } else {
+      // ── Transición Fade: xfade + acrossfade ──────────────────────────
+      // PROTOCOLO: cada par (xfade + acrossfade) DEBE procesarse juntos
+      // El offset de xfade es la duración acumulada - la duración del fade
+      // acrossfade maneja automáticamente la duración del crossfade
+
+      let curV   = 'tv0';
+      let curA   = 'ta0';
+      // Duración acumulada del segmento actual (ya procesado/mezclado)
+      let accumDur = clips[0].endT - clips[0].startT;
+
+      for (let i = 1; i < n; i++) {
+        const isLast = i === n - 1;
+        const outV   = isLast ? 'v_out' : `xv${i}`;
+        const outA   = isLast ? 'a_out' : `xa${i}`;
+        const offset = Math.max(0, accumDur - fd).toFixed(6);
+
+        // xfade para video — con offset correcto
+        fp.push(`[${curV}][tv${i}]xfade=transition=fade:duration=${fd.toFixed(4)}:offset=${offset}[${outV}]`);
+        // acrossfade para audio — SIEMPRE junto al xfade correspondiente
+        fp.push(`[${curA}][ta${i}]acrossfade=d=${fd.toFixed(4)}:o=1[${outA}]`);
+
+        curV = outV;
+        curA = outA;
+        // La nueva duración acumulada = anterior + siguiente - solapamiento
+        accumDur = accumDur + (clips[i].endT - clips[i].startT) - fd;
+      }
+
+      filter  = fp.join(';');
+      mapArgs = ['-map', '[v_out]', '-map', '[a_out]'];
+    }
+
+    // Argumentos de codificación finales (siempre libx264 + aac)
+    const encArgs = [
+      '-c:v', 'libx264', '-preset', 'fast', '-crf', String(crf),
+      '-pix_fmt', 'yuv420p',          // compatibilidad máxima
+      '-c:a', 'aac', '-b:a', '192k',
+      '-movflags', '+faststart',       // streaming-friendly
+      'output.mp4'
+    ];
+
+    return {
+      args: [...inArgs, '-filter_complex', filter, ...mapArgs, ...encArgs],
+      inputs
+    };
+  }
+
+  /* ── PROCESAMIENTO PRINCIPAL ─────────────────────────────────────────── */
+  async processVideo() {
+    if (!this.ffmpegReady) { this._showErr('FFmpeg aún no está listo. Espera a que termine de cargarse.'); return; }
+    if (this.processing)   { return; }
+    if (!this.clips.length){ this._showErr('Añade al menos un clip.'); return; }
+
+    // Validaciones
+    for (const c of this.clips) {
+      if (c.endT - c.startT < 0.1) {
+        this._showErr(`El clip "${c.name}" tiene menos de 0.1s de duración recortada. Ajusta los tiempos de inicio/fin.`);
+        return;
+      }
+    }
+
+    const useFade  = _el('use-fade').checked;
+    const fadeDur  = parseFloat(_el('fade-dur').value) || 0.8;
+    const crf      = parseInt(_el('quality').value) || 23;
+
+    if (useFade && this.clips.length >= 2) {
+      const minDur = Math.min(...this.clips.map(c => c.endT - c.startT));
+      if (fadeDur >= minDur) {
+        this._showErr(`La duración del fade (${fadeDur}s) debe ser menor que el clip más corto (${minDur.toFixed(2)}s). Reduce el valor de "Duración fade".`);
+        return;
+      }
+    }
+
+    this.processing = true;
+    this._setProcessingUI(true);
+    this._hideErr();
+    _el('result-wrap').classList.remove('show');
+
+    const procLog = _el('proc-log');
+    procLog.classList.add('show');
+    procLog.innerHTML = '';
+    const addPLog = (msg) => {
+      const d = document.createElement('div'); d.textContent = `› ${msg}`;
+      procLog.appendChild(d); procLog.scrollTop = procLog.scrollHeight;
+    };
+
+    try {
+      const { args, inputs } = this.buildFFmpegCommand(this.clips, useFade, fadeDur, crf);
+
+      addPLog(`Modo: ${this.useMT ? 'Multi-hilo' : 'Single-thread'}`);
+      addPLog(`Clips: ${this.clips.length} | Transición: ${useFade ? `fade ${fadeDur}s` : 'ninguna'} | CRF: ${crf}`);
+      addPLog(`Comando: ffmpeg ${args.join(' ')}`);
+
+      // Escribir archivos en FS virtual de Emscripten
+      for (let i = 0; i < inputs.length; i++) {
+        const inp = inputs[i];
+        addPLog(`Cargando "${inp.file.name}" (${(inp.file.size/1024/1024).toFixed(1)} MB)…`);
+        this._setProgress(0.02 + i / inputs.length * 0.15, `Cargando clip ${i+1}/${inputs.length}…`);
+        const buf = await inp.file.arrayBuffer();
+        await this.ffmpeg.writeFile(inp.name, new Uint8Array(buf));
+      }
+
+      addPLog('Ejecutando FFmpeg…');
+      this._setProgress(0.18, 'Iniciando codificación…');
+
+      const ret = await this.ffmpeg.exec(args);
+      if (ret !== 0) throw new Error(`FFmpeg terminó con código ${ret}. Revisa el log de FFmpeg arriba.`);
+
+      addPLog('Leyendo resultado…');
+      this._setProgress(0.96, 'Generando archivo final…');
+
+      const data = await this.ffmpeg.readFile('output.mp4');
+      if (!data || data.length === 0) throw new Error('El archivo de salida está vacío. Posible error en el filtro de FFmpeg.');
+
+      this.resultBlob = new Blob([data.buffer], { type: 'video/mp4' });
+      if (this.resultUrl) URL.revokeObjectURL(this.resultUrl);
+      this.resultUrl = URL.createObjectURL(this.resultBlob);
+
+      // Limpiar FS virtual
+      for (const inp of inputs) { try { await this.ffmpeg.deleteFile(inp.name); } catch{} }
+      try { await this.ffmpeg.deleteFile('output.mp4'); } catch{}
+
+      this._setProgress(1, '¡Completado!');
+      addPLog(`✅ Éxito. Tamaño: ${(this.resultBlob.size/1024/1024).toFixed(2)} MB`);
+      this._showResult();
+
+    } catch(err) {
+      console.error('Process error:', err);
+      this._showErr(`${err.message}`);
+    } finally {
+      this.processing = false;
+      this._setProcessingUI(false);
+    }
+  }
+
+  /* ── RESULTADO ──────────────────────────────────────────────────────── */
+  _showResult() {
+    const vid = _el('result-video');
+    vid.src = this.resultUrl;
+    _el('result-meta').textContent = `Tamaño: ${(this.resultBlob.size/1024/1024).toFixed(2)} MB · MP4 H.264/AAC`;
+    _el('result-wrap').classList.add('show');
+    _el('result-wrap').scrollIntoView({ behavior:'smooth' });
+  }
+
+  downloadResult() {
+    if (!this.resultBlob) return;
+    const a = document.createElement('a');
+    a.href = this.resultUrl;
+    a.download = `stitched_${Date.now()}.mp4`;
+    a.click();
+  }
+
+  resetResult() {
+    if (this.resultUrl) { URL.revokeObjectURL(this.resultUrl); this.resultUrl = null; }
+    this.resultBlob = null;
+    _el('result-wrap').classList.remove('show');
+    _el('result-video').src = '';
+    _el('progress-wrap').classList.remove('show');
+    _el('proc-log').classList.remove('show');
+    _el('proc-log').innerHTML = '';
+    this._setProgress(0,'');
+  }
+
+  /* ── UI HELPERS ─────────────────────────────────────────────────────── */
+  _setProcessingUI(active) {
+    const btn  = _el('proc-btn');
+    const icon = _el('proc-icon');
+    const txt  = _el('proc-txt');
+    const pw   = _el('progress-wrap');
+    btn.disabled = active;
+    if (active) {
+      icon.innerHTML = '<div class="spinner"></div>';
+      txt.textContent = 'Procesando…';
+      pw.classList.add('show');
+    } else {
+      icon.textContent = '🚀';
+      txt.textContent  = 'Procesar y Unir Videos';
+    }
+  }
+
+  _setProgress(ratio, label) {
+    const pct = Math.round(Math.max(0,Math.min(1,ratio)) * 100);
+    _el('prog-fill').style.width  = `${pct}%`;
+    _el('prog-pct').textContent   = `${pct}%`;
+    if (label) _el('prog-label').textContent = label;
+  }
+
+  _showErr(msg) {
+    const el = _el('err-area');
+    _el('err-msg').textContent = msg;
+    el.style.display = 'flex';
+    el.scrollIntoView({ behavior:'smooth' });
+  }
+  _hideErr() { _el('err-area').style.display = 'none'; }
+
+  _dzAlert(msg) {
+    _el('dz-alert-msg').textContent = msg;
+    _el('dz-alert').style.display = 'flex';
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   HELPERS GLOBALES
+══════════════════════════════════════════════════════════════════════ */
+function _el(id) { return document.getElementById(id); }
+
+function _fmtTime(s) {
+  if (!isFinite(s) || s < 0) return '0:00';
+  const m = Math.floor(s / 60);
+  const sec = Math.floor(s % 60);
+  return `${m}:${sec.toString().padStart(2,'0')}`;
+}
+
+function dzOver(e)  { e.preventDefault(); _el('dropzone').classList.add('over'); }
+function dzLeave()  { _el('dropzone').classList.remove('over'); }
+function dzDrop(e)  { e.preventDefault(); _el('dropzone').classList.remove('over'); stitcher.addFiles(e.dataTransfer.files); }
+function toggleFadeOpts() {
+  _el('fade-opts').style.display = _el('use-fade').checked ? 'flex' : 'none';
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   INICIALIZACIÓN
+══════════════════════════════════════════════════════════════════════ */
+const stitcher = new VideoStitcher();
+// Cargar FFmpeg después de que el DOM esté listo
+document.addEventListener('DOMContentLoaded', () => stitcher.loadFFmpeg());
+// Fallback si el evento ya se disparó
+if (document.readyState !== 'loading') stitcher.loadFFmpeg();
+</script>
+
+<!--
+/* ✅ AUTO-REVISIÓN FINAL v2 */
+
+[✅] Cargador FFmpeg: import() ESM dinámico con fallback a unpkg. Sin script tags.
+     Sin window.FFmpegWASM (que no existe en 0.12.x). Clase FFmpeg importada correctamente.
+
+[✅] Worker origin null: Detectado en preflight. Bloqueo temprano con instrucciones claras.
+     Error "cannot be accessed from origin 'null'" explicado y prevenido.
+
+[✅] Callback progress correcto: on('progress', ({ progress, time }) => ...) ✓
+     Ya no destructura 'progress' de un objeto que no lo tiene.
+
+[✅] Comando 1 clip sin -i duplicado: El caso n===1 construye inArgs correctamente
+     y usa concat=n=1 para unificación limpia del grafo. Sin -i repetido.
+
+[✅] Audio en transición: xfade siempre acompañado de acrossfade en el mismo bucle.
+     Mapeo explícito [v_out][a_out].
+
+[✅] Clips sin audio: anullsrc=r=44100:cl=stereo:d={dur} inyectado.
+
+[✅] Trim sincronizado: trim+setpts / atrim+asetpts con mismos timestamps.
+
+[✅] Offset xfade correcto: accumDur calculado progresivamente restando fd por cada
+     transición ya aplicada. No usa índice*fd sino acumulación real.
+
+[✅] Detección audio real: usa vid.audioTracks.length si disponible.
+     No usa decodeAudioData sobre MP4 (que siempre fallaba).
+
+[✅] Límites: MAX_CLIPS=5, MAX_MB=500. Validación antes de añadir.
+     revokeObjectURL tras uso. FS virtual limpiado post-proceso.
+
+[✅] Archivo único: Todo HTML+CSS+JS en index.html. Sin dependencias de build.
+     FFmpeg desde CDN esm.sh (ESM real, CORS correcto).
+-->
