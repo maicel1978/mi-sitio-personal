@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Video Aspect Ratio Converter</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0a0f;
+      min-height: 100vh;
+    }
+
+    .glass {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px);
+    }
+
+    .glass-strong {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .glow-purple { box-shadow: 0 0 40px rgba(139,92,246,0.15); }
+    .glow-blue   { box-shadow: 0 0 40px rgba(59,130,246,0.15); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #7c3aed, #4f46e5);
+      transition: all 0.2s;
+    }
+    .btn-primary:hover:not(:disabled) {
+      background: linear-gradient(135deg, #6d28d9, #4338ca);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 25px rgba(124,58,237,0.4);
+    }
+    .btn-primary:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .btn-export {
+      background: linear-gradient(135deg, #059669, #0891b2);
+      transition: all 0.2s;
+    }
+    .btn-export:hover:not(:disabled) {
+      background: linear-gradient(135deg, #047857, #0e7490);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 25px rgba(5,150,105,0.4);
+    }
+    .btn-export:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .ratio-card {
+      cursor: pointer;
+      border: 2px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      border-radius: 14px;
+      transition: all 0.2s;
+      user-select: none;
+    }
+    .ratio-card:hover {
+      border-color: rgba(124,58,237,0.5);
+      background: rgba(124,58,237,0.08);
+    }
+    .ratio-card.active {
+      border-color: #7c3aed;
+      background: rgba(124,58,237,0.15);
+      box-shadow: 0 0 20px rgba(124,58,237,0.25);
+    }
+
+    .ratio-visual {
+      background: rgba(255,255,255,0.06);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.05em;
+    }
+
+    .drop-zone {
+      border: 2px dashed rgba(124,58,237,0.4);
+      border-radius: 18px;
+      transition: all 0.25s;
+      cursor: pointer;
+    }
+    .drop-zone:hover, .drop-zone.drag-over {
+      border-color: #7c3aed;
+      background: rgba(124,58,237,0.07);
+    }
+
+    #preview-canvas {
+      max-width: 100%;
+      border-radius: 12px;
+      display: block;
+    }
+
+    .progress-bar-track {
+      background: rgba(255,255,255,0.08);
+      border-radius: 999px;
+      height: 6px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #7c3aed, #4f46e5, #06b6d4);
+      background-size: 200% 100%;
+      transition: width 0.3s ease;
+      animation: shimmer 2s linear infinite;
+    }
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    .badge {
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .tag-green  { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(52,211,153,0.3); }
+    .tag-yellow { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(251,191,36,0.3); }
+    .tag-blue   { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(96,165,250,0.3); }
+
+    .mode-btn {
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+      color: rgba(255,255,255,0.5);
+      background: transparent;
+    }
+    .mode-btn.active {
+      background: rgba(124,58,237,0.2);
+      border-color: rgba(124,58,237,0.6);
+      color: #c4b5fd;
+    }
+    .mode-btn:hover:not(.active) {
+      border-color: rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.75);
+    }
+
+    .log-area {
+      font-family: 'Courier New', monospace;
+      font-size: 11px;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.6;
+      max-height: 80px;
+      overflow-y: auto;
+    }
+    .log-area::-webkit-scrollbar { width: 3px; }
+    .log-area::-webkit-scrollbar-thumb { background: rgba(124,58,237,0.4); border-radius: 99px; }
+
+    .canvas-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 200px;
+    }
+
+    #hidden-video { display: none; }
+
+    .spinning { animation: spin 1s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .fade-in { animation: fadeIn 0.35s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    .tooltip {
+      position: relative;
+    }
+    .tooltip:hover::after {
+      content: attr(data-tip);
+      position: absolute;
+      bottom: 115%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1e1e2e;
+      color: rgba(255,255,255,0.8);
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
+      border: 1px solid rgba(255,255,255,0.1);
+      pointer-events: none;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body class="text-white">
+
+  <!-- Header -->
+  <div class="w-full py-5 px-6 flex items-center justify-between" style="border-bottom: 1px solid rgba(255,255,255,0.06);">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: linear-gradient(135deg,#7c3aed,#4f46e5);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="23 7 16 12 23 17 23 7"/>
+          <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+        </svg>
+      </div>
+      <span class="font-bold text-base tracking-tight">RatioConvert</span>
+      <span class="badge tag-green">100% Local</span>
+    </div>
+    <div class="flex items-center gap-2 text-xs text-white/30">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Tu archivo nunca sale del dispositivo
+    </div>
+  </div>
+
+  <div class="max-w-5xl mx-auto px-4 py-8 fade-in">
+
+    <!-- Grid principal -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+      <!-- Panel Izquierdo: Controles -->
+      <div class="flex flex-col gap-5">
+
+        <!-- Drop zone -->
+        <div class="glass rounded-2xl p-5 glow-purple">
+          <h2 class="text-sm font-semibold text-white/60 uppercase tracking-widest mb-4 flex items-center gap-2">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Cargar Video
+          </h2>
+
+          <div id="drop-zone" class="drop-zone p-8 text-center" onclick="document.getElementById('file-input').click()">
+            <input type="file" id="file-input" accept="video/*" class="hidden" />
+            <div id="drop-idle">
+              <div class="w-14 h-14 rounded-2xl mx-auto mb-4 flex items-center justify-center" style="background: rgba(124,58,237,0.15); border: 1px solid rgba(124,58,237,0.3);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="23 7 16 12 23 17 23 7"/>
+                  <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+                </svg>
+              </div>
+              <p class="text-white/70 font-medium mb-1">Arrastra tu video aquí</p>
+              <p class="text-white/30 text-sm">o haz clic para seleccionar</p>
+              <p class="text-white/20 text-xs mt-3">MP4, MOV, WebM, AVI, MKV...</p>
+            </div>
+            <div id="drop-loaded" class="hidden">
+              <div class="w-12 h-12 rounded-xl mx-auto mb-3 flex items-center justify-center" style="background: rgba(16,185,129,0.15); border: 1px solid rgba(52,211,153,0.3);">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <p id="file-name" class="text-white/80 font-semibold text-sm truncate max-w-xs mx-auto"></p>
+              <p id="file-meta" class="text-white/30 text-xs mt-1"></p>
+              <p class="text-white/20 text-xs mt-2">Clic para cambiar archivo</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Aspect Ratio Selector -->
+        <div class="glass rounded-2xl p-5">
+          <h2 class="text-sm font-semibold text-white/60 uppercase tracking-widest mb-4 flex items-center gap-2">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+            Formato de Salida
+          </h2>
+
+          <div class="grid grid-cols-3 gap-3">
+
+            <!-- 9:16 Vertical -->
+            <div class="ratio-card p-4 text-center" data-ratio="9:16" onclick="selectRatio(this,'9:16',1080,1920)">
+              <div class="ratio-visual mx-auto mb-3" style="width:28px; height:50px;">
+                <span>9:16</span>
+              </div>
+              <p class="font-semibold text-sm text-white/90">Vertical</p>
+              <p class="text-white/35 text-xs mt-0.5">9:16</p>
+              <p class="text-white/25 text-xs mt-1">Reels · TikTok · Shorts</p>
+            </div>
+
+            <!-- 16:9 Horizontal -->
+            <div class="ratio-card p-4 text-center" data-ratio="16:9" onclick="selectRatio(this,'16:9',1920,1080)">
+              <div class="ratio-visual mx-auto mb-3" style="width:50px; height:28px;">
+                <span>16:9</span>
+              </div>
+              <p class="font-semibold text-sm text-white/90">Horizontal</p>
+              <p class="text-white/35 text-xs mt-0.5">16:9</p>
+              <p class="text-white/25 text-xs mt-1">YouTube · TV</p>
+            </div>
+
+            <!-- 1:1 Square -->
+            <div class="ratio-card p-4 text-center active" data-ratio="1:1" onclick="selectRatio(this,'1:1',1080,1080)">
+              <div class="ratio-visual mx-auto mb-3" style="width:40px; height:40px;">
+                <span>1:1</span>
+              </div>
+              <p class="font-semibold text-sm text-white/90">Cuadrado</p>
+              <p class="text-white/35 text-xs mt-0.5">1:1</p>
+              <p class="text-white/25 text-xs mt-1">Instagram · Feed</p>
+            </div>
+
+          </div>
+
+          <!-- Dimensiones de salida -->
+          <div class="mt-4 rounded-xl p-3 flex items-center justify-between" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);">
+            <span class="text-xs text-white/40">Resolución de salida</span>
+            <span id="res-label" class="text-xs font-mono font-semibold text-violet-400">1080 × 1080</span>
+          </div>
+        </div>
+
+        <!-- Opciones de relleno -->
+        <div class="glass rounded-2xl p-5">
+          <h2 class="text-sm font-semibold text-white/60 uppercase tracking-widest mb-4 flex items-center gap-2">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+            Modo de Ajuste
+          </h2>
+
+          <div class="flex gap-2 flex-wrap">
+            <button class="mode-btn active" data-mode="crop" onclick="selectMode(this,'crop')">✂️ Crop (recortar)</button>
+            <button class="mode-btn" data-mode="pad" onclick="selectMode(this,'pad')">⬛ Pad (barras negras)</button>
+            <button class="mode-btn" data-mode="blur" onclick="selectMode(this,'blur')">🌫️ Blur (fondo difuminado)</button>
+          </div>
+
+          <p id="mode-desc" class="text-xs text-white/30 mt-3">
+            Recorta el video para llenar exactamente el formato seleccionado (centro).
+          </p>
+        </div>
+
+        <!-- Calidad -->
+        <div class="glass rounded-2xl p-5">
+          <h2 class="text-sm font-semibold text-white/60 uppercase tracking-widest mb-3 flex items-center gap-2">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            Calidad
+          </h2>
+          <div class="flex gap-2">
+            <button class="mode-btn" data-q="low" onclick="selectQuality(this,'low')">Baja</button>
+            <button class="mode-btn active" data-q="medium" onclick="selectQuality(this,'medium')">Media</button>
+            <button class="mode-btn" data-q="high" onclick="selectQuality(this,'high')">Alta</button>
+          </div>
+          <p class="text-xs text-white/25 mt-2">Bitrate del video procesado con Canvas + MediaRecorder</p>
+        </div>
+
+      </div>
+
+      <!-- Panel Derecho: Preview & Export -->
+      <div class="flex flex-col gap-5">
+
+        <!-- Preview Canvas -->
+        <div class="glass rounded-2xl p-5 flex-1">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-sm font-semibold text-white/60 uppercase tracking-widest flex items-center gap-2">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              Vista Previa
+            </h2>
+            <div id="preview-badge" class="badge tag-yellow hidden">Sin video</div>
+          </div>
+
+          <div class="canvas-wrap" id="canvas-wrap">
+            <!-- Placeholder -->
+            <div id="canvas-placeholder" class="flex flex-col items-center gap-3 py-12">
+              <div class="w-16 h-16 rounded-2xl flex items-center justify-center" style="background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.1);">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1.5">
+                  <rect x="2" y="3" width="20" height="14" rx="2"/>
+                  <line x1="8" y1="21" x2="16" y2="21"/>
+                  <line x1="12" y1="17" x2="12" y2="21"/>
+                </svg>
+              </div>
+              <p class="text-white/20 text-sm">Carga un video para ver la previsualización</p>
+            </div>
+
+            <canvas id="preview-canvas" class="hidden" width="360" height="360"></canvas>
+          </div>
+
+          <!-- Controles de preview -->
+          <div id="preview-controls" class="hidden mt-4">
+            <div class="flex items-center gap-3">
+              <button id="play-btn" onclick="togglePlay()" class="w-9 h-9 rounded-lg flex items-center justify-center transition-all" style="background: rgba(124,58,237,0.2); border: 1px solid rgba(124,58,237,0.3);">
+                <svg id="play-icon" width="14" height="14" viewBox="0 0 24 24" fill="#a78bfa" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                <svg id="pause-icon" width="14" height="14" viewBox="0 0 24 24" fill="#a78bfa" stroke="none" class="hidden"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+              </button>
+              <div class="flex-1 relative">
+                <div class="progress-bar-track" style="cursor:pointer;" onclick="seekVideo(event)">
+                  <div id="seek-bar" class="progress-bar-fill" style="width:0%; animation: none;"></div>
+                </div>
+              </div>
+              <span id="time-display" class="text-xs font-mono text-white/40">0:00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Convertir & Exportar -->
+        <div class="glass rounded-2xl p-5">
+          <h2 class="text-sm font-semibold text-white/60 uppercase tracking-widest mb-4 flex items-center gap-2">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
+            Procesar & Exportar
+          </h2>
+
+          <!-- Info de proceso -->
+          <div class="rounded-xl p-3 mb-4" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);">
+            <div class="grid grid-cols-3 gap-2 text-center text-xs">
+              <div>
+                <p class="text-white/25 mb-0.5">Formato</p>
+                <p id="info-ratio" class="font-semibold text-violet-400">1:1</p>
+              </div>
+              <div>
+                <p class="text-white/25 mb-0.5">Modo</p>
+                <p id="info-mode" class="font-semibold text-violet-400">Crop</p>
+              </div>
+              <div>
+                <p class="text-white/25 mb-0.5">Salida</p>
+                <p id="info-out" class="font-semibold text-violet-400">WebM</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Botón convertir -->
+          <button id="convert-btn" onclick="startConversion()" class="btn-primary w-full py-3 rounded-xl font-semibold text-sm disabled:opacity-40" disabled>
+            <span id="convert-label">⚡ Convertir Video</span>
+          </button>
+
+          <!-- Progress -->
+          <div id="progress-section" class="hidden mt-4">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs text-white/50" id="progress-label">Procesando...</span>
+              <span class="text-xs font-mono text-violet-400" id="progress-pct">0%</span>
+            </div>
+            <div class="progress-bar-track">
+              <div id="main-progress" class="progress-bar-fill" style="width: 0%;"></div>
+            </div>
+          </div>
+
+          <!-- Log area -->
+          <div id="log-section" class="hidden mt-3">
+            <div class="log-area" id="log-area"></div>
+          </div>
+
+          <!-- Botón descargar -->
+          <div id="download-section" class="hidden mt-4">
+            <div class="rounded-xl p-3 mb-3 flex items-center gap-3" style="background: rgba(16,185,129,0.07); border: 1px solid rgba(52,211,153,0.2);">
+              <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background: rgba(16,185,129,0.15);">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div>
+                <p class="text-xs font-semibold text-emerald-400">¡Video procesado!</p>
+                <p id="result-info" class="text-xs text-white/30 mt-0.5"></p>
+              </div>
+            </div>
+            <button id="download-btn" onclick="downloadVideo()" class="btn-export w-full py-3 rounded-xl font-semibold text-sm">
+              ⬇️ Descargar Video
+            </button>
+            <button onclick="resetAll()" class="w-full py-2.5 rounded-xl text-sm text-white/40 hover:text-white/60 transition-colors mt-2">
+              Convertir otro video
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Compatibilidad -->
+        <div class="glass rounded-xl p-4">
+          <div class="flex items-start gap-3">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" class="mt-0.5 flex-shrink-0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <div>
+              <p class="text-xs font-semibold text-blue-400 mb-1">Cómo funciona</p>
+              <p class="text-xs text-white/30 leading-relaxed">
+                Canvas API dibuja cada frame del video con el recorte/escala correcta. MediaRecorder captura el stream en tiempo real. 100% en tu navegador, sin servidores, sin uploads. El archivo de salida es <strong class="text-white/50">WebM</strong> (compatible con todos los editores modernos).
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden video element for processing -->
+  <video id="hidden-video" playsinline muted></video>
+
+  <script>
+    // ── STATE ──────────────────────────────────────────────────────────
+    let state = {
+      file: null,
+      ratio: '1:1',
+      outW: 1080,
+      outH: 1080,
+      mode: 'crop',
+      quality: 'medium',
+      mediaRecorder: null,
+      chunks: [],
+      blobURL: null,
+      isConverting: false,
+      animFrame: null,
+      previewPaused: true,
+    };
+
+    const modeDescs = {
+      crop: 'Recorta el video para llenar exactamente el formato seleccionado (centro).',
+      pad:  'Añade barras negras para conservar todo el video sin recortar.',
+      blur: 'Usa una versión difuminada del video como fondo, igual que Instagram/TikTok.',
+    };
+
+    const qualityBits = {
+      low: 1_500_000,
+      medium: 4_000_000,
+      high: 8_000_000,
+    };
+
+    // ── ELEMENTS ───────────────────────────────────────────────────────
+    const dropZone      = document.getElementById('drop-zone');
+    const fileInput     = document.getElementById('file-input');
+    const dropIdle      = document.getElementById('drop-idle');
+    const dropLoaded    = document.getElementById('drop-loaded');
+    const fileName      = document.getElementById('file-name');
+    const fileMeta      = document.getElementById('file-meta');
+    const convertBtn    = document.getElementById('convert-btn');
+    const convertLabel  = document.getElementById('convert-label');
+    const progressSec   = document.getElementById('progress-section');
+    const progressLabel = document.getElementById('progress-label');
+    const progressPct   = document.getElementById('progress-pct');
+    const mainProgress  = document.getElementById('main-progress');
+    const logSection    = document.getElementById('log-section');
+    const logArea       = document.getElementById('log-area');
+    const downloadSec   = document.getElementById('download-section');
+    const resultInfo    = document.getElementById('result-info');
+    const previewCanvas = document.getElementById('preview-canvas');
+    const canvasPlaceholder = document.getElementById('canvas-placeholder');
+    const previewControls = document.getElementById('preview-controls');
+    const seekBar       = document.getElementById('seek-bar');
+    const timeDisplay   = document.getElementById('time-display');
+    const playIcon      = document.getElementById('play-icon');
+    const pauseIcon     = document.getElementById('pause-icon');
+    const hiddenVideo   = document.getElementById('hidden-video');
+    const resLabel      = document.getElementById('res-label');
+    const previewBadge  = document.getElementById('preview-badge');
+    const infoRatio     = document.getElementById('info-ratio');
+    const infoMode      = document.getElementById('info-mode');
+    const infoOut       = document.getElementById('info-out');
+
+    // ── DRAG & DROP ────────────────────────────────────────────────────
+    dropZone.addEventListener('dragover', e => {
+      e.preventDefault();
+      dropZone.classList.add('drag-over');
+    });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+    dropZone.addEventListener('drop', e => {
+      e.preventDefault();
+      dropZone.classList.remove('drag-over');
+      const file = e.dataTransfer.files[0];
+      if (file && file.type.startsWith('video/')) loadFile(file);
+    });
+    fileInput.addEventListener('change', e => {
+      if (e.target.files[0]) loadFile(e.target.files[0]);
+    });
+
+    // ── LOAD FILE ──────────────────────────────────────────────────────
+    function loadFile(file) {
+      state.file = file;
+      state.blobURL = null;
+      cancelAnimationFrame(state.animFrame);
+
+      // UI
+      dropIdle.classList.add('hidden');
+      dropLoaded.classList.remove('hidden');
+      fileName.textContent = file.name;
+      fileMeta.textContent = formatBytes(file.size);
+
+      // Load into hidden video
+      const url = URL.createObjectURL(file);
+      hiddenVideo.src = url;
+      hiddenVideo.load();
+
+      hiddenVideo.onloadedmetadata = () => {
+        setupPreview();
+        convertBtn.disabled = false;
+        downloadSec.classList.add('hidden');
+        progressSec.classList.add('hidden');
+        logSection.classList.add('hidden');
+        convertLabel.textContent = '⚡ Convertir Video';
+        log(`📂 ${file.name} cargado — ${hiddenVideo.videoWidth}×${hiddenVideo.videoHeight} — ${formatTime(hiddenVideo.duration)}`);
+      };
+    }
+
+    // ── PREVIEW ────────────────────────────────────────────────────────
+    function setupPreview() {
+      canvasPlaceholder.classList.add('hidden');
+      previewCanvas.classList.remove('hidden');
+      previewControls.classList.remove('hidden');
+      previewBadge.classList.add('hidden');
+
+      // Set canvas display size (max 360px wide, keep ratio)
+      updatePreviewSize();
+      drawPreviewFrame();
+      startPreviewLoop();
+    }
+
+    function updatePreviewSize() {
+      const maxW = 360;
+      const ratio = state.outW / state.outH;
+      let dW = maxW;
+      let dH = dW / ratio;
+      if (dH > 400) { dH = 400; dW = dH * ratio; }
+      previewCanvas.style.width  = dW + 'px';
+      previewCanvas.style.height = dH + 'px';
+      // internal res smaller for preview
+      const scale = Math.min(1, maxW / state.outW);
+      previewCanvas.width  = Math.round(state.outW * scale);
+      previewCanvas.height = Math.round(state.outH * scale);
+    }
+
+    function startPreviewLoop() {
+      hiddenVideo.pause();
+      hiddenVideo.currentTime = 0;
+      state.previewPaused = true;
+      updatePlayPauseIcon();
+
+      hiddenVideo.ontimeupdate = () => {
+        const pct = hiddenVideo.duration ? (hiddenVideo.currentTime / hiddenVideo.duration) : 0;
+        seekBar.style.width = (pct * 100) + '%';
+        timeDisplay.textContent = formatTime(hiddenVideo.currentTime);
+      };
+
+      hiddenVideo.onplay = () => {
+        state.previewPaused = false;
+        updatePlayPauseIcon();
+        renderPreviewLoop();
+      };
+
+      hiddenVideo.onpause = () => {
+        state.previewPaused = true;
+        updatePlayPauseIcon();
+        drawPreviewFrame();
+      };
+
+      hiddenVideo.onended = () => {
+        state.previewPaused = true;
+        updatePlayPauseIcon();
+      };
+
+      drawPreviewFrame();
+    }
+
+    function renderPreviewLoop() {
+      if (state.previewPaused || hiddenVideo.paused) return;
+      drawPreviewFrame();
+      state.animFrame = requestAnimationFrame(renderPreviewLoop);
+    }
+
+    function drawPreviewFrame() {
+      const ctx = previewCanvas.getContext('2d');
+      const cW = previewCanvas.width;
+      const cH = previewCanvas.height;
+      const vW = hiddenVideo.videoWidth  || 1;
+      const vH = hiddenVideo.videoHeight || 1;
+      ctx.clearRect(0, 0, cW, cH);
+      drawFrame(ctx, hiddenVideo, vW, vH, cW, cH, state.mode);
+    }
+
+    function togglePlay() {
+      if (!hiddenVideo.src) return;
+      if (hiddenVideo.paused) {
+        hiddenVideo.play();
+      } else {
+        hiddenVideo.pause();
+      }
+    }
+
+    function updatePlayPauseIcon() {
+      if (state.previewPaused) {
+        playIcon.classList.remove('hidden');
+        pauseIcon.classList.add('hidden');
+      } else {
+        playIcon.classList.add('hidden');
+        pauseIcon.classList.remove('hidden');
+      }
+    }
+
+    function seekVideo(e) {
+      if (!hiddenVideo.duration) return;
+      const rect = e.currentTarget.getBoundingClientRect();
+      const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+      hiddenVideo.currentTime = pct * hiddenVideo.duration;
+      drawPreviewFrame();
+    }
+
+    // ── CORE DRAWING FUNCTION ──────────────────────────────────────────
+    // Draws a video frame onto a canvas with the chosen aspect-ratio mode
+    function drawFrame(ctx, video, vW, vH, cW, cH, mode) {
+      ctx.fillStyle = '#000';
+      ctx.fillRect(0, 0, cW, cH);
+
+      if (mode === 'pad') {
+        // Letterbox / pillarbox: fit inside, center, black bars
+        const scale = Math.min(cW / vW, cH / vH);
+        const dW = vW * scale;
+        const dH = vH * scale;
+        const dx = (cW - dW) / 2;
+        const dy = (cH - dH) / 2;
+        ctx.drawImage(video, 0, 0, vW, vH, dx, dy, dW, dH);
+
+      } else if (mode === 'blur') {
+        // Blurred background + centered fit
+        ctx.save();
+        const scaleBlur = Math.max(cW / vW, cH / vH) * 1.2;
+        const bW = vW * scaleBlur;
+        const bH = vH * scaleBlur;
+        const bx = (cW - bW) / 2;
+        const by = (cH - bH) / 2;
+        ctx.filter = 'blur(18px) brightness(0.5) saturate(1.3)';
+        ctx.drawImage(video, 0, 0, vW, vH, bx, by, bW, bH);
+        ctx.restore();
+
+        // Foreground: fit inside
+        const scale = Math.min(cW / vW, cH / vH);
+        const dW = vW * scale;
+        const dH = vH * scale;
+        const dx = (cW - dW) / 2;
+        const dy = (cH - dH) / 2;
+        ctx.drawImage(video, 0, 0, vW, vH, dx, dy, dW, dH);
+
+      } else {
+        // Crop: fill canvas, crop center
+        const scale = Math.max(cW / vW, cH / vH);
+        const sW = cW / scale;
+        const sH = cH / scale;
+        const sx = (vW - sW) / 2;
+        const sy = (vH - sH) / 2;
+        ctx.drawImage(video, sx, sy, sW, sH, 0, 0, cW, cH);
+      }
+    }
+
+    // ── CONVERSION ────────────────────────────────────────────────────
+    async function startConversion() {
+      if (!state.file || state.isConverting) return;
+      state.isConverting = true;
+
+      // Reset UI
+      downloadSec.classList.add('hidden');
+      progressSec.classList.remove('hidden');
+      logSection.classList.remove('hidden');
+      logArea.innerHTML = '';
+      convertBtn.disabled = true;
+      convertLabel.innerHTML = '<span class="inline-block spinning mr-2">⚙️</span> Procesando...';
+
+      setProgress(0, 'Preparando canvas...');
+      log('🚀 Iniciando conversión...');
+      log(`📐 Ratio: ${state.ratio} → ${state.outW}×${state.outH}`);
+      log(`🎨 Modo: ${state.mode} | Calidad: ${state.quality}`);
+
+      try {
+        await doConvert();
+      } catch (err) {
+        log('❌ Error: ' + err.message);
+        setProgress(0, 'Error en la conversión');
+        convertBtn.disabled = false;
+        convertLabel.textContent = '⚡ Intentar de nuevo';
+        state.isConverting = false;
+      }
+    }
+
+    function doConvert() {
+      return new Promise((resolve, reject) => {
+        // Create offscreen canvas at output resolution
+        const offCanvas = document.createElement('canvas');
+        offCanvas.width  = state.outW;
+        offCanvas.height = state.outH;
+        const ctx = offCanvas.getContext('2d');
+
+        // Clone video for processing (separate from preview)
+        const procVideo = document.createElement('video');
+        procVideo.src = hiddenVideo.src;
+        procVideo.muted = true;
+        procVideo.playsinline = true;
+        procVideo.preload = 'auto';
+
+        procVideo.onloadedmetadata = () => {
+          const duration = procVideo.duration;
+          procVideo.currentTime = 0;
+
+          // Determine best MIME type
+          const mimeTypes = [
+            'video/webm;codecs=vp9,opus',
+            'video/webm;codecs=vp8,opus',
+            'video/webm;codecs=vp9',
+            'video/webm;codecs=vp8',
+            'video/webm',
+          ];
+          let chosenMime = 'video/webm';
+          for (const mt of mimeTypes) {
+            if (MediaRecorder.isTypeSupported(mt)) { chosenMime = mt; break; }
+          }
+
+          log(`🎬 Codec: ${chosenMime}`);
+          log(`⏱️ Duración: ${formatTime(duration)}`);
+
+          const stream = offCanvas.captureStream(30);
+          state.chunks = [];
+
+          const recorder = new MediaRecorder(stream, {
+            mimeType: chosenMime,
+            videoBitsPerSecond: qualityBits[state.quality],
+          });
+
+          state.mediaRecorder = recorder;
+
+          recorder.ondataavailable = e => {
+            if (e.data && e.data.size > 0) state.chunks.push(e.data);
+          };
+
+          recorder.onstop = () => {
+            const blob = new Blob(state.chunks, { type: chosenMime });
+            if (state.blobURL) URL.revokeObjectURL(state.blobURL);
+            state.blobURL = URL.createObjectURL(blob);
+            state.isConverting = false;
+
+            const ext = chosenMime.includes('webm') ? 'webm' : 'mp4';
+            resultInfo.textContent = `${state.outW}×${state.outH} · ${formatBytes(blob.size)} · ${ext.toUpperCase()}`;
+
+            setProgress(100, '¡Listo!');
+            log(`✅ Conversión completada — ${formatBytes(blob.size)}`);
+            downloadSec.classList.remove('hidden');
+            convertBtn.disabled = false;
+            convertLabel.textContent = '⚡ Convertir de nuevo';
+            resolve();
+          };
+
+          recorder.onerror = (e) => reject(e.error);
+
+          // Frame-by-frame rendering
+          let startTime = null;
+          let lastFrame  = -1;
+
+          const FPS = 30;
+          const frameDur = 1 / FPS;
+
+          const vW = procVideo.videoWidth;
+          const vH = procVideo.videoHeight;
+
+          // Seek-based rendering for accuracy
+          let frameIndex = 0;
+          const totalFrames = Math.ceil(duration * FPS);
+
+          recorder.start(250); // collect data every 250ms
+
+          procVideo.onseeked = () => {
+            const pct = procVideo.currentTime / duration;
+            setProgress(Math.round(pct * 95), `Frame ${frameIndex}/${totalFrames}`);
+
+            // Draw frame
+            ctx.clearRect(0, 0, offCanvas.width, offCanvas.height);
+            drawFrame(ctx, procVideo, vW, vH, offCanvas.width, offCanvas.height, state.mode);
+
+            frameIndex++;
+
+            const nextTime = frameIndex * frameDur;
+            if (nextTime < duration - 0.01) {
+              procVideo.currentTime = nextTime;
+            } else {
+              // Done rendering all frames — wait a bit for last frames to be captured
+              setTimeout(() => {
+                recorder.stop();
+              }, 400);
+            }
+          };
+
+          procVideo.onerror = () => reject(new Error('Error al leer el video'));
+
+          // Start
+          setProgress(2, 'Iniciando renderizado...');
+          procVideo.currentTime = 0;
+        };
+
+        procVideo.onerror = () => reject(new Error('No se pudo cargar el video para procesar'));
+        procVideo.load();
+      });
+    }
+
+    function downloadVideo() {
+      if (!state.blobURL) return;
+      const ext = 'webm';
+      const a = document.createElement('a');
+      a.href = state.blobURL;
+      const baseName = state.file.name.replace(/\.[^.]+$/, '');
+      a.download = `${baseName}_${state.ratio.replace(':','x')}_${state.mode}.${ext}`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      log('📥 Descarga iniciada');
+    }
+
+    // ── SELECTORS ──────────────────────────────────────────────────────
+    function selectRatio(el, ratio, w, h) {
+      document.querySelectorAll('.ratio-card').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      state.ratio = ratio;
+      state.outW  = w;
+      state.outH  = h;
+      resLabel.textContent  = `${w} × ${h}`;
+      infoRatio.textContent = ratio;
+      if (state.file) {
+        updatePreviewSize();
+        drawPreviewFrame();
+      }
+    }
+
+    function selectMode(el, mode) {
+      document.querySelectorAll('.mode-btn[data-mode]').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      state.mode = mode;
+      document.getElementById('mode-desc').textContent = modeDescs[mode];
+      infoMode.textContent = mode.charAt(0).toUpperCase() + mode.slice(1);
+      if (state.file) drawPreviewFrame();
+    }
+
+    function selectQuality(el, q) {
+      document.querySelectorAll('.mode-btn[data-q]').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      state.quality = q;
+    }
+
+    // ── RESET ──────────────────────────────────────────────────────────
+    function resetAll() {
+      state.file = null;
+      state.blobURL = null;
+      state.chunks = [];
+      state.isConverting = false;
+      cancelAnimationFrame(state.animFrame);
+      hiddenVideo.pause();
+      hiddenVideo.src = '';
+      fileInput.value = '';
+
+      dropIdle.classList.remove('hidden');
+      dropLoaded.classList.add('hidden');
+      canvasPlaceholder.classList.remove('hidden');
+      previewCanvas.classList.add('hidden');
+      previewControls.classList.add('hidden');
+      downloadSec.classList.add('hidden');
+      progressSec.classList.add('hidden');
+      logSection.classList.add('hidden');
+      convertBtn.disabled = true;
+      convertLabel.textContent = '⚡ Convertir Video';
+      setProgress(0, '');
+      logArea.innerHTML = '';
+    }
+
+    // ── HELPERS ────────────────────────────────────────────────────────
+    function setProgress(pct, label) {
+      mainProgress.style.width = pct + '%';
+      progressLabel.textContent = label;
+      progressPct.textContent   = pct + '%';
+    }
+
+    function log(msg) {
+      const line = document.createElement('div');
+      line.textContent = msg;
+      logArea.appendChild(line);
+      logArea.scrollTop = logArea.scrollHeight;
+    }
+
+    function formatBytes(bytes) {
+      if (bytes < 1024) return bytes + ' B';
+      if (bytes < 1048576) return (bytes/1024).toFixed(1) + ' KB';
+      return (bytes/1048576).toFixed(1) + ' MB';
+    }
+
+    function formatTime(secs) {
+      const s = Math.floor(secs);
+      const m = Math.floor(s / 60);
+      return `${m}:${String(s % 60).padStart(2,'0')}`;
+    }
+
+    // ── INIT ───────────────────────────────────────────────────────────
+    // Default selected: 1:1
+    resLabel.textContent = '1080 × 1080';
+    infoRatio.textContent = '1:1';
+    infoMode.textContent = 'Crop';
+    infoOut.textContent = 'WebM';
+    previewBadge.classList.remove('hidden');
+    previewBadge.textContent = 'Sin video';
+
+    // Check MediaRecorder support
+    if (!window.MediaRecorder) {
+      document.body.innerHTML = `
+        <div style="display:flex;align-items:center;justify-content:center;min-height:100vh;background:#0a0a0f;color:white;font-family:Inter,sans-serif;text-align:center;padding:20px;">
+          <div>
+            <p style="font-size:2rem;margin-bottom:1rem;">⚠️</p>
+            <h2 style="margin-bottom:0.5rem;">Navegador no compatible</h2>
+            <p style="color:rgba(255,255,255,0.4);max-width:400px;">Este convertidor requiere MediaRecorder API. Por favor usa Chrome, Edge o Firefox actualizados.</p>
+          </div>
+        </div>`;
+    }
+  </script>
+</body>
+</html>
