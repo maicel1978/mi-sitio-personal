@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Trimmer — Recorta tus videos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * { font-family: system-ui, -apple-system, sans-serif; }
+        
+        body { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .drop-zone {
+            border: 3px dashed #cbd5e0;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            background: #f7fafc;
+        }
+
+        .drop-zone:hover {
+            border-color: #667eea;
+            background: #edf2f7;
+        }
+
+        .drop-zone.dragover {
+            border-color: #667eea;
+            background: #e6f0ff;
+            transform: scale(1.02);
+        }
+
+        .timeline {
+            position: relative;
+            height: 60px;
+            background: linear-gradient(to right, #e2e8f0 0%, #cbd5e0 100%);
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .timeline-selection {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(102,126,234,0.3) 0%, rgba(118,75,162,0.3) 100%);
+            border: 2px solid #667eea;
+            border-radius: 6px;
+        }
+
+        .handle {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 20px;
+            background: #667eea;
+            cursor: ew-resize;
+            z-index: 10;
+            transition: background 0.2s;
+        }
+
+        .handle:hover,
+        .handle:active {
+            background: #5568d3;
+            box-shadow: 0 0 20px rgba(102,126,234,0.5);
+        }
+
+        .handle::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 3px;
+            height: 40%;
+            background: white;
+            border-radius: 2px;
+        }
+
+        .handle-left {
+            left: 0;
+            border-radius: 6px 0 0 6px;
+        }
+
+        .handle-right {
+            right: 0;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102,126,234,0.4);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: white;
+            border: 2px solid #e2e8f0;
+            color: #4a5568;
+        }
+
+        .btn-secondary:hover {
+            border-color: #cbd5e0;
+            background: #f7fafc;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+        }
+
+        .spinner {
+            border: 3px solid #e2e8f0;
+            border-top-color: #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 16px 20px;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+            max-width: 300px;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .time-input {
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            padding: 8px 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            width: 120px;
+            text-align: center;
+        }
+
+        .time-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        @media (max-width: 640px) {
+            .handle { width: 30px; }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-3">
+                ✂️ Video Trimmer
+            </h1>
+            <p class="text-white/90 text-lg">
+                Recorta tus videos de forma simple y rápida
+            </p>
+        </div>
+
+        <!-- Main Card -->
+        <div class="card p-6 md:p-8">
+            
+            <!-- Step 1: Upload -->
+            <div id="uploadSection">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                    1. Selecciona tu video
+                </h2>
+                
+                <div id="dropZone" class="drop-zone p-12 text-center cursor-pointer">
+                    <svg class="w-16 h-16 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                    </svg>
+                    <p class="text-xl font-semibold text-gray-700 mb-2">
+                        Arrastra tu video aquí
+                    </p>
+                    <p class="text-gray-500 mb-4">
+                        o haz clic para seleccionar
+                    </p>
+                    <button class="btn btn-primary">
+                        Seleccionar Video
+                    </button>
+                </div>
+                
+                <input type="file" id="fileInput" accept="video/*" class="hidden">
+
+                <div class="mt-4 text-sm text-gray-500 text-center">
+                    <p>✓ Formatos soportados: MP4, WebM, MOV</p>
+                    <p>✓ Procesado 100% en tu navegador (privado y seguro)</p>
+                </div>
+            </div>
+
+            <!-- Step 2: Trim -->
+            <div id="trimSection" class="hidden">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                    2. Recorta tu video
+                </h2>
+
+                <!-- Video Preview -->
+                <div class="mb-6">
+                    <video id="videoPreview" class="w-full rounded-lg shadow-lg bg-black" controls></video>
+                </div>
+
+                <!-- Video Info -->
+                <div class="bg-gray-50 rounded-lg p-4 mb-6">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                        <div>
+                            <span class="text-gray-500">Archivo:</span>
+                            <p class="font-semibold text-gray-800 truncate" id="fileName">-</p>
+                        </div>
+                        <div>
+                            <span class="text-gray-500">Duración:</span>
+                            <p class="font-semibold text-gray-800" id="duration">-</p>
+                        </div>
+                        <div>
+                            <span class="text-gray-500">Tamaño:</span>
+                            <p class="font-semibold text-gray-800" id="fileSize">-</p>
+                        </div>
+                        <div>
+                            <span class="text-gray-500">Resolución:</span>
+                            <p class="font-semibold text-gray-800" id="resolution">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline Controls -->
+                <div class="mb-6">
+                    <label class="block text-sm font-semibold text-gray-700 mb-3">
+                        Selecciona el segmento a recortar:
+                    </label>
+                    
+                    <div class="timeline mb-4" id="timeline">
+                        <div class="timeline-selection" id="selection">
+                            <div class="handle handle-left" id="handleLeft"></div>
+                            <div class="handle handle-right" id="handleRight"></div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between text-xs text-gray-500 mb-4">
+                        <span>0:00</span>
+                        <span id="totalDuration">0:00</span>
+                    </div>
+
+                    <!-- Time Inputs -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4">
+                        <div class="text-center">
+                            <label class="block text-xs text-gray-600 mb-1">Inicio</label>
+                            <input type="text" id="startTime" class="time-input" value="0:00.0" readonly>
+                        </div>
+                        <div class="text-2xl text-gray-400 hidden sm:block">→</div>
+                        <div class="text-center">
+                            <label class="block text-xs text-gray-600 mb-1">Fin</label>
+                            <input type="text" id="endTime" class="time-input" value="0:00.0" readonly>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="inline-block bg-purple-100 text-purple-800 px-4 py-2 rounded-lg">
+                            <span class="text-sm font-semibold">Duración del recorte: </span>
+                            <span class="text-lg font-bold" id="selectedDuration">0.0s</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Preview Button -->
+                <div class="mb-6">
+                    <button onclick="previewTrim()" class="btn btn-secondary w-full">
+                        ▶️ Previsualizar recorte
+                    </button>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <button onclick="resetApp()" class="btn btn-secondary flex-1">
+                        ← Cargar otro video
+                    </button>
+                    <button onclick="exportVideo()" class="btn btn-primary flex-1" id="exportBtn">
+                        ✂️ Recortar y Descargar
+                    </button>
+                </div>
+
+                <!-- Warning -->
+                <div class="mt-6 bg-amber-50 border border-amber-200 rounded-lg p-4">
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                        </svg>
+                        <div class="text-sm text-amber-800">
+                            <p class="font-semibold mb-1">Nota importante:</p>
+                            <ul class="list-disc list-inside space-y-1 text-amber-700">
+                                <li>El procesamiento puede tardar varios segundos</li>
+                                <li>Videos muy largos o en 4K pueden tardar más</li>
+                                <li>El video se exporta en formato WebM (compatible con todos los reproductores)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-8 text-white/80 text-sm">
+            <p>🔒 Tu video nunca sale de tu dispositivo — Todo se procesa localmente</p>
+        </div>
+    </div>
+
+    <!-- Processing Modal -->
+    <div id="processingModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="card p-8 max-w-md w-full text-center">
+            <div class="spinner mx-auto mb-4"></div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2" id="processingTitle">
+                Procesando video...
+            </h3>
+            <p class="text-gray-600 mb-4" id="processingText">
+                Esto puede tardar unos momentos
+            </p>
+            <div class="progress-bar mb-4">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+            </div>
+            <div class="text-sm text-gray-500" id="processingStatus">
+                Preparando...
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer"></div>
+
+    <script>
+        // ========================================
+        // STATE
+        // ========================================
+        let videoFile = null;
+        let videoURL = null;
+        let videoDuration = 0;
+        let trimStart = 0;
+        let trimEnd = 0;
+        let isProcessing = false;
+
+        // ========================================
+        // INITIALIZATION
+        // ========================================
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+        const videoPreview = document.getElementById('videoPreview');
+        const timeline = document.getElementById('timeline');
+        const selection = document.getElementById('selection');
+        const handleLeft = document.getElementById('handleLeft');
+        const handleRight = document.getElementById('handleRight');
+
+        // Drop zone events
+        dropZone.addEventListener('click', () => fileInput.click());
+        
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('dragover');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            
+            if (e.dataTransfer.files.length > 0) {
+                handleFileSelect(e.dataTransfer.files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFileSelect(e.target.files[0]);
+            }
+        });
+
+        // ========================================
+        // FILE HANDLING
+        // ========================================
+        function handleFileSelect(file) {
+            // Validate file type
+            if (!file.type.startsWith('video/')) {
+                showToast('❌ Por favor selecciona un archivo de video válido', 'error');
+                return;
+            }
+
+            // Validate file size (max 500MB)
+            const maxSize = 500 * 1024 * 1024;
+            if (file.size > maxSize) {
+                showToast('❌ El video es demasiado grande (máx 500MB)', 'error');
+                return;
+            }
+
+            videoFile = file;
+            
+            // Revoke previous URL if exists
+            if (videoURL) {
+                URL.revokeObjectURL(videoURL);
+            }
+            
+            videoURL = URL.createObjectURL(file);
+            videoPreview.src = videoURL;
+
+            videoPreview.onloadedmetadata = () => {
+                videoDuration = videoPreview.duration;
+
+                // Validate duration (max 30 minutes)
+                if (videoDuration > 1800) {
+                    showToast('⚠️ Videos muy largos pueden tardar en procesarse', 'warning');
+                }
+
+                // Set initial trim points
+                trimStart = 0;
+                trimEnd = videoDuration;
+
+                // Update UI
+                updateVideoInfo();
+                updateTimelineUI();
+                
+                // Show trim section
+                document.getElementById('uploadSection').classList.add('hidden');
+                document.getElementById('trimSection').classList.remove('hidden');
+                
+                showToast('✅ Video cargado correctamente', 'success');
+            };
+
+            videoPreview.onerror = () => {
+                showToast('❌ Error al cargar el video. Formato no soportado.', 'error');
+                resetApp();
+            };
+        }
+
+        function updateVideoInfo() {
+            document.getElementById('fileName').textContent = videoFile.name;
+            document.getElementById('duration').textContent = formatTime(videoDuration);
+            document.getElementById('fileSize').textContent = formatFileSize(videoFile.size);
+            document.getElementById('resolution').textContent = 
+                `${videoPreview.videoWidth}×${videoPreview.videoHeight}`;
+            document.getElementById('totalDuration').textContent = formatTime(videoDuration);
+        }
+
+        // ========================================
+        // TIMELINE INTERACTION
+        // ========================================
+        let isDragging = false;
+        let dragHandle = null;
+
+        function initTimeline() {
+            handleLeft.addEventListener('mousedown', startDrag);
+            handleLeft.addEventListener('touchstart', startDrag);
+            handleRight.addEventListener('mousedown', startDrag);
+            handleRight.addEventListener('touchstart', startDrag);
+
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('touchmove', drag);
+            document.addEventListener('mouseup', stopDrag);
+            document.addEventListener('touchend', stopDrag);
+
+            timeline.addEventListener('click', timelineClick);
+        }
+
+        function startDrag(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            isDragging = true;
+            dragHandle = e.target;
+        }
+
+        function drag(e) {
+            if (!isDragging || !dragHandle) return;
+            e.preventDefault();
+
+            const rect = timeline.getBoundingClientRect();
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const x = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+            const time = x * videoDuration;
+
+            if (dragHandle === handleLeft) {
+                trimStart = Math.max(0, Math.min(time, trimEnd - 0.5));
+            } else {
+                trimEnd = Math.min(videoDuration, Math.max(time, trimStart + 0.5));
+            }
+
+            updateTimelineUI();
+        }
+
+        function stopDrag() {
+            isDragging = false;
+            dragHandle = null;
+        }
+
+        function timelineClick(e) {
+            if (isDragging) return;
+            
+            const rect = timeline.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width;
+            const time = x * videoDuration;
+            
+            videoPreview.currentTime = time;
+        }
+
+        function updateTimelineUI() {
+            const startPercent = (trimStart / videoDuration) * 100;
+            const endPercent = (trimEnd / videoDuration) * 100;
+
+            selection.style.left = startPercent + '%';
+            selection.style.right = (100 - endPercent) + '%';
+
+            document.getElementById('startTime').value = formatTime(trimStart);
+            document.getElementById('endTime').value = formatTime(trimEnd);
+            
+            const duration = trimEnd - trimStart;
+            document.getElementById('selectedDuration').textContent = duration.toFixed(1) + 's';
+        }
+
+        initTimeline();
+
+        // ========================================
+        // PREVIEW
+        // ========================================
+        function previewTrim() {
+            videoPreview.currentTime = trimStart;
+            videoPreview.play();
+
+            const checkTime = () => {
+                if (videoPreview.currentTime >= trimEnd) {
+                    videoPreview.pause();
+                    videoPreview.removeEventListener('timeupdate', checkTime);
+                }
+            };
+
+            videoPreview.addEventListener('timeupdate', checkTime);
+        }
+
+        // ========================================
+        // EXPORT VIDEO
+        // ========================================
+        async function exportVideo() {
+            if (!videoFile || isProcessing) return;
+
+            const duration = trimEnd - trimStart;
+            
+            if (duration < 0.1) {
+                showToast('❌ El recorte es demasiado corto (mínimo 0.1s)', 'error');
+                return;
+            }
+
+            isProcessing = true;
+            document.getElementById('exportBtn').disabled = true;
+            showProcessingModal();
+
+            try {
+                await processVideo();
+            } catch (error) {
+                console.error('Error processing video:', error);
+                showToast('❌ Error al procesar el video: ' + error.message, 'error');
+            } finally {
+                isProcessing = false;
+                document.getElementById('exportBtn').disabled = false;
+                hideProcessingModal();
+            }
+        }
+
+        async function processVideo() {
+            updateProcessingStatus('Preparando video...', 0);
+
+            // Create offscreen video element
+            const video = document.createElement('video');
+            video.src = videoURL;
+            video.muted = false;
+            video.crossOrigin = 'anonymous';
+
+            await new Promise((resolve, reject) => {
+                video.onloadedmetadata = resolve;
+                video.onerror = reject;
+            });
+
+            // Create canvas
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const ctx = canvas.getContext('2d');
+
+            // Get video stream
+            const canvasStream = canvas.captureStream(30);
+            
+            // Try to get audio stream
+            let finalStream;
+            try {
+                const audioCtx = new AudioContext();
+                const source = audioCtx.createMediaElementSource(video);
+                const dest = audioCtx.createMediaStreamDestination();
+                source.connect(dest);
+                source.connect(audioCtx.destination);
+
+                finalStream = new MediaStream([
+                    ...canvasStream.getVideoTracks(),
+                    ...dest.stream.getAudioTracks()
+                ]);
+            } catch (audioError) {
+                console.warn('Could not capture audio, exporting video only:', audioError);
+                finalStream = canvasStream;
+            }
+
+            // Setup MediaRecorder with fallbacks
+            let mimeType = '';
+            const mimeTypes = [
+                'video/webm;codecs=vp9,opus',
+                'video/webm;codecs=vp8,opus',
+                'video/webm;codecs=vp9',
+                'video/webm;codecs=vp8',
+                'video/webm',
+                'video/mp4;codecs=h264',
+                'video/mp4'
+            ];
+
+            for (const type of mimeTypes) {
+                if (MediaRecorder.isTypeSupported(type)) {
+                    mimeType = type;
+                    break;
+                }
+            }
+
+            if (!mimeType) {
+                throw new Error('Tu navegador no soporta grabación de video. Prueba con Chrome o Firefox.');
+            }
+
+            updateProcessingStatus('Grabando video...', 10);
+
+            const chunks = [];
+            const recorder = new MediaRecorder(finalStream, {
+                mimeType,
+                videoBitsPerSecond: 5000000
+            });
+
+            recorder.ondataavailable = (e) => {
+                if (e.data.size > 0) {
+                    chunks.push(e.data);
+                }
+            };
+
+            const recordingDone = new Promise((resolve) => {
+                recorder.onstop = resolve;
+            });
+
+            // Seek to start position
+            video.currentTime = trimStart;
+            await new Promise(resolve => { video.onseeked = resolve; });
+
+            // Start recording
+            recorder.start(100);
+            video.play();
+
+            // Draw frames and update progress
+            const startTime = Date.now();
+            const duration = trimEnd - trimStart;
+
+            const drawFrame = () => {
+                if (video.currentTime >= trimEnd || video.ended) {
+                    video.pause();
+                    recorder.stop();
+                    return;
+                }
+
+                ctx.drawImage(video, 0, 0);
+
+                // Update progress
+                const elapsed = (video.currentTime - trimStart);
+                const progress = Math.min(95, 10 + (elapsed / duration) * 85);
+                updateProcessingStatus(
+                    `Procesando... ${Math.round(elapsed)}s / ${Math.round(duration)}s`,
+                    progress
+                );
+
+                requestAnimationFrame(drawFrame);
+            };
+
+            drawFrame();
+
+            await recordingDone;
+
+            updateProcessingStatus('Finalizando...', 98);
+
+            // Create blob and download
+            const extension = mimeType.includes('mp4') ? 'mp4' : 'webm';
+            const blob = new Blob(chunks, { type: mimeType });
+            
+            const fileName = videoFile.name.replace(/\.[^.]+$/, '') + '_recortado.' + extension;
+            downloadBlob(blob, fileName);
+
+            updateProcessingStatus('¡Completado!', 100);
+
+            showToast('✅ Video recortado exitosamente (' + formatFileSize(blob.size) + ')', 'success');
+
+            // Auto-close modal after 1 second
+            setTimeout(() => {
+                hideProcessingModal();
+            }, 1000);
+        }
+
+        // ========================================
+        // UTILITIES
+        // ========================================
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = (seconds % 60).toFixed(1);
+            return `${mins}:${secs.padStart(4, '0')}`;
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            if (bytes < 1024 * 1024 * 1024) return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+            return (bytes / (1024 * 1024 * 1024)).toFixed(2) + ' GB';
+        }
+
+        function downloadBlob(blob, filename) {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.click();
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+        }
+
+        function resetApp() {
+            // Clean up
+            if (videoURL) {
+                URL.revokeObjectURL(videoURL);
+            }
+            
+            videoFile = null;
+            videoURL = null;
+            videoDuration = 0;
+            trimStart = 0;
+            trimEnd = 0;
+            
+            videoPreview.src = '';
+            fileInput.value = '';
+            
+            // Show upload section
+            document.getElementById('uploadSection').classList.remove('hidden');
+            document.getElementById('trimSection').classList.add('hidden');
+        }
+
+        function showProcessingModal() {
+            document.getElementById('processingModal').classList.remove('hidden');
+        }
+
+        function hideProcessingModal() {
+            document.getElementById('processingModal').classList.add('hidden');
+        }
+
+        function updateProcessingStatus(text, progress) {
+            document.getElementById('processingStatus').textContent = text;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function showToast(message, type = 'info') {
+            const colors = {
+                success: 'border-green-500 bg-green-50',
+                error: 'border-red-500 bg-red-50',
+                warning: 'border-yellow-500 bg-yellow-50',
+                info: 'border-blue-500 bg-blue-50'
+            };
+
+            const toast = document.createElement('div');
+            toast.className = `toast border-l-4 ${colors[type]}`;
+            toast.textContent = message;
+
+            document.getElementById('toastContainer').appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.animation = 'slideIn 0.3s ease reverse';
+                setTimeout(() => toast.remove(), 300);
+            }, 4000);
+        }
+
+        // ========================================
+        // ERROR HANDLING
+        // ========================================
+        window.addEventListener('error', (e) => {
+            console.error('Global error:', e.error);
+            if (isProcessing) {
+                hideProcessingModal();
+                showToast('❌ Error inesperado. Por favor recarga la página.', 'error');
+                isProcessing = false;
+                document.getElementById('exportBtn').disabled = false;
+            }
+        });
+
+        window.addEventListener('unhandledrejection', (e) => {
+            console.error('Unhandled promise rejection:', e.reason);
+        });
+    </script>
+
+</body>
+</html>
