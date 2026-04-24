@@ -3,9 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>🎬 Video Stitcher Pro v3</title>
+<title>🎬 Video Stitcher Pro</title>
 <style>
-/* ═══ RESET & TOKENS ═══════════════════════════════════════════════════════ */
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:#0b0c18;--s1:#12132a;--s2:#1a1b36;--s3:#22244a;
@@ -27,21 +26,20 @@ header .inner{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:
 header h1{font-size:1.5rem;font-weight:800;color:var(--white);letter-spacing:-.5px}
 header p{font-size:.8rem;color:var(--muted);margin-top:2px}
 .badge{font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:999px;white-space:nowrap}
-.badge-ok{background:rgba(34,197,94,.15);color:#4ade80;border:1px solid rgba(34,197,94,.3)}
+.badge-ok  {background:rgba(34,197,94,.15);color:#4ade80;border:1px solid rgba(34,197,94,.3)}
 .badge-warn{background:rgba(245,158,11,.15);color:#fbbf24;border:1px solid rgba(245,158,11,.3)}
-.badge-err{background:rgba(239,68,68,.15);color:#f87171;border:1px solid rgba(239,68,68,.3)}
+.badge-err {background:rgba(239,68,68,.15);color:#f87171;border:1px solid rgba(239,68,68,.3)}
 .badge-info{background:rgba(56,189,248,.15);color:#7dd3fc;border:1px solid rgba(56,189,248,.3)}
 .alert{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;border-radius:var(--radius);font-size:.85rem;line-height:1.5}
 .alert .ico{flex-shrink:0;font-size:1rem;margin-top:1px}
 .alert-ok  {background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.25);color:#4ade80}
 .alert-warn{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);color:#fbbf24}
-.alert-err {background:rgba(239,68,68,.08); border:1px solid rgba(239,68,68,.25); color:#f87171}
+.alert-err {background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);color:#f87171}
 .alert-info{background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.25);color:#7dd3fc}
 .alert strong{font-weight:700;display:block;margin-bottom:3px}
 .alert pre{font-size:.75rem;background:rgba(0,0,0,.3);padding:6px 10px;border-radius:6px;margin-top:6px;white-space:pre-wrap;color:var(--text)}
 .card{background:var(--s1);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
 .card-title{font-size:1rem;font-weight:700;color:var(--white);margin-bottom:14px;display:flex;align-items:center;gap:8px}
-#preflight{margin-bottom:18px}
 .preflight-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 @media(max-width:600px){.preflight-grid{grid-template-columns:1fr}}
 .pf-item{background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px}
@@ -49,7 +47,6 @@ header p{font-size:.8rem;color:var(--muted);margin-top:2px}
 .pf-label{font-size:.78rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
 .pf-value{font-size:.88rem;color:var(--text);margin-top:2px;font-weight:600}
 .pf-note{font-size:.72rem;color:var(--muted);margin-top:3px;line-height:1.4}
-#ffmpeg-card{margin-bottom:18px}
 #ffmpeg-log{font-family:monospace;font-size:.72rem;color:var(--muted);max-height:120px;overflow-y:auto;
   background:var(--bg);border-radius:8px;padding:8px 10px;margin-top:10px;display:none;line-height:1.6}
 #ffmpeg-log.show{display:block}
@@ -71,7 +68,7 @@ header p{font-size:.8rem;color:var(--muted);margin-top:2px}
 #clips-wrap{display:none}
 #clips-list{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
 .clip-card{background:var(--s2);border:1px solid var(--border);border-radius:var(--radius);
-  padding:12px 14px;transition:.15s;position:relative}
+  padding:12px 14px;transition:.15s}
 .clip-card.dragging{opacity:.35;border-style:dashed}
 .clip-card.drop-target{border-color:var(--accent);background:rgba(124,111,205,.08)}
 .cc-inner{display:flex;align-items:flex-start;gap:12px}
@@ -82,22 +79,22 @@ header p{font-size:.8rem;color:var(--muted);margin-top:2px}
 .cc-thumb .dur-badge{position:absolute;bottom:3px;right:3px;background:rgba(0,0,0,.75);
   color:#fff;font-size:.6rem;padding:1px 5px;border-radius:4px}
 .cc-body{flex:1;min-width:0}
-.cc-name{font-weight:700;font-size:.88rem;color:var(--white);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:8px}
+.cc-name{font-weight:700;font-size:.88rem;color:var(--white);white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis;margin-bottom:8px}
 .cc-controls{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
 .time-lbl{font-size:.75rem;color:var(--muted);display:flex;align-items:center;gap:5px}
 .time-inp{background:var(--bg);border:1px solid var(--border);border-radius:7px;color:var(--text);
   padding:4px 8px;font-size:.82rem;width:82px;transition:.15s}
 .time-inp:focus{outline:none;border-color:var(--accent)}
-.cc-tag{font-size:.7rem;padding:2px 8px;border-radius:999px;font-weight:600}
-.tag-trim{background:rgba(124,111,205,.15);color:var(--accent2)}
-.tag-audio{background:rgba(34,197,94,.1);color:#4ade80}
-.tag-noaudio{background:rgba(239,68,68,.1);color:#f87171}
+.cc-tag{font-size:.7rem;padding:2px 8px;border-radius:999px;font-weight:600;
+  background:rgba(124,111,205,.15);color:var(--accent2)}
 .cc-trimbar{margin-top:8px;height:4px;border-radius:999px;background:var(--border);position:relative}
 .cc-trimbar-fill{position:absolute;top:0;height:100%;border-radius:999px;background:var(--accent);transition:.1s}
-.btn-rm{background:transparent;border:1px solid rgba(239,68,68,.4);color:#f87171;border-radius:7px;
-  padding:3px 8px;font-size:.75rem;cursor:pointer;transition:.15s;flex-shrink:0}
+.btn-rm{background:transparent;border:1px solid rgba(239,68,68,.4);color:#f87171;
+  border-radius:7px;padding:3px 8px;font-size:.75rem;cursor:pointer;transition:.15s;flex-shrink:0}
 .btn-rm:hover{background:var(--err);color:#fff;border-color:var(--err)}
-.clips-footer{display:flex;justify-content:space-between;align-items:center;font-size:.82rem;color:var(--muted);margin-top:4px}
+.clips-footer{display:flex;justify-content:space-between;align-items:center;
+  font-size:.82rem;color:var(--muted);margin-top:4px}
 #options-wrap{display:none}
 .opt-row{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-bottom:12px}
 .toggle-wrap{display:flex;align-items:center;gap:10px}
@@ -125,17 +122,18 @@ select.inline-inp{width:auto;cursor:pointer}
 #progress-wrap.show{display:block}
 .prog-header{display:flex;justify-content:space-between;font-size:.8rem;color:var(--muted);margin-bottom:6px}
 .prog-bar-bg{background:var(--border);border-radius:999px;height:8px}
-.prog-bar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .3s}
+.prog-bar-fill{height:100%;border-radius:999px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .3s}
 #proc-log{font-family:monospace;font-size:.7rem;color:var(--muted);max-height:140px;overflow-y:auto;
   background:var(--bg);border-radius:8px;padding:8px 10px;margin-top:10px;display:none;line-height:1.7}
 #proc-log.show{display:block}
-#err-area{display:none;margin-top:8px}
+#err-area{display:none;margin-top:8px;width:100%;max-width:700px}
 #result-wrap{display:none}
 #result-wrap.show{display:block}
 #result-video{width:100%;border-radius:12px;background:#000;max-height:420px;margin:12px 0}
 .btn-dl{display:inline-flex;align-items:center;gap:6px;padding:9px 22px;
-  border-radius:10px;background:var(--ok);color:#fff;font-weight:700;font-size:.88rem;
-  border:none;cursor:pointer;transition:.15s}
+  border-radius:10px;background:var(--ok);color:#fff;font-weight:700;
+  font-size:.88rem;border:none;cursor:pointer;transition:.15s}
 .btn-dl:hover{filter:brightness(1.1);transform:translateY(-1px)}
 .btn-ghost{display:inline-flex;align-items:center;gap:6px;padding:9px 22px;
   border-radius:10px;background:transparent;border:1px solid var(--border);
@@ -152,7 +150,11 @@ select.inline-inp{width:auto;cursor:pointer}
   <div class="inner">
     <div style="font-size:2rem">🎬</div>
     <div style="flex:1">
-      <h1>Video Stitcher Pro <span style="font-size:.7rem;font-weight:400;color:var(--muted)">v3 — Bugs Corregidos</span></h1>
+      <h1>Video Stitcher Pro
+        <span style="font-size:.7rem;font-weight:400;color:var(--muted)">
+          v4 — Local
+        </span>
+      </h1>
       <p>Recorta · Reordena · Une · 100% privado · Sin servidores · Sin instalación</p>
     </div>
     <span id="mt-badge" class="badge badge-info">⏳ Analizando…</span>
@@ -162,91 +164,66 @@ select.inline-inp{width:auto;cursor:pointer}
 <main class="page space-y">
 
   <!-- DIAGNÓSTICO -->
-  <section id="preflight" class="card">
+  <section class="card">
     <div class="card-title">🔬 Diagnóstico del entorno</div>
     <div class="preflight-grid">
-      <div class="pf-item">
-        <div class="pf-icon">🌐</div>
-        <div>
-          <div class="pf-label">Origen</div>
-          <div class="pf-value" id="pf-origin-val">—</div>
-          <div class="pf-note" id="pf-origin-note"></div>
-        </div>
-      </div>
-      <div class="pf-item">
-        <div class="pf-icon">⚡</div>
-        <div>
-          <div class="pf-label">SharedArrayBuffer</div>
-          <div class="pf-value" id="pf-sab-val">—</div>
-          <div class="pf-note" id="pf-sab-note"></div>
-        </div>
-      </div>
-      <div class="pf-item">
-        <div class="pf-icon">🧠</div>
-        <div>
-          <div class="pf-label">RAM estimada</div>
-          <div class="pf-value" id="pf-ram">—</div>
-          <div class="pf-note">Mín. recomendado: 4 GB</div>
-        </div>
-      </div>
-      <div class="pf-item">
-        <div class="pf-icon">🔧</div>
-        <div>
-          <div class="pf-label">WebAssembly</div>
-          <div class="pf-value" id="pf-wasm">—</div>
-          <div class="pf-note" id="pf-wasm-note"></div>
-        </div>
-      </div>
+      <div class="pf-item"><div class="pf-icon">🌐</div><div>
+        <div class="pf-label">Origen</div>
+        <div class="pf-value" id="pf-origin-val">—</div>
+        <div class="pf-note"  id="pf-origin-note"></div>
+      </div></div>
+      <div class="pf-item"><div class="pf-icon">⚡</div><div>
+        <div class="pf-label">SharedArrayBuffer</div>
+        <div class="pf-value" id="pf-sab-val">—</div>
+        <div class="pf-note"  id="pf-sab-note"></div>
+      </div></div>
+      <div class="pf-item"><div class="pf-icon">🧠</div><div>
+        <div class="pf-label">RAM estimada</div>
+        <div class="pf-value" id="pf-ram">—</div>
+        <div class="pf-note">Mín. recomendado: 4 GB</div>
+      </div></div>
+      <div class="pf-item"><div class="pf-icon">🔧</div><div>
+        <div class="pf-label">WebAssembly</div>
+        <div class="pf-value" id="pf-wasm">—</div>
+        <div class="pf-note"  id="pf-wasm-note"></div>
+      </div></div>
     </div>
-
     <div id="null-origin-warning" style="display:none;margin-top:14px" class="alert alert-err">
       <span class="ico">🚫</span>
       <div>
         <strong>Abriendo con file:// — no funcionará</strong>
-        Los Workers de WebAssembly están bloqueados. Usa un servidor local:
-        <pre>
-# Python:
-python -m http.server 8080
-→ http://localhost:8080
-
-# Node.js:
-npx serve .
-→ http://localhost:3000</pre>
+        Ejecuta: <code>node server.js</code> → abre <code>http://localhost:8080</code>
       </div>
     </div>
-
     <div id="no-sab-warning" style="display:none;margin-top:14px" class="alert alert-warn">
       <span class="ico">⚠️</span>
       <div>
-        <strong>Sin COOP/COEP — Modo single-thread (funcional pero lento)</strong>
-        Para multi-hilo, añade estos headers en tu servidor:
-        <pre>
-Cross-Origin-Opener-Policy: same-origin
-Cross-Origin-Embedder-Policy: require-corp</pre>
+        <strong>Sin COOP/COEP — usa node server.js</strong>
+        Python http.server no envía los headers necesarios.
       </div>
     </div>
   </section>
 
   <!-- FFMPEG STATUS -->
-  <section id="ffmpeg-card" class="card">
+  <section class="card">
     <div class="card-title">⚙️ Motor FFmpeg.wasm</div>
     <div id="ffmpeg-status" class="alert alert-info">
       <div class="spinner"></div>
-      <div>Iniciando FFmpeg… <span id="ffmpeg-detail">Cargando módulo…</span></div>
+      <div>Iniciando FFmpeg… <span id="ffmpeg-detail">Cargando…</span></div>
     </div>
     <div id="ffmpeg-log"></div>
   </section>
 
   <!-- DROPZONE -->
   <section>
-    <div id="dropzone"
-         role="button" tabindex="0"
+    <div id="dropzone" role="button" tabindex="0"
          ondragover="dzOver(event)" ondragleave="dzLeave()" ondrop="dzDrop(event)"
          onclick="document.getElementById('file-input').click()">
       <div class="dz-icon">🎥</div>
       <h2>Arrastra tus videos aquí</h2>
       <p>MP4 · MOV · WebM · AVI — Máx <strong>5 clips</strong> · <strong>500 MB total</strong></p>
-      <button class="btn-dz" onclick="event.stopPropagation();document.getElementById('file-input').click()">
+      <button class="btn-dz"
+        onclick="event.stopPropagation();document.getElementById('file-input').click()">
         📂 Seleccionar archivos
       </button>
       <input id="file-input" type="file" multiple
@@ -263,14 +240,18 @@ Cross-Origin-Embedder-Policy: require-corp</pre>
     <div class="card">
       <div class="card-title">
         📋 Clips
-        <span id="clips-count" style="font-weight:400;font-size:.8rem;color:var(--muted)"></span>
-        <button class="btn-ghost" style="margin-left:auto;padding:4px 12px;font-size:.78rem"
-                onclick="stitcher.clearAll()">🗑️ Limpiar todo</button>
+        <span id="clips-count"
+          style="font-weight:400;font-size:.8rem;color:var(--muted)"></span>
+        <button class="btn-ghost"
+          style="margin-left:auto;padding:4px 12px;font-size:.78rem"
+          onclick="stitcher.clearAll()">🗑️ Limpiar todo</button>
       </div>
       <div id="clips-list"></div>
       <div class="clips-footer">
         <span>Arrastra las tarjetas para reordenar</span>
-        <span>Total: <strong id="total-dur" style="color:var(--accent2)">0s</strong></span>
+        <span>Total:
+          <strong id="total-dur" style="color:var(--accent2)">0s</strong>
+        </span>
       </div>
     </div>
   </section>
@@ -287,16 +268,19 @@ Cross-Origin-Embedder-Policy: require-corp</pre>
           </label>
           <div>
             <div class="opt-label">🎞️ Transición Fade</div>
-            <div class="opt-sublabel">xfade + acrossfade sincronizados</div>
+            <div class="opt-sublabel">xfade + acrossfade</div>
           </div>
         </div>
-        <div id="fade-opts" style="display:none;align-items:center;gap:6px" class="toggle-wrap">
+        <div id="fade-opts"
+          style="display:none;align-items:center;gap:6px" class="toggle-wrap">
           <span style="font-size:.82rem;color:var(--muted)">Duración:</span>
-          <input type="number" id="fade-dur" class="inline-inp" min="0.2" max="3" step="0.1" value="0.8"/>
+          <input type="number" id="fade-dur" class="inline-inp"
+            min="0.2" max="3" step="0.1" value="0.8"/>
           <span style="font-size:.82rem;color:var(--muted)">seg</span>
         </div>
         <div class="toggle-wrap">
-          <span class="opt-label" style="font-size:.82rem;color:var(--muted)">Calidad:</span>
+          <span class="opt-label"
+            style="font-size:.82rem;color:var(--muted)">Calidad:</span>
           <select id="quality" class="inline-inp">
             <option value="23">Alta (CRF 23)</option>
             <option value="18">Máxima (CRF 18)</option>
@@ -318,11 +302,15 @@ Cross-Origin-Embedder-Policy: require-corp</pre>
         <span id="prog-label">Procesando…</span>
         <span id="prog-pct" style="color:var(--accent2);font-weight:700">0%</span>
       </div>
-      <div class="prog-bar-bg"><div class="prog-bar-fill" id="prog-fill" style="width:0%"></div></div>
+      <div class="prog-bar-bg">
+        <div class="prog-bar-fill" id="prog-fill" style="width:0%"></div>
+      </div>
       <div id="proc-log"></div>
     </div>
-    <div id="err-area" class="alert alert-err" style="width:100%;max-width:700px;display:none">
-      <span class="ico">❌</span><div id="err-msg"></div>
+    <div id="err-area" class="alert alert-err"
+      style="width:100%;max-width:700px;display:none">
+      <span class="ico">❌</span>
+      <div id="err-msg" style="white-space:pre-wrap"></div>
     </div>
   </section>
 
@@ -334,8 +322,10 @@ Cross-Origin-Embedder-Policy: require-corp</pre>
       </div>
       <video id="result-video" controls></video>
       <div class="row">
-        <button class="btn-dl" onclick="stitcher.downloadResult()">⬇️ Descargar MP4</button>
-        <button class="btn-ghost" onclick="stitcher.resetResult()">🔄 Nuevo proceso</button>
+        <button class="btn-dl"
+          onclick="stitcher.downloadResult()">⬇️ Descargar MP4</button>
+        <button class="btn-ghost"
+          onclick="stitcher.resetResult()">🔄 Nuevo proceso</button>
       </div>
       <div class="result-meta" id="result-meta"></div>
     </div>
@@ -343,75 +333,75 @@ Cross-Origin-Embedder-Policy: require-corp</pre>
 
 </main>
 
+<!--
+  CLAVE: cargar el UMD de @ffmpeg/ffmpeg como script clásico.
+  Esto expone window.FFmpegWASM = { FFmpeg }
+  SIN workers ESM cross-origin — funciona con COOP/COEP.
+-->
+<script src="/node_modules/@ffmpeg/ffmpeg/dist/umd/ffmpeg.js"></script>
+
 <script>
 'use strict';
 
-/* ══════════════════════════════════════════════════════════════
-   CONFIGURACIÓN
-   @ffmpeg/ffmpeg 0.12.x — ESM sin ?bundle
-   CDN: unpkg (sirve CORS correcto para ESM)
-══════════════════════════════════════════════════════════════ */
-const CFG = {
-  MAX_CLIPS : 5,
-  MAX_MB    : 500,
-  // ✅ FIX #2: Sin ?bundle — rutas relativas de Workers deben preservarse
-  FFMPEG_ESM   : 'https://unpkg.com/@ffmpeg/ffmpeg@0.12.10/dist/esm/index.js',
-  UTIL_ESM     : 'https://unpkg.com/@ffmpeg/util@0.12.1/dist/esm/index.js',
-  CORE_ST      : 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd/ffmpeg-core.js',
-  CORE_MT      : 'https://unpkg.com/@ffmpeg/core-mt@0.12.6/dist/umd/ffmpeg-core.js',
-  CORE_MT_WASM : 'https://unpkg.com/@ffmpeg/core-mt@0.12.6/dist/umd/ffmpeg-core.wasm',
-  CORE_MT_WORK : 'https://unpkg.com/@ffmpeg/core-mt@0.12.6/dist/umd/ffmpeg-core.worker.js',
+/* ── Helpers ──────────────────────────────────────────────── */
+const _el = id => document.getElementById(id);
+const _fmtTime = s =>
+  (!isFinite(s)||s<0) ? '0:00'
+  : `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;
+
+/* ── Rutas locales del core ───────────────────────────────── */
+const CORE = {
+  ST    : '/node_modules/@ffmpeg/core/dist/umd/ffmpeg-core.js',
+  STwasm: '/node_modules/@ffmpeg/core/dist/umd/ffmpeg-core.wasm',
+  MT    : '/node_modules/@ffmpeg/core-mt/dist/umd/ffmpeg-core.js',
+  MTwasm: '/node_modules/@ffmpeg/core-mt/dist/umd/ffmpeg-core.wasm',
+  MTwork: '/node_modules/@ffmpeg/core-mt/dist/umd/ffmpeg-core.worker.js',
 };
 
-/* ══════════════════════════════════════════════════════════════
-   DIAGNÓSTICO PREVIO
-══════════════════════════════════════════════════════════════ */
+/* ── Preflight ────────────────────────────────────────────── */
 function runPreflight() {
-  const origin  = location.origin;
-  const isNull  = origin === 'null' || location.protocol === 'file:';
+  const isNull  = location.protocol==='file:'||location.origin==='null';
   const hasSAB  = typeof SharedArrayBuffer !== 'undefined';
   const hasWASM = typeof WebAssembly !== 'undefined';
 
-  _el('pf-origin-val').textContent = isNull ? 'null (file://)' : origin;
-  _el('pf-origin-val').style.color = isNull ? 'var(--err)' : 'var(--ok)';
+  _el('pf-origin-val').textContent  = isNull ? 'null (file://)' : location.origin;
+  _el('pf-origin-val').style.color  = isNull ? 'var(--err)' : 'var(--ok)';
   _el('pf-origin-note').textContent = isNull ? '⛔ Requiere servidor HTTP' : '✅ Origen válido';
 
-  _el('pf-sab-val').textContent = hasSAB ? 'Disponible ✅' : 'No disponible ⚠️';
-  _el('pf-sab-val').style.color = hasSAB ? 'var(--ok)' : 'var(--warn)';
-  _el('pf-sab-note').textContent = hasSAB ? 'Multi-hilo activo' : 'Single-thread — funcional pero lento';
+  _el('pf-sab-val').textContent  = hasSAB ? 'Disponible ✅' : 'No disponible ⚠️';
+  _el('pf-sab-val').style.color  = hasSAB ? 'var(--ok)' : 'var(--warn)';
+  _el('pf-sab-note').textContent = hasSAB ? 'COOP/COEP activos' : 'Single-thread';
 
   const ram = navigator.deviceMemory;
   _el('pf-ram').textContent = ram ? `~${ram} GB` : 'No detectable';
-  _el('pf-ram').style.color = (!ram || ram >= 4) ? 'var(--ok)' : 'var(--warn)';
+  _el('pf-ram').style.color = (!ram||ram>=4) ? 'var(--ok)' : 'var(--warn)';
 
-  _el('pf-wasm').textContent = hasWASM ? 'Soportado ✅' : '⛔ No soportado';
-  _el('pf-wasm').style.color = hasWASM ? 'var(--ok)' : 'var(--err)';
-  _el('pf-wasm-note').textContent = hasWASM ? 'Chrome/Edge/Firefox/Safari' : 'Actualiza tu navegador';
+  _el('pf-wasm').textContent      = hasWASM ? 'Soportado ✅' : '⛔ No soportado';
+  _el('pf-wasm').style.color      = hasWASM ? 'var(--ok)' : 'var(--err)';
+  _el('pf-wasm-note').textContent = hasWASM ? 'OK' : 'Actualiza tu navegador';
 
   const badge = _el('mt-badge');
   if (isNull) {
-    badge.textContent = '⛔ Servidor requerido';
-    badge.className = 'badge badge-err';
-    _el('null-origin-warning').style.display = 'flex';
+    badge.textContent='⛔ file://'; badge.className='badge badge-err';
+    _el('null-origin-warning').style.display='flex';
   } else if (hasSAB) {
-    badge.textContent = '⚡ Multi-hilo activo';
-    badge.className = 'badge badge-ok';
+    badge.textContent='⚡ Multi-hilo'; badge.className='badge badge-ok';
   } else {
-    badge.textContent = '🐢 Single-thread';
-    badge.className = 'badge badge-warn';
-    _el('no-sab-warning').style.display = 'flex';
+    badge.textContent='🐢 Single-thread'; badge.className='badge badge-warn';
+    _el('no-sab-warning').style.display='flex';
   }
-
-  return { isNull, hasSAB, hasWASM };
+  return {isNull,hasSAB,hasWASM};
 }
 
-/* ══════════════════════════════════════════════════════════════
+/* ════════════════════════════════════════════════════════════
    CLASE PRINCIPAL
-══════════════════════════════════════════════════════════════ */
+   Usa window.FFmpegWASM.FFmpeg (UMD) — API 0.12.x
+   ff.load({ coreURL, wasmURL })
+   ff.writeFile() / ff.exec() / ff.readFile() / ff.deleteFile()
+════════════════════════════════════════════════════════════ */
 class VideoStitcher {
   constructor() {
-    this.ffmpeg      = null;
-    this.fetchFile   = null;   // ✅ Importaremos @ffmpeg/util
+    this.ff          = null;
     this.ffmpegReady = false;
     this.useMT       = false;
     this.clips       = [];
@@ -419,646 +409,559 @@ class VideoStitcher {
     this.processing  = false;
     this.resultBlob  = null;
     this.resultUrl   = null;
-    this._ffmpegLoadStarted = false;  // ✅ FIX #1: guard contra doble carga
+    this._started    = false;
     this._env        = runPreflight();
   }
 
-  /* ── CARGA DE FFMPEG ──────────────────────────────────────── */
+  /* ── LOG ────────────────────────────────────────────────── */
+  _log(msg, type='') {
+    console.log('[VS]', msg);
+    const el = _el('ffmpeg-log');
+    if (!el) return;
+    const d = document.createElement('div');
+    d.style.color = type==='err'?'#f87171':type==='ok'?'#4ade80':'';
+    d.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+    el.appendChild(d); el.scrollTop=el.scrollHeight;
+  }
+
+  _setStatus(type, html) {
+    const ico={ok:'✅',warn:'⚠️',err:'❌',info:'ℹ️'}[type]||'';
+    const el=_el('ffmpeg-status');
+    el.className=`alert alert-${type}`;
+    el.innerHTML=`<span class="ico">${ico}</span>
+      <div style="white-space:pre-wrap">${html}</div>`;
+  }
+
+  /* ── CARGA ──────────────────────────────────────────────── */
   async loadFFmpeg() {
-    // ✅ FIX #1: Evitar doble inicialización
-    if (this._ffmpegLoadStarted) return;
-    this._ffmpegLoadStarted = true;
-
-    const stEl  = _el('ffmpeg-status');
-    const detEl = _el('ffmpeg-detail');
-    const logEl = _el('ffmpeg-log');
-    logEl.classList.add('show');
-
-    const addLog = (msg) => {
-      const l = document.createElement('div');
-      l.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
-      logEl.appendChild(l);
-      logEl.scrollTop = logEl.scrollHeight;
-    };
+    if (this._started) return;
+    this._started = true;
+    _el('ffmpeg-log').classList.add('show');
 
     if (this._env.isNull) {
-      stEl.className = 'alert alert-err';
-      stEl.innerHTML = '<span class="ico">⛔</span><div>No se puede iniciar FFmpeg desde <code>file://</code>. Usa un servidor HTTP local.</div>';
+      this._setStatus('err','⛔ Abre desde http://localhost:8080 (usa node server.js)');
       return;
     }
     if (!this._env.hasWASM) {
-      stEl.className = 'alert alert-err';
-      stEl.innerHTML = '<span class="ico">❌</span><div>Tu navegador no soporta WebAssembly.</div>';
+      this._setStatus('err','❌ WebAssembly no soportado. Usa Chrome/Edge/Firefox.');
       return;
     }
 
-    try {
-      // ✅ FIX #2: Importar sin ?bundle desde unpkg
-      addLog('📦 Importando @ffmpeg/ffmpeg…');
-      detEl.textContent = 'Descargando módulo ESM…';
+    // Verificar que el UMD cargó
+    if (typeof window.FFmpegWASM === 'undefined') {
+      this._setStatus('err',
+        '❌ ffmpeg.js UMD no cargó.\n\n'+
+        'Verifica que existe:\n'+
+        'node_modules/@ffmpeg/ffmpeg/dist/umd/ffmpeg.js\n\n'+
+        'Ejecuta: npm install @ffmpeg/ffmpeg@0.12.10'
+      );
+      return;
+    }
 
-      let FFmpegModule, UtilModule;
+    const { FFmpeg } = window.FFmpegWASM;
+    if (!FFmpeg) {
+      this._setStatus('err','❌ FFmpeg no encontrado en window.FFmpegWASM');
+      return;
+    }
+
+    this._log('✅ UMD cargado. Iniciando core WASM…');
+
+    // ── Intentar multi-hilo ──────────────────────────────────
+    if (this._env.hasSAB) {
       try {
-        [FFmpegModule, UtilModule] = await Promise.all([
-          import(CFG.FFMPEG_ESM),
-          import(CFG.UTIL_ESM),
+        this._log('⚡ Intentando multi-hilo…');
+        _el('ffmpeg-detail').textContent = 'Cargando core-mt…';
+
+        const ff = this._makeFF(FFmpeg);
+
+        // toBlobURL convierte rutas locales a blob:// para que
+        // FFmpeg las pueda usar internamente
+        const { toBlobURL } = await import(
+          '/node_modules/@ffmpeg/util/dist/esm/index.js'
+        );
+
+        const [coreURL,wasmURL,workerURL] = await Promise.all([
+          toBlobURL(CORE.MT,    'text/javascript'),
+          toBlobURL(CORE.MTwasm,'application/wasm'),
+          toBlobURL(CORE.MTwork,'text/javascript'),
         ]);
+
+        await ff.load({ coreURL, wasmURL, workerURL });
+        this.ff    = ff;
+        this.useMT = true;
+        this._log('✅ Multi-hilo OK','ok');
+        this._onReady();
+        return;
       } catch(e) {
-        // Fallback: esm.sh sin ?bundle
-        addLog(`⚠️ unpkg falló: ${e.message} — intentando esm.sh…`);
-        [FFmpegModule, UtilModule] = await Promise.all([
-          import('https://esm.sh/@ffmpeg/ffmpeg@0.12.10'),
-          import('https://esm.sh/@ffmpeg/util@0.12.1'),
-        ]);
+        this._log(`⚠️ Multi-hilo falló: ${e.message}`);
       }
+    }
 
-      const { FFmpeg } = FFmpegModule;
-      if (!FFmpeg) throw new Error('El módulo no exporta la clase FFmpeg.');
+    // ── Single-thread ────────────────────────────────────────
+    try {
+      this._log('🔄 Cargando single-thread…');
+      _el('ffmpeg-detail').textContent = 'Cargando core-st…';
 
-      // ✅ Guardar fetchFile para escribir archivos correctamente
-      this.fetchFile = UtilModule.fetchFile;
+      const ff = this._makeFF(FFmpeg);
 
-      this.ffmpeg = new FFmpeg();
+      const { toBlobURL } = await import(
+        '/node_modules/@ffmpeg/util/dist/esm/index.js'
+      );
 
-      // ✅ FIX #3: exec() retorna undefined en 0.12.x — no comparar ret !== 0 aquí
-      // El error se detecta via catch del propio exec()
+      const [coreURL, wasmURL] = await Promise.all([
+        toBlobURL(CORE.ST,    'text/javascript'),
+        toBlobURL(CORE.STwasm,'application/wasm'),
+      ]);
 
-      this.ffmpeg.on('progress', ({ progress }) => {
-        const p = Math.max(0, Math.min(1, progress || 0));
-        this._setProgress(0.2 + p * 0.75, `Codificando: ${Math.round(p * 100)}%`);
-      });
+      await ff.load({ coreURL, wasmURL });
+      this.ff    = ff;
+      this.useMT = false;
+      this._log('✅ Single-thread OK','ok');
+      this._onReady();
 
-      this.ffmpeg.on('log', ({ type, message }) => {
-        addLog(`[ffmpeg/${type}] ${message}`);
-      });
-
-      addLog('🧠 Cargando núcleo WASM…');
-      detEl.textContent = 'Descargando ffmpeg-core.wasm…';
-
-      this.useMT = this._env.hasSAB;
-      let loaded = false;
-
-      if (this.useMT) {
-        try {
-          addLog('⚡ Intentando multi-hilo (core-mt)…');
-          await this.ffmpeg.load({
-            coreURL   : CFG.CORE_MT,
-            wasmURL   : CFG.CORE_MT_WASM,
-            workerURL : CFG.CORE_MT_WORK,
-          });
-          loaded = true;
-          addLog('✅ Multi-hilo cargado.');
-        } catch(e) {
-          addLog(`⚠️ Multi-hilo falló: ${e.message}`);
-          this.useMT = false;
-        }
-      }
-
-      if (!loaded) {
-        addLog('🔄 Cargando single-thread (core)…');
-        await this.ffmpeg.load({ coreURL: CFG.CORE_ST });
-        addLog('✅ Single-thread cargado.');
-      }
-
-      this.ffmpegReady = true;
-      stEl.className = 'alert alert-ok';
-      stEl.innerHTML = `<span class="ico">✅</span><div>
-        <strong>FFmpeg listo</strong> — 
-        Modo: ${this.useMT ? '⚡ Multi-hilo' : '🐢 Single-thread'}.
-        Puedes añadir clips.
-      </div>`;
-
-    } catch(err) {
-      console.error('FFmpeg load error:', err);
-      stEl.className = 'alert alert-err';
-      stEl.innerHTML = `<span class="ico">❌</span><div>
-        <strong>Error al cargar FFmpeg:</strong> ${err.message}<br>
-        <small>Prueba: 1) Recarga la página · 2) Usa Chrome/Edge · 3) Desactiva bloqueadores · 4) Modo incógnito</small>
-      </div>`;
+    } catch(e) {
+      this._log(`❌ ${e.message}`,'err');
+      this._setStatus('err',
+        `❌ Error cargando FFmpeg:\n${e.message}\n\n`+
+        `Verifica:\n`+
+        `• node server.js está corriendo\n`+
+        `• Los archivos en node_modules/ existen\n`+
+        `• Usa Chrome o Edge`
+      );
     }
   }
 
-  /* ── GESTIÓN DE ARCHIVOS ──────────────────────────────────── */
-  async addFiles(fileList) {
-    const files = Array.from(fileList).filter(f =>
-      f.type.startsWith('video/') || /\.(mp4|mov|webm|avi|mkv)$/i.test(f.name)
+  _makeFF(FFmpeg) {
+    const ff = new FFmpeg();
+    ff.on('log', ({type,message}) => {
+      const el=_el('ffmpeg-log'); if(!el)return;
+      const d=document.createElement('div');
+      d.style.color=(type==='fferr'||type==='error')?'#f87171':'';
+      d.style.opacity='.7';
+      d.textContent=`[${type}] ${message}`;
+      el.appendChild(d); el.scrollTop=el.scrollHeight;
+    });
+    ff.on('progress',({progress})=>{
+      const p=Math.max(0,Math.min(1,isFinite(progress)?progress:0));
+      this._setProgress(0.2+p*0.75,`Codificando: ${Math.round(p*100)}%`);
+    });
+    return ff;
+  }
+
+  _onReady() {
+    this.ffmpegReady = true;
+    _el('mt-badge').textContent = this.useMT ? '⚡ Multi-hilo' : '🐢 Single-thread';
+    _el('mt-badge').className   = this.useMT ? 'badge badge-ok' : 'badge badge-warn';
+    this._setStatus('ok',
+      `✅ FFmpeg listo — ${this.useMT?'⚡ Multi-hilo':'🐢 Single-thread'}. `+
+      `Arrastra tus videos.`
     );
-    if (!files.length) { this._dzAlert('No se detectaron archivos de video válidos.'); return; }
+  }
 
-    if (this.clips.length + files.length > CFG.MAX_CLIPS) {
-      this._dzAlert(`Máximo ${CFG.MAX_CLIPS} clips. Tienes ${this.clips.length}, intentas añadir ${files.length}.`);
-      return;
-    }
-
-    const currentMB = this.clips.reduce((s,c) => s + c.file.size, 0) / 1024 / 1024;
-    const addMB     = files.reduce((s,f) => s + f.size, 0) / 1024 / 1024;
-    if (currentMB + addMB > CFG.MAX_MB) {
-      this._dzAlert(`Tamaño total (${(currentMB+addMB).toFixed(0)} MB) supera ${CFG.MAX_MB} MB.`);
-      return;
-    }
-
-    _el('dz-alert').style.display = 'none';
-    for (const file of files) {
-      try {
-        const clip = await this._analyzeFile(file);
-        this.clips.push(clip);
-      } catch(e) {
-        this._dzAlert(`Error analizando "${file.name}": ${e.message}`);
-      }
+  /* ── ARCHIVOS ───────────────────────────────────────────── */
+  async addFiles(fileList) {
+    const files = Array.from(fileList).filter(f=>
+      f.type.startsWith('video/')||/\.(mp4|mov|webm|avi|mkv)$/i.test(f.name));
+    if (!files.length) return this._dzAlert('No se detectaron videos válidos.');
+    if (this.clips.length+files.length>5)
+      return this._dzAlert('Máximo 5 clips.');
+    const usedMB=this.clips.reduce((s,c)=>s+c.file.size,0)/1024/1024;
+    const addMB=files.reduce((s,f)=>s+f.size,0)/1024/1024;
+    if (usedMB+addMB>500) return this._dzAlert('Tamaño total supera 500 MB.');
+    _el('dz-alert').style.display='none';
+    for (const f of files) {
+      try { this.clips.push(await this._analyzeFile(f)); }
+      catch(e) { this._dzAlert(`"${f.name}": ${e.message}`); }
     }
     this._renderAll();
   }
 
-  async _analyzeFile(file) {
-    return new Promise((resolve, reject) => {
-      const url = URL.createObjectURL(file);
-      const vid = document.createElement('video');
-      vid.preload = 'metadata';
-      vid.muted   = true;
-      vid.crossOrigin = 'anonymous';
-
-      // ✅ FIX #9: Timeout limpio con revoke correcto
-      const t = setTimeout(() => {
-        vid.onloadedmetadata = null;
-        vid.onerror = null;
-        // No revocamos url aquí — la necesitamos para el thumb
-        resolve({
-          file, name: file.name, duration: 60,
-          startT: 0, endT: 60, hasAudio: true, objUrl: url
-        });
-      }, 8000);
-
-      vid.onloadedmetadata = () => {
-        clearTimeout(t);
-        const dur = isFinite(vid.duration) && vid.duration > 0 ? vid.duration : 60;
-
-        // ✅ FIX #10: Detección de audio correcta — WebAudio API sobre blob
-        // audioTracks no funciona en Chrome; usamos MediaSource o asumimos true
-        // La forma más confiable: intentar decodificar un fragmento pequeño
-        this._detectAudio(file).then(hasAudio => {
-          resolve({
-            file, name: file.name,
-            duration : parseFloat(dur.toFixed(3)),
-            startT   : 0,
-            endT     : parseFloat(dur.toFixed(3)),
-            hasAudio,
-            objUrl   : url
-          });
-        }).catch(() => {
-          // Si falla la detección, asumir audio presente (FFmpeg lo manejará)
-          resolve({
-            file, name: file.name,
-            duration : parseFloat(dur.toFixed(3)),
-            startT   : 0,
-            endT     : parseFloat(dur.toFixed(3)),
-            hasAudio : true,
-            objUrl   : url
-          });
-        });
-      };
-
-      vid.onerror = () => {
-        clearTimeout(t);
-        URL.revokeObjectURL(url);
-        reject(new Error('No se pudo leer el archivo de video'));
-      };
-      vid.src = url;
+  _analyzeFile(file) {
+    return new Promise((res,rej)=>{
+      const url=URL.createObjectURL(file);
+      const vid=document.createElement('video');
+      vid.preload='metadata'; vid.muted=true;
+      const done=dur=>res({
+        file,name:file.name,
+        duration:parseFloat((isFinite(dur)&&dur>0?dur:60).toFixed(3)),
+        startT:0,
+        endT:parseFloat((isFinite(dur)&&dur>0?dur:60).toFixed(3)),
+        objUrl:url,
+      });
+      const t=setTimeout(()=>{vid.onloadedmetadata=vid.onerror=null;done(60);},8000);
+      vid.onloadedmetadata=()=>{clearTimeout(t);done(vid.duration);};
+      vid.onerror=()=>{clearTimeout(t);URL.revokeObjectURL(url);
+        rej(new Error('No se pudo leer el archivo'));};
+      vid.src=url;
     });
   }
 
-  // ✅ FIX #10: Detección de audio real con WebAudio API
-  async _detectAudio(file) {
-    try {
-      // Leer solo los primeros 512 KB para no bloquear
-      const slice = file.slice(0, 512 * 1024);
-      const buf   = await slice.arrayBuffer();
-      const ctx   = new (window.AudioContext || window.webkitAudioContext)();
-      return new Promise((resolve) => {
-        ctx.decodeAudioData(
-          buf,
-          (decoded) => {
-            ctx.close();
-            // Si decodificó correctamente, hay audio
-            // Verificar que no sea silencio total
-            const data = decoded.getChannelData(0);
-            const hasSignal = data.some(s => Math.abs(s) > 0.0001);
-            resolve(hasSignal);
-          },
-          () => {
-            ctx.close();
-            // decodeAudioData falló = no hay stream de audio decodificable
-            // Para MP4 con AAC esto puede dar false negative,
-            // así que asumimos true (FFmpeg lo verificará)
-            resolve(true);
-          }
-        );
-      });
-    } catch {
-      return true; // Asumir audio en caso de error
-    }
-  }
-
-  /* ── RENDER ───────────────────────────────────────────────── */
+  /* ── RENDER ─────────────────────────────────────────────── */
   _renderAll() {
     this._renderClips();
-    const has = this.clips.length > 0;
-    _el('clips-wrap').style.display   = has ? 'block' : 'none';
-    _el('options-wrap').style.display = has ? 'block' : 'none';
-    _el('process-wrap').style.display = has ? 'flex'  : 'none';
+    const has=this.clips.length>0;
+    _el('clips-wrap').style.display  =has?'block':'none';
+    _el('options-wrap').style.display=has?'block':'none';
+    _el('process-wrap').style.display=has?'flex':'none';
   }
 
   _renderClips() {
-    const list = _el('clips-list');
-    list.innerHTML = '';
-    this.clips.forEach((c,i) => list.appendChild(this._buildCard(c,i)));
-    _el('clips-count').textContent = `(${this.clips.length}/${CFG.MAX_CLIPS})`;
+    const list=_el('clips-list'); list.innerHTML='';
+    this.clips.forEach((c,i)=>list.appendChild(this._buildCard(c,i)));
+    _el('clips-count').textContent=`(${this.clips.length}/5)`;
     this._updateTotalDur();
   }
 
-  _buildCard(clip, idx) {
-    const dur     = clip.duration;
-    const fillPct = dur > 0 ? ((clip.endT - clip.startT) / dur * 100).toFixed(1) : 100;
-    const leftPct = dur > 0 ? (clip.startT / dur * 100).toFixed(1) : 0;
-
-    const el = document.createElement('div');
-    el.className  = 'clip-card';
-    el.draggable  = true;
-    el.dataset.idx = idx;
-
-    el.innerHTML = `
+  _buildCard(clip,idx) {
+    const dur=clip.duration;
+    const fill=dur>0?((clip.endT-clip.startT)/dur*100).toFixed(1):100;
+    const left=dur>0?(clip.startT/dur*100).toFixed(1):0;
+    const el=document.createElement('div');
+    el.className='clip-card'; el.draggable=true; el.dataset.idx=idx;
+    el.innerHTML=`
       <div class="cc-inner">
-        <div class="cc-handle" title="Arrastrar para reordenar">⠿</div>
+        <div class="cc-handle" title="Arrastrar">⠿</div>
         <div class="cc-thumb">
           <video src="${clip.objUrl}" muted preload="metadata"></video>
           <span class="dur-badge">${_fmtTime(dur)}</span>
         </div>
         <div class="cc-body">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:8px">
+          <div style="display:flex;justify-content:space-between;
+            align-items:flex-start;gap:8px;margin-bottom:8px">
             <div class="cc-name" title="${clip.name}">${clip.name}</div>
-            <button class="btn-rm" onclick="stitcher.removeClip(${idx})">✕ Quitar</button>
+            <button class="btn-rm"
+              onclick="stitcher.removeClip(${idx})">✕ Quitar</button>
           </div>
           <div class="cc-controls">
-            <label class="time-lbl">
-              ▶ Inicio
-              <input class="time-inp" id="s-${idx}" type="number"
-                min="0" max="${dur.toFixed(3)}" step="0.1" value="${clip.startT.toFixed(2)}"
+            <label class="time-lbl">▶ Inicio
+              <input class="time-inp" type="number"
+                min="0" max="${dur.toFixed(3)}" step="0.1"
+                value="${clip.startT.toFixed(2)}"
                 onchange="stitcher.updateTrim(${idx},'s',this)">
             </label>
-            <label class="time-lbl">
-              ⏹ Fin
-              <input class="time-inp" id="e-${idx}" type="number"
-                min="0" max="${dur.toFixed(3)}" step="0.1" value="${clip.endT.toFixed(2)}"
+            <label class="time-lbl">⏹ Fin
+              <input class="time-inp" type="number"
+                min="0" max="${dur.toFixed(3)}" step="0.1"
+                value="${clip.endT.toFixed(2)}"
                 onchange="stitcher.updateTrim(${idx},'e',this)">
             </label>
-            <span class="cc-tag tag-trim" id="ttag-${idx}">
-              ✂️ ${Math.max(0,clip.endT-clip.startT).toFixed(2)}s
-            </span>
-            <span class="cc-tag ${clip.hasAudio?'tag-audio':'tag-noaudio'}">
-              ${clip.hasAudio ? '🔊 Audio' : '🔇 Sin audio'}
+            <span class="cc-tag" id="ttag-${idx}">
+              ✂️ ${(clip.endT-clip.startT).toFixed(2)}s
             </span>
           </div>
           <div class="cc-trimbar">
             <div class="cc-trimbar-fill" id="tb-${idx}"
-                 style="left:${leftPct}%;width:${fillPct}%"></div>
+              style="left:${left}%;width:${fill}%"></div>
           </div>
         </div>
       </div>`;
-
-    // Drag & Drop
-    el.addEventListener('dragstart', e => {
-      this.dragSrcIdx = idx;
-      setTimeout(() => el.classList.add('dragging'), 0);
-      e.dataTransfer.effectAllowed = 'move';
+    el.addEventListener('dragstart',e=>{
+      this.dragSrcIdx=idx;
+      setTimeout(()=>el.classList.add('dragging'),0);
+      e.dataTransfer.effectAllowed='move';
     });
-    el.addEventListener('dragend', () => {
+    el.addEventListener('dragend',()=>{
       el.classList.remove('dragging');
-      document.querySelectorAll('.clip-card').forEach(c => c.classList.remove('drop-target'));
+      document.querySelectorAll('.clip-card')
+        .forEach(c=>c.classList.remove('drop-target'));
     });
-    el.addEventListener('dragover',  e => { e.preventDefault(); el.classList.add('drop-target'); });
-    el.addEventListener('dragleave', () => el.classList.remove('drop-target'));
-    el.addEventListener('drop', e => {
-      e.preventDefault();
-      el.classList.remove('drop-target');
-      if (this.dragSrcIdx !== null && this.dragSrcIdx !== idx) {
-        const [item] = this.clips.splice(this.dragSrcIdx, 1);
-        this.clips.splice(idx, 0, item);
+    el.addEventListener('dragover',e=>{e.preventDefault();el.classList.add('drop-target');});
+    el.addEventListener('dragleave',()=>el.classList.remove('drop-target'));
+    el.addEventListener('drop',e=>{
+      e.preventDefault(); el.classList.remove('drop-target');
+      if(this.dragSrcIdx!==null&&this.dragSrcIdx!==idx){
+        const[item]=this.clips.splice(this.dragSrcIdx,1);
+        this.clips.splice(idx,0,item);
         this._renderClips();
       }
-      this.dragSrcIdx = null;
+      this.dragSrcIdx=null;
     });
-
     return el;
   }
 
-  updateTrim(idx, field, inp) {
-    const clip = this.clips[idx];
-    const val  = parseFloat(inp.value);
-    if (isNaN(val)) return;
-
-    if (field === 's') {
-      clip.startT = Math.max(0, Math.min(val, clip.endT - 0.1));
-      inp.value = clip.startT.toFixed(2);
+  updateTrim(idx,field,inp) {
+    const clip=this.clips[idx]; if(!clip)return;
+    const val=parseFloat(inp.value); if(isNaN(val))return;
+    if(field==='s'){
+      clip.startT=Math.max(0,Math.min(val,clip.endT-.1));
+      inp.value=clip.startT.toFixed(2);
     } else {
-      clip.endT = Math.min(clip.duration, Math.max(val, clip.startT + 0.1));
-      inp.value = clip.endT.toFixed(2);
+      clip.endT=Math.min(clip.duration,Math.max(val,clip.startT+.1));
+      inp.value=clip.endT.toFixed(2);
     }
-
-    const tb = _el(`tb-${idx}`);
-    if (tb && clip.duration > 0) {
-      tb.style.left  = `${(clip.startT / clip.duration * 100).toFixed(1)}%`;
-      tb.style.width = `${((clip.endT - clip.startT) / clip.duration * 100).toFixed(1)}%`;
+    const tb=_el(`tb-${idx}`);
+    if(tb&&clip.duration>0){
+      tb.style.left =`${(clip.startT/clip.duration*100).toFixed(1)}%`;
+      tb.style.width=`${((clip.endT-clip.startT)/clip.duration*100).toFixed(1)}%`;
     }
-    const ttag = _el(`ttag-${idx}`);
-    if (ttag) ttag.textContent = `✂️ ${Math.max(0, clip.endT - clip.startT).toFixed(2)}s`;
+    const tt=_el(`ttag-${idx}`);
+    if(tt)tt.textContent=`✂️ ${(clip.endT-clip.startT).toFixed(2)}s`;
     this._updateTotalDur();
   }
 
-  removeClip(idx) {
+  removeClip(idx){
     URL.revokeObjectURL(this.clips[idx].objUrl);
-    this.clips.splice(idx, 1);
+    this.clips.splice(idx,1);
     this._renderAll();
   }
-
-  clearAll() {
-    this.clips.forEach(c => URL.revokeObjectURL(c.objUrl));
-    this.clips = [];
+  clearAll(){
+    this.clips.forEach(c=>URL.revokeObjectURL(c.objUrl));
+    this.clips=[];
     this._renderAll();
     this.resetResult();
   }
-
-  _updateTotalDur() {
-    const t = this.clips.reduce((s,c) => s + Math.max(0, c.endT - c.startT), 0);
-    _el('total-dur').textContent = `${t.toFixed(2)}s`;
+  _updateTotalDur(){
+    _el('total-dur').textContent=
+      `${this.clips.reduce((s,c)=>s+Math.max(0,c.endT-c.startT),0).toFixed(2)}s`;
   }
 
-  /* ══════════════════════════════════════════════════════════
-     CONSTRUCTOR DE COMANDO FFMPEG — TODOS LOS BUGS CORREGIDOS
-  ══════════════════════════════════════════════════════════ */
-  buildFFmpegCommand(clips, useFade, fadeDurSec, crf) {
-    const n  = clips.length;
-    const fd = Math.max(0.1,
-      Math.min(fadeDurSec, Math.min(...clips.map(c => c.endT - c.startT)) * 0.45)
-    );
+  /* ── COMANDO FFMPEG ─────────────────────────────────────── */
+ _buildCmd(clips, useFade, fadeSec, crf) {
+  const n  = clips.length;
+  const fd = useFade && n >= 2
+    ? Math.max(.1, Math.min(fadeSec,
+        Math.min(...clips.map(c => c.endT - c.startT)) * .45))
+    : 0;
 
-    // Nombres de archivo en FS virtual
-    const inputs = clips.map((c, i) => ({ file: c.file, name: `in_${i}.mp4` }));
-    const inArgs = [];
-    inputs.forEach(inp => inArgs.push('-i', inp.name));
+  const files = clips.map((c, i) => ({ file: c.file, name: `in${i}.mp4` }));
 
-    const fp = []; // partes del filter_complex
+  // ── 1 clip: modo COPY si no hay recorte significativo ───────
+  if (n === 1) {
+    const c   = clips[0];
+    const dur = c.duration;
+    const trimmed = c.startT > 0.01 || c.endT < dur - 0.01;
 
-    // ── PASO 1: Recortar (trim + setpts / atrim + asetpts) ────────────────
-    clips.forEach((c, i) => {
-      const ss = c.startT.toFixed(6);
-      const se = c.endT.toFixed(6);
-
-      fp.push(`[${i}:v]trim=start=${ss}:end=${se},setpts=PTS-STARTPTS[tv${i}]`);
-
-      if (c.hasAudio) {
-        fp.push(`[${i}:a]atrim=start=${ss}:end=${se},asetpts=PTS-STARTPTS[ta${i}]`);
-      } else {
-        // ✅ FIX #6: anullsrc debe ser input separado, NO inline en filter_complex
-        // Usamos aevalsrc=0 que SÍ funciona inline como source en filter_complex
-        const dur = (c.endT - c.startT).toFixed(6);
-        fp.push(`aevalsrc=0:c=stereo:r=44100:d=${dur}[ta${i}]`);
-      }
-    });
-
-    let filter, mapArgs;
-
-    // ✅ FIX #5: Un solo clip — mapeo directo, SIN concat=n=1
-    if (n === 1) {
-      filter  = fp.join(';');
-      // Renombrar outputs directamente
-      filter += `;[tv0]null[v_out];[ta0]anull[a_out]`;
-      mapArgs = ['-map', '[v_out]', '-map', '[a_out]'];
-
-    } else if (!useFade) {
-      // ── Concatenación simple ─────────────────────────────────────────────
-      const segs = clips.map((_,i) => `[tv${i}][ta${i}]`).join('');
-      fp.push(`${segs}concat=n=${n}:v=1:a=1[v_out][a_out]`);
-      filter  = fp.join(';');
-      mapArgs = ['-map', '[v_out]', '-map', '[a_out]'];
-
-    } else {
-      // ── Transición xfade + acrossfade ────────────────────────────────────
-      // ✅ FIX #8: acrossfade sin "o=1" — usar o=0 con xfade para sync correcto
-      let curV     = 'tv0';
-      let curA     = 'ta0';
-      let accumDur = clips[0].endT - clips[0].startT;
-
-      for (let i = 1; i < n; i++) {
-        const isLast = i === n - 1;
-        const outV   = isLast ? 'v_out' : `xv${i}`;
-        const outA   = isLast ? 'a_out' : `xa${i}`;
-        const offset = Math.max(0.01, accumDur - fd).toFixed(6);
-
-        fp.push(`[${curV}][tv${i}]xfade=transition=fade:duration=${fd.toFixed(4)}:offset=${offset}[${outV}]`);
-        // ✅ FIX #8: o=0 para sync correcto con xfade
-        fp.push(`[${curA}][ta${i}]acrossfade=d=${fd.toFixed(4)}:o=0[${outA}]`);
-
-        curV = outV;
-        curA = outA;
-        accumDur = accumDur + (clips[i].endT - clips[i].startT) - fd;
-      }
-
-      filter  = fp.join(';');
-      mapArgs = ['-map', '[v_out]', '-map', '[a_out]'];
+    if (!trimmed) {
+      // Sin recorte → copy directo, instantáneo
+      return { args: [
+        '-i', 'in0.mp4',
+        '-c', 'copy',
+        '-movflags', '+faststart',
+        '-y', 'output.mp4'
+      ], files };
     }
-
-    const encArgs = [
-      '-c:v', 'libx264', '-preset', 'fast', '-crf', String(crf),
+    // Con recorte → re-encode solo el segmento
+    return { args: [
+      '-ss', c.startT.toFixed(3),
+      '-to', c.endT.toFixed(3),
+      '-i', 'in0.mp4',
+      '-c:v', 'libx264', '-preset', 'ultrafast', '-crf', String(crf),
       '-pix_fmt', 'yuv420p',
-      '-c:a', 'aac', '-b:a', '192k',
+      '-c:a', 'aac', '-b:a', '128k',
       '-movflags', '+faststart',
-      'output.mp4'
-    ];
-
-    return { args: [...inArgs, '-filter_complex', filter, ...mapArgs, ...encArgs], inputs };
+      '-y', 'output.mp4'
+    ], files };
   }
 
-  /* ── PROCESAMIENTO PRINCIPAL ──────────────────────────────── */
+  // ── N clips SIN fade: concat con copy si es posible ─────────
+  if (!useFade || n < 2) {
+    /*
+     * Protocolo concat de FFmpeg: más rápido que filter_complex
+     * porque puede usar -c copy si los formatos son compatibles.
+     * Primero recortamos cada clip, luego concatenamos.
+     */
+    const inArgs = clips.flatMap((c, i) => [
+      '-ss', c.startT.toFixed(3),
+      '-to', c.endT.toFixed(3),
+      '-i', files[i].name,
+    ]);
+
+    // Concat simple con re-encode mínimo
+    const fp = clips.map((_, i) => `[${i}:v][${i}:a]`).join('');
+    return { args: [
+      ...inArgs,
+      '-filter_complex',
+        `${fp}concat=n=${n}:v=1:a=1[vout][aout]`,
+      '-map', '[vout]', '-map', '[aout]',
+      '-c:v', 'libx264', '-preset', 'ultrafast', '-crf', String(crf),
+      '-pix_fmt', 'yuv420p',
+      '-c:a', 'aac', '-b:a', '128k',
+      '-movflags', '+faststart',
+      '-y', 'output.mp4'
+    ], files };
+  }
+
+  // ── N clips CON fade ─────────────────────────────────────────
+  // Solo aquí necesitamos normalizar resolución
+  const inArgs = clips.flatMap((c, i) => [
+    '-ss', c.startT.toFixed(3),
+    '-to', c.endT.toFixed(3),
+    '-i', files[i].name,
+  ]);
+
+  const fp = [];
+  clips.forEach((_, i) => {
+    // Normalizar solo para fade (necesario que resols coincidan)
+    fp.push(`[${i}:v]scale=1280:720:force_original_aspect_ratio=decrease,`+
+      `pad=1280:720:(ow-iw)/2:(oh-ih)/2,setsar=1[v${i}]`);
+    fp.push(`[${i}:a]aresample=44100,aformat=channel_layouts=stereo[a${i}]`);
+  });
+
+  let curV='v0', curA='a0';
+  let acc = clips[0].endT - clips[0].startT;
+  for (let i = 1; i < n; i++) {
+    const last = i === n-1;
+    const ov   = last ? 'vout' : `xv${i}`;
+    const oa   = last ? 'aout' : `xa${i}`;
+    const off  = Math.max(.01, acc - fd).toFixed(3);
+    fp.push(`[${curV}][v${i}]xfade=transition=fade:`+
+      `duration=${fd.toFixed(3)}:offset=${off}[${ov}]`);
+    fp.push(`[${curA}][a${i}]acrossfade=d=${fd.toFixed(3)}[${oa}]`);
+    curV = ov; curA = oa;
+    acc += (clips[i].endT - clips[i].startT) - fd;
+  }
+
+  return { args: [
+    ...inArgs,
+    '-filter_complex', fp.join(';'),
+    '-map', '[vout]', '-map', '[aout]',
+    '-c:v', 'libx264', '-preset', 'ultrafast', '-crf', String(crf),
+    '-pix_fmt', 'yuv420p',
+    '-c:a', 'aac', '-b:a', '128k',
+    '-movflags', '+faststart',
+    '-y', 'output.mp4'
+  ], files };
+}
+
+  /* ── PROCESAR ───────────────────────────────────────────── */
   async processVideo() {
-    if (!this.ffmpegReady) { this._showErr('FFmpeg aún no está listo.'); return; }
-    if (this.processing)   { return; }
-    if (!this.clips.length){ this._showErr('Añade al menos un clip.'); return; }
+    if(!this.ffmpegReady) return this._showErr('FFmpeg aún no está listo.');
+    if(this.processing)   return;
+    if(!this.clips.length) return this._showErr('Añade al menos un clip.');
 
-    for (const c of this.clips) {
-      if (c.endT - c.startT < 0.1) {
-        this._showErr(`"${c.name}": duración recortada < 0.1s. Ajusta inicio/fin.`);
-        return;
-      }
+    for(const c of this.clips)
+      if(c.endT-c.startT<.1)
+        return this._showErr(`"${c.name}": duración < 0.1s. Ajusta los cortes.`);
+
+    const useFade=_el('use-fade').checked;
+    const fadeDur=parseFloat(_el('fade-dur').value)||.8;
+    const crf=parseInt(_el('quality').value)||23;
+
+    if(useFade&&this.clips.length>=2){
+      const minD=Math.min(...this.clips.map(c=>c.endT-c.startT));
+      if(fadeDur>=minD*.5)
+        return this._showErr(
+          `Fade (${fadeDur}s) demasiado largo.\n`+
+          `Clip más corto: ${minD.toFixed(2)}s → Máx: ${(minD*.45).toFixed(2)}s`
+        );
     }
 
-    const useFade = _el('use-fade').checked;
-    const fadeDur = parseFloat(_el('fade-dur').value) || 0.8;
-    const crf     = parseInt(_el('quality').value) || 23;
-
-    if (useFade && this.clips.length >= 2) {
-      const minDur = Math.min(...this.clips.map(c => c.endT - c.startT));
-      if (fadeDur >= minDur * 0.5) {
-        this._showErr(`Fade (${fadeDur}s) muy largo para el clip más corto (${minDur.toFixed(2)}s). Reduce la duración del fade.`);
-        return;
-      }
-    }
-
-    this.processing = true;
+    this.processing=true;
     this._setProcessingUI(true);
     this._hideErr();
     _el('result-wrap').classList.remove('show');
 
-    const procLog = _el('proc-log');
-    procLog.classList.add('show');
-    procLog.innerHTML = '';
-    const addPLog = msg => {
-      const d = document.createElement('div');
-      d.textContent = `› ${msg}`;
-      procLog.appendChild(d);
-      procLog.scrollTop = procLog.scrollHeight;
+    const pl=_el('proc-log');
+    pl.classList.add('show'); pl.innerHTML='';
+    const P=msg=>{
+      const d=document.createElement('div');
+      d.textContent=`› ${msg}`;
+      pl.appendChild(d); pl.scrollTop=pl.scrollHeight;
     };
 
-    try {
-      const { args, inputs } = this.buildFFmpegCommand(this.clips, useFade, fadeDur, crf);
+    try{
+      const{args,files}=this._buildCmd(this.clips,useFade,fadeDur,crf);
+      P(`Modo: ${this.useMT?'Multi':'Single'}-hilo | Clips: ${this.clips.length} | CRF: ${crf}`);
+      P(`CMD: ffmpeg ${args.join(' ')}`);
 
-      addPLog(`Modo: ${this.useMT ? 'Multi-hilo' : 'Single-thread'}`);
-      addPLog(`Clips: ${this.clips.length} | Fade: ${useFade ? `${fadeDur}s` : 'no'} | CRF: ${crf}`);
-      addPLog(`CMD: ffmpeg ${args.join(' ')}`);
-
-      // Escribir archivos en FS virtual
-      for (let i = 0; i < inputs.length; i++) {
-        const inp = inputs[i];
-        addPLog(`Cargando "${inp.file.name}" (${(inp.file.size/1024/1024).toFixed(1)} MB)…`);
-        this._setProgress(0.02 + i / inputs.length * 0.15, `Cargando clip ${i+1}/${inputs.length}…`);
-
-        // ✅ FIX #7: Usar fetchFile si está disponible, si no, arrayBuffer directo
-        let data;
-        if (this.fetchFile) {
-          data = await this.fetchFile(inp.file);
-        } else {
-          data = new Uint8Array(await inp.file.arrayBuffer());
-        }
-        await this.ffmpeg.writeFile(inp.name, data);
+      for(let i=0;i<files.length;i++){
+        const f=files[i];
+        P(`Cargando "${f.file.name}" (${(f.file.size/1024/1024).toFixed(1)} MB)…`);
+        this._setProgress(.02+(i/files.length)*.15,`Cargando ${i+1}/${files.length}…`);
+        const data=new Uint8Array(await f.file.arrayBuffer());
+        await this.ff.writeFile(f.name,data);
       }
 
-      addPLog('▶ Ejecutando FFmpeg…');
-      this._setProgress(0.18, 'Iniciando codificación…');
+      P('▶ Ejecutando FFmpeg…');
+      this._setProgress(.18,'Codificando…');
+      await this.ff.exec(args);
 
-      // ✅ FIX #3: exec() en 0.12.x no retorna código — detectar error por excepción
-      try {
-        await this.ffmpeg.exec(args);
-      } catch(execErr) {
-        throw new Error(`FFmpeg falló: ${execErr.message}. Revisa el log de FFmpeg arriba.`);
-      }
+      P('📖 Leyendo resultado…');
+      this._setProgress(.96,'Generando MP4…');
 
-      addPLog('Leyendo resultado…');
-      this._setProgress(0.96, 'Generando archivo final…');
+      const out=await this.ff.readFile('output.mp4');
+      if(!out||!out.length)
+        throw new Error('Archivo de salida vacío. Revisa el log de FFmpeg arriba.');
 
-      const outData = await this.ffmpeg.readFile('output.mp4');
-      if (!outData || outData.length === 0) {
-        throw new Error('El archivo de salida está vacío. Posible error en el filtro.');
-      }
+      this.resultBlob=new Blob([out],{type:'video/mp4'});
+      if(this.resultUrl)URL.revokeObjectURL(this.resultUrl);
+      this.resultUrl=URL.createObjectURL(this.resultBlob);
 
-      // ✅ FIX #4: Usar outData directamente (ya es Uint8Array)
-      this.resultBlob = new Blob([outData], { type: 'video/mp4' });
+      files.forEach(f=>{try{this.ff.deleteFile(f.name);}catch{}});
+      try{this.ff.deleteFile('output.mp4');}catch{}
 
-      if (this.resultUrl) URL.revokeObjectURL(this.resultUrl);
-      this.resultUrl = URL.createObjectURL(this.resultBlob);
-
-      // Limpiar FS virtual
-      for (const inp of inputs) { try { await this.ffmpeg.deleteFile(inp.name); } catch{} }
-      try { await this.ffmpeg.deleteFile('output.mp4'); } catch{}
-
-      this._setProgress(1, '¡Completado!');
-      addPLog(`✅ Éxito — ${(this.resultBlob.size/1024/1024).toFixed(2)} MB`);
+      this._setProgress(1,'¡Completado!');
+      P(`✅ ${(this.resultBlob.size/1024/1024).toFixed(2)} MB`);
       this._showResult();
 
-    } catch(err) {
-      console.error('Process error:', err);
-      this._showErr(err.message);
-    } finally {
-      this.processing = false;
+    }catch(e){
+      console.error(e);
+      this._showErr(`${e.message}\n\nRevisa el log de FFmpeg arriba.`);
+    }finally{
+      this.processing=false;
       this._setProcessingUI(false);
     }
   }
 
-  /* ── RESULTADO ────────────────────────────────────────────── */
-  _showResult() {
-    _el('result-video').src = this.resultUrl;
-    _el('result-meta').textContent =
+  /* ── RESULTADO ──────────────────────────────────────────── */
+  _showResult(){
+    _el('result-video').src=this.resultUrl;
+    _el('result-meta').textContent=
       `Tamaño: ${(this.resultBlob.size/1024/1024).toFixed(2)} MB · MP4 H.264/AAC`;
     _el('result-wrap').classList.add('show');
-    _el('result-wrap').scrollIntoView({ behavior:'smooth' });
+    _el('result-wrap').scrollIntoView({behavior:'smooth'});
   }
-
-  downloadResult() {
-    if (!this.resultBlob) return;
-    const a = document.createElement('a');
-    a.href     = this.resultUrl;
-    a.download = `stitched_${Date.now()}.mp4`;
+  downloadResult(){
+    if(!this.resultBlob)return;
+    const a=document.createElement('a');
+    a.href=this.resultUrl;
+    a.download=`stitched_${Date.now()}.mp4`;
     a.click();
   }
-
-  resetResult() {
-    if (this.resultUrl) { URL.revokeObjectURL(this.resultUrl); this.resultUrl = null; }
-    this.resultBlob = null;
+  resetResult(){
+    if(this.resultUrl){URL.revokeObjectURL(this.resultUrl);this.resultUrl=null;}
+    this.resultBlob=null;
     _el('result-wrap').classList.remove('show');
-    _el('result-video').src = '';
+    _el('result-video').src='';
     _el('progress-wrap').classList.remove('show');
     _el('proc-log').classList.remove('show');
-    _el('proc-log').innerHTML = '';
+    _el('proc-log').innerHTML='';
     this._setProgress(0,'');
   }
 
-  /* ── UI HELPERS ───────────────────────────────────────────── */
-  _setProcessingUI(active) {
-    const btn = _el('proc-btn');
-    btn.disabled = active;
-    _el('proc-icon').innerHTML = active ? '<div class="spinner"></div>' : '🚀';
-    _el('proc-txt').textContent = active ? 'Procesando…' : 'Procesar y Unir Videos';
-    if (active) _el('progress-wrap').classList.add('show');
+  /* ── UI ─────────────────────────────────────────────────── */
+  _setProcessingUI(on){
+    _el('proc-btn').disabled=on;
+    _el('proc-icon').innerHTML=on?'<div class="spinner"></div>':'🚀';
+    _el('proc-txt').textContent=on?'Procesando…':'Procesar y Unir Videos';
+    if(on)_el('progress-wrap').classList.add('show');
   }
-
-  _setProgress(ratio, label) {
-    const pct = Math.round(Math.max(0, Math.min(1, ratio)) * 100);
-    _el('prog-fill').style.width = `${pct}%`;
-    _el('prog-pct').textContent  = `${pct}%`;
-    if (label) _el('prog-label').textContent = label;
+  _setProgress(r,lbl){
+    const p=Math.round(Math.max(0,Math.min(1,r))*100);
+    _el('prog-fill').style.width=`${p}%`;
+    _el('prog-pct').textContent=`${p}%`;
+    if(lbl)_el('prog-label').textContent=lbl;
   }
-
-  _showErr(msg) {
-    _el('err-msg').textContent = msg;
-    _el('err-area').style.display = 'flex';
-    _el('err-area').scrollIntoView({ behavior:'smooth' });
+  _showErr(msg){
+    _el('err-msg').textContent=msg;
+    _el('err-area').style.display='flex';
+    _el('err-area').scrollIntoView({behavior:'smooth'});
   }
-  _hideErr() { _el('err-area').style.display = 'none'; }
-  _dzAlert(msg) {
-    _el('dz-alert-msg').textContent = msg;
-    _el('dz-alert').style.display = 'flex';
+  _hideErr(){_el('err-area').style.display='none';}
+  _dzAlert(msg){
+    _el('dz-alert-msg').textContent=msg;
+    _el('dz-alert').style.display='flex';
   }
 }
 
-/* ══════════════════════════════════════════════════════════════
-   HELPERS GLOBALES
-══════════════════════════════════════════════════════════════ */
-function _el(id)    { return document.getElementById(id); }
-function _fmtTime(s){ 
-  if (!isFinite(s)||s<0) return '0:00';
-  return `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;
-}
-function dzOver(e)  { e.preventDefault(); _el('dropzone').classList.add('over'); }
-function dzLeave()  { _el('dropzone').classList.remove('over'); }
-function dzDrop(e)  { e.preventDefault(); _el('dropzone').classList.remove('over'); stitcher.addFiles(e.dataTransfer.files); }
-function toggleFadeOpts() {
-  _el('fade-opts').style.display = _el('use-fade').checked ? 'flex' : 'none';
-}
+/* ── Globales ───────────────────────────────────────────── */
+function dzOver(e){e.preventDefault();_el('dropzone').classList.add('over');}
+function dzLeave(){_el('dropzone').classList.remove('over');}
+function dzDrop(e){e.preventDefault();_el('dropzone').classList.remove('over');stitcher.addFiles(e.dataTransfer.files);}
+function toggleFadeOpts(){_el('fade-opts').style.display=_el('use-fade').checked?'flex':'none';}
 
-/* ══════════════════════════════════════════════════════════════
-   INICIALIZACIÓN
-   ✅ FIX #1: Una sola llamada, protegida por guard interno
-══════════════════════════════════════════════════════════════ */
-const stitcher = new VideoStitcher();
-// Un solo punto de entrada — el guard interno previene doble carga
-window.addEventListener('DOMContentLoaded', () => stitcher.loadFFmpeg(), { once: true });
+const stitcher=new VideoStitcher();
+window.addEventListener('DOMContentLoaded',()=>stitcher.loadFFmpeg(),{once:true});
 </script>
 </body>
 </html>
