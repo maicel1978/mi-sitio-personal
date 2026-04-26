@@ -1,0 +1,1867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Instant News Broadcaster</title>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Oswald:wght@400;500;600;700&display=swap');
+
+  :root {
+    --deep-blue: #0a1628;
+    --navy: #0d2148;
+    --accent-blue: #1a4fd6;
+    --breaking-red: #e01c24;
+    --dark-red: #b01218;
+    --gold: #f5a623;
+    --white: #ffffff;
+    --gray-100: #f0f4ff;
+    --gray-200: #d0d9f0;
+    --gray-500: #6b7db3;
+    --surface: #0f1e3d;
+    --surface-2: #152545;
+    --border: #1e3460;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--deep-blue);
+    color: var(--white);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Scrollbar ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--surface); }
+  ::-webkit-scrollbar-thumb { background: var(--accent-blue); border-radius: 3px; }
+
+  /* ── Header ── */
+  .app-header {
+    background: linear-gradient(135deg, #080f1e 0%, #0d1e3d 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky; top: 0; z-index: 100;
+    backdrop-filter: blur(12px);
+  }
+
+  .logo-area {
+    display: flex; align-items: center; gap: 12px;
+  }
+
+  .logo-icon {
+    width: 38px; height: 38px;
+    background: var(--breaking-red);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    box-shadow: 0 0 16px rgba(224,28,36,0.4);
+  }
+
+  .logo-text {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.3rem; font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--white);
+  }
+
+  .logo-text span { color: var(--breaking-red); }
+
+  .status-badge {
+    display: flex; align-items: center; gap: 6px;
+    background: rgba(26,79,214,0.15);
+    border: 1px solid rgba(26,79,214,0.3);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 0.75rem; font-weight: 500;
+    color: var(--gray-200);
+  }
+
+  .status-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #2ecc71;
+    animation: pulse-green 2s infinite;
+  }
+
+  @keyframes pulse-green {
+    0%,100% { box-shadow: 0 0 0 0 rgba(46,204,113,0.5); }
+    50% { box-shadow: 0 0 0 5px rgba(46,204,113,0); }
+  }
+
+  /* ── Main Layout ── */
+  .main-layout {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 0;
+    min-height: calc(100vh - 64px);
+  }
+
+  /* ── Sidebar ── */
+  .sidebar {
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    padding: 1.5rem;
+    overflow-y: auto;
+    display: flex; flex-direction: column; gap: 1.25rem;
+  }
+
+  .section-title {
+    font-size: 0.65rem; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--gray-500);
+    margin-bottom: 0.75rem;
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1; height: 1px;
+    background: var(--border);
+  }
+
+  .card {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+  }
+
+  /* ── Form Elements ── */
+  label {
+    display: block;
+    font-size: 0.75rem; font-weight: 600;
+    color: var(--gray-200);
+    margin-bottom: 6px;
+    letter-spacing: 0.03em;
+  }
+
+  .input-field {
+    width: 100%;
+    background: rgba(10,22,40,0.8);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: var(--white);
+    font-size: 0.875rem;
+    font-family: 'Inter', sans-serif;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+  }
+
+  .input-field:focus {
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 3px rgba(26,79,214,0.15);
+  }
+
+  .input-field::placeholder { color: var(--gray-500); }
+
+  textarea.input-field { resize: none; line-height: 1.5; }
+
+  select.input-field {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b7db3' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    padding-right: 36px;
+  }
+
+  /* ── Color Pickers ── */
+  .color-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  }
+
+  .color-field {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(10,22,40,0.8);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 10px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+
+  .color-field:hover { border-color: var(--accent-blue); }
+
+  .color-field input[type="color"] {
+    width: 24px; height: 24px; border: none;
+    border-radius: 4px; cursor: pointer;
+    background: none; padding: 0;
+  }
+
+  .color-field span {
+    font-size: 0.75rem; color: var(--gray-200);
+  }
+
+  /* ── Slider ── */
+  .slider-wrap { display: flex; align-items: center; gap: 10px; }
+
+  input[type="range"] {
+    flex: 1; height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    outline: none;
+    appearance: none;
+    cursor: pointer;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--accent-blue);
+    cursor: pointer;
+    box-shadow: 0 0 0 3px rgba(26,79,214,0.2);
+  }
+
+  .slider-val {
+    font-size: 0.75rem; color: var(--gray-200);
+    min-width: 30px; text-align: right;
+  }
+
+  /* ── Toggle Switch ── */
+  .toggle-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 0;
+  }
+
+  .toggle-label {
+    font-size: 0.8rem; font-weight: 500; color: var(--gray-200);
+  }
+
+  .toggle {
+    position: relative; width: 40px; height: 22px;
+  }
+
+  .toggle input { opacity: 0; width: 0; height: 0; }
+
+  .toggle-slider {
+    position: absolute; cursor: pointer; inset: 0;
+    background: var(--border); border-radius: 22px;
+    transition: 0.3s;
+  }
+
+  .toggle-slider:before {
+    content: '';
+    position: absolute; left: 3px; bottom: 3px;
+    width: 16px; height: 16px; border-radius: 50%;
+    background: white; transition: 0.3s;
+  }
+
+  .toggle input:checked + .toggle-slider { background: var(--accent-blue); }
+  .toggle input:checked + .toggle-slider:before { transform: translateX(18px); }
+
+  /* ── Buttons ── */
+  .btn {
+    display: flex; align-items: center; justify-content: center;
+    gap: 8px;
+    padding: 11px 20px;
+    border-radius: 8px;
+    font-size: 0.85rem; font-weight: 600;
+    cursor: pointer; border: none; outline: none;
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .btn-primary {
+    background: var(--accent-blue);
+    color: white;
+    box-shadow: 0 4px 14px rgba(26,79,214,0.4);
+  }
+
+  .btn-primary:hover {
+    background: #1e5ce8;
+    box-shadow: 0 6px 20px rgba(26,79,214,0.5);
+    transform: translateY(-1px);
+  }
+
+  .btn-danger {
+    background: var(--breaking-red);
+    color: white;
+    box-shadow: 0 4px 14px rgba(224,28,36,0.4);
+  }
+
+  .btn-danger:hover {
+    background: #f02530;
+    transform: translateY(-1px);
+  }
+
+  .btn-outline {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--gray-200);
+  }
+
+  .btn-outline:hover {
+    border-color: var(--accent-blue);
+    color: white;
+    background: rgba(26,79,214,0.1);
+  }
+
+  .btn-success {
+    background: #16a34a;
+    color: white;
+    box-shadow: 0 4px 14px rgba(22,163,74,0.4);
+  }
+
+  .btn-success:hover {
+    background: #15803d;
+    transform: translateY(-1px);
+  }
+
+  .btn-sm { padding: 7px 14px; font-size: 0.78rem; }
+  .btn-full { width: 100%; }
+
+  .btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none !important;
+  }
+
+  /* ── File Upload ── */
+  .upload-zone {
+    border: 2px dashed var(--border);
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: rgba(10,22,40,0.4);
+    position: relative;
+  }
+
+  .upload-zone:hover, .upload-zone.drag-over {
+    border-color: var(--accent-blue);
+    background: rgba(26,79,214,0.07);
+  }
+
+  .upload-zone input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+
+  .upload-icon { font-size: 2rem; margin-bottom: 8px; }
+  .upload-title { font-size: 0.85rem; font-weight: 600; color: var(--white); }
+  .upload-sub { font-size: 0.72rem; color: var(--gray-500); margin-top: 4px; }
+
+  /* ── Preview Area ── */
+  .preview-area {
+    display: flex; flex-direction: column;
+    background: #070d1a;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .preview-topbar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0.75rem 1.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1rem;
+    flex-shrink: 0;
+  }
+
+  .preview-title {
+    font-size: 0.8rem; font-weight: 600;
+    color: var(--gray-200);
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .live-indicator {
+    display: none;
+    align-items: center; gap: 6px;
+    background: rgba(224,28,36,0.15);
+    border: 1px solid rgba(224,28,36,0.4);
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-size: 0.7rem; font-weight: 700;
+    color: var(--breaking-red);
+    letter-spacing: 0.08em;
+    animation: live-blink 1.5s ease-in-out infinite;
+  }
+
+  .live-indicator.show { display: flex; }
+
+  @keyframes live-blink {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+
+  .live-indicator .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--breaking-red);
+    animation: pulse-red 1.5s infinite;
+  }
+
+  @keyframes pulse-red {
+    0%,100% { box-shadow: 0 0 0 0 rgba(224,28,36,0.6); }
+    50% { box-shadow: 0 0 0 5px rgba(224,28,36,0); }
+  }
+
+  .controls-bar {
+    display: flex; gap: 8px; align-items: center;
+  }
+
+  .preview-canvas-wrap {
+    flex: 1;
+    display: flex; align-items: center; justify-content: center;
+    padding: 1.5rem;
+    overflow: hidden;
+  }
+
+  #previewCanvas {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 6px;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.05),
+                0 20px 60px rgba(0,0,0,0.5);
+    display: block;
+  }
+
+  /* ── Bottom Stats Bar ── */
+  .stats-bar {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 0.5rem 1.5rem;
+    display: flex; gap: 2rem; align-items: center;
+    font-size: 0.72rem; color: var(--gray-500);
+    flex-shrink: 0;
+  }
+
+  .stat-item { display: flex; gap: 6px; align-items: center; }
+  .stat-val { color: var(--gray-200); font-weight: 600; }
+
+  /* ── Recording Timer ── */
+  .rec-timer {
+    font-family: 'Oswald', monospace;
+    font-size: 1.1rem; font-weight: 600;
+    color: var(--breaking-red);
+    display: none;
+    letter-spacing: 0.05em;
+  }
+
+  .rec-timer.show { display: block; }
+
+  /* ── Style Presets ── */
+  .preset-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  }
+
+  .preset-btn {
+    padding: 10px 10px;
+    border-radius: 8px;
+    border: 2px solid var(--border);
+    background: rgba(10,22,40,0.5);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+  }
+
+  .preset-btn:hover {
+    border-color: var(--accent-blue);
+    background: rgba(26,79,214,0.1);
+  }
+
+  .preset-btn.active {
+    border-color: var(--accent-blue);
+    background: rgba(26,79,214,0.15);
+  }
+
+  .preset-icon { font-size: 1.2rem; margin-bottom: 4px; }
+  .preset-name { font-size: 0.72rem; font-weight: 600; color: var(--gray-200); }
+
+  /* ── Notification Toast ── */
+  #toast {
+    position: fixed; bottom: 24px; right: 24px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 18px;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.82rem; font-weight: 500;
+    color: var(--white);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    transform: translateY(100px);
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    z-index: 9999;
+    max-width: 320px;
+  }
+
+  #toast.show { transform: translateY(0); }
+  #toast.success { border-left: 4px solid #2ecc71; }
+  #toast.error { border-left: 4px solid var(--breaking-red); }
+  #toast.info { border-left: 4px solid var(--accent-blue); }
+
+  /* ── Audio meter ── */
+  .audio-meter {
+    display: flex; gap: 2px; align-items: flex-end;
+    height: 16px;
+  }
+
+  .meter-bar {
+    width: 3px; border-radius: 1px;
+    background: var(--accent-blue);
+    animation: meter-anim 0.4s ease infinite alternate;
+  }
+
+  .meter-bar:nth-child(2) { animation-delay: 0.1s; }
+  .meter-bar:nth-child(3) { animation-delay: 0.2s; }
+  .meter-bar:nth-child(4) { animation-delay: 0.05s; }
+  .meter-bar:nth-child(5) { animation-delay: 0.15s; }
+
+  @keyframes meter-anim {
+    0% { height: 4px; }
+    100% { height: 14px; }
+  }
+
+  .audio-meter.muted .meter-bar { background: var(--border); animation: none; height: 4px; }
+
+  /* ── Download progress ── */
+  #downloadProgress {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(7,13,26,0.85);
+    backdrop-filter: blur(8px);
+    z-index: 9998;
+    align-items: center; justify-content: center;
+  }
+
+  #downloadProgress.show { display: flex; }
+
+  .progress-card {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem 2.5rem;
+    text-align: center;
+    max-width: 360px; width: 90%;
+  }
+
+  .progress-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+  .progress-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .progress-sub { font-size: 0.8rem; color: var(--gray-500); margin-bottom: 1.5rem; }
+
+  .progress-bar-wrap {
+    background: var(--border);
+    border-radius: 4px; height: 6px; overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-blue), #4f8ef7);
+    border-radius: 4px;
+    transition: width 0.3s;
+    animation: shimmer 1.5s infinite;
+    background-size: 200% 100%;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .main-layout { grid-template-columns: 1fr; }
+    .sidebar { max-height: 55vh; }
+  }
+
+  /* ── Webcam hint ── */
+  .webcam-hint {
+    position: absolute;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    text-align: center; pointer-events: none;
+    color: var(--gray-500);
+  }
+
+  .webcam-hint-icon { font-size: 3rem; margin-bottom: 12px; opacity: 0.3; }
+  .webcam-hint-text { font-size: 0.9rem; opacity: 0.4; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════ HEADER ═══════════════════════════ -->
+<header class="app-header">
+  <div class="logo-area">
+    <div class="logo-icon">📡</div>
+    <div class="logo-text">INSTANT <span>NEWS</span> BROADCASTER</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <div class="live-indicator" id="liveIndicator">
+      <div class="dot"></div> REC
+    </div>
+    <div class="rec-timer" id="recTimer">00:00:00</div>
+    <div class="status-badge">
+      <div class="status-dot"></div>
+      Studio Ready
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════ MAIN LAYOUT ═══════════════════════════ -->
+<div class="main-layout">
+
+  <!-- ══════════ SIDEBAR (Controls Panel) ══════════ -->
+  <aside class="sidebar">
+
+    <!-- Source Section -->
+    <div>
+      <div class="section-title">📹 Video Source</div>
+      <div class="card" style="display:flex;flex-direction:column;gap:10px;">
+        <div class="upload-zone" id="uploadZone">
+          <input type="file" id="videoFile" accept="video/*" />
+          <div class="upload-icon">🎬</div>
+          <div class="upload-title">Drop Reporter Video</div>
+          <div class="upload-sub">MP4, MOV, WebM • Max 500MB</div>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-outline btn-sm" style="flex:1;" id="webcamBtn">
+            📷 Use Webcam
+          </button>
+          <button class="btn btn-outline btn-sm" style="flex:1;" id="clearVideoBtn">
+            🗑 Clear
+          </button>
+        </div>
+        <div id="videoFileName" style="font-size:0.72rem;color:var(--gray-500);text-align:center;display:none;"></div>
+      </div>
+    </div>
+
+    <!-- Headline -->
+    <div>
+      <div class="section-title">📰 Breaking Content</div>
+      <div class="card" style="display:flex;flex-direction:column;gap:12px;">
+        <div>
+          <label>MAIN HEADLINE</label>
+          <input type="text" class="input-field" id="headlineInput"
+            placeholder="BREAKING: Enter your headline here..."
+            maxlength="80" />
+          <div style="font-size:0.68rem;color:var(--gray-500);text-align:right;margin-top:4px;">
+            <span id="headlineCount">0</span>/80
+          </div>
+        </div>
+        <div>
+          <label>TICKER TEXT (Scrolling)</label>
+          <textarea class="input-field" id="tickerInput" rows="2"
+            placeholder="Latest updates scroll here • Market news • Weather alerts • Sports scores • ..."></textarea>
+        </div>
+        <div>
+          <label>LOCATION / BYLINE</label>
+          <input type="text" class="input-field" id="bylineInput"
+            placeholder="e.g. WASHINGTON D.C." maxlength="40" />
+        </div>
+        <div>
+          <label>REPORTER NAME</label>
+          <input type="text" class="input-field" id="reporterInput"
+            placeholder="e.g. Jane Smith, Senior Correspondent" maxlength="50" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Channel Style -->
+    <div>
+      <div class="section-title">🎨 Broadcast Style</div>
+      <div class="card" style="display:flex;flex-direction:column;gap:12px;">
+        <div>
+          <label>CHANNEL PRESET</label>
+          <div class="preset-grid" id="presetGrid">
+            <div class="preset-btn active" data-preset="international">
+              <div class="preset-icon">🌐</div>
+              <div class="preset-name">International</div>
+            </div>
+            <div class="preset-btn" data-preset="technology">
+              <div class="preset-icon">💻</div>
+              <div class="preset-name">Technology</div>
+            </div>
+            <div class="preset-btn" data-preset="health">
+              <div class="preset-icon">🏥</div>
+              <div class="preset-name">Health</div>
+            </div>
+            <div class="preset-btn" data-preset="finance">
+              <div class="preset-icon">📈</div>
+              <div class="preset-name">Finance</div>
+            </div>
+            <div class="preset-btn" data-preset="sports">
+              <div class="preset-icon">⚽</div>
+              <div class="preset-name">Sports</div>
+            </div>
+            <div class="preset-btn" data-preset="weather">
+              <div class="preset-icon">🌩</div>
+              <div class="preset-name">Weather</div>
+            </div>
+          </div>
+        </div>
+        <div class="color-row">
+          <div>
+            <label>PRIMARY COLOR</label>
+            <div class="color-field">
+              <input type="color" id="colorPrimary" value="#1a4fd6" />
+              <span id="colorPrimaryHex">#1a4fd6</span>
+            </div>
+          </div>
+          <div>
+            <label>ACCENT COLOR</label>
+            <div class="color-field">
+              <input type="color" id="colorAccent" value="#e01c24" />
+              <span id="colorAccentHex">#e01c24</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <label>CHANNEL NAME / LOGO TEXT</label>
+          <input type="text" class="input-field" id="channelName"
+            placeholder="NEWS CHANNEL" maxlength="20" value="NEWS 24" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Audio & Options -->
+    <div>
+      <div class="section-title">🔊 Audio & Options</div>
+      <div class="card" style="display:flex;flex-direction:column;gap:10px;">
+        <div class="toggle-row">
+          <span class="toggle-label">🎵 News Jingle (BG Music)</span>
+          <label class="toggle">
+            <input type="checkbox" id="jingleToggle" checked />
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+        <div>
+          <label>JINGLE VOLUME</label>
+          <div class="slider-wrap">
+            <input type="range" id="jingleVolume" min="0" max="100" value="15" />
+            <span class="slider-val" id="jingleVolVal">15%</span>
+          </div>
+        </div>
+        <div class="toggle-row">
+          <span class="toggle-label">📢 Breaking News Alert</span>
+          <label class="toggle">
+            <input type="checkbox" id="breakingToggle" checked />
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+        <div class="toggle-row">
+          <span class="toggle-label">🕐 Show Live Clock</span>
+          <label class="toggle">
+            <input type="checkbox" id="clockToggle" checked />
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+        <div class="toggle-row">
+          <span class="toggle-label">📶 Signal Bars Effect</span>
+          <label class="toggle">
+            <input type="checkbox" id="signalToggle" checked />
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+        <div>
+          <label>TICKER SPEED</label>
+          <div class="slider-wrap">
+            <input type="range" id="tickerSpeed" min="1" max="10" value="4" />
+            <span class="slider-val" id="tickerSpeedVal">4</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Record Controls -->
+    <div>
+      <div class="section-title">⏺ Recording</div>
+      <div class="card" style="display:flex;flex-direction:column;gap:10px;">
+        <button class="btn btn-danger btn-full" id="recordBtn">
+          ⏺ Start Recording
+        </button>
+        <button class="btn btn-outline btn-full" id="stopBtn" disabled>
+          ⏹ Stop & Export
+        </button>
+        <div id="audioMeterWrap" style="display:flex;align-items:center;gap:8px;padding:4px 0;">
+          <span style="font-size:0.72rem;color:var(--gray-500);">Audio</span>
+          <div class="audio-meter muted" id="audioMeter">
+            <div class="meter-bar" style="height:4px;"></div>
+            <div class="meter-bar" style="height:6px;"></div>
+            <div class="meter-bar" style="height:8px;"></div>
+            <div class="meter-bar" style="height:6px;"></div>
+            <div class="meter-bar" style="height:4px;"></div>
+          </div>
+          <span style="font-size:0.72rem;color:var(--gray-500);" id="audioStatus">Inactive</span>
+        </div>
+        <div style="font-size:0.7rem;color:var(--gray-500);line-height:1.5;">
+          💡 Tip: Load your video first, then click Record. The output will include all graphics baked in.
+        </div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- ══════════ PREVIEW AREA ══════════ -->
+  <div class="preview-area">
+    <div class="preview-topbar">
+      <div class="preview-title">
+        📺 Live Preview — 16:9 Broadcast Frame
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div class="live-indicator show" id="previewLiveTag" style="display:none!important;">
+          <div class="dot"></div> PREVIEW
+        </div>
+        <div style="font-size:0.72rem;color:var(--gray-500);">1280×720 • 30fps</div>
+        <button class="btn btn-outline btn-sm" id="screenshotBtn">📸 Screenshot</button>
+      </div>
+    </div>
+
+    <div class="preview-canvas-wrap">
+      <div style="position:relative;display:inline-block;">
+        <canvas id="previewCanvas" width="1280" height="720"></canvas>
+        <div class="webcam-hint" id="webcamHint">
+          <div class="webcam-hint-icon">📡</div>
+          <div class="webcam-hint-text">Load a video or enable webcam<br/>to start your broadcast</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats-bar">
+      <div class="stat-item">Resolution: <span class="stat-val">1280 × 720</span></div>
+      <div class="stat-item">FPS: <span class="stat-val" id="statFps">30</span></div>
+      <div class="stat-item">Format: <span class="stat-val">WebM (VP9)</span></div>
+      <div class="stat-item">Status: <span class="stat-val" id="statStatus">Idle</span></div>
+      <div class="stat-item" style="margin-left:auto;">
+        Size: <span class="stat-val" id="statSize">—</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Download Progress Overlay -->
+<div id="downloadProgress">
+  <div class="progress-card">
+    <div class="progress-icon">🎬</div>
+    <div class="progress-title">Exporting Broadcast</div>
+    <div class="progress-sub">Encoding video with all graphics overlays...</div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="progressFill" style="width:0%;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Notification -->
+<div id="toast"></div>
+
+<!-- Hidden video element -->
+<video id="sourceVideo" style="display:none;" crossorigin="anonymous" playsinline muted></video>
+
+<script>
+// ════════════════════════════════════════════════════
+//  INSTANT NEWS BROADCASTER — Core Engine
+// ════════════════════════════════════════════════════
+
+const canvas = document.getElementById('previewCanvas');
+const ctx = canvas.getContext('2d');
+const sourceVideo = document.getElementById('sourceVideo');
+const CANVAS_W = 1280, CANVAS_H = 720;
+
+// ── State ──────────────────────────────────────────
+let animFrameId = null;
+let isRecording = false;
+let mediaRecorder = null;
+let recordedChunks = [];
+let recordStartTime = null;
+let timerInterval = null;
+let tickerOffset = 0;
+let graphicsAnimProgress = 0; // 0→1 for entry animation
+let graphicsVisible = false;
+let audioCtx = null;
+let jingleGain = null;
+let jingleSource = null;
+let jingleBuffers = [];
+let mediaStream = null;
+let webcamStream = null;
+let useWebcam = false;
+let totalBytes = 0;
+
+// ── Presets ────────────────────────────────────────
+const PRESETS = {
+  international: { primary: '#1a4fd6', accent: '#e01c24', label: '🌐 WORLD NEWS', network: 'INT\'L' },
+  technology:    { primary: '#0e2f5a', accent: '#00bcd4', label: '💻 TECH TODAY',  network: 'TECH' },
+  health:        { primary: '#0a3d2e', accent: '#2ecc71', label: '🏥 HEALTH WATCH', network: 'HEALTH' },
+  finance:       { primary: '#1a2a0a', accent: '#f5a623', label: '📈 MARKET NEWS',  network: 'FIN' },
+  sports:        { primary: '#1a0a0a', accent: '#ff5722', label: '⚽ SPORTS NOW',   network: 'SPORT' },
+  weather:       { primary: '#0a1a2e', accent: '#9c27b0', label: '🌩 WEATHER ALERT',network: 'WX' },
+};
+
+let activePreset = 'international';
+let currentColors = { primary: '#1a4fd6', accent: '#e01c24' };
+
+// ── DOM References ──────────────────────────────────
+const headlineInput  = document.getElementById('headlineInput');
+const tickerInput    = document.getElementById('tickerInput');
+const bylineInput    = document.getElementById('bylineInput');
+const reporterInput  = document.getElementById('reporterInput');
+const channelName    = document.getElementById('channelName');
+const colorPrimary   = document.getElementById('colorPrimary');
+const colorAccent    = document.getElementById('colorAccent');
+const jingleToggle   = document.getElementById('jingleToggle');
+const jingleVolume   = document.getElementById('jingleVolume');
+const breakingToggle = document.getElementById('breakingToggle');
+const clockToggle    = document.getElementById('clockToggle');
+const signalToggle   = document.getElementById('signalToggle');
+const tickerSpeedEl  = document.getElementById('tickerSpeed');
+const recordBtn      = document.getElementById('recordBtn');
+const stopBtn        = document.getElementById('stopBtn');
+const videoFileInput = document.getElementById('videoFile');
+const webcamBtn      = document.getElementById('webcamBtn');
+const clearVideoBtn  = document.getElementById('clearVideoBtn');
+const screenshotBtn  = document.getElementById('screenshotBtn');
+const liveIndicator  = document.getElementById('liveIndicator');
+const recTimer       = document.getElementById('recTimer');
+const webcamHint     = document.getElementById('webcamHint');
+const audioMeter     = document.getElementById('audioMeter');
+const audioStatus    = document.getElementById('audioStatus');
+const statStatus     = document.getElementById('statStatus');
+const statSize       = document.getElementById('statSize');
+const toast          = document.getElementById('toast');
+
+// ════════════════════════════════════════════════════
+//  TOAST NOTIFICATIONS
+// ════════════════════════════════════════════════════
+function showToast(msg, type = 'info', duration = 3500) {
+  const icons = { info: 'ℹ️', success: '✅', error: '❌' };
+  toast.innerHTML = `<span>${icons[type]}</span><span>${msg}</span>`;
+  toast.className = `show ${type}`;
+  clearTimeout(toast._timer);
+  toast._timer = setTimeout(() => { toast.className = ''; }, duration);
+}
+
+// ════════════════════════════════════════════════════
+//  AUDIO ENGINE — News Jingle via Web Audio API
+// ════════════════════════════════════════════════════
+function initAudio() {
+  if (audioCtx) return audioCtx;
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return audioCtx;
+}
+
+function generateJingleBuffer(ctx, duration, type) {
+  const sampleRate = ctx.sampleRate;
+  const length = sampleRate * duration;
+  const buffer = ctx.createBuffer(1, length, sampleRate);
+  const data = buffer.getChannelData(0);
+
+  // Professional news jingle: chord progression + percussion
+  const noteMap = {
+    international: [440, 523, 659, 784, 880, 659, 523],
+    technology:    [330, 440, 587, 659, 784, 587, 440],
+    health:        [349, 440, 523, 622, 698, 523, 440],
+    finance:       [392, 523, 659, 784, 880, 784, 659],
+    sports:        [440, 587, 659, 880, 987, 880, 659],
+    weather:       [262, 349, 440, 523, 587, 523, 349],
+  };
+
+  const notes = noteMap[type] || noteMap.international;
+  const noteLen = Math.floor(length / notes.length);
+
+  for (let i = 0; i < length; i++) {
+    const noteIdx = Math.min(Math.floor(i / noteLen), notes.length - 1);
+    const freq = notes[noteIdx];
+    const t = i / sampleRate;
+    const env = Math.min(1, (i % noteLen) / (sampleRate * 0.05)) *
+                Math.min(1, (noteLen - (i % noteLen)) / (sampleRate * 0.15));
+    // Sine + subtle harmonics
+    data[i] = env * 0.35 * (
+      0.6 * Math.sin(2 * Math.PI * freq * t) +
+      0.25 * Math.sin(2 * Math.PI * freq * 2 * t) +
+      0.1 * Math.sin(2 * Math.PI * freq * 3 * t) +
+      0.05 * Math.sin(2 * Math.PI * freq * 0.5 * t)
+    );
+    // Add subtle percussion on beat
+    if ((i % Math.floor(sampleRate * 0.5)) < 600) {
+      const beatEnv = 1 - (i % Math.floor(sampleRate * 0.5)) / 600;
+      data[i] += beatEnv * 0.08 * (Math.random() * 2 - 1);
+    }
+  }
+  return buffer;
+}
+
+function startJingle(destinationNode) {
+  if (!jingleToggle.checked) return;
+  try {
+    const ctx = initAudio();
+    const buf = generateJingleBuffer(ctx, 8, activePreset);
+    jingleGain = ctx.createGain();
+    jingleGain.gain.value = jingleVolume.value / 100 * 0.4;
+
+    // Looping source
+    jingleSource = ctx.createBufferSource();
+    jingleSource.buffer = buf;
+    jingleSource.loop = true;
+    jingleSource.connect(jingleGain);
+    if (destinationNode) jingleGain.connect(destinationNode);
+    jingleGain.connect(ctx.destination);
+    jingleSource.start(0);
+  } catch (e) { console.warn('Audio init failed:', e); }
+}
+
+function stopJingle() {
+  if (jingleSource) {
+    try { jingleSource.stop(); } catch(e) {}
+    jingleSource = null;
+  }
+}
+
+function playBreakingAlert() {
+  try {
+    const ctx = initAudio();
+    const buf = ctx.createBuffer(1, ctx.sampleRate * 0.8, ctx.sampleRate);
+    const data = buf.getChannelData(0);
+    const freqs = [880, 880, 659];
+    const segLen = Math.floor(ctx.sampleRate * 0.25);
+    for (let i = 0; i < buf.length; i++) {
+      const seg = Math.min(Math.floor(i / segLen), freqs.length - 1);
+      const env = Math.min(1, (i % segLen) / (ctx.sampleRate * 0.01)) *
+                  Math.max(0, 1 - (i % segLen) / (segLen * 0.9));
+      data[i] = env * 0.5 * Math.sin(2 * Math.PI * freqs[seg] * i / ctx.sampleRate);
+    }
+    const src = ctx.createBufferSource();
+    src.buffer = buf;
+    src.connect(ctx.destination);
+    src.start(0);
+  } catch(e) {}
+}
+
+// ════════════════════════════════════════════════════
+//  CANVAS RENDERING ENGINE
+// ════════════════════════════════════════════════════
+
+function hexToRgb(hex) {
+  const r = parseInt(hex.slice(1,3),16);
+  const g = parseInt(hex.slice(3,5),16);
+  const b = parseInt(hex.slice(5,7),16);
+  return {r,g,b};
+}
+
+function drawGradientRect(x, y, w, h, col1, col2, alpha=1) {
+  const grad = ctx.createLinearGradient(x, y, x+w, y);
+  const c1 = hexToRgb(col1), c2 = hexToRgb(col2);
+  grad.addColorStop(0, `rgba(${c1.r},${c1.g},${c1.b},${alpha})`);
+  grad.addColorStop(1, `rgba(${c2.r},${c2.g},${c2.b},${alpha})`);
+  ctx.fillStyle = grad;
+  ctx.fillRect(x, y, w, h);
+}
+
+function roundRect(x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x+r, y);
+  ctx.lineTo(x+w-r, y);
+  ctx.quadraticCurveTo(x+w, y, x+w, y+r);
+  ctx.lineTo(x+w, y+h-r);
+  ctx.quadraticCurveTo(x+w, y+h, x+w-r, y+h);
+  ctx.lineTo(x+r, y+h);
+  ctx.quadraticCurveTo(x, y+h, x, y+h-r);
+  ctx.lineTo(x, y+r);
+  ctx.quadraticCurveTo(x, y, x+r, y);
+  ctx.closePath();
+}
+
+function getFormattedTime() {
+  const now = new Date();
+  return now.toLocaleTimeString('en-US', { hour12: false,
+    hour:'2-digit', minute:'2-digit', second:'2-digit' });
+}
+
+function getFormattedDate() {
+  return new Date().toLocaleDateString('en-US', {
+    weekday:'short', month:'short', day:'numeric', year:'numeric' });
+}
+
+// ── Main render loop (defined below in enhanced version) ──
+
+function easeOutCubic(t) {
+  return 1 - Math.pow(1-t, 3);
+}
+
+function drawPlaceholderBG() {
+  // Subtle dark gradient BG with grid
+  const grad = ctx.createRadialGradient(CANVAS_W/2, CANVAS_H/2, 0, CANVAS_W/2, CANVAS_H/2, CANVAS_W*0.7);
+  grad.addColorStop(0, '#0d1e3d');
+  grad.addColorStop(1, '#050c1a');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
+  ctx.strokeStyle = 'rgba(26,79,214,0.07)';
+  ctx.lineWidth = 1;
+  for (let x = 0; x < CANVAS_W; x += 80) {
+    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, CANVAS_H); ctx.stroke();
+  }
+  for (let y = 0; y < CANVAS_H; y += 80) {
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(CANVAS_W, y); ctx.stroke();
+  }
+}
+
+function drawGraphicsOverlay(progress) {
+  const slideY = (1 - progress) * 120; // Slide up from bottom
+  const alpha  = progress;
+
+  ctx.save();
+  ctx.globalAlpha = alpha;
+
+  // ── LOWER THIRD BACKGROUND ──────────────────────
+  const lowerY = CANVAS_H - 200;
+  const barH   = 200;
+
+  // Dark gradient base
+  ctx.globalAlpha = alpha * 0.88;
+  const bgGrad = ctx.createLinearGradient(0, lowerY + slideY, 0, CANVAS_H + slideY);
+  bgGrad.addColorStop(0, 'rgba(5,12,26,0)');
+  bgGrad.addColorStop(0.3, 'rgba(5,12,26,0.85)');
+  bgGrad.addColorStop(1, 'rgba(5,12,26,0.98)');
+  ctx.fillStyle = bgGrad;
+  ctx.fillRect(0, lowerY + slideY, CANVAS_W, barH);
+
+  ctx.globalAlpha = alpha;
+
+  // ── BREAKING NEWS PILL ──────────────────────────
+  if (breakingToggle.checked) {
+    const pillY = lowerY + slideY - 10;
+    ctx.save();
+    roundRect(24, pillY, 210, 38, 4);
+    ctx.fillStyle = currentColors.accent;
+    ctx.fill();
+    ctx.font = 'bold 18px Oswald, sans-serif';
+    ctx.fillStyle = '#ffffff';
+    ctx.textAlign = 'left';
+    ctx.fillText('⚡ BREAKING NEWS', 36, pillY + 26);
+    ctx.restore();
+  }
+
+  // ── PRIMARY COLOR BAR ─────────────────────────
+  const barY = CANVAS_H - 160 + slideY;
+  ctx.save();
+  ctx.shadowColor = currentColors.primary;
+  ctx.shadowBlur = 12;
+  drawGradientRect(0, barY, CANVAS_W, 5, currentColors.primary, currentColors.accent, 1);
+  ctx.restore();
+
+  // ── CHANNEL LOGO BLOCK ─────────────────────────
+  const logoX = 24;
+  const logoY = CANVAS_H - 155 + slideY;
+  const logoW = 120; const logoH = 50;
+
+  ctx.save();
+  roundRect(logoX, logoY, logoW, logoH, 6);
+  ctx.fillStyle = currentColors.primary;
+  ctx.fill();
+  // Gloss
+  const glossGrad = ctx.createLinearGradient(logoX, logoY, logoX, logoY+logoH/2);
+  glossGrad.addColorStop(0, 'rgba(255,255,255,0.15)');
+  glossGrad.addColorStop(1, 'rgba(255,255,255,0)');
+  ctx.fillStyle = glossGrad;
+  roundRect(logoX, logoY, logoW, logoH/2, 6);
+  ctx.fill();
+
+  ctx.font = 'bold 20px Oswald, sans-serif';
+  ctx.fillStyle = '#ffffff';
+  ctx.textAlign = 'center';
+  const chName = (channelName.value || 'NEWS 24').toUpperCase();
+  ctx.fillText(chName, logoX + logoW/2, logoY + 32);
+  ctx.restore();
+
+  // ── HEADLINE TEXT ──────────────────────────────
+  const headY = CANVAS_H - 145 + slideY;
+  const headline = (headlineInput.value || 'BREAKING: Enter your headline above').toUpperCase();
+
+  ctx.save();
+  ctx.font = 'bold 38px Oswald, sans-serif';
+  ctx.fillStyle = '#ffffff';
+  ctx.textAlign = 'left';
+  // Shadow for readability
+  ctx.shadowColor = 'rgba(0,0,0,0.8)';
+  ctx.shadowBlur = 6;
+  ctx.shadowOffsetX = 2;
+  ctx.shadowOffsetY = 2;
+
+  // Truncate if too long
+  let displayHeadline = headline;
+  while (ctx.measureText(displayHeadline).width > CANVAS_W - 200 && displayHeadline.length > 10) {
+    displayHeadline = displayHeadline.slice(0, -4) + '...';
+  }
+  ctx.fillText(displayHeadline, 160, headY + 36);
+  ctx.restore();
+
+  // ── BYLINE / REPORTER ─────────────────────────
+  const byline = bylineInput.value || '';
+  const reporter = reporterInput.value || '';
+
+  if (byline || reporter) {
+    ctx.save();
+    ctx.font = '500 18px Inter, sans-serif';
+    ctx.fillStyle = 'rgba(200,215,255,0.85)';
+    ctx.textAlign = 'left';
+    ctx.shadowColor = 'rgba(0,0,0,0.7)';
+    ctx.shadowBlur = 4;
+
+    let infoText = '';
+    if (reporter) infoText += reporter;
+    if (byline) infoText += (reporter ? ' • ' : '') + byline.toUpperCase();
+    ctx.fillText(infoText, 160, CANVAS_H - 108 + slideY);
+    ctx.restore();
+  }
+
+  // ── ACCENT DOT SEPARATOR ──────────────────────
+  ctx.save();
+  ctx.fillStyle = currentColors.accent;
+  ctx.beginPath();
+  ctx.arc(147, CANVAS_H - 115 + slideY, 4, 0, Math.PI*2);
+  ctx.fill();
+  ctx.restore();
+
+  // ── TICKER BAR ────────────────────────────────
+  drawTicker(slideY, alpha);
+
+  // ── TOP BAR (Logo + Clock) ────────────────────
+  drawTopBar(slideY, alpha, progress);
+
+  // ── SIGNAL BARS ───────────────────────────────
+  if (signalToggle.checked) {
+    drawSignalBars(alpha);
+  }
+
+  ctx.restore();
+}
+
+// ── Ticker ───────────────────────────────────────
+function drawTicker(slideY, alpha) {
+  const tickerY = CANVAS_H - 55 + slideY;
+  const tickerH = 44;
+  const speed = parseInt(tickerSpeedEl.value) * 1.5 + 1;
+
+  // Background bar
+  const tickBg = ctx.createLinearGradient(0, tickerY, CANVAS_W, tickerY);
+  const pRgb = hexToRgb(currentColors.primary);
+  tickBg.addColorStop(0, `rgba(${pRgb.r},${pRgb.g},${pRgb.b},0.95)`);
+  tickBg.addColorStop(0.5, `rgba(${Math.min(pRgb.r+20,255)},${Math.min(pRgb.g+20,255)},${Math.min(pRgb.b+40,255)},0.95)`);
+  tickBg.addColorStop(1, `rgba(${pRgb.r},${pRgb.g},${pRgb.b},0.95)`);
+  ctx.fillStyle = tickBg;
+  ctx.fillRect(0, tickerY, CANVAS_W, tickerH);
+
+  // Top accent line on ticker
+  ctx.fillStyle = currentColors.accent;
+  ctx.fillRect(0, tickerY, CANVAS_W, 3);
+
+  // Ticker label badge
+  const labelW = 110;
+  ctx.fillStyle = currentColors.accent;
+  ctx.fillRect(0, tickerY, labelW, tickerH);
+  ctx.font = 'bold 16px Oswald, sans-serif';
+  ctx.fillStyle = '#fff';
+  ctx.textAlign = 'center';
+  ctx.fillText('LIVE TICKER', labelW/2, tickerY + 27);
+
+  // Vertical separator
+  ctx.fillStyle = 'rgba(255,255,255,0.25)';
+  ctx.fillRect(labelW, tickerY + 8, 2, tickerH - 16);
+
+  // Scrolling text
+  const tickerText = (tickerInput.value || 'Latest news headlines scroll across your broadcast • Add your custom ticker text above • Stay tuned for more updates').repeat(3);
+  ctx.font = '600 17px Inter, sans-serif';
+  ctx.fillStyle = '#ffffff';
+  ctx.textAlign = 'left';
+
+  // Clip to ticker region
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(labelW + 10, tickerY, CANVAS_W - labelW - 10, tickerH);
+  ctx.clip();
+
+  const textW = ctx.measureText(tickerText).width;
+  tickerOffset -= speed;
+  if (tickerOffset < -textW) tickerOffset = CANVAS_W;
+
+  ctx.shadowColor = 'rgba(0,0,0,0.5)';
+  ctx.shadowBlur = 3;
+  ctx.fillText(tickerText, labelW + 10 + tickerOffset, tickerY + 27);
+  ctx.restore();
+
+  // Right fade
+  const fadeGrad = ctx.createLinearGradient(CANVAS_W - 60, 0, CANVAS_W, 0);
+  const pRgbFade = hexToRgb(currentColors.primary);
+  fadeGrad.addColorStop(0, `rgba(${pRgbFade.r},${pRgbFade.g},${pRgbFade.b},0)`);
+  fadeGrad.addColorStop(1, `rgba(${pRgbFade.r},${pRgbFade.g},${pRgbFade.b},1)`);
+  ctx.fillStyle = fadeGrad;
+  ctx.fillRect(CANVAS_W - 60, tickerY, 60, tickerH);
+}
+
+// ── Top Bar ──────────────────────────────────────
+function drawTopBar(slideY, alpha, progress) {
+  const tbH = 48;
+
+  // Top bar BG
+  const tbGrad = ctx.createLinearGradient(0, 0, 0, tbH);
+  tbGrad.addColorStop(0, 'rgba(5,12,26,0.92)');
+  tbGrad.addColorStop(1, 'rgba(5,12,26,0)');
+  ctx.fillStyle = tbGrad;
+  ctx.fillRect(0, 0, CANVAS_W, tbH);
+
+  // Bottom accent line of top bar
+  ctx.fillStyle = `rgba(${hexToRgb(currentColors.primary).r},${hexToRgb(currentColors.primary).g},${hexToRgb(currentColors.primary).b},0.6)`;
+  ctx.fillRect(0, tbH - 1, CANVAS_W, 1);
+
+  // Network logo on top-left
+  const preset = PRESETS[activePreset];
+  ctx.font = 'bold 16px Oswald, sans-serif';
+  ctx.fillStyle = currentColors.primary;
+
+  // Network badge
+  ctx.save();
+  roundRect(16, 10, 70, 26, 4);
+  ctx.fillStyle = currentColors.primary;
+  ctx.fill();
+  ctx.font = 'bold 15px Oswald, sans-serif';
+  ctx.fillStyle = '#fff';
+  ctx.textAlign = 'center';
+  ctx.fillText(preset.network, 51, 28);
+  ctx.restore();
+
+  // Network label
+  ctx.font = '600 13px Inter, sans-serif';
+  ctx.fillStyle = 'rgba(180,200,255,0.7)';
+  ctx.textAlign = 'left';
+  ctx.fillText(preset.label, 96, 30);
+
+  // Right side: clock & date
+  if (clockToggle.checked) {
+    ctx.save();
+    ctx.font = 'bold 18px Oswald, monospace';
+    ctx.fillStyle = '#ffffff';
+    ctx.textAlign = 'right';
+    ctx.fillText(getFormattedTime(), CANVAS_W - 18, 30);
+    ctx.font = '500 12px Inter, sans-serif';
+    ctx.fillStyle = 'rgba(180,200,255,0.6)';
+    ctx.fillText(getFormattedDate(), CANVAS_W - 18, 44);
+    ctx.restore();
+  }
+}
+
+// ── Signal Bars ──────────────────────────────────
+function drawSignalBars(alpha) {
+  const bx = CANVAS_W - 100, by = 60;
+  const bars = [8, 12, 16, 20];
+  bars.forEach((h, i) => {
+    ctx.save();
+    ctx.globalAlpha = alpha * (i < 3 ? 1 : 0.4 + 0.3 * Math.sin(Date.now()/400));
+    ctx.fillStyle = currentColors.accent;
+    ctx.fillRect(bx + i*10, by - h, 7, h);
+    ctx.restore();
+  });
+  ctx.save();
+  ctx.font = '500 11px Inter, sans-serif';
+  ctx.fillStyle = 'rgba(180,200,255,0.6)';
+  ctx.textAlign = 'right';
+  ctx.fillText('HD LIVE', CANVAS_W - 16, by + 12);
+  ctx.restore();
+}
+
+// ════════════════════════════════════════════════════
+//  PRESET MANAGEMENT
+// ════════════════════════════════════════════════════
+document.querySelectorAll('.preset-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activePreset = btn.dataset.preset;
+    const preset = PRESETS[activePreset];
+    currentColors.primary = preset.primary;
+    currentColors.accent  = preset.accent;
+    colorPrimary.value = preset.primary;
+    colorAccent.value  = preset.accent;
+    document.getElementById('colorPrimaryHex').textContent = preset.primary;
+    document.getElementById('colorAccentHex').textContent  = preset.accent;
+
+    // Regenerate jingle if playing
+    if (jingleSource && isRecording) {
+      stopJingle();
+      // startJingle handled on record
+    }
+
+    showToast(`Preset applied: ${btn.querySelector('.preset-name').textContent}`, 'info');
+  });
+});
+
+// ── Color pickers ─────────────────────────────────
+colorPrimary.addEventListener('input', () => {
+  currentColors.primary = colorPrimary.value;
+  document.getElementById('colorPrimaryHex').textContent = colorPrimary.value;
+});
+
+colorAccent.addEventListener('input', () => {
+  currentColors.accent = colorAccent.value;
+  document.getElementById('colorAccentHex').textContent = colorAccent.value;
+});
+
+// ── Character counter ─────────────────────────────
+headlineInput.addEventListener('input', () => {
+  document.getElementById('headlineCount').textContent = headlineInput.value.length;
+});
+
+// ── Sliders ───────────────────────────────────────
+jingleVolume.addEventListener('input', () => {
+  document.getElementById('jingleVolVal').textContent = jingleVolume.value + '%';
+  if (jingleGain) jingleGain.gain.value = jingleVolume.value / 100 * 0.4;
+});
+
+tickerSpeedEl.addEventListener('input', () => {
+  document.getElementById('tickerSpeedVal').textContent = tickerSpeedEl.value;
+});
+
+// ════════════════════════════════════════════════════
+//  VIDEO SOURCE MANAGEMENT
+// ════════════════════════════════════════════════════
+function loadVideoSource(src, isStream = false) {
+  webcamHint.style.display = 'none';
+  if (isStream) {
+    sourceVideo.srcObject = src;
+  } else {
+    sourceVideo.srcObject = null;
+    sourceVideo.src = src;
+  }
+  sourceVideo.loop = true;
+  sourceVideo.muted = true;
+  sourceVideo.play().catch(e => console.log('Autoplay:', e));
+  graphicsVisible = true;
+  graphicsAnimProgress = 0;
+  statStatus.textContent = 'Preview';
+}
+
+videoFileInput.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  if (webcamStream) stopWebcam();
+  const url = URL.createObjectURL(file);
+  loadVideoSource(url);
+  const nameEl = document.getElementById('videoFileName');
+  nameEl.textContent = `📎 ${file.name}`;
+  nameEl.style.display = 'block';
+  useWebcam = false;
+  showToast(`Video loaded: ${file.name}`, 'success');
+});
+
+// Drag & drop
+const uploadZone = document.getElementById('uploadZone');
+uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('drag-over'); });
+uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('drag-over'));
+uploadZone.addEventListener('drop', e => {
+  e.preventDefault();
+  uploadZone.classList.remove('drag-over');
+  const file = e.dataTransfer.files[0];
+  if (file && file.type.startsWith('video/')) {
+    videoFileInput.files = e.dataTransfer.files;
+    videoFileInput.dispatchEvent(new Event('change'));
+  }
+});
+
+// ── Webcam ────────────────────────────────────────
+async function startWebcam() {
+  try {
+    webcamStream = await navigator.mediaDevices.getUserMedia({
+      video: { width: 1280, height: 720, frameRate: 30 },
+      audio: true
+    });
+    loadVideoSource(webcamStream, true);
+    useWebcam = true;
+    webcamBtn.innerHTML = '📷 Webcam ON';
+    webcamBtn.style.borderColor = '#2ecc71';
+    webcamBtn.style.color = '#2ecc71';
+    showToast('Webcam connected!', 'success');
+  } catch(e) {
+    showToast('Webcam access denied', 'error');
+  }
+}
+
+function stopWebcam() {
+  if (webcamStream) {
+    webcamStream.getTracks().forEach(t => t.stop());
+    webcamStream = null;
+  }
+  webcamBtn.innerHTML = '📷 Use Webcam';
+  webcamBtn.style.borderColor = '';
+  webcamBtn.style.color = '';
+  useWebcam = false;
+}
+
+webcamBtn.addEventListener('click', () => {
+  if (useWebcam) {
+    stopWebcam();
+    sourceVideo.srcObject = null;
+    sourceVideo.src = '';
+    graphicsVisible = false;
+    webcamHint.style.display = '';
+  } else {
+    startWebcam();
+  }
+});
+
+clearVideoBtn.addEventListener('click', () => {
+  stopWebcam();
+  sourceVideo.src = '';
+  sourceVideo.srcObject = null;
+  document.getElementById('videoFileName').style.display = 'none';
+  graphicsVisible = false;
+  graphicsAnimProgress = 0;
+  webcamHint.style.display = '';
+  statStatus.textContent = 'Idle';
+  showToast('Video source cleared', 'info');
+});
+
+// ════════════════════════════════════════════════════
+//  RECORDING ENGINE
+// ════════════════════════════════════════════════════
+async function startRecording() {
+  try {
+    initAudio();
+
+    // If no video loaded, prompt
+    if (!sourceVideo.src && !sourceVideo.srcObject) {
+      showToast('Load a video or enable webcam first!', 'error');
+      return;
+    }
+
+    // Ensure video is playing
+    if (sourceVideo.paused) await sourceVideo.play();
+
+    // ── Build composite audio stream ──
+    const audioDestination = audioCtx.createMediaStreamDestination();
+
+    // Mix webcam/video audio if available
+    if (useWebcam && webcamStream) {
+      const micTracks = webcamStream.getAudioTracks();
+      if (micTracks.length > 0) {
+        const micStream = new MediaStream(micTracks);
+        const micSource = audioCtx.createMediaStreamSource(micStream);
+        const micGain = audioCtx.createGain();
+        micGain.gain.value = 1.0;
+        micSource.connect(micGain);
+        micGain.connect(audioDestination);
+      }
+    }
+
+    // Start jingle
+    startJingle(audioDestination);
+
+    // ── Canvas stream ──
+    const canvasStream = canvas.captureStream(30);
+
+    // ── Compose final stream ──
+    const compositeStream = new MediaStream([
+      ...canvasStream.getVideoTracks(),
+      ...audioDestination.stream.getAudioTracks()
+    ]);
+
+    // ── MediaRecorder ──
+    const mimeOptions = [
+      'video/webm;codecs=vp9,opus',
+      'video/webm;codecs=vp8,opus',
+      'video/webm;codecs=h264',
+      'video/webm',
+    ];
+
+    let selectedMime = 'video/webm';
+    for (const mime of mimeOptions) {
+      if (MediaRecorder.isTypeSupported(mime)) {
+        selectedMime = mime;
+        break;
+      }
+    }
+
+    recordedChunks = [];
+    totalBytes = 0;
+
+    mediaRecorder = new MediaRecorder(compositeStream, {
+      mimeType: selectedMime,
+      videoBitsPerSecond: 5_000_000,
+      audioBitsPerSecond: 192_000,
+    });
+
+    mediaRecorder.ondataavailable = (e) => {
+      if (e.data.size > 0) {
+        recordedChunks.push(e.data);
+        totalBytes += e.data.size;
+        statSize.textContent = formatBytes(totalBytes);
+      }
+    };
+
+    mediaRecorder.onstop = handleExport;
+    mediaRecorder.start(100); // collect every 100ms
+
+    // Trigger graphics entry animation
+    graphicsVisible = true;
+    graphicsAnimProgress = 0;
+
+    // Play breaking alert
+    if (breakingToggle.checked) {
+      setTimeout(playBreakingAlert, 300);
+    }
+
+    // Update UI
+    isRecording = true;
+    recordBtn.disabled = true;
+    stopBtn.disabled = false;
+    liveIndicator.classList.add('show');
+    audioMeter.classList.remove('muted');
+    audioStatus.textContent = 'Recording';
+    statStatus.textContent = 'Recording';
+
+    // Start timer
+    recordStartTime = Date.now();
+    timerInterval = setInterval(updateTimer, 1000);
+    updateTimer();
+
+    showToast('🔴 Recording started! All graphics are baking in.', 'success');
+
+  } catch(e) {
+    console.error('Record error:', e);
+    showToast(`Recording error: ${e.message}`, 'error');
+  }
+}
+
+function stopRecording() {
+  if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+    mediaRecorder.stop();
+  }
+  stopJingle();
+  clearInterval(timerInterval);
+  isRecording = false;
+  recordBtn.disabled = false;
+  stopBtn.disabled = true;
+  liveIndicator.classList.remove('show');
+  audioMeter.classList.add('muted');
+  audioStatus.textContent = 'Inactive';
+  statStatus.textContent = 'Exporting...';
+  recTimer.classList.remove('show');
+  document.getElementById('recTimer').style.display = 'none';
+
+  // Show export overlay
+  const progressEl = document.getElementById('downloadProgress');
+  progressEl.classList.add('show');
+  const fill = document.getElementById('progressFill');
+  let prog = 0;
+  const progInterval = setInterval(() => {
+    prog = Math.min(prog + 5, 90);
+    fill.style.width = prog + '%';
+    if (prog >= 90) clearInterval(progInterval);
+  }, 100);
+}
+
+function handleExport() {
+  const blob = new Blob(recordedChunks, { type: 'video/webm' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `broadcast_${getTimestamp()}.webm`;
+  document.body.appendChild(a);
+
+  // Animate progress to 100%
+  document.getElementById('progressFill').style.width = '100%';
+  setTimeout(() => {
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    document.getElementById('downloadProgress').classList.remove('show');
+    statStatus.textContent = 'Preview';
+    showToast(`✅ Export complete! ${formatBytes(blob.size)}`, 'success', 5000);
+  }, 800);
+}
+
+function updateTimer() {
+  if (!recordStartTime) return;
+  const elapsed = Math.floor((Date.now() - recordStartTime) / 1000);
+  const h = String(Math.floor(elapsed / 3600)).padStart(2, '0');
+  const m = String(Math.floor((elapsed % 3600) / 60)).padStart(2, '0');
+  const s = String(elapsed % 60).padStart(2, '0');
+  recTimer.textContent = `${h}:${m}:${s}`;
+  recTimer.classList.add('show');
+  recTimer.style.display = 'block';
+}
+
+recordBtn.addEventListener('click', startRecording);
+stopBtn.addEventListener('click', stopRecording);
+
+// ── Screenshot ────────────────────────────────────
+screenshotBtn.addEventListener('click', () => {
+  const a = document.createElement('a');
+  a.href = canvas.toDataURL('image/png');
+  a.download = `screenshot_${getTimestamp()}.png`;
+  a.click();
+  showToast('📸 Screenshot saved!', 'success');
+});
+
+// ════════════════════════════════════════════════════
+//  UTILITY FUNCTIONS
+// ════════════════════════════════════════════════════
+function formatBytes(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024*1024) return (bytes/1024).toFixed(1) + ' KB';
+  return (bytes/(1024*1024)).toFixed(2) + ' MB';
+}
+
+function getTimestamp() {
+  return new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+}
+
+// ════════════════════════════════════════════════════
+//  FPS COUNTER
+// ════════════════════════════════════════════════════
+let lastFrameTime = performance.now();
+let frameCount = 0;
+let fpsDisplay = 30;
+
+function trackFPS() {
+  frameCount++;
+  const now = performance.now();
+  if (now - lastFrameTime >= 1000) {
+    fpsDisplay = frameCount;
+    document.getElementById('statFps').textContent = frameCount;
+    frameCount = 0;
+    lastFrameTime = now;
+  }
+}
+
+// Patch render to include FPS
+const _origRender = render;
+
+// ════════════════════════════════════════════════════
+//  BACKGROUND DECORATIVE ELEMENTS
+// ════════════════════════════════════════════════════
+function drawPlaceholderGraphic() {
+  // Central broadcast icon
+  ctx.save();
+  const cx = CANVAS_W / 2, cy = CANVAS_H / 2 - 30;
+  // Pulsing rings
+  const t = Date.now() / 1000;
+  for (let r = 0; r < 3; r++) {
+    const radius = 60 + r * 30 + (t * 20) % 30;
+    const ringAlpha = Math.max(0, 0.15 - r * 0.04 - ((t * 0.5) % 0.15));
+    ctx.strokeStyle = `rgba(26,79,214,${ringAlpha})`;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+    ctx.stroke();
+  }
+  // Center icon background
+  ctx.fillStyle = 'rgba(26,79,214,0.12)';
+  ctx.beginPath();
+  ctx.arc(cx, cy, 55, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.font = '52px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('📡', cx, cy);
+  ctx.textBaseline = 'alphabetic';
+
+  ctx.font = 'bold 20px Oswald, sans-serif';
+  ctx.fillStyle = 'rgba(160,180,230,0.5)';
+  ctx.fillText('INSTANT NEWS BROADCASTER', cx, cy + 80);
+
+  ctx.font = '500 14px Inter, sans-serif';
+  ctx.fillStyle = 'rgba(100,130,200,0.4)';
+  ctx.fillText('Load a video or enable your webcam to start', cx, cy + 108);
+  ctx.restore();
+}
+
+// ════════════════════════════════════════════════════
+//  WATERMARK
+// ════════════════════════════════════════════════════
+function drawWatermark() {
+  ctx.save();
+  ctx.globalAlpha = 0.04;
+  ctx.font = 'bold 11px Inter, sans-serif';
+  ctx.fillStyle = '#ffffff';
+  ctx.textAlign = 'right';
+  ctx.fillText('INSTANT NEWS BROADCASTER', CANVAS_W - 12, CANVAS_H - 62);
+  ctx.restore();
+}
+
+// ════════════════════════════════════════════════════
+//  ENHANCED RENDER LOOP (overrides drawPlaceholderBG)
+// ════════════════════════════════════════════════════
+// Override the original render for enhanced behavior
+cancelAnimationFrame(animFrameId);
+
+function render() {
+  trackFPS();
+
+  // Background
+  ctx.fillStyle = '#070d1a';
+  ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
+
+  const vid = sourceVideo;
+  const hasVideo = (vid.readyState >= 2) && (vid.src || vid.srcObject);
+
+  if (hasVideo) {
+    const vr = vid.videoWidth / vid.videoHeight;
+    const cr = CANVAS_W / CANVAS_H;
+    let vw, vh, vx, vy;
+    if (vr > cr) {
+      vw = CANVAS_W; vh = CANVAS_W / vr;
+      vx = 0; vy = (CANVAS_H - vh) / 2;
+    } else {
+      vh = CANVAS_H; vw = CANVAS_H * vr;
+      vx = (CANVAS_W - vw) / 2; vy = 0;
+    }
+    try { ctx.drawImage(vid, vx, vy, vw, vh); } catch(e) {}
+    webcamHint.style.display = 'none';
+  } else {
+    drawPlaceholderBG();
+    drawPlaceholderGraphic();
+  }
+
+  // Vignette
+  drawVignette();
+
+  // Graphics overlay
+  if (graphicsVisible) {
+    if (graphicsAnimProgress < 1) graphicsAnimProgress += 0.022;
+    graphicsAnimProgress = Math.min(graphicsAnimProgress, 1);
+    const p = easeOutCubic(graphicsAnimProgress);
+    drawGraphicsOverlay(p);
+  }
+
+  // Watermark
+  drawWatermark();
+
+  animFrameId = requestAnimationFrame(render);
+}
+
+function drawVignette() {
+  const grad = ctx.createRadialGradient(
+    CANVAS_W/2, CANVAS_H/2, CANVAS_H*0.3,
+    CANVAS_W/2, CANVAS_H/2, CANVAS_W*0.8
+  );
+  grad.addColorStop(0, 'rgba(0,0,0,0)');
+  grad.addColorStop(1, 'rgba(0,0,0,0.35)');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
+}
+
+// ════════════════════════════════════════════════════
+//  BOOT
+// ════════════════════════════════════════════════════
+function boot() {
+  graphicsVisible = true;
+  graphicsAnimProgress = 1;
+  render();
+
+  // Set default color labels
+  document.getElementById('colorPrimaryHex').textContent = colorPrimary.value;
+  document.getElementById('colorAccentHex').textContent  = colorAccent.value;
+
+  showToast('🎬 Studio ready! Load a video or enable webcam.', 'info', 4000);
+}
+
+// Wait for fonts
+document.fonts.ready.then(boot);
+</script>
+</body>
+</html>

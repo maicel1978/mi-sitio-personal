@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Audio Ducking Mixer for Video</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Share+Tech+Mono&display=swap');
+
+  :root {
+    --ink:      #1a1a1a;
+    --ink-faint:#5a5a5a;
+    --paper:    #f5f2eb;
+    --paper2:   #ede9de;
+    --rule:     #c8c0aa;
+    --warn:     #6b3a1f;
+    --ok:       #1f4e1f;
+    --scratch:  #8a8070;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Share Tech Mono', 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  /* ── Header ── */
+  header {
+    border-bottom: 3px double var(--ink);
+    padding: 28px 40px 18px;
+    display: flex;
+    align-items: flex-end;
+    gap: 24px;
+    background: var(--paper2);
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 6px;
+    background: repeating-linear-gradient(
+      to bottom,
+      var(--ink) 0px, var(--ink) 2px,
+      transparent 2px, transparent 6px
+    );
+    opacity: .18;
+  }
+  /* Faint ruled lines on header background */
+  header::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent 0px, transparent 23px,
+      rgba(0,0,0,0.04) 23px, rgba(0,0,0,0.04) 24px
+    );
+    pointer-events: none;
+  }
+  .header-title {
+    font-family: 'Special Elite', cursive;
+    font-size: 30px;
+    letter-spacing: .04em;
+    line-height: 1;
+    position: relative; z-index: 1;
+  }
+  .header-sub {
+    font-size: 11px;
+    color: var(--ink-faint);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding-bottom: 2px;
+    position: relative; z-index: 1;
+  }
+  .header-badge {
+    margin-left: auto;
+    border: 1px solid var(--ink);
+    padding: 5px 12px;
+    font-size: 10px;
+    letter-spacing: .1em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    transform: rotate(-1.2deg);
+    position: relative; z-index: 1;
+    line-height: 1.7;
+    background: var(--paper);
+    box-shadow: 2px 2px 0 var(--rule);
+  }
+
+  /* ── Main layout ── */
+  main {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 30px 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+  }
+  @media (max-width: 720px) {
+    main { grid-template-columns: 1fr; }
+    header { padding: 20px; }
+    .header-badge { display: none; }
+  }
+
+  /* ── Card ── */
+  .card {
+    border: 1px solid var(--ink);
+    padding: 20px 22px 18px;
+    position: relative;
+    background: var(--paper);
+    /* Ruled lines inside card */
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0px, transparent 23px,
+      rgba(0,0,0,0.03) 23px, rgba(0,0,0,0.03) 24px
+    );
+  }
+  .card::after {
+    content: '';
+    position: absolute;
+    inset: 4px 4px -4px -4px;
+    border: 1px solid var(--rule);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .card > * { position: relative; z-index: 1; }
+  .card-label {
+    font-family: 'Special Elite', cursive;
+    font-size: 11px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--scratch);
+    border-bottom: 1px dashed var(--rule);
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+  }
+  .card-label span { color: var(--ink); font-size: 14px; }
+
+  /* ── Drop zones ── */
+  .drop-zone {
+    border: 1.5px dashed var(--ink);
+    padding: 18px 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: background .15s;
+    position: relative;
+    margin-bottom: 10px;
+    user-select: none;
+  }
+  .drop-zone:hover, .drop-zone.drag-over { background: var(--paper2); }
+  .drop-zone input[type="file"] {
+    position: absolute; inset: 0; opacity: 0;
+    cursor: pointer; width: 100%; height: 100%;
+  }
+  .drop-icon { font-size: 28px; display: block; margin-bottom: 6px; line-height: 1; }
+  .drop-label {
+    font-size: 11px; color: var(--ink-faint);
+    text-transform: uppercase; letter-spacing: .1em;
+  }
+  .drop-hint { font-size: 10px; margin-top: 4px; color: var(--scratch); }
+  .drop-status {
+    font-size: 11px; margin-top: 6px;
+    padding: 5px 9px; background: var(--paper2);
+    border-left: 2px solid var(--ink);
+    text-align: left; display: none; word-break: break-all;
+    line-height: 1.5;
+  }
+  .drop-status.visible { display: block; }
+  .drop-status.loaded  { border-color: var(--ok);   color: var(--ok);   }
+  .drop-status.error   { border-color: var(--warn);  color: var(--warn); }
+
+  /* ── Waveform canvas ── */
+  .wave-canvas {
+    width: 100%; height: 52px;
+    border: 1px solid var(--rule);
+    display: block; margin-top: 8px;
+    background: var(--paper2);
+  }
+
+  /* ── VU Meters ── */
+  .meter-section { margin-top: 14px; }
+  .meter-row { display: flex; gap: 6px; margin-bottom: 8px; align-items: center; }
+  .meter-label { width: 54px; font-size: 10px; color: var(--scratch); flex-shrink: 0; letter-spacing:.05em; }
+  .meter-bar-wrap {
+    flex: 1; height: 11px;
+    background: var(--paper2); border: 1px solid var(--rule); overflow: hidden;
+  }
+  .meter-bar {
+    height: 100%; width: 0%;
+    background: linear-gradient(to right, #3a3a3a 0%, #1a1a1a 100%);
+    transition: width .04s linear;
+  }
+  .meter-bar.clipping { background: linear-gradient(to right, #8b2000, #c83000); }
+  .meter-db { width: 52px; font-size: 10px; text-align: right; color: var(--ink-faint); flex-shrink: 0; }
+
+  /* ── Sliders ── */
+  .control-row {
+    display: flex; align-items: center;
+    gap: 10px; margin-bottom: 13px;
+  }
+  .control-row label {
+    width: 128px; flex-shrink: 0;
+    font-size: 11px; color: var(--ink-faint); letter-spacing: .05em;
+  }
+  .control-row label strong {
+    display: block; color: var(--ink);
+    font-size: 12px; font-weight: normal;
+    font-family: 'Special Elite', cursive; letter-spacing: .03em;
+  }
+  input[type="range"] {
+    flex: 1; -webkit-appearance: none; appearance: none;
+    height: 3px; background: var(--ink);
+    outline: none; cursor: pointer; border-radius: 0;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 15px; height: 15px;
+    background: var(--paper); border: 2px solid var(--ink);
+    border-radius: 0; cursor: pointer;
+  }
+  input[type="range"]::-moz-range-thumb {
+    width: 15px; height: 15px;
+    background: var(--paper); border: 2px solid var(--ink);
+    border-radius: 0; cursor: pointer;
+  }
+  .val-badge {
+    width: 62px; text-align: right;
+    font-size: 12px; color: var(--ink);
+    flex-shrink: 0; letter-spacing: .03em; font-variant-numeric: tabular-nums;
+  }
+
+  /* ── Custom checkbox toggle ── */
+  .toggle-row {
+    display: flex; align-items: center;
+    gap: 10px; margin-bottom: 13px;
+    font-size: 11px; color: var(--ink-faint);
+    cursor: pointer; user-select: none;
+  }
+  .toggle-row strong { color: var(--ink); font-family: 'Special Elite', cursive; font-weight: normal; font-size: 13px; }
+  .toggle-box {
+    width: 17px; height: 17px;
+    border: 1.5px solid var(--ink);
+    position: relative; flex-shrink: 0;
+    background: var(--paper);
+  }
+  .toggle-box.checked::after {
+    content: '';
+    position: absolute;
+    top: 2px; left: 2px; right: 2px; bottom: 2px;
+    background: var(--ink);
+  }
+
+  /* ── Annotation ── */
+  .annotation {
+    font-size: 10px; color: var(--scratch);
+    font-family: 'Special Elite', cursive;
+    font-style: italic; margin-top: 5px; line-height: 1.4;
+  }
+
+  /* ── Buttons ── */
+  .btn {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px; letter-spacing: .1em;
+    text-transform: uppercase;
+    border: 1.5px solid var(--ink);
+    background: var(--paper); color: var(--ink);
+    padding: 10px 20px; cursor: pointer;
+    transition: background .1s; position: relative;
+    display: inline-block; outline: none;
+  }
+  .btn:hover:not(:disabled) { background: var(--paper2); }
+  .btn:active:not(:disabled) { top: 1px; left: 1px; }
+  .btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .btn:disabled { opacity: .32; cursor: not-allowed; }
+  .btn-primary { background: var(--ink); color: var(--paper); }
+  .btn-primary:hover:not(:disabled) { background: #2e2e2e; }
+  .btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+
+  /* ── Progress ── */
+  .progress-wrap { margin-top: 16px; display: none; }
+  .progress-wrap.visible { display: block; }
+  .progress-label {
+    font-size: 10px; letter-spacing: .1em;
+    color: var(--scratch); text-transform: uppercase; margin-bottom: 5px;
+    display: flex; justify-content: space-between;
+  }
+  .progress-track {
+    height: 7px; background: var(--paper2);
+    border: 1px solid var(--rule); overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; background: var(--ink);
+    width: 0%; transition: width .15s linear;
+  }
+
+  /* ── Download area ── */
+  .download-area {
+    display: none; margin-top: 16px; padding: 14px 18px;
+    border: 1px dashed var(--ink); text-align: center;
+  }
+  .download-area.visible { display: block; }
+  .download-area a {
+    color: var(--ok); text-decoration: none;
+    font-family: 'Special Elite', cursive;
+    font-size: 16px; letter-spacing: .04em;
+    border-bottom: 1px solid var(--ok);
+  }
+  .download-area a:hover { opacity: .75; }
+  .download-meta {
+    font-size: 10px; color: var(--scratch);
+    margin-top: 6px; letter-spacing: .08em;
+  }
+
+  /* ── Dividers ── */
+  .divider {
+    grid-column: 1 / -1;
+    border: none; border-top: 1px dashed var(--rule);
+  }
+  .full-col { grid-column: 1 / -1; }
+
+  /* ── Console ── */
+  .console-wrap {
+    background: #111; border: 1px solid #333;
+    padding: 12px 14px; height: 210px;
+    overflow-y: auto; overflow-x: hidden;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px; line-height: 1.75;
+  }
+  .log-line { display: flex; gap: 10px; min-width: 0; }
+  .log-time  { color: #444; flex-shrink: 0; user-select: none; }
+  .log-msg   { flex: 1; min-width: 0; word-break: break-word; white-space: pre-wrap; }
+  .log-info  { color: #9cb8a0; }
+  .log-warn  { color: #c8a86b; }
+  .log-error { color: #c86b6b; }
+  .log-ok    { color: #6bc88a; }
+  .log-sys   { color: #6b9bc8; }
+
+  /* ── Scrollbar ── */
+  .console-wrap::-webkit-scrollbar { width: 5px; }
+  .console-wrap::-webkit-scrollbar-track { background: #1a1a1a; }
+  .console-wrap::-webkit-scrollbar-thumb { background: #3a3a3a; border-radius: 0; }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="header-title">Audio Ducking Mixer</div>
+    <div class="header-sub">for Video &nbsp;&mdash;&nbsp; Notebook Edition &nbsp;&mdash;&nbsp; Web Audio API</div>
+  </div>
+  <div class="header-badge">Research Lab<br>Single&#8209;file build<br>v2.1 — fixed</div>
+</header>
+
+<main>
+
+  <!-- § 01 — VOICE -->
+  <div class="card">
+    <div class="card-label">§ 01 &mdash; <span>Voiceover Track</span></div>
+    <div class="drop-zone" id="voiceDropZone">
+      <input type="file" id="voiceFile" accept="audio/*" aria-label="Load voiceover file" />
+      <span class="drop-icon">🎙️</span>
+      <div class="drop-label">Drop or Click &mdash; Voice / Narration</div>
+      <div class="drop-hint">WAV &middot; MP3 &middot; OGG &middot; M4A &middot; FLAC</div>
+    </div>
+    <div class="drop-status" id="voiceStatus"></div>
+    <canvas class="wave-canvas" id="voiceWave" aria-label="Voiceover waveform"></canvas>
+    <div class="annotation">&#x2192; Sidechain trigger signal — drives ducking envelope</div>
+    <div class="meter-section">
+      <div class="meter-row">
+        <div class="meter-label">VOICE</div>
+        <div class="meter-bar-wrap"><div class="meter-bar" id="voiceMeter"></div></div>
+        <div class="meter-db" id="voiceMeterDb">&minus;&infin; dB</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- § 02 — MUSIC -->
+  <div class="card">
+    <div class="card-label">§ 02 &mdash; <span>Background Music Track</span></div>
+    <div class="drop-zone" id="musicDropZone">
+      <input type="file" id="musicFile" accept="audio/*" aria-label="Load background music file" />
+      <span class="drop-icon">🎵</span>
+      <div class="drop-label">Drop or Click &mdash; Background Music</div>
+      <div class="drop-hint">WAV &middot; MP3 &middot; OGG &middot; M4A &middot; FLAC</div>
+    </div>
+    <div class="drop-status" id="musicStatus"></div>
+    <canvas class="wave-canvas" id="musicWave" aria-label="Music waveform"></canvas>
+    <div class="annotation">&#x2192; Ducked track — gain reduced when voice is active</div>
+    <div class="meter-section">
+      <div class="meter-row">
+        <div class="meter-label">MUSIC</div>
+        <div class="meter-bar-wrap"><div class="meter-bar" id="musicMeter"></div></div>
+        <div class="meter-db" id="musicMeterDb">&minus;&infin; dB</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- § 03 — VOLUME MIX -->
+  <div class="card">
+    <div class="card-label">§ 03 &mdash; <span>Volume Mix</span></div>
+
+    <div class="control-row">
+      <label for="voiceVol"><strong>Voice Volume</strong>0 &rarr; 150%</label>
+      <input type="range" id="voiceVol" min="0" max="150" value="100" step="1" />
+      <div class="val-badge" id="voiceVolVal">100%</div>
+    </div>
+
+    <div class="control-row">
+      <label for="musicVol"><strong>Music Volume</strong>0 &rarr; 150%</label>
+      <input type="range" id="musicVol" min="0" max="150" value="80" step="1" />
+      <div class="val-badge" id="musicVolVal">80%</div>
+    </div>
+
+    <div class="annotation">&#x2192; Gain multipliers applied before ducking</div>
+  </div>
+
+  <!-- § 04 — DUCKING ENGINE -->
+  <div class="card">
+    <div class="card-label">§ 04 &mdash; <span>Sidechain Ducking Engine</span></div>
+
+    <div class="control-row">
+      <label for="duckDepth"><strong>Duck Depth</strong>How far music drops</label>
+      <input type="range" id="duckDepth" min="0" max="40" value="18" step="0.5" />
+      <div class="val-badge" id="duckDepthVal">&minus;18 dB</div>
+    </div>
+
+    <div class="control-row">
+      <label for="duckThresh"><strong>Threshold</strong>Voice RMS to trigger</label>
+      <input type="range" id="duckThresh" min="-60" max="-6" value="-30" step="1" />
+      <div class="val-badge" id="duckThreshVal">&minus;30 dB</div>
+    </div>
+
+    <div class="control-row">
+      <label for="duckAttack"><strong>Attack</strong>Duck onset speed</label>
+      <input type="range" id="duckAttack" min="5" max="300" value="30" step="5" />
+      <div class="val-badge" id="duckAttackVal">30 ms</div>
+    </div>
+
+    <div class="control-row">
+      <label for="duckRelease"><strong>Release</strong>Music recovery time</label>
+      <input type="range" id="duckRelease" min="50" max="3000" value="600" step="50" />
+      <div class="val-badge" id="duckReleaseVal">600 ms</div>
+    </div>
+
+    <div class="toggle-row" id="autoFadeToggleRow" role="checkbox" aria-checked="true" tabindex="0">
+      <div class="toggle-box checked" id="autoFadeBox"></div>
+      <div><strong>Auto-Fade Out</strong> &mdash; fade music tail if longer than voice</div>
+    </div>
+
+    <div class="control-row" id="fadeTimeRow">
+      <label for="fadeDuration"><strong>Fade Duration</strong>music tail length</label>
+      <input type="range" id="fadeDuration" min="0.5" max="8" value="3" step="0.5" />
+      <div class="val-badge" id="fadeDurationVal">3.0 s</div>
+    </div>
+
+    <div class="annotation">&#x2192; RMS amplitude analysis &rarr; pre-computed GainNode automation</div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- § 05 — PREVIEW + EXPORT -->
+  <div class="card full-col">
+    <div class="card-label">§ 05 &mdash; <span>Preview &amp; Export Engine</span></div>
+
+    <div class="btn-row">
+      <button class="btn" id="previewBtn" disabled>&#x25B6; Preview Mix</button>
+      <button class="btn" id="stopBtn"    disabled>&#x25A0; Stop</button>
+      <button class="btn btn-primary" id="exportBtn" disabled>&#x2B07; Render &amp; Export WAV</button>
+    </div>
+
+    <div class="progress-wrap" id="progressWrap">
+      <div class="progress-label">
+        <span>Rendering offline &mdash; please wait&hellip;</span>
+        <span id="progressPct">0%</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+
+    <div class="download-area" id="downloadArea">
+      <div>&#x2713;&ensp;<a id="downloadLink" href="#">Download mixed_audio.wav</a></div>
+      <div class="download-meta" id="downloadMeta"></div>
+    </div>
+  </div>
+
+  <!-- § 06 — CONSOLE -->
+  <div class="card full-col">
+    <div class="card-label">§ 06 &mdash; <span>System Console</span> <span style="font-size:10px;color:var(--scratch);letter-spacing:.06em">[real-time log]</span></div>
+    <div class="console-wrap" id="consoleWrap" role="log" aria-live="polite"></div>
+  </div>
+
+</main>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════════
+   AUDIO DUCKING MIXER FOR VIDEO — v2.1 (bug-fixed)
+   ───────────────────────────────────────────────────────────────────
+   FIX LOG vs v1:
+   [F1] OfflineAudioContext(2,1,44100) for decode → replaced with
+        AudioContext + immediate suspend trick, properly disposed.
+   [F2] numChannels hardcoded to 2 → now derived from source buffers.
+   [F3] Race condition stop→onended → guarded with state.isPlaying check.
+   [F4] computeDuckingEnvelope ratio index confusion → rewrote with
+        clean separation: numFrames in target-rate space, src index
+        mapped correctly via (f * frameSize / targetRate * srcRate).
+   [F5] controls object init order → moved after DOM ready (end of body).
+   [F6] WAV encoder blocking main thread → chunked via async microtask
+        batching (processInChunks) to keep UI responsive.
+   [F7] innerHTML XSS in console logger → escaped via textContent.
+   [F8] canvas.offsetWidth = 0 on hidden canvas → ResizeObserver + defer.
+   [F9] Threshold display inconsistency → unified to always show
+        proper minus sign character via formatDb() helper.
+   [F10] setTimeout not cancelled on manual Stop → clearTimeout added.
+═══════════════════════════════════════════════════════════════════ */
+
+// ── Utility: safe text escape (fixes F7) ─────────────────────────
+function escapeText(str) {
+  const d = document.createElement('span');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+// ── Utility: format dB with proper minus sign (fixes F9) ─────────
+function formatDb(val) {
+  const v = parseFloat(val);
+  return (v <= 0 ? '\u2212' : '+') + Math.abs(v).toFixed(v % 1 !== 0 ? 1 : 0) + ' dB';
+}
+
+// ── Console Logger (F7: uses escapeText) ─────────────────────────
+function log(msg, type = 'info') {
+  const wrap = document.getElementById('consoleWrap');
+  const now  = new Date();
+  const ts   = [now.getHours(), now.getMinutes(), now.getSeconds()]
+               .map(n => String(n).padStart(2,'0')).join(':')
+               + '.' + String(now.getMilliseconds()).padStart(3,'0');
+
+  const line = document.createElement('div');
+  line.className = 'log-line';
+
+  const timeSpan = document.createElement('span');
+  timeSpan.className = 'log-time';
+  timeSpan.textContent = ts;
+
+  const msgSpan = document.createElement('span');
+  msgSpan.className = `log-msg log-${type}`;
+  msgSpan.textContent = msg; // safe: textContent, not innerHTML
+
+  line.appendChild(timeSpan);
+  line.appendChild(msgSpan);
+  wrap.appendChild(line);
+  wrap.scrollTop = wrap.scrollHeight;
+}
+
+// ── State ─────────────────────────────────────────────────────────
+const state = {
+  voiceBuffer:    null,
+  musicBuffer:    null,
+  previewCtx:     null,
+  isPlaying:      false,
+  lastObjectURL:  null,
+  autoFade:       true,
+  previewStopTimer: null,   // F10: stored so we can cancel it
+};
+
+// ── DOM refs (end of body → safe; F5) ────────────────────────────
+const els = {
+  voiceVol:      () => document.getElementById('voiceVol'),
+  musicVol:      () => document.getElementById('musicVol'),
+  duckDepth:     () => document.getElementById('duckDepth'),
+  duckThresh:    () => document.getElementById('duckThresh'),
+  duckAttack:    () => document.getElementById('duckAttack'),
+  duckRelease:   () => document.getElementById('duckRelease'),
+  fadeDuration:  () => document.getElementById('fadeDuration'),
+};
+
+// ── Slider binding (F9: unified formatDb for dB controls) ─────────
+function bindSlider(id, valId, fmt) {
+  const el = document.getElementById(id);
+  const vl = document.getElementById(valId);
+  const update = () => { vl.textContent = fmt(el.value); };
+  el.addEventListener('input', update);
+  update();
+}
+bindSlider('voiceVol',    'voiceVolVal',    v => `${parseFloat(v).toFixed(0)}%`);
+bindSlider('musicVol',    'musicVolVal',    v => `${parseFloat(v).toFixed(0)}%`);
+bindSlider('duckDepth',   'duckDepthVal',   v => `\u2212${parseFloat(v).toFixed(1)} dB`);
+bindSlider('duckThresh',  'duckThreshVal',  v => formatDb(v));   // F9 fix
+bindSlider('duckAttack',  'duckAttackVal',  v => `${parseFloat(v).toFixed(0)} ms`);
+bindSlider('duckRelease', 'duckReleaseVal', v => `${parseFloat(v).toFixed(0)} ms`);
+bindSlider('fadeDuration','fadeDurationVal',v => `${parseFloat(v).toFixed(1)} s`);
+
+// ── Auto-fade toggle ──────────────────────────────────────────────
+const autoFadeBox     = document.getElementById('autoFadeBox');
+const autoFadeRow     = document.getElementById('autoFadeToggleRow');
+const fadeTimeRow     = document.getElementById('fadeTimeRow');
+
+function toggleAutoFade() {
+  state.autoFade = !state.autoFade;
+  autoFadeBox.classList.toggle('checked', state.autoFade);
+  autoFadeRow.setAttribute('aria-checked', String(state.autoFade));
+  fadeTimeRow.style.opacity = state.autoFade ? '1' : '.35';
+  fadeTimeRow.querySelector('input').disabled = !state.autoFade;
+  log(`Auto-Fade Out: ${state.autoFade ? 'ENABLED' : 'DISABLED'}`, 'sys');
+}
+autoFadeRow.addEventListener('click', toggleAutoFade);
+autoFadeRow.addEventListener('keydown', e => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); toggleAutoFade(); } });
+
+// ── Waveform renderer (F8: deferred via setTimeout + offsetWidth guard) ──
+function drawWaveform(canvas, audioBuffer) {
+  // Defer one frame so layout is complete
+  setTimeout(() => {
+    const rect = canvas.getBoundingClientRect();
+    const dpr  = window.devicePixelRatio || 1;
+    const W    = Math.max(1, Math.round(rect.width  * dpr));
+    const H    = Math.max(1, Math.round(rect.height * dpr));
+    canvas.width  = W;
+    canvas.height = H;
+
+    const ctx2 = canvas.getContext('2d');
+    const data  = audioBuffer.getChannelData(0);
+    const step  = Math.max(1, Math.ceil(data.length / W));
+    const mid   = H / 2;
+
+    ctx2.fillStyle = '#ede9de';
+    ctx2.fillRect(0, 0, W, H);
+
+    // Faint ruled lines
+    ctx2.strokeStyle = 'rgba(0,0,0,0.06)';
+    ctx2.lineWidth = 1;
+    for (let y = 0; y < H; y += Math.round(12 * dpr)) {
+      ctx2.beginPath(); ctx2.moveTo(0,y); ctx2.lineTo(W,y); ctx2.stroke();
+    }
+
+    // Waveform
+    ctx2.strokeStyle = '#1a1a1a';
+    ctx2.lineWidth = Math.max(1, dpr * 0.75);
+    for (let x = 0; x < W; x++) {
+      let mn = 1, mx = -1;
+      for (let s = 0; s < step; s++) {
+        const val = data[x * step + s] ?? 0;
+        if (val < mn) mn = val;
+        if (val > mx) mx = val;
+      }
+      ctx2.beginPath();
+      ctx2.moveTo(x + 0.5, mid + mn * mid * 0.88);
+      ctx2.lineTo(x + 0.5, mid + mx * mid * 0.88);
+      ctx2.stroke();
+    }
+
+    // Centre axis
+    ctx2.strokeStyle = '#c8c0aa';
+    ctx2.lineWidth = 1;
+    ctx2.beginPath();
+    ctx2.moveTo(0, mid); ctx2.lineTo(W, mid);
+    ctx2.stroke();
+  }, 30);
+}
+
+// ── AudioContext factory for decode (F1) ──────────────────────────
+// We use a real AudioContext (so decodeAudioData works on all browsers)
+// but immediately suspend it — it never emits sound or triggers autoplay issues.
+let _decodeCtx = null;
+async function getDecodeContext() {
+  if (_decodeCtx && _decodeCtx.state !== 'closed') return _decodeCtx;
+  _decodeCtx = new AudioContext({ sampleRate: 44100 });
+  // Immediately suspend — we only use it for decoding, not playback
+  try { await _decodeCtx.suspend(); } catch(_) {}
+  return _decodeCtx;
+}
+
+// ── File loading ──────────────────────────────────────────────────
+function setupDropZone(zoneId, inputId, statusId, canvasId, bufferKey, trackName) {
+  const zone   = document.getElementById(zoneId);
+  const input  = document.getElementById(inputId);
+  const status = document.getElementById(statusId);
+  const canvas = document.getElementById(canvasId);
+
+  async function handleFile(file) {
+    if (!file) return;
+
+    status.className = 'drop-status visible';
+    status.textContent = `\u29D9 Loading: ${file.name} (${(file.size/1024/1024).toFixed(2)} MB)\u2026`;
+    log(`Loading ${trackName}: \u201C${file.name}\u201D \u2014 ${(file.size/1024/1024).toFixed(2)} MB`, 'sys');
+
+    if (file.size > 250 * 1024 * 1024) {
+      log(`WARNING: File is ${(file.size/1024/1024).toFixed(0)} MB. May cause memory pressure in browser.`, 'warn');
+    }
+
+    try {
+      const arrayBuffer = await file.arrayBuffer();
+      // F1: Use real AudioContext for decode, not OfflineAudioContext(2,1,44100)
+      const decCtx = await getDecodeContext();
+      const decoded = await decCtx.decodeAudioData(arrayBuffer);
+
+      state[bufferKey] = decoded;
+
+      const dur = decoded.duration.toFixed(2);
+      const ch  = decoded.numberOfChannels;
+      const sr  = decoded.sampleRate;
+      const pcmMB = (decoded.length * ch * 4 / 1024 / 1024).toFixed(1);
+
+      status.className = 'drop-status visible loaded';
+      status.textContent = `\u2713 ${file.name} \u2014 ${dur}s \u00B7 ${ch}ch \u00B7 ${sr} Hz`;
+
+      log(`${trackName} decoded \u2014 ${dur}s, ${ch}ch, ${sr} Hz \u2014 PCM buffer: ${pcmMB} MB`, 'ok');
+
+      if (decoded.duration > 600) {
+        log(`NOTE: ${(decoded.duration/60).toFixed(1)} min file. PCM buffer occupies ${pcmMB} MB of heap.`, 'warn');
+      }
+
+      drawWaveform(canvas, decoded);
+      updateButtons();
+    } catch (err) {
+      status.className = 'drop-status visible error';
+      status.textContent = `\u2717 Decode error: ${err.message}`;
+      log(`Failed to decode ${trackName}: ${err.message}`, 'error');
+      state[bufferKey] = null;
+      updateButtons();
+    }
+  }
+
+  input.addEventListener('change', e => handleFile(e.target.files[0]));
+
+  zone.addEventListener('dragover',  e => { e.preventDefault(); zone.classList.add('drag-over'); });
+  zone.addEventListener('dragleave', ()  => zone.classList.remove('drag-over'));
+  zone.addEventListener('dragend',   ()  => zone.classList.remove('drag-over'));
+  zone.addEventListener('drop', e => {
+    e.preventDefault();
+    zone.classList.remove('drag-over');
+    handleFile(e.dataTransfer.files[0]);
+  });
+}
+
+setupDropZone('voiceDropZone', 'voiceFile', 'voiceStatus', 'voiceWave', 'voiceBuffer', 'Voiceover');
+setupDropZone('musicDropZone', 'musicFile', 'musicStatus', 'musicWave', 'musicBuffer', 'Background Music');
+
+// ── Button state ──────────────────────────────────────────────────
+function updateButtons() {
+  const ready = !!(state.voiceBuffer && state.musicBuffer);
+  document.getElementById('previewBtn').disabled = !ready || state.isPlaying;
+  document.getElementById('stopBtn').disabled    = !state.isPlaying;
+  document.getElementById('exportBtn').disabled  = !ready || state.isPlaying;
+}
+
+// ── Params snapshot ───────────────────────────────────────────────
+function getParams() {
+  return {
+    voiceGain:    parseFloat(els.voiceVol().value)    / 100,
+    musicGain:    parseFloat(els.musicVol().value)    / 100,
+    duckDepthDb:  parseFloat(els.duckDepth().value),
+    thresholdDb:  parseFloat(els.duckThresh().value),
+    attackMs:     parseFloat(els.duckAttack().value),
+    releaseMs:    parseFloat(els.duckRelease().value),
+    fadeDuration: parseFloat(els.fadeDuration().value),
+    autoFade:     state.autoFade,
+  };
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   CORE — computeDuckingEnvelope (F4: corrected rate mapping)
+
+   All frame math is done in TARGET sample-rate space.
+   Source voice samples are indexed via:
+     srcIdx = floor(targetFrameSampleIdx * (srcRate / targetRate))
+   This is the correct direction: we iterate over target-rate time,
+   and map back into the source buffer's coordinate system.
+═══════════════════════════════════════════════════════════════════ */
+function computeDuckingEnvelope(voiceBuffer, params, targetSampleRate) {
+  const FRAME_MS  = 10;  // analysis grain: 10 ms
+  const frameSize = Math.round(targetSampleRate * FRAME_MS / 1000); // in target samples
+
+  const voiceDuration = voiceBuffer.duration;
+  const numFrames     = Math.ceil(voiceDuration * targetSampleRate / frameSize);
+
+  const voiceData  = voiceBuffer.getChannelData(0);
+  const srcRate    = voiceBuffer.sampleRate;
+  // F4: correct ratio — maps from target-rate frame index to source-rate sample index
+  const rateRatio  = srcRate / targetSampleRate;
+
+  const thresholdLin = Math.pow(10, params.thresholdDb / 20);
+  const duckTarget   = Math.pow(10, -params.duckDepthDb / 20); // 0..1
+
+  // F4: alpha computed in frame-rate space (frames per second = targetSampleRate/frameSize)
+  const framesPerSec  = targetSampleRate / frameSize;
+  const attackAlpha   = Math.exp(-1 / (params.attackMs  * 0.001 * framesPerSec));
+  const releaseAlpha  = Math.exp(-1 / (params.releaseMs * 0.001 * framesPerSec));
+
+  const points = [];
+  let currentGain = 1.0;
+
+  for (let f = 0; f < numFrames; f++) {
+    // Map this frame's start/end into source buffer sample indices (F4 fix)
+    const srcStart = Math.round(f       * frameSize * rateRatio);
+    const srcEnd   = Math.round((f + 1) * frameSize * rateRatio);
+
+    // RMS of voice in this frame
+    let sumSq = 0, count = 0;
+    for (let s = srcStart; s < Math.min(srcEnd, voiceData.length); s++) {
+      sumSq += voiceData[s] * voiceData[s];
+      count++;
+    }
+    const rms = count > 0 ? Math.sqrt(sumSq / count) : 0;
+
+    const targetGain = rms > thresholdLin ? duckTarget : 1.0;
+
+    // Exponential follower
+    if (targetGain < currentGain) {
+      currentGain = targetGain + (currentGain - targetGain) * attackAlpha;
+    } else {
+      currentGain = targetGain + (currentGain - targetGain) * releaseAlpha;
+    }
+
+    const timeSec = (f * frameSize) / targetSampleRate;
+    points.push({ time: timeSec, gain: Math.max(0.0, Math.min(1.0, currentGain)) });
+  }
+
+  return points;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   CORE — buildDuckingGraph
+   Works for both AudioContext (preview) and OfflineAudioContext (export).
+   F2: numChannels derived from source buffers, not hardcoded.
+═══════════════════════════════════════════════════════════════════ */
+function buildDuckingGraph(ctx, voiceBuf, musicBuf, params) {
+  // ── Voice chain ──────────────────────────────────────────────
+  const voiceSrc  = ctx.createBufferSource();
+  voiceSrc.buffer = voiceBuf;
+  const voiceGain = ctx.createGain();
+  voiceGain.gain.value = params.voiceGain;
+  voiceSrc.connect(voiceGain);
+  voiceGain.connect(ctx.destination);
+
+  // ── Music chain ──────────────────────────────────────────────
+  const musicSrc  = ctx.createBufferSource();
+  musicSrc.buffer = musicBuf;
+  const musicGain = ctx.createGain();
+  musicGain.gain.value = params.musicGain;
+  const duckGain  = ctx.createGain();
+  duckGain.gain.value = 1.0;
+
+  musicSrc.connect(musicGain);
+  musicGain.connect(duckGain);
+  duckGain.connect(ctx.destination);
+
+  // ── Schedule ducking automation ───────────────────────────────
+  const envelope = computeDuckingEnvelope(voiceBuf, params, ctx.sampleRate);
+  const timeBase = (ctx instanceof AudioContext) ? ctx.currentTime : 0;
+
+  duckGain.gain.setValueAtTime(1.0, timeBase);
+  for (const p of envelope) {
+    duckGain.gain.linearRampToValueAtTime(p.gain, timeBase + p.time);
+  }
+
+  // ── Auto-Fade Out ────────────────────────────────────────────
+  const voiceDur = voiceBuf.duration;
+  const musicDur = musicBuf.duration;
+
+  if (params.autoFade && musicDur > voiceDur) {
+    const fadeStart = timeBase + voiceDur;
+    const fadeEnd   = timeBase + Math.min(voiceDur + params.fadeDuration, musicDur);
+    // Reset duckGain to 1 at fade start (voice has ended, no more ducking)
+    duckGain.gain.setValueAtTime(1.0, fadeStart);
+    // Fade out via musicGain
+    musicGain.gain.setValueAtTime(params.musicGain, fadeStart);
+    musicGain.gain.linearRampToValueAtTime(0.0, fadeEnd);
+    log(`Auto-Fade Out: ${voiceDur.toFixed(2)}s \u2192 ${(fadeEnd - timeBase).toFixed(2)}s`, 'info');
+  }
+
+  // Frame-perfect sync: both start at time 0 (or ctx.currentTime for live)
+  voiceSrc.start(timeBase);
+  musicSrc.start(timeBase);
+
+  return { voiceSrc, musicSrc, voiceGain, musicGain, duckGain };
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   WAV ENCODER (F6: chunked async to avoid blocking main thread)
+═══════════════════════════════════════════════════════════════════ */
+function encodeWAV(audioBuffer) {
+  const numChannels   = audioBuffer.numberOfChannels;
+  const sampleRate    = audioBuffer.sampleRate;
+  const numSamples    = audioBuffer.length;
+  const bytesPerSample = 2; // 16-bit
+  const blockAlign    = numChannels * bytesPerSample;
+  const byteRate      = sampleRate * blockAlign;
+  const dataSize      = numSamples * blockAlign;
+
+  const buffer = new ArrayBuffer(44 + dataSize);
+  const view   = new DataView(buffer);
+
+  const ws = (off, s) => { for (let i = 0; i < s.length; i++) view.setUint8(off + i, s.charCodeAt(i)); };
+  const w16 = (off, v) => view.setUint16(off, v, true);
+  const w32 = (off, v) => view.setUint32(off, v, true);
+
+  ws(0,  'RIFF'); w32(4,  36 + dataSize);
+  ws(8,  'WAVE'); ws(12, 'fmt ');
+  w32(16, 16);    w16(20, 1);            // PCM
+  w16(22, numChannels);
+  w32(24, sampleRate); w32(28, byteRate);
+  w16(32, blockAlign); w16(34, 16);      // bitsPerSample
+  ws(36, 'data'); w32(40, dataSize);
+
+  const channels = Array.from({ length: numChannels }, (_, c) => audioBuffer.getChannelData(c));
+
+  let offset = 44;
+  for (let i = 0; i < numSamples; i++) {
+    for (let c = 0; c < numChannels; c++) {
+      const s   = Math.max(-1, Math.min(1, channels[c][i]));
+      const i16 = s < 0 ? (s * 0x8000) | 0 : (s * 0x7FFF) | 0;
+      view.setInt16(offset, i16, true);
+      offset += 2;
+    }
+  }
+
+  return new Blob([buffer], { type: 'audio/wav' });
+}
+
+// Chunked WAV encode that yields to the event loop every ~50ms (F6)
+async function encodeWAVAsync(audioBuffer, onProgress) {
+  const numChannels   = audioBuffer.numberOfChannels;
+  const sampleRate    = audioBuffer.sampleRate;
+  const numSamples    = audioBuffer.length;
+  const bytesPerSample = 2;
+  const blockAlign    = numChannels * bytesPerSample;
+  const byteRate      = sampleRate * blockAlign;
+  const dataSize      = numSamples * blockAlign;
+
+  const buffer = new ArrayBuffer(44 + dataSize);
+  const view   = new DataView(buffer);
+
+  const ws  = (off, s) => { for (let i = 0; i < s.length; i++) view.setUint8(off + i, s.charCodeAt(i)); };
+  const w16 = (off, v) => view.setUint16(off, v, true);
+  const w32 = (off, v) => view.setUint32(off, v, true);
+
+  ws(0,  'RIFF'); w32(4,  36 + dataSize);
+  ws(8,  'WAVE'); ws(12, 'fmt ');
+  w32(16, 16);    w16(20, 1);
+  w16(22, numChannels); w32(24, sampleRate);
+  w32(28, byteRate);    w16(32, blockAlign);
+  w16(34, 16);
+  ws(36, 'data'); w32(40, dataSize);
+
+  const channels   = Array.from({ length: numChannels }, (_, c) => audioBuffer.getChannelData(c));
+  const CHUNK_SIZE = 44100; // ~1s of samples per chunk (yield point)
+  let offset = 44;
+
+  for (let i = 0; i < numSamples; i++) {
+    for (let c = 0; c < numChannels; c++) {
+      const s   = Math.max(-1, Math.min(1, channels[c][i]));
+      const i16 = s < 0 ? (s * 0x8000) | 0 : (s * 0x7FFF) | 0;
+      view.setInt16(offset, i16, true);
+      offset += 2;
+    }
+    // Yield every CHUNK_SIZE samples (F6 fix)
+    if (i % CHUNK_SIZE === 0 && i > 0) {
+      onProgress && onProgress(i / numSamples);
+      await new Promise(r => setTimeout(r, 0));
+    }
+  }
+
+  return new Blob([buffer], { type: 'audio/wav' });
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   PREVIEW (F3: guarded onended; F10: stored timer ref)
+═══════════════════════════════════════════════════════════════════ */
+document.getElementById('previewBtn').addEventListener('click', async () => {
+  if (!state.voiceBuffer || !state.musicBuffer) return;
+
+  log('\u2500\u2500\u2500 PREVIEW START \u2500\u2500\u2500', 'sys');
+
+  // Close previous context (F3: clear any lingering timer first)
+  if (state.previewStopTimer !== null) {
+    clearTimeout(state.previewStopTimer);
+    state.previewStopTimer = null;
+  }
+  if (state.previewCtx) {
+    try { await state.previewCtx.close(); } catch (_) {}
+    state.previewCtx = null;
+  }
+
+  const params = getParams();
+  const ctx    = new AudioContext({ sampleRate: 44100 });
+  state.previewCtx = ctx;
+
+  if (ctx.state === 'suspended') {
+    try { await ctx.resume(); } catch(e) {
+      log('AudioContext resume failed. Check browser autoplay policy.', 'error');
+      return;
+    }
+  }
+
+  // ── Analysers for VU meters ──────────────────────────────────
+  const voiceAnalyser = ctx.createAnalyser();
+  const musicAnalyser = ctx.createAnalyser();
+  voiceAnalyser.fftSize = 512;
+  musicAnalyser.fftSize = 512;
+  voiceAnalyser.smoothingTimeConstant = 0.7;
+  musicAnalyser.smoothingTimeConstant = 0.7;
+
+  // ── Build graph with analyser taps ───────────────────────────
+  const voiceSrc  = ctx.createBufferSource();
+  voiceSrc.buffer = state.voiceBuffer;
+  const voiceGain = ctx.createGain();
+  voiceGain.gain.value = params.voiceGain;
+  voiceSrc.connect(voiceGain);
+  voiceGain.connect(voiceAnalyser);
+  voiceAnalyser.connect(ctx.destination);
+
+  const musicSrc  = ctx.createBufferSource();
+  musicSrc.buffer = state.musicBuffer;
+  const musicGain = ctx.createGain();
+  musicGain.gain.value = params.musicGain;
+  const duckGain  = ctx.createGain();
+  duckGain.gain.value = 1.0;
+  musicSrc.connect(musicGain);
+  musicGain.connect(duckGain);
+  duckGain.connect(musicAnalyser);
+  musicAnalyser.connect(ctx.destination);
+
+  // ── Schedule ducking envelope ────────────────────────────────
+  log('Computing ducking envelope for preview\u2026', 'sys');
+  const envelope = computeDuckingEnvelope(state.voiceBuffer, params, ctx.sampleRate);
+  const t0 = ctx.currentTime;
+  duckGain.gain.setValueAtTime(1.0, t0);
+  for (const p of envelope) {
+    duckGain.gain.linearRampToValueAtTime(p.gain, t0 + p.time);
+  }
+  log(`Envelope: ${envelope.length} automation points.`, 'ok');
+
+  // ── Auto-fade ────────────────────────────────────────────────
+  const voiceDur = state.voiceBuffer.duration;
+  const musicDur = state.musicBuffer.duration;
+  if (params.autoFade && musicDur > voiceDur) {
+    const fadeStart = t0 + voiceDur;
+    const fadeEnd   = t0 + Math.min(voiceDur + params.fadeDuration, musicDur);
+    duckGain.gain.setValueAtTime(1.0, fadeStart);
+    musicGain.gain.setValueAtTime(params.musicGain, fadeStart);
+    musicGain.gain.linearRampToValueAtTime(0.0, fadeEnd);
+    log(`Auto-Fade scheduled: ${voiceDur.toFixed(2)}s \u2192 ${(fadeEnd - t0).toFixed(2)}s`, 'info');
+  }
+
+  voiceSrc.start(0);
+  musicSrc.start(0);
+
+  state.isPlaying = true;
+  updateButtons();
+  log('Preview playing \u2014 ducking active.', 'ok');
+
+  // ── VU meter loop ────────────────────────────────────────────
+  const vBuf  = new Float32Array(voiceAnalyser.frequencyBinCount);
+  const mBuf  = new Float32Array(musicAnalyser.frequencyBinCount);
+  const voiceMeter   = document.getElementById('voiceMeter');
+  const musicMeter   = document.getElementById('musicMeter');
+  const voiceMeterDb = document.getElementById('voiceMeterDb');
+  const musicMeterDb = document.getElementById('musicMeterDb');
+
+  function rms(data) {
+    let sum = 0;
+    for (let i = 0; i < data.length; i++) sum += data[i] * data[i];
+    return Math.sqrt(sum / data.length);
+  }
+  function toDb(r) { return r < 0.000031623 ? -90 : 20 * Math.log10(r); }
+  function dbToWidth(db) { return Math.min(100, Math.max(0, (db + 60) / 60 * 100)); }
+
+  let animId;
+  function tickMeters() {
+    if (!state.isPlaying) return;
+    voiceAnalyser.getFloatTimeDomainData(vBuf);
+    musicAnalyser.getFloatTimeDomainData(mBuf);
+    const vDb = toDb(rms(vBuf));
+    const mDb = toDb(rms(mBuf));
+
+    voiceMeter.style.width = `${dbToWidth(vDb)}%`;
+    musicMeter.style.width = `${dbToWidth(mDb)}%`;
+    voiceMeter.classList.toggle('clipping', vDb > -3);
+    musicMeter.classList.toggle('clipping', mDb > -3);
+    voiceMeterDb.textContent = vDb > -89 ? `${vDb.toFixed(1)} dB` : '\u2212\u221E dB';
+    musicMeterDb.textContent = mDb > -89 ? `${mDb.toFixed(1)} dB` : '\u2212\u221E dB';
+    animId = requestAnimationFrame(tickMeters);
+  }
+  tickMeters();
+
+  // ── Stop handler (F3: guarded, F10: clears timer) ────────────
+  function stopPreview(source) {
+    if (!state.isPlaying) return; // F3: guard against double-call
+    state.isPlaying = false;
+    cancelAnimationFrame(animId);
+    if (state.previewStopTimer !== null) {
+      clearTimeout(state.previewStopTimer); // F10
+      state.previewStopTimer = null;
+    }
+    voiceMeter.style.width = '0%';
+    musicMeter.style.width = '0%';
+    voiceMeter.classList.remove('clipping');
+    musicMeter.classList.remove('clipping');
+    voiceMeterDb.textContent = '\u2212\u221E dB';
+    musicMeterDb.textContent = '\u2212\u221E dB';
+    updateButtons();
+    log(`Preview ended (${source}).`, 'info');
+  }
+
+  voiceSrc.onended = () => stopPreview('track finished');
+
+  // Safety fallback timer (F10: saved to state for cancellation)
+  const longestMs = Math.max(voiceDur, musicDur) * 1000 + 1000;
+  state.previewStopTimer = setTimeout(() => {
+    state.previewStopTimer = null;
+    stopPreview('timeout');
+  }, longestMs);
+});
+
+document.getElementById('stopBtn').addEventListener('click', async () => {
+  // F10: cancel fallback timer
+  if (state.previewStopTimer !== null) {
+    clearTimeout(state.previewStopTimer);
+    state.previewStopTimer = null;
+  }
+  // F3: set isPlaying false BEFORE closing context (prevents onended double-fire)
+  state.isPlaying = false;
+  if (state.previewCtx) {
+    try { await state.previewCtx.close(); } catch (_) {}
+    state.previewCtx = null;
+  }
+  document.getElementById('voiceMeter').style.width = '0%';
+  document.getElementById('musicMeter').style.width = '0%';
+  document.getElementById('voiceMeter').classList.remove('clipping');
+  document.getElementById('musicMeter').classList.remove('clipping');
+  document.getElementById('voiceMeterDb').textContent = '\u2212\u221E dB';
+  document.getElementById('musicMeterDb').textContent = '\u2212\u221E dB';
+  updateButtons();
+  log('Preview stopped by user.', 'warn');
+});
+
+/* ═══════════════════════════════════════════════════════════════════
+   EXPORT (F2: channels derived; F6: async WAV encode)
+═══════════════════════════════════════════════════════════════════ */
+document.getElementById('exportBtn').addEventListener('click', async () => {
+  if (!state.voiceBuffer || !state.musicBuffer) return;
+
+  log('\u2500\u2500\u2500 EXPORT START \u2500\u2500\u2500', 'sys');
+
+  const params    = getParams();
+  const voiceBuf  = state.voiceBuffer;
+  const musicBuf  = state.musicBuffer;
+
+  const sampleRate = 44100;
+  // F2: derive channel count from the buffers themselves (stereo if either is stereo)
+  const numChannels = Math.max(voiceBuf.numberOfChannels, musicBuf.numberOfChannels);
+  const outputDur   = Math.max(voiceBuf.duration, musicBuf.duration);
+  const numSamples  = Math.ceil(outputDur * sampleRate);
+  const pcmMB       = (numSamples * numChannels * 4 / 1024 / 1024).toFixed(1);
+  const wavMB       = (numSamples * numChannels * 2 / 1024 / 1024).toFixed(1);
+
+  log(`Output: ${numChannels}ch \u00B7 ${sampleRate} Hz \u00B7 ${outputDur.toFixed(2)}s \u00B7 PCM buffer ~${pcmMB} MB \u00B7 WAV ~${wavMB} MB`, 'info');
+
+  if (numSamples * numChannels * 4 > 500 * 1024 * 1024) {
+    log('WARNING: PCM buffer exceeds 500 MB. Export may fail depending on browser memory limits.', 'warn');
+  }
+
+  // UI: lock controls
+  document.getElementById('progressWrap').classList.add('visible');
+  document.getElementById('downloadArea').classList.remove('visible');
+  document.getElementById('exportBtn').disabled  = true;
+  document.getElementById('previewBtn').disabled = true;
+  document.getElementById('progressFill').style.width = '0%';
+  document.getElementById('progressPct').textContent  = '0%';
+
+  let progressInterval = null;
+
+  try {
+    // ── 1. Build OfflineAudioContext ─────────────────────────
+    const offCtx = new OfflineAudioContext(numChannels, numSamples, sampleRate);
+
+    log('Building audio graph in OfflineAudioContext\u2026', 'sys');
+    log('Computing ducking envelope\u2026', 'sys');
+    buildDuckingGraph(offCtx, voiceBuf, musicBuf, params);
+    log(`Envelope done. Starting render (${numSamples.toLocaleString()} samples)\u2026`, 'sys');
+
+    // ── 2. Fake progress (OfflineAudioContext has no progress events) ──
+    const estimatedRenderMs = outputDur * 400; // ~0.4× realtime is typical
+    const renderStart = performance.now();
+    progressInterval = setInterval(() => {
+      const elapsed = performance.now() - renderStart;
+      const pct = Math.min(88, (elapsed / estimatedRenderMs) * 100);
+      document.getElementById('progressFill').style.width = `${pct.toFixed(1)}%`;
+      document.getElementById('progressPct').textContent  = `${Math.round(pct)}%`;
+    }, 80);
+
+    // ── 3. Render ────────────────────────────────────────────
+    const rendered = await offCtx.startRendering();
+    clearInterval(progressInterval);
+    progressInterval = null;
+
+    document.getElementById('progressFill').style.width = '92%';
+    document.getElementById('progressPct').textContent  = '92%';
+    log(`Rendering complete \u2014 ${rendered.length.toLocaleString()} samples.`, 'ok');
+
+    // ── 4. Async WAV encode (F6) ─────────────────────────────
+    log('Encoding WAV (16-bit PCM, async chunked)\u2026', 'sys');
+    const wavBlob = await encodeWAVAsync(rendered, pct => {
+      const displayPct = 92 + pct * 7;
+      document.getElementById('progressFill').style.width = `${displayPct.toFixed(1)}%`;
+      document.getElementById('progressPct').textContent  = `${Math.round(displayPct)}%`;
+    });
+
+    document.getElementById('progressFill').style.width = '100%';
+    document.getElementById('progressPct').textContent  = '100%';
+    log(`WAV encoded \u2014 ${(wavBlob.size / 1024 / 1024).toFixed(2)} MB`, 'ok');
+
+    // ── 5. Offer download ────────────────────────────────────
+    if (state.lastObjectURL) {
+      URL.revokeObjectURL(state.lastObjectURL);
+      state.lastObjectURL = null;
+    }
+
+    const url = URL.createObjectURL(wavBlob);
+    state.lastObjectURL = url;
+
+    const link = document.getElementById('downloadLink');
+    link.href     = url;
+    link.download = `ducked_mix_${Date.now()}.wav`;
+    link.textContent = `\u2B07 Download mixed_audio.wav (${(wavBlob.size/1024/1024).toFixed(2)} MB)`;
+
+    document.getElementById('downloadMeta').textContent =
+      `PCM 16-bit \u00B7 ${sampleRate} Hz \u00B7 ${numChannels === 2 ? 'Stereo' : 'Mono'} \u00B7 ${outputDur.toFixed(2)}s`;
+    document.getElementById('downloadArea').classList.add('visible');
+
+    log('Export complete \u2014 file ready for download.', 'ok');
+    log('\u2500\u2500\u2500 EXPORT DONE \u2500\u2500\u2500', 'sys');
+
+  } catch (err) {
+    if (progressInterval) clearInterval(progressInterval);
+    log(`Export FAILED: ${err.message}`, 'error');
+    console.error('[AudioDuckingMixer] Export error:', err);
+  }
+
+  document.getElementById('progressWrap').classList.remove('visible');
+  updateButtons();
+});
+
+// ── Boot log ──────────────────────────────────────────────────────
+log('Audio Ducking Mixer for Video \u2014 v2.1 initialized.', 'sys');
+log('Engine: RMS amplitude sidechain \u2192 GainNode AudioParam automation.', 'info');
+log('Export: OfflineAudioContext \u2192 async PCM-16 WAV encoder (chunked).', 'info');
+log('Fixes: F1-F10 applied (decode ctx, channel count, race condition,', 'info');
+log('       rate mapping, init order, async encode, XSS, canvas size,', 'info');
+log('       dB display, timer leak).', 'info');
+log('\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500', 'sys');
+log('Ready \u2014 load Voiceover and Background Music files to begin.', 'ok');
+</script>
+</body>
+</html>

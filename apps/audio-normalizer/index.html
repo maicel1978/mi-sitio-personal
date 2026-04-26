@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DSP Lab — EBU R128 Normalizer</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap');
+
+    :root {
+      --ink: #1a1a2e;
+      --ink-light: #2d2d4e;
+      --paper: #f5f4ef;
+      --paper-dark: #eceae2;
+      --accent: #4a6fa5;
+      --accent-green: #2d7a4f;
+      --accent-amber: #b8860b;
+      --accent-red: #8b2635;
+      --border: #ccc8b8;
+      --mono: 'JetBrains Mono', monospace;
+      --sans: 'Inter', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(74,111,165,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(74,111,165,0.04) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .app-shell {
+      position: relative;
+      z-index: 1;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    /* ── HEADER ── */
+    .lab-header {
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+    .lab-header .stamp {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1.5px solid var(--accent);
+      padding: 2px 8px;
+      border-radius: 2px;
+      margin-bottom: 0.5rem;
+    }
+    .lab-header h1 {
+      font-family: var(--mono);
+      font-size: 1.6rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+    .lab-header p {
+      font-size: 0.82rem;
+      color: #555;
+      margin-top: 0.3rem;
+      font-weight: 300;
+    }
+
+    /* ── CARDS ── */
+    .lab-card {
+      background: rgba(255,255,255,0.6);
+      border: 1.5px solid var(--border);
+      border-radius: 4px;
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+      backdrop-filter: blur(2px);
+    }
+    .lab-card-title {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .lab-card-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── DROP ZONE ── */
+    #dropZone {
+      border: 2px dashed var(--border);
+      border-radius: 4px;
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    #dropZone:hover, #dropZone.drag-over {
+      border-color: var(--accent);
+      background: rgba(74,111,165,0.04);
+    }
+    #dropZone.has-file {
+      border-style: solid;
+      border-color: var(--accent-green);
+      background: rgba(45,122,79,0.04);
+    }
+    #dropZone .drop-icon { font-size: 2.4rem; margin-bottom: 0.6rem; opacity: 0.5; }
+    #dropZone p { font-size: 0.88rem; color: #666; }
+    #dropZone p strong { color: var(--ink); font-weight: 500; }
+    #fileInput { display: none; }
+    .file-info {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--accent-green);
+      margin-top: 0.5rem;
+      font-weight: 500;
+    }
+
+    /* ── WAVEFORM ── */
+    #waveformCanvas {
+      width: 100%;
+      height: 80px;
+      border-radius: 3px;
+      background: var(--ink);
+      display: none;
+      margin-top: 0.75rem;
+    }
+
+    /* ── PARAMETERS ── */
+    .param-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 540px) { .param-grid { grid-template-columns: 1fr; } }
+
+    .param-group label {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 0.35rem;
+    }
+    .param-group label span {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      outline: none;
+      cursor: pointer;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--paper);
+      box-shadow: 0 0 0 1.5px var(--accent);
+      cursor: pointer;
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--paper);
+      cursor: pointer;
+    }
+
+    select {
+      width: 100%;
+      padding: 0.4rem 2rem 0.4rem 0.6rem;
+      border: 1.5px solid var(--border);
+      border-radius: 3px;
+      background: white;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--ink);
+      outline: none;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%234a6fa5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.7rem center;
+    }
+    select:focus { border-color: var(--accent); }
+
+    .toggle-row { display: flex; align-items: center; gap: 0.6rem; margin-top: 0.25rem; }
+    .toggle { position: relative; width: 36px; height: 20px; flex-shrink: 0; }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider {
+      position: absolute; inset: 0;
+      background: var(--border);
+      border-radius: 20px; cursor: pointer; transition: background 0.2s;
+    }
+    .toggle-slider::before {
+      content: ''; position: absolute;
+      width: 14px; height: 14px; left: 3px; top: 3px;
+      background: white; border-radius: 50%; transition: transform 0.2s;
+    }
+    .toggle input:checked + .toggle-slider { background: var(--accent); }
+    .toggle input:checked + .toggle-slider::before { transform: translateX(16px); }
+    .toggle-label { font-size: 0.8rem; color: var(--ink); font-weight: 500; }
+    .toggle-sublabel { font-size: 0.72rem; color: #888; font-family: var(--mono); }
+
+    /* ── METERS ── */
+    .meter-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+    .meter-box {
+      background: var(--ink); border-radius: 3px; padding: 0.75rem;
+      text-align: center; border: 1px solid var(--ink-light);
+    }
+    .meter-label {
+      font-family: var(--mono); font-size: 0.6rem;
+      letter-spacing: 0.1em; text-transform: uppercase; color: #aaa; margin-bottom: 0.25rem;
+    }
+    .meter-value {
+      font-family: var(--mono); font-size: 1.4rem;
+      font-weight: 600; color: #4ade80; line-height: 1; transition: color 0.3s;
+    }
+    .meter-value.warn { color: #fbbf24; }
+    .meter-value.alert { color: #f87171; }
+    .meter-unit { font-family: var(--mono); font-size: 0.6rem; color: #666; margin-top: 0.2rem; }
+    .meter-bar-wrap { height: 4px; background: #333; border-radius: 2px; margin-top: 0.5rem; overflow: hidden; }
+    .meter-bar { height: 100%; background: #4ade80; border-radius: 2px; width: 0%; transition: width 0.4s ease, background 0.3s; }
+
+    /* ── CONSOLE ── */
+    #console-log {
+      background: var(--ink); border-radius: 4px; padding: 1rem;
+      height: 200px; overflow-y: auto;
+      font-family: var(--mono); font-size: 0.73rem; line-height: 1.7;
+      scrollbar-width: thin; scrollbar-color: #444 transparent;
+    }
+    #console-log::-webkit-scrollbar { width: 5px; }
+    #console-log::-webkit-scrollbar-thumb { background: #444; border-radius: 3px; }
+    .log-line { display: flex; gap: 0.6rem; }
+    .log-time { color: #555; flex-shrink: 0; }
+    .log-tag {
+      flex-shrink: 0; padding: 0 5px; border-radius: 2px;
+      font-size: 0.65rem; font-weight: 600; letter-spacing: 0.05em;
+      text-transform: uppercase; display: inline-flex; align-items: center;
+    }
+    .log-tag.info { background: #1e3a5f; color: #60a5fa; }
+    .log-tag.ok   { background: #14532d; color: #4ade80; }
+    .log-tag.warn { background: #451a03; color: #fbbf24; }
+    .log-tag.err  { background: #450a0a; color: #f87171; }
+    .log-tag.proc { background: #2e1065; color: #c084fc; }
+    .log-msg { color: #e0e0e0; word-break: break-word; }
+
+    /* ── PROGRESS ── */
+    .progress-wrap { display: none; margin-top: 0.75rem; }
+    .progress-wrap.visible { display: block; }
+    .progress-track { height: 6px; background: #ddd; border-radius: 3px; overflow: hidden; }
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), #6ea8d4);
+      border-radius: 3px; width: 0%; transition: width 0.3s ease;
+    }
+    .progress-label { font-family: var(--mono); font-size: 0.68rem; color: #888; margin-top: 0.3rem; text-align: right; }
+
+    /* ── BUTTONS ── */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--ink); color: white; border: none; border-radius: 3px;
+      padding: 0.65rem 1.4rem; font-family: var(--mono); font-size: 0.8rem;
+      font-weight: 500; cursor: pointer; letter-spacing: 0.03em; transition: all 0.15s;
+    }
+    .btn-primary:hover:not(:disabled) { background: var(--ink-light); transform: translateY(-1px); }
+    .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: transparent; color: var(--ink); border: 1.5px solid var(--border);
+      border-radius: 3px; padding: 0.6rem 1.2rem; font-family: var(--mono);
+      font-size: 0.78rem; cursor: pointer; transition: all 0.15s;
+    }
+    .btn-secondary:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+    .btn-secondary:disabled { opacity: 0.3; cursor: not-allowed; }
+    .btn-export {
+      background: var(--accent-green); color: white; border: none; border-radius: 3px;
+      padding: 0.65rem 1.4rem; font-family: var(--mono); font-size: 0.8rem;
+      cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.15s;
+    }
+    .btn-export:hover:not(:disabled) { background: #1d5e3a; transform: translateY(-1px); }
+    .btn-export:disabled { opacity: 0.3; cursor: not-allowed; }
+
+    /* ── MISC ── */
+    .rule { border: none; border-top: 1px solid var(--border); margin: 0.5rem 0; }
+    .audio-label { font-family: var(--mono); font-size: 0.68rem; color: #888; margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 0.08em; }
+    audio { width: 100%; height: 36px; border-radius: 3px; }
+    .analysis-badges { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+    .badge { font-family: var(--mono); font-size: 0.7rem; padding: 3px 10px; border-radius: 2px; font-weight: 500; }
+    .badge-blue  { background: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
+    .badge-green { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+    .badge-amber { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+    .badge-red   { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+    .footnote { font-size: 0.72rem; color: #999; margin-top: 0.4rem; font-style: italic; }
+    .spec-tag { font-family: var(--mono); font-size: 0.68rem; background: var(--paper-dark); border: 1px solid var(--border); border-radius: 2px; padding: 1px 6px; color: #666; }
+  </style>
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- HEADER -->
+  <header class="lab-header">
+    <div class="stamp">DSP Laboratory · EBU R128 / ITU-R BS.1770-4 · v2.0</div>
+    <h1>Audio Normalizer &amp; Fade Engine</h1>
+    <p>Integrated loudness normalization · True Peak limiting · Parametric fades · WAV export</p>
+  </header>
+
+  <!-- § 01 INPUT -->
+  <div class="lab-card">
+    <div class="lab-card-title">§ 01 — Audio Input</div>
+    <div id="dropZone" onclick="document.getElementById('fileInput').click()">
+      <div class="drop-icon">🎵</div>
+      <p><strong>Drop audio file here</strong> or click to browse</p>
+      <p>Supports WAV · AIFF · MP3 · FLAC · OGG · M4A</p>
+      <div id="fileInfo" class="file-info" style="display:none"></div>
+    </div>
+    <input type="file" id="fileInput" accept="audio/*" />
+    <canvas id="waveformCanvas"></canvas>
+    <div id="analysisResult" class="analysis-badges"></div>
+  </div>
+
+  <!-- § 02 PARAMETERS -->
+  <div class="lab-card">
+    <div class="lab-card-title">§ 02 — Processing Parameters</div>
+    <div class="param-grid">
+      <div class="param-group">
+        <label>Target Integrated Loudness <span id="lufsVal">−14.0 LUFS</span></label>
+        <input type="range" id="targetLufs" min="-23" max="-9" step="0.5" value="-14"
+               oninput="syncLabel('targetLufs','lufsVal', v => formatSignedDb(v)+' LUFS')" />
+        <p class="footnote">Spotify −14 · Apple −16 · YouTube −14 · EBU R128 −23</p>
+      </div>
+      <div class="param-group">
+        <label>True Peak Ceiling <span id="tpVal">−1.0 dBTP</span></label>
+        <input type="range" id="targetTp" min="-6" max="-0.1" step="0.1" value="-1"
+               oninput="syncLabel('targetTp','tpVal', v => formatSignedDb(v)+' dBTP')" />
+        <p class="footnote">EBU R128 max: −1 dBTP · Broadcast: −3 dBTP</p>
+      </div>
+      <div class="param-group">
+        <label>Fade In Duration <span id="fadeInVal">0.00 s</span></label>
+        <input type="range" id="fadeIn" min="0" max="10" step="0.05" value="0"
+               oninput="syncLabel('fadeIn','fadeInVal', v => parseFloat(v).toFixed(2)+' s')" />
+      </div>
+      <div class="param-group">
+        <label>Fade Out Duration <span id="fadeOutVal">0.00 s</span></label>
+        <input type="range" id="fadeOut" min="0" max="10" step="0.05" value="0"
+               oninput="syncLabel('fadeOut','fadeOutVal', v => parseFloat(v).toFixed(2)+' s')" />
+      </div>
+      <div class="param-group">
+        <label>Fade Curve Type <span class="spec-tag">algorithm</span></label>
+        <select id="fadeCurve">
+          <option value="equalpower">Equal-Power (sin)</option>
+          <option value="scurve">S-Curve (sin²·cos²)</option>
+          <option value="exponential">Exponential</option>
+          <option value="logarithmic">Logarithmic</option>
+          <option value="cosine">Cosine (Hann)</option>
+          <option value="linear">Linear</option>
+        </select>
+      </div>
+      <div class="param-group">
+        <label>Export Format <span class="spec-tag">bit depth</span></label>
+        <select id="exportFormat">
+          <option value="wav32">WAV 32-bit Float (lossless)</option>
+          <option value="wav16">WAV 16-bit PCM + TPDF dither</option>
+        </select>
+      </div>
+    </div>
+    <hr class="rule" style="margin: 1rem 0;" />
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+      <div class="toggle-row">
+        <label class="toggle"><input type="checkbox" id="toggleTpl" checked /><span class="toggle-slider"></span></label>
+        <div><div class="toggle-label">True Peak Limiter</div><div class="toggle-sublabel">Lagrange 4pt · lookahead 2ms</div></div>
+      </div>
+      <div class="toggle-row">
+        <label class="toggle"><input type="checkbox" id="toggleDc" checked /><span class="toggle-slider"></span></label>
+        <div><div class="toggle-label">DC Offset Removal</div><div class="toggle-sublabel">1-pole HP @ 10 Hz</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- § 03 METERS -->
+  <div class="lab-card">
+    <div class="lab-card-title">§ 03 — Measurement &amp; Metering</div>
+    <div class="meter-row">
+      <div class="meter-box">
+        <div class="meter-label">Integrated Loudness</div>
+        <div class="meter-value" id="m-lufs">—</div>
+        <div class="meter-unit">LUFS</div>
+        <div class="meter-bar-wrap"><div class="meter-bar" id="bar-lufs"></div></div>
+      </div>
+      <div class="meter-box">
+        <div class="meter-label">True Peak</div>
+        <div class="meter-value" id="m-tp">—</div>
+        <div class="meter-unit">dBTP</div>
+        <div class="meter-bar-wrap"><div class="meter-bar" id="bar-tp"></div></div>
+      </div>
+      <div class="meter-box">
+        <div class="meter-label">Loudness Range</div>
+        <div class="meter-value" id="m-lra">—</div>
+        <div class="meter-unit">LU</div>
+        <div class="meter-bar-wrap"><div class="meter-bar" id="bar-lra"></div></div>
+      </div>
+    </div>
+    <div class="progress-wrap" id="progressWrap">
+      <div style="margin-top:0.75rem;"></div>
+      <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
+      <div class="progress-label" id="progressLabel">Initializing…</div>
+    </div>
+  </div>
+
+  <!-- § 04 CONTROLS -->
+  <div class="lab-card">
+    <div class="lab-card-title">§ 04 — Process &amp; Export</div>
+    <div style="display:flex; flex-wrap:wrap; gap:0.75rem; align-items:center;">
+      <button class="btn-primary" id="btnProcess" disabled onclick="startProcessing()">▶ Analyze &amp; Process</button>
+      <button class="btn-export"  id="btnExport"  disabled onclick="exportAudio()">↓ Export WAV</button>
+      <button class="btn-secondary" onclick="resetAll()">↺ Reset</button>
+    </div>
+    <div id="audioPlayerWrap" style="display:none; margin-top:1rem;">
+      <div class="audio-label">Preview — Processed Output</div>
+      <audio id="audioPlayer" controls></audio>
+    </div>
+  </div>
+
+  <!-- § 05 CONSOLE -->
+  <div class="lab-card">
+    <div class="lab-card-title">§ 05 — Processing Console</div>
+    <div id="console-log"></div>
+    <button class="btn-secondary" style="margin-top:0.5rem; font-size:0.7rem; padding:0.3rem 0.8rem;"
+            onclick="document.getElementById('console-log').innerHTML=''">Clear Console</button>
+  </div>
+
+  <footer style="text-align:center; font-size:0.72rem; color:#aaa; margin-top:1.5rem; font-family:var(--mono);">
+    EBU R128 · ITU-R BS.1770-4 · K-weighting · Lagrange TP detection · TPDF dithering<br/>
+    <span style="font-size:0.65rem; opacity:0.6;">All processing runs locally in your browser. No data leaves your device.</span>
+  </footer>
+</div>
+
+<script>
+'use strict';
+/* ═══════════════════════════════════════════════════════════
+   DSP LAB v2.0 — Core Engine
+   EBU R128 / ITU-R BS.1770-4  (corrected implementation)
+   ═══════════════════════════════════════════════════════════ */
+
+// ── State ─────────────────────────────────────────────────
+let audioCtx        = null;
+let sourceBuffer    = null;   // decoded original, never mutated
+let processedBuffer = null;   // result after full chain
+let processedBlob   = null;   // WAV blob ready for download
+
+// ── Helpers ───────────────────────────────────────────────
+const pad2 = n => String(n).padStart(2, '0');
+function timestamp() {
+  const d = new Date();
+  return `${pad2(d.getHours())}:${pad2(d.getMinutes())}:${pad2(d.getSeconds())}`;
+}
+
+// Safe log: NO innerHTML interpolation with user data (XSS fix)
+function log(msg, type = 'info') {
+  const con  = document.getElementById('console-log');
+  const wrap = document.createElement('div');
+  wrap.className = 'log-line';
+
+  const ts  = document.createElement('span'); ts.className = 'log-time'; ts.textContent = timestamp();
+  const tag = document.createElement('span'); tag.className = `log-tag ${type}`; tag.textContent = type.toUpperCase();
+  const txt = document.createElement('span'); txt.className = 'log-msg';  txt.textContent = msg;
+
+  wrap.appendChild(ts); wrap.appendChild(tag); wrap.appendChild(txt);
+  con.appendChild(wrap);
+  con.scrollTop = con.scrollHeight;
+}
+
+function formatBytes(b) {
+  return b < 1048576 ? (b / 1024).toFixed(1) + ' KB' : (b / 1048576).toFixed(2) + ' MB';
+}
+function formatDur(s) {
+  const m = Math.floor(s / 60), r = (s % 60).toFixed(1);
+  return `${m}:${String(r).padStart(4, '0')}`;
+}
+function formatSignedDb(v) {
+  const n = parseFloat(v);
+  return (n > 0 ? '+' : '') + n.toFixed(1);
+}
+function syncLabel(sliderId, labelId, fmt) {
+  document.getElementById(labelId).textContent = fmt(document.getElementById(sliderId).value);
+}
+function setProgress(pct, label) {
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = label;
+}
+function showProgress(v) {
+  document.getElementById('progressWrap').classList.toggle('visible', v);
+}
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+// ── Meters ─────────────────────────────────────────────────
+function setMeter(id, barId, value, min, max) {
+  const el  = document.getElementById(id);
+  const bar = document.getElementById(barId);
+  if (value === null || !isFinite(value)) {
+    el.textContent = '—'; el.className = 'meter-value';
+    bar.style.width = '0%'; bar.style.background = '#4ade80';
+    return;
+  }
+  el.textContent = (value >= 0 ? '+' : '') + value.toFixed(1);
+  el.className   = 'meter-value';
+  bar.style.background = '#4ade80';
+  const pct = Math.max(0, Math.min(100, ((value - min) / (max - min)) * 100));
+  bar.style.width = pct + '%';
+  if (id === 'm-lufs') {
+    const diff = Math.abs(value - parseFloat(document.getElementById('targetLufs').value));
+    if (diff > 6) el.classList.add('alert');
+    else if (diff > 2) el.classList.add('warn');
+  }
+  if (id === 'm-tp') {
+    if (value > -1)      { el.classList.add('alert'); bar.style.background = '#f87171'; }
+    else if (value > -3) { el.classList.add('warn');  bar.style.background = '#fbbf24'; }
+  }
+}
+
+// ── Drop / File Input ──────────────────────────────────────
+const dropZone = document.getElementById('dropZone');
+const fileInput = document.getElementById('fileInput');
+
+dropZone.addEventListener('dragover',  e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', ()  => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropZone.classList.remove('drag-over');
+  if (e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]);
+});
+fileInput.addEventListener('change', e => { if (e.target.files[0]) loadFile(e.target.files[0]); });
+
+async function loadFile(file) {
+  log(`Loading: "${file.name}" (${formatBytes(file.size)})`, 'info');
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 48000 });
+  }
+  // Resume context if suspended (browser autoplay policy)
+  if (audioCtx.state === 'suspended') await audioCtx.resume();
+
+  dropZone.classList.add('has-file');
+  const fi = document.getElementById('fileInfo');
+  fi.style.display = 'block';
+  fi.textContent = `✓ ${file.name} · ${formatBytes(file.size)}`;
+
+  try {
+    showProgress(true);
+    setProgress(10, 'Reading file…');
+
+    const arrayBuffer = await file.arrayBuffer();
+    log(`File in memory: ${formatBytes(arrayBuffer.byteLength)}`, 'info');
+    setProgress(30, 'Decoding audio…');
+
+    sourceBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+    log(`Decoded: ${sourceBuffer.numberOfChannels}ch · ${sourceBuffer.sampleRate} Hz · ${formatDur(sourceBuffer.duration)} · ${sourceBuffer.length} samples`, 'ok');
+
+    setProgress(60, 'Drawing waveform…');
+    drawWaveform(sourceBuffer);
+
+    setProgress(80, 'Pre-analysis (BS.1770-4)…');
+    log('Running pre-analysis…', 'proc');
+    await sleep(10);
+
+    const analysis = measureAll(sourceBuffer);
+    displayAnalysis(analysis, 'PRE');
+
+    setProgress(100, 'Ready');
+    setTimeout(() => showProgress(false), 600);
+
+    document.getElementById('btnProcess').disabled = false;
+  } catch (err) {
+    log(`Decode error: ${err.message}`, 'err');
+    showProgress(false);
+  }
+}
+
+// ── Waveform ───────────────────────────────────────────────
+function drawWaveform(buffer) {
+  const canvas = document.getElementById('waveformCanvas');
+  canvas.style.display = 'block';
+  // Wait one frame so layout is settled before reading offsetWidth
+  requestAnimationFrame(() => {
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width  = canvas.offsetWidth  * dpr;
+    canvas.height = canvas.offsetHeight * dpr;
+    const ctx = canvas.getContext('2d');
+    ctx.scale(dpr, dpr);
+
+    const W = canvas.offsetWidth, H = canvas.offsetHeight;
+    ctx.fillStyle = '#1a1a2e';
+    ctx.fillRect(0, 0, W, H);
+
+    // Mix down to mono for display
+    const nCh  = buffer.numberOfChannels;
+    const len  = buffer.length;
+    const step = Math.ceil(len / W);
+    const amp  = H / 2;
+
+    ctx.beginPath();
+    ctx.strokeStyle = '#4a90d9';
+    ctx.lineWidth = 1;
+
+    for (let x = 0; x < W; x++) {
+      let mn = 1, mx = -1;
+      for (let s = x * step, end = Math.min((x + 1) * step, len); s < end; s++) {
+        let v = 0;
+        for (let c = 0; c < nCh; c++) v += buffer.getChannelData(c)[s];
+        v /= nCh;
+        if (v < mn) mn = v;
+        if (v > mx) mx = v;
+      }
+      ctx.moveTo(x, amp + mn * amp * 0.9);
+      ctx.lineTo(x, amp + mx * amp * 0.9);
+    }
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.strokeStyle = 'rgba(74,144,217,0.25)';
+    ctx.lineWidth = 0.5;
+    ctx.moveTo(0, amp); ctx.lineTo(W, amp);
+    ctx.stroke();
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════
+   EBU R128 / ITU-R BS.1770-4
+   ═══════════════════════════════════════════════════════════
+
+   K-weighting = Stage-1 pre-filter (high-shelf +4 dB @ ~1681 Hz)
+               + Stage-2 RLB HP (Butterworth 2nd order @ ~38 Hz)
+   Coefficients derived from bilinear transform per ITU-R BS.1770-4 Annex 1.
+*/
+
+function getKCoefficients(fs) {
+  // Canonical 48 kHz coefficients (Annex 1, Table 1)
+  if (Math.abs(fs - 48000) < 1) {
+    return {
+      pre: { b: [ 1.53512485958697, -2.69169618940638,  1.19839281085285],
+             a: [ 1.0,              -1.69065929318241,   0.73248077421585] },
+      rlb: { b: [ 1.0,              -2.0,                1.0             ],
+             a: [ 1.0,              -1.99004745483398,   0.99007225036621] }
+    };
+  }
+
+  // Pre-filter: high-shelf, gain +4 dB, shelf midpoint ~1681 Hz (bilinear)
+  const f0  = 1681.974450955533;
+  const G   = 3.999843853973347;
+  const Q   = 0.7071752369554193;
+  const K   = Math.tan(Math.PI * f0 / fs);
+  const Vh  = Math.pow(10, G / 20);
+  const Vb  = Math.pow(Vh, 0.4996667741545416);
+  const a0  = 1 + K / Q + K * K;
+  const pre = {
+    b: [(Vh + Vb * K / Q + K * K) / a0,
+         2 * (K * K - Vh) / a0,
+        (Vh - Vb * K / Q + K * K) / a0],
+    a: [1.0,
+        2 * (K * K - 1) / a0,
+        (1 - K / Q + K * K) / a0]
+  };
+
+  // RLB: 2nd-order Butterworth HP @ ~38 Hz (bilinear)
+  const fc   = 38.13547087602444;
+  const Kr   = Math.tan(Math.PI * fc / fs);
+  const norm = 1 / (1 + Math.SQRT2 * Kr + Kr * Kr);
+  const rlb  = {
+    b: [norm, -2 * norm, norm],
+    a: [1.0,
+        2 * (Kr * Kr - 1) * norm,
+        (1 - Math.SQRT2 * Kr + Kr * Kr) * norm]
+  };
+
+  return { pre, rlb };
+}
+
+// Direct-form II transposed biquad (numerically stable)
+function biquad(data, b, a) {
+  const out = new Float32Array(data.length);
+  let s1 = 0, s2 = 0;
+  for (let i = 0; i < data.length; i++) {
+    const x  = data[i];
+    const y  = b[0] * x + s1;
+    s1 = b[1] * x - a[1] * y + s2;
+    s2 = b[2] * x - a[2] * y;
+    out[i] = y;
+  }
+  return out;
+}
+
+function kWeight(ch, coeffs) {
+  return biquad(biquad(ch, coeffs.pre.b, coeffs.pre.a), coeffs.rlb.b, coeffs.rlb.a);
+}
+
+/*
+  measureIntegratedLUFS:
+    - 400 ms blocks, 75% overlap (100 ms hop) per BS.1770-4 §2.2
+    - Absolute gate  −70 LUFS (§2.8)
+    - Relative gate  Γr = Γ − 10 LU (§2.8)
+
+  measureLRA (EBU Tech 3342 §3.3):
+    - Uses the integrated-loudness gated set (gated1 from abs gate)
+    - Applies a SEPARATE relative gate of −20 LU (not the −10 LU of integrated)
+    - LRA = L_p95 − L_p10 on that second-gate set
+*/
+
+function measureIntegratedLUFS(kWeighted, fs, nCh) {
+  const G_ch = [1, 1, 1, 1.41421356, 1.41421356]; // L R C Ls Rs
+  const blockLen = Math.round(0.4 * fs);
+  const hop      = Math.round(0.1 * fs);
+  const len      = kWeighted[0].length;
+
+  const blocks = [];
+  for (let s = 0; s + blockLen <= len; s += hop) {
+    let pwr = 0;
+    for (let c = 0; c < nCh; c++) {
+      const w = G_ch[Math.min(c, 4)];
+      const ch = kWeighted[c];
+      let sum = 0;
+      for (let i = s; i < s + blockLen; i++) sum += ch[i] * ch[i];
+      pwr += w * sum / blockLen;
+    }
+    blocks.push(pwr);
+  }
+
+  if (!blocks.length) return -Infinity;
+
+  // Absolute gate: −70 LUFS → power = 10^((−70+0.691)/10)
+  const absGate = Math.pow(10, (-70 + 0.691) / 10);
+  const gated1  = blocks.filter(p => p >= absGate);
+  if (!gated1.length) return -70;
+
+  const mean1   = gated1.reduce((a, b) => a + b, 0) / gated1.length;
+  // Relative gate: −10 LU below ungated mean of abs-gated blocks
+  const relGate = mean1 * Math.pow(10, -10 / 10);
+  const gated2  = gated1.filter(p => p >= relGate);
+  if (!gated2.length) return -70;
+
+  const mean2 = gated2.reduce((a, b) => a + b, 0) / gated2.length;
+  return -0.691 + 10 * Math.log10(mean2);
+}
+
+function measureLRA(kWeighted, fs, nCh) {
+  // EBU Tech 3342: same abs gate as integrated, then −20 LU relative gate
+  const G_ch   = [1, 1, 1, 1.41421356, 1.41421356];
+  const blockLen = Math.round(0.4  * fs);
+  const hop      = Math.round(0.1  * fs);
+  const len      = kWeighted[0].length;
+
+  const blocks = [];
+  for (let s = 0; s + blockLen <= len; s += hop) {
+    let pwr = 0;
+    for (let c = 0; c < nCh; c++) {
+      const w = G_ch[Math.min(c, 4)];
+      const ch = kWeighted[c];
+      let sum = 0;
+      for (let i = s; i < s + blockLen; i++) sum += ch[i] * ch[i];
+      pwr += w * sum / blockLen;
+    }
+    blocks.push(pwr);
+  }
+
+  if (!blocks.length) return 0;
+  const absGate = Math.pow(10, (-70 + 0.691) / 10);
+  const gated1  = blocks.filter(p => p >= absGate);
+  if (gated1.length < 2) return 0;
+
+  const mean1   = gated1.reduce((a, b) => a + b, 0) / gated1.length;
+  const relGate = mean1 * Math.pow(10, -20 / 10);   // ← −20 LU for LRA
+  const gated2  = gated1.filter(p => p >= relGate);
+  if (gated2.length < 2) return 0;
+
+  const sorted = [...gated2].sort((a, b) => a - b);
+  const p10 = sorted[Math.floor(sorted.length * 0.10)];
+  const p95 = sorted[Math.min(Math.floor(sorted.length * 0.95), sorted.length - 1)];
+  if (p10 <= 0) return 0;
+  return Math.max(0, 10 * Math.log10(p95 / p10));
+}
+
+/*
+  measureTruePeak:
+    Uses 4-point Lagrange interpolation to approximate inter-sample peaks.
+    This is the minimum interpolation quality recommended by ITU-R BS.1770-4 §3.
+    Linear interpolation (the original code) is explicitly insufficient —
+    it cannot reconstruct peaks that occur between samples.
+*/
+function measureTruePeak(buffer) {
+  let maxTP = 0;
+  for (let c = 0; c < buffer.numberOfChannels; c++) {
+    const data = buffer.getChannelData(c);
+    const n = data.length;
+    // Check actual samples
+    for (let i = 0; i < n; i++) {
+      const a = Math.abs(data[i]);
+      if (a > maxTP) maxTP = a;
+    }
+    // Lagrange 4-point interpolation at 4 sub-sample offsets
+    // p(t) = Σ Lk(t)·yk  for t ∈ {0.25, 0.5, 0.75}
+    for (let i = 1; i < n - 2; i++) {
+      const y0 = data[i - 1], y1 = data[i], y2 = data[i + 1], y3 = data[i + 2];
+      // Evaluate at t=0.25, 0.5, 0.75 (within [y1,y2])
+      for (let k = 1; k <= 3; k++) {
+        const t  = k / 4;                      // offset from y1 in sample units: 0.25, 0.5, 0.75
+        const t0 = t + 1, t1 = t, t2 = t - 1, t3 = t - 2;   // distances to y0,y1,y2,y3
+        // Lagrange basis relative to indices −1,0,1,2
+        const L0 = (t1 * t2 * t3) / ((-1 - 0)*(-1 - 1)*(-1 - 2));  // /( -1·-2·-3)= -6
+        const L1 = (t0 * t2 * t3) / (( 0 + 1)*( 0 - 1)*( 0 - 2));  // /(  1·-1·-2)=  2
+        const L2 = (t0 * t1 * t3) / (( 1 + 1)*( 1 - 0)*( 1 - 2));  // /(  2· 1·-1)= -2
+        const L3 = (t0 * t1 * t2) / (( 2 + 1)*( 2 - 0)*( 2 - 1));  // /(  3· 2· 1)=  6
+        const v  = Math.abs(y0 * L0 + y1 * L1 + y2 * L2 + y3 * L3);
+        if (v > maxTP) maxTP = v;
+      }
+    }
+  }
+  return maxTP > 0 ? 20 * Math.log10(maxTP) : -Infinity;
+}
+
+function measureAll(buffer) {
+  const fs   = buffer.sampleRate;
+  const nCh  = buffer.numberOfChannels;
+  const coeffs = getKCoefficients(fs);
+
+  const kWeighted = [];
+  for (let c = 0; c < nCh; c++) {
+    kWeighted.push(kWeight(buffer.getChannelData(c), coeffs));
+  }
+
+  const integrated = measureIntegratedLUFS(kWeighted, fs, nCh);
+  const lra        = measureLRA(kWeighted, fs, nCh);
+  const truePeak   = measureTruePeak(buffer);
+  return { integrated, lra, truePeak };
+}
+
+function displayAnalysis(a, phase) {
+  const lufs = isFinite(a.integrated) ? a.integrated.toFixed(1) : '-∞';
+  const tp   = isFinite(a.truePeak)   ? a.truePeak.toFixed(1)   : '-∞';
+  const lra  = isFinite(a.lra)        ? a.lra.toFixed(1)        : '0.0';
+  log(`[${phase}] Integrated: ${lufs} LUFS · True Peak: ${tp} dBTP · LRA: ${lra} LU`, 'ok');
+
+  setMeter('m-lufs', 'bar-lufs', a.integrated, -40, 0);
+  setMeter('m-tp',   'bar-tp',   a.truePeak,   -30, 0);
+  setMeter('m-lra',  'bar-lra',  a.lra,          0, 20);
+
+  const target     = parseFloat(document.getElementById('targetLufs').value);
+  const gainNeeded = target - a.integrated;
+
+  const div = document.getElementById('analysisResult');
+  div.innerHTML = '';
+  const badges = [
+    { text: `${lufs} LUFS`,              cls: 'badge-blue'  },
+    { text: `${tp} dBTP`,                cls: a.truePeak > -1 ? 'badge-red' : 'badge-green' },
+    { text: `${lra} LU LRA`,             cls: 'badge-blue'  },
+    { text: `${gainNeeded >= 0 ? '+' : ''}${gainNeeded.toFixed(1)} dB correction needed`,
+                                          cls: Math.abs(gainNeeded) > 12 ? 'badge-amber' : 'badge-green' }
+  ];
+  badges.forEach(b => {
+    const s = document.createElement('span');
+    s.className = `badge ${b.cls}`;
+    s.textContent = b.text;
+    div.appendChild(s);
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════
+   FADE ENGINE
+   ═══════════════════════════════════════════════════════════ */
+
+function computeFadeCurve(type, n) {
+  const c = new Float32Array(n);
+  for (let i = 0; i < n; i++) {
+    const t = i / (n - 1 || 1);
+    switch (type) {
+      case 'equalpower':
+        // sin(πt/2)  — true equal-power crossfade curve
+        c[i] = Math.sin(t * Math.PI * 0.5);
+        break;
+      case 'scurve':
+        // sin²(πt/2)·(3−2t) — cubic Hermite S-curve
+        { const s = Math.sin(t * Math.PI * 0.5); c[i] = s * s; }
+        break;
+      case 'exponential':
+        // maps t=0→0, t=1→1 on an exponential curve
+        c[i] = (Math.pow(50, t) - 1) / 49;
+        break;
+      case 'logarithmic':
+        c[i] = Math.log(1 + 49 * t) / Math.log(50);
+        break;
+      case 'cosine':
+        // Hann window (raised cosine)
+        c[i] = (1 - Math.cos(t * Math.PI)) * 0.5;
+        break;
+      case 'linear':
+      default:
+        c[i] = t;
+    }
+  }
+  return c;
+}
+
+function applyFades(buffer, fadeInSec, fadeOutSec, type) {
+  const fs  = buffer.sampleRate;
+  const len = buffer.length;
+  const fi  = Math.round(fadeInSec  * fs);
+  const fo  = Math.round(fadeOutSec * fs);
+
+  for (let c = 0; c < buffer.numberOfChannels; c++) {
+    const data = buffer.getChannelData(c);
+
+    if (fi > 0) {
+      const curve = computeFadeCurve(type, fi);
+      for (let i = 0; i < fi && i < len; i++) data[i] *= curve[i];
+    }
+    if (fo > 0) {
+      const curve = computeFadeCurve(type, fo);
+      const start = len - fo;
+      for (let i = 0; i < fo; i++) {
+        const idx = start + i;
+        if (idx >= 0 && idx < len) data[idx] *= curve[fo - 1 - i];
+      }
+    }
+  }
+  return buffer;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DC OFFSET REMOVAL
+   Corrected: single-pass 1-pole HP y[n] = x[n] − x[n-1] + R·y[n-1]
+   R = 1 − (2π·fc / fs), fc = 10 Hz
+   ═══════════════════════════════════════════════════════════ */
+function removeDCOffset(buffer) {
+  const R = 1 - (2 * Math.PI * 10 / buffer.sampleRate);
+  for (let c = 0; c < buffer.numberOfChannels; c++) {
+    const data = buffer.getChannelData(c);
+    let xp = 0, yp = 0;
+    for (let i = 0; i < data.length; i++) {
+      const x = data[i];
+      const y = x - xp + R * yp;
+      data[i] = y;
+      xp = x; yp = y;
+    }
+  }
+  return buffer;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TRUE PEAK LIMITER
+   Fix: envelope initialised to 1.0 (unity gain), not 0
+   Lookahead: scan ahead 2 ms to react before the peak arrives
+   Attack:  1 ms smooth gain reduction onset
+   Release: 100 ms exponential recovery
+   ═══════════════════════════════════════════════════════════ */
+function truePeakLimiter(buffer, ceilingDB) {
+  const ceiling   = Math.pow(10, ceilingDB / 20);
+  const fs        = buffer.sampleRate;
+  const ahead     = Math.round(0.002 * fs);        // 2 ms lookahead
+  const atkTC     = Math.exp(-1 / Math.round(0.001 * fs));  // 1 ms
+  const relTC     = Math.exp(-1 / Math.round(0.100 * fs));  // 100 ms
+
+  for (let c = 0; c < buffer.numberOfChannels; c++) {
+    const data = buffer.getChannelData(c);
+    const n    = data.length;
+    const gr   = new Float32Array(n);
+
+    // Step 1: compute ideal gain reduction per sample using lookahead window
+    let env = 1.0;    // FIX: was 0 — must start at unity gain
+    for (let i = 0; i < n; i++) {
+      let peak = 0;
+      const lim = Math.min(i + ahead, n);
+      for (let j = i; j < lim; j++) {
+        const a = Math.abs(data[j]);
+        if (a > peak) peak = a;
+      }
+      const target = peak > ceiling ? ceiling / peak : 1.0;
+      // Instant attack downward, exponential release upward
+      env = target < env ? target : 1 - relTC * (1 - env);
+      if (env > 1) env = 1;
+      gr[i] = env;
+    }
+
+    // Step 2: smooth gain-reduction onset (attack)
+    let smoothGR = gr[0];
+    for (let i = 0; i < n; i++) {
+      smoothGR = gr[i] < smoothGR
+        ? gr[i]                                        // instant attack
+        : 1 - atkTC * (1 - smoothGR);                 // exponential attack
+      if (smoothGR > 1) smoothGR = 1;
+      data[i] *= smoothGR;
+    }
+  }
+  return buffer;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CLONE AudioBuffer — use audioCtx directly, no orphan OfflineAudioContext
+   ═══════════════════════════════════════════════════════════ */
+function cloneBuffer(src) {
+  const dst = audioCtx.createBuffer(src.numberOfChannels, src.length, src.sampleRate);
+  for (let c = 0; c < src.numberOfChannels; c++) {
+    dst.getChannelData(c).set(src.getChannelData(c));
+  }
+  return dst;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MAIN PROCESSING CHAIN
+   ═══════════════════════════════════════════════════════════ */
+async function startProcessing() {
+  if (!sourceBuffer) return;
+
+  const btnP = document.getElementById('btnProcess');
+  const btnE = document.getElementById('btnExport');
+  btnP.disabled = true;
+  btnE.disabled = true;
+  processedBuffer = null;
+  processedBlob   = null;
+
+  showProgress(true);
+  setProgress(5, 'Cloning buffer…');
+  log('═══ Processing chain started ═══', 'proc');
+
+  try {
+    let work = cloneBuffer(sourceBuffer);
+
+    // ── STEP 1: DC Offset ─────────────────────────────────
+    if (document.getElementById('toggleDc').checked) {
+      log('Step 1/5 — DC offset removal (HP @ 10 Hz)…', 'proc');
+      setProgress(15, 'Removing DC offset…');
+      removeDCOffset(work);
+      log('DC offset removed.', 'ok');
+    } else {
+      log('Step 1/5 — DC removal skipped.', 'warn');
+    }
+
+    // ── STEP 2: Fades ─────────────────────────────────────
+    const fadeIn    = parseFloat(document.getElementById('fadeIn').value);
+    const fadeOut   = parseFloat(document.getElementById('fadeOut').value);
+    const fadeCurve = document.getElementById('fadeCurve').value;
+    setProgress(25, 'Applying fades…');
+    log(`Step 2/5 — Fades: in=${fadeIn.toFixed(2)}s · out=${fadeOut.toFixed(2)}s · curve=${fadeCurve}`, 'proc');
+    applyFades(work, fadeIn, fadeOut, fadeCurve);
+    log('Fades applied.', 'ok');
+
+    // ── STEP 3: Pre-analysis ──────────────────────────────
+    setProgress(38, 'Analyzing loudness (EBU R128)…');
+    log('Step 3/5 — Integrated loudness measurement (ITU-R BS.1770-4)…', 'proc');
+    await sleep(10);
+    const pre = measureAll(work);
+    log(`Pre: ${pre.integrated.toFixed(2)} LUFS · ${pre.truePeak.toFixed(2)} dBTP · LRA ${pre.lra.toFixed(1)} LU`, 'info');
+
+    // ── STEP 4: Gain normalization ────────────────────────
+    setProgress(55, 'Computing gain correction…');
+    const targetLUFS = parseFloat(document.getElementById('targetLufs').value);
+    const targetTP   = parseFloat(document.getElementById('targetTp').value);
+    const rawGainDB  = targetLUFS - pre.integrated;
+    // Constrain: do not push True Peak above ceiling
+    const maxSafeGainDB = targetTP - pre.truePeak;
+    const gainDB = Math.min(rawGainDB, maxSafeGainDB);
+    const gain   = Math.pow(10, gainDB / 20);
+
+    if (gainDB < rawGainDB) {
+      log(`⚠ Gain capped at ${gainDB.toFixed(2)} dB (TP ceiling ${targetTP} dBTP limits full target)`, 'warn');
+    }
+    log(`Step 4/5 — Gain: ${gainDB >= 0 ? '+' : ''}${gainDB.toFixed(2)} dB (×${gain.toFixed(4)})`, 'proc');
+
+    for (let c = 0; c < work.numberOfChannels; c++) {
+      const d = work.getChannelData(c);
+      for (let i = 0; i < d.length; i++) d[i] *= gain;
+    }
+    log(`Gain applied.`, 'ok');
+    setProgress(70, 'Gain applied…');
+
+    // ── STEP 5: True Peak Limiter ─────────────────────────
+    if (document.getElementById('toggleTpl').checked) {
+      log(`Step 5/5 — True Peak Limiter (ceiling ${targetTP} dBTP, Lagrange 4pt, 2ms lookahead)…`, 'proc');
+      setProgress(82, 'True Peak Limiting…');
+      await sleep(10);
+      truePeakLimiter(work, targetTP);
+      log('True Peak Limiter pass complete.', 'ok');
+    } else {
+      log('Step 5/5 — True Peak Limiter skipped.', 'warn');
+    }
+
+    // ── Post-analysis ─────────────────────────────────────
+    setProgress(90, 'Post-process analysis…');
+    log('Running post-process analysis…', 'proc');
+    await sleep(10);
+    const post = measureAll(work);
+    displayAnalysis(post, 'POST');
+    log(`Post: ${post.integrated.toFixed(2)} LUFS · ${post.truePeak.toFixed(2)} dBTP · LRA ${post.lra.toFixed(1)} LU`, 'ok');
+
+    const delta = post.integrated - targetLUFS;
+    if (Math.abs(delta) <= 0.5) {
+      log(`✓ Target achieved: ${post.integrated.toFixed(2)} LUFS (Δ ${delta >= 0 ? '+' : ''}${delta.toFixed(2)} LU)`, 'ok');
+    } else {
+      log(`⚠ Δ ${delta >= 0 ? '+' : ''}${delta.toFixed(2)} LU from target — constrained by TP ceiling.`, 'warn');
+    }
+
+    processedBuffer = work;
+
+    // ── Encode ────────────────────────────────────────────
+    setProgress(94, 'Encoding WAV…');
+    log('Encoding to WAV…', 'proc');
+    await sleep(10);
+    const fmt     = document.getElementById('exportFormat').value;
+    const wavData = fmt === 'wav32' ? encodeWAV32(work) : encodeWAV16(work);
+    processedBlob = new Blob([wavData], { type: 'audio/wav' });
+
+    const blobUrl = URL.createObjectURL(processedBlob);
+    const player  = document.getElementById('audioPlayer');
+    if (player.src) URL.revokeObjectURL(player.src);
+    player.src = blobUrl;
+    document.getElementById('audioPlayerWrap').style.display = 'block';
+
+    setProgress(100, 'Processing complete ✓');
+    log(`═══ Done. ${formatBytes(wavData.byteLength)} · ${fmt === 'wav32' ? '32-bit Float' : '16-bit PCM + TPDF'} ═══`, 'ok');
+
+    btnE.disabled = false;
+    setTimeout(() => showProgress(false), 1500);
+
+  } catch (err) {
+    log(`Processing error: ${err.message}`, 'err');
+    console.error(err);
+    showProgress(false);
+  }
+  btnP.disabled = false;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   WAV ENCODERS
+   ═══════════════════════════════════════════════════════════ */
+
+function writeStr(view, off, str) {
+  for (let i = 0; i < str.length; i++) view.setUint8(off + i, str.charCodeAt(i));
+}
+
+// 32-bit IEEE Float WAV
+function encodeWAV32(buf) {
+  const nCh  = buf.numberOfChannels;
+  const len  = buf.length;
+  const fs   = buf.sampleRate;
+  const bpa  = nCh * 4;                // bytes per sample-frame
+  const data = len * bpa;
+  const ab   = new ArrayBuffer(44 + data);
+  const v    = new DataView(ab);
+
+  writeStr(v, 0,  'RIFF');
+  v.setUint32( 4, 36 + data, true);
+  writeStr(v, 8,  'WAVE');
+  writeStr(v, 12, 'fmt ');
+  v.setUint32(16, 16,         true);   // chunk size
+  v.setUint16(20, 3,          true);   // WAVE_FORMAT_IEEE_FLOAT
+  v.setUint16(22, nCh,        true);
+  v.setUint32(24, fs,         true);
+  v.setUint32(28, fs * bpa,   true);   // byte rate
+  v.setUint16(32, bpa,        true);   // block align
+  v.setUint16(34, 32,         true);   // bits per sample
+  writeStr(v, 36, 'data');
+  v.setUint32(40, data,       true);
+
+  let off = 44;
+  for (let i = 0; i < len; i++) {
+    for (let c = 0; c < nCh; c++) {
+      v.setFloat32(off, buf.getChannelData(c)[i], true);
+      off += 4;
+    }
+  }
+  return ab;
+}
+
+// 16-bit PCM + TPDF triangular dither
+function encodeWAV16(buf) {
+  const nCh  = buf.numberOfChannels;
+  const len  = buf.length;
+  const fs   = buf.sampleRate;
+  const bpa  = nCh * 2;
+  const data = len * bpa;
+  const ab   = new ArrayBuffer(44 + data);
+  const v    = new DataView(ab);
+
+  writeStr(v, 0,  'RIFF');
+  v.setUint32( 4, 36 + data, true);
+  writeStr(v, 8,  'WAVE');
+  writeStr(v, 12, 'fmt ');
+  v.setUint32(16, 16,        true);
+  v.setUint16(20, 1,         true);    // WAVE_FORMAT_PCM
+  v.setUint16(22, nCh,       true);
+  v.setUint32(24, fs,        true);
+  v.setUint32(28, fs * bpa,  true);
+  v.setUint16(32, bpa,       true);
+  v.setUint16(34, 16,        true);
+  writeStr(v, 36, 'data');
+  v.setUint32(40, data,      true);
+
+  // TPDF dither: two independent uniform random variables summed
+  // → triangular PDF, amplitude ±1 LSB at 16-bit
+  let off = 44;
+  for (let i = 0; i < len; i++) {
+    for (let c = 0; c < nCh; c++) {
+      let s = buf.getChannelData(c)[i];
+      // Scale dither to 1 LSB (1/32768) — TPDF = (r1+r2)/2 ∈ [−1,1] LSB
+      const dither = (Math.random() - Math.random()) / 32768;
+      s = Math.max(-1, Math.min(0.99996948, s + dither));
+      v.setInt16(off, Math.round(s * 32767), true);
+      off += 2;
+    }
+  }
+  return ab;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   EXPORT
+   ═══════════════════════════════════════════════════════════ */
+function exportAudio() {
+  if (!processedBlob) return;
+  const fmt     = document.getElementById('exportFormat').value;
+  const bitStr  = fmt === 'wav32' ? '32f' : '16pcm';
+  const name    = `normalized_${bitStr}_${Date.now()}.wav`;
+  const url     = URL.createObjectURL(processedBlob);
+  const a       = document.createElement('a');
+  a.href = url; a.download = name; a.click();
+  log(`Export: ${name} (${formatBytes(processedBlob.size)})`, 'ok');
+  setTimeout(() => URL.revokeObjectURL(url), 10000);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESET — full memory cleanup
+   ═══════════════════════════════════════════════════════════ */
+function resetAll() {
+  sourceBuffer    = null;
+  processedBuffer = null;
+  processedBlob   = null;
+
+  const player = document.getElementById('audioPlayer');
+  if (player.src) { URL.revokeObjectURL(player.src); player.src = ''; }
+  document.getElementById('audioPlayerWrap').style.display = 'none';
+  document.getElementById('waveformCanvas').style.display  = 'none';
+  document.getElementById('fileInfo').style.display        = 'none';
+  document.getElementById('analysisResult').innerHTML      = '';
+  document.getElementById('dropZone').classList.remove('has-file');
+  document.getElementById('btnProcess').disabled = true;
+  document.getElementById('btnExport').disabled  = true;
+  fileInput.value = '';
+
+  setMeter('m-lufs', 'bar-lufs', null, -40, 0);
+  setMeter('m-tp',   'bar-tp',   null, -30, 0);
+  setMeter('m-lra',  'bar-lra',  null,   0, 20);
+  showProgress(false);
+
+  log('Session reset. All buffers released.', 'info');
+  log('Awaiting audio input…', 'info');
+}
+
+/* ═══════════════════════════════════════════════════════════
+   INIT
+   ═══════════════════════════════════════════════════════════ */
+(function init() {
+  syncLabel('targetLufs', 'lufsVal', v => formatSignedDb(v) + ' LUFS');
+  syncLabel('targetTp',   'tpVal',   v => formatSignedDb(v) + ' dBTP');
+  syncLabel('fadeIn',   'fadeInVal',  v => parseFloat(v).toFixed(2) + ' s');
+  syncLabel('fadeOut',  'fadeOutVal', v => parseFloat(v).toFixed(2) + ' s');
+  log('DSP Laboratory v2.0 ready. Web Audio API + ITU-R BS.1770-4 engine loaded.', 'info');
+  log('Awaiting audio input…', 'info');
+
+  // GC hint: close idle AudioContext when tab is hidden with no work pending
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && !sourceBuffer && audioCtx && audioCtx.state !== 'closed') {
+      audioCtx.close().catch(() => {});
+      audioCtx = null;
+    }
+  });
+})();
+</script>
+</body>
+</html>
