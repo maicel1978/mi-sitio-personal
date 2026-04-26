@@ -11,7 +11,7 @@ tags:
 summary: "Cambia el ratio de tus videos de forma rápida"
 # Configuración técnica y URL relativa preservada
 slug: "video-ratioconvert"
-external_link: "/apps/video-ratioconvert.html"
+external_link: "/apps/video-ratioconvert"
 image:
   caption: ""
   focal_point: "Smart"

@@ -1,17 +1,17 @@
 ---
-title: "Video RatioConvert"
-date: "2025-08-29" 
+title: "Audio Normalizer & Fade Engine"
+date: "2025-08-25" 
 # Estructura de agrupación solicitada por Maicel Monzón
-categories: ["video"]
+categories: ["audio"]
 tags:
   - "herramientas" # Tag agrupador principal
   - "file-engineering"
-  - "edicion de video"
+  - "edicion de audio"
 # Sumario optimizado para Google Index (Enfoque en precisión y flujo de trabajo)
-summary: "Cambia el ratio de tus videos de forma rápida"
+summary: "Motor de normalización y fundido de audio"
 # Configuración técnica y URL relativa preservada
-slug: "video-ratioconvert"
-external_link: "/apps/video-ratioconvert"
+slug: "audio-normalizer"
+external_link: "/apps/audio-normalizer"
 image:
   caption: ""
   focal_point: "Smart"

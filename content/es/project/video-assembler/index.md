@@ -1,6 +1,6 @@
 ---
-title: "Video RatioConvert"
-date: "2025-08-29" 
+title: "Video-Audio Assembler"
+date: "2025-08-25" 
 # Estructura de agrupación solicitada por Maicel Monzón
 categories: ["video"]
 tags:
@@ -8,10 +8,10 @@ tags:
   - "file-engineering"
   - "edicion de video"
 # Sumario optimizado para Google Index (Enfoque en precisión y flujo de trabajo)
-summary: "Cambia el ratio de tus videos de forma rápida"
+summary: "Ensamblador de video y audio"
 # Configuración técnica y URL relativa preservada
-slug: "video-ratioconvert"
-external_link: "/apps/video-ratioconvert"
+slug: "video-assembler"
+external_link: "/apps/video-assembler"
 image:
   caption: ""
   focal_point: "Smart"

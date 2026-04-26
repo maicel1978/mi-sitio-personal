@@ -1,6 +1,6 @@
 ---
-title: "Video RatioConvert"
-date: "2025-08-29" 
+title: "Cinema Filters"
+date: "2025-08-27" 
 # Estructura de agrupación solicitada por Maicel Monzón
 categories: ["video"]
 tags:
@@ -8,10 +8,10 @@ tags:
   - "file-engineering"
   - "edicion de video"
 # Sumario optimizado para Google Index (Enfoque en precisión y flujo de trabajo)
-summary: "Cambia el ratio de tus videos de forma rápida"
+summary: "Filtros de cine rápidos"
 # Configuración técnica y URL relativa preservada
-slug: "video-ratioconvert"
-external_link: "/apps/video-ratioconvert"
+slug: "video-filters"
+external_link: "/apps/video-filters"
 image:
   caption: ""
   focal_point: "Smart"

@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quick Cinema Filters</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0d0d0d;
+      --surface:  #161616;
+      --s2:       #1f1f1f;
+      --s3:       #2a2a2a;
+      --border:   #2e2e2e;
+      --border2:  #3a3a3a;
+      --accent:   #7c6dfa;
+      --accent2:  #a78bfa;
+      --accentG:  linear-gradient(135deg,#7c6dfa,#a78bfa);
+      --text:     #efefef;
+      --muted:    #6b6b6b;
+      --muted2:   #4a4a4a;
+      --danger:   #f04747;
+      --success:  #23c55e;
+      --r:        10px;
+    }
+
+    html, body {
+      height: 100%; overflow: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 13px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── LAYOUT ── */
+    #app {
+      display: grid;
+      grid-template-rows: 52px 1fr auto;
+      height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .brand { display: flex; align-items: center; gap: 9px; }
+    .brand-logo {
+      width: 28px; height: 28px; border-radius: 7px;
+      background: var(--accentG);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; flex-shrink: 0;
+    }
+    .brand-name { font-size: 14px; font-weight: 700; letter-spacing: -.3px; }
+    .brand-name em { color: var(--accent2); font-style: normal; }
+
+    .hdr-right { display: flex; gap: 8px; align-items: center; }
+    .chip {
+      font-size: 10px; font-weight: 600; letter-spacing: .3px;
+      color: var(--muted); background: var(--s2);
+      padding: 3px 9px; border-radius: 20px;
+      border: 1px solid var(--border);
+    }
+
+    /* ── VIEWER ── */
+    main {
+      display: flex; flex-direction: column;
+      overflow: hidden; padding: 16px 20px 0;
+    }
+
+    #viewer-wrap {
+      flex: 1; min-height: 0;
+      position: relative;
+      border-radius: var(--r);
+      overflow: hidden;
+      background: #000;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* Drop Zone */
+    #dropzone {
+      position: absolute; inset: 0; z-index: 6;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 12px;
+      background: var(--surface);
+      transition: background .2s, border-color .2s;
+      border: 2px solid transparent;
+      border-radius: var(--r);
+      cursor: default;
+    }
+    #dropzone.over {
+      background: #18163a;
+      border-color: var(--accent);
+    }
+    #dropzone.hidden { display: none; }
+
+    .dz-ring {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: var(--s2); border: 1.5px solid var(--border2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 32px;
+      transition: transform .3s;
+    }
+    #dropzone.over .dz-ring { transform: scale(1.1); }
+    .dz-title { font-size: 17px; font-weight: 700; margin-top: 4px; }
+    .dz-sub   { font-size: 12px; color: var(--muted); }
+    .dz-actions { display: flex; gap: 8px; margin-top: 4px; }
+
+    .dz-cta {
+      padding: 8px 20px; border-radius: 8px; font-size: 12px;
+      font-weight: 700; font-family: inherit; cursor: pointer; border: none;
+      background: var(--accentG); color: #fff;
+      transition: opacity .2s, transform .15s;
+    }
+    .dz-cta:hover { opacity: .85; transform: translateY(-1px); }
+    .dz-formats { font-size: 10px; color: var(--muted2); margin-top: 2px; }
+
+    #file-input { display: none; }
+
+    /* Canvas */
+    #cv {
+      display: none; max-width: 100%; max-height: 100%;
+      object-fit: contain;
+    }
+    #cv.on { display: block; }
+
+    #src-video { display: none; }
+
+    /* ── HUD Overlays ── */
+    .hud {
+      position: absolute; z-index: 20;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 20px;
+    }
+
+    #filter-hud {
+      top: 12px; right: 12px;
+      background: rgba(0,0,0,.55);
+      border: 1px solid rgba(255,255,255,.1);
+      padding: 4px 12px;
+      font-size: 11px; font-weight: 700;
+      color: var(--accent2);
+      display: none;
+    }
+    #filter-hud.on { display: block; }
+
+    #rec-hud {
+      top: 12px; left: 12px;
+      background: rgba(0,0,0,.65);
+      border: 1px solid rgba(240,71,71,.5);
+      padding: 4px 11px 4px 9px;
+      display: none; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 700; color: var(--danger);
+    }
+    #rec-hud.on { display: flex; }
+    .rec-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--danger);
+      animation: blink 1s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.15} }
+
+    /* Video controls bar */
+    #vc {
+      position: absolute; bottom: 0; left: 0; right: 0; z-index: 15;
+      padding: 28px 14px 10px;
+      background: linear-gradient(transparent, rgba(0,0,0,.82));
+      display: none; flex-direction: column; gap: 7px;
+      transition: opacity .2s;
+    }
+    #vc.on { display: flex; }
+
+    /* Progress bar – tall hit-target, thin visual */
+    #pb-wrap {
+      width: 100%; position: relative; height: 18px;
+      display: flex; align-items: center; cursor: pointer;
+    }
+    #pb-track {
+      position: absolute; left: 0; right: 0;
+      height: 3px; border-radius: 3px;
+      background: rgba(255,255,255,.18);
+      overflow: hidden; pointer-events: none;
+    }
+    #pb-fill {
+      height: 100%; width: 0%; border-radius: 3px;
+      background: var(--accent2);
+      transition: width .12s linear;
+    }
+    #pb-thumb {
+      position: absolute; left: 0;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: #fff;
+      transform: translateX(-50%);
+      box-shadow: 0 0 5px rgba(0,0,0,.6);
+      pointer-events: none;
+      transition: left .12s linear;
+    }
+
+    .vc-row { display: flex; align-items: center; gap: 8px; }
+    .vc-btn {
+      background: rgba(255,255,255,.1); border: none; border-radius: 6px;
+      color: #fff; padding: 5px 10px; font-size: 12px;
+      cursor: pointer; font-family: inherit; font-weight: 600;
+      transition: background .15s;
+    }
+    .vc-btn:hover { background: rgba(255,255,255,.22); }
+    #vol-slider {
+      -webkit-appearance: none; appearance: none;
+      width: 64px; height: 3px;
+      background: rgba(255,255,255,.25); border-radius: 3px; outline: none;
+      cursor: pointer;
+    }
+    #vol-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 11px; height: 11px; border-radius: 50%;
+      background: #fff; cursor: pointer;
+    }
+    #time-dsp {
+      margin-left: auto;
+      font-size: 11px; font-weight: 600;
+      color: rgba(255,255,255,.65);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ── BOTTOM PANEL ── */
+    #panel {
+      flex-shrink: 0;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 12px 20px 14px;
+      display: flex; flex-direction: column; gap: 11px;
+    }
+
+    /* Filter strip */
+    .strip-label {
+      font-size: 9px; font-weight: 700; letter-spacing: 1.4px;
+      text-transform: uppercase; color: var(--muted2);
+    }
+
+    #filter-strip {
+      display: flex; gap: 7px;
+    }
+
+    .fb {
+      flex: 1; display: flex; flex-direction: column; align-items: center;
+      gap: 5px; padding: 7px 6px 8px;
+      background: var(--s2);
+      border: 1.5px solid var(--border);
+      border-radius: 9px; cursor: pointer;
+      transition: border-color .18s, background .18s, transform .15s, box-shadow .18s;
+      position: relative; overflow: hidden;
+    }
+    .fb:hover  { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(124,109,250,.18); }
+    .fb.active { border-color: var(--accent2); background: #1a1730; box-shadow: 0 0 0 1px rgba(167,139,250,.25) inset, 0 6px 20px rgba(124,109,250,.22); }
+    .fb.active .fb-name { color: var(--accent2); }
+
+    /* Swatch thumbnail */
+    .fb-swatch {
+      width: 54px; height: 30px; border-radius: 5px; overflow: hidden;
+      flex-shrink: 0; border: 1px solid rgba(255,255,255,.06);
+    }
+    .fb-swatch-inner {
+      width: 100%; height: 100%;
+      background: linear-gradient(120deg,#c0392b 0%,#e67e22 25%,#f1c40f 50%,#27ae60 75%,#2980b9 100%);
+    }
+    .fp-noir    .fb-swatch-inner { filter: grayscale(1) contrast(1.35) brightness(.82); }
+    .fp-vintage .fb-swatch-inner { filter: sepia(.65) contrast(1.12) brightness(1.06) saturate(1.25); }
+    .fp-blue    .fb-swatch-inner { filter: hue-rotate(185deg) saturate(1.5) brightness(.88) contrast(1.12); }
+    .fp-vivid   .fb-swatch-inner { filter: saturate(2.2) contrast(1.18) brightness(1.06); }
+    .fp-teal    .fb-swatch-inner { filter: hue-rotate(155deg) saturate(1.4) brightness(.92) contrast(1.08); }
+
+    .fb-icon { font-size: 14px; line-height: 1; }
+    .fb-name { font-size: 10px; font-weight: 700; color: var(--text); white-space: nowrap; }
+    .fb-key  {
+      position: absolute; top: 4px; right: 5px;
+      font-size: 8px; font-weight: 700; color: var(--muted2);
+      background: var(--s3); border-radius: 3px; padding: 1px 3px;
+    }
+
+    /* Controls row */
+    #ctrl-row { display: flex; align-items: flex-end; gap: 18px; }
+
+    .cg { display: flex; flex-direction: column; gap: 5px; }
+    .cg-wide { flex: 1; }
+    .cg-label {
+      font-size: 10px; font-weight: 700; color: var(--muted);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .cg-label span { color: var(--accent2); font-size: 11px; }
+
+    input[type=range]#intensity {
+      -webkit-appearance: none; appearance: none;
+      width: 100%; height: 3px;
+      background: var(--s3); border-radius: 3px; outline: none; cursor: pointer;
+    }
+    input[type=range]#intensity::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 15px; height: 15px; border-radius: 50%;
+      background: var(--accent2);
+      border: 2px solid var(--bg);
+      box-shadow: 0 0 6px rgba(167,139,250,.45);
+      cursor: pointer; transition: transform .15s;
+    }
+    input[type=range]#intensity::-webkit-slider-thumb:hover { transform: scale(1.25); }
+    input[type=range]#intensity::-moz-range-thumb {
+      width: 15px; height: 15px; border-radius: 50%;
+      background: var(--accent2); border: 2px solid var(--bg); cursor: pointer;
+    }
+
+    #actions { display: flex; gap: 7px; flex-shrink: 0; align-items: center; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 16px; border: none; border-radius: 8px;
+      font-size: 12px; font-weight: 700; font-family: inherit;
+      cursor: pointer; white-space: nowrap;
+      transition: opacity .18s, transform .15s, box-shadow .18s;
+    }
+    .btn:hover:not(:disabled) { opacity: .85; transform: translateY(-1px); }
+    .btn:disabled { opacity: .35; cursor: not-allowed; transform: none !important; }
+    .btn-ghost   { background: var(--s2); color: var(--text); border: 1px solid var(--border2); }
+    .btn-primary { background: var(--accentG); color: #fff; box-shadow: 0 3px 12px rgba(124,109,250,.3); }
+    .btn-primary:hover:not(:disabled) { box-shadow: 0 5px 20px rgba(124,109,250,.45); }
+
+    /* ── EXPORT MODAL ── */
+    #exp-modal {
+      position: fixed; inset: 0; z-index: 900;
+      background: rgba(0,0,0,.75);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      display: none; align-items: center; justify-content: center;
+    }
+    #exp-modal.on { display: flex; }
+
+    .modal {
+      background: var(--s2); border: 1px solid var(--border2);
+      border-radius: 16px; padding: 30px 36px;
+      display: flex; flex-direction: column; align-items: center; gap: 14px;
+      min-width: 320px; max-width: 380px; width: 90%;
+      box-shadow: 0 40px 80px rgba(0,0,0,.7);
+      animation: pop-in .25s cubic-bezier(.34,1.56,.64,1);
+    }
+    @keyframes pop-in {
+      from { opacity:0; transform:scale(.88) translateY(16px); }
+      to   { opacity:1; transform:scale(1) translateY(0); }
+    }
+    .modal-emoji { font-size: 40px; line-height: 1; }
+    .modal-title { font-size: 16px; font-weight: 800; }
+    .modal-sub   { font-size: 12px; color: var(--muted); text-align: center; line-height: 1.5; }
+
+    #exp-pct {
+      font-size: 36px; font-weight: 800;
+      color: var(--accent2); font-variant-numeric: tabular-nums;
+      letter-spacing: -1px;
+    }
+
+    .prog-track {
+      width: 100%; height: 5px; border-radius: 5px;
+      background: var(--s3); overflow: hidden;
+    }
+    #exp-fill {
+      height: 100%; width: 0%; border-radius: 5px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transition: width .3s ease;
+    }
+
+    .modal-eta { font-size: 11px; color: var(--muted2); font-variant-numeric: tabular-nums; }
+
+    #btn-cancel {
+      font-size: 11px; color: var(--muted); background: none; border: none;
+      cursor: pointer; font-family: inherit; text-decoration: underline;
+      transition: color .15s;
+    }
+    #btn-cancel:hover { color: var(--danger); }
+
+    /* ── WARNING BANNER ── */
+    #audio-warn {
+      display: none;
+      background: rgba(240,200,47,.08);
+      border: 1px solid rgba(240,200,47,.25);
+      border-radius: 7px;
+      padding: 6px 12px;
+      font-size: 11px; color: #f0c82f;
+      text-align: center;
+    }
+    #audio-warn.on { display: block; }
+
+    /* ── TOAST ── */
+    #toast-zone {
+      position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+      z-index: 9999; display: flex; flex-direction: column; gap: 7px;
+      pointer-events: none;
+    }
+    .toast {
+      background: var(--s2); border: 1px solid var(--border2);
+      border-radius: 9px; padding: 9px 18px;
+      font-size: 12px; font-weight: 600; color: var(--text);
+      box-shadow: 0 8px 30px rgba(0,0,0,.5);
+      animation: t-in .28s ease, t-out .35s ease 2.65s forwards;
+      pointer-events: auto; white-space: nowrap;
+    }
+    .toast.ok  { border-color: var(--success); color: var(--success); }
+    .toast.err { border-color: var(--danger);  color: var(--danger);  }
+    @keyframes t-in  { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes t-out { to{opacity:0;transform:translateY(-6px)} }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+  </style>
+</head>
+<body>
+<div id="app">
+
+  <!-- ══ HEADER ══ -->
+  <header>
+    <div class="brand">
+      <div class="brand-logo">🎬</div>
+      <div class="brand-name">Quick Cinema <em>Filters</em></div>
+    </div>
+    <div class="hdr-right">
+      <div class="chip" id="chip-res">— sin video —</div>
+      <div class="chip">Max 1080p · WebM</div>
+    </div>
+  </header>
+
+  <!-- ══ VIEWER ══ -->
+  <main>
+    <div id="viewer-wrap">
+
+      <!-- Drop zone -->
+      <div id="dropzone">
+        <div class="dz-ring">🎞️</div>
+        <div class="dz-title">Arrastra tu video aquí</div>
+        <div class="dz-sub">o usa el botón para seleccionarlo desde tu disco</div>
+        <div class="dz-actions">
+          <button class="dz-cta" id="open-btn">📂 Abrir video</button>
+        </div>
+        <div class="dz-formats">MP4 · MOV · WEBM · MKV · AVI</div>
+      </div>
+      <input type="file" id="file-input" accept="video/*" />
+
+      <!-- Processed canvas -->
+      <canvas id="cv"></canvas>
+
+      <!-- Hidden source video -->
+      <video id="src-video" playsinline crossorigin="anonymous"></video>
+
+      <!-- HUD: filter name -->
+      <div class="hud" id="filter-hud">Original</div>
+
+      <!-- HUD: REC -->
+      <div class="hud" id="rec-hud">
+        <div class="rec-dot"></div> EXPORTANDO
+      </div>
+
+      <!-- Video controls -->
+      <div id="vc">
+        <div id="pb-wrap">
+          <div id="pb-track"><div id="pb-fill"></div></div>
+          <div id="pb-thumb"></div>
+        </div>
+        <div class="vc-row">
+          <button class="vc-btn" id="btn-pp">▶</button>
+          <button class="vc-btn" id="btn-rst">↺</button>
+          <span style="font-size:11px;color:rgba(255,255,255,.35);user-select:none">🔊</span>
+          <input type="range" id="vol-slider" min="0" max="1" step="0.05" value="1" />
+          <div id="time-dsp">0:00 / 0:00</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Audio warning -->
+    <div id="audio-warn">
+      ⚠️ Tu navegador no permitió conectar el audio. El video exportado será <strong>silencioso</strong>.
+      Activa permisos de autoplay o usa Chrome/Edge para audio en la exportación.
+    </div>
+  </main>
+
+  <!-- ══ BOTTOM PANEL ══ -->
+  <div id="panel">
+
+    <div>
+      <div class="strip-label">Presets de Filtro</div>
+    </div>
+
+    <div id="filter-strip">
+      <button class="fb fp-original active" data-filter="original">
+        <span class="fb-key">1</span>
+        <div class="fb-swatch"><div class="fb-swatch-inner"></div></div>
+        <div class="fb-icon">🎨</div>
+        <div class="fb-name">Original</div>
+      </button>
+      <button class="fb fp-noir" data-filter="noir">
+        <span class="fb-key">2</span>
+        <div class="fb-swatch"><div class="fb-swatch-inner"></div></div>
+        <div class="fb-icon">🖤</div>
+        <div class="fb-name">Noir</div>
+      </button>
+      <button class="fb fp-vintage" data-filter="vintage">
+        <span class="fb-key">3</span>
+        <div class="fb-swatch"><div class="fb-swatch-inner"></div></div>
+        <div class="fb-icon">🎞</div>
+        <div class="fb-name">Vintage</div>
+      </button>
+      <button class="fb fp-blue" data-filter="blue">
+        <span class="fb-key">4</span>
+        <div class="fb-swatch"><div class="fb-swatch-inner"></div></div>
+        <div class="fb-icon">🔵</div>
+        <div class="fb-name">Cine Azul</div>
+      </button>
+      <button class="fb fp-vivid" data-filter="vivid">
+        <span class="fb-key">5</span>
+        <div class="fb-swatch"><div class="fb-swatch-inner"></div></div>
+        <div class="fb-icon">⚡</div>
+        <div class="fb-name">Vívido</div>
+      </button>
+      <button class="fb fp-teal" data-filter="teal">
+        <span class="fb-key">6</span>
+        <div class="fb-swatch"><div class="fb-swatch-inner"></div></div>
+        <div class="fb-icon">🌊</div>
+        <div class="fb-name">Teal</div>
+      </button>
+    </div>
+
+    <div id="ctrl-row">
+      <div class="cg cg-wide">
+        <div class="cg-label">
+          Intensidad del Filtro
+          <span id="int-val">100%</span>
+        </div>
+        <input type="range" id="intensity" min="0" max="100" value="100" step="1" />
+      </div>
+      <div id="actions">
+        <button class="btn btn-ghost" id="btn-change" disabled>📂 Cambiar</button>
+        <button class="btn btn-primary" id="btn-export" disabled>⬇ Exportar</button>
+      </div>
+    </div>
+
+  </div><!-- /panel -->
+</div><!-- /app -->
+
+<!-- ══ EXPORT MODAL ══ -->
+<div id="exp-modal">
+  <div class="modal">
+    <div class="modal-emoji">🎬</div>
+    <div class="modal-title">Exportando video…</div>
+    <div class="modal-sub" id="exp-sub">Renderizando frames con filtro aplicado</div>
+    <div id="exp-pct">0%</div>
+    <div class="prog-track"><div id="exp-fill"></div></div>
+    <div class="modal-eta" id="exp-eta">Calculando tiempo restante…</div>
+    <button id="btn-cancel">Cancelar exportación</button>
+  </div>
+</div>
+
+<!-- ══ TOASTS ══ -->
+<div id="toast-zone"></div>
+
+<script>
+/* ═══════════════════════════════════════════════════════
+   QUICK CINEMA FILTERS  ·  Optimized Final Release
+   Bug fixes: audio routing, rec-hud, RAF efficiency,
+   blob leak, duplicate ended listeners, progress accuracy,
+   filter string caching, progress bar hit-target, state reset.
+═══════════════════════════════════════════════════════ */
+
+// ── FILTER DEFINITIONS ──────────────────────────────────
+const FILTERS = {
+  original: { name:'Original', build(i){ return 'none'; } },
+  noir:     { name:'Noir',     build(i){
+    return `grayscale(${L(0,1,i)}) contrast(${L(1,1.35,i)}) brightness(${L(1,.82,i)})`;
+  }},
+  vintage:  { name:'Vintage',  build(i){
+    return `sepia(${L(0,.65,i)}) contrast(${L(1,1.12,i)}) brightness(${L(1,1.06,i)}) saturate(${L(1,1.25,i)})`;
+  }},
+  blue:     { name:'Cine Azul',build(i){
+    return `hue-rotate(${L(0,185,i)}deg) saturate(${L(1,1.5,i)}) brightness(${L(1,.88,i)}) contrast(${L(1,1.12,i)})`;
+  }},
+  vivid:    { name:'Vívido',   build(i){
+    return `saturate(${L(1,2.2,i)}) contrast(${L(1,1.18,i)}) brightness(${L(1,1.06,i)})`;
+  }},
+  teal:     { name:'Teal',     build(i){
+    return `hue-rotate(${L(0,155,i)}deg) saturate(${L(1,1.4,i)}) brightness(${L(1,.92,i)}) contrast(${L(1,1.08,i)})`;
+  }},
+};
+
+// ── CONSTANTS ───────────────────────────────────────────
+const MAX_W   = 1920;
+const MAX_H   = 1080;
+const EXP_FPS = 30;
+
+// ── DOM ─────────────────────────────────────────────────
+const $ = s => document.querySelector(s);
+const dropzone   = $('#dropzone');
+const fileInput  = $('#file-input');
+const srcVideo   = $('#src-video');
+const cv         = $('#cv');
+const ctx2d      = cv.getContext('2d', { willReadFrequently: false });
+const filterHud  = $('#filter-hud');
+const recHud     = $('#rec-hud');
+const vcBar      = $('#vc');
+const pbFill     = $('#pb-fill');
+const pbThumb    = $('#pb-thumb');
+const timeDsp    = $('#time-dsp');
+const btnPP      = $('#btn-pp');
+const btnRst     = $('#btn-rst');
+const volSlider  = $('#vol-slider');
+const intSlider  = $('#intensity');
+const intVal     = $('#int-val');
+const btnExport  = $('#btn-export');
+const btnChange  = $('#btn-change');
+const openBtn    = $('#open-btn');
+const expModal   = $('#exp-modal');
+const expPct     = $('#exp-pct');
+const expFill    = $('#exp-fill');
+const expSub     = $('#exp-sub');
+const expEta     = $('#exp-eta');
+const btnCancel  = $('#btn-cancel');
+const audioWarn  = $('#audio-warn');
+const chipRes    = $('#chip-res');
+
+// ── STATE ───────────────────────────────────────────────
+let videoLoaded    = false;
+let isPlaying      = false;
+let currentFilter  = 'original';
+let intensity      = 1.0;
+let cachedFilter   = 'none';          // FIX #7 – cached filter string
+let filterDirty    = true;
+let rafId          = null;
+let lastBlobUrl    = null;            // FIX #4 – track for revoke
+let mediaRecorder  = null;
+let recChunks      = [];
+let isExporting    = false;
+let cancelReq      = false;
+let audioCtx       = null;
+let audioDestNode  = null;
+let audioSrcNode   = null;
+let hasAudio       = false;
+
+// ── HELPERS ─────────────────────────────────────────────
+function L(a,b,t) { return +(a + (b-a)*t).toFixed(4); }
+function fmt(s) {
+  if (!isFinite(s)) return '0:00';
+  const m = Math.floor(s/60), ss = Math.floor(s%60).toString().padStart(2,'0');
+  return `${m}:${ss}`;
+}
+function toast(msg, type='') {
+  const el = document.createElement('div');
+  el.className = 'toast ' + type;
+  el.textContent = msg;
+  $('#toast-zone').appendChild(el);
+  setTimeout(() => el.remove(), 3100);
+}
+function rebuildFilter() {
+  cachedFilter = FILTERS[currentFilter].build(intensity);
+  filterDirty  = false;
+}
+
+// ── DRAG & DROP ─────────────────────────────────────────
+dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('over'); });
+dropzone.addEventListener('dragleave', e => { if (!dropzone.contains(e.relatedTarget)) dropzone.classList.remove('over'); });
+dropzone.addEventListener('drop', e => {
+  e.preventDefault(); dropzone.classList.remove('over');
+  const f = e.dataTransfer.files[0];
+  f && f.type.startsWith('video/') ? loadFile(f) : toast('Solo se aceptan archivos de video', 'err');
+});
+openBtn.addEventListener('click', () => fileInput.click());
+fileInput.addEventListener('change', () => fileInput.files[0] && loadFile(fileInput.files[0]));
+btnChange.addEventListener('click', () => fileInput.click());
+
+// ── LOAD FILE ───────────────────────────────────────────
+function loadFile(file) {
+  // FIX #4 – revoke previous object URL to free memory
+  if (lastBlobUrl) { URL.revokeObjectURL(lastBlobUrl); lastBlobUrl = null; }
+  // FIX #9 – clear canvas immediately on new load
+  ctx2d.clearRect(0, 0, cv.width, cv.height);
+
+  const url = URL.createObjectURL(file);
+  lastBlobUrl  = url;
+  srcVideo.src = url;
+  srcVideo.volume = +volSlider.value;
+  srcVideo.load();
+  srcVideo.onloadedmetadata = onVideoReady;
+  srcVideo.onerror = () => toast('No se pudo cargar el video. Formato no soportado.', 'err');
+}
+
+function onVideoReady() {
+  srcVideo.onloadedmetadata = null;
+
+  // Clamp to max resolution
+  let w = srcVideo.videoWidth, h = srcVideo.videoHeight;
+  if (w > MAX_W || h > MAX_H) {
+    const r = Math.min(MAX_W/w, MAX_H/h);
+    w = Math.round(w*r); h = Math.round(h*r);
+  }
+  cv.width  = w;
+  cv.height = h;
+
+  chipRes.textContent = `${w}×${h}`;
+  videoLoaded = true;
+  isPlaying   = false;
+  btnPP.textContent = '▶';
+
+  // FIX #1 – wire up audio for export
+  setupAudio();
+  filterDirty = true;
+  rebuildFilter();
+
+  dropzone.classList.add('hidden');
+  cv.classList.add('on');
+  filterHud.classList.add('on');
+  vcBar.classList.add('on');
+  btnExport.disabled = false;
+  btnChange.disabled = false;
+  filterHud.textContent = FILTERS[currentFilter].name;
+
+  srcVideo.currentTime = 0;
+  srcVideo.pause();
+  drawOnce();
+  toast(`Video listo — ${w}×${h}`, 'ok');
+}
+
+// ── AUDIO ROUTING (FIX #1) ──────────────────────────────
+// We route srcVideo → AudioContext → MediaStreamDestination
+// so the recorded stream carries the original audio perfectly in sync.
+function setupAudio() {
+  try {
+    // Tear down previous context
+    if (audioCtx) { audioCtx.close().catch(()=>{}); audioCtx = null; audioSrcNode = null; }
+
+    audioCtx      = new (window.AudioContext || window.webkitAudioContext)();
+    audioSrcNode  = audioCtx.createMediaElementSource(srcVideo);
+    audioDestNode = audioCtx.createMediaStreamDestination();
+
+    // Route: video → gain → speakers AND → destination for recording
+    const gain = audioCtx.createGain();
+    gain.gain.value = 1.0;
+    audioSrcNode.connect(gain);
+    gain.connect(audioCtx.destination);      // playback
+    gain.connect(audioDestNode);             // recording
+
+    hasAudio = true;
+    audioWarn.classList.remove('on');
+  } catch(e) {
+    console.warn('Audio routing failed:', e);
+    hasAudio = false;
+    audioWarn.classList.add('on');
+  }
+}
+
+// ── RENDER LOOP (FIX #3 – only draw when needed) ────────
+function drawOnce() {
+  if (!videoLoaded) return;
+  if (filterDirty) rebuildFilter();
+  ctx2d.filter = cachedFilter;
+  ctx2d.drawImage(srcVideo, 0, 0, cv.width, cv.height);
+  ctx2d.filter = 'none';
+  updateProgress();
+}
+
+function startLoop() {
+  if (rafId) cancelAnimationFrame(rafId);
+  function loop() {
+    if (!videoLoaded || !isPlaying) { rafId = null; return; } // stop RAF when paused
+    drawOnce();
+    rafId = requestAnimationFrame(loop);
+  }
+  rafId = requestAnimationFrame(loop);
+}
+
+// Draw a single frame when paused (filter change / seek)
+function drawWhenPaused() {
+  if (!videoLoaded) return;
+  if (isPlaying) return; // loop is already drawing
+  drawOnce();
+}
+
+// ── VIDEO CONTROLS ───────────────────────────────────────
+btnPP.addEventListener('click', togglePlay);
+btnRst.addEventListener('click', () => {
+  srcVideo.currentTime = 0;
+  drawWhenPaused();
+});
+volSlider.addEventListener('input', () => {
+  srcVideo.volume = +volSlider.value;
+});
+
+function togglePlay() {
+  if (!videoLoaded || isExporting) return;
+  if (isPlaying) pauseVideo(); else playVideo();
+}
+function playVideo() {
+  // Resume AudioContext if suspended (browser policy)
+  if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+  srcVideo.play().then(() => {
+    isPlaying = true;
+    btnPP.textContent = '⏸';
+    startLoop();
+  }).catch(e => toast('No se pudo reproducir: ' + e.message, 'err'));
+}
+function pauseVideo() {
+  srcVideo.pause();
+  isPlaying = false;
+  btnPP.textContent = '▶';
+  // RAF loop stops itself on next tick
+}
+
+// FIX #5 – single ended listener, unified logic
+srcVideo.addEventListener('ended', () => {
+  isPlaying = false;
+  btnPP.textContent = '▶';
+  if (isExporting && mediaRecorder && mediaRecorder.state !== 'inactive') {
+    // Give MediaRecorder a beat to flush last chunk
+    setTimeout(() => stopRecorder(), 400);
+  }
+});
+
+function updateProgress() {
+  if (!videoLoaded) return;
+  const cur = srcVideo.currentTime || 0;
+  const dur = srcVideo.duration    || 0;
+  const pct = dur ? cur/dur : 0;
+  pbFill.style.width  = (pct*100) + '%';
+  pbThumb.style.left  = (pct*100) + '%';
+  timeDsp.textContent = `${fmt(cur)} / ${fmt(dur)}`;
+}
+
+// Progress bar click / drag
+let pbDragging = false;
+const pbWrap = $('#pb-wrap');
+function seekTo(e) {
+  if (!videoLoaded) return;
+  const rect = pbWrap.getBoundingClientRect();
+  const pct  = Math.min(Math.max((e.clientX - rect.left) / rect.width, 0), 1);
+  srcVideo.currentTime = pct * srcVideo.duration;
+  drawWhenPaused();
+}
+pbWrap.addEventListener('mousedown', e => { pbDragging = true; seekTo(e); });
+document.addEventListener('mousemove', e => { if (pbDragging) seekTo(e); });
+document.addEventListener('mouseup',   () => { pbDragging = false; });
+
+// ── FILTER BUTTONS ───────────────────────────────────────
+document.querySelectorAll('.fb').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.fb').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentFilter = btn.dataset.filter;
+    filterDirty   = true;
+    filterHud.textContent = FILTERS[currentFilter].name;
+    drawWhenPaused();
+  });
+});
+
+// ── INTENSITY ────────────────────────────────────────────
+intSlider.addEventListener('input', () => {
+  intensity    = intSlider.value / 100;
+  intVal.textContent = Math.round(intensity*100) + '%';
+  filterDirty  = true;
+  drawWhenPaused();
+});
+
+// ── EXPORT ───────────────────────────────────────────────
+btnExport.addEventListener('click', startExport);
+btnCancel.addEventListener('click', () => {
+  cancelReq = true;
+  stopRecorder();
+});
+
+function getMime() {
+  const list = [
+    'video/webm;codecs=h264,opus',
+    'video/webm;codecs=vp9,opus',
+    'video/webm;codecs=vp8,opus',
+    'video/webm',
+  ];
+  return list.find(t => MediaRecorder.isTypeSupported(t)) || '';
+}
+
+function startExport() {
+  if (!videoLoaded || isExporting) return;
+
+  cancelReq   = false;
+  isExporting = true;
+  recChunks   = [];
+
+  pauseVideo();
+
+  expPct.textContent  = '0%';
+  expFill.style.width = '0%';
+  expSub.textContent  = 'Iniciando codificación…';
+  expEta.textContent  = 'Calculando tiempo restante…';
+  expModal.classList.add('on');
+  btnExport.disabled  = true;
+  recHud.classList.add('on');  // FIX #2 – show REC badge
+
+  // Seek to start then kick off
+  srcVideo.currentTime = 0;
+  const onSeeked = () => {
+    srcVideo.removeEventListener('seeked', onSeeked);
+    beginRecording();
+  };
+  srcVideo.addEventListener('seeked', onSeeked);
+}
+
+function beginRecording() {
+  // Build combined stream: canvas video track + audio destination track (FIX #1)
+  const videoStream = cv.captureStream(EXP_FPS);
+  const videoTrack  = videoStream.getVideoTracks()[0];
+
+  const tracks = [videoTrack];
+  if (hasAudio && audioDestNode) {
+    const audioTrack = audioDestNode.stream.getAudioTracks()[0];
+    if (audioTrack) tracks.push(audioTrack);
+  }
+  const combined = new MediaStream(tracks);
+
+  const mime = getMime();
+  let recorder;
+  try {
+    recorder = new MediaRecorder(combined, {
+      mimeType: mime,
+      videoBitsPerSecond: 8_000_000,
+    });
+  } catch {
+    recorder = new MediaRecorder(combined);
+  }
+  mediaRecorder = recorder;
+
+  recorder.ondataavailable = e => {
+    if (e.data && e.data.size > 0) recChunks.push(e.data);
+  };
+
+  recorder.onstop = () => {
+    if (cancelReq) { recChunks = []; finishExport(false); return; }
+    finishExport(true);
+  };
+
+  recorder.start(500); // chunk every 500ms for smoother progress
+
+  // Resume audio context for recording
+  if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+
+  // Play the source video (drives the canvas loop & audio)
+  srcVideo.play().then(() => {
+    isPlaying = true;
+    btnPP.textContent = '⏸';
+    startLoop();
+    trackProgress();
+  });
+}
+
+let expStart = 0;
+function trackProgress() {
+  if (!isExporting || cancelReq) return;
+
+  const dur = srcVideo.duration || 1;
+  // FIX #6 – use currentTime for accuracy, not wall clock
+  const cur = srcVideo.currentTime;
+  const pct = Math.min(cur / dur, 1);
+  const pctDisplay = Math.round(pct * 100);
+
+  expPct.textContent  = pctDisplay + '%';
+  expFill.style.width = pctDisplay + '%';
+  expSub.textContent  = `Procesando ${fmt(cur)} / ${fmt(dur)}`;
+
+  // ETA calculation using wall clock for rate
+  if (!expStart) expStart = performance.now();
+  const elapsed = (performance.now() - expStart) / 1000;
+  if (elapsed > 1 && pct > 0) {
+    const total = elapsed / pct;
+    const remaining = Math.max(total - elapsed, 0);
+    expEta.textContent = remaining > 2
+      ? `Tiempo restante: ~${fmt(remaining)}`
+      : 'Finalizando…';
+  }
+
+  if (!srcVideo.ended && pct < 1) {
+    requestAnimationFrame(trackProgress);
+  }
+  // stopRecorder is called from the 'ended' event
+}
+
+function stopRecorder() {
+  if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+    mediaRecorder.stop();
+  }
+}
+
+function finishExport(success) {
+  isExporting = false;
+  expStart    = 0;
+  isPlaying   = false;
+  btnPP.textContent = '▶';
+
+  expModal.classList.remove('on');
+  recHud.classList.remove('on');  // FIX #2 – hide REC badge
+  btnExport.disabled = false;
+
+  srcVideo.currentTime = 0;
+  drawOnce();
+
+  if (!success || recChunks.length === 0) {
+    toast('Exportación cancelada.', 'err');
+    recChunks = [];
+    return;
+  }
+
+  const mime     = mediaRecorder.mimeType || 'video/webm';
+  const ext      = mime.includes('mp4') ? 'mp4' : 'webm';
+  const label    = FILTERS[currentFilter].name.replace(/\s+/g,'_');
+  const fileName = `QCF_${label}_${Date.now()}.${ext}`;
+  const blob     = new Blob(recChunks, { type: mime });
+
+  // FIX #4 – revoke this download URL after download window
+  const dlUrl = URL.createObjectURL(blob);
+  const a     = document.createElement('a');
+  a.href      = dlUrl;
+  a.download  = fileName;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(dlUrl), 60_000);
+
+  recChunks = []; // free chunk array immediately
+  toast(`✅ Descargando: ${fileName}`, 'ok');
+}
+
+// ── KEYBOARD SHORTCUTS ────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (!videoLoaded) return;
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+  if (e.code === 'Space') { e.preventDefault(); togglePlay(); }
+  if (e.key === 'ArrowRight') { srcVideo.currentTime = Math.min(srcVideo.currentTime+5, srcVideo.duration); drawWhenPaused(); }
+  if (e.key === 'ArrowLeft')  { srcVideo.currentTime = Math.max(srcVideo.currentTime-5, 0); drawWhenPaused(); }
+
+  // FIX: numeric shortcuts only if not focused on range input
+  const map = { '1':'original','2':'noir','3':'vintage','4':'blue','5':'vivid','6':'teal' };
+  if (map[e.key]) {
+    document.querySelector(`[data-filter="${map[e.key]}"]`)?.click();
+  }
+});
+
+// ── INIT ─────────────────────────────────────────────────
+filterHud.textContent = FILTERS[currentFilter].name;
+</script>
+</body>
+</html>
