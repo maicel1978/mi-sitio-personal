@@ -8,7 +8,7 @@ tags:
   - "file-engineering"
   - "edicion de video"
 # Sumario optimizado para Google Index (Enfoque en precisión y flujo de trabajo)
-summary: "Une dos gragmentos de videos"
+summary: "Une dos fragmentos de videos"
 # Configuración técnica y URL relativa preservada
 slug: "video-merge"
 external_link: "/apps/video-merge"
