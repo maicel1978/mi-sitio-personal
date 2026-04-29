@@ -75,8 +75,11 @@ Esto no es un problema teórico.
 Existen ensayos presentados como fase 3 que:
 
 – carecen de comparador concurrente,
+
 – utilizan controles históricos o externos,
+
 – estiman el efecto del tratamiento a partir de desenlaces vulnerables a sesgos de medición, adjudicación o análisis,
+
 – o se basan en análisis sin una hipótesis primaria claramente preespecificada. 
 
 En estos escenarios, el problema no es que el estudio sea “menos ideal”.
