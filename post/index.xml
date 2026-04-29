@@ -1,4 +1,180 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>BioestadísticaEdu | Bioestadística edu</title><link>https://bioestadisticaedu.com/post/</link><atom:link href="https://bioestadisticaedu.com/post/index.xml" rel="self" type="application/rss+xml"/><description>BioestadísticaEdu</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Sun, 19 May 2024 00:00:00 +0000</lastBuildDate><image><url>https://bioestadisticaedu.com/media/icon_hu_a91eea5f46a3944e.png</url><title>BioestadísticaEdu</title><link>https://bioestadisticaedu.com/post/</link></image><item><title>Cuando la ética se usa para evitar el control</title><link>https://bioestadisticaedu.com/post/sin-control/</link><pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/sin-control/</guid><description>&lt;p>Hay frases que, en cuanto aparecen en una discusión de diseño de protocolo de ensayos clínicos, cambian el clima de la sala. Esta es una de ellas:&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>BioestadísticaEdu | Bioestadística edu</title><link>https://bioestadisticaedu.com/post/</link><atom:link href="https://bioestadisticaedu.com/post/index.xml" rel="self" type="application/rss+xml"/><description>BioestadísticaEdu</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>es-es</language><lastBuildDate>Sun, 19 May 2024 00:00:00 +0000</lastBuildDate><image><url>https://bioestadisticaedu.com/media/icon_hu_a91eea5f46a3944e.png</url><title>BioestadísticaEdu</title><link>https://bioestadisticaedu.com/post/</link></image><item><title>No todo ensayo clínico fase 3 es pivotal</title><link>https://bioestadisticaedu.com/post/pivotal/</link><pubDate>Tue, 28 Apr 2026 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/pivotal/</guid><description>&lt;p>En investigación clínica hay palabras que no describen: &lt;strong>condicionan&lt;/strong>.&lt;/p>
+&lt;p>&lt;strong>“Fase 3”&lt;/strong> es una de ellas.&lt;/p>
+&lt;p>Actúa como un sello de madurez y credibilidad. En cuanto aparece, muchos dejan de cuestionar el protocolo y empiezan a asumir que el estudio es robusto. Ese atajo mental es cómodo, pero con demasiada frecuencia es falso.&lt;/p>
+&lt;hr>
+&lt;h2 id="la-etiqueta-no-confirma-nada">La etiqueta no confirma nada&lt;/h2>
+&lt;p>La fase de un ensayo describe &lt;strong>cuándo ocurre&lt;/strong> en el desarrollo clínico de un producto farmacológico.&lt;br>
+No describe &lt;strong>qué tan bien responde&lt;/strong> a la pregunta científica que plantea la investigación.&lt;/p>
+&lt;p>Llamar “confirmatorio” a un estudio porque está en fase 3 es una afirmación administrativa, no inferencial.&lt;/p>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-yellow-100 dark:bg-yellow-900">
+&lt;span class="pr-3 pt-1 text-red-400">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0zM12 15.75h.007v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;p>Un estudio solo confirma algo si su diseño le permite:&lt;/p>
+&lt;ul>
+&lt;li>aislar el efecto del tratamiento,&lt;/li>
+&lt;li>mitigar fuentes relevantes de sesgo,&lt;/li>
+&lt;li>y sostener una inferencia causal defendible.&lt;/li>
+&lt;/ul>&lt;/span>
+&lt;/div>
+&lt;p>Si eso no está presente, el estudio puede producir resultados.&lt;br>
+Pero no necesariamente evidencias sólidas.&lt;/p>
+&lt;hr>
+&lt;h2 id="sin-comparación-no-hay-efecto-demostrable">Sin comparación, no hay efecto demostrable&lt;/h2>
+&lt;p>La capacidad de un estudio para establecer causalidad depende de su &lt;strong>estructura comparativa&lt;/strong>.&lt;/p>
+&lt;p>Sin un grupo de referencia adecuado, lo que observamos puedes ser el resultado de la evolución natural de la enfermedad, no un efecto causal.&lt;/p>
+&lt;p>Un estudio puede mostrar qué ocurre bajo tratamiento.&lt;/p>
+&lt;p>Pero la pregunta relevante es otra:&lt;/p>
+&lt;p>&lt;strong>¿qué habría ocurrido en ausencia del tratamiento?&lt;/strong>&lt;/p>
+&lt;p>Sin ese contrafactual, hablar de efecto es una extrapolación especulativa.&lt;/p>
+&lt;p>No una estimación rigurosa.&lt;/p>
+&lt;hr>
+&lt;h2 id="cuando-el-fase-3-pierde-capacidad-inferencial">Cuando el “fase 3” pierde capacidad inferencial&lt;/h2>
+&lt;p>Esto no es un problema teórico.&lt;/p>
+&lt;p>Existen ensayos presentados como fase 3 que:&lt;/p>
+&lt;p>– carecen de comparador concurrente,
+– utilizan controles históricos o externos,
+– estiman el efecto del tratamiento a partir de desenlaces vulnerables a sesgos de medición, adjudicación o análisis,
+– o se basan en análisis sin una hipótesis primaria claramente preespecificada.&lt;/p>
+&lt;p>En estos escenarios, el problema no es que el estudio sea “menos ideal”.&lt;/p>
+&lt;p>Es que &lt;strong>no está en condiciones de sostener una inferencia causal robusta&lt;/strong>.&lt;/p>
+&lt;p>Y eso no se corrige con:&lt;/p>
+&lt;ul>
+&lt;li>incluyendo más pacientes,&lt;/li>
+&lt;li>incorporando más sitios clínicos,&lt;/li>
+&lt;li>dando más tiempo de seguimiento,&lt;/li>
+&lt;li>o una etiqueta más avanzada.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="el-problema-de-los-controles-que-no-controlan">El problema de los controles que no controlan&lt;/h2>
+&lt;p>No todos los “controles” cumplen la misma función.&lt;/p>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
+&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;p>&lt;strong>La aleatorización&lt;/strong> es el mecanismo que, en expectativa, balancea factores conocidos y no observados entre grupos.&lt;/p>
+&lt;p>Un &lt;strong>comparador concurrente no aleatorizado&lt;/strong> puede mejorar la comparabilidad temporal y de medición, pero &lt;strong>no garantiza control de la confusión&lt;/strong>.&lt;/p>
+&lt;p>Un &lt;strong>control histórico o externo&lt;/strong> carece tanto de aleatorización como de concurrencia.&lt;/p>
+&lt;/span>
+&lt;/div>
+&lt;p>Cuando se recurre a datos externos:&lt;/p>
+&lt;ul>
+&lt;li>la población puede no ser intercambiable,&lt;/li>
+&lt;li>los criterios de selección pueden diferir,&lt;/li>
+&lt;li>la medición de los desenlaces puede no ser consistente,&lt;/li>
+&lt;li>y la &lt;strong>estimación del efecto&lt;/strong> puede estar afectada por confusión no medida y sesgo de selección.&lt;/li>
+&lt;/ul>
+&lt;p>Esto no solo introduce incertidumbre.&lt;/p>
+&lt;p>Introduce &lt;strong>sesgo estructural&lt;/strong>, con frecuencia en dirección favorable al tratamiento.&lt;/p>
+&lt;p>En ese contexto, un resultado positivo deja de ser confirmatorio
+y pasa a ser &lt;strong>intrínsecamente difícil de interpretar&lt;/strong>.&lt;/p>
+&lt;p>Aquí tienes una reescritura más rigurosa, breve y metodológicamente sólida, manteniendo tu idea pero con lenguaje estándar de evidencia clínica:&lt;/p>
+&lt;hr>
+&lt;h2 id="no-es-un-error-es-una-cuestión-de-diseño">No es un error. Es una cuestión de diseño&lt;/h2>
+&lt;p>Si estos problemas fueran excepcionales, serían errores.&lt;/p>
+&lt;p>No lo son.&lt;/p>
+&lt;p>Muchos ensayos no están optimizados exclusivamente para estimar el efecto causal en condiciones ideales, sino para equilibrar consideraciones científicas, operativas y regulatorias.&lt;/p>
+&lt;p>Esto puede reflejarse en:&lt;/p>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-yellow-100 dark:bg-yellow-900">
+&lt;span class="pr-3 pt-1 text-red-400">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0zM12 15.75h.007v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;ul>
+&lt;li>selección de poblaciones con mayor probabilidad de respuesta,&lt;/li>
+&lt;li>uso de comparadores no óptimos o indirectos,&lt;/li>
+&lt;li>elección de desenlaces sustitutos o parcialmente subjetivos,&lt;/li>
+&lt;li>y estrategias analíticas con complejidad o flexibilidad no siempre plenamente preespecificada.&lt;/li>
+&lt;/ul>
+&lt;/span>
+&lt;/div>
+&lt;p>El resultado no implica necesariamente invalidez del estudio.&lt;/p>
+&lt;p>Pero sí puede implicar que la &lt;strong>estimación del efecto esté afectada por sesgos sistemáticos derivados del diseño&lt;/strong>.&lt;/p>
+&lt;p>No es un problema de fraude ni de error aislado.&lt;/p>
+&lt;p>Es un problema de &lt;strong>inferencias condicionadas por decisiones estructurales del diseño del ensayo&lt;/strong>.&lt;/p>
+&lt;hr>
+&lt;h2 id="la-tensión-regulatoria-que-casi-no-se-discute">La tensión regulatoria que casi no se discute&lt;/h2>
+&lt;p>Las agencias regulatorias :— no aprueban productos farmacológicos por la fase del ensayo.&lt;/p>
+&lt;p>Aprueban por la existencia de &lt;strong>evidencia sustancial de eficacia&lt;/strong> y seguridad demostrada, basada en estudios bien diseñados.&lt;/p>
+&lt;p>Sin embargo, en la práctica, la etiqueta &lt;strong>“fase 3”&lt;/strong> tiende a funcionar como un atajo:&lt;/p>
+&lt;p>sugiere que el estudio es pivotal, incluso cuando su diseño no cumple plenamente con ese estándar.&lt;/p>
+&lt;p>Aquí aparece una tensión real:&lt;/p>
+&lt;ul>
+&lt;li>el lenguaje sugiere confirmación,&lt;/li>
+&lt;li>pero la estructura puede no sostenerla.&lt;/li>
+&lt;/ul>
+&lt;p>El riesgo no es semántico.&lt;/p>
+&lt;p>Es regulatorio:&lt;/p>
+&lt;p>&lt;strong>evaluar como evidencia confirmatoria lo que en realidad es evidencia limitada&lt;/strong>.&lt;/p>
+&lt;hr>
+&lt;h2 id="cuando-la-aceptación-implica-incertidumbre-y-no-se-dice">Cuando la aceptación implica incertidumbre (y no se dice)&lt;/h2>
+&lt;p>Existen contextos muy específicos dónde aceptar evidencia limitada es razonable:&lt;/p>
+&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-yellow-100 dark:bg-yellow-900">
+&lt;span class="pr-3 pt-1 text-red-400">
+&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0zM12 15.75h.007v.008H12z"/>&lt;/svg>
+&lt;/span>
+&lt;span class="dark:text-neutral-300">&lt;ul>
+&lt;li>enfermedades raras,&lt;/li>
+&lt;li>necesidades médicas no cubiertas,&lt;/li>
+&lt;li>vías aceleradas.&lt;/li>
+&lt;/ul>
+&lt;/span>
+&lt;/div>
+&lt;p>Pero en esos casos ocurre un cambio clave:&lt;/p>
+&lt;p>la decisión ya no se basa en confirmación robusta,&lt;br>
+sino en &lt;strong>gestión explícita de incertidumbre&lt;/strong>.&lt;/p>
+&lt;p>El problema es que esta transición no siempre se reconoce con claridad.&lt;/p>
+&lt;p>Y la etiqueta “fase 3” puede contribuir a ocultarla.&lt;/p>
+&lt;hr>
+&lt;h2 id="no-todo-lo-que-parece-confirmatorio-confirma">No todo lo que parece confirmatorio, confirma&lt;/h2>
+&lt;p>Un estudio puede tener una muestra grande y ser multicéntrico.&lt;/p>
+&lt;p>Y aún así no responder con claridad la pregunta que plantea.&lt;/p>
+&lt;p>Porque el problema no es el tamaño.&lt;/p>
+&lt;p>Es la estructura.&lt;/p>
+&lt;p>Un estudio sin comparación adecuada no es un experimento incompleto.&lt;/p>
+&lt;p>Es otra cosa:&lt;/p>
+&lt;p>una &lt;strong>observación estructurada&lt;/strong> incapaz de aislar el efecto del tratamiento.&lt;/p>
+&lt;p>Y ese límite no desaparece &lt;strong>porque el estudio se llame fase 3&lt;/strong>.&lt;/p>
+&lt;hr>
+&lt;h2 id="cuando-la-fase-3-se-vuelve-narrativa">Cuando la fase 3 se vuelve narrativa&lt;/h2>
+&lt;p>En algunos programas, la fase 3 no marca confirmación.&lt;/p>
+&lt;p>Marca &lt;strong>legitimación&lt;/strong>.&lt;/p>
+&lt;ul>
+&lt;li>“la evidencia está madura”&lt;/li>
+&lt;li>“la decisión está cerca”&lt;/li>
+&lt;/ul>
+&lt;p>Pero la cercanía regulatoria no sustituye la capacidad inferencial.&lt;/p>
+&lt;p>Llegar tarde no implica llegar bien.&lt;/p>
+&lt;hr>
+&lt;h2 id="conclusión">Conclusión&lt;/h2>
+&lt;p>Decir que un estudio es fase 3 es fácil.&lt;/p>
+&lt;p>Demostrar que realmente confirma algo es mucho más difícil.&lt;/p>
+&lt;p>La pregunta incómoda no es cuántos estudios llegan a fase 3.&lt;/p>
+&lt;p>Es cuántos de ellos seguirían pareciendo evidencia fuerte si elimináramos esa etiqueta.&lt;/p>
+&lt;p>Y una más:&lt;/p>
+&lt;blockquote>
+&lt;p>si un estudio no puede permitirse perder el nombre “fase 3” sin perder credibilidad,&lt;br>
+¿qué parte de su fortaleza proviene realmente de los datos?&lt;/p>&lt;/blockquote>
+&lt;hr>
+&lt;p>La próxima vez que leas “fase 3”, no te preguntes en qué etapa está el estudio.&lt;/p>
+&lt;p>Pregúntate:&lt;/p>
+&lt;ul>
+&lt;li>¿qué efecto está realmente estimando?&lt;/li>
+&lt;li>¿qué suposiciones sostienen ese resultado?&lt;/li>
+&lt;li>¿qué parte del argumento depende del diseño… y cuál de la etiqueta?&lt;/li>
+&lt;/ul>
+&lt;p>Porque en evaluación clínica, el problema no es cómo se llama el estudio.&lt;/p>
+&lt;p>Es lo que realmente puede demostrar.&lt;/p>
+&lt;hr>
+&lt;h2 id="referencias">Referencias&lt;/h2>
+&lt;ol>
+&lt;li>ICH E9. &lt;em>Statistical Principles for Clinical Trials&lt;/em>. International Council for Harmonisation, 1998.&lt;/li>
+&lt;li>ICH E9(R1). &lt;em>Addendum on Estimands and Sensitivity Analysis&lt;/em>. International Council for Harmonisation, 2019.&lt;/li>
+&lt;li>ICH E10. &lt;em>Choice of Control Group and Related Issues in Clinical Trials&lt;/em>. International Council for Harmonisation, 2000.&lt;/li>
+&lt;li>&lt;em>Demonstrating Substantial Evidence of Effectiveness for Human Drug and Biological Products&lt;/em>. 2019.&lt;/li>
+&lt;li>&lt;em>Estimating Causal Effects of Treatments&lt;/em>. 1974.&lt;/li>
+&lt;li>&lt;em>Statistics and Causal Inference&lt;/em>. 1986.&lt;/li>
+&lt;li>&lt;em>Causal Inference: What If&lt;/em>. 2020.&lt;/li>
+&lt;/ol></description></item><item><title>Cuando la ética se usa para evitar el control</title><link>https://bioestadisticaedu.com/post/sin-control/</link><pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/post/sin-control/</guid><description>&lt;p>Hay frases que, en cuanto aparecen en una discusión de diseño de protocolo de ensayos clínicos, cambian el clima de la sala. Esta es una de ellas:&lt;/p>
 &lt;blockquote>
 &lt;p>No sería ético usar un control, porque eso implicaría privar a los pacientes del tratamiento experimental.&lt;/p>&lt;/blockquote>
 &lt;p>A veces está bien dicha. No todo comparador es defendible en cualquier contexto, y fingir lo contrario sería dogmático. Hay situaciones en las que usar placebo, retirar tratamiento estándar o demorar una intervención potencialmente útil plantea un problema ético real.&lt;/p>
