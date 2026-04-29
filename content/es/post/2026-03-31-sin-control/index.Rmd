@@ -19,6 +19,7 @@ show_related: true
 show_breadcrumb: true
 type: post
 ---
+Por Maicel Monzón
 
 Hay frases que, en cuanto aparecen en una discusión de diseño de protocolo de ensayos clínicos, cambian el clima de la sala. Esta es una de ellas:
 

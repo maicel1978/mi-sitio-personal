@@ -20,6 +20,8 @@ show_breadcrumb: true
 type: post
 ---
 
+Por Maicel Monzón
+
 En investigación clínica hay palabras que no describen: **condicionan**.
 
 **“Fase 3”** es una de ellas.
