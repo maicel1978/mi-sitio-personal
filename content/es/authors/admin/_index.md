@@ -5,27 +5,34 @@ title: "Maicel Monzon"
 translationKey: "admin"
 date: '2025-02-03'
 awards:
-- awarder: CENATAV
-  date: "2005-01-25"
-  icon: coursera
+- awarder: UCMC
+  date: "2003-01-25"
+  # icon: trophy
   summary: |
-    Adquirí conocimientos fundamentales en minería de datos, abarcando la identificación de patrones y tendencias en grandes volúmenes de información. Me familiaricé con las tendencias tecnológicas clave que impulsan el aprendizaje profundo, incluyendo técnicas de clasificación supervisada (árboles de decisión, K-NN) y agrupamiento (K-Means, DBScan). Desarrollé habilidades en la construcción, entrenamiento y aplicación de modelos de redes bayesianas, utilizando métricas como precisión, exhaustividad (recall) y F1-score para evaluar su rendimiento. Finalmente, apliqué estas técnicas en proyectos personales, utilizando R y Python para análisis avanzados.
-  title: Introducción a la minería de datos
-  url: https://www.cenatav.co.cu/
-- awarder: CENATAV
-  date: "2005-01-25"
-  icon: edx
+    Premio al Estudiante Investigador otorgado en reconocimiento a la trayectoria científica destacada durante la carrera de Medicina. Esta distinción fue el resultado de obtener el Gran Premio y la condición de "Relevante" en el Forum Nacional de Ciencia y Técnica, destacando por la innovación en herramientas aplicadas a la salud.
+  title: Premio al estudiante investigador
+  url: https://www.cfg.sld.cu/
+- awarder: ISCM-VC
+  date: "2003-07-11"
+  # icon: trophy
   summary: |
-    Obtuve conocimientos básicos en el reconocimiento de patrones, abarcando la clasificación de patrones por funciones de distancia y similitud, así como técnicas de clasificación no paramétricas. Me familiaricé con la selección y extracción de características, el diseño de funciones discriminantes lineales y los conceptos básicos de probabilidad aplicados al campo. Desarrollé habilidades en el aprendizaje no supervisado y el agrupamiento, explorando algoritmos como K-medias, LBG e Isodata. Finalmente, comprendí los fundamentos del reconocimiento de patrones sintácticos, incluyendo la teoría de lenguajes formales y las gramáticas de reconocimiento.
-  title: Introducción al reconocimiento de patrones
-  url: https://www.cenatav.co.cu/
-- awarder: desoft
-  date: "2023-01-21"
-  icon: datacamp
+    Gran Premio y Primer Lugar en el 1er Taller Nacional de Generalización de Software Educativo en Ciencias Médicas (Edusoft). El reconocimiento fue otorgado por el desarrollo de "SiMed", un software diseñado en Delphi y SQL Server para la simulación de casos clínicos, permitiendo a los estudiantes de medicina practicar el proceso de atención médica de forma interactiva y segura.
+  title: Gran Premio Nacional Edusoft
+  url: https://www.vcl.sld.cu/
+- awarder: MINSAP
+  date: "2003-12-10"
+  # icon: star
   summary: |
-    Adquirí conocimientos fundamentales en programación con Python, abarcando la sintaxis básica del lenguaje, operadores, estructuras de control y otros recursos esenciales. Me familiaricé con el uso de estructuras de datos como cadenas, listas, tuplas, conjuntos y diccionarios, y aprendí a manipularlas eficientemente. Desarrollé habilidades en la organización modular del código utilizando funciones, clases, módulos y paquetes, así como en la implementación de programas bajo el paradigma orientado a objetos. Finalmente, adquirí experiencia en el tratamiento de errores y excepciones en Python, lo que me permite desarrollar aplicaciones más robustas y confiables.
-  title: Programación en Python
-  url: https://www.desoft.cu/es
+    Mención a nivel nacional en el Concurso por el Premio Anual de Salud por el trabajo "Software para el entrenamiento en la ejecución del proceso de atención médica mediante la utilización de la simulación de casos". Este premio reconoce la excelencia en la investigación y el desarrollo de soluciones tecnológicas aplicadas al sistema nacional de salud.
+  title: Premio Anual de Salud
+  url: https://www.sld.cu/
+- awarder: SNTS 
+  date: "2021-11-26"
+  # icon: brain
+  summary: |
+    Distinción otorgada por el Sindicato Nacional de Trabajadores de la Salud (SNTS) en reconocimiento a la labor científica destacada y el aporte excepcional durante el enfrentamiento a la pandemia de la COVID-19. Este sello resalta la contribución técnica en la evaluación y control de medicamentos y candidatos vacunales.
+  title: Sello "Hombres de Ciencia"
+  url: https://www.cencec.cu/
 education:
   - area: Doctor en medicina
     date_end: '2003-07-08'
