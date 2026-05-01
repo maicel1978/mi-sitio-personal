@@ -1,4 +1,4 @@
-# Navigation
+# Navegación
 
 - id: toggle_navigation
   translation: Barra de navegación
@@ -10,7 +10,7 @@
   translation: En esta página
 
 - id: back_to_top
-  translation: Regreso al inicio
+  translation: Regresar al inicio
 
 - id: home
   translation: Inicio
@@ -26,7 +26,8 @@
 - id: related
   translation: Relacionado
 
-# Callouts - All Obsidian-compatible types
+# Callouts - Todos los tipos compatibles con Obsidian
+
 - id: callout_note
   translation: Nota
 
@@ -37,7 +38,7 @@
   translation: Resumen
 
 - id: callout_info
-  translation: Info
+  translation: Información
 
 - id: callout_todo
   translation: Pendiente
@@ -90,7 +91,7 @@
 - id: edit_page
   translation: Edita esta página
 
-# Themes
+# Temas
 
 - id: theme_selector
   translation: Mostrar preferencias
@@ -104,7 +105,7 @@
 - id: theme_auto
   translation: Automático
 
-# Buttons
+# Botones
 
 - id: btn_preprint
   translation: Prepublicación
@@ -131,7 +132,7 @@
   translation: Proyecto
 
 - id: btn_poster
-  translation: Poster
+  translation: Póster
 
 - id: btn_source
   translation: Documento fuente
@@ -140,12 +141,12 @@
   translation: Copiar
 
 - id: btn_copied
-  translation: Copied
+  translation: Copiado
 
 - id: btn_download
   translation: Descargar
 
-# About widget
+# Widget "Acerca de"
 
 - id: interests
   translation: Intereses
@@ -156,23 +157,32 @@
 - id: user_profile_latest
   translation: Recientes
 
-# Accomplishments widget
+# Widget "Logros"
 
 - id: see_certificate
   translation: Ver certificado
 
-# Experience widget
+# Widget "Experiencia"
 
 - id: present
   translation: Actualmente
 
-# Pages widget
+- id: experience
+  translation: Experiencia
+
+- id: skills
+  translation: Habilidades y aficiones
+
+- id: awards
+  translation: Premios y reconocimientos
+
+# Widget "Páginas"
 
 - id: more_pages
   translation: Ver todo
 
 - id: more_posts
-  translation: Más posts
+  translation: Más publicaciones
 
 - id: more_talks
   translation: Más eventos
@@ -180,19 +190,19 @@
 - id: more_publications
   translation: Más publicaciones
 
-# Contact widget
+# Widget "Contacto"
 
 - id: contact_name
   translation: Nombre
 
 - id: contact_email
-  translation: Email
+  translation: Correo electrónico
 
 - id: contact_message
   translation: Mensaje
 
 - id: contact_attachment
-  translation: Adjunto
+  translation: Archivo adjunto
 
 - id: contact_send
   translation: Enviar
@@ -200,7 +210,7 @@
 - id: book_appointment
   translation: Solicitar una cita
 
-# Publication/Event details
+# Detalles de Publicación/Evento
 
 - id: abstract
   translation: Resumen
@@ -221,7 +231,7 @@
   translation: Evento
 
 - id: location
-  translation: Localización
+  translation: Ubicación
 
 - id: pub_paper_conference
   translation: Artículo de conferencia
@@ -247,12 +257,12 @@
 - id: pub_patent
   translation: Patente
 
-# Project details
+# Detalles de Proyecto
 
 - id: open_project_site
   translation: Ir al sitio del proyecto
 
-# Content types for default archive page titles and search results
+# Tipos de contenido para títulos de página de archivo y resultados de búsqueda
 
 - id: blog
   translation: Blog
@@ -272,7 +282,7 @@
 - id: authors
   translation: Autores
 
-# Search
+# Búsqueda
 
 - id: search
   translation: Buscar
@@ -281,7 +291,7 @@
   translation: Buscar...
 
 - id: search_results
-  translation: resultados encontrados
+  translation: Resultados encontrados
 
 - id: search_no_results
   translation: No se encontraron resultados
@@ -295,42 +305,23 @@
   translation: Página no encontrada
 
 - id: 404_recommendations
-  translation: ¿Buscabas una de éstas?
+  translation: ¿Buscabas una de estas?
 
-# Cookie consent
+# Consentimiento de cookies
 
 - id: cookie_message
   translation: Este sitio web utiliza cookies para garantizarle una mejor experiencia.
 
 - id: cookie_dismiss
-  translation: Entendido!
+  translation: ¡Entendido!
 
 - id: cookie_learn
   translation: Más información
 
-# Published with
+# Publicado con
 
 - id: published_with
-  translation: Made with {hugoblox}.
+  translation: Hecho con {hugoblox}.
 
 - id: poweredby_button
   translation: 'Crea el tuyo →'
-
-# ----- ESTAS SON LAS LÍNEAS QUE NECESITAS AÑADIR -----
-
-# Experience widget
-
-
-- id: experience
-  translation: Experiencia
-
-- id: skills
-  translation: Habilidades y Aficiones
-
-- id: awards
-  translation: Premios y Reconocimientos
-
-
-
-
-
