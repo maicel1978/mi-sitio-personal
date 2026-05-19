@@ -6,7 +6,6 @@ categories: ["pdf"]
 tags:
   - "herramientas" # Tag agrupador principal
   - "file-engineering"
-  - "Seguridad de la Información"
   - "Gestión de Activos"
 # Sumario optimizado para Google Index (Enfoque en flujo de trabajo y privacidad)
 summary: "Permite la reestructuración de documentos PDF."
