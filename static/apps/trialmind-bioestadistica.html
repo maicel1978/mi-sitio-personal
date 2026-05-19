@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRIALMIND • Bioestadística</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        .section {
+            display: none;
+        }
+        .section.active {
+            display: block;
+        }
+        .nav-active {
+            background-color: #134e4b;
+            color: white;
+            font-weight: 600;
+        }
+        .question-card {
+            transition: all 0.2s ease;
+        }
+        .option {
+            transition: all 0.1s ease;
+        }
+        .option:hover {
+            background-color: #1e2937;
+        }
+        .option.selected {
+            background-color: #134e4b;
+            border-color: #14b8a6;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-200">
+    <!-- Header -->
+    <header class="border-b border-slate-800 bg-slate-900">
+        <div class="max-w-screen-xl mx-auto px-8 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-x-3">
+                <div class="w-10 h-10 bg-teal-600 rounded-2xl flex items-center justify-center">
+                    <i class="fa-solid fa-flask text-white text-2xl"></i>
+                </div>
+                <div>
+                    <span class="font-semibold text-2xl tracking-tight">TRIALMIND</span>
+                    <span class="text-teal-400 text-sm block -mt-1">Bioestadística</span>
+                </div>
+            </div>
+            <div class="text-right">
+                <div class="font-medium">Maicel Monzón Pérez, PhD</div>
+                <div class="text-xs text-slate-400">Especialidad de Bioestadística</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-screen-xl mx-auto px-8 pt-8 pb-12">
+        <!-- Navegación -->
+        <div class="flex gap-x-1 mb-8 bg-slate-900 border border-slate-800 p-1 rounded-3xl w-fit">
+            <button onclick="mostrarSeccion('inicio')" id="nav-inicio"
+                    class="nav-active px-6 py-2.5 rounded-3xl text-sm flex items-center gap-x-2">
+                <i class="fa-solid fa-home w-4"></i>
+                <span>Inicio</span>
+            </button>
+            <button onclick="mostrarSeccion('practicar')" id="nav-practicar"
+                    class="px-6 py-2.5 rounded-3xl text-sm flex items-center gap-x-2 hover:bg-slate-800">
+                <i class="fa-solid fa-graduation-cap w-4"></i>
+                <span>Practicar</span>
+            </button>
+            <button onclick="mostrarSeccion('temas')" id="nav-temas"
+                    class="px-6 py-2.5 rounded-3xl text-sm flex items-center gap-x-2 hover:bg-slate-800">
+                <i class="fa-solid fa-book w-4"></i>
+                <span>Temas</span>
+            </button>
+            <button onclick="mostrarSeccion('progreso')" id="nav-progreso"
+                    class="px-6 py-2.5 rounded-3xl text-sm flex items-center gap-x-2 hover:bg-slate-800">
+                <i class="fa-solid fa-chart-line w-4"></i>
+                <span>Progreso</span>
+            </button>
+        </div>
+
+        <!-- SECCIÓN: INICIO -->
+        <div id="inicio" class="section active">
+            <div class="mb-8">
+                <h1 class="text-4xl font-semibold tracking-tight">Bienvenido, residente</h1>
+                <p class="text-slate-400 mt-2">Entrenamiento metodológico para la Especialidad de Bioestadística</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6">
+                    <div class="text-sm text-slate-400">Preguntas respondidas</div>
+                    <div class="text-5xl font-semibold mt-2" id="stat-preguntas">1,248</div>
+                </div>
+                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6">
+                    <div class="text-sm text-slate-400">Precisión actual</div>
+                    <div class="text-5xl font-semibold mt-2" id="stat-precision">87%</div>
+                </div>
+                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6">
+                    <div class="text-sm text-slate-400">Temas dominados</div>
+                    <div class="text-5xl font-semibold mt-2" id="stat-temas">14</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN: PRACTICAR -->
+        <div id="practicar" class="section">
+            <h2 class="text-2xl font-semibold mb-6">Modo de Práctica</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Opción Múltiple -->
+                <div onclick="iniciarPractica('multiple')" 
+                     class="bg-slate-900 border border-slate-700 hover:border-teal-600 cursor-pointer rounded-3xl p-8">
+                    <div class="flex items-center gap-x-4">
+                        <div class="w-12 h-12 bg-teal-600/10 rounded-2xl flex items-center justify-center">
+                            <i class="fa-solid fa-list-check text-teal-400 text-2xl"></i>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-lg">Opción Múltiple</div>
+                            <div class="text-sm text-slate-400">Preguntas con explicación detallada</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Razonamiento -->
+                <div onclick="iniciarPractica('razonamiento')" 
+                     class="bg-slate-900 border border-slate-700 hover:border-teal-600 cursor-pointer rounded-3xl p-8">
+                    <div class="flex items-center gap-x-4">
+                        <div class="w-12 h-12 bg-amber-600/10 rounded-2xl flex items-center justify-center">
+                            <i class="fa-solid fa-pen-nib text-amber-400 text-2xl"></i>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-lg">Razonamiento y Desarrollo</div>
+                            <div class="text-sm text-slate-400">Preguntas de análisis metodológico</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN: TEMAS -->
+        <div id="temas" class="section">
+            <h2 class="text-2xl font-semibold mb-6">Temas Metodológicos</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="lista-temas">
+                <!-- Se genera por JavaScript -->
+            </div>
+        </div>
+
+        <!-- SECCIÓN: PROGRESO -->
+        <div id="progreso" class="section">
+            <h2 class="text-2xl font-semibold mb-6">Mi Progreso</h2>
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8">
+                <div class="text-sm text-slate-400 mb-4">Áreas que requieren mayor atención</div>
+                <div id="areas-debilidad" class="space-y-3"></div>
+            </div>
+        </div>
+
+        <!-- ÁREA DE PREGUNTAS -->
+        <div id="area-preguntas" class="hidden mt-8 max-w-3xl mx-auto bg-slate-900 border border-slate-700 rounded-3xl p-8">
+            <div id="pregunta-contenido">
+                <!-- Contenido dinámico -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== BANCO DE PREGUNTAS DE ALTA CALIDAD ====================
+        const bancoPreguntas = [
+            {
+                id: 1,
+                tipo: "multiple",
+                tema: "Diseños Experimentales",
+                dificultad: "Avanzado",
+                pregunta: "Un investigador desea comparar dos antihipertensivos (A y B) con efectos reversibles y vida media corta. ¿Qué premisa es fundamental para recomendar un diseño cruzado?",
+                opciones: [
+                    "Que exista un período de lavado adecuado",
+                    "Que los pacientes sean homogéneos",
+                    "Que el ensayo sea doble ciego",
+                    "Que se utilice análisis por intención de tratar",
+                    "Que el tamaño muestral sea grande"
+                ],
+                correcta: 0,
+                explicacion: "En un diseño cruzado, el período de lavado es crítico para eliminar el posible efecto residual (carry-over) del primer tratamiento antes de iniciar el segundo. Sin un lavado adecuado, los resultados del segundo período pueden estar sesgados.",
+                perla: "El diseño cruzado es estadísticamente eficiente solo cuando el carry-over es mínimo o controlable."
+            },
+            {
+                id: 2,
+                tipo: "multiple",
+                tema: "Ensayos de No Inferioridad",
+                dificultad: "Experto",
+                pregunta: "En un ensayo de no inferioridad, ¿cuál es el supuesto metodológico más importante que debe justificarse?",
+                opciones: [
+                    "Que el margen de no inferioridad sea clínicamente relevante",
+                    "Que el comparador activo tenga sensibilidad de ensayo",
+                    "Que se realice análisis por protocolo",
+                    "Que el endpoint sea un criterio subrogado validado",
+                    "Que la aleatorización sea 1:1"
+                ],
+                correcta: 1,
+                explicacion: "La sensibilidad de ensayo (assay sensitivity) es fundamental. Si el comparador activo no demuestra ser superior a placebo en el contexto del ensayo, un resultado de no inferioridad carece de validez interpretativa.",
+                perla: "Sin sensibilidad de ensayo, los resultados de no inferioridad no son interpretables."
+            },
+            {
+                id: 3,
+                tipo: "razonamiento",
+                tema: "Control de Sesgos",
+                dificultad: "Experto",
+                pregunta: "Señale los dos aspectos más importantes que garantizan el control de los sesgos sistemáticos en un ensayo clínico. Fundamente su respuesta.",
+                respuestaModelo: "Los dos aspectos fundamentales son: 1) La aleatorización, que distribuye de forma equilibrada las variables confusoras conocidas y desconocidas entre los grupos. 2) El enmascaramiento (doble ciego), que evita que el conocimiento del tratamiento influya en la medición de resultados o en el comportamiento de los participantes y evaluadores.",
+                criterios: [
+                    "Identifica la aleatorización como primer elemento clave",
+                    "Identifica el enmascaramiento como segundo elemento clave",
+                    "Explica cómo cada uno reduce sesgos",
+                    "Menciona la importancia de variables desconocidas"
+                ]
+            },
+            {
+                id: 4,
+                tipo: "razonamiento",
+                tema: "Diseños Experimentales",
+                dificultad: "Avanzado",
+                pregunta: "Un investigador cuenta con dos fármacos (A y B). Indique las premisas necesarias para recomendar: a) Ensayo con placebo, b) Comparación directa A vs B, c) Diseño doble simulado (double dummy), d) Diseño factorial.",
+                respuestaModelo: "a) Ausencia de tratamiento estándar y justificación ética del placebo. b) Existencia de un estándar de cuidado activo. c) Necesidad de mantener el doble ciego cuando los tratamientos tienen presentaciones diferentes. d) Dos intervenciones independientes con verificación previa de ausencia de interacción.",
+                criterios: [
+                    "Diferencia correctamente cada tipo de diseño",
+                    "Justifica las condiciones éticas y metodológicas",
+                    "Reconoce limitaciones de cada diseño"
+                ]
+            },
+            {
+                id: 5,
+                tipo: "multiple",
+                tema: "Poblaciones de Análisis",
+                dificultad: "Avanzado",
+                pregunta: "En un ensayo de superioridad de una nueva técnica quirúrgica, el 15% de los pacientes asignados al grupo intervención finalmente no recibieron la cirugía. ¿Qué población debe usarse para el análisis primario?",
+                opciones: [
+                    "Población por protocolo",
+                    "Población por intención de tratar (ITT)",
+                    "Población por tratamiento recibido (as-treated)",
+                    "Población de seguridad",
+                    "Población modificada por intención de tratar"
+                ],
+                correcta: 1,
+                explicacion: "La población por intención de tratar (ITT) preserva la aleatorización y proporciona una estimación más realista del efecto de la política de ofrecer la intervención. Es el estándar de oro en ensayos de superioridad.",
+                perla: "La ITT responde a la pregunta pragmática: ¿qué ocurre cuando se ofrece este tratamiento?"
+            },
+            {
+                id: 6,
+                tipo: "razonamiento",
+                tema: "Endpoints y Criterios de Valoración",
+                dificultad: "Experto",
+                pregunta: "Explique por qué el uso de criterios de valoración subrogados requiere una validación rigurosa. Mencione al menos dos condiciones necesarias para que un subrogado sea aceptable.",
+                respuestaModelo: "Un criterio subrogado debe estar en la cadena causal del outcome clínico y el efecto del tratamiento sobre el subrogado debe predecir consistentemente el efecto sobre el outcome clínico. Se requiere evidencia de ensayos previos que demuestren esta relación predictiva.",
+                criterios: [
+                    "Menciona la relación causal",
+                    "Menciona la predictibilidad del efecto",
+                    "Reconoce que se necesita evidencia de ensayos"
+                ]
+            }
+        ];
+
+        // Estado de la aplicación
+        let estado = {
+            respuestas: JSON.parse(localStorage.getItem('trialmind_respuestas') || '{}')
+        };
+
+        function guardarEstado() {
+            localStorage.setItem('trialmind_respuestas', JSON.stringify(estado.respuestas));
+        }
+
+        // ==================== NAVEGACIÓN ====================
+        function mostrarSeccion(seccion) {
+            // Ocultar todas las secciones
+            document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
+            
+            // Mostrar la sección seleccionada
+            document.getElementById(seccion).classList.add('active');
+            
+            // Actualizar navegación activa
+            document.querySelectorAll('[id^="nav-"]').forEach(el => el.classList.remove('nav-active'));
+            document.getElementById('nav-' + seccion).classList.add('nav-active');
+
+            // Acciones específicas por sección
+            if (seccion === 'temas') {
+                cargarTemas();
+            }
+            if (seccion === 'progreso') {
+                cargarProgreso();
+            }
+        }
+
+        // ==================== PRÁCTICA ====================
+        let preguntaActual = null;
+        let tipoPractica = '';
+
+        function iniciarPractica(tipo) {
+            tipoPractica = tipo;
+            document.getElementById('area-preguntas').classList.remove('hidden');
+            
+            // Ocultar otras secciones
+            document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
+            
+            if (tipo === 'multiple') {
+                cargarPreguntaMultiple();
+            } else {
+                cargarPreguntaRazonamiento();
+            }
+        }
+
+        function cargarPreguntaMultiple() {
+            const preguntas = bancoPreguntas.filter(p => p.tipo === 'multiple');
+            preguntaActual = preguntas[Math.floor(Math.random() * preguntas.length)];
+            
+            const contenedor = document.getElementById('pregunta-contenido');
+            contenedor.innerHTML = `
+                <div class="mb-2">
+                    <span class="px-3 py-1 text-xs bg-slate-800 rounded-2xl">${preguntaActual.tema}</span>
+                    <span class="px-3 py-1 text-xs bg-amber-900/30 text-amber-400 rounded-2xl ml-2">${preguntaActual.dificultad}</span>
+                </div>
+                
+                <div class="text-xl font-medium mb-8">${preguntaActual.pregunta}</div>
+                
+                <div id="opciones-container" class="space-y-2 mb-8"></div>
+                
+                <div class="flex gap-x-3">
+                    <button onclick="enviarRespuestaMultiple()" 
+                            class="px-6 py-3 bg-white text-slate-900 font-semibold rounded-2xl">
+                        Enviar respuesta
+                    </button>
+                    <button onclick="cerrarPregunta()" 
+                            class="px-6 py-3 bg-slate-800 hover:bg-slate-700 rounded-2xl">
+                        Cancelar
+                    </button>
+                </div>
+            `;
+
+            // Renderizar opciones
+            const opcionesContainer = document.getElementById('opciones-container');
+            preguntaActual.opciones.forEach((opcion, index) => {
+                const div = document.createElement('div');
+                div.className = `option flex items-center gap-x-3 px-5 py-4 border border-slate-700 rounded-2xl cursor-pointer`;
+                div.innerHTML = `
+                    <div class="w-5 h-5 border border-slate-600 rounded flex-shrink-0 flex items-center justify-center">
+                        <span class="font-mono text-xs">${String.fromCharCode(65 + index)}</span>
+                    </div>
+                    <div>${opcion}</div>
+                `;
+                div.onclick = () => seleccionarOpcion(div, index);
+                opcionesContainer.appendChild(div);
+            });
+        }
+
+        function seleccionarOpcion(elemento, indice) {
+            document.querySelectorAll('#opciones-container .option').forEach(el => {
+                el.classList.remove('selected');
+            });
+            elemento.classList.add('selected');
+            elemento.dataset.indice = indice;
+        }
+
+        function enviarRespuestaMultiple() {
+            const seleccionada = document.querySelector('#opciones-container .option.selected');
+            if (!seleccionada) {
+                alert('Por favor seleccione una opción');
+                return;
+            }
+
+            const indice = parseInt(seleccionada.dataset.indice);
+            const esCorrecto = indice === preguntaActual.correcta;
+
+            const contenedor = document.getElementById('pregunta-contenido');
+            contenedor.innerHTML = `
+                <div class="mb-6">
+                    <div class="text-lg font-semibold mb-2 ${esCorrecto ? 'text-emerald-400' : 'text-red-400'}">
+                        ${esCorrecto ? 'Respuesta correcta' : 'Respuesta incorrecta'}
+                    </div>
+                    <div class="text-sm leading-relaxed">${preguntaActual.explicacion}</div>
+                </div>
+                
+                <div class="bg-slate-950 border border-slate-700 p-5 rounded-2xl">
+                    <div class="text-xs text-teal-400 mb-1">PERLA METODOLÓGICA</div>
+                    <div class="text-sm">${preguntaActual.perla}</div>
+                </div>
+                
+                <button onclick="cerrarPregunta()" 
+                        class="mt-6 px-6 py-3 bg-teal-600 hover:bg-teal-700 rounded-2xl font-semibold">
+                    Continuar
+                </button>
+            `;
+        }
+
+        function cargarPreguntaRazonamiento() {
+            const preguntas = bancoPreguntas.filter(p => p.tipo === 'razonamiento');
+            preguntaActual = preguntas[Math.floor(Math.random() * preguntas.length)];
+            
+            const contenedor = document.getElementById('pregunta-contenido');
+            contenedor.innerHTML = `
+                <div class="mb-2">
+                    <span class="px-3 py-1 text-xs bg-slate-800 rounded-2xl">${preguntaActual.tema}</span>
+                </div>
+                
+                <div class="text-xl font-medium mb-6">${preguntaActual.pregunta}</div>
+                
+                <textarea id="respuesta-usuario" 
+                          class="w-full h-40 bg-slate-950 border border-slate-700 rounded-2xl p-5 text-sm"
+                          placeholder="Escriba su respuesta con fundamentación metodológica..."></textarea>
+                
+                <div class="flex gap-x-3 mt-4">
+                    <button onclick="evaluarRespuestaRazonamiento()" 
+                            class="px-6 py-3 bg-white text-slate-900 font-semibold rounded-2xl">
+                        Evaluar respuesta
+                    </button>
+                    <button onclick="cerrarPregunta()" 
+                            class="px-6 py-3 bg-slate-800 hover:bg-slate-700 rounded-2xl">
+                        Cancelar
+                    </button>
+                </div>
+            `;
+        }
+
+        function evaluarRespuestaRazonamiento() {
+            const respuesta = document.getElementById('respuesta-usuario').value.trim();
+            if (!respuesta) {
+                alert('Por favor escriba su respuesta');
+                return;
+            }
+
+            const contenedor = document.getElementById('pregunta-contenido');
+            let html = `
+                <div class="mb-6">
+                    <div class="font-semibold text-emerald-400 mb-3">Respuesta modelo esperada:</div>
+                    <div class="text-sm bg-slate-950 p-5 rounded-2xl border border-slate-700">${preguntaActual.respuestaModelo}</div>
+                </div>
+                
+                <div>
+                    <div class="font-semibold text-sm mb-3">Criterios de evaluación:</div>
+                    <ul class="space-y-2 text-sm">
+            `;
+
+            preguntaActual.criterios.forEach(criterio => {
+                html += `<li class="flex items-start gap-x-2"><i class="fa-solid fa-check text-emerald-400 mt-1"></i> ${criterio}</li>`;
+            });
+
+            html += `</ul></div>
+                <button onclick="cerrarPregunta()" class="mt-8 px-6 py-3 bg-teal-600 hover:bg-teal-700 rounded-2xl font-semibold">
+                    Continuar practicando
+                </button>`;
+
+            contenedor.innerHTML = html;
+        }
+
+        function cerrarPregunta() {
+            document.getElementById('area-preguntas').classList.add('hidden');
+            document.getElementById('inicio').classList.add('active');
+        }
+
+        // ==================== TEMAS ====================
+        function cargarTemas() {
+            const contenedor = document.getElementById('lista-temas');
+            contenedor.innerHTML = '';
+
+            const temasUnicos = [...new Set(bancoPreguntas.map(p => p.tema))];
+
+            temasUnicos.forEach(tema => {
+                const div = document.createElement('div');
+                div.className = 'bg-slate-900 border border-slate-700 hover:border-teal-600 cursor-pointer rounded-3xl p-6';
+                div.innerHTML = `
+                    <div class="font-semibold">${tema}</div>
+                    <div class="text-xs text-slate-400 mt-1">${bancoPreguntas.filter(p => p.tema === tema).length} preguntas</div>
+                `;
+                div.onclick = () => {
+                    const preguntasDelTema = bancoPreguntas.filter(p => p.tema === tema);
+                    if (preguntasDelTema.length > 0) {
+                        preguntaActual = preguntasDelTema[0];
+                        document.getElementById('area-preguntas').classList.remove('hidden');
+                        document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
+                        
+                        if (preguntaActual.tipo === 'multiple') {
+                            cargarPreguntaMultiple();
+                        } else {
+                            cargarPreguntaRazonamiento();
+                        }
+                    }
+                };
+                contenedor.appendChild(div);
+            });
+        }
+
+        // ==================== PROGRESO ====================
+        function cargarProgreso() {
+            const contenedor = document.getElementById('areas-debilidad');
+            contenedor.innerHTML = `
+                <div class="flex justify-between items-center py-2 border-b border-slate-700">
+                    <span>Carry-over y diseños cruzados</span>
+                    <span class="text-red-400 text-sm">62%</span>
+                </div>
+                <div class="flex justify-between items-center py-2 border-b border-slate-700">
+                    <span>Ensayos de no inferioridad</span>
+                    <span class="text-red-400 text-sm">68%</span>
+                </div>
+                <div class="flex justify-between items-center py-2">
+                    <span>Endpoints subrogados</span>
+                    <span class="text-amber-400 text-sm">74%</span>
+                </div>
+            `;
+        }
+
+        // Inicialización
+        function inicializar() {
+            // Mostrar sección de inicio por defecto
+            document.getElementById('inicio').classList.add('active');
+            document.getElementById('nav-inicio').classList.add('nav-active');
+        }
+
+        window.onload = inicializar;
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9fe5cabc29376da2',t:'MTc3OTIyMTkxOA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"1954b47c125f43f8b4338b3c4f804e4f","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
