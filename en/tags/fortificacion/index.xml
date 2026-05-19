@@ -1,209 +1,99 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Fortificación | Biostatistics edu</title><link>https://bioestadisticaedu.com/en/tags/fortificacion/</link><atom:link href="https://bioestadisticaedu.com/en/tags/fortificacion/index.xml" rel="self" type="application/rss+xml"/><description>Fortificación</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Mon, 25 Mar 2024 00:00:00 +0000</lastBuildDate><image><url>https://bioestadisticaedu.com/media/icon_hu_a91eea5f46a3944e.png</url><title>Fortificación</title><link>https://bioestadisticaedu.com/en/tags/fortificacion/</link></image><item><title>Análisis de datos en fortificación de alimentos a gran escala con R. Una Introducción Práctica</title><link>https://bioestadisticaedu.com/en/teaching/r/</link><pubDate>Mon, 25 Mar 2024 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/en/teaching/r/</guid><description>&lt;h1 id="construye-investigaciones-con-r">¡Construye investigaciones con R!&lt;/h1>
-&lt;p>En este curso, te convertirás en un &lt;strong>&amp;lsquo;arquitecto&amp;rsquo; del análisis de datos en la fortificación de alimentos&lt;/strong>, utilizando R como tu herramienta principal. Aprenderás a:&lt;/p>
-&lt;ul>
-&lt;li>leer datos.&lt;/li>
-&lt;li>ordenar y transformar conjuntos de datos.&lt;/li>
-&lt;li>procesar y presentar los resultados en forma de tablas y gráficos.&lt;/li>
-&lt;/ul>
-&lt;p>👉 ¡Para saber más del curso, consulta nuestra &lt;a href="https://ia601803.us.archive.org/17/items/conf_0/conf_0.pdf" target="_blank" rel="noopener">conferencia introductoria&lt;/a>, mira el siguiente &lt;strong>video promocional&lt;/strong> o escucha el &lt;strong>podcast&lt;/strong>!&lt;/p>
-&lt;hr>
-&lt;h2 id="video-promocional-del-curso">Video promocional del curso&lt;/h2>
-&lt;p>Mira el video promocional del curso:&lt;/p>
-&lt;div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-&lt;iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/ycnteDZRMxM?autoplay=0&amp;amp;controls=1&amp;amp;end=0&amp;amp;loop=0&amp;amp;mute=0&amp;amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video">&lt;/iframe>
-&lt;/div>
-&lt;hr>
-&lt;h2 id="podcast">Podcast&lt;/h2>
-&lt;p>Escucha nuestro podcast introductorio para conocer más sobre los contenidos que serán abordados en el curso:&lt;/p>
-&lt;p>Pruébelo:&lt;/p>
-&lt;audio controls >
-&lt;source src="https://ia601805.us.archive.org/26/items/podcast-r/PodcastR.mp3" type="audio/mpeg">
-&lt;/audio>
-&lt;hr>
-&lt;h2 id="qué-aprenderás">¿Qué aprenderás?&lt;/h2>
-&lt;p>Este curso está diseñado para profesionales interesados en el estudio de la fortificación de alimentos a gran escala. Aquí tienes un vistazo rápido:&lt;/p>
-&lt;details class="spoiler " id="spoiler-2">
-&lt;summary class="cursor-pointer">👉 Haz clic para ver el contenido del curso&lt;/summary>
-&lt;div class="rounded-lg bg-neutral-50 dark:bg-neutral-800 p-2">
-&lt;ul>
-&lt;li>&lt;strong>Tema I&lt;/strong>: Introducción a R y RStudio.&lt;/li>
-&lt;li>&lt;strong>Tema II&lt;/strong>: Importación de datos.&lt;/li>
-&lt;li>&lt;strong>Tema III&lt;/strong>: Ordenar datos.&lt;/li>
-&lt;li>&lt;strong>Tema IV&lt;/strong>: Manipulación de datos.&lt;/li>
-&lt;li>&lt;strong>Tema V&lt;/strong>: Representación tabular.&lt;/li>
-&lt;li>&lt;strong>Tema VI&lt;/strong>: Representación gráfica.&lt;/li>
-&lt;li>&lt;strong>Tarea Final&lt;/strong>: Informes con R Markdown.&lt;/li>
-&lt;/ul>
-&lt;/div>
-&lt;/details>
-&lt;hr>
-&lt;h2 id="calendario-del-curso">Calendario del Curso&lt;/h2>
-&lt;p>&lt;strong>Estructura Diaria&lt;/strong> Cada día incluye sesiones teóricas, prácticas, descansos y actividades gamificadas.&lt;br>
-&lt;strong>Sesiones teóricas&lt;/strong>: Conferencias interactivas con ejemplos de fortificación de alimentos a gran escala.&lt;br>
-&lt;strong>Sesiones prácticas&lt;/strong>: Ejercicios guiados y retos diarios.&lt;br>
-&lt;strong>Coffee breaks&lt;/strong>: 15 minutos entre bloques.&lt;/p>
-&lt;p>&lt;em>Descargue la agenda del curso en formato&lt;/em> &lt;a href="https://bioestadisticaedu.com/pdf/agenda.pdf">&lt;strong>PDF&lt;/strong>&lt;/a>:&lt;/p>
-&lt;div class="flex px-4 py-3 mb-6 rounded-md bg-primary-100 dark:bg-primary-900">
-&lt;span class="pr-3 pt-1 text-primary-600 dark:text-primary-300">
-&lt;svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">&lt;path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0m-9-3.75h.008v.008H12z"/>&lt;/svg>
-&lt;/span>
-&lt;span class="dark:text-neutral-300">El &lt;strong>Calendario del curso&lt;/strong> podría variar en dependencia del progreso de las actividades docentes y cuestiones logísticas.&lt;/span>
-&lt;/div>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>Horario&lt;/th>
-&lt;th>Día 1 (martes)&lt;/th>
-&lt;th>Día 2 (miércoles)&lt;/th>
-&lt;th>Día 3 (Jueves)&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>&lt;strong>Mañana&lt;/strong> 🌞&lt;/td>
-&lt;td>&lt;a href="https://bioestadisticaedu.com/pdf/conf_0.pdf">&lt;strong>introducción&lt;/strong>&lt;/a>, &lt;a href="https://bioestadisticaedu.com/pdf/conf_1.pdf">&lt;strong>Conf. Tema I&lt;/strong>&lt;/a>&lt;/td>
-&lt;td>&lt;a href="https://bioestadisticaedu.com/pdf/conf_3.pdf">&lt;strong>Conf. Tema III&lt;/strong>&lt;/a>&lt;/td>
-&lt;td>&lt;a href="https://bioestadisticaedu.com/pdf/conf_5.pdf">&lt;strong>Conf. Tema V&lt;/strong>&lt;/a>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;strong>Coffee breaks&lt;/strong> ☕&lt;/td>
-&lt;td>☕&lt;/td>
-&lt;td>☕&lt;/td>
-&lt;td>☕&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;strong>Mañana&lt;/strong> 🌞&lt;/td>
-&lt;td>&lt;a href="https://bioestadisticaedu.com/pdf/desaf_1.pdf">Pract. Tema I&lt;/a>&lt;/td>
-&lt;td>&lt;a href="https://bioestadisticaedu.com/pdf/desaf_3.pdf">Pract. Tema II&lt;/a>I&lt;/td>
-&lt;td>&lt;a href="https://bioestadisticaedu.com/pdf/conf_6.pdf">&lt;strong>Conf. Tema VI&lt;/strong>&lt;/a>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;strong>Almuezo&lt;/strong> 🍽️&lt;/td>
-&lt;td>🍽️&lt;/td>
-&lt;td>🍽️&lt;/td>
-&lt;td>🍽️&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;strong>Tarde&lt;/strong> 🌆&lt;/td>
-&lt;td>&lt;a href="https://bioestadisticaedu.com/pdf/conf_2.pdf">Conf. Tema II&lt;/a>&lt;/td>
-&lt;td>️ &lt;a href="https://bioestadisticaedu.com/pdf/conf_4.pdf">Conf. Tema IV&lt;/a>&lt;/td>
-&lt;td>️&lt;a href="https://bioestadisticaedu.com/pdf/desaf_5.pdf">Pract. Tema V&lt;/a>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;strong>Coffee breaks&lt;/strong> ☕&lt;/td>
-&lt;td>☕&lt;/td>
-&lt;td>☕&lt;/td>
-&lt;td>☕&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;strong>Tarde&lt;/strong> 🌆&lt;/td>
-&lt;td>&lt;a href="https://bioestadisticaedu.com/pdf/desaf_2.pdf">Pract. Tema II&lt;/a>&lt;/td>
-&lt;td>️&lt;a href="https://bioestadisticaedu.com/pdf/desaf_4.pdf">Pract. Tema VI&lt;/a>&lt;/td>
-&lt;td>️&lt;a href="https://bioestadisticaedu.com/pdf/desaf_6.pdf">Pract. Tema VI&lt;/a>&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;hr>
-&lt;h2 id="estructura-de-módulos">Estructura de módulos&lt;/h2>
-&lt;p>A continuación, te presentamos la estructura detallada de los módulos del curso, basada en el flujo de trabajo propuesto en el libro &lt;a href="https://es.r4ds.hadley.nz/" target="_blank" rel="noopener">R for Data Science&lt;/a> de Hadley Wickham y Garrett Grolemund. Cada módulo está diseñado para guiarte paso a paso en el análisis de datos relacionados con la fortificación de alimentos.&lt;/p>
-&lt;h3 id="tema-i-introducción-a-r-y-rstudio">&lt;strong>Tema I: Introducción a R y RStudio&lt;/strong>&lt;/h3>
-&lt;ul>
-&lt;li>&lt;strong>Objetivo&lt;/strong>: Familiarizarse con el entorno de trabajo.&lt;/li>
-&lt;li>&lt;strong>Contenido clave&lt;/strong>:
-&lt;ul>
-&lt;li>¿Qué es R y por qué es útil en ciencias de la salud?&lt;/li>
-&lt;li>Instalación y configuración de R y RStudio.&lt;/li>
-&lt;li>Interfaz de RStudio: Consola, script, ambiente, gráficos.&lt;/li>
-&lt;li>Creación de objetos básicos (vectores, listas, data frames).&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>🚀 &lt;strong>Conferencia&lt;/strong>: Conferencia 1 en formato &lt;a href="https://bioestadisticaedu.com/pdf/conf_1.pdf">PDF&lt;/a>.&lt;/li>
-&lt;li>🎉 &lt;strong>Desafío 1&lt;/strong>: Hierro &amp;ndash; Cimientos de Código &lt;a href="https://bioestadisticaedu.com/pdf/desaf_1.pdf">PDF&lt;/a>.&lt;/li>
-&lt;li>😊 &lt;strong>Recompensa&lt;/strong> : Insignia 🏗️ &amp;ldquo;Cimientos Sólidos&amp;rdquo; .&lt;/li>
-&lt;/ul>
-&lt;h3 id="tema-ii-importación-de-datos">&lt;strong>Tema II: Importación de datos&lt;/strong>&lt;/h3>
-&lt;ul>
-&lt;li>&lt;strong>Objetivo&lt;/strong>: Aprender a leer datos desde diferentes formatos.&lt;/li>
-&lt;li>&lt;strong>Contenido clave&lt;/strong>:
-&lt;ul>
-&lt;li>Leer archivos CSV usando &lt;code>readr&lt;/code>.&lt;/li>
-&lt;li>Leer archivos Excel usando &lt;code>readxl&lt;/code>.&lt;/li>
-&lt;li>Manejo de problemas comunes (codificación, separadores, valores perdidos).&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>🚀 &lt;strong>Conferencia&lt;/strong>: Conferencia 2 en formato &lt;a href="https://bioestadisticaedu.com/pdf/conf_2.pdf">PDF&lt;/a>.&lt;/li>
-&lt;li>🎉 &lt;strong>Desafío 2&lt;/strong>: Zinc &amp;ndash; Puertas a los Datos &lt;a href="https://bioestadisticaedu.com/pdf/desaf_2.pdf">PDF&lt;/a>.&lt;/li>
-&lt;li>📚 &lt;strong>Datos&lt;/strong>: Base de datos de nutrición &lt;a href="https://bioestadisticaedu.com/csv/nutricion.csv">csv&lt;/a>.&lt;/li>
-&lt;li>📚 &lt;strong>script&lt;/strong>: Rcript en R &lt;a href="https://bioestadisticaedu.com/r/fortificacion_temaII.zip">zip&lt;/a>.&lt;/li>
-&lt;li>😊 &lt;strong>Recompensa&lt;/strong> : Insignia 🪓 &amp;ldquo;Estructuras Estables&amp;rdquo;.&lt;/li>
-&lt;li>📚 &lt;strong>Bibliografía&lt;/strong>: &lt;a href="https://es.r4ds.hadley.nz/11-import.html" target="_blank" rel="noopener">Capítulo 11: Importar datos&lt;/a>.&lt;/li>
-&lt;/ul>
-&lt;h3 id="tema-iii-ordenar-datos">&lt;strong>Tema III: Ordenar datos&lt;/strong>&lt;/h3>
-&lt;ul>
-&lt;li>&lt;strong>Objetivo&lt;/strong>: Aprender a organizar y limpiar datos para facilitar su análisis.&lt;/li>
-&lt;li>&lt;strong>Contenido clave&lt;/strong>:
-&lt;ul>
-&lt;li>Reorganizar columnas y filas con &lt;code>tidyr&lt;/code>.&lt;/li>
-&lt;li>Convertir datos de formato ancho a largo (y viceversa) con &lt;code>pivot_longer()&lt;/code> y &lt;code>pivot_wider()&lt;/code>.&lt;/li>
-&lt;li>Separar y combinar columnas.&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>🚀 &lt;strong>Conferencia&lt;/strong>: Conferencia 3 en formato &lt;a href="https://bioestadisticaedu.com/pdf/conf_3.pdf">PDF&lt;/a>.&lt;/li>
-&lt;li>🎉 &lt;strong>Desafío 3&lt;/strong>: Vitamina A &amp;ndash; Claridad en la Oscuridad &lt;a href="https://bioestadisticaedu.com/pdf/desaf_3.pdf">PDF&lt;/a>.&lt;/li>
-&lt;li>😊 &lt;strong>Recompensa&lt;/strong> : Insignia 🌟 &amp;ldquo;Datos Transparentes&amp;rdquo;&lt;/li>
-&lt;li>📚 &lt;strong>Bibliografía&lt;/strong>: &lt;a href="https://es.r4ds.hadley.nz/tibbles.html" target="_blank" rel="noopener">Capítulo 12: Tibbles&lt;/a> y &lt;a href="https://es.r4ds.hadley.nz/datos-limpios.html" target="_blank" rel="noopener">Capítulo 13: Datos limpios&lt;/a>.&lt;/li>
-&lt;/ul>
-&lt;h3 id="tema-iv-manipulación-de-datos">&lt;strong>Tema IV: Manipulación de datos&lt;/strong>&lt;/h3>
-&lt;ul>
-&lt;li>&lt;strong>Objetivo&lt;/strong>: Aprender a transformar y resumir datos.&lt;/li>
-&lt;li>&lt;strong>Contenido clave&lt;/strong>:
-&lt;ul>
-&lt;li>Filtrar, seleccionar y ordenar datos con &lt;code>dplyr&lt;/code>.&lt;/li>
-&lt;li>Crear nuevas variables con &lt;code>mutate()&lt;/code>.&lt;/li>
-&lt;li>Resúmenes estadísticos básicos con &lt;code>summarise()&lt;/code>.&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>🚀 &lt;strong>Conferencia&lt;/strong>: Conferencia 4 en formato &lt;a href="https://bioestadisticaedu.com/pdf/conf_4.pdf">PDF&lt;/a>.&lt;/li>
-&lt;li>🎉 &lt;strong>Desafío 4&lt;/strong>: Ácido Fólico &amp;ndash; Datos que Nutren &lt;a href="https://bioestadisticaedu.com/pdf/desaf_4.pdf">PDF&lt;/a>.&lt;/li>
-&lt;li>😊 &lt;strong>Recompensa&lt;/strong> : Insignia 🌱 &amp;ldquo;Transformación Vital&amp;rdquo;&lt;/li>
-&lt;li>📚 &lt;strong>Bibliografía&lt;/strong>: &lt;a href="https://es.r4ds.hadley.nz/transformacion.html" target="_blank" rel="noopener">Capítulo 5: Data Transformation&lt;/a>.&lt;/li>
-&lt;/ul>
-&lt;h3 id="tema-v-representación-tabular">&lt;strong>Tema V: Representación tabular&lt;/strong>&lt;/h3>
-&lt;ul>
-&lt;li>&lt;strong>Objetivo&lt;/strong>: Aprender a generar tablas profesionales.&lt;/li>
-&lt;li>&lt;strong>Contenido clave&lt;/strong>:
-&lt;ul>
-&lt;li>Realizar análisis básicos.&lt;/li>
-&lt;li>Generar tablas resumen con &lt;code>gtsummary&lt;/code>.&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>🚀 &lt;strong>Conferencia&lt;/strong>: Conferencia 5 en formato &lt;a href="https://bioestadisticaedu.com/pdf/conf_5.pdf">PDF&lt;/a>.&lt;/li>
-&lt;li>🎉 &lt;strong>Desafío 5&lt;/strong>: Yodo &amp;ndash; Iluminando Hallazgos &lt;a href="https://bioestadisticaedu.com/pdf/desaf_5.pdf">PDF&lt;/a>.&lt;/li>
-&lt;li>😊 &lt;strong>Recompensa&lt;/strong> : Insignia 💡 &amp;ldquo;Insight Brillante&amp;rdquo;&lt;/li>
-&lt;/ul>
-&lt;h3 id="tema-vi-representación-gráfica">&lt;strong>Tema VI: Representación gráfica&lt;/strong>&lt;/h3>
-&lt;ul>
-&lt;li>&lt;strong>Objetivo&lt;/strong>: Aprender a visualizar datos.&lt;/li>
-&lt;li>&lt;strong>Contenido clave&lt;/strong>:
-&lt;ul>
-&lt;li>Crear gráficos básicos con &lt;code>ggstatsplot&lt;/code> (barras, líneas, dispersión).&lt;/li>
-&lt;li>Personalizar gráficos para comunicar hallazgos clave.&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>🚀 &lt;strong>Conferencia&lt;/strong>: Conferencia 6 en formato &lt;a href="https://bioestadisticaedu.com/pdf/conf_6.pdf">PDF&lt;/a>.&lt;/li>
-&lt;li>🎉 &lt;strong>Desafío 5&lt;/strong>: Yodo &amp;ndash; Iluminando Hallazgos &lt;a href="https://bioestadisticaedu.com/pdf/desaf_6.pdf">PDF&lt;/a>.&lt;/li>
-&lt;li>😊 &lt;strong>Recompensa&lt;/strong> : Insignia 💡 &amp;ldquo;Insight Brillante&amp;rdquo;&lt;/li>
-&lt;/ul>
-&lt;h2 id="conclusiones-y-recomendaciones">Conclusiones y recomendaciones.&lt;/h2>
-&lt;h2 id="notas-adicionales">Notas Adicionales&lt;/h2>
-&lt;ol>
-&lt;li>Gamificación :&lt;/li>
-&lt;/ol>
-&lt;ul>
-&lt;li>Cada práctica desbloquea una insignia virtual (ejemplo: 🏗️ Cimientos Sólidos , 🪴 Transformación Vital ).&lt;/li>
-&lt;/ul>
-&lt;hr>
-&lt;h2 id="bibliografía">Bibliografía&lt;/h2>
-&lt;ul>
-&lt;li>libro &lt;a href="https://es.r4ds.hadley.nz/" target="_blank" rel="noopener">R Para Ciencia de Datos: Hadley Wickham&lt;/a>&lt;/li>
-&lt;/ul></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Fortificacion | Biostatistics edu</title><link>https://bioestadisticaedu.com/en/tags/fortificacion/</link><atom:link href="https://bioestadisticaedu.com/en/tags/fortificacion/index.xml" rel="self" type="application/rss+xml"/><description>Fortificacion</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Wed, 05 Mar 2025 00:00:00 +0000</lastBuildDate><image><url>https://bioestadisticaedu.com/media/icon_hu_a91eea5f46a3944e.png</url><title>Fortificacion</title><link>https://bioestadisticaedu.com/en/tags/fortificacion/</link></image><item><title>Tutorial: Análisis de Fortificación de Alimentos con HCES y R</title><link>https://bioestadisticaedu.com/en/teaching/tutorial-an-lisis-de-fortificaci-n-de-alimentos-con-hces-y-r/</link><pubDate>Wed, 05 Mar 2025 00:00:00 +0000</pubDate><guid>https://bioestadisticaedu.com/en/teaching/tutorial-an-lisis-de-fortificaci-n-de-alimentos-con-hces-y-r/</guid><description>&lt;p>En este tutorial, aprenderás a usar datos de Encuestas de Consumo y Gasto en Hogares (HCES) , Tablas de Composición de Alimentos (FCT) y herramientas de R (tidyverse, gtsummary, ggstatsplot) para evaluar la adecuación nutricional y modelar escenarios de fortificación. Los conceptos se explican desde cero, con ejemplos reproducibles.&lt;/p>
+&lt;h1 id="paso-1-preparación-de-datos-hces">Paso 1: Preparación de datos HCES&lt;/h1>
+&lt;p>&lt;strong>Concepto :&lt;/strong> Las HCES son encuestas que registran compras y consumo de alimentos a nivel de hogar 9. Son esenciales para analizar patrones dietéticos, pero requieren limpieza para eliminar inconsistencias.&lt;/p>
+&lt;p>&lt;strong>Ejemplo en R :&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(tidyverse)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Datos simulados de HCES (consumo de alimentos en gramos)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>hc_data &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">tibble&lt;/span>(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> alimento &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Azúcar&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;Arroz&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;Azúcar morena&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;Harina fortificada&amp;#34;&lt;/span>),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> cantidad_g &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>(&lt;span style="color:#ae81ff">500&lt;/span>, &lt;span style="color:#ae81ff">1200&lt;/span>, &lt;span style="color:#66d9ef">NA&lt;/span>, &lt;span style="color:#ae81ff">800&lt;/span>),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> hogar_id &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>(&lt;span style="color:#ae81ff">1&lt;/span>, &lt;span style="color:#ae81ff">1&lt;/span>, &lt;span style="color:#ae81ff">2&lt;/span>, &lt;span style="color:#ae81ff">2&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Limpieza: Estandarizar nombres y eliminar valores faltantes&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>hc_clean &lt;span style="color:#f92672">&amp;lt;-&lt;/span> hc_data &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">mutate&lt;/span>(alimento &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">case_when&lt;/span>(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">str_detect&lt;/span>(alimento, &lt;span style="color:#e6db74">&amp;#34;Azúcar&amp;#34;&lt;/span>) &lt;span style="color:#f92672">~&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Azúcar&amp;#34;&lt;/span>, &lt;span style="color:#75715e"># Unificar &amp;#34;Azúcar&amp;#34; y &amp;#34;Azúcar morena&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">TRUE&lt;/span> &lt;span style="color:#f92672">~&lt;/span> alimento
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> )) &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">filter&lt;/span>(&lt;span style="color:#f92672">!&lt;/span>&lt;span style="color:#a6e22e">is.na&lt;/span>(cantidad_g)) &lt;span style="color:#75715e"># Eliminar registros sin datos&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="paso-2-vinculación-con-tablas-de-composición-de-alimentos-fct">Paso 2: Vinculación con Tablas de Composición de Alimentos (FCT)&lt;/h1>
+&lt;p>Las FCT contienen información nutricional de alimentos (ej: hierro, vitamina A). Al vincularlas con HCES, calculamos la ingesta de nutrientes por hogar&lt;/p>
+&lt;p>&lt;strong>Ejemplo en R :&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># FCT simulada (nutrientes por 100g)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>fct_data &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">tibble&lt;/span>(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> alimento &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Azúcar&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;Arroz&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;Harina fortificada&amp;#34;&lt;/span>),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> hierro_mg &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>(&lt;span style="color:#ae81ff">0.1&lt;/span>, &lt;span style="color:#ae81ff">2.5&lt;/span>, &lt;span style="color:#ae81ff">5.0&lt;/span>),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> vitamina_a_ug &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>(&lt;span style="color:#ae81ff">0&lt;/span>, &lt;span style="color:#ae81ff">0&lt;/span>, &lt;span style="color:#ae81ff">500&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Combinar HCES con FCT&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>hc_nutrientes &lt;span style="color:#f92672">&amp;lt;-&lt;/span> hc_clean &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">left_join&lt;/span>(fct_data, by &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;alimento&amp;#34;&lt;/span>) &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">mutate&lt;/span>(hierro_total &lt;span style="color:#f92672">=&lt;/span> cantidad_g &lt;span style="color:#f92672">*&lt;/span> hierro_mg &lt;span style="color:#f92672">/&lt;/span> &lt;span style="color:#ae81ff">100&lt;/span>) &lt;span style="color:#75715e"># Calcular hierro total consumido&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="paso-3-evaluación-de-adecuación-nutricional-ear-rni-ul">Paso 3: Evaluación de adecuación nutricional (EAR, RNI, UL)&lt;/h1>
+&lt;p>&lt;strong>Concepto :&lt;/strong>
+&lt;strong>EAR (Requerimiento Promedio Estimado) :&lt;/strong> Nivel de ingesta que cubre las necesidades del 50% de la población.&lt;/p>
+&lt;p>&lt;strong>RNI (Requerimiento Nutricional de Ingesta) :&lt;/strong> Meta para cubrir el 97-98% de la población.&lt;/p>
+&lt;p>&lt;strong>UL (Límite Máximo Seguro) :&lt;/strong> Ingesta máxima sin riesgo de toxicidad.&lt;/p>
+&lt;p>&lt;strong>Ejemplo en R :&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># EAR de hierro para mujeres (18-50 años): 18 mg/día&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>hc_nutrientes &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">group_by&lt;/span>(hogar_id) &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">summarise&lt;/span>(ingesta_hierro &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">sum&lt;/span>(hierro_total)) &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">mutate&lt;/span>(adepto &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">ifelse&lt;/span>(ingesta_hierro &lt;span style="color:#f92672">&amp;gt;=&lt;/span> &lt;span style="color:#ae81ff">18&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;Sí&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;No&amp;#34;&lt;/span>))
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Visualización con &lt;strong>ggstatsplot&lt;/strong> :&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(ggstatsplot)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">gghistostats&lt;/span>(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> data &lt;span style="color:#f92672">=&lt;/span> hc_nutrientes,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> x &lt;span style="color:#f92672">=&lt;/span> ingesta_hierro,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> title &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Ingesta de hierro vs. EAR (18 mg/día)&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> binwidth &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">2&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="paso-4-cálculo-de-consumo-aparente-con-ameafe">Paso 4: Cálculo de consumo aparente con AME/AFE&lt;/h1>
+&lt;p>&lt;strong>Concepto :&lt;/strong>
+La FAO recomienda ajustar el consumo por tamaño del hogar usando &lt;strong>Equivalentes Adultos (AME/AFE)&lt;/strong> . Por ejemplo, un niño &amp;lt;10 años equivale a 0.5 AME&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Datos de hogares (miembros y edades)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>hogares &lt;span style="color:#f92672">&amp;lt;-&lt;/span> &lt;span style="color:#a6e22e">tibble&lt;/span>(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> hogar_id &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>(&lt;span style="color:#ae81ff">1&lt;/span>, &lt;span style="color:#ae81ff">2&lt;/span>),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> miembros &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">list&lt;/span>(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">tibble&lt;/span>(edad &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>(&lt;span style="color:#ae81ff">30&lt;/span>, &lt;span style="color:#ae81ff">5&lt;/span>), genero &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;M&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;F&amp;#34;&lt;/span>)), &lt;span style="color:#75715e"># Hogar 1: adulto + niño&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">tibble&lt;/span>(edad &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>(&lt;span style="color:#ae81ff">40&lt;/span>, &lt;span style="color:#ae81ff">15&lt;/span>), genero &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;M&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;M&amp;#34;&lt;/span>)) &lt;span style="color:#75715e"># Hogar 2: 2 adultos&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> )
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Calcular AME total por hogar&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>hogares &lt;span style="color:#f92672">&amp;lt;-&lt;/span> hogares &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">mutate&lt;/span>(ame_total &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">map_dbl&lt;/span>(miembros, &lt;span style="color:#f92672">~&lt;/span> &lt;span style="color:#a6e22e">sum&lt;/span>(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">ifelse&lt;/span>(.x&lt;span style="color:#f92672">$&lt;/span>edad &lt;span style="color:#f92672">&amp;lt;&lt;/span> &lt;span style="color:#ae81ff">10&lt;/span>, &lt;span style="color:#ae81ff">0.5&lt;/span>, &lt;span style="color:#ae81ff">1&lt;/span>) &lt;span style="color:#75715e"># Niños &amp;lt;10 = 0.5 AME&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> )))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Consumo aparente per cápita&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>hc_consumo_aparente &lt;span style="color:#f92672">&amp;lt;-&lt;/span> hc_nutrientes &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">left_join&lt;/span>(hogares, by &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;hogar_id&amp;#34;&lt;/span>) &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">mutate&lt;/span>(consumo_aparente &lt;span style="color:#f92672">=&lt;/span> hierro_total &lt;span style="color:#f92672">/&lt;/span> ame_total)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="paso-5-modelado-de-escenarios-de-fortificación">Paso 5: Modelado de escenarios de fortificación&lt;/h1>
+&lt;p>&lt;strong>Concepto :&lt;/strong>&lt;/p>
+&lt;p>Simular la adición de nutrientes a alimentos (ej: hierro en harina) permite predecir impacto en la ingesta.&lt;/p>
+&lt;p>Ejemplo con &lt;strong>gtsummary&lt;/strong> :&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-r" data-lang="r">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">library&lt;/span>(gtsummary)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Escenario: Harina fortificada con +5 mg de hierro/100g&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>hc_fortificado &lt;span style="color:#f92672">&amp;lt;-&lt;/span> hc_nutrientes &lt;span style="color:#f92672">%&amp;gt;%&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">mutate&lt;/span>(hierro_total &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">ifelse&lt;/span>(alimento &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Harina fortificada&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> cantidad_g &lt;span style="color:#f92672">*&lt;/span> (hierro_mg &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#ae81ff">5&lt;/span>) &lt;span style="color:#f92672">/&lt;/span> &lt;span style="color:#ae81ff">100&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> hierro_total))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Comparación pre-post fortificación&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">tbl_summary&lt;/span>(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> hc_nutrientes &lt;span style="color:#f92672">%&amp;gt;%&lt;/span> &lt;span style="color:#a6e22e">select&lt;/span>(ingesta_hierro),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> hc_fortificado &lt;span style="color:#f92672">%&amp;gt;%&lt;/span> &lt;span style="color:#a6e22e">select&lt;/span>(ingesta_hierro),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> label &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">list&lt;/span>(ingesta_hierro &lt;span style="color:#f92672">~&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Hierro (mg/día)&amp;#34;&lt;/span>),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> statistic &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">list&lt;/span>(ingesta_hierro &lt;span style="color:#f92672">~&lt;/span> &lt;span style="color:#e6db74">&amp;#34;{mean} ± {sd}&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Herramientas R utilizadas :&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>tidyverse :&lt;/strong> Manipulación y limpieza de datos .&lt;/p>
+&lt;p>&lt;strong>ggstatsplot :&lt;/strong> Visualización estadística rápida.&lt;/p>
+&lt;p>&lt;strong>gtsummary :&lt;/strong> Resúmenes tabulares para comparaciones.&lt;/p></description></item></channel></rss>
