@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Organizer - Bioestadística Edu</title>
+    
+    <!-- Recursos Certificados -->
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    
+    <style>
+        :root {
+            --brand-blue: #1e40af;
+            --brand-accent: #3b82f6;
+            --bg-canvas: #f1f5f9;
+            --bg-panel: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --danger-color: #ef4444;
+        }
+
+        body, html {
+            height: 100%; margin: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-canvas);
+            color: var(--text-primary);
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .app-container { display: flex; flex-direction: column; height: 100vh; }
+
+        /* --- Header Profesional --- */
+        header {
+            height: 70px;
+            background: var(--bg-panel);
+            border-bottom: 1px solid var(--border-color);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            z-index: 100;
+        }
+
+        .logo-area { display: flex; align-items: center; gap: 14px; }
+        .logo-box {
+            background: var(--brand-blue); color: white;
+            width: 42px; height: 42px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 900; font-size: 22px;
+        }
+
+        .title-group h1 { margin: 0; font-size: 1.25rem; font-weight: 800; letter-spacing: -0.5px; }
+        .title-group p { margin: 2px 0 0; font-size: 0.75rem; color: var(--text-secondary); font-weight: 500; }
+
+        .main-layout { display: flex; flex: 1; overflow: hidden; }
+
+        /* --- Panel de Organización (Grid) --- */
+        .organizer-view {
+            flex: 1; overflow-y: auto; padding: 30px;
+            background: #f8fafc; border-right: 1px solid var(--border-color);
+            cursor: pointer;
+        }
+
+        #pages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 25px;
+        }
+
+        /* --- Panel de Inspección (50% de ancho) --- */
+        .inspector-view {
+            width: 50%; background: var(--bg-panel);
+            display: flex; flex-direction: column;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.03);
+        }
+
+        .preview-stage {
+            flex: 1; background: #1e293b;
+            display: flex; align-items: center; justify-content: center;
+            padding: 40px; overflow: hidden; position: relative;
+        }
+
+        #main-preview-img {
+            max-width: 100%; max-height: 100%;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+            background: white; border-radius: 4px; display: none;
+        }
+
+        /* --- Tarjetas de Página --- */
+        .page-card {
+            background: white; border: 1px solid var(--border-color);
+            padding: 6px; border-radius: 12px; cursor: grab;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .page-card:hover { border-color: var(--brand-accent); transform: translateY(-5px); box-shadow: 0 15px 25px -5px rgba(0,0,0,0.08); }
+        .page-card.active { outline: 4px solid var(--brand-accent); border-color: transparent; }
+        .page-card img { width: 100%; display: block; aspect-ratio: 1/1.41; border-radius: 8px; object-fit: contain; background: #fff; }
+        .page-info { font-size: 10px; text-align: center; padding: 10px 5px 5px; color: var(--text-secondary); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+        /* --- Controles UI --- */
+        .btn {
+            padding: 10px 24px; border-radius: 10px;
+            border: 1px solid var(--border-color); background: white;
+            font-size: 14px; font-weight: 700; cursor: pointer;
+            transition: 0.2s; display: inline-flex; align-items: center; gap: 10px;
+        }
+        .btn-primary { background: var(--brand-blue); color: white; border: none; }
+        .btn-primary:hover:not(:disabled) { background: var(--brand-accent); box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3); }
+        .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        .toolbar-inspector {
+            padding: 25px; border-top: 1px solid var(--border-color);
+            display: flex; justify-content: center; gap: 15px; background: #fbfcfd;
+        }
+
+        /* --- Footer --- */
+        footer {
+            height: 45px; background: white; border-top: 1px solid var(--border-color);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; color: var(--text-secondary); gap: 25px;
+        }
+        footer a { color: var(--brand-blue); text-decoration: none; font-weight: 700; }
+        footer strong { color: var(--text-primary); }
+
+        /* --- Loader --- */
+        #global-loader {
+            position: fixed; inset: 0; background: rgba(255,255,255,0.92);
+            display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 1000;
+        }
+        .spinner { width: 50px; height: 50px; border: 5px solid #f3f4f6; border-top: 5px solid var(--brand-blue); border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+<div id="global-loader"><div class="spinner"></div><p style="margin-top:20px; font-weight:800; color:var(--brand-blue);">Procesando archivos...</p></div>
+
+<div class="app-container">
+    <header>
+        <div class="logo-area">
+            <div class="logo-box">P</div>
+            <div class="title-group">
+                <h1>PDF Organizer</h1>
+                <p>Bioestadística Edu</p>
+            </div>
+        </div>
+        <div style="display:flex; gap:12px">
+            <button class="btn" onclick="document.getElementById('fileInput').click()">➕ Añadir PDF / Imágenes</button>
+            <button class="btn btn-primary" id="saveBtn" onclick="exportPDF()" disabled>📥 Guardar Documento Final</button>
+        </div>
+    </header>
+
+    <div class="main-layout">
+        <!-- Panel de Organización -->
+        <section class="organizer-view" id="dropZone" onclick="handleOrganizerClick(event)">
+            <div id="pages-grid"></div>
+            <div id="empty-state" style="text-align:center; margin-top:22vh; color:var(--text-secondary);">
+                <div style="font-size: 4rem; margin-bottom: 20px;">📂</div>
+                <p style="font-size: 1.5rem; font-weight:300;">Haz clic aquí o arrastra tus documentos</p>
+                <p style="font-size: 0.9rem; max-width: 450px; margin: 15px auto; opacity: 0.8;">Organiza, combina y reestructura tus archivos localmente con privacidad garantizada.</p>
+            </div>
+        </section>
+
+        <!-- Panel de Vista Previa -->
+        <aside class="inspector-view">
+            <div class="preview-stage" onclick="handleInspectorClick()">
+                <img id="main-preview-img" src="" alt="Vista previa de alta resolución">
+                <div id="inspector-hint" style="color:rgba(255,255,255,0.5); text-align:center;">
+                    <p style="font-size:1.4rem; font-weight:700">Inspector de Páginas</p>
+                    <p style="font-size:0.95rem">Selecciona una página para inspeccionarla en detalle</p>
+                </div>
+            </div>
+            <div class="toolbar-inspector">
+                <button class="btn" onclick="deleteActive()" style="color:var(--danger-color); border-color:#fee2e2">🗑️ Quitar página</button>
+                <button class="btn" onclick="clearAll()">🗑️ Limpiar todo</button>
+            </div>
+        </aside>
+    </div>
+
+    <footer>
+        <span>&copy; 2024 <strong>Bioestadística Edu</strong></span>
+        <span>|</span>
+        <span>Autor: <strong>Maicel Monzón Pérez, PhD</strong></span>
+        <span>|</span>
+        <span><a href="https://bioestadisticaedu.com/" target="_blank">bioestadisticaedu.com</a></span>
+    </footer>
+</div>
+
+<input type="file" id="fileInput" accept="application/pdf,image/*" multiple style="display:none">
+
+<script>
+    const { PDFDocument, PageSizes } = PDFLib;
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+
+    const grid = document.getElementById('pages-grid');
+    const fileInput = document.getElementById('fileInput');
+    const saveBtn = document.getElementById('saveBtn');
+    const previewImg = document.getElementById('main-preview-img');
+    const inspectorHint = document.getElementById('inspector-hint');
+    const loader = document.getElementById('global-loader');
+
+    let loadedFiles = []; 
+    let activeCard = null;
+
+    new Sortable(grid, { animation: 180, onEnd: updateUI });
+
+    function handleOrganizerClick(event) {
+        if (!event.target.closest('.page-card')) fileInput.click();
+    }
+
+    function handleInspectorClick() {
+        if (!activeCard) fileInput.click();
+    }
+
+    fileInput.onchange = e => processFiles(Array.from(e.target.files));
+    document.getElementById('dropZone').ondragover = e => e.preventDefault();
+    document.getElementById('dropZone').ondrop = e => {
+        e.preventDefault();
+        processFiles(Array.from(e.dataTransfer.files).filter(f => f.type === 'application/pdf' || f.type.startsWith('image/')));
+    };
+
+    async function processFiles(files) {
+        if (!files.length) return;
+        loader.style.display = 'flex';
+        document.getElementById('empty-state').style.display = 'none';
+
+        for (const file of files) {
+            try {
+                const arrayBuffer = await file.arrayBuffer();
+                // REFUERZO DE SEGURIDAD: Clonación de buffer para evitar detached memory
+                const safeBytes = new Uint8Array(arrayBuffer).slice();
+                const fileIdx = loadedFiles.length;
+                loadedFiles.push({ bytes: safeBytes, name: file.name, type: file.type });
+
+                if (file.type === 'application/pdf') {
+                    const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(safeBytes).buffer }).promise;
+                    for (let i = 1; i <= pdf.numPages; i++) {
+                        const page = await pdf.getPage(i);
+                        
+                        // Miniatura (Grid)
+                        const vpThumb = page.getViewport({ scale: 0.3 });
+                        const canvasThumb = document.createElement('canvas');
+                        canvasThumb.width = vpThumb.width; canvasThumb.height = vpThumb.height;
+                        await page.render({ canvasContext: canvasThumb.getContext('2d'), viewport: vpThumb }).promise;
+
+                        // Alta Definición (Visor)
+                        const vpHd = page.getViewport({ scale: 1.2 });
+                        const canvasHd = document.createElement('canvas');
+                        canvasHd.width = vpHd.width; canvasHd.height = vpHd.height;
+                        await page.render({ canvasContext: canvasHd.getContext('2d'), viewport: vpHd }).promise;
+
+                        addPageToGrid(canvasThumb.toDataURL('image/jpeg', 0.8), canvasHd.toDataURL('image/jpeg', 0.8), fileIdx, i - 1, file.name);
+                    }
+                    pdf.destroy();
+                } else {
+                    // Procesamiento de Imágenes
+                    const blob = new Blob([safeBytes], { type: file.type });
+                    const url = await new Promise(r => { 
+                        const rd = new FileReader(); 
+                        rd.onload = e => r(e.target.result); 
+                        rd.readAsDataURL(blob); 
+                    });
+                    addPageToGrid(url, url, fileIdx, 0, file.name);
+                }
+            } catch (err) {
+                console.error("Fallo de carga:", err);
+            }
+        }
+        loader.style.display = 'none';
+        updateUI();
+        fileInput.value = '';
+    }
+
+    function addPageToGrid(thumbUrl, hdUrl, fIdx, pIdx, name) {
+        const card = document.createElement('div');
+        card.className = 'page-card';
+        card.dataset.fileIdx = fIdx;
+        card.dataset.pageIdx = pIdx;
+        card.dataset.hdUrl = hdUrl;
+        
+        // Saneamiento de XSS: Usar textContent
+        const img = document.createElement('img');
+        img.src = thumbUrl; img.draggable = false;
+        
+        const info = document.createElement('div');
+        info.className = 'page-info';
+        info.textContent = name;
+        
+        card.appendChild(img);
+        card.appendChild(info);
+        
+        card.onclick = (e) => { e.stopPropagation(); selectPage(card); };
+        grid.appendChild(card);
+        if (!activeCard) selectPage(card);
+    }
+
+    function selectPage(card) {
+        if (activeCard) activeCard.classList.remove('active');
+        activeCard = card;
+        activeCard.classList.add('active');
+        previewImg.src = card.dataset.hdUrl;
+        previewImg.style.display = 'block';
+        inspectorHint.style.display = 'none';
+    }
+
+    function deleteActive() {
+        if (!activeCard) return;
+        const next = activeCard.nextElementSibling || activeCard.previousElementSibling;
+        activeCard.remove();
+        if (next) selectPage(next);
+        else { 
+            previewImg.style.display = 'none'; 
+            inspectorHint.style.display = 'block'; 
+            activeCard = null; 
+        }
+        updateUI();
+    }
+
+    function clearAll() {
+        if (!confirm("¿Desea eliminar todas las páginas cargadas?")) return;
+        grid.innerHTML = ''; loadedFiles = []; activeCard = null;
+        previewImg.style.display = 'none'; inspectorHint.style.display = 'block';
+        document.getElementById('empty-state').style.display = 'block';
+        updateUI();
+    }
+
+    function updateUI() {
+        saveBtn.disabled = grid.querySelectorAll('.page-card').length === 0;
+    }
+
+    async function exportPDF() {
+        const cards = Array.from(grid.querySelectorAll('.page-card'));
+        if (!cards.length) return;
+        
+        saveBtn.innerText = '⏳ Generando...';
+        saveBtn.disabled = true;
+        loader.style.display = 'flex';
+
+        try {
+            const mergedPdf = await PDFDocument.create();
+            const pdfCache = {};
+
+            for (const card of cards) {
+                const fIdx = parseInt(card.dataset.fileIdx);
+                const pIdx = parseInt(card.dataset.pageIdx);
+                const fileRef = loadedFiles[fIdx];
+
+                if (fileRef.type === 'application/pdf') {
+                    if (!pdfCache[fIdx]) {
+                        pdfCache[fIdx] = await PDFDocument.load(fileRef.bytes.buffer, { ignoreEncryption: true });
+                    }
+                    const [copiedPage] = await mergedPdf.copyPages(pdfCache[fIdx], [pIdx]);
+                    mergedPdf.addPage(copiedPage);
+                } else {
+                    // Conversión Imagen -> A4 con escalado proporcional
+                    const img = fileRef.type.includes('png') ? 
+                                await mergedPdf.embedPng(fileRef.bytes) : 
+                                await mergedPdf.embedJpg(fileRef.bytes);
+                    
+                    const page = mergedPdf.addPage(PageSizes.A4);
+                    const { width, height } = page.getSize();
+                    const dims = img.scaleToFit(width - 40, height - 40);
+                    
+                    page.drawImage(img, {
+                        x: (width - dims.width) / 2,
+                        y: (height - dims.height) / 2,
+                        width: dims.width,
+                        height: dims.height
+                    });
+                }
+            }
+
+            const pdfBytes = await mergedPdf.save();
+            const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; a.download = 'PDF_Organizado_BioEstadistica.pdf';
+            a.click();
+            
+            // Limpieza de memoria posterior a descarga
+            setTimeout(() => URL.revokeObjectURL(url), 3000);
+        } catch (e) {
+            console.error(e);
+            alert("Error al generar el documento.");
+        } finally {
+            saveBtn.innerText = '📥 Guardar Documento Final';
+            saveBtn.disabled = false;
+            loader.style.display = 'none';
+        }
+    }
+</script>
+</body>
+</html>
