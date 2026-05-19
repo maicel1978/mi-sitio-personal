@@ -1,5 +1,5 @@
 ---
-title: "Organizador de páginas en un PDF (Bio-PDF Organizer ver 1.0)"
+title: "Organizador de páginas en un PDF (PDF Organizer ver 2.0)"
 date: "2025-11-26" 
 # Estructura de agrupación solicitada por Maicel Monzón
 categories: ["pdf"]
@@ -12,7 +12,7 @@ tags:
 summary: "Permite la reestructuración de documentos PDF."
 # Configuración técnica y URL relativa preservada
 slug: "pdf_organizer"
-external_link: "/apps/pdf_organizer.html"
+external_link: "/apps/pdf_organizer/index.html"
 image:
   caption: ""
   focal_point: "Smart"
