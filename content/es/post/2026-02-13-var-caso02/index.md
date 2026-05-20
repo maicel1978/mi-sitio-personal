@@ -146,7 +146,7 @@ Consiste en saber qué significan.
 
 ## 7. Qué muestra la simulación
 
-<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-1-1.png" width="768" />
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-1-1.png" alt="" width="768" />
 
 El gráfico no solo ilustra una reducción de diferencias.
 

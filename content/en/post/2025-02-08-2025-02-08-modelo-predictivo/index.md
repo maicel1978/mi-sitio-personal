@@ -214,7 +214,7 @@ plot(cal_boot, main = "Calibración: Predichas vs Observadas")
 abline(0, 1, lty = 2, col = "red")  # Línea ideal
 ```
 
-<img src="calibracion-1.png" width="80%" style="display: block; margin: auto;" />
+<img src="calibracion-1.png" alt="" width="80%" style="display: block; margin: auto;" />
 
 {{< spoiler text="The graph shows that the model is well calibrated (Click to know why)" >}}
 
@@ -239,7 +239,7 @@ plot(roc_obj,
      legacy.axes = TRUE)
 ```
 
-<img src="Discriminacion-1.png" width="80%" style="display: block; margin: auto;" />
+<img src="Discriminacion-1.png" alt="" width="80%" style="display: block; margin: auto;" />
 
 
 
@@ -284,7 +284,7 @@ nom <- nomogram(modelo,
 plot(nom, main = "Nomograma del Modelo")
 ```
 
-<img src="nomograma-1.png" width="80%" style="display: block; margin: auto;" />
+<img src="nomograma-1.png" alt="" width="80%" style="display: block; margin: auto;" />
 
 {{< spoiler text="Nomogram: visual risk calculator (Click to learn how to use it)" >}}
 
@@ -350,7 +350,7 @@ hist(auc_splits,
      border = "black")
 ```
 
-<img src="Simular-1.png" width="80%" style="display: block; margin: auto;" />
+<img src="Simular-1.png" alt="" width="80%" style="display: block; margin: auto;" />
 
 
 

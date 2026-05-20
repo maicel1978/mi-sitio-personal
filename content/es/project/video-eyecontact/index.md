@@ -1,6 +1,6 @@
 ---
-title: "AI Eye-Contact Fixer"
-date: "2025-08-26" 
+title: "Video-Audio Assembler"
+date: "2025-08-27" 
 # Estructura de agrupación solicitada por Maicel Monzón
 categories: ["video"]
 tags:
@@ -8,10 +8,10 @@ tags:
   - "file-engineering"
   - "edicion de video"
 # Sumario optimizado para Google Index (Enfoque en precisión y flujo de trabajo)
-summary: "Corrector de contacto ocular con IA"
+summary: "Ensamblador de video y audio"
 # Configuración técnica y URL relativa preservada
-slug: "video-eyecontact"
-external_link: "/apps/video-eyecontact"
+slug: "video-assembler"
+external_link: "/apps/video-assembler"
 image:
   caption: ""
   focal_point: "Smart"
