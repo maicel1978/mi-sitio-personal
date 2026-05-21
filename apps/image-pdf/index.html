@@ -1,0 +1,2228 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Image to PDF | Conversión local de imágenes a PDF</title>
+  <meta name="description" content="Aplicación web estática y autocontenida para convertir imágenes en PDF de forma local, privada y sin enviar archivos a servidores externos.">
+  <meta name="author" content="Maicel Monzón PhD">
+  <meta name="theme-color" content="#f8fafc">
+  <meta name="application-name" content="Image to PDF">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f766e'/%3E%3Cpath d='M18 16h20l10 10v22a4 4 0 0 1-4 4H22a4 4 0 0 1-4-4V16Z' fill='white' opacity='.95'/%3E%3Cpath d='M38 16v10h10' fill='none' stroke='%230f766e' stroke-width='4' stroke-linejoin='round'/%3E%3Cpath d='M18 38h28M18 46h20M18 30h12' stroke='%230f766e' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+
+  <style>
+    :root {
+      --bg: #f7f9fb;
+      --panel: #ffffff;
+      --panel-alt: #fbfcfd;
+      --line: #e5e7eb;
+      --line-strong: #d1d5db;
+      --text: #0f172a;
+      --muted: #64748b;
+      --accent: #0f766e;
+      --accent-soft: rgba(15, 118, 110, 0.1);
+      --accent-strong: #115e59;
+      --danger: #b91c1c;
+      --danger-soft: rgba(185, 28, 28, 0.08);
+      --warn: #a16207;
+      --warn-soft: rgba(161, 98, 7, 0.08);
+      --success: #166534;
+      --success-soft: rgba(22, 101, 52, 0.08);
+      --shadow: 0 20px 45px -30px rgba(15, 23, 42, 0.22);
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #fbfdff 0%, #f7f9fb 100%);
+      color: var(--text);
+    }
+
+    .app-shell {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+    }
+
+    .panel-soft {
+      background: var(--panel-alt);
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      border-radius: var(--radius-lg);
+    }
+
+    .btn {
+      appearance: none;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--text);
+      border-radius: 999px;
+      padding: 0.72rem 1rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      cursor: pointer;
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+      text-decoration: none;
+    }
+
+    .btn:hover:not(:disabled) {
+      transform: translateY(-1px);
+      border-color: var(--line-strong);
+    }
+
+    .btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(180deg, #14857b 0%, var(--accent) 100%);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 16px 35px -22px rgba(15, 118, 110, 0.85);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      border-color: transparent;
+      box-shadow: 0 18px 38px -20px rgba(15, 118, 110, 0.75);
+    }
+
+    .btn-ghost { background: #fff; }
+    .btn-danger {
+      border-color: rgba(185, 28, 28, 0.18);
+      color: var(--danger);
+      background: var(--danger-soft);
+    }
+
+    .field-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.62rem;
+    }
+
+    .field-help {
+      font-size: 0.78rem;
+      line-height: 1.5;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+
+    .input,
+    .select,
+    .range {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--text);
+      border-radius: 14px;
+      padding: 0.82rem 0.95rem;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .select {
+      appearance: none;
+      background-image: linear-gradient(45deg, transparent 50%, #64748b 50%), linear-gradient(135deg, #64748b 50%, transparent 50%);
+      background-position: calc(100% - 18px) calc(50% - 2px), calc(100% - 12px) calc(50% - 2px);
+      background-size: 6px 6px, 6px 6px;
+      background-repeat: no-repeat;
+      padding-right: 2.5rem;
+    }
+
+    .input:focus,
+    .select:focus,
+    .range:focus {
+      border-color: rgba(15, 118, 110, 0.45);
+      box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.12);
+    }
+
+    .segmented {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.55rem;
+    }
+
+    .segmented input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .segment-option {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--muted);
+      padding: 0.8rem 0.9rem;
+      border-radius: 14px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      user-select: none;
+    }
+
+    .segmented input:checked + .segment-option {
+      background: var(--accent-soft);
+      border-color: rgba(15, 118, 110, 0.3);
+      color: var(--accent-strong);
+      box-shadow: inset 0 0 0 1px rgba(15, 118, 110, 0.08);
+    }
+
+    .dropzone {
+      border: 1.5px dashed rgba(15, 118, 110, 0.28);
+      background: radial-gradient(circle at top, rgba(15, 118, 110, 0.07), rgba(255, 255, 255, 0.92) 48%);
+      border-radius: 28px;
+      padding: 2rem 1.4rem;
+      min-height: 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease;
+      cursor: pointer;
+    }
+
+    .dropzone:hover,
+    .dropzone.is-active {
+      border-color: rgba(15, 118, 110, 0.5);
+      background: radial-gradient(circle at top, rgba(15, 118, 110, 0.12), rgba(255, 255, 255, 0.96) 52%);
+      transform: translateY(-1px);
+    }
+
+    .dropzone.is-disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .queue-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      min-height: 120px;
+    }
+
+    .queue-item {
+      display: grid;
+      grid-template-columns: auto 88px minmax(0, 1fr) auto;
+      gap: 1rem;
+      align-items: center;
+      padding: 0.9rem;
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      border-radius: 20px;
+      background: #fff;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+    }
+
+    .queue-item:hover {
+      border-color: rgba(148, 163, 184, 0.42);
+      box-shadow: 0 12px 25px -20px rgba(15, 23, 42, 0.4);
+    }
+
+    .queue-thumb {
+      width: 88px;
+      height: 112px;
+      object-fit: cover;
+      border-radius: 16px;
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      background: linear-gradient(135deg, #f8fafc 0%, #eef2f7 100%);
+    }
+
+    .drag-handle {
+      width: 42px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      background: #fff;
+      color: var(--muted);
+      cursor: grab;
+      flex-shrink: 0;
+    }
+
+    .drag-handle:active { cursor: grabbing; }
+
+    .queue-item--ghost {
+      opacity: 0.6;
+      background: #f8fafc;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.28rem 0.62rem;
+      border-radius: 999px;
+      background: #f8fafc;
+      border: 1px solid rgba(226, 232, 240, 0.85);
+      font-size: 0.77rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .toolbar-meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      flex-wrap: wrap;
+    }
+
+    .notice {
+      display: none;
+      border-radius: 18px;
+      padding: 0.95rem 1rem;
+      font-size: 0.92rem;
+      line-height: 1.5;
+      border: 1px solid transparent;
+    }
+
+    .notice.is-visible { display: block; }
+    .notice.info {
+      background: rgba(15, 118, 110, 0.08);
+      border-color: rgba(15, 118, 110, 0.15);
+      color: var(--accent-strong);
+    }
+    .notice.warn {
+      background: var(--warn-soft);
+      border-color: rgba(161, 98, 7, 0.18);
+      color: var(--warn);
+    }
+    .notice.error {
+      background: var(--danger-soft);
+      border-color: rgba(185, 28, 28, 0.18);
+      color: var(--danger);
+    }
+    .notice.success {
+      background: var(--success-soft);
+      border-color: rgba(22, 101, 52, 0.18);
+      color: var(--success);
+    }
+
+    .progress-card {
+      display: none;
+      border-radius: 20px;
+      padding: 1rem;
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(248,250,252,0.98));
+    }
+
+    .progress-card.is-visible { display: block; }
+
+    .progress-track {
+      width: 100%;
+      height: 10px;
+      border-radius: 999px;
+      background: #e2e8f0;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #14857b 0%, #14b8a6 100%);
+      border-radius: inherit;
+      transition: width 0.22s ease;
+    }
+
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 2px solid rgba(15, 118, 110, 0.18);
+      border-top-color: var(--accent);
+      animation: spin 0.8s linear infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .muted-link {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .muted-link:hover { text-decoration: underline; }
+
+    .icon-fallback {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 1em;
+    }
+
+    [data-lucide] {
+      display: none !important;
+    }
+
+    .icons-ready .icon-fallback {
+      display: none;
+    }
+
+    [data-busy="true"] .busy-opacity {
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .btn { touch-action: manipulation; }
+    .drag-handle { cursor: default; }
+    .drag-handle:active { cursor: default; }
+
+    /* Utilidades locales mínimas para reemplazar dependencias de framework */
+    .w-full { width: 100%; }
+    .w-2 { width: 0.5rem; }
+    .w-10 { width: 2.5rem; }
+    .w-11 { width: 2.75rem; }
+    .w-12 { width: 3rem; }
+    .w-16 { width: 4rem; }
+    .h-2 { height: 0.5rem; }
+    .h-10 { height: 2.5rem; }
+    .h-11 { height: 2.75rem; }
+    .h-12 { height: 3rem; }
+    .h-16 { height: 4rem; }
+    .h-max { height: max-content; }
+    .min-w-0 { min-width: 0; }
+    .max-w-xl { max-width: 36rem; }
+    .max-w-3xl { max-width: 48rem; }
+    .max-w-7xl { max-width: 80rem; }
+    .mx-auto { margin-left: auto; margin-right: auto; }
+    .mb-3 { margin-bottom: 0.75rem; }
+    .mb-4 { margin-bottom: 1rem; }
+    .mt-1 { margin-top: 0.25rem; }
+    .mt-2 { margin-top: 0.5rem; }
+    .mt-3 { margin-top: 0.75rem; }
+    .mt-4 { margin-top: 1rem; }
+    .mt-5 { margin-top: 1.25rem; }
+    .mt-6 { margin-top: 1.5rem; }
+    .m-0 { margin: 0; }
+    .p-0 { padding: 0; }
+    .p-4 { padding: 1rem; }
+    .px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
+    .px-4 { padding-left: 1rem; padding-right: 1rem; }
+    .px-5 { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+    .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+    .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+    .py-5 { padding-top: 1.25rem; padding-bottom: 1.25rem; }
+    .py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+    .py-10 { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+    .pt-6 { padding-top: 1.5rem; }
+    .pb-6 { padding-bottom: 1.5rem; }
+    .flex { display: flex; }
+    .inline-flex { display: inline-flex; }
+    .grid { display: grid; }
+    .hidden { display: none; }
+    .flex-1 { flex: 1 1 0%; }
+    .shrink-0 { flex-shrink: 0; }
+    .flex-col { flex-direction: column; }
+    .flex-wrap { flex-wrap: wrap; }
+    .items-center { align-items: center; }
+    .items-start { align-items: flex-start; }
+    .justify-center { justify-content: center; }
+    .justify-between { justify-content: space-between; }
+    .justify-end { justify-content: flex-end; }
+    .gap-2 { gap: 0.5rem; }
+    .gap-3 { gap: 0.75rem; }
+    .gap-4 { gap: 1rem; }
+    .gap-5 { gap: 1.25rem; }
+    .gap-6 { gap: 1.5rem; }
+    .space-y-5 > * + * { margin-top: 1.25rem; }
+    .rounded-full { border-radius: 9999px; }
+    .border { border: 1px solid rgba(226, 232, 240, 1); }
+    .border-0 { border: 0; }
+    .border-slate-200 { border-color: rgb(226 232 240); }
+    .ring-1 { box-shadow: inset 0 0 0 1px rgba(226, 232, 240, 1); }
+    .ring-slate-200 { box-shadow: inset 0 0 0 1px rgba(226, 232, 240, 1); }
+    .ring-teal-100 { box-shadow: inset 0 0 0 1px rgba(204, 251, 241, 1); }
+    .shadow-sm { box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06); }
+    .bg-white { background-color: #fff; }
+    .bg-white\/90 { background-color: rgba(255, 255, 255, 0.9); }
+    .bg-teal-50 { background-color: rgb(240 253 250); }
+    .bg-teal-600 { background-color: rgb(13 148 136); }
+    .text-center { text-align: center; }
+    .text-xs { font-size: 0.75rem; line-height: 1rem; }
+    .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+    .text-base { font-size: 1rem; line-height: 1.5rem; }
+    .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+    .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+    .text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+    .font-medium { font-weight: 500; }
+    .font-semibold { font-weight: 600; }
+    .uppercase { text-transform: uppercase; }
+    .tracking-tight { letter-spacing: -0.025em; }
+    .tracking-\[0\.16em\] { letter-spacing: 0.16em; }
+    .leading-6 { line-height: 1.5rem; }
+    .leading-7 { line-height: 1.75rem; }
+    .text-slate-500 { color: rgb(100 116 139); }
+    .text-slate-600 { color: rgb(71 85 105); }
+    .text-slate-700 { color: rgb(51 65 85); }
+    .text-slate-900 { color: rgb(15 23 42); }
+    .text-teal-700 { color: rgb(15 118 110); }
+    .break-words { overflow-wrap: break-word; }
+    .truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .no-underline { text-decoration: none; }
+    .hover\:underline:hover { text-decoration: underline; }
+
+    @media (min-width: 640px) {
+      .sm\:px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .sm\:px-7 { padding-left: 1.75rem; padding-right: 1.75rem; }
+      .sm\:py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+      .sm\:py-8 { padding-top: 2rem; padding-bottom: 2rem; }
+      .sm\:pt-8 { padding-top: 2rem; }
+      .sm\:pb-8 { padding-bottom: 2rem; }
+      .sm\:p-6 { padding: 1.5rem; }
+      .sm\:text-base { font-size: 1rem; line-height: 1.5rem; }
+      .sm\:text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+      .sm\:text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
+      .sm\:flex-row { flex-direction: row; }
+      .sm\:items-center { align-items: center; }
+      .sm\:justify-between { justify-content: space-between; }
+      .sm\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .sm\:inline { display: inline; }
+    }
+
+    @media (min-width: 1024px) {
+      .lg\:px-8 { padding-left: 2rem; padding-right: 2rem; }
+      .lg\:p-7 { padding: 1.75rem; }
+      .lg\:flex-row { flex-direction: row; }
+      .lg\:items-center { align-items: center; }
+      .lg\:justify-between { justify-content: space-between; }
+      .lg\:min-w-\[360px\] { min-width: 360px; }
+    }
+
+    @media (min-width: 1280px) {
+      .xl\:grid-cols-\[minmax\(0\,1\.35fr\)_380px\] { grid-template-columns: minmax(0, 1.35fr) 380px; }
+      .xl\:sticky { position: sticky; }
+      .xl\:top-6 { top: 1.5rem; }
+    }
+
+    @media (max-width: 900px) {
+      .queue-item {
+        grid-template-columns: 1fr;
+        justify-items: stretch;
+      }
+      .queue-thumb {
+        width: 100%;
+        height: 180px;
+      }
+      .drag-handle {
+        width: 100%;
+        border-radius: 14px;
+      }
+      .queue-actions {
+        flex-direction: row;
+      }
+    }
+  </style>
+</head>
+<body>
+  <noscript>
+    <div style="padding:1rem;background:#fee2e2;color:#991b1b;font-family:system-ui,sans-serif;">
+      Esta aplicación necesita JavaScript habilitado para procesar las imágenes localmente.
+    </div>
+  </noscript>
+
+  <div class="app-shell" id="appShell">
+    <header class="w-full px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8">
+      <div class="max-w-7xl mx-auto panel px-5 sm:px-7 py-5 sm:py-6">
+        <div class="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+          <div class="min-w-0">
+            <div class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+              <span class="inline-flex h-2 w-2 rounded-full bg-teal-600"></span>
+              Herramienta local · sin dependencias externas
+            </div>
+            <h1 class="mt-3 text-3xl sm:text-4xl font-semibold tracking-tight text-slate-900">Image to PDF</h1>
+            <p class="mt-2 max-w-3xl text-sm sm:text-base text-slate-600 leading-7">
+              Conversión <strong>local</strong> de imágenes a PDF con control de orientación, compresión, márgenes, escala de grises y reordenación robusta por botones. Pensado para flujos científicos y profesionales, incluso sin conexión.
+            </p>
+          </div>
+          <div class="grid gap-3 sm:grid-cols-2 lg:min-w-[360px]">
+            <div class="panel-soft px-4 py-3">
+              <p class="text-xs uppercase tracking-[0.16em] text-slate-500">Autoría</p>
+              <p class="mt-1 font-semibold text-slate-900">Maicel Monzón PhD</p>
+            </div>
+            <div class="panel-soft px-4 py-3">
+              <p class="text-xs uppercase tracking-[0.16em] text-slate-500">Ecosistema</p>
+              <a class="mt-1 inline-flex items-center gap-2 font-semibold text-teal-700 no-underline hover:underline" href="https://bioestadisticaedu.com/" target="_blank" rel="noopener noreferrer">
+                bioestadisticaedu.com
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="w-full px-4 sm:px-6 lg:px-8 py-6 sm:py-8 flex-1">
+      <div class="max-w-7xl mx-auto grid gap-6 xl:grid-cols-[minmax(0,1.35fr)_380px]">
+        <section class="panel p-4 sm:p-6 lg:p-7 busy-opacity">
+          <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h2 class="text-xl font-semibold text-slate-900">Área de trabajo</h2>
+              <p class="mt-1 text-sm text-slate-500">Carga imágenes, reorganiza páginas con controles estables y ajusta rotaciones antes de exportar.</p>
+            </div>
+            <div class="toolbar-meta">
+              <span class="chip"><span class="font-semibold text-slate-700" id="summaryCount">0</span> páginas</span>
+              <span class="chip"><span class="font-semibold text-slate-700" id="summarySize">0 B</span> totales</span>
+            </div>
+          </div>
+
+          <div class="mt-5 flex flex-wrap gap-3">
+            <button class="btn btn-primary" id="browseButton" type="button">
+              <i data-lucide="images"></i><span class="icon-fallback">🖼️</span>
+              Seleccionar imágenes
+            </button>
+            <button class="btn btn-ghost" id="clearButton" type="button" disabled>
+              <i data-lucide="trash-2"></i><span class="icon-fallback">🗑</span>
+              Limpiar cola
+            </button>
+            <input id="fileInput" type="file" accept="image/*" multiple class="hidden">
+          </div>
+
+          <div class="mt-5 dropzone" id="dropzone" tabindex="0" role="button" aria-label="Zona para arrastrar imágenes o hacer clic para seleccionar archivos">
+            <div class="max-w-xl mx-auto">
+              <div class="mx-auto mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-white/90 text-teal-700 shadow-sm ring-1 ring-slate-200">
+                <i data-lucide="file-up"></i><span class="icon-fallback" style="font-size:1.5rem;">⬆</span>
+              </div>
+              <h3 class="text-lg sm:text-xl font-semibold text-slate-900">Arrastra imágenes aquí</h3>
+              <p class="mt-2 text-sm sm:text-base text-slate-600 leading-7">
+                También puedes hacer clic para seleccionar archivos. Todo el procesamiento sucede en tu navegador y los documentos <strong>no salen de tu dispositivo</strong>, incluso cuando trabajas sin conexión.
+              </p>
+              <div class="mt-4 inline-flex flex-wrap items-center justify-center gap-2 text-xs text-slate-500">
+                <span class="chip">JPG</span>
+                <span class="chip">PNG</span>
+                <span class="chip">WEBP</span>
+                <span class="chip">BMP</span>
+                <span class="chip">GIF</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-5 notice" id="noticeBox" role="status" aria-live="polite"></div>
+
+          <div class="mt-6 flex items-center justify-between gap-3">
+            <div>
+              <h3 class="text-base font-semibold text-slate-900">Cola de páginas</h3>
+              <p class="mt-1 text-sm text-slate-500">Reordena con botones subir/bajar. Usa rotación por página cuando sea necesario.</p>
+            </div>
+            <div class="chip">
+              <i data-lucide="move"></i><span class="icon-fallback">↕</span>
+              Reordenación estable
+            </div>
+          </div>
+
+          <div id="emptyState" class="panel-soft mt-4 px-5 py-10 text-center text-slate-500">
+            <div class="mx-auto mb-3 inline-flex h-12 w-12 items-center justify-center rounded-full bg-white ring-1 ring-slate-200">
+              <i data-lucide="image-plus"></i><span class="icon-fallback">＋</span>
+            </div>
+            <p class="font-medium text-slate-700">Aún no hay imágenes cargadas</p>
+            <p class="mt-1 text-sm">Empieza soltando archivos en la zona superior o usando el botón de selección.</p>
+          </div>
+
+          <div class="queue-list mt-4" id="queueList" aria-live="polite"></div>
+        </section>
+
+        <aside class="panel p-4 sm:p-6 lg:p-7 h-max xl:sticky xl:top-6">
+          <div class="flex items-center justify-between gap-3">
+            <div>
+              <h2 class="text-xl font-semibold text-slate-900">Configuración</h2>
+              <p class="mt-1 text-sm text-slate-500">Controles de salida y calidad.</p>
+            </div>
+            <div class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-teal-50 text-teal-700 ring-1 ring-teal-100">
+              <i data-lucide="settings-2"></i><span class="icon-fallback">⚙</span>
+            </div>
+          </div>
+
+          <form id="settingsForm" class="mt-6 space-y-5">
+            <fieldset id="settingsFieldset" class="space-y-5 min-w-0 border-0 p-0 m-0">
+              <div>
+                <label class="field-label">Orientación</label>
+                <div class="segmented">
+                  <label>
+                    <input type="radio" name="orientation" value="portrait" checked>
+                    <span class="segment-option">Vertical</span>
+                  </label>
+                  <label>
+                    <input type="radio" name="orientation" value="landscape">
+                    <span class="segment-option">Horizontal</span>
+                  </label>
+                </div>
+              </div>
+
+              <div>
+                <label class="field-label" for="pageSize">Tamaño de página</label>
+                <select class="select" id="pageSize" name="pageSize">
+                  <option value="a4">A4</option>
+                  <option value="letter">US Letter</option>
+                  <option value="legal">Legal</option>
+                  <option value="original">Adaptar al tamaño original de la imagen</option>
+                </select>
+                <p class="field-help">En el modo original, los píxeles se traducen a tamaño físico usando una referencia estable de 300 DPI para mantener nitidez de impresión.</p>
+              </div>
+
+              <div>
+                <label class="field-label" for="marginMm">Márgenes</label>
+                <select class="select" id="marginMm" name="marginMm">
+                  <option value="0">Sin margen (0 mm)</option>
+                  <option value="10" selected>Pequeño (10 mm)</option>
+                  <option value="20">Grande (20 mm)</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="field-label" for="fitMode">Modo de ajuste</label>
+                <select class="select" id="fitMode" name="fitMode">
+                  <option value="contain" selected>Escalar manteniendo proporción (Contain)</option>
+                  <option value="stretch">Ajustar para llenar la página (Stretch)</option>
+                </select>
+              </div>
+
+              <div>
+                <div class="field-label">
+                  <label for="qualityRange">Calidad de compresión JPEG</label>
+                  <span id="qualityValue" class="text-sm font-semibold text-teal-700">92%</span>
+                </div>
+                <input class="range" id="qualityRange" name="qualityRange" type="range" min="10" max="100" value="92" step="1">
+                <p class="field-help">Valores altos priorizan calidad visual; valores bajos reducen el tamaño final del archivo.</p>
+              </div>
+
+              <div>
+                <label class="field-label">Procesamiento de imagen</label>
+                <div class="segmented">
+                  <label>
+                    <input type="radio" name="filterMode" value="original" checked>
+                    <span class="segment-option">Original</span>
+                  </label>
+                  <label>
+                    <input type="radio" name="filterMode" value="grayscale">
+                    <span class="segment-option">Escala de grises (B&amp;W)</span>
+                  </label>
+                </div>
+              </div>
+
+              <div>
+                <label class="field-label">Modo de salida</label>
+                <div class="segmented">
+                  <label>
+                    <input type="radio" name="outputMode" value="single" checked>
+                    <span class="segment-option">Un solo PDF</span>
+                  </label>
+                  <label>
+                    <input type="radio" name="outputMode" value="separate">
+                    <span class="segment-option">Un PDF por imagen</span>
+                  </label>
+                </div>
+                <p class="field-help" id="outputModeHelp">Se generará un único documento PDF con todas las páginas en el orden actual.</p>
+              </div>
+            </fieldset>
+          </form>
+
+          <div class="progress-card mt-6" id="progressCard" aria-live="polite" aria-atomic="true">
+            <div class="flex items-start gap-3">
+              <div class="spinner" aria-hidden="true"></div>
+              <div class="min-w-0 flex-1">
+                <div class="flex items-center justify-between gap-3">
+                  <p class="font-semibold text-slate-900" id="progressTitle">Procesando…</p>
+                  <span class="text-sm font-medium text-slate-500" id="progressCounter">0%</span>
+                </div>
+                <p class="mt-1 text-sm text-slate-500 break-words" id="progressText">Preparando tareas locales…</p>
+                <div class="progress-track mt-3">
+                  <div class="progress-bar" id="progressBar"></div>
+                </div>
+                <div class="mt-3 flex justify-end">
+                  <button class="btn btn-ghost" id="cancelProcessingButton" type="button" disabled>
+                    <i data-lucide="x-circle"></i><span class="icon-fallback">✕</span>
+                    Cancelar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel-soft mt-6 px-4 py-4" id="workloadCard">
+            <div class="flex items-start gap-3">
+              <div class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-teal-700 ring-1 ring-slate-200">
+                <i data-lucide="activity"></i><span class="icon-fallback">◔</span>
+              </div>
+              <div class="min-w-0">
+                <div class="flex items-center justify-between gap-2">
+                  <p class="font-semibold text-slate-900">Salud del lote</p>
+                  <span class="chip" id="workloadRiskChip">Sin carga</span>
+                </div>
+                <p class="mt-1 text-sm text-slate-500 leading-6" id="workloadText">
+                  Carga imágenes para estimar complejidad, memoria esperada y recomendaciones de estabilidad.
+                </p>
+                <div class="mt-3 flex flex-wrap gap-2" id="workloadMeta">
+                  <span class="chip">0 páginas</span>
+                  <span class="chip">0 MP</span>
+                  <span class="chip">0 B</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel-soft mt-6 px-4 py-4">
+            <div class="flex items-start gap-3">
+              <div class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-teal-700 ring-1 ring-slate-200">
+                <i data-lucide="shield-check"></i><span class="icon-fallback">🔒</span>
+              </div>
+              <div>
+                <p class="font-semibold text-slate-900">Procesamiento local y privado</p>
+                <p class="mt-1 text-sm text-slate-500 leading-6">
+                  Esta herramienta es gratuita, estática, offline-first y orientada a la privacidad de datos científicos y profesionales. No sube archivos a servidores externos.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 flex flex-col gap-3">
+            <button class="btn btn-primary w-full justify-center text-base" id="generateButton" type="button" disabled>
+              <i data-lucide="download"></i><span class="icon-fallback">⬇</span>
+              <span id="generateButtonLabel">Generar PDF</span>
+            </button>
+            <p class="text-xs leading-6 text-slate-500">
+              Consejo: para lotes muy grandes, procesa en grupos para mantener un uso de memoria predecible y maximizar estabilidad del navegador.
+            </p>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <footer class="px-4 sm:px-6 lg:px-8 pb-6 sm:pb-8">
+      <div class="max-w-7xl mx-auto panel-soft px-5 py-4 text-sm text-slate-500">
+        <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+          <p>
+            <span class="font-semibold text-slate-700">Image to PDF</span> · Herramienta gratuita de procesamiento local para documentos e imágenes.
+          </p>
+          <p>
+            Autor: <span class="font-semibold text-slate-700">Maicel Monzón PhD</span> ·
+            <a class="muted-link" href="https://bioestadisticaedu.com/" target="_blank" rel="noopener noreferrer">bioestadisticaedu.com</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (() => {
+      'use strict';
+
+      const PAGE_PRESETS_PT = {
+        a4: { width: 595.28, height: 841.89, label: 'A4' },
+        letter: { width: 612, height: 792, label: 'US Letter' },
+        legal: { width: 612, height: 1008, label: 'Legal' }
+      };
+
+      // Referencia determinista para traducir píxeles a tamaño físico al usar "tamaño original".
+      const ORIGINAL_IMAGE_DPI = 300;
+
+      // Límites conservadores para prevenir fallos en canvas con imágenes extremadamente grandes.
+      const CANVAS_LIMITS = {
+        maxSide: 32767,
+        maxPixels: 268435456,
+        warnPixels: 50000000,
+        warnQueueBytes: 500 * 1024 * 1024,
+        warnItemCount: 80
+      };
+
+      const SETTINGS_STORAGE_KEY = 'image-to-pdf:settings:v1';
+
+      class ProcessingCancelledError extends Error {
+        constructor(message = 'Proceso cancelado por el usuario.') {
+          super(message);
+          this.name = 'ProcessingCancelledError';
+        }
+      }
+
+      const state = {
+        items: [],
+        busy: false,
+        cancelRequested: false,
+        sortable: null,
+        noticeTimer: null,
+        metadataQueue: Promise.resolve(),
+        settings: {
+          orientation: 'portrait',
+          pageSize: 'a4',
+          marginMm: 10,
+          fitMode: 'contain',
+          quality: 0.92,
+          filterMode: 'original',
+          outputMode: 'single'
+        }
+      };
+
+      const els = {};
+
+      document.addEventListener('DOMContentLoaded', init);
+
+      function init() {
+        cacheElements();
+        applyPersistedSettings();
+        bindEvents();
+        syncSettingsFromForm();
+        initSortable();
+        renderQueue();
+        detectRuntimeLibraries();
+        safeCreateIcons();
+      }
+
+      function cacheElements() {
+        els.appShell = document.getElementById('appShell');
+        els.fileInput = document.getElementById('fileInput');
+        els.browseButton = document.getElementById('browseButton');
+        els.clearButton = document.getElementById('clearButton');
+        els.dropzone = document.getElementById('dropzone');
+        els.queueList = document.getElementById('queueList');
+        els.emptyState = document.getElementById('emptyState');
+        els.summaryCount = document.getElementById('summaryCount');
+        els.summarySize = document.getElementById('summarySize');
+        els.noticeBox = document.getElementById('noticeBox');
+        els.settingsForm = document.getElementById('settingsForm');
+        els.settingsFieldset = document.getElementById('settingsFieldset');
+        els.qualityRange = document.getElementById('qualityRange');
+        els.qualityValue = document.getElementById('qualityValue');
+        els.outputModeHelp = document.getElementById('outputModeHelp');
+        els.generateButton = document.getElementById('generateButton');
+        els.generateButtonLabel = document.getElementById('generateButtonLabel');
+        els.progressCard = document.getElementById('progressCard');
+        els.progressTitle = document.getElementById('progressTitle');
+        els.progressText = document.getElementById('progressText');
+        els.progressCounter = document.getElementById('progressCounter');
+        els.progressBar = document.getElementById('progressBar');
+        els.cancelProcessingButton = document.getElementById('cancelProcessingButton');
+        els.workloadRiskChip = document.getElementById('workloadRiskChip');
+        els.workloadText = document.getElementById('workloadText');
+        els.workloadMeta = document.getElementById('workloadMeta');
+      }
+
+      function bindEvents() {
+        els.browseButton.addEventListener('click', () => {
+          if (!state.busy) {
+            els.fileInput.click();
+          }
+        });
+
+        els.fileInput.addEventListener('change', (event) => {
+          handleIncomingFiles(event.target.files);
+          event.target.value = '';
+        });
+
+        els.dropzone.addEventListener('click', () => {
+          if (!state.busy) {
+            els.fileInput.click();
+          }
+        });
+
+        els.dropzone.addEventListener('keydown', (event) => {
+          if ((event.key === 'Enter' || event.key === ' ') && !state.busy) {
+            event.preventDefault();
+            els.fileInput.click();
+          }
+        });
+
+        ['dragenter', 'dragover'].forEach((type) => {
+          els.dropzone.addEventListener(type, (event) => {
+            event.preventDefault();
+            if (!state.busy) {
+              els.dropzone.classList.add('is-active');
+            }
+          });
+        });
+
+        ['dragleave', 'dragend', 'drop'].forEach((type) => {
+          els.dropzone.addEventListener(type, (event) => {
+            event.preventDefault();
+            els.dropzone.classList.remove('is-active');
+          });
+        });
+
+        els.dropzone.addEventListener('drop', (event) => {
+          if (state.busy) return;
+          handleIncomingFiles(event.dataTransfer ? event.dataTransfer.files : []);
+        });
+
+        els.clearButton.addEventListener('click', () => {
+          if (!state.items.length || state.busy) return;
+          const confirmed = window.confirm('¿Deseas eliminar todas las imágenes de la cola?');
+          if (confirmed) {
+            clearAllItems();
+          }
+        });
+
+        els.queueList.addEventListener('click', (event) => {
+          const button = event.target.closest('button[data-action]');
+          if (!button || state.busy) return;
+
+          const { action, id } = button.dataset;
+          if (!id) return;
+
+          if (action === 'remove') {
+            removeItem(id);
+          } else if (action === 'rotate-left') {
+            rotateItem(id, -90);
+          } else if (action === 'rotate-right') {
+            rotateItem(id, 90);
+          } else if (action === 'move-up') {
+            moveItem(id, -1);
+          } else if (action === 'move-down') {
+            moveItem(id, 1);
+          }
+        });
+
+        els.settingsForm.addEventListener('change', () => {
+          syncSettingsFromForm();
+        });
+
+        els.qualityRange.addEventListener('input', () => {
+          syncSettingsFromForm();
+        });
+
+        els.generateButton.addEventListener('click', async () => {
+          await generatePdfWorkflow();
+        });
+
+        els.cancelProcessingButton.addEventListener('click', () => {
+          requestCancelProcessing();
+        });
+
+        window.addEventListener('beforeunload', cleanupAllObjectUrls);
+      }
+
+      function detectRuntimeLibraries() {
+        const unsupported = [];
+        const probeCanvas = document.createElement('canvas');
+
+        if (!(window.URL && typeof window.URL.createObjectURL === 'function')) unsupported.push('Object URL');
+        if (typeof window.Blob !== 'function') unsupported.push('Blob');
+        if (typeof window.TextEncoder !== 'function') unsupported.push('TextEncoder');
+        if (!probeCanvas.getContext) unsupported.push('Canvas 2D');
+        if (typeof probeCanvas.toBlob !== 'function') unsupported.push('Canvas.toBlob');
+
+        if (unsupported.length) {
+          showNotice(
+            'Tu navegador no soporta todas las APIs necesarias para generar PDFs locales: ' + unsupported.join(', ') + '.',
+            'error',
+            true
+          );
+        }
+      }
+
+      function initSortable() {
+        // Se desactiva el drag & drop para priorizar robustez offline y compatibilidad móvil.
+        state.sortable = null;
+      }
+
+      function syncSettingsFromForm() {
+        const formData = new FormData(els.settingsForm);
+        state.settings = {
+          orientation: formData.get('orientation') || 'portrait',
+          pageSize: formData.get('pageSize') || 'a4',
+          marginMm: Number(formData.get('marginMm') || 10),
+          fitMode: formData.get('fitMode') || 'contain',
+          quality: Number(els.qualityRange.value || 92) / 100,
+          filterMode: formData.get('filterMode') || 'original',
+          outputMode: formData.get('outputMode') || 'single'
+        };
+
+        els.qualityValue.textContent = Math.round(state.settings.quality * 100) + '%';
+        els.generateButtonLabel.textContent = state.settings.outputMode === 'single' ? 'Generar PDF' : 'Generar PDFs';
+        const budget = getExportBudget(state.settings);
+        els.outputModeHelp.textContent = state.settings.outputMode === 'single'
+          ? 'Se generará un único documento PDF con todas las páginas en el orden actual. La aplicación bloqueará automáticamente lotes inseguros para proteger el navegador.'
+          : 'Se descargará un PDF independiente por cada imagen. En ' + budget.profile.label.toLowerCase() + ' conviene trabajar en lotes pequeños para evitar bloqueos o demasiadas descargas consecutivas.';
+
+        persistSettings();
+      }
+
+      function applyPersistedSettings() {
+        try {
+          const raw = window.localStorage.getItem(SETTINGS_STORAGE_KEY);
+          if (!raw) return;
+
+          const saved = JSON.parse(raw);
+          if (!saved || typeof saved !== 'object') return;
+
+          setRadioValue('orientation', saved.orientation);
+          setSelectValue('pageSize', saved.pageSize);
+          setSelectValue('marginMm', String(saved.marginMm));
+          setSelectValue('fitMode', saved.fitMode);
+          setRadioValue('filterMode', saved.filterMode);
+          setRadioValue('outputMode', saved.outputMode);
+
+          if (typeof saved.quality === 'number' && Number.isFinite(saved.quality)) {
+            els.qualityRange.value = String(Math.min(100, Math.max(10, Math.round(saved.quality * 100))));
+          }
+        } catch (error) {
+          console.warn('No se pudieron restaurar las preferencias locales.', error);
+        }
+      }
+
+      function persistSettings() {
+        try {
+          window.localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(state.settings));
+        } catch (error) {
+          // Algunos navegadores o contextos restringidos pueden bloquear almacenamiento; se ignora con seguridad.
+        }
+      }
+
+      function setRadioValue(name, value) {
+        if (!value) return;
+        const inputs = els.settingsForm.querySelectorAll('input[type="radio"][name="' + name + '"]');
+        inputs.forEach((input) => {
+          input.checked = input.value === String(value);
+        });
+      }
+
+      function setSelectValue(id, value) {
+        if (value === undefined || value === null) return;
+        const select = document.getElementById(id);
+        if (select) {
+          select.value = String(value);
+        }
+      }
+
+      function handleIncomingFiles(fileList) {
+        if (!fileList || !fileList.length) return;
+
+        const files = Array.from(fileList);
+        const accepted = files.filter((file) => file.type.startsWith('image/'));
+        const rejectedCount = files.length - accepted.length;
+
+        if (!accepted.length) {
+          showNotice('No se detectaron archivos de imagen válidos.', 'warn');
+          return;
+        }
+
+        const newItems = accepted.map(createQueueItem);
+        state.items.push(...newItems);
+        renderQueue();
+        safeCreateIcons();
+        scheduleMetadataHydration(newItems);
+
+        const totalBytes = state.items.reduce((sum, item) => sum + item.size, 0);
+        const shouldWarnAboutVolume = state.items.length >= CANVAS_LIMITS.warnItemCount || totalBytes >= CANVAS_LIMITS.warnQueueBytes;
+
+        if (rejectedCount > 0) {
+          showNotice(rejectedCount + ' archivo(s) se ignoraron porque no eran imágenes compatibles.', 'warn');
+        } else if (shouldWarnAboutVolume) {
+          showNotice('Las imágenes se añadieron correctamente, pero el lote es grande. Para mayor estabilidad del navegador conviene procesar en bloques.', 'warn', true);
+        } else {
+          showNotice('Imágenes añadidas correctamente. Puedes reordenar la cola y ajustar rotaciones por página.', 'success');
+        }
+      }
+
+      function createQueueItem(file) {
+        return {
+          id: getId(),
+          file,
+          name: file.name,
+          size: file.size,
+          type: file.type,
+          objectUrl: URL.createObjectURL(file),
+          width: null,
+          height: null,
+          rotation: 0,
+          error: null
+        };
+      }
+
+      async function ensureItemDimensions(item) {
+        if (item.width && item.height) {
+          return item;
+        }
+        if (!item.objectUrl) {
+          throw new Error('La referencia temporal de una imagen ya no está disponible.');
+        }
+
+        const img = await loadImage(item.objectUrl);
+        item.width = img.naturalWidth;
+        item.height = img.naturalHeight;
+        item.canvasRisk = getCanvasRisk(item.width, item.height, item.rotation);
+        img.src = '';
+        if (state.items.some((entry) => entry.id === item.id)) {
+          renderQueue();
+        }
+        return item;
+      }
+
+      function scheduleMetadataHydration(items) {
+        state.metadataQueue = state.metadataQueue.then(async () => {
+          for (const item of items) {
+            if (!state.items.some((entry) => entry.id === item.id)) {
+              continue;
+            }
+
+            try {
+              await ensureItemDimensions(item);
+            } catch (error) {
+              console.error(error);
+              if (state.items.some((entry) => entry.id === item.id)) {
+                item.error = 'No se pudo leer la imagen';
+                renderQueue();
+              }
+            }
+
+            await yieldToUI();
+          }
+        });
+      }
+
+      function renderQueue() {
+        const hasItems = state.items.length > 0;
+        els.emptyState.style.display = hasItems ? 'none' : 'block';
+        els.queueList.innerHTML = hasItems ? state.items.map(renderQueueItem).join('') : '';
+
+        els.summaryCount.textContent = String(state.items.length);
+        els.summarySize.textContent = formatBytes(state.items.reduce((sum, item) => sum + item.size, 0));
+
+        const actionable = hasItems && !state.busy;
+        els.clearButton.disabled = !actionable;
+        els.generateButton.disabled = !actionable || !canGeneratePdfLocally();
+        els.browseButton.disabled = state.busy;
+        els.fileInput.disabled = state.busy;
+        els.settingsFieldset.disabled = state.busy;
+        els.cancelProcessingButton.disabled = !state.busy || state.cancelRequested;
+        els.dropzone.classList.toggle('is-disabled', state.busy);
+        els.appShell.dataset.busy = String(state.busy);
+
+        updateWorkloadSummary();
+        safeCreateIcons();
+      }
+
+      function renderQueueItem(item, index) {
+        const rotation = normalizeRotation(item.rotation);
+        const dimensions = item.width && item.height ? item.width + ' × ' + item.height + ' px' : 'Leyendo dimensiones…';
+        const statusParts = [];
+
+        if (item.error) {
+          statusParts.push('<span class="chip" style="color:#b91c1c;background:rgba(185,28,28,0.08);border-color:rgba(185,28,28,0.12);">Error de lectura</span>');
+        }
+
+        if (item.canvasRisk && item.canvasRisk.level === 'warn') {
+          statusParts.push('<span class="chip" style="color:#a16207;background:rgba(161,98,7,0.08);border-color:rgba(161,98,7,0.12);">Imagen grande</span>');
+        }
+
+        if (item.canvasRisk && item.canvasRisk.level === 'error') {
+          statusParts.push('<span class="chip" style="color:#b91c1c;background:rgba(185,28,28,0.08);border-color:rgba(185,28,28,0.12);">Supera límite de canvas</span>');
+        }
+
+        const statusText = statusParts.join('');
+        const disabled = state.busy ? 'disabled' : '';
+
+        return `
+          <article class="queue-item" data-id="${item.id}">
+            <div class="drag-handle" title="Posición actual" aria-label="Posición actual">
+              <span class="font-semibold text-slate-700">${index + 1}</span>
+            </div>
+            <img class="queue-thumb" src="${item.objectUrl}" alt="Vista previa de ${escapeHtml(item.name)}" loading="lazy">
+            <div class="min-w-0">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="chip"><strong>${index + 1}</strong></span>
+                <p class="truncate text-sm sm:text-base font-semibold text-slate-900">${escapeHtml(item.name)}</p>
+              </div>
+              <p class="mt-2 text-sm text-slate-500">${dimensions}</p>
+              <div class="mt-3 flex flex-wrap gap-2">
+                <span class="chip">${formatBytes(item.size)}</span>
+                <span class="chip">Rotación ${rotation}°</span>
+                ${statusText}
+              </div>
+            </div>
+            <div class="queue-actions flex flex-col gap-2">
+              <button class="btn btn-ghost" type="button" data-action="move-up" data-id="${item.id}" title="Subir una posición" ${disabled} ${index === 0 ? 'disabled' : ''}>
+                <i data-lucide="arrow-up"></i><span class="icon-fallback">↑</span>
+                <span class="hidden sm:inline">Subir</span>
+              </button>
+              <button class="btn btn-ghost" type="button" data-action="move-down" data-id="${item.id}" title="Bajar una posición" ${disabled} ${index === state.items.length - 1 ? 'disabled' : ''}>
+                <i data-lucide="arrow-down"></i><span class="icon-fallback">↓</span>
+                <span class="hidden sm:inline">Bajar</span>
+              </button>
+              <button class="btn btn-ghost" type="button" data-action="rotate-left" data-id="${item.id}" title="Rotar 90° a la izquierda" ${disabled}>
+                <i data-lucide="rotate-ccw"></i><span class="icon-fallback">↺</span>
+                <span class="hidden sm:inline">Izq.</span>
+              </button>
+              <button class="btn btn-ghost" type="button" data-action="rotate-right" data-id="${item.id}" title="Rotar 90° a la derecha" ${disabled}>
+                <i data-lucide="rotate-cw"></i><span class="icon-fallback">↻</span>
+                <span class="hidden sm:inline">Der.</span>
+              </button>
+              <button class="btn btn-danger" type="button" data-action="remove" data-id="${item.id}" title="Eliminar de la cola" ${disabled}>
+                <i data-lucide="trash-2"></i><span class="icon-fallback">✕</span>
+                <span class="hidden sm:inline">Eliminar</span>
+              </button>
+            </div>
+          </article>
+        `;
+      }
+
+      function rotateItem(id, delta) {
+        const item = state.items.find((entry) => entry.id === id);
+        if (!item) return;
+        item.rotation = normalizeRotation(item.rotation + delta);
+        if (item.width && item.height) {
+          item.canvasRisk = getCanvasRisk(item.width, item.height, item.rotation);
+        }
+        renderQueue();
+      }
+
+      function moveItem(id, direction) {
+        const index = state.items.findIndex((entry) => entry.id === id);
+        if (index === -1) return;
+        const targetIndex = index + direction;
+        if (targetIndex < 0 || targetIndex >= state.items.length) return;
+        const [item] = state.items.splice(index, 1);
+        state.items.splice(targetIndex, 0, item);
+        renderQueue();
+      }
+
+      function removeItem(id) {
+        const index = state.items.findIndex((entry) => entry.id === id);
+        if (index === -1) return;
+        revokeItemUrl(state.items[index]);
+        state.items.splice(index, 1);
+        renderQueue();
+        showNotice('Imagen eliminada de la cola y recursos liberados correctamente.', 'info');
+      }
+
+      function clearAllItems() {
+        cleanupAllObjectUrls();
+        state.items = [];
+        renderQueue();
+        showNotice('Cola reiniciada. Todas las URL temporales se liberaron.', 'info');
+      }
+
+      function cleanupAllObjectUrls() {
+        state.items.forEach(revokeItemUrl);
+      }
+
+      function revokeItemUrl(item) {
+        if (item && item.objectUrl) {
+          URL.revokeObjectURL(item.objectUrl);
+          item.objectUrl = null;
+        }
+      }
+
+      async function generatePdfWorkflow() {
+        if (state.busy) return;
+        if (!state.items.length) {
+          showNotice('Primero carga al menos una imagen.', 'warn');
+          return;
+        }
+        if (!canGeneratePdfLocally()) {
+          showNotice('Este navegador no soporta las APIs mínimas para generar PDFs locales.', 'error', true);
+          return;
+        }
+
+        syncSettingsFromForm();
+        state.cancelRequested = false;
+        setBusy(true);
+        showProgress('Preparando conversión…', 'Validando imágenes y configuraciones locales.', 0);
+
+        try {
+          const items = [...state.items];
+
+          // Garantiza que las dimensiones estén disponibles antes de iniciar el pipeline del PDF.
+          for (let i = 0; i < items.length; i += 1) {
+            await ensureItemDimensions(items[i]);
+            updateProgressState(i + 1, items.length, 'Analizando ' + items[i].name + '…');
+            await yieldToUI();
+          }
+
+          validateItemsForExport(items, state.settings);
+
+          if (state.settings.outputMode === 'single') {
+            await exportSinglePdf(items, state.settings);
+            showNotice('PDF unificado generado correctamente.', 'success');
+          } else {
+            await exportSeparatePdfs(items, state.settings);
+            showNotice('PDFs individuales generados correctamente.', 'success');
+          }
+        } catch (error) {
+          if (error instanceof ProcessingCancelledError || (error && error.name === 'ProcessingCancelledError')) {
+            showNotice('El proceso se canceló de forma segura. Puedes ajustar la cola y volver a intentarlo.', 'info');
+          } else {
+            console.error(error);
+            showNotice(error && error.message ? error.message : 'No se pudo completar la exportación.', 'error', true);
+          }
+        } finally {
+          setBusy(false);
+          hideProgress();
+        }
+      }
+
+      async function exportSinglePdf(items, settings) {
+        throwIfCancelled();
+        const pdf = createPdfDocument(items.length);
+
+        for (let index = 0; index < items.length; index += 1) {
+          throwIfCancelled();
+          const item = items[index];
+          const metrics = computePageMetricsFromItem(item, settings);
+
+          showProgress(
+            'Generando PDF unificado…',
+            'Procesando ' + item.name + ' (' + (index + 1) + '/' + items.length + ')',
+            index / items.length
+          );
+
+          await addItemToPdf(pdf, index, item, settings, metrics);
+          throwIfCancelled();
+          await yieldToUI();
+        }
+
+        showProgress('Finalizando documento…', 'Creando archivo PDF local para descarga.', 1);
+        throwIfCancelled();
+        const blob = pdf.outputBlob();
+        throwIfCancelled();
+        await downloadBlob(blob, buildUnifiedFileName());
+      }
+
+      async function exportSeparatePdfs(items, settings) {
+        for (let index = 0; index < items.length; index += 1) {
+          throwIfCancelled();
+          const item = items[index];
+          const metrics = computePageMetricsFromItem(item, settings);
+
+          showProgress(
+            'Generando PDFs individuales…',
+            'Procesando ' + item.name + ' (' + (index + 1) + '/' + items.length + ')',
+            index / items.length
+          );
+
+          const pdf = createPdfDocument(1);
+          await addItemToPdf(pdf, 0, item, settings, metrics);
+          throwIfCancelled();
+          const blob = pdf.outputBlob();
+          throwIfCancelled();
+          await downloadBlob(blob, buildItemFileName(item, index));
+          await delay(120);
+        }
+
+        showProgress('Exportación completada', 'Todas las descargas solicitadas fueron preparadas.', 1);
+      }
+
+      class SimplePdfDocument {
+        constructor(pageCount, metadata) {
+          this.pageCount = pageCount;
+          this.metadata = metadata || {};
+          this.encoder = new TextEncoder();
+          this.objectCount = 3 + (pageCount * 3);
+          this.offsets = new Array(this.objectCount + 1).fill(0);
+          this.chunks = [];
+          this.length = 0;
+          this.finalized = false;
+
+          this.writeHeader();
+          this.writeObject(1, '<< /Type /Catalog /Pages 2 0 R >>');
+          this.writeObject(2, '<< /Type /Pages /Count ' + this.pageCount + ' /Kids [' + this.buildKidsRefs() + '] >>');
+          this.writeObject(3, this.buildInfoDictionary());
+        }
+
+        buildKidsRefs() {
+          return Array.from({ length: this.pageCount }, (_, index) => String(4 + (index * 3)) + ' 0 R').join(' ');
+        }
+
+        buildInfoDictionary() {
+          const metadata = {
+            title: this.metadata.title || 'Image to PDF',
+            subject: this.metadata.subject || 'Conversión local de imágenes a PDF',
+            author: this.metadata.author || 'Maicel Monzón PhD',
+            creator: this.metadata.creator || 'bioestadisticaedu.com',
+            producer: this.metadata.producer || 'Image to PDF'
+          };
+
+          return [
+            '<<',
+            '/Title ' + pdfHexString(metadata.title),
+            '/Subject ' + pdfHexString(metadata.subject),
+            '/Author ' + pdfHexString(metadata.author),
+            '/Creator ' + pdfHexString(metadata.creator),
+            '/Producer ' + pdfHexString(metadata.producer),
+            '/CreationDate ' + pdfLiteralString(buildPdfDate()),
+            '>>'
+          ].join(' ');
+        }
+
+        writeHeader() {
+          this.pushBytes(this.encoder.encode('%PDF-1.4\n'));
+          this.pushBytes(new Uint8Array([0x25, 0xFF, 0xFF, 0xFF, 0xFF, 0x0A]));
+        }
+
+        pushBytes(bytes) {
+          this.chunks.push(bytes);
+          this.length += bytes.length;
+        }
+
+        pushString(value) {
+          this.pushBytes(this.encoder.encode(value));
+        }
+
+        writeObject(objectNumber, body) {
+          this.offsets[objectNumber] = this.length;
+          this.pushString(String(objectNumber) + ' 0 obj\n' + body + '\nendobj\n');
+        }
+
+        writeStreamObject(objectNumber, dictionary, bytes) {
+          this.offsets[objectNumber] = this.length;
+          this.pushString(String(objectNumber) + ' 0 obj\n' + dictionary + '\nstream\n');
+          this.pushBytes(bytes);
+          this.pushString('\nendstream\nendobj\n');
+        }
+
+        appendPage(pageIndex, pageData) {
+          if (this.finalized) {
+            throw new Error('El documento PDF ya fue finalizado.');
+          }
+
+          const pageObjectNumber = 4 + (pageIndex * 3);
+          const contentObjectNumber = pageObjectNumber + 1;
+          const imageObjectNumber = pageObjectNumber + 2;
+          const imageName = '/Im' + String(pageIndex + 1);
+          const yPdf = pageData.pageHeightPt - pageData.yPt - pageData.renderHeightPt;
+          const contentString = [
+            'q',
+            formatPdfNumber(pageData.renderWidthPt) + ' 0 0 ' + formatPdfNumber(pageData.renderHeightPt) + ' ' + formatPdfNumber(pageData.xPt) + ' ' + formatPdfNumber(yPdf) + ' cm',
+            imageName + ' Do',
+            'Q',
+            ''
+          ].join('\n');
+          const contentBytes = this.encoder.encode(contentString);
+
+          this.writeStreamObject(
+            imageObjectNumber,
+            '<< /Type /XObject /Subtype /Image /Width ' + pageData.imageWidthPx + ' /Height ' + pageData.imageHeightPx + ' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ' + pageData.imageBytes.length + ' >>',
+            pageData.imageBytes
+          );
+
+          this.writeStreamObject(
+            contentObjectNumber,
+            '<< /Length ' + contentBytes.length + ' >>',
+            contentBytes
+          );
+
+          this.writeObject(
+            pageObjectNumber,
+            '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ' + formatPdfNumber(pageData.pageWidthPt) + ' ' + formatPdfNumber(pageData.pageHeightPt) + '] /Resources << /XObject << ' + imageName + ' ' + imageObjectNumber + ' 0 R >> >> /Contents ' + contentObjectNumber + ' 0 R >>'
+          );
+        }
+
+        finalize() {
+          if (this.finalized) return;
+
+          const startXref = this.length;
+          this.pushString('xref\n0 ' + String(this.objectCount + 1) + '\n');
+          this.pushString('0000000000 65535 f \n');
+
+          for (let objectNumber = 1; objectNumber <= this.objectCount; objectNumber += 1) {
+            this.pushString(String(this.offsets[objectNumber]).padStart(10, '0') + ' 00000 n \n');
+          }
+
+          this.pushString(
+            'trailer\n<< /Size ' + String(this.objectCount + 1) + ' /Root 1 0 R /Info 3 0 R >>\nstartxref\n' + String(startXref) + '\n%%EOF'
+          );
+          this.finalized = true;
+        }
+
+        outputBlob() {
+          this.finalize();
+          return new Blob(this.chunks, { type: 'application/pdf' });
+        }
+      }
+
+      function createPdfDocument(pageCount) {
+        return new SimplePdfDocument(pageCount, {
+          title: 'Image to PDF',
+          subject: 'Conversión local de imágenes a PDF',
+          author: 'Maicel Monzón PhD',
+          creator: 'bioestadisticaedu.com',
+          producer: 'Image to PDF'
+        });
+      }
+
+      async function addItemToPdf(pdf, pageIndex, item, settings, pageMetrics) {
+        throwIfCancelled();
+        const processed = await renderImageCanvas(item, settings);
+
+        try {
+          throwIfCancelled();
+          const blob = await canvasToBlob(processed.canvas, 'image/jpeg', settings.quality);
+          throwIfCancelled();
+          const imageBytes = new Uint8Array(await blob.arrayBuffer());
+
+          pdf.appendPage(pageIndex, {
+            pageWidthPt: pageMetrics.pageWidthPt,
+            pageHeightPt: pageMetrics.pageHeightPt,
+            xPt: pageMetrics.xPt,
+            yPt: pageMetrics.yPt,
+            renderWidthPt: pageMetrics.renderWidthPt,
+            renderHeightPt: pageMetrics.renderHeightPt,
+            imageWidthPx: processed.widthPx,
+            imageHeightPx: processed.heightPx,
+            imageBytes
+          });
+        } finally {
+          processed.cleanup();
+        }
+      }
+
+      async function renderImageCanvas(item, settings) {
+        if (!item.objectUrl) {
+          throw new Error('La referencia temporal de ' + item.name + ' ya no está disponible.');
+        }
+
+        const img = await loadImage(item.objectUrl);
+        throwIfCancelled();
+        const sourceWidth = img.naturalWidth;
+        const sourceHeight = img.naturalHeight;
+
+        if (!sourceWidth || !sourceHeight) {
+          img.src = '';
+          throw new Error('No se pudieron leer las dimensiones nativas de ' + item.name + '.');
+        }
+
+        const rotation = normalizeRotation(item.rotation);
+        const swapAxes = rotation === 90 || rotation === 270;
+        const targetWidth = swapAxes ? sourceHeight : sourceWidth;
+        const targetHeight = swapAxes ? sourceWidth : sourceHeight;
+        const canvasRisk = getCanvasRisk(sourceWidth, sourceHeight, rotation);
+
+        if (canvasRisk.level === 'error') {
+          img.src = '';
+          throw new Error(canvasRisk.message + ' Reduce la resolución de la imagen o procésala por separado.');
+        }
+
+        const canvas = document.createElement('canvas');
+        canvas.width = targetWidth;
+        canvas.height = targetHeight;
+
+        const ctx = canvas.getContext('2d', {
+          alpha: false,
+          willReadFrequently: settings.filterMode === 'grayscale'
+        });
+
+        if (!ctx) {
+          img.src = '';
+          throw new Error('No fue posible inicializar el canvas de procesamiento para ' + item.name + '.');
+        }
+
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.save();
+        switch (rotation) {
+          case 90:
+            ctx.translate(targetWidth, 0);
+            ctx.rotate(Math.PI / 2);
+            break;
+          case 180:
+            ctx.translate(targetWidth, targetHeight);
+            ctx.rotate(Math.PI);
+            break;
+          case 270:
+            ctx.translate(0, targetHeight);
+            ctx.rotate(-Math.PI / 2);
+            break;
+          default:
+            break;
+        }
+
+        // Importante: siempre se dibuja usando dimensiones nativas para preservar máxima resolución.
+        ctx.drawImage(img, 0, 0, sourceWidth, sourceHeight);
+        ctx.restore();
+        img.src = '';
+
+        if (settings.filterMode === 'grayscale') {
+          await applyGrayscaleInStripes(ctx, targetWidth, targetHeight);
+        }
+
+        throwIfCancelled();
+
+        return {
+          canvas,
+          widthPx: targetWidth,
+          heightPx: targetHeight,
+          cleanup() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            canvas.width = 1;
+            canvas.height = 1;
+          }
+        };
+      }
+
+      async function applyGrayscaleInStripes(ctx, width, height) {
+        // Procesamiento por franjas para controlar memoria y permitir repintados de la UI entre bloques.
+        const maxBytesPerStripe = 8_000_000;
+        const stripeHeight = Math.max(1, Math.floor(maxBytesPerStripe / Math.max(width * 4, 1)));
+
+        for (let y = 0; y < height; y += stripeHeight) {
+          throwIfCancelled();
+          const blockHeight = Math.min(stripeHeight, height - y);
+          const imageData = ctx.getImageData(0, y, width, blockHeight);
+          const { data } = imageData;
+
+          for (let i = 0; i < data.length; i += 4) {
+            const gray = Math.round((data[i] * 0.2126) + (data[i + 1] * 0.7152) + (data[i + 2] * 0.0722));
+            data[i] = gray;
+            data[i + 1] = gray;
+            data[i + 2] = gray;
+          }
+
+          ctx.putImageData(imageData, 0, y);
+          await yieldToUI();
+        }
+      }
+
+      function validateItemsForExport(items, settings) {
+        const invalidItem = items.find((item) => item.error);
+        if (invalidItem) {
+          throw new Error('La imagen ' + invalidItem.name + ' no pudo leerse correctamente. Elimínala o vuelve a cargarla antes de exportar.');
+        }
+
+        const missingUrlItem = items.find((item) => !item.objectUrl);
+        if (missingUrlItem) {
+          throw new Error('Una imagen de la cola perdió su referencia temporal local. Vuelve a cargarla antes de exportar.');
+        }
+
+        const oversizedItem = items.find((item) => {
+          const risk = getCanvasRisk(item.width, item.height, item.rotation);
+          item.canvasRisk = risk;
+          return risk.level === 'error';
+        });
+
+        if (oversizedItem) {
+          throw new Error(oversizedItem.canvasRisk.message + ' Reduce la resolución o divide el trabajo en imágenes más pequeñas.');
+        }
+
+        const totalBytes = items.reduce((sum, item) => sum + item.size, 0);
+        const totalPixels = items.reduce((sum, item) => {
+          const oriented = getOrientedDimensions(item.width, item.height, item.rotation);
+          return sum + ((oriented.width || 0) * (oriented.height || 0));
+        }, 0);
+        const budget = getExportBudget(settings || state.settings);
+
+        if (totalBytes > budget.maxTotalBytes) {
+          throw new Error(
+            'El lote actual (' + formatBytes(totalBytes) + ') supera el umbral seguro para este dispositivo (' + formatBytes(budget.maxTotalBytes) + '). Divide el trabajo en bloques más pequeños.'
+          );
+        }
+
+        if ((settings || state.settings).outputMode === 'single') {
+          if (items.length > budget.maxPagesSingle) {
+            throw new Error(
+              'El modo de PDF único se bloqueó preventivamente porque ' + budget.profile.label.toLowerCase() + ' admite de forma segura hasta ' + budget.maxPagesSingle + ' páginas por lote. Usa menos imágenes o cambia a PDFs separados.'
+            );
+          }
+
+          if (totalPixels > budget.maxTotalPixelsSingle) {
+            throw new Error(
+              'El modo de PDF único se bloqueó preventivamente porque el lote tiene ' + formatMegaPixels(totalPixels) + ' y supera el umbral seguro de ' + formatMegaPixels(budget.maxTotalPixelsSingle) + ' para este dispositivo. Reduce resolución, divide el lote o usa PDFs separados.'
+            );
+          }
+        } else {
+          if (items.length > budget.maxPagesSeparate) {
+            throw new Error(
+              'La exportación en múltiples descargas se bloqueó preventivamente porque este dispositivo admite de forma segura hasta ' + budget.maxPagesSeparate + ' archivos por lote. Divide la cola en grupos más pequeños.'
+            );
+          }
+
+          if (totalPixels > budget.maxTotalPixelsSeparate) {
+            throw new Error(
+              'El lote tiene ' + formatMegaPixels(totalPixels) + ' y supera el umbral seguro de ' + formatMegaPixels(budget.maxTotalPixelsSeparate) + ' para exportación local en este dispositivo. Divide la cola en bloques más pequeños.'
+            );
+          }
+        }
+      }
+
+      function computePageMetricsFromItem(item, settings) {
+        const dimensions = getOrientedDimensions(item.width, item.height, item.rotation);
+        return computePageMetrics(dimensions.width, dimensions.height, settings);
+      }
+
+      function computePageMetrics(imageWidthPx, imageHeightPx, settings) {
+        let pageWidthPt;
+        let pageHeightPt;
+
+        if (settings.pageSize === 'original') {
+          pageWidthPt = pxToPtAtDpi(imageWidthPx, ORIGINAL_IMAGE_DPI);
+          pageHeightPt = pxToPtAtDpi(imageHeightPx, ORIGINAL_IMAGE_DPI);
+        } else {
+          const preset = PAGE_PRESETS_PT[settings.pageSize] || PAGE_PRESETS_PT.a4;
+          pageWidthPt = preset.width;
+          pageHeightPt = preset.height;
+        }
+
+        if (settings.orientation === 'portrait' && pageWidthPt > pageHeightPt) {
+          [pageWidthPt, pageHeightPt] = [pageHeightPt, pageWidthPt];
+        }
+        if (settings.orientation === 'landscape' && pageHeightPt > pageWidthPt) {
+          [pageWidthPt, pageHeightPt] = [pageHeightPt, pageWidthPt];
+        }
+
+        const marginPt = mmToPt(settings.marginMm);
+        const availableWidth = Math.max(pageWidthPt - (marginPt * 2), 1);
+        const availableHeight = Math.max(pageHeightPt - (marginPt * 2), 1);
+
+        let renderWidthPt = availableWidth;
+        let renderHeightPt = availableHeight;
+
+        if (settings.fitMode === 'contain') {
+          const scale = Math.min(availableWidth / imageWidthPx, availableHeight / imageHeightPx);
+          renderWidthPt = imageWidthPx * scale;
+          renderHeightPt = imageHeightPx * scale;
+        }
+
+        const xPt = (pageWidthPt - renderWidthPt) / 2;
+        const yPt = (pageHeightPt - renderHeightPt) / 2;
+
+        return {
+          pageWidthPt,
+          pageHeightPt,
+          marginPt,
+          renderWidthPt,
+          renderHeightPt,
+          xPt,
+          yPt,
+          pageOrientation: pageWidthPt >= pageHeightPt ? 'landscape' : 'portrait'
+        };
+      }
+
+      function getOrientedDimensions(width, height, rotation) {
+        const normalized = normalizeRotation(rotation);
+        return normalized === 90 || normalized === 270
+          ? { width: height, height: width }
+          : { width, height };
+      }
+
+      function canGeneratePdfLocally() {
+        const canvas = document.createElement('canvas');
+        return Boolean(
+          window.URL &&
+          typeof window.URL.createObjectURL === 'function' &&
+          typeof window.Blob === 'function' &&
+          typeof window.TextEncoder === 'function' &&
+          canvas.getContext &&
+          typeof canvas.toBlob === 'function'
+        );
+      }
+
+      function getExecutionProfile() {
+        const userAgent = String(navigator.userAgent || '');
+        const coarsePointer = window.matchMedia ? window.matchMedia('(pointer: coarse)').matches : false;
+        const narrowViewport = window.matchMedia ? window.matchMedia('(max-width: 900px)').matches : false;
+        const mobileUA = /Android|iPhone|iPad|iPod|Mobile|Opera Mini|IEMobile/i.test(userAgent);
+        const isMobile = coarsePointer || narrowViewport || mobileUA;
+        const deviceMemory = Number(navigator.deviceMemory || 0);
+        const logicalCores = Number(navigator.hardwareConcurrency || 0);
+
+        return {
+          isMobile,
+          deviceMemory,
+          logicalCores,
+          label: isMobile ? 'Móvil' : 'Escritorio'
+        };
+      }
+
+      function getExportBudget(settings) {
+        const profile = getExecutionProfile();
+        const lowMemoryDevice = profile.deviceMemory > 0 && profile.deviceMemory <= 4;
+        const lowCoreDevice = profile.logicalCores > 0 && profile.logicalCores <= 4;
+
+        let maxPagesSingle = profile.isMobile ? 40 : 120;
+        let maxPagesSeparate = profile.isMobile ? 25 : 80;
+        let maxTotalPixelsSingle = profile.isMobile ? 90_000_000 : 220_000_000;
+        let maxTotalPixelsSeparate = profile.isMobile ? 120_000_000 : 260_000_000;
+        let maxTotalBytes = profile.isMobile ? 180 * 1024 * 1024 : 600 * 1024 * 1024;
+
+        if (lowMemoryDevice || lowCoreDevice) {
+          maxPagesSingle = Math.min(maxPagesSingle, 28);
+          maxPagesSeparate = Math.min(maxPagesSeparate, 18);
+          maxTotalPixelsSingle = Math.min(maxTotalPixelsSingle, 65_000_000);
+          maxTotalPixelsSeparate = Math.min(maxTotalPixelsSeparate, 90_000_000);
+          maxTotalBytes = Math.min(maxTotalBytes, 140 * 1024 * 1024);
+        }
+
+        if (settings && settings.filterMode === 'grayscale') {
+          maxTotalPixelsSingle = Math.floor(maxTotalPixelsSingle * 0.85);
+          maxTotalPixelsSeparate = Math.floor(maxTotalPixelsSeparate * 0.9);
+        }
+
+        return {
+          profile,
+          maxPagesSingle,
+          maxPagesSeparate,
+          maxTotalPixelsSingle,
+          maxTotalPixelsSeparate,
+          maxTotalBytes
+        };
+      }
+
+      function getCanvasRisk(width, height, rotation) {
+        if (!width || !height) {
+          return { level: 'ok', message: '' };
+        }
+
+        const oriented = getOrientedDimensions(width, height, rotation);
+        const pixels = oriented.width * oriented.height;
+
+        if (oriented.width > CANVAS_LIMITS.maxSide || oriented.height > CANVAS_LIMITS.maxSide || pixels > CANVAS_LIMITS.maxPixels) {
+          return {
+            level: 'error',
+            message: 'La imagen ' + oriented.width + ' × ' + oriented.height + ' px excede un límite seguro de canvas del navegador.'
+          };
+        }
+
+        if (pixels >= CANVAS_LIMITS.warnPixels) {
+          return {
+            level: 'warn',
+            message: 'La imagen ' + oriented.width + ' × ' + oriented.height + ' px es grande y puede consumir bastante memoria durante la exportación.'
+          };
+        }
+
+        return { level: 'ok', message: '' };
+      }
+
+      function updateWorkloadSummary() {
+        if (!state.items.length) {
+          setWorkloadRisk('idle');
+          els.workloadText.textContent = 'Carga imágenes para estimar complejidad, memoria esperada y recomendaciones de estabilidad.';
+          els.workloadMeta.innerHTML = [
+            '<span class="chip">0 páginas</span>',
+            '<span class="chip">0 MP</span>',
+            '<span class="chip">0 B</span>'
+          ].join('');
+          return;
+        }
+
+        const totalBytes = state.items.reduce((sum, item) => sum + item.size, 0);
+        const knownItems = state.items.filter((item) => item.width && item.height);
+        const totalPixels = knownItems.reduce((sum, item) => {
+          const oriented = getOrientedDimensions(item.width, item.height, item.rotation);
+          return sum + (oriented.width * oriented.height);
+        }, 0);
+        const pendingCount = state.items.length - knownItems.length;
+        const warnCount = state.items.filter((item) => item.canvasRisk && item.canvasRisk.level === 'warn').length;
+        const errorCount = state.items.filter((item) => item.canvasRisk && item.canvasRisk.level === 'error').length;
+        const budget = getExportBudget(state.settings);
+
+        let level = 'low';
+        let text = 'Lote estable para uso normal en ' + budget.profile.label.toLowerCase() + '. La exportación debería ser fluida si se mantiene dentro de los umbrales sugeridos.';
+
+        if (errorCount > 0) {
+          level = 'high';
+          text = 'Al menos una imagen supera límites seguros de canvas. Conviene reducir resolución o procesar por separado.';
+        } else if (
+          warnCount > 0 ||
+          totalBytes > budget.maxTotalBytes ||
+          (state.settings.outputMode === 'single' && (state.items.length > budget.maxPagesSingle || totalPixels > budget.maxTotalPixelsSingle)) ||
+          (state.settings.outputMode === 'separate' && (state.items.length > budget.maxPagesSeparate || totalPixels > budget.maxTotalPixelsSeparate))
+        ) {
+          level = 'high';
+          text = 'Lote exigente para este dispositivo. La aplicación bloqueará preventivamente la exportación si superas los umbrales seguros; conviene dividir el trabajo en bloques más pequeños.';
+        } else if (
+          pendingCount > 0 ||
+          totalBytes > (budget.maxTotalBytes * 0.55) ||
+          (state.settings.outputMode === 'single' && (state.items.length > Math.floor(budget.maxPagesSingle * 0.6) || totalPixels > Math.floor(budget.maxTotalPixelsSingle * 0.6))) ||
+          (state.settings.outputMode === 'separate' && (state.items.length > Math.floor(budget.maxPagesSeparate * 0.6) || totalPixels > Math.floor(budget.maxTotalPixelsSeparate * 0.6)))
+        ) {
+          level = 'medium';
+          text = 'Lote intermedio. Estás acercándote a los límites conservadores definidos para este dispositivo.';
+        }
+
+        setWorkloadRisk(level);
+        els.workloadText.textContent = text;
+        els.workloadMeta.innerHTML = [
+          '<span class="chip">' + budget.profile.label + '</span>',
+          '<span class="chip">' + state.items.length + ' páginas</span>',
+          '<span class="chip">' + formatMegaPixels(totalPixels) + '</span>',
+          '<span class="chip">' + formatBytes(totalBytes) + '</span>',
+          pendingCount ? '<span class="chip">' + pendingCount + ' pendientes</span>' : '',
+          warnCount ? '<span class="chip">' + warnCount + ' grandes</span>' : ''
+        ].filter(Boolean).join('');
+      }
+
+      function setWorkloadRisk(level) {
+        const styles = {
+          idle: {
+            label: 'Sin carga',
+            color: '#64748b',
+            background: '#f8fafc',
+            border: 'rgba(226,232,240,0.85)'
+          },
+          low: {
+            label: 'Riesgo bajo',
+            color: '#166534',
+            background: 'rgba(22,101,52,0.08)',
+            border: 'rgba(22,101,52,0.14)'
+          },
+          medium: {
+            label: 'Riesgo medio',
+            color: '#a16207',
+            background: 'rgba(161,98,7,0.08)',
+            border: 'rgba(161,98,7,0.14)'
+          },
+          high: {
+            label: 'Riesgo alto',
+            color: '#b91c1c',
+            background: 'rgba(185,28,28,0.08)',
+            border: 'rgba(185,28,28,0.14)'
+          }
+        };
+
+        const chosen = styles[level] || styles.idle;
+        els.workloadRiskChip.textContent = chosen.label;
+        els.workloadRiskChip.style.color = chosen.color;
+        els.workloadRiskChip.style.background = chosen.background;
+        els.workloadRiskChip.style.borderColor = chosen.border;
+      }
+
+      function requestCancelProcessing() {
+        if (!state.busy || state.cancelRequested) return;
+        state.cancelRequested = true;
+        els.cancelProcessingButton.disabled = true;
+        els.progressTitle.textContent = 'Cancelando…';
+        els.progressText.textContent = 'Deteniendo el proceso tras finalizar la operación en curso.';
+        showNotice('Se solicitó cancelar el proceso. Espera unos instantes.', 'info');
+      }
+
+      function throwIfCancelled() {
+        if (state.cancelRequested) {
+          throw new ProcessingCancelledError();
+        }
+      }
+
+      function showProgress(title, text, fraction) {
+        els.progressCard.classList.add('is-visible');
+        els.progressTitle.textContent = title;
+        els.progressText.textContent = text;
+        els.progressCounter.textContent = Math.round(Math.min(Math.max(fraction, 0), 1) * 100) + '%';
+        els.progressBar.style.width = (Math.min(Math.max(fraction, 0), 1) * 100).toFixed(1) + '%';
+      }
+
+      function updateProgressState(current, total, text) {
+        const fraction = total ? current / total : 0;
+        showProgress('Preparando conversión…', text, fraction);
+      }
+
+      function hideProgress() {
+        els.progressCard.classList.remove('is-visible');
+        els.progressBar.style.width = '0%';
+        els.progressCounter.textContent = '0%';
+      }
+
+      function setBusy(value) {
+        state.busy = Boolean(value);
+        if (!state.busy) {
+          state.cancelRequested = false;
+        }
+        renderQueue();
+      }
+
+      function showNotice(message, type = 'info', sticky = false) {
+        clearTimeout(state.noticeTimer);
+        els.noticeBox.textContent = message;
+        els.noticeBox.className = 'notice is-visible ' + type;
+
+        if (!sticky && type !== 'error') {
+          state.noticeTimer = window.setTimeout(() => {
+            hideNotice();
+          }, 5200);
+        }
+      }
+
+      function hideNotice() {
+        els.noticeBox.className = 'notice';
+        els.noticeBox.textContent = '';
+      }
+
+      async function canvasToBlob(canvas, mimeType, quality) {
+        return new Promise((resolve, reject) => {
+          canvas.toBlob((blob) => {
+            if (blob) {
+              resolve(blob);
+            } else {
+              reject(new Error('No se pudo convertir la imagen procesada.'));
+            }
+          }, mimeType, quality);
+        });
+      }
+
+      function loadImage(url) {
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          img.decoding = 'async';
+          img.onload = () => resolve(img);
+          img.onerror = () => {
+            img.src = '';
+            reject(new Error('No se pudo cargar una de las imágenes locales.'));
+          };
+          img.src = url;
+        });
+      }
+
+      async function downloadBlob(blob, filename) {
+        const objectUrl = URL.createObjectURL(blob);
+        try {
+          const link = document.createElement('a');
+          const supportsDownloadAttribute = 'download' in HTMLAnchorElement.prototype;
+          link.href = objectUrl;
+          link.download = filename;
+          link.rel = 'noopener';
+          document.body.appendChild(link);
+
+          if (supportsDownloadAttribute) {
+            link.click();
+          } else {
+            window.open(objectUrl, '_blank', 'noopener');
+          }
+
+          link.remove();
+          await yieldToUI();
+        } finally {
+          window.setTimeout(() => {
+            URL.revokeObjectURL(objectUrl);
+          }, 4000);
+        }
+      }
+
+      function buildUnifiedFileName() {
+        return 'image-to-pdf_' + timeStampForFileName() + '.pdf';
+      }
+
+      function buildItemFileName(item, index) {
+        const base = sanitizeFileName(item.name.replace(/\.[^.]+$/, '')) || ('pagina_' + String(index + 1).padStart(2, '0'));
+        return base + '.pdf';
+      }
+
+      function timeStampForFileName() {
+        const now = new Date();
+        const pad = (value) => String(value).padStart(2, '0');
+        return [
+          now.getFullYear(),
+          pad(now.getMonth() + 1),
+          pad(now.getDate())
+        ].join('') + '_' + [pad(now.getHours()), pad(now.getMinutes()), pad(now.getSeconds())].join('');
+      }
+
+      function sanitizeFileName(value) {
+        return String(value || '')
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .replace(/[^a-zA-Z0-9_-]+/g, '_')
+          .replace(/_+/g, '_')
+          .replace(/^_+|_+$/g, '')
+          .slice(0, 120);
+      }
+
+      function formatMegaPixels(pixels) {
+        if (!pixels) return '0 MP';
+        const megaPixels = pixels / 1_000_000;
+        return (megaPixels >= 10 ? megaPixels.toFixed(0) : megaPixels.toFixed(1)) + ' MP';
+      }
+
+      function formatPdfNumber(value) {
+        const numeric = Number(value) || 0;
+        return String(Number(numeric.toFixed(2)));
+      }
+
+      function pdfHexString(value) {
+        const hex = ['FE', 'FF'];
+        for (const char of String(value || '')) {
+          const code = char.charCodeAt(0);
+          hex.push(((code >> 8) & 0xFF).toString(16).padStart(2, '0').toUpperCase());
+          hex.push((code & 0xFF).toString(16).padStart(2, '0').toUpperCase());
+        }
+        return '<' + hex.join('') + '>';
+      }
+
+      function pdfLiteralString(value) {
+        return '(' + String(value || '').replace(/\\/g, '\\\\').replace(/\(/g, '\\(').replace(/\)/g, '\\)') + ')';
+      }
+
+      function buildPdfDate() {
+        const now = new Date();
+        const pad = (number) => String(number).padStart(2, '0');
+        return 'D:' + now.getFullYear() + pad(now.getMonth() + 1) + pad(now.getDate()) + pad(now.getHours()) + pad(now.getMinutes()) + pad(now.getSeconds());
+      }
+
+      function formatBytes(bytes) {
+        if (!bytes) return '0 B';
+        const units = ['B', 'KB', 'MB', 'GB'];
+        const exponent = Math.min(Math.floor(Math.log(bytes) / Math.log(1024)), units.length - 1);
+        const value = bytes / Math.pow(1024, exponent);
+        return value.toFixed(value >= 10 || exponent === 0 ? 0 : 1) + ' ' + units[exponent];
+      }
+
+      function mmToPt(mm) {
+        return (Number(mm) || 0) * 72 / 25.4;
+      }
+
+      function pxToPtAtDpi(px, dpi) {
+        return (Number(px) || 0) * 72 / dpi;
+      }
+
+      function normalizeRotation(rotation) {
+        return ((Number(rotation) || 0) % 360 + 360) % 360;
+      }
+
+      function escapeHtml(value) {
+        return String(value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function getId() {
+        return window.crypto && typeof window.crypto.randomUUID === 'function'
+          ? window.crypto.randomUUID()
+          : 'item_' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+      }
+
+      function delay(ms) {
+        return new Promise((resolve) => window.setTimeout(resolve, ms));
+      }
+
+      function yieldToUI() {
+        return new Promise((resolve) => {
+          if (typeof window.requestAnimationFrame === 'function') {
+            window.requestAnimationFrame(() => resolve());
+          } else {
+            window.setTimeout(resolve, 16);
+          }
+        });
+      }
+
+      function safeCreateIcons() {
+        // Sin dependencia de iconos externos: se usan los fallbacks tipográficos integrados en el HTML.
+      }
+    })();
+  </script>
+</body>
+</html>
