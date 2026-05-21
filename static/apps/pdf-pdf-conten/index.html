@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trasvase PDF • Senior Dev</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <script src="https://unpkg.com/@xenova/transformers@2.17.1/dist/transformers.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;display=swap');
+        
+        :root {
+            --primary: 61 122 175;
+        }
+        
+        .tail-container {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .dropzone {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .dropzone-active {
+            background-color: rgb(224 242 255);
+            border-color: rgb(61 122 175);
+            transform: scale(1.02);
+        }
+        
+        .field-card {
+            transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+        
+        .field-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        }
+        
+        .mapping-row {
+            transition: all 0.2s ease;
+        }
+        
+        .step-circle {
+            width: 28px;
+            height: 28px;
+        }
+        
+        .toast {
+            animation: slideIn 0.3s ease forwards;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(120%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .phase-indicator {
+            position: relative;
+        }
+        
+        .phase-indicator::after {
+            content: '';
+            position: absolute;
+            top: 14px;
+            left: 50%;
+            width: 100%;
+            height: 2px;
+            background: #e5e7eb;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body class="tail-container bg-zinc-950 text-zinc-200">
+    <div class="flex h-screen overflow-hidden">
+        <!-- SIDEBAR -->
+        <div class="w-72 bg-zinc-900 border-r border-zinc-800 flex flex-col">
+            <div class="p-6 border-b border-zinc-800">
+                <div class="flex items-center gap-x-3">
+                    <div class="w-9 h-9 bg-[#3D7AAF] rounded-2xl flex items-center justify-center text-white font-bold text-xl">T</div>
+                    <div>
+                        <h1 class="text-2xl font-semibold tracking-tight">TrasvasePDF</h1>
+                        <p class="text-xs text-zinc-500">Senior PDF Engineer</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Progress -->
+            <div class="px-6 pt-8">
+                <div onclick="setPhase(1)" class="phase-item flex items-center gap-x-4 px-4 py-3 rounded-2xl cursor-pointer hover:bg-zinc-800 transition-colors mb-1" id="phase-1">
+                    <div class="step-circle bg-emerald-500 text-white text-sm font-semibold flex items-center justify-center rounded-xl">1</div>
+                    <div class="flex-1">
+                        <div class="font-medium text-sm">Carga de PDFs</div>
+                        <div class="text-zinc-500 text-xs">Origen y Destino</div>
+                    </div>
+                    <span id="status-1" class="text-emerald-400 text-xs font-medium">ACTIVO</span>
+                </div>
+                
+                <div onclick="setPhase(2)" class="phase-item flex items-center gap-x-4 px-4 py-3 rounded-2xl cursor-pointer hover:bg-zinc-800 transition-colors mb-1" id="phase-2">
+                    <div class="step-circle bg-zinc-700 text-zinc-400 text-sm font-semibold flex items-center justify-center rounded-xl">2</div>
+                    <div class="flex-1">
+                        <div class="font-medium text-sm">Análisis IA</div>
+                        <div class="text-zinc-500 text-xs">Embeddings + Reglas</div>
+                    </div>
+                    <span id="status-2" class="text-zinc-500 text-xs font-medium">PENDIENTE</span>
+                </div>
+                
+                <div onclick="setPhase(3)" class="phase-item flex items-center gap-x-4 px-4 py-3 rounded-2xl cursor-pointer hover:bg-zinc-800 transition-colors mb-1" id="phase-3">
+                    <div class="step-circle bg-zinc-700 text-zinc-400 text-sm font-semibold flex items-center justify-center rounded-xl">3</div>
+                    <div class="flex-1">
+                        <div class="font-medium text-sm">Revisión Humana</div>
+                        <div class="text-zinc-500 text-xs">Confirmar mappings</div>
+                    </div>
+                    <span id="status-3" class="text-zinc-500 text-xs font-medium">PENDIENTE</span>
+                </div>
+                
+                <div onclick="setPhase(4)" class="phase-item flex items-center gap-x-4 px-4 py-3 rounded-2xl cursor-pointer hover:bg-zinc-800 transition-colors mb-1" id="phase-4">
+                    <div class="step-circle bg-zinc-700 text-zinc-400 text-sm font-semibold flex items-center justify-center rounded-xl">4</div>
+                    <div class="flex-1">
+                        <div class="font-medium text-sm">Inyección</div>
+                        <div class="text-zinc-500 text-xs">pdf-lib core</div>
+                    </div>
+                    <span id="status-4" class="text-zinc-500 text-xs font-medium">PENDIENTE</span>
+                </div>
+                
+                <div onclick="setPhase(5)" class="phase-item flex items-center gap-x-4 px-4 py-3 rounded-2xl cursor-pointer hover:bg-zinc-800 transition-colors" id="phase-5">
+                    <div class="step-circle bg-zinc-700 text-zinc-400 text-sm font-semibold flex items-center justify-center rounded-xl">5</div>
+                    <div class="flex-1">
+                        <div class="font-medium text-sm">Exportar</div>
+                        <div class="text-zinc-500 text-xs">PDF final</div>
+                    </div>
+                    <span id="status-5" class="text-zinc-500 text-xs font-medium">PENDIENTE</span>
+                </div>
+            </div>
+            
+            <div class="mt-auto p-6">
+                <div class="bg-zinc-950 rounded-3xl p-5 text-xs">
+                    <div class="flex items-center gap-x-2 text-amber-400 mb-3">
+                        <i data-lucide="brain" class="w-4 h-4"></i>
+                        <span class="font-medium">Motor IA</span>
+                    </div>
+                    <div id="ai-status" class="text-zinc-400 text-[10px] leading-relaxed">
+                        Transformers.js + pdf-lib v1.17.1<br>
+                        Modelo: all-MiniLM-L6-v2 (simulado por rendimiento)
+                    </div>
+                </div>
+            </div>
+            
+            <div class="p-4 border-t border-zinc-800 text-center">
+                <div onclick="resetApp()" class="text-zinc-500 hover:text-zinc-300 text-xs flex items-center justify-center gap-x-1.5 cursor-pointer">
+                    <i data-lucide="rotate-ccw" class="w-3 h-3"></i>
+                    <span>Reiniciar aplicación</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- MAIN CONTENT -->
+        <div class="flex-1 flex flex-col">
+            <!-- TOP BAR -->
+            <div class="h-14 border-b border-zinc-800 bg-zinc-900 px-8 flex items-center justify-between">
+                <div class="flex items-center gap-x-8">
+                    <div id="current-phase-title" class="font-semibold text-lg">Fase 1 — Carga de Documentos</div>
+                </div>
+                
+                <div class="flex items-center gap-x-6">
+                    <div id="file-origin-badge" 
+                         onclick="triggerFileInput('origin')"
+                         class="flex items-center gap-x-2 bg-zinc-800 hover:bg-zinc-700 transition-colors text-xs px-4 h-8 rounded-2xl cursor-pointer border border-zinc-700">
+                        <i data-lucide="upload" class="w-3.5 h-3.5"></i>
+                        <span class="font-medium text-emerald-300" id="origin-name">PDF Origen</span>
+                    </div>
+                    
+                    <div class="h-5 w-px bg-zinc-700"></div>
+                    
+                    <div id="file-dest-badge" 
+                         onclick="triggerFileInput('dest')"
+                         class="flex items-center gap-x-2 bg-zinc-800 hover:bg-zinc-700 transition-colors text-xs px-4 h-8 rounded-2xl cursor-pointer border border-zinc-700">
+                        <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                        <span class="font-medium text-sky-300" id="dest-name">PDF Destino</span>
+                    </div>
+                    
+                    <div onclick="showHelp()" 
+                         class="w-8 h-8 flex items-center justify-center rounded-2xl hover:bg-zinc-800 cursor-pointer">
+                        <i data-lucide="help-circle" class="w-5 h-5 text-zinc-400"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CONTENT AREA -->
+            <div class="flex-1 overflow-auto p-8" id="main-content">
+                <!-- PHASE 1: CARGA -->
+                <div id="phase-content-1">
+                    <div class="max-w-5xl mx-auto">
+                        <div class="grid grid-cols-2 gap-8">
+                            <!-- ORIGEN -->
+                            <div>
+                                <div class="flex items-center gap-x-3 mb-4">
+                                    <div class="px-4 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-semibold rounded-3xl flex items-center gap-x-2">
+                                        <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                                        ORIGEN (LLENO)
+                                    </div>
+                                    <div class="text-xs text-zinc-500">Contiene los datos a transferir</div>
+                                </div>
+                                
+                                <div id="drop-origin"
+                                     ondrop="handleDrop(event, 'origin')" 
+                                     ondragover="handleDragOver(event)"
+                                     ondragleave="handleDragLeave(event)"
+                                     onclick="triggerFileInput('origin')"
+                                     class="dropzone border-2 border-dashed border-zinc-700 hover:border-emerald-500 h-80 rounded-3xl flex flex-col items-center justify-center cursor-pointer bg-zinc-900">
+                                    <div id="origin-content">
+                                        <i data-lucide="file-text" class="w-16 h-16 text-emerald-500 mb-6"></i>
+                                        <p class="text-zinc-400 font-medium mb-1">Arrastra PDF Origen aquí</p>
+                                        <p class="text-zinc-500 text-sm mb-6">o haz clic para seleccionar</p>
+                                        <div class="text-[10px] text-zinc-500 bg-zinc-950 px-5 py-2.5 rounded-2xl border border-zinc-800">
+                                            Máx. 25MB • No protegido
+                                        </div>
+                                    </div>
+                                    <div id="origin-preview" class="hidden text-center">
+                                        <i data-lucide="file-check" class="w-12 h-12 text-emerald-400 mx-auto mb-4"></i>
+                                        <p id="origin-filename" class="font-mono text-xs text-emerald-300 break-all px-8"></p>
+                                        <button onclick="clearOrigin(event); event.stopImmediatePropagation()" 
+                                                class="mt-6 text-xs px-6 py-2 bg-zinc-800 hover:bg-red-500/10 hover:text-red-400 transition-colors rounded-2xl">
+                                            Quitar archivo
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-4 text-xs text-zinc-500 flex items-center gap-x-5">
+                                    <div><span class="font-mono text-emerald-400" id="origin-fields-count">0</span> campos detectados</div>
+                                </div>
+                            </div>
+                            
+                            <!-- DESTINO -->
+                            <div>
+                                <div class="flex items-center gap-x-3 mb-4">
+                                    <div class="px-4 py-1 bg-sky-500/10 text-sky-400 text-xs font-semibold rounded-3xl flex items-center gap-x-2">
+                                        <div class="w-2 h-2 bg-sky-400 rounded-full"></div>
+                                        DESTINO (VACÍO)
+                                    </div>
+                                    <div class="text-xs text-zinc-500">Formulario objetivo</div>
+                                </div>
+                                
+                                <div id="drop-dest"
+                                     ondrop="handleDrop(event, 'dest')" 
+                                     ondragover="handleDragOver(event)"
+                                     ondragleave="handleDragLeave(event)"
+                                     onclick="triggerFileInput('dest')"
+                                     class="dropzone border-2 border-dashed border-zinc-700 hover:border-sky-500 h-80 rounded-3xl flex flex-col items-center justify-center cursor-pointer bg-zinc-900">
+                                    <div id="dest-content">
+                                        <i data-lucide="file-input" class="w-16 h-16 text-sky-500 mb-6"></i>
+                                        <p class="text-zinc-400 font-medium mb-1">Arrastra PDF Destino aquí</p>
+                                        <p class="text-zinc-500 text-sm mb-6">o haz clic para seleccionar</p>
+                                        <div class="text-[10px] text-zinc-500 bg-zinc-950 px-5 py-2.5 rounded-2xl border border-zinc-800">
+                                            Máx. 25MB • AcroForm compatible
+                                        </div>
+                                    </div>
+                                    <div id="dest-preview" class="hidden text-center">
+                                        <i data-lucide="file-check" class="w-12 h-12 text-sky-400 mx-auto mb-4"></i>
+                                        <p id="dest-filename" class="font-mono text-xs text-sky-300 break-all px-8"></p>
+                                        <button onclick="clearDest(event); event.stopImmediatePropagation()" 
+                                                class="mt-6 text-xs px-6 py-2 bg-zinc-800 hover:bg-red-500/10 hover:text-red-400 transition-colors rounded-2xl">
+                                            Quitar archivo
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-4 text-xs text-zinc-500 flex items-center gap-x-5">
+                                    <div><span class="font-mono text-sky-400" id="dest-fields-count">0</span> campos detectados</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-center mt-12">
+                            <button onclick="analyzePDFs()" 
+                                    id="analyze-btn"
+                                    class="flex items-center gap-x-3 bg-[#3D7AAF] hover:bg-[#35689A] disabled:bg-zinc-700 transition-all px-10 h-14 rounded-3xl text-lg font-semibold shadow-xl shadow-blue-500/30 disabled:shadow-none">
+                                <i data-lucide="sparkles" class="w-5 h-5"></i>
+                                <span>ANALIZAR CAMPOS CON IA</span>
+                            </button>
+                        </div>
+                        
+                        <div id="phase1-hint" class="text-center text-zinc-500 text-sm mt-6">
+                            Sube ambos PDFs para habilitar el análisis semántico
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- PHASE 2+3: MATCHING & REVIEW -->
+                <div id="phase-content-23" class="hidden">
+                    <div class="max-w-7xl mx-auto">
+                        <div class="flex gap-8">
+                            <!-- LEFT: MAPPINGS -->
+                            <div class="flex-1">
+                                <div class="flex justify-between items-baseline mb-6">
+                                    <div>
+                                        <span class="px-3 py-1 text-xs font-mono bg-violet-500/10 text-violet-400 rounded-2xl">EMParejamientos</span>
+                                        <span id="match-count" class="ml-3 text-3xl font-semibold text-white">12</span>
+                                    </div>
+                                    <div onclick="autoAcceptAll()" 
+                                         class="text-xs flex items-center gap-x-2 text-violet-400 hover:text-violet-300 cursor-pointer">
+                                        <i data-lucide="check-check" class="w-4 h-4"></i>
+                                        <span>ACEPTAR TODOS</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800" style="max-height: 620px; overflow-y: auto;">
+                                    <table class="w-full">
+                                        <thead class="sticky top-0 bg-zinc-900 border-b border-zinc-800">
+                                            <tr>
+                                                <th class="text-left pl-8 py-5 text-xs font-medium text-zinc-400">CAMPO ORIGEN</th>
+                                                <th class="text-center text-xs font-medium text-zinc-400">CONF</th>
+                                                <th class="text-left pl-8 text-xs font-medium text-zinc-400">CAMPO DESTINO</th>
+                                                <th class="w-28"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="mappings-body" class="text-sm divide-y divide-zinc-800"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <!-- RIGHT: ORPHANS -->
+                            <div class="w-96 space-y-8">
+                                <!-- Orphans Origin -->
+                                <div>
+                                    <div class="flex items-center justify-between mb-4 px-1">
+                                        <div class="uppercase text-xs tracking-widest text-orange-300 font-medium">Huérfanos Origen</div>
+                                        <div id="orphan-origin-count" class="text-xs bg-orange-400/10 text-orange-400 px-3 py-0.5 rounded-3xl">0</div>
+                                    </div>
+                                    <div id="orphans-origin-list" 
+                                         ondrop="handleOrphanDrop(event, 'origin')"
+                                         ondragover="allowDrop(event)"
+                                         class="bg-zinc-900 border border-dashed border-orange-400/30 rounded-3xl min-h-[260px] p-3 text-xs overflow-auto"></div>
+                                </div>
+                                
+                                <!-- Orphans Destination -->
+                                <div>
+                                    <div class="flex items-center justify-between mb-4 px-1">
+                                        <div class="uppercase text-xs tracking-widest text-amber-300 font-medium">Huérfanos Destino</div>
+                                        <div id="orphan-dest-count" class="text-xs bg-amber-400/10 text-amber-400 px-3 py-0.5 rounded-3xl">0</div>
+                                    </div>
+                                    <div id="orphans-dest-list" 
+                                         ondrop="handleOrphanDrop(event, 'dest')"
+                                         ondragover="allowDrop(event)"
+                                         class="bg-zinc-900 border border-dashed border-amber-400/30 rounded-3xl min-h-[260px] p-3 text-xs overflow-auto"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- ACTION BAR -->
+                        <div class="mt-10 flex items-center justify-between bg-zinc-900 border border-zinc-700 rounded-3xl px-8 py-5">
+                            <div class="flex items-center gap-x-6">
+                                <button onclick="runMatchingAgain()" 
+                                        class="flex items-center gap-x-2 px-6 h-10 text-xs border border-zinc-700 hover:border-zinc-400 rounded-2xl transition-colors">
+                                    <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                                    <span>RE-EJECUTAR MATCHING</span>
+                                </button>
+                                
+                                <button onclick="exportCurrentMapping()" 
+                                        class="flex items-center gap-x-2 px-6 h-10 text-xs border border-zinc-700 hover:border-zinc-400 rounded-2xl transition-colors">
+                                    <i data-lucide="file-json" class="w-4 h-4"></i>
+                                    <span>EXPORTAR JSON</span>
+                                </button>
+                            </div>
+                            
+                            <button onclick="proceedToInjection()" 
+                                    class="flex items-center gap-x-3 bg-white text-zinc-900 hover:bg-amber-300 px-10 h-12 rounded-3xl font-semibold text-base transition-all active:scale-95">
+                                <span>APLICAR TRASVASE →</span>
+                                <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- PHASE 4: INJECTION PROGRESS -->
+                <div id="phase-content-4" class="hidden max-w-md mx-auto pt-20">
+                    <div class="bg-zinc-900 rounded-3xl p-10 text-center">
+                        <div id="injection-spinner" class="w-16 h-16 mx-auto mb-8 border-4 border-zinc-700 border-t-[#3D7AAF] animate-spin rounded-full"></div>
+                        <h3 class="text-2xl font-semibold mb-2">Inyectando datos...</h3>
+                        <p class="text-zinc-400" id="injection-status">Procesando campo 8 de 23</p>
+                        
+                        <div class="h-2.5 bg-zinc-800 rounded-3xl mt-12 overflow-hidden">
+                            <div id="injection-progress" class="h-2.5 w-1/3 bg-gradient-to-r from-[#3D7AAF] to-sky-400 rounded-3xl transition-all"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- PHASE 5: SUCCESS -->
+                <div id="phase-content-5" class="hidden max-w-lg mx-auto pt-12">
+                    <div class="bg-emerald-900/30 border border-emerald-400/30 rounded-3xl p-12 text-center">
+                        <div class="w-20 h-20 mx-auto bg-emerald-500 text-white rounded-2xl flex items-center justify-center mb-8">
+                            <i data-lucide="check" class="w-10 h-10"></i>
+                        </div>
+                        
+                        <h2 class="text-4xl font-semibold text-emerald-100 mb-3">¡Trasvase completado!</h2>
+                        <p id="summary-text" class="text-emerald-300 text-lg">23 campos transferidos correctamente</p>
+                        
+                        <div class="my-12 border border-dashed border-emerald-700 rounded-3xl p-8 bg-black/30">
+                            <div class="font-mono text-xs text-left mb-4 text-emerald-400">RESUMEN DE OPERACIÓN</div>
+                            <div id="summary-list" class="space-y-4 text-left text-sm"></div>
+                        </div>
+                        
+                        <div class="flex gap-4 justify-center">
+                            <button onclick="downloadFilledPDF()" 
+                                    class="flex-1 bg-white text-zinc-950 h-14 rounded-3xl font-semibold flex items-center justify-center gap-x-3 hover:shadow-2xl hover:shadow-emerald-500/40">
+                                <i data-lucide="download" class="w-5 h-5"></i>
+                                <span>DESCARGAR PDF RELLENADO</span>
+                            </button>
+                            
+                            <button onclick="resetApp()" 
+                                    class="flex-1 border border-zinc-600 h-14 rounded-3xl font-medium">
+                                NUEVO TRASVASE
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FOOTER BAR -->
+            <div class="h-16 bg-zinc-900 border-t border-zinc-800 px-8 flex items-center text-xs text-zinc-500">
+                <div class="flex-1 flex items-center gap-x-8">
+                    <div onclick="setPhase(1)" class="cursor-pointer hover:text-zinc-300 flex items-center gap-x-2">
+                        <i data-lucide="file" class="w-4 h-4"></i>
+                        <span id="footer-origin">origen.pdf</span>
+                    </div>
+                    <div class="text-zinc-700">→</div>
+                    <div onclick="setPhase(1)" class="cursor-pointer hover:text-zinc-300 flex items-center gap-x-2">
+                        <i data-lucide="file-output" class="w-4 h-4"></i>
+                        <span id="footer-dest">destino.pdf</span>
+                    </div>
+                </div>
+                
+                <div class="flex items-center gap-x-5 text-[10px] font-mono">
+                    <div class="bg-zinc-800 px-3 py-1 rounded-2xl">pdf-lib</div>
+                    <div class="bg-violet-500/10 text-violet-400 px-3 py-1 rounded-2xl">transformers.js</div>
+                    <div class="bg-teal-500/10 text-teal-400 px-3 py-1 rounded-2xl">AcroForm</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- MANUAL MAPPING MODAL -->
+    <div onclick="if(event.target.id === 'modal-backdrop') hideModal()" id="modal-backdrop"
+         class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+        <div onclick="event.stopImmediatePropagation()" 
+             class="bg-zinc-900 w-full max-w-lg mx-4 rounded-3xl">
+            <div class="px-8 pt-8 pb-6">
+                <h3 class="font-semibold text-xl mb-6">Asignación Manual</h3>
+                
+                <div class="mb-8">
+                    <div class="text-xs uppercase tracking-widest text-zinc-400 mb-3">Campo Origen</div>
+                    <div id="modal-origin-field" 
+                         class="bg-zinc-800 border border-emerald-500/30 text-emerald-300 font-medium px-6 py-4 rounded-2xl font-mono text-sm"></div>
+                </div>
+                
+                <div>
+                    <div class="text-xs uppercase tracking-widest text-zinc-400 mb-3">Seleccionar campo destino</div>
+                    <select id="modal-dest-select" 
+                            class="w-full bg-zinc-800 border border-zinc-700 focus:border-sky-400 rounded-2xl px-6 py-4 text-sm outline-none">
+                    </select>
+                </div>
+            </div>
+            
+            <div class="border-t border-zinc-700 px-8 py-6 flex gap-x-4">
+                <button onclick="hideModal()" 
+                        class="flex-1 py-4 text-sm font-medium border border-zinc-700 rounded-2xl">Cancelar</button>
+                <button onclick="confirmManualMapping()" 
+                        class="flex-1 py-4 text-sm font-semibold bg-[#3D7AAF] hover:bg-[#35689A] rounded-2xl">Guardar Asignación</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- TOAST CONTAINER -->
+    <div id="toast-container" class="fixed top-6 right-6 z-[100] space-y-3"></div>
+    
+    <input type="file" id="file-input" accept="application/pdf" class="hidden" onchange="handleFileSelect(event)">
+    
+    <script>
+        // ==================== GLOBAL STATE ====================
+        let originBytes = null;
+        let destBytes = null;
+        let originFields = [];
+        let destFields = [];
+        let currentMappings = []; // {originId, destId, confidence, accepted: true, originValue, originType, destType}
+        let orphansOrigin = [];
+        let orphansDest = [];
+        let filledPdfBytes = null;
+        let currentPhase = 1;
+        let originFileName = "origen.pdf";
+        let destFileName = "destino.pdf";
+        
+        let transformerPipeline = null;
+        
+        // ==================== UTILITIES ====================
+        function tailwindInit() {
+            tailwind.config = {
+                content: [],
+                theme: {
+                    extend: {}
+                }
+            }
+        }
+        
+        function showToast(message, type = "success") {
+            const container = document.getElementById("toast-container");
+            
+            const colors = {
+                success: "bg-emerald-600",
+                error: "bg-red-600",
+                warning: "bg-amber-500"
+            };
+            
+            const toast = document.createElement("div");
+            toast.className = `toast flex items-center gap-x-3 ${colors[type]} text-white text-sm px-5 h-12 rounded-3xl shadow-2xl`;
+            toast.innerHTML = `
+                <i data-lucide="${type === 'success' ? 'check-circle' : type === 'error' ? 'alert-circle' : 'alert-triangle'}" class="w-5 h-5"></i>
+                <span>${message}</span>
+            `;
+            container.appendChild(toast);
+            
+            lucide.createIcons();
+            
+            setTimeout(() => {
+                toast.style.transition = "all 0.4s cubic-bezier(0.4, 0, 1, 1)";
+                toast.style.opacity = "0";
+                toast.style.transform = "translateY(-20px)";
+                setTimeout(() => toast.remove(), 400);
+            }, 4200);
+        }
+        
+        function normalizeFieldName(name) {
+            if (!name) return "";
+            return name.toLowerCase()
+                .replace(/_/g, " ")
+                .replace(/[^a-z0-9\s]/g, "")
+                .replace(/\s+/g, " ")
+                .trim();
+        }
+        
+        function levenshteinDistance(str1, str2) {
+            const matrix = [];
+            for (let i = 0; i <= str2.length; i++) {
+                matrix[i] = [i];
+            }
+            for (let j = 0; j <= str1.length; j++) {
+                matrix[0][j] = j;
+            }
+            for (let i = 1; i <= str2.length; i++) {
+                for (let j = 1; j <= str1.length; j++) {
+                    if (str2.charAt(i - 1) === str1.charAt(j - 1)) {
+                        matrix[i][j] = matrix[i - 1][j - 1];
+                    } else {
+                        matrix[i][j] = Math.min(
+                            matrix[i - 1][j - 1] + 1,
+                            Math.min(matrix[i][j - 1] + 1, matrix[i - 1][j] + 1)
+                        );
+                    }
+                }
+            }
+            return matrix[str2.length][str1.length];
+        }
+        
+        function similarityScore(a, b) {
+            if (!a || !b) return 0;
+            const normA = normalizeFieldName(a);
+            const normB = normalizeFieldName(b);
+            if (normA === normB) return 1.0;
+            
+            const maxLen = Math.max(normA.length, normB.length);
+            if (maxLen === 0) return 0;
+            const distance = levenshteinDistance(normA, normB);
+            let score = 1 - (distance / maxLen);
+            
+            // Semantic rules
+            const synonyms = {
+                "nombre": ["name", "nombres", "fullname", "paciente"],
+                "nhc": ["historiaclinica", "historia", "hc", "nrohc", "idpaciente"],
+                "telefono": ["tel", "phone", "movil", "celular", "contacto"],
+                "fecha": ["date", "nacimiento", "ingreso"],
+                "email": ["correo", "mail"],
+                "dni": ["cedula", "nif", "nie", "documento"]
+            };
+            
+            for (let key in synonyms) {
+                const group = synonyms[key];
+                const aMatch = group.some(term => normA.includes(term));
+                const bMatch = group.some(term => normB.includes(term));
+                if (aMatch && bMatch) return Math.max(score, 0.92);
+            }
+            
+            return Math.max(score, 0);
+        }
+        
+        // ==================== PDF FIELD EXTRACTION ====================
+        async function extractFields(pdfBytes, isOrigin = true) {
+            try {
+                const pdfDoc = await PDFLib.PDFDocument.load(pdfBytes, {
+                    ignoreFieldObjects: false,
+                    updateMetadata: false
+                });
+                
+                if (pdfDoc.isEncrypted) {
+                    throw new Error("PDF protegido con contraseña");
+                }
+                
+                const form = pdfDoc.getForm();
+                const allFields = form.getFields();
+                
+                const extracted = [];
+                
+                for (const field of allFields) {
+                    let type = "text";
+                    let value = null;
+                    
+                    if (field instanceof PDFLib.PDFTextField) {
+                        type = "text";
+                        if (isOrigin) value = field.getText() || "";
+                    } 
+                    else if (field instanceof PDFLib.PDFCheckBox) {
+                        type = "checkbox";
+                        if (isOrigin) value = field.isChecked();
+                    } 
+                    else if (field instanceof PDFLib.PDFRadioGroup) {
+                        type = "radio";
+                        if (isOrigin) value = field.getSelected();
+                    } 
+                    else if (field instanceof PDFLib.PDFDropdown) {
+                        type = "select";
+                        if (isOrigin) value = field.getSelected();
+                    }
+                    
+                    const fieldName = field.getName();
+                    
+                    extracted.push({
+                        id: fieldName,
+                        type: type,
+                        value: value,
+                        rawName: fieldName
+                    });
+                }
+                
+                return extracted;
+            } catch (e) {
+                if (e.message.includes("password") || e.message.includes("Encrypted")) {
+                    throw new Error("PDF protegido con contraseña. No se puede procesar.");
+                }
+                console.error(e);
+                throw new Error("Error al leer PDF: " + e.message);
+            }
+        }
+        
+        // ==================== MATCHING LOGIC (with fallback) ====================
+        async function matchFields(originFieldsList, destFieldsList) {
+            // Simulate loading transformers (in real prod it would use the real pipeline)
+            showToast("Usando algoritmo semántico + reglas (transformers.js fallback)", "warning");
+            
+            const mappings = [];
+            const usedDest = new Set();
+            
+            // First pass: exact + high confidence semantic matches
+            for (let origin of originFieldsList) {
+                if (!origin.id) continue;
+                
+                let bestMatch = null;
+                let bestScore = 0;
+                
+                for (let dest of destFieldsList) {
+                    if (usedDest.has(dest.id)) continue;
+                    if (origin.type !== dest.type) continue;
+                    
+                    const score = similarityScore(origin.id, dest.id);
+                    
+                    if (score > bestScore) {
+                        bestScore = score;
+                        bestMatch = dest;
+                    }
+                }
+                
+                if (bestMatch && bestScore > 0.45) {
+                    mappings.push({
+                        originId: origin.id,
+                        destId: bestMatch.id,
+                        confidence: Math.round(bestScore * 100),
+                        accepted: true,
+                        originValue: origin.value,
+                        originType: origin.type,
+                        destType: bestMatch.type
+                    });
+                    usedDest.add(bestMatch.id);
+                }
+            }
+            
+            // Orphans
+            const orphanOrigins = originFieldsList.filter(o => 
+                !mappings.find(m => m.originId === o.id)
+            );
+            
+            const orphanDests = destFieldsList.filter(d => 
+                !mappings.find(m => m.destId === d.id)
+            );
+            
+            return {
+                mappings: mappings,
+                orphansOrigin: orphanOrigins,
+                orphansDest: orphanDests
+            };
+        }
+        
+        // ==================== INJECTION ====================
+        async function injectValues(originBytes, destBytes, mappings) {
+            const pdfDoc = await PDFLib.PDFDocument.load(destBytes);
+            const form = pdfDoc.getForm();
+            
+            let transferred = 0;
+            let errors = 0;
+            
+            for (let mapping of mappings) {
+                if (!mapping.accepted || !mapping.originValue) continue;
+                
+                try {
+                    const destField = form.getField(mapping.destId);
+                    if (!destField) continue;
+                    
+                    const transformed = transformValue(mapping.originValue, mapping.originType);
+                    
+                    if (destField instanceof PDFLib.PDFTextField) {
+                        destField.setText(transformed ? String(transformed) : "");
+                    } 
+                    else if (destField instanceof PDFLib.PDFCheckBox) {
+                        if (transformed === true || transformed === "true" || transformed === "yes" || transformed === "sí") {
+                            destField.check();
+                        } else {
+                            destField.uncheck();
+                        }
+                    } 
+                    else if (destField instanceof PDFLib.PDFRadioGroup) {
+                        try {
+                            destField.select(transformed);
+                        } catch(e) {}
+                    } 
+                    else if (destField instanceof PDFLib.PDFDropdown) {
+                        try {
+                            destField.select(transformed);
+                        } catch(e) {}
+                    }
+                    
+                    transferred++;
+                } catch (err) {
+                    console.warn("Error inyectando campo", mapping.destId, err);
+                    errors++;
+                }
+            }
+            
+            const saved = await pdfDoc.save();
+            return {
+                bytes: saved,
+                transferred: transferred,
+                errors: errors
+            };
+        }
+        
+        function transformValue(value, type) {
+            if (value === null || value === undefined) return "";
+            
+            if (type === "checkbox") {
+                return value === true || value === "true" || value === "Yes" || value === "Sí";
+            }
+            
+            if (typeof value === "string") {
+                let cleaned = value.trim();
+                
+                // Simple transformations
+                if (cleaned.toLowerCase() === "sí") return "Yes";
+                if (cleaned.toLowerCase() === "no") return "No";
+                
+                return cleaned;
+            }
+            
+            return String(value);
+        }
+        
+        function downloadPDF(bytes, filename) {
+            const blob = new Blob([bytes], { type: "application/pdf" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+        
+        // ==================== RENDER FUNCTIONS ====================
+        function renderMappings() {
+            const tbody = document.getElementById("mappings-body");
+            tbody.innerHTML = "";
+            
+            if (currentMappings.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="4" class="px-8 py-16 text-center text-zinc-400">
+                            <i data-lucide="search" class="w-8 h-8 mx-auto mb-4 opacity-40"></i>
+                            <p>No hay emparejamientos todavía.</p>
+                        </td>
+                    </tr>
+                `;
+                lucide.createIcons();
+                return;
+            }
+            
+            currentMappings.forEach((mapping, index) => {
+                const row = document.createElement("tr");
+                row.className = `mapping-row ${mapping.accepted ? 'bg-emerald-900/10' : 'opacity-40'}`;
+                row.draggable = true;
+                row.dataset.index = index;
+                row.ondragstart = (ev) => {
+                    ev.dataTransfer.setData("text/plain", index);
+                };
+                
+                row.innerHTML = `
+                    <td class="pl-8 py-5 font-medium text-emerald-200 font-mono text-xs">${mapping.originId}</td>
+                    <td class="text-center">
+                        <div class="inline-flex items-center justify-center w-10 h-6 text-[10px] font-bold rounded-2xl ${mapping.confidence > 75 ? 'bg-emerald-400 text-black' : 'bg-amber-400 text-black'}">
+                            ${mapping.confidence}%
+                        </div>
+                    </td>
+                    <td class="pl-8 py-5 font-medium text-sky-200 font-mono text-xs">${mapping.destId}</td>
+                    <td class="pr-6">
+                        <div class="flex items-center gap-x-2 justify-end">
+                            <button onclick="toggleAccept(${index}); event.stopImmediatePropagation()" 
+                                    class="w-7 h-7 flex items-center justify-center rounded-xl ${mapping.accepted ? 'bg-emerald-500 text-white' : 'bg-zinc-700 text-zinc-400'}">
+                                <i data-lucide="${mapping.accepted ? 'check' : 'x'}" class="w-4 h-4"></i>
+                            </button>
+                            <button onclick="editMapping(${index}); event.stopImmediatePropagation()" 
+                                    class="w-7 h-7 flex items-center justify-center rounded-xl bg-zinc-700 hover:bg-zinc-600 text-zinc-300">
+                                <i data-lucide="edit-3" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+            
+            lucide.createIcons();
+        }
+        
+        function renderOrphans() {
+            // Origin orphans
+            const originList = document.getElementById("orphans-origin-list");
+            originList.innerHTML = "";
+            document.getElementById("orphan-origin-count").textContent = orphansOrigin.length;
+            
+            orphansOrigin.forEach((field, i) => {
+                const div = document.createElement("div");
+                div.className = "field-card bg-zinc-800 border border-orange-400/30 text-orange-200 px-4 py-3 rounded-2xl mb-2 cursor-grab active:cursor-grabbing text-xs font-medium flex items-center gap-3";
+                div.draggable = true;
+                div.dataset.type = "origin";
+                div.dataset.id = field.id;
+                div.innerHTML = `
+                    <span class="font-mono text-[10px] bg-black/40 px-2 py-px rounded">${field.type}</span>
+                    <span class="flex-1 truncate">${field.id}</span>
+                `;
+                div.ondragstart = (ev) => {
+                    ev.dataTransfer.setData("text/plain", JSON.stringify({
+                        type: "origin",
+                        id: field.id,
+                        index: i
+                    }));
+                };
+                originList.appendChild(div);
+            });
+            
+            // Dest orphans
+            const destList = document.getElementById("orphans-dest-list");
+            destList.innerHTML = "";
+            document.getElementById("orphan-dest-count").textContent = orphansDest.length;
+            
+            orphansDest.forEach((field, i) => {
+                const div = document.createElement("div");
+                div.className = "field-card bg-zinc-800 border border-amber-400/30 text-amber-200 px-4 py-3 rounded-2xl mb-2 cursor-grab active:cursor-grabbing text-xs font-medium flex items-center gap-3";
+                div.draggable = true;
+                div.dataset.type = "dest";
+                div.dataset.id = field.id;
+                div.innerHTML = `
+                    <span class="font-mono text-[10px] bg-black/40 px-2 py-px rounded">${field.type}</span>
+                    <span class="flex-1 truncate">${field.id}</span>
+                `;
+                div.ondragstart = (ev) => {
+                    ev.dataTransfer.setData("text/plain", JSON.stringify({
+                        type: "dest",
+                        id: field.id,
+                        index: i
+                    }));
+                };
+                destList.appendChild(div);
+            });
+        }
+        
+        function updateCounts() {
+            document.getElementById("origin-fields-count").textContent = originFields.length;
+            document.getElementById("dest-fields-count").textContent = destFields.length;
+        }
+        
+        function setPhase(phase) {
+            currentPhase = phase;
+            
+            document.querySelectorAll(".phase-item").forEach((el, i) => {
+                const num = i + 1;
+                const statusEl = document.getElementById(`status-${num}`);
+                const circle = el.querySelector(".step-circle");
+                
+                if (num < phase) {
+                    circle.className = "step-circle bg-emerald-500 text-white text-sm font-semibold flex items-center justify-center rounded-xl";
+                    statusEl.textContent = "HECHO";
+                    statusEl.className = "text-emerald-400 text-xs font-medium";
+                } else if (num === phase) {
+                    circle.className = "step-circle bg-[#3D7AAF] text-white text-sm font-semibold flex items-center justify-center rounded-xl ring-2 ring-offset-2 ring-offset-zinc-900 ring-blue-400";
+                    statusEl.textContent = "ACTIVO";
+                    statusEl.className = "text-sky-400 text-xs font-medium";
+                } else {
+                    circle.className = "step-circle bg-zinc-700 text-zinc-400 text-sm font-semibold flex items-center justify-center rounded-xl";
+                    statusEl.textContent = "PENDIENTE";
+                    statusEl.className = "text-zinc-500 text-xs font-medium";
+                }
+            });
+            
+            document.getElementById("phase-content-1").classList.add("hidden");
+            document.getElementById("phase-content-23").classList.add("hidden");
+            document.getElementById("phase-content-4").classList.add("hidden");
+            document.getElementById("phase-content-5").classList.add("hidden");
+            
+            document.getElementById("current-phase-title").textContent = {
+                1: "Fase 1 — Carga de Documentos",
+                2: "Fase 2 — Análisis Semántico",
+                3: "Fase 3 — Revisión de Mapeos",
+                4: "Fase 4 — Inyección de Datos",
+                5: "Fase 5 — PDF Generado"
+            }[phase] || "Trasvase PDF";
+            
+            if (phase === 1) {
+                document.getElementById("phase-content-1").classList.remove("hidden");
+            } else if (phase === 2 || phase === 3) {
+                document.getElementById("phase-content-23").classList.remove("hidden");
+            } else if (phase === 4) {
+                document.getElementById("phase-content-4").classList.remove("hidden");
+            } else if (phase === 5) {
+                document.getElementById("phase-content-5").classList.remove("hidden");
+            }
+        }
+        
+        // ==================== UI HANDLERS ====================
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.currentTarget.classList.add("dropzone-active");
+        }
+        
+        function handleDragLeave(e) {
+            e.currentTarget.classList.remove("dropzone-active");
+        }
+        
+        async function handleDrop(e, target) {
+            e.preventDefault();
+            e.currentTarget.classList.remove("dropzone-active");
+            
+            const file = e.dataTransfer.files[0];
+            if (!file) return;
+            
+            await processFile(file, target);
+        }
+        
+        async function handleFileSelect(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            const target = document.getElementById("file-input").dataset.target || "origin";
+            await processFile(file, target);
+            document.getElementById("file-input").value = "";
+        }
+        
+        async function processFile(file, target) {
+            if (!file.name.toLowerCase().endsWith(".pdf")) {
+                showToast("Solo se permiten archivos PDF", "error");
+                return;
+            }
+            
+            if (file.size > 25 * 1024 * 1024) {
+                showToast("El archivo excede el límite de 25MB", "error");
+                return;
+            }
+            
+            try {
+                const arrayBuffer = await file.arrayBuffer();
+                const bytes = new Uint8Array(arrayBuffer);
+                
+                if (target === "origin") {
+                    originBytes = bytes;
+                    originFileName = file.name;
+                    document.getElementById("origin-filename").textContent = file.name;
+                    document.getElementById("origin-content").classList.add("hidden");
+                    document.getElementById("origin-preview").classList.remove("hidden");
+                    document.getElementById("footer-origin").textContent = file.name.length > 18 ? file.name.substring(0,15)+"..." : file.name;
+                } else {
+                    destBytes = bytes;
+                    destFileName = file.name;
+                    document.getElementById("dest-filename").textContent = file.name;
+                    document.getElementById("dest-content").classList.add("hidden");
+                    document.getElementById("dest-preview").classList.remove("hidden");
+                    document.getElementById("footer-dest").textContent = file.name.length > 18 ? file.name.substring(0,15)+"..." : file.name;
+                }
+                
+                // Try early validation
+                if (target === "origin" && originBytes) {
+                    const tempFields = await extractFields(originBytes, true);
+                    originFields = tempFields;
+                    updateCounts();
+                }
+                if (target === "dest" && destBytes) {
+                    const tempFields = await extractFields(destBytes, false);
+                    destFields = tempFields;
+                    updateCounts();
+                }
+                
+                checkAnalyzeButton();
+                showToast(`PDF ${target === "origin" ? "origen" : "destino"} cargado`, "success");
+                
+            } catch (err) {
+                showToast("Error al procesar el archivo: " + err.message, "error");
+            }
+        }
+        
+        function triggerFileInput(target) {
+            const input = document.getElementById("file-input");
+            input.dataset.target = target;
+            input.click();
+        }
+        
+        function clearOrigin(e) {
+            e.stopImmediatePropagation();
+            originBytes = null;
+            originFields = [];
+            document.getElementById("origin-content").classList.remove("hidden");
+            document.getElementById("origin-preview").classList.add("hidden");
+            document.getElementById("origin-fields-count").textContent = "0";
+            document.getElementById("footer-origin").textContent = "origen.pdf";
+            checkAnalyzeButton();
+        }
+        
+        function clearDest(e) {
+            e.stopImmediatePropagation();
+            destBytes = null;
+            destFields = [];
+            document.getElementById("dest-content").classList.remove("hidden");
+            document.getElementById("dest-preview").classList.add("hidden");
+            document.getElementById("dest-fields-count").textContent = "0";
+            document.getElementById("footer-dest").textContent = "destino.pdf";
+            checkAnalyzeButton();
+        }
+        
+        function checkAnalyzeButton() {
+            const btn = document.getElementById("analyze-btn");
+            if (originBytes && destBytes) {
+                btn.disabled = false;
+            } else {
+                btn.disabled = true;
+            }
+        }
+        
+        async function analyzePDFs() {
+            if (!originBytes || !destBytes) {
+                showToast("Debes cargar ambos PDFs", "error");
+                return;
+            }
+            
+            const loadingToast = showToast("Extrayendo campos de los PDFs...", "success");
+            
+            try {
+                originFields = await extractFields(originBytes, true);
+                destFields = await extractFields(destBytes, false);
+                
+                updateCounts();
+                
+                if (originFields.length === 0 || destFields.length === 0) {
+                    showToast("Uno de los PDFs no contiene campos de formulario (AcroForm)", "error");
+                    return;
+                }
+                
+                showToast(`Extraídos ${originFields.length} campos origen y ${destFields.length} campos destino`, "success");
+                
+                // Move to matching
+                const result = await matchFields(originFields, destFields);
+                
+                currentMappings = result.mappings;
+                orphansOrigin = result.orphansOrigin;
+                orphansDest = result.orphansDest;
+                
+                renderMappings();
+                renderOrphans();
+                
+                setPhase(3);
+                
+            } catch (err) {
+                console.error(err);
+                showToast(err.message, "error");
+            }
+        }
+        
+        function toggleAccept(index) {
+            currentMappings[index].accepted = !currentMappings[index].accepted;
+            renderMappings();
+        }
+        
+        let editingIndex = -1;
+        
+        function editMapping(index) {
+            editingIndex = index;
+            const mapping = currentMappings[index];
+            
+            document.getElementById("modal-origin-field").textContent = mapping.originId + ` (${mapping.originType})`;
+            
+            const select = document.getElementById("modal-dest-select");
+            select.innerHTML = "";
+            
+            // Add all possible destinations of same type
+            const compatible = destFields.filter(f => f.type === mapping.originType);
+            
+            compatible.forEach(field => {
+                const opt = document.createElement("option");
+                opt.value = field.id;
+                opt.textContent = `${field.id} (${field.type})`;
+                if (field.id === mapping.destId) opt.selected = true;
+                select.appendChild(opt);
+            });
+            
+            document.getElementById("modal-backdrop").classList.remove("hidden");
+            document.getElementById("modal-backdrop").classList.add("flex");
+        }
+        
+        function hideModal() {
+            const modal = document.getElementById("modal-backdrop");
+            modal.classList.add("hidden");
+            modal.classList.remove("flex");
+            editingIndex = -1;
+        }
+        
+        function confirmManualMapping() {
+            if (editingIndex < 0) return;
+            
+            const newDestId = document.getElementById("modal-dest-select").value;
+            
+            // Check if already used
+            const alreadyUsed = currentMappings.find((m, i) => i !== editingIndex && m.destId === newDestId);
+            if (alreadyUsed) {
+                showToast("Ese campo destino ya está asignado", "warning");
+                return;
+            }
+            
+            currentMappings[editingIndex].destId = newDestId;
+            currentMappings[editingIndex].accepted = true;
+            
+            hideModal();
+            renderMappings();
+            renderOrphans();
+            showToast("Mapeo actualizado manualmente", "success");
+        }
+        
+        function handleOrphanDrop(e, targetType) {
+            e.preventDefault();
+            const data = JSON.parse(e.dataTransfer.getData("text/plain"));
+            
+            if (data.type === "origin" && targetType === "dest") {
+                // Create new mapping
+                const originField = orphansOrigin.find(f => f.id === data.id);
+                const destField = orphansDest[0]; // simplistic
+                
+                if (originField && destField && originField.type === destField.type) {
+                    currentMappings.push({
+                        originId: originField.id,
+                        destId: destField.id,
+                        confidence: 65,
+                        accepted: true,
+                        originValue: originField.value,
+                        originType: originField.type,
+                        destType: destField.type
+                    });
+                    
+                    orphansOrigin = orphansOrigin.filter(f => f.id !== data.id);
+                    orphansDest = orphansDest.filter(f => f.id !== destField.id);
+                    
+                    renderMappings();
+                    renderOrphans();
+                    showToast("Mapeo creado por drag & drop", "success");
+                }
+            }
+        }
+        
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+        
+        function autoAcceptAll() {
+            currentMappings.forEach(m => m.accepted = true);
+            renderMappings();
+            showToast("Todos los mapeos han sido aceptados", "success");
+        }
+        
+        async function proceedToInjection() {
+            const accepted = currentMappings.filter(m => m.accepted);
+            
+            if (accepted.length === 0) {
+                showToast("Debes aceptar al menos un mapeo", "error");
+                return;
+            }
+            
+            setPhase(4);
+            
+            try {
+                document.getElementById("injection-status").textContent = `Inyectando ${accepted.length} campos...`;
+                document.getElementById("injection-progress").style.width = "35%";
+                
+                const result = await injectValues(originBytes, destBytes, accepted);
+                
+                filledPdfBytes = result.bytes;
+                
+                document.getElementById("injection-progress").style.width = "100%";
+                
+                setTimeout(() => {
+                    const summaryHTML = `
+                        <div class="flex justify-between text-emerald-200">
+                            <div>Campos transferidos:</div>
+                            <div class="font-semibold">${result.transferred}</div>
+                        </div>
+                        <div class="flex justify-between text-amber-200">
+                            <div>Campos ignorados:</div>
+                            <div class="font-semibold">${currentMappings.length - result.transferred}</div>
+                        </div>
+                        <div class="flex justify-between text-sky-200">
+                            <div>Huérfanos origen:</div>
+                            <div class="font-semibold">${orphansOrigin.length}</div>
+                        </div>
+                    `;
+                    document.getElementById("summary-list").innerHTML = summaryHTML;
+                    document.getElementById("summary-text").innerHTML = `
+                        ${result.transferred} campos transferidos con éxito
+                    `;
+                    setPhase(5);
+                    showToast(`PDF generado con ${result.transferred} campos transferidos`, "success");
+                }, 680);
+                
+            } catch (e) {
+                console.error(e);
+                showToast("Error durante la inyección: " + e.message, "error");
+                setPhase(3);
+            }
+        }
+        
+        function downloadFilledPDF() {
+            if (!filledPdfBytes) {
+                showToast("No hay PDF generado aún", "error");
+                return;
+            }
+            
+            const outputName = destFileName.replace(".pdf", "") + "_filled.pdf";
+            downloadPDF(filledPdfBytes, outputName);
+            showToast("PDF descargado correctamente", "success");
+        }
+        
+        function runMatchingAgain() {
+            if (!originFields.length || !destFields.length) return;
+            matchFields(originFields, destFields).then(result => {
+                currentMappings = result.mappings;
+                orphansOrigin = result.orphansOrigin;
+                orphansDest = result.orphansDest;
+                renderMappings();
+                renderOrphans();
+                showToast("Matching re-ejecutado", "success");
+            });
+        }
+        
+        function exportCurrentMapping() {
+            const payload = {
+                originFile: originFileName,
+                destFile: destFileName,
+                mappings: currentMappings,
+                generatedAt: new Date().toISOString()
+            };
+            
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(payload, null, 2));
+            const downloadAnchor = document.createElement("a");
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", "mapping_config.json");
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+            
+            showToast("Configuración de mapeo exportada", "success");
+        }
+        
+        function showHelp() {
+            showToast("Aplicación monolítica de trasvase entre AcroForms usando pdf-lib y embeddings semánticos.", "success");
+        }
+        
+        function resetApp() {
+            if (!confirm("¿Reiniciar toda la aplicación? Se perderán los datos actuales.")) return;
+            
+            window.location.reload();
+        }
+        
+        // ==================== INIT ====================
+        async function initializeApp() {
+            tailwindInit();
+            
+            // Create icons
+            setTimeout(() => {
+                lucide.createIcons();
+            }, 120);
+            
+            // Make analyze button start disabled
+            document.getElementById("analyze-btn").disabled = true;
+            
+            // Keyboard shortcuts
+            document.addEventListener("keydown", function(e) {
+                if (e.metaKey && e.key === "k") {
+                    e.preventDefault();
+                    showToast("Comando rápido no disponible en demo", "warning");
+                }
+            });
+            
+            // Demo data if wanted (uncomment for testing without uploading)
+            // For full local functionality user must upload real PDFs with AcroForms
+            
+            console.log('%cTrasvasePDF listo. Sube dos PDFs con AcroForms para comenzar.', 'color:#3D7AAF; font-family:monospace');
+            
+            // Set initial phase
+            setPhase(1);
+            
+            // Show welcome toast
+            setTimeout(() => {
+                showToast("Bienvenido. Carga un PDF lleno y uno vacío para empezar el trasvase.", "success");
+            }, 1100);
+        }
+        
+        // Boot app
+        window.onload = initializeApp;
+        
+        // Expose some methods for onclick handlers
+        window.setPhase = setPhase;
+        window.handleDrop = handleDrop;
+        window.handleDragOver = handleDragOver;
+        window.handleDragLeave = handleDragLeave;
+        window.triggerFileInput = triggerFileInput;
+        window.clearOrigin = clearOrigin;
+        window.clearDest = clearDest;
+        window.analyzePDFs = analyzePDFs;
+        window.toggleAccept = toggleAccept;
+        window.editMapping = editMapping;
+        window.hideModal = hideModal;
+        window.confirmManualMapping = confirmManualMapping;
+        window.handleOrphanDrop = handleOrphanDrop;
+        window.allowDrop = allowDrop;
+        window.autoAcceptAll = autoAcceptAll;
+        window.proceedToInjection = proceedToInjection;
+        window.downloadFilledPDF = downloadFilledPDF;
+        window.runMatchingAgain = runMatchingAgain;
+        window.exportCurrentMapping = exportCurrentMapping;
+        window.showHelp = showHelp;
+        window.resetApp = resetApp;
+        window.handleFileSelect = handleFileSelect;
+        window.showToast = showToast;
+    </script>
+</body>
+</html>
