@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Unlocker — Desbloquear PDF | Maicel Monzón PhD</title>
+    <meta name="author" content="Maicel Monzón PhD">
+    <meta name="description" content="Herramienta gratuita para desbloquear archivos PDF protegidos. Procesamiento 100% local en tu navegador. Privacidad garantizada.">
+    <meta name="robots" content="noindex, nofollow">
+
+    <!-- Tailwind CSS v4 (Browser CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- pdf-lib v1.4.0 -->
+    <script src="https://unpkg.com/pdf-lib@1.4.0/dist/pdf-lib.min.js"></script>
+
+    <!-- ============================================================ -->
+    <!-- ESTILOS PERSONALIZADOS                                       -->
+    <!-- ============================================================ -->
+    <style>
+        /* ---- Fuente del sistema (consistente con Tailwind v4) ---- */
+        body { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+
+        /* ---- Animación del spinner de carga ---- */
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .spinner {
+            width: 36px;
+            height: 36px;
+            border: 2.5px solid #e5e7eb;
+            border-top-color: #2563eb;
+            border-radius: 50%;
+            animation: spin 0.75s linear infinite;
+        }
+
+        /* ---- Animación de entrada suave ---- */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            animation: fadeIn 0.35s ease-out forwards;
+        }
+
+        /* ---- Animación de escala para check de éxito ---- */
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.6); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+        .scale-in {
+            animation: scaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        /* ---- Pulso sutil para estados de procesamiento ---- */
+        @keyframes pulseSubtle {
+            0%, 100% { opacity: 1; }
+            50%      { opacity: 0.5; }
+        }
+        .pulse-subtle {
+            animation: pulseSubtle 1.8s ease-in-out infinite;
+        }
+
+        /* ---- Transición de borde del drop zone ---- */
+        .drop-zone-transition {
+            transition: border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        /* ---- Ocultar el input de archivo ---- */
+        .sr-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* ---- Ripple sutil en botones ---- */
+        .btn-primary {
+            transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+        }
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        /* ---- Animación de sacudida para error de contraseña ---- */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
+            20%, 40%, 60%, 80% { transform: translateX(4px); }
+        }
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        /* ---- Scrollbar sutil para el panel ---- */
+        .panel-scroll::-webkit-scrollbar { width: 4px; }
+        .panel-scroll::-webkit-scrollbar-track { background: transparent; }
+        .panel-scroll::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 2px; }
+    </style>
+</head>
+
+<body class="min-h-screen bg-gray-50 flex flex-col antialiased selection:bg-blue-100 selection:text-blue-900">
+
+    <!-- ============================================================ -->
+    <!-- ENCABEZADO                                                    -->
+    <!-- ============================================================ -->
+    <header class="bg-white border-b border-gray-100 px-6 py-4">
+        <div class="max-w-7xl mx-auto w-full flex items-center justify-between">
+            <!-- Marca -->
+            <div class="flex items-center gap-3">
+                <div class="flex items-center justify-center w-10 h-10 rounded-xl bg-blue-50 text-blue-600">
+                    <!-- Icono: Unlock (Lucide) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
+                        <path d="M7 11V7a5 5 0 0 1 9.9-1"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-lg font-semibold text-gray-900 tracking-tight">PDF Unlocker</h1>
+                    <p class="text-xs text-gray-400 hidden sm:block">Desbloquea tus archivos PDF de forma segura y privada</p>
+                </div>
+            </div>
+            <!-- Enlace al ecosistema -->
+            <a href="https://bioestadisticaedu.com/"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="text-xs text-gray-400 hover:text-blue-600 transition-colors hidden md:flex items-center gap-1.5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                </svg>
+                bioestadisticaedu.com
+            </a>
+        </div>
+    </header>
+
+    <!-- ============================================================ -->
+    <!-- CONTENIDO PRINCIPAL (Layout bilateral)                        -->
+    <!-- ============================================================ -->
+    <main class="flex-1 flex flex-col lg:flex-row gap-6 lg:gap-8 p-6 lg:p-10 max-w-7xl mx-auto w-full">
+
+        <!-- ======================================================== -->
+        <!-- ZONA DE CARGA — Panel izquierdo (mayor)                  -->
+        <!-- ======================================================== -->
+        <section id="dropZone"
+                 class="flex-[3] min-h-[340px] lg:min-h-[460px] rounded-2xl border-2 border-dashed border-gray-200 bg-white flex items-center justify-center cursor-pointer drop-zone-transition hover:border-blue-300 hover:bg-blue-50/30 focus-within:border-blue-400 focus-within:ring-2 focus-within:ring-blue-100 relative"
+                 role="button"
+                 tabindex="0"
+                 aria-label="Zona para arrastrar y soltar un archivo PDF">
+
+            <!-- Contenido dinámico (renderizado por JS) -->
+            <div id="dropZoneContent" class="flex flex-col items-center justify-center text-center px-6 py-10 w-full pointer-events-none">
+                <!-- Estado inicial: se rellena desde JavaScript -->
+            </div>
+
+            <!-- Input de archivo invisible (se activa al hacer clic) -->
+            <input type="file"
+                   id="fileInput"
+                   accept=".pdf,application/pdf"
+                   class="sr-hidden"
+                   aria-hidden="true"
+                   tabindex="-1">
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- PANEL DE CONFIGURACIÓN — Panel derecho (menor)           -->
+        <!-- ======================================================== -->
+        <aside id="configPanel"
+               class="flex-[2] lg:max-w-sm bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+            <div id="configPanelContent" class="p-6 lg:p-8 panel-scroll overflow-y-auto max-h-[460px]">
+                <!-- Contenido dinámico (renderizado por JS) -->
+            </div>
+        </aside>
+
+    </main>
+
+    <!-- ============================================================ -->
+    <!-- PIE DE PÁGINA                                                 -->
+    <!-- ============================================================ -->
+    <footer class="bg-white border-t border-gray-100 px-6 py-5">
+        <div class="max-w-7xl mx-auto w-full flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
+            <p class="text-xs text-gray-400 leading-relaxed">
+                Desarrollado por <strong class="text-gray-500 font-medium">Maicel Monzón PhD</strong>
+                · Herramienta de acceso gratuito con procesamiento 100% local.
+                <br class="hidden sm:block">
+                Tus archivos nunca salen de tu dispositivo. Uso ético y responsable.
+            </p>
+            <a href="https://bioestadisticaedu.com/"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="text-xs text-gray-400 hover:text-blue-600 transition-colors whitespace-nowrap flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 3a12 12 0 0 0 0 18"/>
+                    <path d="M12 3a12 12 0 0 1 0 18"/>
+                    <path d="M3 12h18"/>
+                </svg>
+                bioestadisticaedu.com
+            </a>
+        </div>
+    </footer>
+
+    <!-- ============================================================ -->
+    <!-- SCRIPT PRINCIPAL DE LA APLICACIÓN                             -->
+    <!-- ============================================================ -->
+    <script>
+    (function () {
+        "use strict";
+
+        // ============================================================
+        // ICONOS SVG — Estilo Lucide (inline para máximo rendimiento)
+        // ============================================================
+        const ICON = {
+            uploadCloud: `<svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="M12 12v9"/><path d="m16 16-4-4-4 4"/></svg>`,
+
+            fileText: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>`,
+
+            lock: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`,
+
+            unlock: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>`,
+
+            download: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>`,
+
+            shieldCheck: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>`,
+
+            checkCircle: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>`,
+
+            alertCircle: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>`,
+
+            eye: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>`,
+
+            eyeOff: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></svg>`,
+
+            refreshCw: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>`,
+
+            check: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`,
+
+            fileLock: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><rect width="8" height="5" x="8" y="14" rx="1"/><path d="M10 14v-1a2 2 0 1 1 4 0v1"/></svg>`,
+        };
+
+
+        // ============================================================
+        // ESTADOS DE LA APLICACIÓN
+        // ============================================================
+        const State = Object.freeze({
+            IDLE:              "idle",
+            ANALYZING:         "analyzing",
+            PERMISSION_ONLY:   "permission_only",
+            PASSWORD_REQUIRED: "password_required",
+            PROCESSING:        "processing",
+            SUCCESS:           "success",
+            ERROR:             "error",
+        });
+
+        /** Estado actual de la aplicación */
+        let currentState = State.IDLE;
+
+        /** Datos del archivo cargado (no persistente) */
+        let loadedFile = {
+            name: null,
+            size: 0,
+            arrayBuffer: null,
+        };
+
+        /** Bytes del PDF ya procesado (para re-descarga) */
+        let processedPdfBytes = null;
+
+        /** Mensaje de error actual */
+        let errorMessage = "";
+
+
+        // ============================================================
+        // REFERENCIAS AL DOM
+        // ============================================================
+        const $dropZone        = document.getElementById("dropZone");
+        const $dropZoneContent = document.getElementById("dropZoneContent");
+        const $configPanel     = document.getElementById("configPanelContent");
+        const $fileInput       = document.getElementById("fileInput");
+
+
+        // ============================================================
+        // FUNCIONES UTILITARIAS
+        // ============================================================
+
+        /**
+         * Formatea bytes a una cadena legible (B, KB, MB).
+         * @param {number} bytes
+         * @returns {string}
+         */
+        function formatFileSize(bytes) {
+            if (bytes < 1024) return bytes + " B";
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
+            return (bytes / (1024 * 1024)).toFixed(2) + " MB";
+        }
+
+        /**
+         * Genera el nombre del archivo de salida agregando el sufijo "_unlocked".
+         * Evita sufijos duplicados si el archivo ya contiene "_unlocked".
+         * @param {string} originalName
+         * @returns {string}
+         */
+        function generateOutputName(originalName) {
+            const base = originalName.replace(/\.pdf$/i, "");
+            const cleanBase = base.replace(/_unlocked$/, "");
+            return cleanBase + "_unlocked.pdf";
+        }
+
+        /**
+         * Determina si un error de pdf-lib está relacionado con cifrado/contraseña.
+         * @param {Error} error
+         * @returns {boolean}
+         */
+        function isPasswordError(error) {
+            const msg = (error.message || "").toLowerCase();
+            return (
+                msg.includes("password") ||
+                msg.includes("encrypted") ||
+                msg.includes("encrypt") ||
+                msg.includes("decrypt")
+            );
+        }
+
+        /**
+         * Valida que el archivo sea un PDF válido por extensión y tipo MIME.
+         * @param {File} file
+         * @returns {{ valid: boolean, reason: string }}
+         */
+        function validateFile(file) {
+            if (!file) return { valid: false, reason: "No se seleccionó ningún archivo." };
+            const ext = file.name.toLowerCase();
+            if (!ext.endsWith(".pdf")) {
+                return { valid: false, reason: "El archivo debe tener extensión .pdf" };
+            }
+            if (file.type && file.type !== "application/pdf") {
+                return { valid: false, reason: "El tipo de archivo no es PDF (application/pdf)." };
+            }
+            if (file.size === 0) {
+                return { valid: false, reason: "El archivo está vacío (0 bytes)." };
+            }
+            return { valid: true, reason: "" };
+        }
+
+        /**
+         * Dispara la descarga automática de un Blob como archivo.
+         * @param {Uint8Array} pdfBytes
+         * @param {string} fileName
+         */
+        function triggerDownload(pdfBytes, fileName) {
+            const blob = new Blob([pdfBytes], { type: "application/pdf" });
+            const url = URL.createObjectURL(blob);
+            const anchor = document.createElement("a");
+            anchor.href = url;
+            anchor.download = fileName;
+            document.body.appendChild(anchor);
+            anchor.click();
+            // Limpieza asíncrona para no interferir con la descarga
+            setTimeout(() => {
+                document.body.removeChild(anchor);
+                URL.revokeObjectURL(url);
+            }, 250);
+        }
+
+        /**
+         * Pausa la ejecución el tiempo indicado (ms) para permitir repaints del UI.
+         * @param {number} ms
+         * @returns {Promise<void>}
+         */
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+
+        // ============================================================
+        // RENDERIZADO DE LA INTERFAZ — Zona de carga (izquierda)
+        // ============================================================
+
+        /**
+         * Renderiza el contenido de la zona de carga según el estado.
+         */
+        function renderDropZone() {
+            switch (currentState) {
+                case State.IDLE:
+                    $dropZoneContent.innerHTML = `
+                        <div class="text-gray-300 mb-4">${ICON.uploadCloud}</div>
+                        <p class="text-gray-600 font-medium text-base mb-1">Arrastra y suelta tu PDF aquí</p>
+                        <p class="text-gray-400 text-sm mb-4">o haz clic para seleccionar un archivo</p>
+                        <span class="inline-block text-xs text-gray-300 bg-gray-50 px-3 py-1 rounded-full">
+                            Solo archivos PDF
+                        </span>`;
+                    setDropZoneStyle("idle");
+                    break;
+
+                case State.ANALYZING:
+                case State.PROCESSING:
+                    $dropZoneContent.innerHTML = `
+                        <div class="text-blue-200 mb-4 pulse-subtle">${ICON.fileText}</div>
+                        <p class="text-gray-700 font-medium text-base mb-1">${loadedFile.name}</p>
+                        <p class="text-gray-400 text-sm">${formatFileSize(loadedFile.size)}</p>
+                        <div class="mt-5 flex items-center gap-2 text-blue-500 text-sm">
+                            <div class="spinner" style="width:18px;height:18px;border-width:2px;border-top-color:#3b82f6;"></div>
+                            <span>${currentState === State.ANALYZING ? "Analizando..." : "Procesando..."}</span>
+                        </div>`;
+                    setDropZoneStyle("processing");
+                    break;
+
+                case State.PASSWORD_REQUIRED:
+                    $dropZoneContent.innerHTML = `
+                        <div class="text-amber-300 mb-4">${ICON.fileLock}</div>
+                        <p class="text-gray-700 font-medium text-base mb-1">${loadedFile.name}</p>
+                        <p class="text-gray-400 text-sm">${formatFileSize(loadedFile.size)}</p>
+                        <div class="mt-4 flex items-center gap-2 text-amber-600 text-sm">
+                            ${ICON.lock}
+                            <span>Protegido con contraseña</span>
+                        </div>`;
+                    setDropZoneStyle("locked");
+                    break;
+
+                case State.SUCCESS:
+                    $dropZoneContent.innerHTML = `
+                        <div class="text-emerald-400 mb-4 scale-in">${ICON.checkCircle}</div>
+                        <p class="text-gray-700 font-medium text-base mb-1">${loadedFile.name}</p>
+                        <p class="text-gray-400 text-sm">${formatFileSize(loadedFile.size)}</p>
+                        <div class="mt-4 flex items-center gap-2 text-emerald-600 text-sm">
+                            ${ICON.unlock}
+                            <span>PDF desbloqueado exitosamente</span>
+                        </div>`;
+                    setDropZoneStyle("success");
+                    break;
+
+                case State.ERROR:
+                    $dropZoneContent.innerHTML = `
+                        <div class="text-red-300 mb-4">${ICON.alertCircle}</div>
+                        <p class="text-gray-700 font-medium text-base mb-1">${loadedFile.name || "Error"}</p>
+                        <p class="text-red-400 text-sm mt-2 max-w-xs">${escapeHtml(errorMessage)}</p>
+                        <button onclick="window._resetApp()" class="mt-4 text-sm text-gray-500 hover:text-blue-600 underline underline-offset-2 transition-colors pointer-events-auto">
+                            Intentar con otro archivo
+                        </button>`;
+                    setDropZoneStyle("error");
+                    break;
+
+                default:
+                    // Renderizar estado IDLE por defecto
+                    $dropZoneContent.innerHTML = `
+                        <div class="text-gray-300 mb-4">${ICON.uploadCloud}</div>
+                        <p class="text-gray-600 font-medium text-base mb-1">Arrastra y suelta tu PDF aquí</p>
+                        <p class="text-gray-400 text-sm mb-4">o haz clic para seleccionar un archivo</p>
+                        <span class="inline-block text-xs text-gray-300 bg-gray-50 px-3 py-1 rounded-full">
+                            Solo archivos PDF
+                        </span>`;
+                    setDropZoneStyle("idle");
+            }
+        }
+
+        /**
+         * Aplica estilos visuales al contenedor del drop zone según el estado.
+         * @param {"idle"|"processing"|"locked"|"success"|"error"} mode
+         */
+        function setDropZoneStyle(mode) {
+            // Limpiar clases dinámicas previas
+            $dropZone.classList.remove(
+                "border-blue-300", "bg-blue-50/30",
+                "border-blue-200", "bg-blue-50/20",
+                "border-amber-200", "bg-amber-50/30",
+                "border-emerald-200", "bg-emerald-50/30",
+                "border-red-200", "bg-red-50/20"
+            );
+
+            switch (mode) {
+                case "idle":
+                    $dropZone.style.borderColor = "";
+                    $dropZone.style.backgroundColor = "";
+                    break;
+                case "processing":
+                    $dropZone.classList.add("border-blue-200", "bg-blue-50/20");
+                    break;
+                case "locked":
+                    $dropZone.classList.add("border-amber-200", "bg-amber-50/30");
+                    break;
+                case "success":
+                    $dropZone.classList.add("border-emerald-200", "bg-emerald-50/30");
+                    break;
+                case "error":
+                    $dropZone.classList.add("border-red-200", "bg-red-50/20");
+                    break;
+            }
+        }
+
+        /**
+         * Escapa caracteres HTML para prevenir inyección en mensajes de error.
+         * @param {string} str
+         * @returns {string}
+         */
+        function escapeHtml(str) {
+            const div = document.createElement("div");
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+
+        // ============================================================
+        // RENDERIZADO DE LA INTERFAZ — Panel derecho (configuración)
+        // ============================================================
+
+        /**
+         * Renderiza el contenido del panel lateral según el estado.
+         */
+        function renderConfigPanel() {
+            switch (currentState) {
+
+                // ---- Estado inactivo: información de privacidad ----
+                case State.IDLE:
+                    $configPanel.innerHTML = `
+                        <div class="fade-in">
+                            <div class="flex items-center gap-2 mb-5">
+                                <span class="text-blue-600">${ICON.shieldCheck}</span>
+                                <h2 class="text-base font-semibold text-gray-900">Privacidad garantizada</h2>
+                            </div>
+                            <p class="text-sm text-gray-500 leading-relaxed mb-6">
+                                Todo el procesamiento se realiza <strong class="text-gray-700">localmente en tu navegador</strong>.
+                                Tu archivo nunca sale de tu dispositivo ni se almacena en ningún servidor.
+                            </p>
+                            <ul class="space-y-3 text-sm text-gray-500">
+                                <li class="flex items-start gap-2.5">
+                                    <span class="text-emerald-500 mt-0.5 shrink-0">${ICON.check}</span>
+                                    <span>Sin subida a servidores externos</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <span class="text-emerald-500 mt-0.5 shrink-0">${ICON.check}</span>
+                                    <span>Sin almacenamiento de datos o contraseñas</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <span class="text-emerald-500 mt-0.5 shrink-0">${ICON.check}</span>
+                                    <span>Código transparente y auditable</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <span class="text-emerald-500 mt-0.5 shrink-0">${ICON.check}</span>
+                                    <span>Funciona sin conexión a Internet</span>
+                                </li>
+                            </ul>
+                            <div class="mt-8 pt-5 border-t border-gray-100">
+                                <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Cómo funciona</h3>
+                                <ol class="space-y-2 text-sm text-gray-500 list-decimal list-inside">
+                                    <li>Arrastra un PDF bloqueado a la zona izquierda</li>
+                                    <li>Si requiere contraseña, ingrésala en este panel</li>
+                                    <li>Descarga tu PDF sin restricciones</li>
+                                </ol>
+                            </div>
+                        </div>`;
+                    break;
+
+                // ---- Analizando documento ----
+                case State.ANALYZING:
+                    $configPanel.innerHTML = `
+                        <div class="fade-in flex flex-col items-center justify-center text-center py-8">
+                            <div class="spinner mb-4"></div>
+                            <p class="text-gray-700 font-medium">Analizando documento</p>
+                            <p class="text-gray-400 text-sm mt-1">Verificando cifrado y permisos...</p>
+                        </div>`;
+                    break;
+
+                // ---- Procesando (reconstruyendo PDF) ----
+                case State.PROCESSING:
+                    $configPanel.innerHTML = `
+                        <div class="fade-in flex flex-col items-center justify-center text-center py-8">
+                            <div class="spinner mb-4"></div>
+                            <p class="text-gray-700 font-medium">Procesando documento</p>
+                            <p class="text-gray-400 text-sm mt-1 pulse-subtle">Reconstruyendo árbol de objetos PDF...</p>
+                        </div>`;
+                    break;
+
+                // ---- PDF protegido con contraseña ----
+                case State.PASSWORD_REQUIRED:
+                    $configPanel.innerHTML = `
+                        <div class="fade-in">
+                            <!-- Información del archivo -->
+                            <div class="flex items-center gap-3 mb-6 pb-5 border-b border-gray-100">
+                                <span class="text-amber-500 shrink-0">${ICON.lock}</span>
+                                <div class="min-w-0">
+                                    <p class="text-sm font-medium text-gray-900 truncate">${escapeHtml(loadedFile.name)}</p>
+                                    <p class="text-xs text-gray-400">${formatFileSize(loadedFile.size)}</p>
+                                </div>
+                            </div>
+
+                            <!-- Mensaje explicativo -->
+                            <p class="text-sm text-gray-600 leading-relaxed mb-6">
+                                Este PDF está protegido con <strong class="text-gray-800">contraseña de apertura</strong>.
+                                Ingresa la clave para desbloquearlo.
+                            </p>
+
+                            <!-- Campo de contraseña -->
+                            <div class="mb-4">
+                                <label for="passwordInput" class="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
+                                    Contraseña
+                                </label>
+                                <div class="relative">
+                                    <input
+                                        type="password"
+                                        id="passwordInput"
+                                        placeholder="Ingresa la contraseña del PDF"
+                                        autocomplete="off"
+                                        spellcheck="false"
+                                        class="w-full px-4 py-3 pr-11 rounded-xl border border-gray-200 bg-gray-50/50 text-gray-900 text-sm placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-400 transition-all"
+                                    >
+                                    <button
+                                        type="button"
+                                        id="togglePasswordBtn"
+                                        class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                                        aria-label="Mostrar u ocultar contraseña"
+                                    >
+                                        <span id="eyeIcon">${ICON.eye}</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Contenedor de error (oculto por defecto) -->
+                            <div id="passwordError" class="hidden mb-4 text-sm text-red-500 bg-red-50 px-4 py-2.5 rounded-lg"></div>
+
+                            <!-- Botón de desbloqueo -->
+                            <button
+                                id="unlockBtn"
+                                class="btn-primary w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
+                            >
+                                ${ICON.unlock}
+                                <span>Desbloquear PDF</span>
+                            </button>
+
+                            <!-- Enlace para cambiar archivo -->
+                            <button
+                                onclick="window._resetApp()"
+                                class="w-full mt-3 text-sm text-gray-400 hover:text-gray-600 py-2 transition-colors"
+                            >
+                                Cambiar archivo
+                            </button>
+                        </div>`;
+
+                    // Enfocar el campo de contraseña automáticamente
+                    requestAnimationFrame(() => {
+                        const pwdInput = document.getElementById("passwordInput");
+                        if (pwdInput) pwdInput.focus();
+                    });
+                    break;
+
+                // ---- Éxito: PDF desbloqueado ----
+                case State.SUCCESS:
+                    $configPanel.innerHTML = `
+                        <div class="fade-in text-center">
+                            <div class="text-emerald-500 mb-4 scale-in">${ICON.checkCircle}</div>
+                            <h2 class="text-lg font-semibold text-gray-900 mb-1">¡PDF desbloqueado!</h2>
+                            <p class="text-sm text-gray-400 mb-6">El archivo se ha procesado y descargado correctamente.</p>
+
+                            <div class="bg-gray-50 rounded-xl p-4 mb-6 text-left">
+                                <p class="text-xs text-gray-400 uppercase tracking-wider mb-1">Archivo generado</p>
+                                <p class="text-sm font-medium text-gray-700 truncate">${escapeHtml(generateOutputName(loadedFile.name))}</p>
+                            </div>
+
+                            <button
+                                id="downloadAgainBtn"
+                                class="btn-primary w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-xl shadow-sm mb-3 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                            >
+                                ${ICON.download}
+                                <span>Descargar nuevamente</span>
+                            </button>
+
+                            <button
+                                onclick="window._resetApp()"
+                                class="w-full flex items-center justify-center gap-1.5 text-sm text-gray-400 hover:text-gray-600 py-2 transition-colors"
+                            >
+                                ${ICON.refreshCw}
+                                <span>Procesar otro archivo</span>
+                            </button>
+                        </div>`;
+                    break;
+
+                // ---- Error genérico ----
+                case State.ERROR:
+                    $configPanel.innerHTML = `
+                        <div class="fade-in text-center">
+                            <div class="text-red-400 mb-4">${ICON.alertCircle}</div>
+                            <h2 class="text-lg font-semibold text-gray-900 mb-1">Error al procesar</h2>
+                            <p class="text-sm text-red-500 mb-6 leading-relaxed">${escapeHtml(errorMessage)}</p>
+
+                            <button
+                                onclick="window._resetApp()"
+                                class="btn-primary w-full flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-3 px-6 rounded-xl transition-colors"
+                            >
+                                ${ICON.refreshCw}
+                                <span>Intentar de nuevo</span>
+                            </button>
+                        </div>`;
+                    break;
+            }
+        }
+
+
+        // ============================================================
+        // GESTIÓN DE ESTADO CENTRALIZADA
+        // ============================================================
+
+        /**
+         * Cambia el estado de la aplicación y actualiza toda la interfaz.
+         * @param {string} newState - Uno de los valores de State
+         * @param {string} [error=""] - Mensaje de error (solo para State.ERROR)
+         */
+        function setState(newState, error = "") {
+            currentState = newState;
+            errorMessage = error;
+            renderDropZone();
+            renderConfigPanel();
+        }
+
+
+        // ============================================================
+        // LÓGICA PRINCIPAL DE PROCESAMIENTO PDF
+        // ============================================================
+
+        /**
+         * Punto de entrada: recibe un archivo PDF y determina su tipo de protección.
+         * @param {File} file
+         */
+        async function handleFile(file) {
+            // Validar el archivo antes de cualquier operación
+            const validation = validateFile(file);
+            if (!validation.valid) {
+                setState(State.ERROR, validation.reason);
+                return;
+            }
+
+            // Almacenar metadatos (no el archivo completo en variable global permanente)
+            loadedFile.name = file.name;
+            loadedFile.size = file.size;
+
+            try {
+                // Leer el archivo como ArrayBuffer
+                const arrayBuffer = await file.arrayBuffer();
+                loadedFile.arrayBuffer = arrayBuffer;
+
+                // Estado: analizando
+                setState(State.ANALYZING);
+
+                // Breve pausa para permitir que el UI se actualice
+                await sleep(80);
+
+                // Intento de carga SIN contraseña
+                const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+
+                // Si llega aquí → el PDF se abrió correctamente (Escenario A)
+                // Las restricciones de permisos se eliminan al reconstruir el documento.
+                setState(State.PROCESSING);
+                await sleep(60);
+
+                // Reconstruir y guardar el PDF limpio (sin cifrado ni restricciones)
+                const pdfBytes = await pdfDoc.save();
+                processedPdfBytes = pdfBytes;
+
+                // Generar descarga automática
+                const outputName = generateOutputName(file.name);
+                triggerDownload(pdfBytes, outputName);
+
+                // Estado de éxito
+                setState(State.SUCCESS);
+
+            } catch (error) {
+                // Determinar si el error es por contraseña requerida
+                if (isPasswordError(error)) {
+                    // Escenario B: PDF cifrado con contraseña de apertura
+                    setState(State.PASSWORD_REQUIRED);
+                } else {
+                    // Otro tipo de error (archivo corrupto, formato inválido, etc.)
+                    setState(
+                        State.ERROR,
+                        "No se pudo leer el archivo PDF. Verifica que no esté corrupto. Detalle: " +
+                            (error.message || "Error desconocido")
+                    );
+                }
+            }
+        }
+
+        /**
+         * Intenta desbloquear el PDF con la contraseña proporcionada por el usuario.
+         * La contraseña existe SOLO dentro del alcance de esta función (seguridad).
+         * @param {string} userPassword - Contraseña ingresada por el usuario
+         */
+        async function unlockWithPassword(userPassword) {
+            // Capturar referencia al ArrayBuffer (no almacenar la contraseña en ningún lado)
+            const bufferRef = loadedFile.arrayBuffer;
+
+            if (!bufferRef) {
+                setState(State.ERROR, "No se encontró el archivo en memoria. Carga el PDF nuevamente.");
+                return;
+            }
+
+            setState(State.PROCESSING);
+
+            try {
+                // Breve pausa para que el spinner sea visible
+                await sleep(100);
+
+                // Cargar el PDF CON la contraseña del usuario
+                const pdfDoc = await PDFLib.PDFDocument.load(bufferRef, {
+                    password: userPassword,
+                });
+
+                // Reconstruir el PDF sin cifrado
+                const pdfBytes = await pdfDoc.save();
+                processedPdfBytes = pdfBytes;
+
+                // Descarga automática
+                const outputName = generateOutputName(loadedFile.name);
+                triggerDownload(pdfBytes, outputName);
+
+                setState(State.SUCCESS);
+
+            } catch (error) {
+                if (isPasswordError(error)) {
+                    // Contraseña incorrecta — volver al estado de ingreso con mensaje de error
+                    setState(State.PASSWORD_REQUIRED);
+
+                    // Mostrar error inline en el campo de contraseña
+                    requestAnimationFrame(() => {
+                        const errorDiv = document.getElementById("passwordError");
+                        const pwdInput = document.getElementById("passwordInput");
+                        if (errorDiv) {
+                            errorDiv.textContent = "Contraseña incorrecta. Inténtalo de nuevo.";
+                            errorDiv.classList.remove("hidden");
+                        }
+                        if (pwdInput) {
+                            pwdInput.value = "";
+                            pwdInput.focus();
+                            pwdInput.parentElement.classList.add("shake");
+                            setTimeout(() => pwdInput.parentElement.classList.remove("shake"), 600);
+                        }
+                    });
+                } else {
+                    setState(
+                        State.ERROR,
+                        "Error al descifrar el PDF: " + (error.message || "Error desconocido")
+                    );
+                }
+            }
+
+            // La variable userPassword se destruye al finalizar este alcance (scope).
+            // No se almacena en ninguna variable global ni en localStorage.
+        }
+
+
+        // ============================================================
+        // MANEJADORES DE EVENTOS
+        // ============================================================
+
+        // ---- Drag & Drop ----
+        let dragCounter = 0; // Contador para manejar eventos anidados de drag
+
+        $dropZone.addEventListener("dragenter", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            dragCounter++;
+            if (currentState === State.IDLE || currentState === State.ERROR) {
+                $dropZone.classList.add("border-blue-400", "bg-blue-50/40");
+                $dropZone.classList.remove("border-gray-200", "border-red-200");
+            }
+        });
+
+        $dropZone.addEventListener("dragleave", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            dragCounter--;
+            if (dragCounter === 0) {
+                $dropZone.classList.remove("border-blue-400", "bg-blue-50/40");
+                if (currentState === State.IDLE) {
+                    $dropZone.classList.add("border-gray-200");
+                }
+            }
+        });
+
+        $dropZone.addEventListener("dragover", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        });
+
+        $dropZone.addEventListener("drop", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            dragCounter = 0;
+
+            // Restaurar estilo
+            $dropZone.classList.remove("border-blue-400", "bg-blue-50/40");
+
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        });
+
+        // ---- Clic en la zona de carga → abrir selector de archivos ----
+        $dropZone.addEventListener("click", function (e) {
+            // No abrir el selector si se hizo clic en un botón dentro de la zona
+            if (e.target.closest("button")) return;
+            $fileInput.click();
+        });
+
+        // ---- Teclado: Enter o Space en la zona de carga ----
+        $dropZone.addEventListener("keydown", function (e) {
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                $fileInput.click();
+            }
+        });
+
+        // ---- Archivo seleccionado desde el input ----
+        $fileInput.addEventListener("change", function () {
+            if (this.files.length > 0) {
+                handleFile(this.files[0]);
+            }
+            // Resetear el input para permitir re-seleccionar el mismo archivo
+            this.value = "";
+        });
+
+        // ---- Delegación de eventos para elementos dinámicos del panel ----
+        document.addEventListener("click", function (e) {
+            const target = e.target.closest("button") || e.target.closest("a");
+            if (!target) return;
+
+            // Botón: Desbloquear PDF
+            if (target.id === "unlockBtn") {
+                e.preventDefault();
+                const pwdInput = document.getElementById("passwordInput");
+                if (pwdInput && pwdInput.value.trim().length > 0) {
+                    unlockWithPassword(pwdInput.value);
+                } else {
+                    pwdInput && pwdInput.focus();
+                }
+            }
+
+            // Botón: Toggle visibilidad de contraseña
+            if (target.id === "togglePasswordBtn") {
+                e.preventDefault();
+                const pwdInput = document.getElementById("passwordInput");
+                const eyeIcon = document.getElementById("eyeIcon");
+                if (pwdInput && eyeIcon) {
+                    if (pwdInput.type === "password") {
+                        pwdInput.type = "text";
+                        eyeIcon.innerHTML = ICON.eyeOff;
+                    } else {
+                        pwdInput.type = "password";
+                        eyeIcon.innerHTML = ICON.eye;
+                    }
+                }
+            }
+
+            // Botón: Descargar nuevamente
+            if (target.id === "downloadAgainBtn") {
+                e.preventDefault();
+                if (processedPdfBytes) {
+                    triggerDownload(processedPdfBytes, generateOutputName(loadedFile.name));
+                }
+            }
+        });
+
+        // ---- Enter en el campo de contraseña → desbloquear ----
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Enter") {
+                const pwdInput = document.getElementById("passwordInput");
+                if (document.activeElement === pwdInput && pwdInput.value.trim().length > 0) {
+                    unlockWithPassword(pwdInput.value);
+                }
+            }
+        });
+
+
+        // ============================================================
+        // FUNCIÓN DE REINICIO (expuesta globalmente para botones inline)
+        // ============================================================
+
+        /**
+         * Reinicia la aplicación a su estado inicial.
+         * Limpia todas las referencias a archivos y datos sensibles.
+         */
+        window._resetApp = function () {
+            // Limpiar datos del archivo cargado
+            loadedFile = {
+                name: null,
+                size: 0,
+                arrayBuffer: null,
+            };
+
+            // Limpiar PDF procesado
+            processedPdfBytes = null;
+
+            // Limpiar mensaje de error
+            errorMessage = "";
+
+            // Restaurar estado inicial
+            setState(State.IDLE);
+        };
+
+
+        // ============================================================
+        // INICIALIZACIÓN
+        // ============================================================
+
+        /**
+         * Inicializa la aplicación renderizando el estado IDLE.
+         */
+        function init() {
+            setState(State.IDLE);
+        }
+
+        // Ejecutar inicialización cuando el DOM esté listo
+        if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", init);
+        } else {
+            init();
+        }
+
+    })();
+    </script>
+</body>
+</html>

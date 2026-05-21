@@ -1,6 +1,6 @@
 ---
 title: "Organizador de páginas en un PDF (PDF Organizer ver 2.0)"
-date: "2025-11-26" 
+date: "2026-05-20" 
 # Estructura de agrupación solicitada por Maicel Monzón
 categories: ["pdf"]
 tags:
@@ -11,7 +11,7 @@ tags:
 summary: "Permite la reestructuración de documentos PDF."
 # Configuración técnica y URL relativa preservada
 slug: "pdf_organizer"
-external_link: "/apps/pdf_organizer/index.html"
+external_link: "/apps/pdf-organizer"
 image:
   caption: ""
   focal_point: "Smart"

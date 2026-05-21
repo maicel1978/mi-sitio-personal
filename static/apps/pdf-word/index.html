@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Conversor gratuito de PDF a Word con procesamiento local. Privacidad absoluta de datos científicos y profesionales.">
+    <meta name="author" content="Maicel Monzón PhD">
+    <title>PDF to Word — Conversor Seguro y Privado</title>
+
+    <!-- ============================================================
+         Tailwind CSS v4 — Play CDN
+         ============================================================ -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- ============================================================
+         Estilos personalizados y utilidades
+         ============================================================ -->
+    <style type="text/tailwindcss">
+        @layer base {
+            :root {
+                --color-primary: #2563eb;
+                --color-primary-hover: #1d4ed8;
+                --color-surface: #f8fafc;
+                --color-border: #e2e8f0;
+                --color-text: #1e293b;
+                --color-text-muted: #64748b;
+                --color-success: #16a34a;
+                --color-warning: #d97706;
+                --color-danger: #dc2626;
+            }
+
+            * { box-sizing: border-box; }
+
+            body {
+                font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                background-color: #f1f5f9;
+                color: #1e293b;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+
+            /* Scrollbar minimalista */
+            ::-webkit-scrollbar { width: 6px; height: 6px; }
+            ::-webkit-scrollbar-track { background: transparent; }
+            ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+            ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        }
+
+        @layer components {
+            /* ── Zona de arrastre ── */
+            .drop-zone {
+                transition: all 0.25s ease;
+                border: 2px dashed #cbd5e1;
+                background: #ffffff;
+            }
+            .drop-zone.drag-over {
+                border-color: #2563eb;
+                background: #eff6ff;
+                box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.08);
+            }
+
+            /* ── Barra de progreso ── */
+            .progress-bar {
+                transition: width 0.3s ease;
+                background: linear-gradient(90deg, #2563eb, #3b82f6);
+                height: 6px;
+                border-radius: 3px;
+            }
+
+            /* ── Botón primario ── */
+            .btn-primary {
+                background: #2563eb;
+                color: #fff;
+                border: none;
+                padding: 12px 28px;
+                border-radius: 8px;
+                font-weight: 600;
+                font-size: 0.9375rem;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                letter-spacing: -0.01em;
+            }
+            .btn-primary:hover:not(:disabled) {
+                background: #1d4ed8;
+                box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+                transform: translateY(-1px);
+            }
+            .btn-primary:active:not(:disabled) {
+                transform: translateY(0);
+                box-shadow: none;
+            }
+            .btn-primary:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+                transform: none;
+            }
+
+            /* ── Radio buttons personalizados ── */
+            .radio-group label {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 10px 14px;
+                border: 1px solid #e2e8f0;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: all 0.15s ease;
+                background: #fff;
+            }
+            .radio-group label:hover {
+                border-color: #93c5fd;
+                background: #f8faff;
+            }
+            .radio-indicator {
+                width: 18px;
+                height: 18px;
+                border: 2px solid #cbd5e1;
+                border-radius: 50%;
+                flex-shrink: 0;
+                transition: all 0.15s ease;
+                background: #fff;
+            }
+            .radio-group input:checked + .radio-indicator {
+                background: #2563eb;
+                border-color: #2563eb;
+                box-shadow: inset 0 0 0 4px #fff;
+            }
+            .radio-group input:checked ~ div span:first-child {
+                color: #1e40af;
+                font-weight: 600;
+            }
+
+            /* ── Checkbox personalizado ── */
+            .checkbox-group label {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 10px 14px;
+                border: 1px solid #e2e8f0;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: all 0.15s ease;
+                background: #fff;
+            }
+            .checkbox-group label:hover {
+                border-color: #93c5fd;
+                background: #f8faff;
+            }
+            .checkbox-indicator {
+                position: relative;
+                display: block;
+                width: 18px;
+                height: 18px;
+                border: 2px solid #cbd5e1;
+                border-radius: 4px;
+                flex-shrink: 0;
+                transition: all 0.15s ease;
+                background: #fff;
+            }
+            .checkbox-group input:checked + .checkbox-indicator {
+                background: #2563eb;
+                border-color: #2563eb;
+            }
+            .checkbox-group input:checked + .checkbox-indicator::after {
+                content: '';
+                display: block;
+                position: absolute;
+                left: 5px;
+                top: 1px;
+                width: 5px;
+                height: 10px;
+                border: solid #fff;
+                border-width: 0 2px 2px 0;
+                transform: rotate(45deg);
+            }
+            .checkbox-group input:checked ~ div span:first-child {
+                color: #1e40af;
+                font-weight: 500;
+            }
+
+            /* ── Select personalizado ── */
+            .custom-select {
+                appearance: none;
+                -webkit-appearance: none;
+                background: #fff;
+                border: 1px solid #e2e8f0;
+                border-radius: 8px;
+                padding: 10px 36px 10px 14px;
+                font-size: 0.875rem;
+                color: #1e293b;
+                cursor: pointer;
+                transition: border-color 0.15s ease;
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+                background-repeat: no-repeat;
+                background-position: right 10px center;
+            }
+            .custom-select:focus {
+                outline: none;
+                border-color: #2563eb;
+                box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            }
+
+            /* ── Animaciones ── */
+            @keyframes spin { to { transform: rotate(360deg); } }
+            .animate-spin { animation: spin 0.8s linear infinite; }
+
+            .fade-in { animation: fadeIn 0.3s ease; }
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(6px); }
+                to   { opacity: 1; transform: translateY(0); }
+            }
+
+            /* ── Responsive: panel lateral en móvil ── */
+            @media (max-width: 768px) {
+                .sidebar {
+                    border-left: none !important;
+                    border-top: 1px solid #e2e8f0;
+                }
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- ============================================================
+         CABECERA — Identidad de la aplicación
+         ============================================================ -->
+    <header class="bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between flex-shrink-0">
+        <div class="flex items-center gap-3">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <path d="M8 13h4"/><path d="M8 17h8"/><path d="m12 9-4 4 4 4"/>
+            </svg>
+            <div>
+                <h1 class="text-lg font-semibold tracking-tight text-slate-800 leading-none">PDF <span class="text-blue-600">→</span> Word</h1>
+                <p class="text-xs text-slate-400 mt-0.5">Conversión segura · Procesamiento local</p>
+            </div>
+        </div>
+        <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-emerald-50 border border-emerald-200 rounded-full">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+            <span class="text-xs font-medium text-emerald-700">100% Privado · Tus datos nunca salen de tu dispositivo</span>
+        </div>
+    </header>
+
+    <!-- ============================================================
+         CONTENIDO PRINCIPAL — Layout bilateral
+         ============================================================ -->
+    <main class="flex-1 flex flex-col md:flex-row overflow-hidden">
+
+        <!-- ============================================================
+             PANEL IZQUIERDO
+             ============================================================ -->
+        <section class="flex-1 flex flex-col p-5 md:p-8 overflow-y-auto" id="leftPanel">
+
+            <!-- Zona de arrastre -->
+            <div
+                id="dropZone"
+                class="drop-zone rounded-xl flex flex-col items-center justify-center py-14 px-6 cursor-pointer text-center transition-all"
+                role="button" tabindex="0"
+                aria-label="Arrastra tu archivo PDF aquí o haz clic para seleccionarlo"
+            >
+                <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mb-4">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="17 8 12 3 7 8"/>
+                    <line x1="12" y1="3" x2="12" y2="15"/>
+                </svg>
+                <p class="text-slate-600 font-medium mb-1 text-[15px]">Arrastra y suelta tu archivo PDF aquí</p>
+                <p class="text-slate-400 text-sm mb-5">o haz clic para seleccionarlo desde tu dispositivo</p>
+                <span class="text-xs text-slate-300 bg-slate-50 px-3 py-1 rounded-full border border-slate-200">
+                    Solo archivos .pdf · Tamaño máximo 100 MB
+                </span>
+                <input type="file" id="fileInput" accept="application/pdf" class="hidden">
+            </div>
+
+            <!-- Info del archivo cargado -->
+            <div id="fileInfo" class="hidden fade-in mt-5 bg-white rounded-xl border border-slate-200 p-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                        </svg>
+                        <div>
+                            <p id="fileNameDisplay" class="font-medium text-slate-700 text-sm truncate max-w-[240px]"></p>
+                            <p id="fileSizeDisplay" class="text-xs text-slate-400"></p>
+                        </div>
+                    </div>
+                    <button
+                        id="clearFileBtn"
+                        class="p-2 rounded-lg hover:bg-red-50 text-slate-400 hover:text-red-500 transition-colors"
+                        title="Eliminar archivo"
+                    >
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Barra de progreso -->
+            <div id="progressSection" class="hidden fade-in mt-5">
+                <div class="flex items-center justify-between mb-2">
+                    <span id="progressLabel" class="text-sm font-medium text-slate-600">Procesando...</span>
+                    <span id="progressPercent" class="text-sm font-semibold text-blue-600">0%</span>
+                </div>
+                <div class="w-full bg-slate-200 rounded-full h-[6px] overflow-hidden">
+                    <div id="progressBar" class="progress-bar" style="width: 0%;"></div>
+                </div>
+                <p id="progressDetail" class="text-xs text-slate-400 mt-2"></p>
+            </div>
+
+            <!-- Mensajes de estado -->
+            <div id="statusMessage" class="hidden fade-in mt-4"></div>
+
+            <!-- Botón de conversión -->
+            <div class="mt-6">
+                <button id="convertBtn" class="btn-primary w-full justify-center" disabled>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/>
+                        <path d="M14 2v6h6"/><path d="M12 18v-6"/><path d="m9 15 3 3 3-3"/>
+                    </svg>
+                    Convertir a Word (.docx)
+                </button>
+                <p class="text-xs text-slate-400 text-center mt-2" id="convertHint">
+                    Selecciona un archivo PDF para comenzar
+                </p>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             BARRA LATERAL DERECHA — Configuración de salida
+             ============================================================ -->
+        <aside class="sidebar w-full md:w-[340px] flex-shrink-0 bg-white border-l border-slate-200 p-5 md:p-6 overflow-y-auto">
+            <div class="flex items-center gap-2 mb-6">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                </svg>
+                <h2 class="font-semibold text-slate-700 text-[15px]">Configuración de salida</h2>
+            </div>
+
+            <!-- 1. Modo de Formateo -->
+            <fieldset class="mb-6">
+                <legend class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3">Modo de Formateo</legend>
+                <div class="radio-group flex flex-col gap-2">
+                    <label>
+                        <input type="radio" name="formatMode" value="flowing" checked class="sr-only">
+                        <span class="radio-indicator"></span>
+                        <div>
+                            <span class="text-sm text-slate-700">Mantener párrafos fluidos</span>
+                            <p class="text-xs text-slate-400 mt-0.5">Une líneas rotas. Ideal para edición limpia.</p>
+                        </div>
+                    </label>
+                    <label>
+                        <input type="radio" name="formatMode" value="plain" class="sr-only">
+                        <span class="radio-indicator"></span>
+                        <div>
+                            <span class="text-sm text-slate-700">Texto sin formato</span>
+                            <p class="text-xs text-slate-400 mt-0.5">Solo conserva saltos de página.</p>
+                        </div>
+                    </label>
+                </div>
+            </fieldset>
+
+            <!-- 2. Tamaño de página -->
+            <div class="mb-5">
+                <label class="text-xs font-semibold uppercase tracking-wider text-slate-400 block mb-2">Tamaño de página</label>
+                <select id="pageSize" class="custom-select w-full">
+                    <option value="A4">A4 (210 × 297 mm)</option>
+                    <option value="LETTER">US Letter (215.9 × 279.4 mm)</option>
+                </select>
+            </div>
+
+            <!-- 3. Márgenes -->
+            <div class="mb-5">
+                <label class="text-xs font-semibold uppercase tracking-wider text-slate-400 block mb-2">Márgenes</label>
+                <select id="pageMargins" class="custom-select w-full">
+                    <option value="normal">Normal (2.5 cm)</option>
+                    <option value="narrow">Estrecho (1.27 cm)</option>
+                </select>
+            </div>
+
+            <!-- 4. Filtrado de caracteres especiales -->
+            <div class="checkbox-group mb-6">
+                <label class="cursor-pointer">
+                    <input type="checkbox" id="cleanSpecialChars" class="sr-only">
+                    <span class="checkbox-indicator"></span>
+                    <div>
+                        <span class="text-sm text-slate-700">Limpiar caracteres especiales</span>
+                        <p class="text-xs text-slate-400 mt-0.5">Elimina caracteres rotos de fuentes no incrustadas.</p>
+                    </div>
+                </label>
+            </div>
+
+            <!-- Separador -->
+            <hr class="border-slate-100 my-5">
+
+            <!-- Info adicional -->
+            <div class="bg-slate-50 rounded-lg p-4 text-xs text-slate-500 leading-relaxed">
+                <p class="font-semibold text-slate-600 mb-1">💡 Consejo</p>
+                <p>Esta herramienta procesa exclusivamente la <strong>capa de texto nativa</strong> del PDF. Si tu PDF fue generado desde un escáner o es una imagen, necesitarás usar un motor OCR externo.</p>
+            </div>
+        </aside>
+    </main>
+
+    <!-- ============================================================
+         FOOTER
+         ============================================================ -->
+    <footer class="bg-white border-t border-slate-200 px-6 py-4 flex-shrink-0">
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-400">
+            <div class="flex items-center gap-2">
+                <span>© 2026 <strong class="text-slate-500">Maicel Monzón PhD</strong></span>
+                <span class="text-slate-300">|</span>
+                <span>
+                    Parte del ecosistema
+                    <a href="https://bioestadisticaedu.com/" target="_blank" rel="noopener noreferrer"
+                       class="text-blue-500 hover:text-blue-600 underline underline-offset-2 transition-colors">
+                        bioestadisticaedu.com
+                    </a>
+                </span>
+            </div>
+            <div class="flex items-center gap-3">
+                <span class="flex items-center gap-1">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                    </svg>
+                    Procesamiento 100% local · Privacidad absoluta
+                </span>
+                <span class="text-slate-300">|</span>
+                <span>Licencia gratuita</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================================
+         DEPENDENCIAS EXTERNAS (CDN)
+         ============================================================ -->
+
+    <!-- pdfjs-dist v3.11.174 — Motor de extracción de texto PDF (UMD) -->
+    <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js">
+    </script>
+
+    <!-- docx v8.5.0 — Generación de documentos Word (UMD) -->
+    <script src="https://unpkg.com/docx@8.5.0/build/index.umd.js">
+    </script>
+
+    <!-- ============================================================
+         LÓGICA DE NEGOCIO PRINCIPAL
+         ============================================================ -->
+    <script>
+    (function () {
+        'use strict';
+
+        // ============================================================
+        // CONFIGURACIÓN DE PDF.JS — Worker desde CDN
+        // ============================================================
+        if (typeof pdfjsLib !== 'undefined') {
+            pdfjsLib.GlobalWorkerOptions.workerSrc =
+                'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
+        } else {
+            console.error('[PDF to Word] pdfjsLib no disponible. Verifica la conexión al CDN.');
+        }
+
+        // ============================================================
+        // ESTADO GLOBAL DE LA APLICACIÓN
+        // ============================================================
+        var state = {
+            pdfFile: null,
+            pdfData: null,               // ArrayBuffer — se llena asíncronamente por FileReader
+            pdfDataReady: false,         // true cuando FileReader.onload ha terminado
+            originalFileName: '',
+            extractedPages: [],          // [{ pageNum, lines: [{y, text}], totalChars }]
+            isProcessing: false,
+            currentPage: 0,
+            totalPages: 0,
+            scannedDetected: false,
+            downloadUrl: null,
+        };
+
+        // ============================================================
+        // REFERENCIAS A ELEMENTOS DEL DOM
+        // ============================================================
+        var DOM = {
+            dropZone:        document.getElementById('dropZone'),
+            fileInput:       document.getElementById('fileInput'),
+            fileInfo:        document.getElementById('fileInfo'),
+            fileNameDisplay: document.getElementById('fileNameDisplay'),
+            fileSizeDisplay: document.getElementById('fileSizeDisplay'),
+            clearFileBtn:    document.getElementById('clearFileBtn'),
+            progressSection: document.getElementById('progressSection'),
+            progressLabel:   document.getElementById('progressLabel'),
+            progressPercent: document.getElementById('progressPercent'),
+            progressBar:     document.getElementById('progressBar'),
+            progressDetail:  document.getElementById('progressDetail'),
+            statusMessage:   document.getElementById('statusMessage'),
+            convertBtn:      document.getElementById('convertBtn'),
+            convertHint:     document.getElementById('convertHint'),
+
+            formatModeRadios:  document.getElementsByName('formatMode'),
+            pageSizeSelect:    document.getElementById('pageSize'),
+            pageMarginsSelect: document.getElementById('pageMargins'),
+            cleanSpecialChars: document.getElementById('cleanSpecialChars'),
+        };
+
+        // ============================================================
+        // CONSTANTES
+        // ============================================================
+        var MAX_FILE_SIZE                = 100 * 1024 * 1024;   // 100 MB
+        var Y_TOLERANCE                  = 3.5;                  // pt — agrupar texto en misma línea
+        var SCANNED_THRESHOLD_CHARS      = 40;                   // chars/página para considerar escaneado
+        var SCANNED_CHECK_PAGES          = 3;                    // cuántas páginas analizar
+
+        // ============================================================
+        // UTILIDADES
+        // ============================================================
+
+        function formatFileSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+        }
+
+        /** Yield al event loop para que la UI respire. */
+        function sleep(ms) {
+            return new Promise(function (resolve) { setTimeout(resolve, ms); });
+        }
+
+        /**
+         * Limpia artefactos de fuentes no incrustadas. Conserva:
+         * ASCII imprimible, Latin-1 suplementario, Latín extendido A/B,
+         * cirílico, árabe, hebreo, devanagari, CJK unificado, hiragana,
+         * katakana, hangul, y varios bloques diacríticos.
+         */
+        function cleanSpecialCharacters(text) {
+            if (!text) return '';
+            var cleaned = text.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F-\x9F]/g, '');
+            cleaned = cleaned.replace(/[ \t]+/g, ' ');
+            cleaned = cleaned.replace(/ *\n */g, '\n');
+            // Bloques Unicode preservados
+            cleaned = cleaned.replace(/[^\x20-\x7E\xA0-\xFF\u0100-\u017F\u0400-\u04FF\u0600-\u06FF\u4E00-\u9FFF\u3040-\u309F\u30A0-\u30FF\uAC00-\uD7AF\u0590-\u05FF\u0900-\u097F\u1E00-\u1EFF\n]/g, '');
+            return cleaned.trim();
+        }
+
+        function getConversionOptions() {
+            var mode = 'flowing';
+            for (var i = 0; i < DOM.formatModeRadios.length; i++) {
+                if (DOM.formatModeRadios[i].checked) { mode = DOM.formatModeRadios[i].value; break; }
+            }
+            return {
+                formattingMode:   mode,
+                pageSize:         DOM.pageSizeSelect.value,
+                margins:          DOM.pageMarginsSelect.value,
+                cleanSpecialChars: DOM.cleanSpecialChars.checked,
+            };
+        }
+
+        // ============================================================
+        // MENSAJES DE ESTADO
+        // ============================================================
+
+        function showStatus(type, title, description) {
+            var colors = {
+                info:    { bg: 'bg-blue-50', border: 'border-blue-200', text: 'text-blue-700', subtext: 'text-blue-500', icon: '#2563eb' },
+                success: { bg: 'bg-emerald-50', border: 'border-emerald-200', text: 'text-emerald-700', subtext: 'text-emerald-500', icon: '#16a34a' },
+                warning: { bg: 'bg-amber-50', border: 'border-amber-200', text: 'text-amber-700', subtext: 'text-amber-500', icon: '#d97706' },
+                error:   { bg: 'bg-red-50', border: 'border-red-200', text: 'text-red-700', subtext: 'text-red-500', icon: '#dc2626' },
+            };
+            var c = colors[type] || colors.info;
+
+            var icon;
+            if (type === 'success') {
+                icon = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="' + c.icon + '" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>';
+            } else if (type === 'warning') {
+                icon = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="' + c.icon + '" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>';
+            } else if (type === 'error') {
+                icon = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="' + c.icon + '" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>';
+            } else {
+                icon = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="' + c.icon + '" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>';
+            }
+
+            DOM.statusMessage.className = 'fade-in rounded-xl border p-4 flex items-start gap-3 ' + c.bg + ' ' + c.border;
+            DOM.statusMessage.innerHTML =
+                '<div class="flex-shrink-0 mt-0.5">' + icon + '</div>' +
+                '<div>' +
+                    '<p class="text-sm font-semibold ' + c.text + '">' + escapeHtml(title) + '</p>' +
+                    (description ? '<p class="text-xs mt-1 ' + c.subtext + '">' + escapeHtml(description) + '</p>' : '') +
+                '</div>';
+            DOM.statusMessage.classList.remove('hidden');
+        }
+
+        function hideStatus() {
+            DOM.statusMessage.classList.add('hidden');
+            DOM.statusMessage.innerHTML = '';
+        }
+
+        function escapeHtml(str) {
+            var div = document.createElement('div');
+            div.appendChild(document.createTextNode(str));
+            return div.innerHTML;
+        }
+
+        // ============================================================
+        // BARRA DE PROGRESO
+        // ============================================================
+
+        function updateProgress(current, total, label) {
+            DOM.progressSection.classList.remove('hidden');
+            var pct = total > 0 ? Math.round((current / total) * 100) : 0;
+            DOM.progressBar.style.width = pct + '%';
+            DOM.progressPercent.textContent = pct + '%';
+            DOM.progressLabel.textContent = label || 'Procesando...';
+            DOM.progressDetail.textContent = 'Página ' + current + ' de ' + total;
+        }
+
+        function hideProgress() {
+            DOM.progressSection.classList.add('hidden');
+            DOM.progressBar.style.width = '0%';
+            DOM.progressPercent.textContent = '0%';
+            DOM.progressDetail.textContent = '';
+        }
+
+        // ============================================================
+        // GESTIÓN DE ARCHIVOS
+        // ============================================================
+
+        function handleFile(file) {
+            if (!file || file.type !== 'application/pdf') {
+                showStatus('error', 'Formato no válido',
+                    'Solo se admiten archivos PDF. Por favor, selecciona un archivo .pdf.');
+                return;
+            }
+
+            if (file.size > MAX_FILE_SIZE) {
+                showStatus('error', 'Archivo demasiado grande',
+                    'El archivo supera los 100 MB. Comprime el PDF o divídelo en partes más pequeñas.');
+                return;
+            }
+
+            // Resetear estado
+            state.pdfFile = file;
+            state.originalFileName = file.name.replace(/\.pdf$/i, '');
+            state.pdfData = null;
+            state.pdfDataReady = false;
+            state.extractedPages = [];
+            state.scannedDetected = false;
+            state.currentPage = 0;
+            state.totalPages = 0;
+
+            if (state.downloadUrl) {
+                URL.revokeObjectURL(state.downloadUrl);
+                state.downloadUrl = null;
+            }
+
+            hideStatus();
+            hideProgress();
+            DOM.fileNameDisplay.textContent = file.name;
+            DOM.fileSizeDisplay.textContent = formatFileSize(file.size);
+            DOM.fileInfo.classList.remove('hidden');
+
+            // Bloquear el botón hasta que FileReader termine
+            DOM.convertBtn.disabled = true;
+            DOM.convertHint.textContent = 'Leyendo archivo...';
+
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                state.pdfData = e.target.result;
+                state.pdfDataReady = true;
+                DOM.convertBtn.disabled = false;
+                DOM.convertHint.textContent = 'Listo para convertir · Revisa las opciones de salida';
+            };
+            reader.onerror = function () {
+                showStatus('error', 'Error de lectura',
+                    'No se pudo leer el archivo. Intenta de nuevo.');
+                resetFileState();
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        function resetFileState() {
+            state.pdfFile = null;
+            state.pdfData = null;
+            state.pdfDataReady = false;
+            state.originalFileName = '';
+            state.extractedPages = [];
+            state.scannedDetected = false;
+            state.currentPage = 0;
+            state.totalPages = 0;
+
+            if (state.downloadUrl) {
+                URL.revokeObjectURL(state.downloadUrl);
+                state.downloadUrl = null;
+            }
+
+            DOM.fileInfo.classList.add('hidden');
+            DOM.fileNameDisplay.textContent = '';
+            DOM.fileSizeDisplay.textContent = '';
+            DOM.convertBtn.disabled = true;
+            DOM.convertHint.textContent = 'Selecciona un archivo PDF para comenzar';
+            DOM.fileInput.value = '';
+            hideProgress();
+            hideStatus();
+        }
+
+        // ============================================================
+        // EVENT LISTENERS — Drag & Drop + File Input
+        // ============================================================
+
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(function (ev) {
+            document.addEventListener(ev, function (e) { e.preventDefault(); e.stopPropagation(); });
+        });
+
+        ['dragenter', 'dragover'].forEach(function (ev) {
+            DOM.dropZone.addEventListener(ev, function () { DOM.dropZone.classList.add('drag-over'); });
+        });
+        ['dragleave', 'drop'].forEach(function (ev) {
+            DOM.dropZone.addEventListener(ev, function () { DOM.dropZone.classList.remove('drag-over'); });
+        });
+
+        DOM.dropZone.addEventListener('drop', function (e) {
+            if (state.isProcessing) return;
+            var files = e.dataTransfer.files;
+            if (files && files.length > 0) handleFile(files[0]);
+        });
+
+        DOM.dropZone.addEventListener('click', function () {
+            if (!state.isProcessing) DOM.fileInput.click();
+        });
+
+        DOM.dropZone.addEventListener('keydown', function (e) {
+            if ((e.key === 'Enter' || e.key === ' ') && !state.isProcessing) {
+                e.preventDefault();
+                DOM.fileInput.click();
+            }
+        });
+
+        DOM.fileInput.addEventListener('change', function (e) {
+            if (e.target.files && e.target.files.length > 0) handleFile(e.target.files[0]);
+        });
+
+        DOM.clearFileBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            if (!state.isProcessing) resetFileState();
+        });
+
+        // ============================================================
+        // EXTRACCIÓN DE TEXTO DEL PDF
+        // ============================================================
+
+        /**
+         * Extrae ítems de texto de una página.
+         * Cada ítem: { str, x, y, width, height }
+         * x = transform[4] (translateX), y = transform[5] (translateY)
+         * El sistema de coordenadas del PDF tiene origen abajo-izquierda.
+         */
+        async function extractTextItemsFromPage(page, pageNum) {
+            var textContent = await page.getTextContent();
+            var textItems = [];
+            var items = textContent.items || [];
+
+            for (var i = 0; i < items.length; i++) {
+                var item = items[i];
+                if (!item.str || typeof item.str !== 'string') continue;
+                var txt = item.str;
+                if (txt.trim().length === 0) continue;
+
+                var t = item.transform;
+                textItems.push({
+                    str:    txt,
+                    x:      (t && t.length >= 6) ? t[4] : 0,
+                    y:      (t && t.length >= 6) ? t[5] : 0,
+                    width:  item.width  || 0,
+                    height: item.height || 0,
+                });
+            }
+
+            return { pageNum: pageNum, textItems: textItems };
+        }
+
+        /**
+         * Agrupa ítems por coordenada Y → líneas de texto coherentes.
+         *
+         * 1. Ordenar top→bottom (Y descendente), left→right (X ascendente).
+         * 2. Agrupar ítems con |ΔY| < Y_TOLERANCE en la misma línea.
+         * 3. Unir ítems de cada línea con espacio si hay gap > 1pt.
+         */
+        function reconstructPageText(textItems) {
+            if (textItems.length === 0) {
+                return { lines: [], totalChars: 0 };
+            }
+
+            var items = textItems.slice();
+
+            items.sort(function (a, b) {
+                var dy = b.y - a.y;
+                return Math.abs(dy) < Y_TOLERANCE ? a.x - b.x : dy;
+            });
+
+            // Agrupar en líneas
+            var rawLines = [];
+            var cur = { y: items[0].y, items: [items[0]] };
+
+            for (var i = 1; i < items.length; i++) {
+                if (Math.abs(items[i].y - cur.y) < Y_TOLERANCE) {
+                    cur.items.push(items[i]);
+                } else {
+                    cur.items.sort(function (a, b) { return a.x - b.x; });
+                    rawLines.push(cur);
+                    cur = { y: items[i].y, items: [items[i]] };
+                }
+            }
+            cur.items.sort(function (a, b) { return a.x - b.x; });
+            rawLines.push(cur);
+
+            // Unir texto de cada línea
+            var lines = [];
+            var totalChars = 0;
+            for (var j = 0; j < rawLines.length; j++) {
+                var lineItems = rawLines[j].items;
+                var lineText = '';
+                for (var k = 0; k < lineItems.length; k++) {
+                    if (k > 0) {
+                        var prev = lineItems[k - 1];
+                        var gap = lineItems[k].x - (prev.x + prev.width);
+                        if (gap > 1) lineText += ' ';
+                    }
+                    lineText += lineItems[k].str;
+                }
+                var trimmed = lineText.trim();
+                if (trimmed.length > 0) {
+                    lines.push({ y: rawLines[j].y, text: trimmed });
+                    totalChars += trimmed.length;
+                }
+            }
+
+            return { lines: lines, totalChars: totalChars };
+        }
+
+        /**
+         * Altura media entre líneas consecutivas (para detectar párrafos).
+         */
+        function averageLineGap(lines) {
+            if (lines.length < 2) return 12;
+            var sum = 0;
+            for (var i = 1; i < lines.length; i++) {
+                sum += Math.abs(lines[i - 1].y - lines[i].y);
+            }
+            return sum / (lines.length - 1);
+        }
+
+        /**
+         * Algoritmo de párrafos fluidos:
+         * - gap > 1.6 × avgGap  → nuevo párrafo (\n\n)
+         * - gap ≤ 1.6 × avgGap  → misma línea lógica (unir con espacio)
+         * - línea anterior acaba en "-" → hyphenation (eliminar guion, unir sin espacio)
+         */
+        function applyFlowingParagraphs(lines) {
+            if (lines.length === 0) return '';
+            if (lines.length === 1) return lines[0].text;
+
+            var avgGap = averageLineGap(lines);
+            var paraThreshold = avgGap * 1.6;
+
+            var result = lines[0].text;
+
+            for (var i = 1; i < lines.length; i++) {
+                var gap = Math.abs(lines[i - 1].y - lines[i].y);
+
+                if (gap > paraThreshold) {
+                    result += '\n\n' + lines[i].text;
+                } else {
+                    var prev = lines[i - 1].text;
+                    if (prev.length > 0 && prev.charAt(prev.length - 1) === '-') {
+                        result = result.slice(0, -1) + lines[i].text;
+                    } else {
+                        result += ' ' + lines[i].text;
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        // ============================================================
+        // DETECCIÓN DE PDF ESCANEADO
+        // ============================================================
+
+        function isScannedPDF(pagesData, pagesChecked) {
+            if (pagesData.length === 0) return true;
+            var total = 0;
+            for (var i = 0; i < pagesData.length; i++) { total += pagesData[i].totalChars; }
+            return (total / pagesChecked) < SCANNED_THRESHOLD_CHARS;
+        }
+
+        // ============================================================
+        // GENERACIÓN DEL DOCUMENTO WORD
+        // ============================================================
+
+        /**
+         * Genera Blob .docx con docx v8.
+         * Dimensiones en twips (1/1440 pulgada):
+         *   A4     = 11906×16838,   Letter = 12240×15840
+         *   Normal = 1417 (2.5 cm), Narrow = 720 (1.27 cm)
+         */
+        async function generateDocxBlob(pageTexts, options) {
+            if (typeof docx === 'undefined') {
+                throw new Error('La librería docx no está disponible. Verifica la conexión a Internet.');
+            }
+
+            var pw, ph;
+            if (options.pageSize === 'LETTER') { pw = 12240; ph = 15840; }
+            else                               { pw = 11906; ph = 16838; }
+
+            var margin = (options.margins === 'narrow') ? 720 : 1417;
+
+            var children = [];
+
+            for (var i = 0; i < pageTexts.length; i++) {
+                // Salto de página entre páginas (excepto la primera).
+                // PageBreak se envuelve en Paragraph por robustez entre versiones de docx.
+                if (i > 0) {
+                    children.push(
+                        new docx.Paragraph({
+                            children: [new docx.PageBreak()],
+                            spacing: { after: 0, before: 0 },
+                        })
+                    );
+                }
+
+                var paragraphs = pageTexts[i].text.split(/\n\n+/);
+
+                for (var p = 0; p < paragraphs.length; p++) {
+                    var paraText = paragraphs[p].trim();
+                    if (paraText.length === 0) continue;
+
+                    var lineArray;
+                    if (options.formattingMode === 'plain') {
+                        lineArray = paraText.split('\n');
+                    } else {
+                        lineArray = [paraText];
+                    }
+
+                    for (var l = 0; l < lineArray.length; l++) {
+                        var lt = lineArray[l].trim();
+                        if (lt.length === 0) continue;
+
+                        children.push(
+                            new docx.Paragraph({
+                                children: [
+                                    new docx.TextRun({
+                                        text: lt,
+                                        font: 'Calibri',
+                                        size: 22,        // 11pt
+                                    }),
+                                ],
+                                spacing: {
+                                    after:  120,        // ~6pt
+                                    before: 0,
+                                    line:   276,        // ~1.15
+                                },
+                            })
+                        );
+                    }
+                }
+            }
+
+            if (children.length === 0) {
+                children.push(
+                    new docx.Paragraph({
+                        children: [new docx.TextRun({ text: '', font: 'Calibri', size: 22 })],
+                    })
+                );
+            }
+
+            var doc = new docx.Document({
+                styles: {
+                    default: {
+                        document: { run: { font: 'Calibri', size: 22 } },
+                    },
+                },
+                sections: [{
+                    properties: {
+                        page: {
+                            size:   { width: pw, height: ph },
+                            margin: { top: margin, bottom: margin, left: margin, right: margin },
+                        },
+                    },
+                    children: children,
+                }],
+            });
+
+            return await docx.Packer.toBlob(doc);
+        }
+
+        // ============================================================
+        // FLUJO PRINCIPAL DE CONVERSIÓN
+        // ============================================================
+
+        async function convertPDFtoWord() {
+            // Guardas
+            if (state.isProcessing) return;
+
+            if (!state.pdfFile) {
+                showStatus('warning', 'Sin archivo', 'Selecciona un archivo PDF antes de convertir.');
+                return;
+            }
+
+            // CONDICIÓN DE CARRERA: esperar a que FileReader termine
+            if (!state.pdfDataReady || !state.pdfData) {
+                showStatus('info', 'Preparando archivo...',
+                    'El archivo aún se está leyendo. Espera un momento y vuelve a intentarlo.');
+                return;
+            }
+
+            if (typeof pdfjsLib === 'undefined') {
+                showStatus('error', 'Motor PDF no disponible',
+                    'La librería pdfjs-dist no se ha cargado. Verifica tu conexión a Internet y recarga la página.');
+                return;
+            }
+
+            // Bloquear UI
+            state.isProcessing = true;
+            DOM.convertBtn.disabled = true;
+            DOM.convertHint.textContent = 'Convirtiendo...';
+            DOM.clearFileBtn.style.pointerEvents = 'none';
+            DOM.dropZone.style.pointerEvents = 'none';
+            DOM.fileInput.disabled = true;
+            hideStatus();
+
+            var opts = getConversionOptions();
+
+            try {
+                // ── FASE 1: Cargar PDF ──
+                updateProgress(0, 1, 'Cargando documento PDF...');
+                DOM.progressDetail.textContent = 'Analizando estructura del archivo...';
+                await sleep(50);
+
+                var pdfDoc;
+                try {
+                    var loadingTask = pdfjsLib.getDocument({ data: state.pdfData.slice(0) });
+                    pdfDoc = await loadingTask.promise;
+                } catch (loadErr) {
+                    var msg = String(loadErr.message || '');
+                    if (msg.toLowerCase().indexOf('password') !== -1 ||
+                        msg.toLowerCase().indexOf('encrypt') !== -1) {
+                        throw new Error(
+                            'El PDF está protegido con contraseña. ' +
+                            'Esta herramienta no puede procesar documentos cifrados. ' +
+                            'Desbloquea el PDF primero con otra herramienta.'
+                        );
+                    }
+                    if (msg.toLowerCase().indexOf('invalid') !== -1 ||
+                        msg.toLowerCase().indexOf('corrupt') !== -1) {
+                        throw new Error(
+                            'El archivo PDF parece estar dañado o corrupto. ' +
+                            'Verifica que el archivo se haya descargado completamente.'
+                        );
+                    }
+                    throw loadErr;
+                }
+
+                state.totalPages = pdfDoc.numPages;
+
+                updateProgress(0, state.totalPages, 'Documento cargado');
+                DOM.progressDetail.textContent = state.totalPages + ' página(s) detectada(s)';
+                await sleep(100);
+
+                // ── FASE 2: Extraer página por página ──
+                state.extractedPages = [];
+                var scanCheck = [];
+                var totalCharsAll = 0;
+                var scanned = false;
+
+                for (var pn = 1; pn <= state.totalPages; pn++) {
+                    state.currentPage = pn;
+                    updateProgress(pn, state.totalPages, 'Extrayendo texto...');
+
+                    var page   = await pdfDoc.getPage(pn);
+                    var raw    = await extractTextItemsFromPage(page, pn);
+                    var rec    = reconstructPageText(raw.textItems);
+
+                    // Limpieza de caracteres (opcional)
+                    if (opts.cleanSpecialChars) {
+                        var cleanedLines = [];
+                        var cleanedChars = 0;
+                        for (var r = 0; r < rec.lines.length; r++) {
+                            var ct = cleanSpecialCharacters(rec.lines[r].text);
+                            if (ct.length > 0) {
+                                cleanedLines.push({ y: rec.lines[r].y, text: ct });
+                                cleanedChars += ct.length;
+                            }
+                        }
+                        rec.lines = cleanedLines;
+                        rec.totalChars = cleanedChars;
+                    }
+
+                    state.extractedPages.push({
+                        pageNum: pn,
+                        lines: rec.lines,
+                        totalChars: rec.totalChars,
+                    });
+
+                    totalCharsAll += rec.totalChars;
+
+                    if (pn <= SCANNED_CHECK_PAGES) {
+                        scanCheck.push({ pageNum: pn, totalChars: rec.totalChars });
+                    }
+
+                    if (pn === Math.min(SCANNED_CHECK_PAGES, state.totalPages)) {
+                        if (isScannedPDF(scanCheck, pn)) scanned = true;
+                    }
+
+                    await sleep(15);
+                }
+
+                // ── FASE 2.5: Aviso de escaneado ──
+                if (scanned) {
+                    updateProgress(state.totalPages, state.totalPages, 'PDF escaneado detectado');
+                    showStatus('warning',
+                        'PDF escaneado o basado en imágenes',
+                        'Este archivo no contiene una capa de texto nativa. ' +
+                        'La herramienta procesa exclusivamente texto digital incrustado. ' +
+                        'Para documentos escaneados necesitarás un motor OCR externo ' +
+                        '(Tesseract, Adobe Acrobat Pro, o servicios online especializados).'
+                    );
+                    await sleep(2500);
+                }
+
+                // ── FASE 3: Reconstruir texto final ──
+                updateProgress(state.totalPages, state.totalPages, 'Reconstruyendo documento...');
+                DOM.progressDetail.textContent = 'Aplicando formato y estructura...';
+                await sleep(50);
+
+                var finalTexts = [];
+                for (var j = 0; j < state.extractedPages.length; j++) {
+                    var ep = state.extractedPages[j];
+                    var pageText;
+
+                    if (opts.formattingMode === 'flowing') {
+                        pageText = applyFlowingParagraphs(ep.lines);
+                    } else {
+                        var arr = [];
+                        for (var k = 0; k < ep.lines.length; k++) { arr.push(ep.lines[k].text); }
+                        pageText = arr.join('\n');
+                    }
+
+                    finalTexts.push({ pageNum: ep.pageNum, text: pageText });
+                }
+
+                // ── FASE 4: Generar DOCX ──
+                updateProgress(state.totalPages, state.totalPages, 'Generando archivo Word...');
+                DOM.progressDetail.textContent = 'Compilando .docx...';
+                await sleep(50);
+
+                var blob = await generateDocxBlob(finalTexts, opts);
+
+                // ── FASE 5: Descargar ──
+                updateProgress(state.totalPages, state.totalPages, '¡Completado!');
+                DOM.progressDetail.textContent = 'Iniciando descarga...';
+
+                var outName = state.originalFileName + '.docx';
+                state.downloadUrl = URL.createObjectURL(blob);
+
+                var a = document.createElement('a');
+                a.href = state.downloadUrl;
+                a.download = outName;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+
+                var note = scanned
+                    ? ' (Nota: el PDF parece ser escaneado; el contenido textual puede ser mínimo.)'
+                    : '';
+
+                showStatus('success',
+                    '¡Conversión completada!',
+                    'Tu archivo "' + escapeHtml(outName) + '" se ha descargado.' + note +
+                    ' Procesadas ' + state.totalPages + ' página(s) · ' +
+                    totalCharsAll + ' caracteres extraídos.'
+                );
+
+                DOM.convertHint.textContent = 'Conversión exitosa · Puedes convertir otro archivo';
+
+            } catch (err) {
+                console.error('[PDF to Word] Error:', err);
+
+                var errMsg = escapeHtml(err.message || 'Error desconocido');
+
+                showStatus('error', 'Error en la conversión',
+                    'Ocurrió un error: ' + errMsg + '. ' +
+                    'Verifica que el PDF no esté corrupto, protegido con contraseña, ' +
+                    'o generado con una versión no compatible.'
+                );
+
+                DOM.convertHint.textContent = 'Ocurrió un error · Intenta con otro archivo';
+
+            } finally {
+                state.isProcessing = false;
+                DOM.convertBtn.disabled = false;
+                DOM.clearFileBtn.style.pointerEvents = 'auto';
+                DOM.dropZone.style.pointerEvents = 'auto';
+                DOM.fileInput.disabled = false;
+
+                await sleep(1800);
+                hideProgress();
+
+                // Liberar estructuras intermedias
+                state.extractedPages = [];
+                state.currentPage = 0;
+            }
+        }
+
+        // ============================================================
+        // BOTÓN DE CONVERSIÓN
+        // ============================================================
+        DOM.convertBtn.addEventListener('click', function () {
+            convertPDFtoWord();
+        });
+
+        // ============================================================
+        // INICIALIZACIÓN
+        // ============================================================
+        console.log(
+            '%c[PDF to Word] %cInicializado %c✓\n%cAutor: Maicel Monzón PhD %c| %cbioestadisticaedu.com\n%cProcesamiento 100% local — Tus datos nunca abandonan tu dispositivo.',
+            'font-weight:bold;color:#2563eb;', 'color:#1e293b;', 'color:#16a34a;',
+            'color:#64748b;', 'color:#cbd5e1;', 'color:#2563eb;',
+            'color:#64748b;font-style:italic;'
+        );
+
+    })();
+    </script>
+
+</body>
+</html>

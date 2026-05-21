@@ -1,0 +1,1250 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PDF-Locker · Protege tus PDF con contraseña</title>
+<meta name="description" content="Protege tus PDF con contraseña, sin subirlos a internet. Por Maicel Monzón PhD." />
+<meta name="author" content="Maicel Monzón PhD" />
+<meta name="referrer" content="no-referrer" />
+
+<!-- pdf-lib (fork con cifrado) -->
+<script
+  src="https://unpkg.com/@cantoo/pdf-lib@2.4.1/dist/pdf-lib.min.js"
+  integrity="sha384-cF5yh/m+HBug+q5MOExTi+kLMTWTiVN4BGWsoHlEnUFU4CFjnXg75h6rNlL6CbNj"
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"></script>
+
+<!-- Iconos -->
+<script
+  src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"
+  integrity="sha384-hJnF5AwidE18GSWTAGHv3ByzzvfNZ1Tcx5y1UUV3WkauuMCEzBJBMSwSt/PUPXnM"
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"></script>
+
+<style>
+  :root {
+    --ink:        #111827;
+    --ink-soft:   #4b5563;
+    --mute:       #9ca3af;
+    --line:       #ececef;
+    --line-soft:  #f7f7f8;
+    --bg:         #fafafa;
+    --card:       #ffffff;
+    --ok:         #047857;
+    --warn:       #b45309;
+    --err:        #b91c1c;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); }
+  body {
+    font-family: ui-sans-serif, system-ui, -apple-system, "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: -0.005em;
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  [data-lucide], svg.lucide {
+    width: 1rem; height: 1rem; stroke-width: 1.5; flex-shrink: 0;
+  }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; width: 100%; }
+  @media (min-width: 768px) { .wrap { padding: 0 40px; } }
+
+  /* ============ HEADER ============ */
+  header {
+    background: var(--card);
+    border-bottom: 1px solid var(--line);
+  }
+  .hd {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand-mark {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: var(--ink); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .brand-mark [data-lucide] { width: 18px; height: 18px; stroke-width: 2; }
+  .brand-name {
+    font-size: 16px; font-weight: 600; letter-spacing: -0.01em;
+  }
+  .hd-link {
+    font-size: 13px; color: var(--mute);
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: color .15s;
+  }
+  .hd-link:hover { color: var(--ink); }
+  .hd-link [data-lucide] { width: 13px; height: 13px; }
+
+  /* ============ HERO ============ */
+  .hero {
+    padding: 56px 0 32px;
+    text-align: left;
+  }
+  .hero h1 {
+    font-size: 32px; font-weight: 300;
+    line-height: 1.2; letter-spacing: -0.02em;
+    margin: 0 0 12px;
+  }
+  .hero h1 strong { font-weight: 600; }
+  .hero p {
+    margin: 0; color: var(--ink-soft);
+    max-width: 580px;
+  }
+  @media (min-width: 768px) {
+    .hero { padding: 80px 0 48px; }
+    .hero h1 { font-size: 42px; }
+  }
+
+  /* ============ GRID ============ */
+  main { flex: 1; }
+  .grid {
+    display: grid; gap: 24px;
+    grid-template-columns: 1fr;
+    padding-bottom: 80px;
+  }
+  @media (min-width: 1024px) {
+    .grid { grid-template-columns: 1.4fr 1fr; gap: 32px; align-items: start; }
+  }
+
+  /* ============ DROPZONE ============ */
+  .dropzone {
+    background: var(--card);
+    border: 2px dashed #e2e4e8;
+    border-radius: 16px;
+    min-height: 440px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 48px 32px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color .2s, background .2s, transform .15s;
+    user-select: none;
+  }
+  .dropzone:hover { border-color: #cbd5e1; background: #fdfdfd; }
+  .dropzone.is-drag {
+    border-color: var(--ink) !important;
+    border-style: solid;
+    background: var(--line-soft);
+    transform: scale(1.005);
+  }
+  .dropzone.is-loaded { cursor: default; padding: 32px; }
+  .dropzone:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
+
+  .dz-icon {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: var(--line-soft);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px;
+  }
+  .dz-icon [data-lucide] { width: 26px; height: 26px; color: var(--ink-soft); }
+  .dz-title { font-size: 17px; font-weight: 500; color: var(--ink); margin: 0; }
+  .dz-sub { font-size: 13px; color: var(--mute); margin: 4px 0 0; }
+
+  .dz-button {
+    margin-top: 24px;
+    background: var(--ink); color: #fff;
+    border: none; border-radius: 10px;
+    padding: 12px 22px;
+    font-size: 14px; font-weight: 500;
+    cursor: pointer;
+    transition: background .15s, transform .05s;
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: inherit;
+  }
+  .dz-button:hover { background: #000; }
+  .dz-button:active { transform: translateY(1px); }
+  .dz-button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .dz-button [data-lucide] { width: 15px; height: 15px; stroke-width: 2; }
+
+  /* ============ FILE CARD ============ */
+  .file-card {
+    width: 100%; max-width: 440px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 18px;
+    background: var(--card);
+    display: flex; gap: 16px; align-items: center;
+    text-align: left;
+  }
+  .file-thumb {
+    width: 44px; height: 56px;
+    border-radius: 5px;
+    background: linear-gradient(180deg, #fef3c7 0%, #fde68a 100%);
+    border: 1px solid #fcd34d;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; position: relative;
+  }
+  .file-thumb::after {
+    content: ""; position: absolute; top: 0; right: 0;
+    width: 12px; height: 12px;
+    background: linear-gradient(225deg, #fef3c7 50%, transparent 50%);
+  }
+  .file-thumb [data-lucide] { width: 18px; height: 18px; color: #92400e; }
+  .file-info { flex: 1; min-width: 0; }
+  .file-name {
+    font-size: 14px; font-weight: 500; margin: 0;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .file-meta { font-size: 12px; color: var(--mute); margin: 4px 0 0; }
+  .icon-btn {
+    width: 30px; height: 30px;
+    background: none; border: none; border-radius: 6px;
+    color: var(--mute); cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center;
+    transition: background .15s, color .15s;
+  }
+  .icon-btn:hover { background: var(--line-soft); color: var(--ink); }
+
+  /* ============ STATUS ============ */
+  .status {
+    width: 100%; max-width: 440px;
+    margin-top: 16px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 12px 14px;
+    background: var(--card);
+    text-align: left;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .status.status-ok   { border-color: #bbf7d0; background: #f0fdf4; color: #065f46; }
+  .status.status-err  { border-color: #fecaca; background: #fef2f2; color: #991b1b; }
+  .status.status-warn { border-color: #fed7aa; background: #fff7ed; color: #9a3412; }
+  .status-row { display: flex; align-items: center; gap: 8px; }
+  .status-row [data-lucide] { width: 15px; height: 15px; }
+  .status-ok   .status-row [data-lucide] { color: var(--ok); }
+  .status-err  .status-row [data-lucide] { color: var(--err); }
+  .status-warn .status-row [data-lucide] { color: var(--warn); }
+  .progress {
+    height: 2px; background: rgba(0,0,0,0.05); border-radius: 1px;
+    overflow: hidden; margin-top: 10px; position: relative;
+  }
+  .progress::after {
+    content: ""; position: absolute; top: 0; left: -40%;
+    width: 40%; height: 100%; background: var(--ink);
+    animation: progress 1.2s ease-in-out infinite;
+  }
+  @keyframes progress { to { left: 100%; } }
+
+  .spinner {
+    width: 14px; height: 14px; border-radius: 50%;
+    border: 1.5px solid var(--line);
+    border-top-color: var(--ink);
+    animation: spin .7s linear infinite;
+    flex-shrink: 0;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ============ RESULTADO ============ */
+  .result {
+    width: 100%; max-width: 440px;
+    margin-top: 16px;
+    border: 1px solid #bbf7d0;
+    background: #f0fdf4;
+    border-radius: 12px;
+    padding: 18px 20px;
+    text-align: left;
+    animation: pop .25s ease;
+  }
+  @keyframes pop {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .result-head {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 4px;
+  }
+  .result-head [data-lucide] { width: 18px; height: 18px; color: var(--ok); }
+  .result-head h4 {
+    font-size: 14px; font-weight: 600;
+    color: #065f46; margin: 0;
+  }
+  .result-name {
+    font-size: 12px; color: #047857; margin: 4px 0 16px 28px;
+    word-break: break-all;
+  }
+  .result-btn {
+    width: 100%;
+    background: var(--card); color: var(--ink-soft);
+    border: 1px solid var(--line); border-radius: 8px;
+    padding: 9px;
+    font-size: 13px; font-family: inherit;
+    cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+    transition: background .15s, border-color .15s;
+  }
+  .result-btn:hover { background: var(--line-soft); border-color: #d1d5db; }
+  .result-btn [data-lucide] { width: 14px; height: 14px; }
+
+  /* ============ PANEL DERECHO ============ */
+  .panel {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 28px;
+  }
+  .panel-title {
+    font-size: 17px; font-weight: 500; margin: 0 0 4px;
+  }
+  .panel-sub {
+    font-size: 13px; color: var(--mute); margin: 0 0 24px;
+  }
+
+  /* ============ AVISO IMPORTANTE ============ */
+  .warning {
+    border-left: 3px solid #fbbf24;
+    background: #fffbeb;
+    border-radius: 6px;
+    padding: 12px 14px;
+    font-size: 13px; line-height: 1.5;
+    color: #78350f;
+    margin-bottom: 24px;
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  .warning [data-lucide] {
+    width: 15px; height: 15px; color: #d97706;
+    margin-top: 2px; flex-shrink: 0;
+  }
+  .warning strong { font-weight: 600; }
+
+  /* ============ INPUTS ============ */
+  .field { margin-bottom: 20px; }
+  .field-label {
+    display: block;
+    font-size: 13px; font-weight: 500;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+  .field-label .req { color: var(--err); margin-left: 2px; }
+
+  .input-row { display: flex; gap: 8px; }
+  .input-wrap { position: relative; flex: 1; }
+  .input {
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    padding: 11px 14px;
+    font-size: 14px; font-family: inherit;
+    background: var(--card);
+    color: var(--ink);
+    transition: border-color .15s, box-shadow .15s;
+  }
+  .input:focus {
+    outline: none;
+    border-color: var(--ink);
+    box-shadow: 0 0 0 3px rgba(17,24,39,0.05);
+  }
+  .input::placeholder { color: var(--mute); font-weight: 300; }
+  .input.has-icons  { padding-right: 70px; }
+  .input.has-toggle { padding-right: 40px; }
+  .input.is-invalid { border-color: var(--err); }
+  .input.is-valid   { border-color: var(--ok); }
+
+  .input-actions {
+    position: absolute; right: 5px; top: 50%; transform: translateY(-50%);
+    display: flex; gap: 2px;
+  }
+  .input-actions .icon-btn { width: 28px; height: 28px; }
+  .input-actions .icon-btn [data-lucide] { width: 14px; height: 14px; }
+
+  .btn-secondary {
+    border: 1px solid var(--line);
+    background: var(--card);
+    border-radius: 9px;
+    padding: 0 14px;
+    font-size: 13px;
+    color: var(--ink-soft);
+    cursor: pointer;
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: inherit;
+    transition: background .15s, border-color .15s;
+    white-space: nowrap;
+  }
+  .btn-secondary:hover { background: var(--line-soft); border-color: #d1d5db; }
+  .btn-secondary [data-lucide] { width: 13px; height: 13px; }
+
+  .strength {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 4px; margin-top: 8px;
+  }
+  .strength span {
+    height: 3px; background: var(--line); border-radius: 2px;
+    transition: background .25s;
+  }
+  .strength[data-level="1"] span:nth-child(-n+1) { background: #ef4444; }
+  .strength[data-level="2"] span:nth-child(-n+2) { background: #f59e0b; }
+  .strength[data-level="3"] span:nth-child(-n+3) { background: #10b981; }
+  .strength[data-level="4"] span:nth-child(-n+4) { background: #059669; }
+
+  .hint {
+    font-size: 12px; color: var(--mute);
+    margin: 8px 0 0; min-height: 16px;
+  }
+  .hint.is-ok   { color: var(--ok); }
+  .hint.is-warn { color: var(--warn); }
+  .hint.is-err  { color: var(--err); }
+
+  /* ============ PERMISOS COMO TOGGLES ============ */
+  .perms {
+    display: flex; flex-direction: column;
+    gap: 4px;
+    margin: 0;
+  }
+  .perm {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 14px;
+    padding: 12px 0;
+    font-size: 14px; color: var(--ink);
+    cursor: pointer;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .perm:last-child { border-bottom: none; }
+  .perm-label { display: flex; align-items: center; gap: 10px; }
+  .perm-label [data-lucide] { width: 15px; height: 15px; color: var(--mute); }
+  .toggle {
+    position: relative;
+    width: 36px; height: 20px;
+    background: #d1d5db;
+    border-radius: 999px;
+    transition: background .2s;
+    flex-shrink: 0;
+  }
+  .toggle::after {
+    content: "";
+    position: absolute; top: 2px; left: 2px;
+    width: 16px; height: 16px;
+    background: #fff; border-radius: 50%;
+    transition: transform .2s;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  }
+  .perm input { display: none; }
+  .perm input:checked + .toggle { background: var(--ink); }
+  .perm input:checked + .toggle::after { transform: translateX(16px); }
+  .perm input:focus-visible + .toggle {
+    box-shadow: 0 0 0 3px rgba(17,24,39,0.15);
+  }
+
+  /* ============ SELECTOR DE SEGURIDAD (segmented) ============ */
+  .segmented {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    background: var(--line-soft);
+    border-radius: 10px;
+    padding: 4px;
+    gap: 2px;
+  }
+  .seg-option {
+    position: relative;
+    padding: 8px 4px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--ink-soft);
+    cursor: pointer;
+    border-radius: 7px;
+    transition: background .15s, color .15s, box-shadow .15s;
+  }
+  .seg-option input { display: none; }
+  .seg-option:has(input:checked) {
+    background: var(--card);
+    color: var(--ink);
+    font-weight: 500;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+  }
+  .seg-option:hover:not(:has(input:checked)) {
+    color: var(--ink);
+  }
+
+  /* ============ BOTÓN PRINCIPAL ============ */
+  .btn-primary {
+    width: 100%;
+    background: var(--ink); color: #fff;
+    border: none; border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 15px; font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    transition: background .15s, transform .05s;
+    margin-top: 8px;
+  }
+  .btn-primary:hover:not(:disabled) { background: #000; }
+  .btn-primary:active:not(:disabled) { transform: translateY(1px); }
+  .btn-primary:disabled { background: #d1d5db; cursor: not-allowed; }
+  .btn-primary [data-lucide] { width: 17px; height: 17px; stroke-width: 2; }
+
+  /* ============ MODAL ============ */
+  .modal-bg {
+    position: fixed; inset: 0;
+    background: rgba(17,24,39,0.5);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 50; padding: 16px;
+    animation: fade .15s;
+  }
+  @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+  .modal {
+    background: var(--card); border-radius: 14px;
+    padding: 28px;
+    max-width: 400px; width: 100%;
+    border: 1px solid var(--line);
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+  }
+  .modal-head {
+    display: flex; align-items: flex-start; gap: 14px;
+    margin-bottom: 16px;
+  }
+  .modal-icon {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: #fef3c7;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .modal-icon [data-lucide] { width: 18px; height: 18px; color: #b45309; }
+  .modal h4 { font-size: 15px; font-weight: 600; margin: 0 0 6px; }
+  .modal p { font-size: 13px; color: var(--ink-soft); margin: 0; line-height: 1.55; }
+  .modal-actions { display: flex; gap: 10px; margin-top: 22px; }
+  .modal-actions button { flex: 1; padding: 11px 14px; font-size: 14px; }
+
+  /* ============ FOOTER ============ */
+  footer {
+    border-top: 1px solid var(--line);
+    background: var(--card);
+    padding: 28px 0;
+    font-size: 12px;
+    color: var(--mute);
+  }
+  .foot {
+    display: flex; flex-direction: column; gap: 6px;
+    text-align: center;
+  }
+  .foot a {
+    color: var(--ink-soft); text-decoration: none;
+    border-bottom: 1px dotted var(--mute);
+  }
+  .foot a:hover { color: var(--ink); }
+  @media (min-width: 640px) {
+    .foot { flex-direction: row; justify-content: space-between; text-align: left; }
+  }
+</style>
+</head>
+
+<body>
+
+  <!-- ============ HEADER ============ -->
+  <header>
+    <div class="wrap hd">
+      <div class="brand">
+        <div class="brand-mark"><i data-lucide="lock-keyhole"></i></div>
+        <div class="brand-name">PDF-Locker</div>
+      </div>
+      <a class="hd-link" href="https://bioestadisticaedu.com/" target="_blank" rel="noopener noreferrer">
+        bioestadisticaedu.com <i data-lucide="external-link"></i>
+      </a>
+    </div>
+  </header>
+
+  <!-- ============ MAIN ============ -->
+  <main>
+    <div class="wrap">
+
+      <section class="hero">
+        <h1>Protege tus PDF con <strong>contraseña</strong>.</h1>
+        <p>Tu documento nunca sale de este navegador. Sin servidor, sin registros, sin rastros.</p>
+      </section>
+
+      <div class="grid">
+
+        <!-- ============ IZQUIERDA: Dropzone ============ -->
+        <section>
+          <div id="dropzone" tabindex="0" role="button" aria-label="Cargar PDF">
+            <input type="file" id="fileInput" accept="application/pdf,.pdf" style="display:none;" />
+
+            <!-- Estado vacío -->
+            <div id="emptyState">
+              <div class="dz-icon"><i data-lucide="file-up"></i></div>
+              <p class="dz-title">Arrastra tu PDF aquí</p>
+              <p class="dz-sub">o usa el botón para seleccionarlo</p>
+              <button type="button" class="dz-button" id="pickBtn">
+                <i data-lucide="folder-open"></i> Seleccionar PDF
+              </button>
+            </div>
+
+            <!-- Estado cargado -->
+            <div id="loadedState" style="display:none;width:100%;flex-direction:column;align-items:center;">
+              <div class="file-card">
+                <div class="file-thumb"><i data-lucide="file-text"></i></div>
+                <div class="file-info">
+                  <p class="file-name" id="fileName">documento.pdf</p>
+                  <p class="file-meta" id="fileMeta">—</p>
+                </div>
+                <button type="button" class="icon-btn" id="removeFile" title="Quitar" aria-label="Quitar">
+                  <i data-lucide="x"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Status -->
+            <div id="statusBox" class="status" style="display:none;" role="status" aria-live="polite">
+              <div class="status-row">
+                <div class="spinner" id="statusSpinner" style="display:none;"></div>
+                <i data-lucide="check-circle-2" id="statusIconOk" style="display:none;"></i>
+                <i data-lucide="alert-triangle" id="statusIconErr" style="display:none;"></i>
+                <i data-lucide="info" id="statusIconWarn" style="display:none;"></i>
+                <span id="statusText">…</span>
+              </div>
+              <div class="progress" id="progressBar" style="display:none;"></div>
+            </div>
+
+            <!-- Resultado -->
+            <div id="resultCard" class="result" style="display:none;">
+              <div class="result-head">
+                <i data-lucide="shield-check"></i>
+                <h4>PDF protegido y descargado</h4>
+              </div>
+              <p class="result-name" id="resultName">archivo_protegido.pdf</p>
+              <button type="button" class="result-btn" id="newFile">
+                <i data-lucide="plus"></i> Proteger otro PDF
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ DERECHA: Panel ============ -->
+        <aside>
+          <div class="panel">
+            <h3 class="panel-title">Crear contraseña</h3>
+            <p class="panel-sub">Quien tenga esta contraseña podrá abrir el documento.</p>
+
+            <!-- Aviso crítico -->
+            <div class="warning">
+              <i data-lucide="alert-circle"></i>
+              <span>
+                <strong>Anota la contraseña en un lugar seguro.</strong>
+                Si la pierdes, no podremos recuperarla y el documento quedará bloqueado para siempre.
+              </span>
+            </div>
+
+            <!-- Contraseña -->
+            <div class="field">
+              <label class="field-label" for="userPwd">
+                Contraseña <span class="req">*</span>
+              </label>
+              <div class="input-row">
+                <div class="input-wrap">
+                  <input id="userPwd" class="input has-icons" type="password"
+                         placeholder="Mínimo 6 caracteres"
+                         autocomplete="new-password" spellcheck="false" />
+                  <div class="input-actions">
+                    <button type="button" class="icon-btn" data-copy="userPwd" title="Copiar" aria-label="Copiar">
+                      <i data-lucide="copy"></i>
+                    </button>
+                    <button type="button" class="icon-btn" data-toggle="userPwd" title="Ver" aria-label="Ver contraseña">
+                      <i data-lucide="eye"></i>
+                    </button>
+                  </div>
+                </div>
+                <button type="button" class="btn-secondary" id="genUserPwd" title="Crear una contraseña segura">
+                  <i data-lucide="sparkles"></i> Crear
+                </button>
+              </div>
+              <div class="strength" id="userPwdStrength" data-level="0">
+                <span></span><span></span><span></span><span></span>
+              </div>
+              <p class="hint" id="userPwdHint">Mínimo 6 caracteres.</p>
+            </div>
+
+            <!-- Confirmar -->
+            <div class="field">
+              <label class="field-label" for="userPwd2">
+                Repetir contraseña <span class="req">*</span>
+              </label>
+              <div class="input-wrap">
+                <input id="userPwd2" class="input has-toggle" type="password"
+                       placeholder="Escríbela otra vez"
+                       autocomplete="new-password" spellcheck="false" />
+                <div class="input-actions">
+                  <button type="button" class="icon-btn" data-toggle="userPwd2" title="Ver" aria-label="Ver">
+                    <i data-lucide="eye"></i>
+                  </button>
+                </div>
+              </div>
+              <p class="hint" id="userPwd2Hint">Para evitar errores al escribirla.</p>
+            </div>
+
+            <!-- Permisos -->
+            <div class="field">
+              <label class="field-label">El documento podrá…</label>
+              <div class="perms">
+                <label class="perm">
+                  <span class="perm-label">
+                    <i data-lucide="printer"></i> Imprimirse
+                  </span>
+                  <input type="checkbox" id="permPrint" checked />
+                  <span class="toggle"></span>
+                </label>
+                <label class="perm">
+                  <span class="perm-label">
+                    <i data-lucide="copy"></i> Copiarse el texto
+                  </span>
+                  <input type="checkbox" id="permCopy" checked />
+                  <span class="toggle"></span>
+                </label>
+                <label class="perm">
+                  <span class="perm-label">
+                    <i data-lucide="edit-3"></i> Editarse
+                  </span>
+                  <input type="checkbox" id="permModify" checked />
+                  <span class="toggle"></span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Nivel de seguridad -->
+            <div class="field">
+              <label class="field-label">Seguridad</label>
+              <div class="segmented" role="radiogroup">
+                <label class="seg-option">
+                  <input type="radio" name="cipher" value="rc4-128" />
+                  Compatible
+                </label>
+                <label class="seg-option">
+                  <input type="radio" name="cipher" value="aes-128" checked />
+                  Estándar
+                </label>
+                <label class="seg-option">
+                  <input type="radio" name="cipher" value="aes-256" />
+                  Máxima
+                </label>
+              </div>
+            </div>
+
+            <!-- Botón -->
+            <button id="encryptBtn" class="btn-primary" disabled>
+              <span id="encryptBtnIcon"><i data-lucide="lock-keyhole"></i></span>
+              <span id="encryptBtnLabel">Proteger y descargar</span>
+            </button>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ============ MODAL CONFIRMACIÓN ============ -->
+  <div id="confirmModal" class="modal-bg" style="display:none;" role="dialog" aria-modal="true">
+    <div class="modal">
+      <div class="modal-head">
+        <div class="modal-icon"><i data-lucide="alert-triangle"></i></div>
+        <div>
+          <h4>Contraseña poco segura</h4>
+          <p id="confirmText">Esta contraseña es muy corta o sencilla. Cualquiera podría adivinarla. ¿Continuar?</p>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-secondary" id="confirmCancel" style="justify-content:center;">Cambiarla</button>
+        <button type="button" class="btn-primary" id="confirmAccept" style="width:auto;margin:0;">Continuar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <footer>
+    <div class="wrap foot">
+      <span>© <span id="year"></span> · <strong style="color:var(--ink-soft);font-weight:500;">Maicel Monzón PhD</strong> · Procesamiento 100% local.</span>
+      <a href="https://bioestadisticaedu.com/" target="_blank" rel="noopener noreferrer">bioestadisticaedu.com</a>
+    </div>
+  </footer>
+
+<!-- ===========================================================================
+     WEB WORKER (cifrado en hilo paralelo, sin congelar la página)
+     =========================================================================== -->
+<script id="worker-source" type="javascript/worker">
+  self.addEventListener('message', async (e) => {
+    const { type, payload } = e.data || {};
+    if (type === 'init') {
+      try {
+        self.importScripts('https://unpkg.com/@cantoo/pdf-lib@2.4.1/dist/pdf-lib.min.js');
+        self.postMessage({ type: 'ready' });
+      } catch (err) {
+        self.postMessage({ type: 'error', payload: { message: err.message || String(err) } });
+      }
+      return;
+    }
+    if (type !== 'encrypt') return;
+    try {
+      if (!self.PDFLib) self.importScripts('https://unpkg.com/@cantoo/pdf-lib@2.4.1/dist/pdf-lib.min.js');
+      const PDFLib = self.PDFLib;
+      const { buffer, userPassword, ownerPassword, permissions, cipher } = payload;
+      const pdfDoc = await PDFLib.PDFDocument.load(buffer, { ignoreEncryption: false, throwOnInvalidObject: false });
+      const h = pdfDoc.context.header;
+      if (cipher === 'rc4-128')      { h.major = 1; h.minor = 4; }
+      else if (cipher === 'aes-128') { h.major = 1; h.minor = 6; }
+      else if (cipher === 'aes-256') { h.major = 1; h.minor = 7; h.getVersionString = () => '1.7ext3'; }
+      pdfDoc.encrypt({ userPassword, ownerPassword, permissions });
+      const out = await pdfDoc.save({ useObjectStreams: false, updateFieldAppearances: false });
+      if (!out || out.byteLength < 1024 || out[0] !== 0x25 || out[1] !== 0x50) {
+        throw new Error('El archivo resultante no es válido.');
+      }
+      const ab = out.buffer.slice(out.byteOffset, out.byteOffset + out.byteLength);
+      self.postMessage({ type: 'success', payload: { buffer: ab } }, [ab]);
+    } catch (err) {
+      self.postMessage({ type: 'error', payload: { message: err.message || String(err) } });
+    }
+  });
+</script>
+
+<script>
+(function () {
+  'use strict';
+
+  const $ = (id) => document.getElementById(id);
+  const render = () => window.lucide && window.lucide.createIcons();
+  const swap = (el, name) => { if (el) { el.innerHTML = `<i data-lucide="${name}"></i>`; render(); } };
+  const humanSize = (b) =>
+    b < 1024 ? b + ' B' : b < 1048576 ? (b/1024).toFixed(1) + ' KB' : (b/1048576).toFixed(2) + ' MB';
+
+  render();
+  $('year').textContent = new Date().getFullYear();
+
+  // ===== ESTADO =====
+  const state = {
+    file: null, buffer: null,
+    isProcessing: false,
+    worker: null, workerFailed: false
+  };
+
+  // ===== REFS =====
+  const dropzone = $('dropzone'), fileInput = $('fileInput'), pickBtn = $('pickBtn');
+  const emptyState = $('emptyState'), loadedState = $('loadedState');
+  const fileName = $('fileName'), fileMeta = $('fileMeta'), removeFile = $('removeFile');
+  const statusBox = $('statusBox'), statusText = $('statusText');
+  const statusSpinner = $('statusSpinner');
+  const statusIconOk = $('statusIconOk'), statusIconErr = $('statusIconErr'), statusIconWarn = $('statusIconWarn');
+  const progressBar = $('progressBar');
+  const resultCard = $('resultCard'), resultName = $('resultName'), newFile = $('newFile');
+  const userPwd = $('userPwd'), userPwd2 = $('userPwd2');
+  const userPwdHint = $('userPwdHint'), userPwd2Hint = $('userPwd2Hint');
+  const userPwdStrength = $('userPwdStrength');
+  const genUserPwd = $('genUserPwd');
+  const permPrint = $('permPrint'), permCopy = $('permCopy'), permModify = $('permModify');
+  const encryptBtn = $('encryptBtn'), encryptBtnIcon = $('encryptBtnIcon'), encryptBtnLabel = $('encryptBtnLabel');
+  const confirmModal = $('confirmModal'), confirmAccept = $('confirmAccept'), confirmCancel = $('confirmCancel');
+
+  // ===== WORKER (silencioso, sin badges en UI) =====
+  const initWorker = () => {
+    try {
+      const blob = new Blob([$('worker-source').textContent], { type: 'application/javascript' });
+      const url = URL.createObjectURL(blob);
+      state.worker = new Worker(url);
+      setTimeout(() => URL.revokeObjectURL(url), 1500);
+      state.worker.addEventListener('message', (e) => {
+        if (e.data?.type === 'ready') state.workerReady = true;
+      });
+      state.worker.addEventListener('error', () => { state.workerFailed = true; });
+      state.worker.postMessage({ type: 'init' });
+    } catch (_) { state.workerFailed = true; }
+  };
+  if (window.Worker) initWorker();
+  else state.workerFailed = true;
+
+  // ===== STATUS =====
+  const setStatus = (text, kind /* loading|ok|err|warn|hide */, progress = false) => {
+    statusBox.className = 'status';
+    if (kind === 'hide') { statusBox.style.display = 'none'; return; }
+    statusBox.style.display = '';
+    statusText.textContent = text;
+    statusSpinner.style.display  = kind === 'loading' ? '' : 'none';
+    statusIconOk.style.display   = kind === 'ok'   ? '' : 'none';
+    statusIconErr.style.display  = kind === 'err'  ? '' : 'none';
+    statusIconWarn.style.display = kind === 'warn' ? '' : 'none';
+    progressBar.style.display    = progress ? '' : 'none';
+    if (kind === 'ok')   statusBox.classList.add('status-ok');
+    if (kind === 'err')  statusBox.classList.add('status-err');
+    if (kind === 'warn') statusBox.classList.add('status-warn');
+    render();
+  };
+
+  // ===== ANÁLISIS PDF =====
+  const analyzePdf = (buf) => {
+    const u8 = new Uint8Array(buf);
+    let found = false;
+    const lim = Math.min(u8.length, 1024);
+    for (let i = 0; i < lim - 5; i++) {
+      if (u8[i]===0x25 && u8[i+1]===0x50 && u8[i+2]===0x44 && u8[i+3]===0x46 && u8[i+4]===0x2D) {
+        found = true; break;
+      }
+    }
+    if (!found) return { ok: false, reason: 'Este archivo no parece un PDF.' };
+    let asText = '';
+    try { asText = new TextDecoder('latin1').decode(u8); } catch (_) {}
+    if (/\/Encrypt\b/.test(asText)) {
+      return { ok: false, reason: 'Este PDF ya está protegido. Quítale la contraseña actual primero.' };
+    }
+    return { ok: true };
+  };
+
+  // ===== CARGA DE ARCHIVO =====
+  const MAX_MB = 50;
+  const showEmpty = () => {
+    emptyState.style.display = '';
+    loadedState.style.display = 'none';
+    dropzone.classList.remove('is-loaded');
+  };
+  const showLoaded = () => {
+    emptyState.style.display = 'none';
+    loadedState.style.display = 'flex';
+    dropzone.classList.add('is-loaded');
+  };
+
+  const handleFile = async (file) => {
+    if (!file || state.isProcessing) return;
+    resultCard.style.display = 'none';
+    setStatus('', 'hide');
+
+    const isPdf = file.type === 'application/pdf' || /\.pdf$/i.test(file.name);
+    if (!isPdf) { setStatus('Solo se pueden proteger archivos PDF.', 'err'); return; }
+    if (file.size === 0) { setStatus('El archivo está vacío.', 'err'); return; }
+    if (file.size > MAX_MB * 1024 * 1024) {
+      setStatus(`El archivo es muy grande (máximo ${MAX_MB} MB).`, 'err');
+      return;
+    }
+
+    try {
+      setStatus('Abriendo el documento…', 'loading');
+      const buffer = await file.arrayBuffer();
+      const analysis = analyzePdf(buffer);
+      if (!analysis.ok) { setStatus(analysis.reason, 'err'); return; }
+
+      state.file = file;
+      state.buffer = buffer;
+      fileName.textContent = file.name;
+      fileMeta.textContent = humanSize(file.size);
+      showLoaded();
+      setStatus('Listo. Crea una contraseña a la derecha →', 'ok');
+      validate();
+      render();
+    } catch (err) {
+      setStatus('No se pudo abrir el documento.', 'err');
+    }
+  };
+
+  const resetAll = () => {
+    state.file = null; state.buffer = null;
+    fileInput.value = '';
+    showEmpty();
+    setStatus('', 'hide');
+    resultCard.style.display = 'none';
+    validate();
+  };
+
+  // ===== FILE PICKER =====
+  const openPicker = () => { fileInput.value = ''; fileInput.click(); };
+  pickBtn.addEventListener('click', (e) => { e.stopPropagation(); openPicker(); });
+  dropzone.addEventListener('click', (e) => {
+    if (state.file) return;
+    if (e.target.closest('button, input, a')) return;
+    openPicker();
+  });
+  dropzone.addEventListener('keydown', (e) => {
+    if ((e.key === 'Enter' || e.key === ' ') && !state.file) {
+      e.preventDefault(); openPicker();
+    }
+  });
+  fileInput.addEventListener('change', (e) => {
+    const f = e.target.files && e.target.files[0];
+    if (f) handleFile(f);
+  });
+  removeFile.addEventListener('click', (e) => { e.stopPropagation(); resetAll(); });
+  newFile.addEventListener('click', resetAll);
+
+  // ===== DRAG & DROP =====
+  const hasFiles = (e) => e.dataTransfer && Array.from(e.dataTransfer.types || []).includes('Files');
+  ['dragenter', 'dragover'].forEach(evt => {
+    dropzone.addEventListener(evt, (e) => {
+      if (!hasFiles(e)) return;
+      e.preventDefault(); e.stopPropagation();
+      if (!state.isProcessing) dropzone.classList.add('is-drag');
+    });
+  });
+  dropzone.addEventListener('dragleave', (e) => {
+    e.preventDefault(); e.stopPropagation();
+    dropzone.classList.remove('is-drag');
+  });
+  dropzone.addEventListener('drop', (e) => {
+    e.preventDefault(); e.stopPropagation();
+    dropzone.classList.remove('is-drag');
+    const f = e.dataTransfer.files && e.dataTransfer.files[0];
+    if (f) handleFile(f);
+  });
+  // Evita que el navegador abra el PDF si lo sueltas fuera del dropzone
+  ['dragover', 'drop'].forEach(evt => {
+    window.addEventListener(evt, (e) => {
+      if (hasFiles(e) && !dropzone.contains(e.target)) e.preventDefault();
+    });
+  });
+
+  // ===== CONTRASEÑAS =====
+  const generatePwd = (len = 12) => {
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789';
+    const arr = new Uint32Array(len);
+    crypto.getRandomValues(arr);
+    let out = '';
+    for (let i = 0; i < len; i++) out += chars[arr[i] % chars.length];
+    return out;
+  };
+
+  // Auto-ocultar tras 8s para no dejar contraseñas visibles
+  const hideTimers = {};
+  const scheduleHide = (id) => {
+    clearTimeout(hideTimers[id]);
+    hideTimers[id] = setTimeout(() => {
+      const input = $(id);
+      if (input && input.type === 'text') {
+        input.type = 'password';
+        document.querySelectorAll(`[data-toggle="${id}"]`).forEach(b => swap(b, 'eye'));
+      }
+    }, 8000);
+  };
+
+  document.querySelectorAll('[data-toggle]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.toggle;
+      const input = $(id); if (!input) return;
+      const willShow = input.type === 'password';
+      input.type = willShow ? 'text' : 'password';
+      btn.setAttribute('aria-label', willShow ? 'Ocultar' : 'Ver');
+      swap(btn, willShow ? 'eye-off' : 'eye');
+      if (willShow) scheduleHide(id); else clearTimeout(hideTimers[id]);
+    });
+  });
+
+  document.querySelectorAll('[data-copy]').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const input = $(btn.dataset.copy);
+      if (!input || !input.value) return;
+      try {
+        await navigator.clipboard.writeText(input.value);
+        const original = btn.innerHTML;
+        swap(btn, 'check');
+        btn.style.color = 'var(--ok)';
+        setTimeout(() => { btn.innerHTML = original; btn.style.color = ''; render(); }, 1100);
+      } catch (_) {}
+    });
+  });
+
+  genUserPwd.addEventListener('click', () => {
+    const p = generatePwd(12);
+    userPwd.value = p; userPwd2.value = p;
+    userPwd.type = 'text'; userPwd2.type = 'text';
+    document.querySelectorAll('[data-toggle="userPwd"],[data-toggle="userPwd2"]').forEach(b => swap(b, 'eye-off'));
+    scheduleHide('userPwd'); scheduleHide('userPwd2');
+    validate();
+  });
+
+  // ===== VALIDACIÓN =====
+  const MIN_LEN = 6;
+  const score = (v) => {
+    if (!v) return 0;
+    let s = 0;
+    if (v.length >= 8) s++;
+    if (v.length >= 12) s++;
+    const variety = (/[a-z]/.test(v)?1:0)+(/[A-Z]/.test(v)?1:0)+(/\d/.test(v)?1:0)+(/[^A-Za-z0-9]/.test(v)?1:0);
+    if (variety >= 2) s++;
+    if (variety >= 3) s++;
+    if (/^(.)\1+$/.test(v)) s = Math.min(s, 1);
+    if (/^(123|abc|qwe|pass|admin)/i.test(v)) s = Math.min(s, 1);
+    return Math.min(4, s);
+  };
+
+  const setHint = (el, txt, lvl) => {
+    el.className = 'hint';
+    el.textContent = txt;
+    if (lvl) el.classList.add('is-' + lvl);
+  };
+  const setField = (el, lvl) => {
+    el.classList.remove('is-valid', 'is-invalid');
+    if (lvl === 'ok')  el.classList.add('is-valid');
+    if (lvl === 'err') el.classList.add('is-invalid');
+  };
+
+  const validate = () => {
+    const u = userPwd.value, u2 = userPwd2.value;
+    const sU = score(u);
+    userPwdStrength.dataset.level = u ? sU : 0;
+
+    let uOk = false;
+    if (!u) { setHint(userPwdHint, 'Mínimo 6 caracteres.', ''); setField(userPwd, null); }
+    else if (u.length < MIN_LEN) { setHint(userPwdHint, `Faltan ${MIN_LEN - u.length} caracteres.`, 'err'); setField(userPwd, 'err'); }
+    else if (sU <= 1) { setHint(userPwdHint, 'Muy débil. Mezcla letras, números y símbolos.', 'warn'); setField(userPwd, 'ok'); uOk = true; }
+    else if (sU === 2) { setHint(userPwdHint, 'Aceptable.', 'warn'); setField(userPwd, 'ok'); uOk = true; }
+    else if (sU === 3) { setHint(userPwdHint, 'Buena contraseña.', 'ok'); setField(userPwd, 'ok'); uOk = true; }
+    else { setHint(userPwdHint, 'Excelente contraseña.', 'ok'); setField(userPwd, 'ok'); uOk = true; }
+
+    let mOk = true;
+    if (u2 || u) {
+      if (u !== u2) {
+        setHint(userPwd2Hint, 'No coincide con la anterior.', 'err'); setField(userPwd2, 'err'); mOk = false;
+      } else if (u && uOk) {
+        setHint(userPwd2Hint, 'Coincide.', 'ok'); setField(userPwd2, 'ok');
+      } else { setHint(userPwd2Hint, 'Para evitar errores al escribirla.', ''); setField(userPwd2, null); }
+    } else { setHint(userPwd2Hint, 'Para evitar errores al escribirla.', ''); setField(userPwd2, null); }
+
+    encryptBtn.disabled = !(state.buffer && uOk && mOk && !state.isProcessing);
+  };
+  ['input', 'change'].forEach(evt => {
+    userPwd.addEventListener(evt, validate);
+    userPwd2.addEventListener(evt, validate);
+  });
+  validate();
+
+  // ===== MODAL =====
+  let confirmResolver = null;
+  const askConfirm = () => {
+    confirmModal.style.display = 'flex';
+    setTimeout(() => confirmAccept.focus(), 50);
+    return new Promise(r => { confirmResolver = r; });
+  };
+  confirmAccept.addEventListener('click', () => { confirmModal.style.display = 'none'; confirmResolver?.(true); });
+  confirmCancel.addEventListener('click', () => { confirmModal.style.display = 'none'; confirmResolver?.(false); });
+  confirmModal.addEventListener('click', (e) => {
+    if (e.target === confirmModal) { confirmModal.style.display = 'none'; confirmResolver?.(false); }
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && confirmModal.style.display === 'flex') {
+      confirmModal.style.display = 'none'; confirmResolver?.(false);
+    }
+  });
+
+  // ===== CIFRADO =====
+  const downloadBlob = (blob, name) => {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = name;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 2000);
+  };
+  const outName = (n) => (n || 'documento.pdf').replace(/\.pdf$/i, '') + '_protegido.pdf';
+  const wipe = (el) => { if (el) { try { el.value = generatePwd(20); } catch (_) {} el.value = ''; } };
+
+  // Permisos: marcado = permitido (más natural)
+  const buildPermissions = () => ({
+    printing:             permPrint.checked  ? 'highResolution' : false,
+    modifying:            permModify.checked,
+    copying:              permCopy.checked,
+    annotating:           permModify.checked,
+    fillingForms:         permModify.checked,
+    contentAccessibility: true,
+    documentAssembly:     permModify.checked
+  });
+
+  const getCipher = () => {
+    const checked = document.querySelector('input[name="cipher"]:checked');
+    return checked ? checked.value : 'aes-128';
+  };
+
+  const encInWorker = (payload) => new Promise((resolve, reject) => {
+    if (!state.worker || state.workerFailed) return reject(new Error('no-worker'));
+    const t = setTimeout(() => { cleanup(); reject(new Error('timeout')); }, 90000);
+    const onMsg = (e) => {
+      const { type, payload: p } = e.data || {};
+      if (type === 'success') { cleanup(); resolve(p); }
+      else if (type === 'error') { cleanup(); reject(new Error(p.message)); }
+    };
+    const onErr = (e) => { cleanup(); reject(new Error(e.message || 'worker-error')); };
+    const cleanup = () => {
+      clearTimeout(t);
+      state.worker.removeEventListener('message', onMsg);
+      state.worker.removeEventListener('error', onErr);
+    };
+    state.worker.addEventListener('message', onMsg);
+    state.worker.addEventListener('error', onErr);
+    state.worker.postMessage({ type: 'encrypt', payload }, [payload.buffer]);
+  });
+
+  const encInMain = async (payload) => {
+    const PDFLib = window.PDFLib;
+    if (!PDFLib?.PDFDocument) throw new Error('No se pudo cargar el motor de cifrado.');
+    const pdfDoc = await PDFLib.PDFDocument.load(payload.buffer, { ignoreEncryption: false, throwOnInvalidObject: false });
+    const h = pdfDoc.context.header;
+    if (payload.cipher === 'rc4-128')      { h.major = 1; h.minor = 4; }
+    else if (payload.cipher === 'aes-128') { h.major = 1; h.minor = 6; }
+    else if (payload.cipher === 'aes-256') { h.major = 1; h.minor = 7; h.getVersionString = () => '1.7ext3'; }
+    pdfDoc.encrypt({ userPassword: payload.userPassword, ownerPassword: payload.ownerPassword, permissions: payload.permissions });
+    const out = await pdfDoc.save({ useObjectStreams: false, updateFieldAppearances: false });
+    if (!out || out.byteLength < 1024 || out[0] !== 0x25 || out[1] !== 0x50) throw new Error('Archivo no válido.');
+    return { buffer: out.buffer.slice(out.byteOffset, out.byteOffset + out.byteLength) };
+  };
+
+  encryptBtn.addEventListener('click', async () => {
+    if (state.isProcessing || !state.buffer || encryptBtn.disabled) return;
+
+    if (score(userPwd.value) <= 1) {
+      const ok = await askConfirm();
+      if (!ok) return;
+    }
+
+    state.isProcessing = true;
+    encryptBtn.disabled = true;
+    const origLabel = encryptBtnLabel.textContent;
+    encryptBtnLabel.textContent = 'Protegiendo…';
+    swap(encryptBtnIcon, 'loader-2');
+    resultCard.style.display = 'none';
+
+    setStatus('Protegiendo el documento…', 'loading', true);
+
+    const userPassword  = userPwd.value;
+    const ownerPassword = generatePwd(20);   // siempre autogenerada; el usuario no la necesita
+    const permissions   = buildPermissions();
+    const cipher        = getCipher();
+
+    try {
+      const bufferCopy = state.buffer.slice(0);
+      let result;
+      try {
+        if (!state.workerFailed && state.worker) {
+          result = await encInWorker({ buffer: bufferCopy, userPassword, ownerPassword, permissions, cipher });
+        } else throw new Error('no-worker');
+      } catch (werr) {
+        const bufferCopy2 = state.buffer.slice(0);
+        result = await encInMain({ buffer: bufferCopy2, userPassword, ownerPassword, permissions, cipher });
+      }
+
+      const filename = outName(state.file?.name);
+      downloadBlob(new Blob([result.buffer], { type: 'application/pdf' }), filename);
+
+      resultName.textContent = filename;
+      resultCard.style.display = '';
+      setStatus('Listo. La descarga ha comenzado.', 'ok');
+
+      // Borrado seguro
+      wipe(userPwd); wipe(userPwd2);
+      userPwdStrength.dataset.level = 0;
+    } catch (err) {
+      setStatus('No se pudo proteger el documento. Inténtalo de nuevo.', 'err');
+    } finally {
+      state.isProcessing = false;
+      encryptBtnLabel.textContent = origLabel;
+      swap(encryptBtnIcon, 'lock-keyhole');
+      validate();
+    }
+  });
+
+  // Limpieza al salir
+  window.addEventListener('beforeunload', () => {
+    wipe(userPwd); wipe(userPwd2);
+    state.buffer = null;
+    if (state.worker) state.worker.terminate();
+  });
+
+  window.addEventListener('load', render);
+})();
+</script>
+
+</body>
+</html>
