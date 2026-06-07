@@ -18,7 +18,6 @@ languages:
   es: "/es/como-entrenar-y-validar-un-modelo-de-machine-learning"
   en: "/en/how-to-train-and-validate-a-machine-learning-model"
 commentable: true
-draft: true # True para un borrador
 type: post
 ---
 

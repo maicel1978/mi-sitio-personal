@@ -379,7 +379,7 @@ Sin métodos de remuestreo, es imposible obtener un error de generalización rea
 
 Cuando no se corrige este optimismo, no solo se afecta la validez interna del estudio, sino que se compromete la generalización del modelo, pues fallará al aplicarse a cohortes externas debido a las idiosincrasias (detalles únicos) de la muestra original.
 
-## 💡 Mi Sugerencia
+## Mi Sugerencia
 
 En lugar de depender de particiones simples, mi recomendación es clara: utilizar métodos que aprovechen la totalidad de los datos y ofrezcan estimaciones más estables. Esto incluye:
 
@@ -397,13 +397,13 @@ Coincido en que la validación externa es crucial y debe realizarse con un conju
 
 En mi experiencia, las cuestiones operativas y logísticas que implica realizar una validación externa en otro centro o en otro momento a menudo desmotivan al investigador que está desarrollando un modelo con datos de su propia consulta. Sin embargo, creo que este enfoque es el que abre el camino para obtener mejores resultados a partir de la investigación en condiciones reales. Además, es un acto de mérito y un pilar de la ciencia realizar validaciones de modelos de otros en su propia consulta; la ciencia se nutre de la replicación y la colaboración.
 
-## ⏭️ ¿Qué sigue? 
+## ¿Qué sigue? 
 
 Esta guía es una introducción práctica y concisa para iniciarse en modelos predictivos clínicos. Temas avanzados como el cálculo detallado de tamaño de muestra, el manejo exhaustivo de datos faltantes (más allá de imputación básica), la actualización de modelos existentes, análisis profundos de curvas de decisión para utilidad clínica, la reproducibilidad, el ajuste del intercepto de la regresión logística en escenarios con prevalencias diferentes, los métodos de recalibración continua, o la construcción de escalas y clasificaciones clínicas no se abordan en detalle para mantener la brevedad y enfoque en lo esencial. Para profundizar, consulta referencias como Steyerberg o el marco TRIPOD.
 
 
 
-## 🚀 ¡Tu Turno! 
+## ¡Tu Turno! 
 
 **Pasa de la Teoría a la Práctica.** Este material es solo la punta del iceberg. ¡Ahora aplica estos conceptos con tus datos clínicos y experimenta para construir modelos más robustos! Si necesitas más recursos, explora las referencias mencionadas.
 
