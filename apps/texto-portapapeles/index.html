@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TextTool V2 | Asistente de pegado limpio</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <main class="workspace">
+      <header class="topbar">
+        <div>
+          <div class="brand">TextTool <span>V2</span></div>
+          <div class="subtitle">Herramienta de Bioestadística Edu · Autor: Maicel Monzón</div>
+        </div>
+        <div class="top-actions">
+          <button type="button" class="btn ghost" id="undoBtn" title="Deshacer último cambio registrado">↩ Deshacer</button>
+          <button type="button" class="btn ghost" id="redoBtn" title="Rehacer cambio">↪ Rehacer</button>
+          <button type="button" class="btn danger" id="clearBtn">Limpiar</button>
+        </div>
+      </header>
+
+      <section class="hero-tools" aria-label="Herramientas principales">
+        <button type="button" class="primary-action" data-action="prepare">
+          <strong>Preparar texto</strong>
+          <span>Limpieza segura para pegar en Word, correo o editor</span>
+        </button>
+        <div class="quick-actions">
+          <button type="button" class="chip" data-action="pdf">PDF</button>
+          <button type="button" class="chip" data-action="ai">IA</button>
+          <button type="button" class="chip" data-action="web">Web/HTML</button>
+          <button type="button" class="chip" data-action="lists">Listas</button>
+          <button type="button" class="chip" data-action="typography">Tipografía</button>
+          <button type="button" class="chip" data-action="table">Tabla</button>
+        </div>
+      </section>
+
+      <section class="editor-panel">
+        <textarea id="editor" spellcheck="false" placeholder="Pega aquí texto copiado de PDF, web, IA, OCR, Word, Excel u otra fuente..."></textarea>
+      </section>
+
+      <footer class="statusbar">
+        <span>Líneas: <b id="statLines">0</b></span>
+        <span>Palabras: <b id="statWords">0</b></span>
+        <span>Caracteres: <b id="statChars">0</b></span>
+        <span>Duplicados: <b id="statDups">0</b></span>
+        <span class="save-state" id="saveState">Guardado local</span>
+      </footer>
+    </main>
+
+    <aside class="sidebar">
+      <section class="panel identity-panel">
+        <h2>Identidad</h2>
+        <p class="identity-name">TextTool V2</p>
+        <p class="identity-meta">Herramienta de <a href="https://bioestadisticaedu.com/" target="_blank" rel="noopener noreferrer">Bioestadística Edu</a></p>
+        <p class="identity-meta">Autor: <strong>Maicel Monzón</strong></p>
+      </section>
+
+      <section class="panel settings-panel">
+        <div class="switch-row">
+          <div>
+            <strong>Autocopiar</strong>
+            <small>Copia el resultado después de cada acción</small>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="autoCopy" checked />
+            <span></span>
+          </label>
+        </div>
+        <div class="switch-row split">
+          <div>
+            <strong>Guardar localmente</strong>
+            <small>Guarda el texto solo en este navegador</small>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="saveLocal" checked />
+            <span></span>
+          </label>
+        </div>
+        <button type="button" class="tool full" id="clearStorageBtn">Borrar datos locales</button>
+      </section>
+
+      <section class="panel report-panel">
+        <div class="panel-head">
+          <h2>Resultado</h2>
+          <button type="button" class="tiny" id="copyReportBtn">Copiar reporte</button>
+        </div>
+        <div id="report" class="report empty">Aún no se ha aplicado ninguna acción.</div>
+      </section>
+
+      <section class="panel">
+        <h2>Limpieza rápida</h2>
+        <div class="tool-grid">
+          <button type="button" class="tool" data-action="prepare">Preparar texto</button>
+          <button type="button" class="tool" data-action="pdf">Limpiar PDF</button>
+          <button type="button" class="tool" data-action="ai">Limpiar IA</button>
+          <button type="button" class="tool" data-action="web">Limpiar web</button>
+          <button type="button" class="tool" data-action="invisible">Caracteres invisibles</button>
+          <button type="button" class="tool" data-action="typography">Comillas y guiones</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Estructura</h2>
+        <div class="tool-grid">
+          <button type="button" class="tool" data-action="lists">Arreglar listas</button>
+          <button type="button" class="tool" data-action="table">Texto a tabla</button>
+          <button type="button" class="tool" data-action="dedupe">Duplicados</button>
+          <button type="button" class="tool" data-action="renumber">Renumerar líneas</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Transformación</h2>
+        <div class="tool-grid">
+          <button type="button" class="tool" data-action="upper">MAYÚSCULAS</button>
+          <button type="button" class="tool" data-action="lower">minúsculas</button>
+          <button type="button" class="tool" data-action="sentence">Tipo oración</button>
+          <button type="button" class="tool" data-action="title">Tipo Título</button>
+          <button type="button" class="tool" data-action="trim">Colapsar espacios</button>
+          <button type="button" class="tool" data-action="accents">Quitar tildes</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Salida</h2>
+        <div class="tool-grid">
+          <button type="button" class="tool" id="copyBtn">Copiar texto</button>
+          <button type="button" class="tool" id="downloadTxtBtn">Descargar TXT</button>
+          <button type="button" class="tool" data-action="csv">A CSV</button>
+          <button type="button" class="tool" data-action="tsv">A tabla tabulada</button>
+        </div>
+      </section>
+    </aside>
+  </div>
+
+  <div id="toastWrap" class="toast-wrap" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
