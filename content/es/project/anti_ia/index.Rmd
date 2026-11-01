@@ -1,5 +1,5 @@
 ---
-title: "Analizador de Estilo en Texto"
+title: "Analizador estilométrico de textos"
 date: "2025-12-05"
 categories: ["texto"]
 tags:
