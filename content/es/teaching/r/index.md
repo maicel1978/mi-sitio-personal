@@ -73,11 +73,11 @@ Este curso está diseñado para profesionales interesados en el estudio de la fo
 |------------------|-------------------|------------------|------------------|
 | **Mañana** 🌞 | [**introducción**](/pdf/conf_0.pdf), [**Conf. Tema I**](/pdf/conf_1.pdf) | [**Conf. Tema III**](/pdf/conf_3.pdf) | [**Conf. Tema V**](/pdf/conf_5.pdf) |
 | **Coffee breaks** ☕ | ☕ | ☕ | ☕ |
-| **Mañana** 🌞 | [Pract. Tema I](/pdf/desaf_1.pdf) | [Pract. Tema II](/pdf/desaf_3.pdf)I | [**Conf. Tema VI**](/pdf/conf_6.pdf) |
-| **Almuezo** 🍽️ | 🍽️ | 🍽️ | 🍽️ |
+| **Mañana** 🌞 | [Pract. Tema I](/pdf/desaf_1.pdf) | [Pract. Tema III](/pdf/desaf_3.pdf) | [**Conf. Tema VI**](/pdf/conf_6.pdf) |
+| **Almuerzo** 🍽️ | 🍽️ | 🍽️ | 🍽️ |
 | **Tarde** 🌆 | [Conf. Tema II](/pdf/conf_2.pdf) | ️ [Conf. Tema IV](/pdf/conf_4.pdf) | ️[Pract. Tema V](/pdf/desaf_5.pdf) |
 | **Coffee breaks** ☕ | ☕ | ☕ | ☕ |
-| **Tarde** 🌆 | [Pract. Tema II](/pdf/desaf_2.pdf) | ️[Pract. Tema VI](/pdf/desaf_4.pdf) | ️[Pract. Tema VI](/pdf/desaf_6.pdf) |
+| **Tarde** 🌆 | [Pract. Tema II](/pdf/desaf_2.pdf) | ️[Pract. Tema IV](/pdf/desaf_4.pdf) | ️[Pract. Tema VI](/pdf/desaf_6.pdf) |
 
 ------------------------------------------------------------------------
 
@@ -106,8 +106,8 @@ A continuación, te presentamos la estructura detallada de los módulos del curs
     -   Manejo de problemas comunes (codificación, separadores, valores perdidos).
 -   🚀 **Conferencia**: Conferencia 2 en formato [PDF](/pdf/conf_2.pdf).
 -   🎉 **Desafío 2**: Zinc -- Puertas a los Datos [PDF](/pdf/desaf_2.pdf).
--   📚 **Datos**: Base de datos de nutrición [csv](/csv/nutricion.csv).
--   📚 **script**: Rcript en R [zip](/r/fortificacion_temaII.zip).
+-   📚 **Datos**: Base de datos de nutrición [csv](/csv/nutricion.csv). Datos sintéticos, creados con fines docentes; no corresponden a personas reales.
+-   📚 **Script**: código en R [zip](/r/fortificacion_temaII.zip).
 -   😊 **Recompensa** : Insignia 🪓 "Estructuras Estables".
 -   📚 **Bibliografía**: [Capítulo 11: Importar datos](https://es.r4ds.hadley.nz/11-import.html).
 
@@ -152,7 +152,7 @@ A continuación, te presentamos la estructura detallada de los módulos del curs
     -   Crear gráficos básicos con `ggstatsplot` (barras, líneas, dispersión).
     -   Personalizar gráficos para comunicar hallazgos clave.
 -   🚀 **Conferencia**: Conferencia 6 en formato [PDF](/pdf/conf_6.pdf).
--   🎉 **Desafío 5**: Yodo -- Iluminando Hallazgos [PDF](/pdf/desaf_6.pdf).
+-   🎉 **Desafío 6** [PDF](/pdf/desaf_6.pdf).
 -   😊 **Recompensa** : Insignia 💡 "Insight Brillante"
 
 ## Conclusiones y recomendaciones.

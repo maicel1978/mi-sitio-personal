@@ -26,3 +26,7 @@ Thumbs.db
 *.swp
 hugo_stats.json
 .positai
+
+# Archivos de bloqueo de editores
+*.lock~
+~$*
